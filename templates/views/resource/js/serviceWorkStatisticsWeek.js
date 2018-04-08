@@ -1,14 +1,18 @@
 $(function(){
-
     /*------------------------------------------------时间-------------------------------------*/
 
-    //月份
-    _monthDate($('.datatimeblock'));
+    //日历
+    _timeYMDComponentsFun($('.selectTime'));
 
-    //默认上月
-    var demoTime = moment().subtract(1,'months').format('YYYY/MM');
+    //默认结束时间
+    var demoTime = moment().format('YYYY/MM/DD');
 
-    $('.datatimeblock').val(demoTime);
+    //默认开始时间
+    var demoStime = moment().subtract(6,'d').format('YYYY/MM/DD');
+
+    $('.datatimeblock').eq(0).val(demoStime);
+
+    $('.datatimeblock').eq(1).val(demoTime);
 
     //加载科室
     getDepart();
@@ -278,6 +282,22 @@ $(function(){
 
     })
 
+    //时间改变触发事件
+    $('.selectTime').on('changeDate',function(){
+
+        //获取选择的时间
+        var nowSelect = $(this).val();
+
+        //结束时间
+        var selectEt = moment(nowSelect).add(6,'d').format('YYYY/MM/DD');
+
+        //赋值
+        $('.datatimeblock').eq(0).val(nowSelect);
+
+        $('.datatimeblock').eq(1).val(selectEt);
+
+    })
+
     //导出
     $('.excelButton').click(function(){
 
@@ -306,12 +326,9 @@ $(function(){
 
     /*------------------------------------------------其他方法---------------------------------*/
 
-    //条件查询
     function conditionSelect(num,table){
 
-        //设置表头
-
-        var title = '后勤服务热线' + $('.datatimeblock').val().split('/')[1] + '月' + $('.spanhover').html();
+        var title = '服务热线'+ $('.datatimeblock').eq(0).val() + '到' + $('.datatimeblock').eq(1).val() + $('.spanhover').html();
 
         $('.table-block-title').html(title);
 
@@ -326,7 +343,7 @@ $(function(){
                 {
                     name:'st',
 
-                    value:$('.datatimeblock').val() + '/01'
+                    value:$('.datatimeblock').eq(0).val()
                 },
 
                 //结束时间
@@ -334,7 +351,7 @@ $(function(){
 
                     name:'et',
 
-                    value:moment($('.datatimeblock').val()).endOf('months').format('YYYY/MM/DD')
+                    value:moment($('.datatimeblock').eq(1).val()).endOf('months').format('YYYY/MM/DD')
 
                 }
 
@@ -354,6 +371,8 @@ $(function(){
             }
 
         }
+
+        //科室的时候，还要传科室的条件
 
         $.ajax({
 

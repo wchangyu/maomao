@@ -198,9 +198,17 @@ $(function(){
 
             success:function(result){
 
-                var dataArr = _packagingTableData(result[1]);
+                if(result == ''){
 
-                _jumpNow($('#all-reporting'),dataArr.reverse());
+                    return false;
+
+                }else{
+
+                    var dataArr = _packagingTableData(result[1]);
+
+                    _jumpNow($('#all-reporting'),dataArr.reverse());
+
+                }
 
             },
 

@@ -1,0 +1,93 @@
+#select-station{
+
+    border: 1px solid #E2E9F2;
+
+    height: 30px;
+
+    outline: none;
+
+    min-width:110px;
+
+    margin-top: 15px;
+
+}
+
+/*表格样式修改*/
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+
+    border: 1px solid #DCDCDC !important;
+
+}
+
+.table-advance tr td:first-child{
+
+    border-left-width:1px !important;
+
+}
+.table-bordered{
+
+    border:none !important;
+
+}
+
+.table-advance thead tr th{
+
+    background: #e7eef7!important;
+
+}
+
+.table-striped>tbody>tr:nth-of-type(odd){
+
+    background: #ffffff !important;
+
+}
+
+.table-striped>tbody>tr:nth-of-type(even){
+
+    background: #f4f7fb !important;
+
+}
+
+.table{
+
+    border-collapse:collapse !important;
+
+}
+
+/*datatables*/
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+
+    border: 1px solid rgba(1,1,1,0);
+
+    background: none;
+
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+
+    background: none;
+
+    border: 1px solid rgba(1,1,1,0);
+
+    color:#70a2f5 !important;
+
+
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current{
+
+    color: #333333!important;
+
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+
+    color:#70a2f5 !important;
+
+}
+
+.page-bar{
+
+    background: #e2e9f2 !important;
+
+}

@@ -4,44 +4,23 @@
     <bookmark url="file://$PROJECT_DIR$/templates/views/resource/js/gdAcceptance.js" line="82" />
     <bookmark url="file://$PROJECT_DIR$/templates/views/resource/js/gdAcceptance.js" line="2010" />
     <bookmark url="file://$PROJECT_DIR$/templates/views/resource/js/gdOrderRepair.js" line="2383" />
-    <bookmark url="file://$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js" line="1076" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js" line="1080" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1af96855-af84-4b37-9f06-ee03021bd231" name="Default" comment="3.30">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/local/img/img1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/logins/chcmu/img/biaoti (2).png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/logins/chcmu/img/erweima (2).png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/logins/chcmu/img/fubioati.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/logins/chcmu/img/houtaidengluye.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/logins/chcmu/img/logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/logins/chcmu/img/mima.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/logins/chcmu/img/rightflex.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/logins/chcmu/img/yonghuming.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/njn-resource/img/chongzhi.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/njn-resource/img/guanbi.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/njn-resource/img/kaiqi.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/njn-resource/img/tijiao.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/shouye/infoMap/img/01 (1).png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/shouye/infoMap/img/02 (1).png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/shouye/infoMap/img/houqin.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/shouye/infoMap/img/nengyuan.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/shouye/infoMap/img/shebui.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/local/configs/customMade.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/dutyRecordList.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/sectionDetail.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsAll.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsMonth.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/logins/chcmu/login_4.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/njn-resource/css/dataChange.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/resource/js/dutyRecordList.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/resource/js/sectionDetail.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsAll.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsMonth.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/shouye/infoMap/infoMap2.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsWeek.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/resource/css/Wtable.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsWeek.js" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/configs/config.json" afterPath="$PROJECT_DIR$/assets/local/configs/config.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/configs/menu.json" afterPath="$PROJECT_DIR$/assets/local/configs/menu.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/HAVC/monitor.html" afterPath="$PROJECT_DIR$/templates/views/HAVC/monitor.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsMonth.html" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsMonth.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html" afterPath="$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js" afterPath="$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-5.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-5.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsAll.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsAll.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsMonth.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsMonth.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -63,441 +42,285 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="publicFun.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/views/resource/js/publicFun.js">
+      <file leaf-file-name="menu.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/local/configs/menu.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="854" column="17" selection-start-line="854" selection-start-column="17" selection-end-line="854" selection-end-column="17" />
+            <state vertical-scroll-proportion="-6.6825395">
+              <caret line="45" column="31" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="31" />
               <folding>
-                <element signature="e#700#760#0" expanded="false" />
-                <element signature="n#!!block;n#_timeYMDComponentsFun#0" expanded="false" />
-                <element signature="n#!!block;n#_yearDate#0" expanded="false" />
-                <element signature="e#1100#1293#0" expanded="false" />
-                <element signature="n#!!block;n#_monthDate#0" expanded="false" />
-                <element signature="e#1394#1590#0" expanded="false" />
-                <element signature="n#!!block;n#_monthDate11#0" expanded="false" />
-                <element signature="e#1670#1866#0" expanded="false" />
-                <element signature="n#!!block;n#_timeHMSComponentsFun#0" expanded="false" />
-                <element signature="e#1971#2179#0" expanded="false" />
-                <element signature="n#!!block;n#_timeOneComponentsFun#0" expanded="false" />
-                <element signature="e#2318#2598#0" expanded="false" />
-                <element signature="n#!!block;n#_dataComponentsFun#0" expanded="false" />
-                <element signature="e#2681#2926#0" expanded="false" />
-                <element signature="n#!!block;n#_timeComponentsFun#0" expanded="false" />
-                <element signature="e#3009#3266#0" expanded="false" />
-                <element signature="e#3272#3335#0" expanded="false" />
-                <element signature="e#3531#3718#0" expanded="false" />
-                <element signature="e#3541#3712#0" expanded="false" />
-                <element signature="e#3659#3702#0" expanded="false" />
-                <element signature="e#3743#3872#0" expanded="false" />
-                <element signature="e#3753#3866#0" expanded="false" />
-                <element signature="e#4008#4040#0" expanded="false" />
-                <element signature="e#4044#4080#0" expanded="false" />
-                <element signature="e#4115#4146#0" expanded="false" />
-                <element signature="e#4150#4180#0" expanded="false" />
-                <element signature="e#4221#4253#0" expanded="false" />
-                <element signature="e#4257#4288#0" expanded="false" />
-                <element signature="e#4326#5201#0" expanded="false" />
-                <element signature="e#4599#5048#0" expanded="false" />
-                <element signature="e#4899#5038#0" expanded="false" />
-                <element signature="e#5384#5415#0" expanded="false" />
-                <element signature="n#!!block;n#_tableInitS#0" expanded="false" />
-                <element signature="e#5532#5648#0" expanded="false" />
-                <element signature="e#5542#5642#0" expanded="false" />
-                <element signature="e#5673#5802#0" expanded="false" />
-                <element signature="e#5683#5796#0" expanded="false" />
-                <element signature="e#5824#5864#0" expanded="false" />
-                <element signature="e#5868#5908#0" expanded="false" />
-                <element signature="e#5963#5993#0" expanded="false" />
-                <element signature="e#6030#6957#0" expanded="false" />
-                <element signature="e#6271#6795#0" expanded="false" />
-                <element signature="e#6646#6785#0" expanded="false" />
-                <element signature="e#6972#7074#0" expanded="false" />
-                <element signature="n#!!block;n#_datasTable#0" expanded="false" />
-                <element signature="e#7180#7242#0" expanded="false" />
-                <element signature="e#7246#7338#0" expanded="false" />
-                <element signature="e#7343#7407#0" expanded="false" />
-                <element signature="n#!!block;n#_getProfession#0" expanded="false" />
-                <element signature="e#7485#7548#0" expanded="false" />
-                <element signature="e#7561#8383#0" expanded="false" />
-                <element signature="e#7686#8265#0" expanded="false" />
-                <element signature="e#7763#7998#0" expanded="false" />
-                <element signature="e#7819#7984#0" expanded="false" />
-                <element signature="e#8002#8218#0" expanded="false" />
-                <element signature="e#8052#8204#0" expanded="false" />
-                <element signature="e#8321#8377#0" expanded="false" />
-                <element signature="n#!!block;n#_ajaxFun#0" expanded="false" />
-                <element signature="e#8464#8502#0" expanded="false" />
-                <element signature="e#8535#9123#0" expanded="false" />
-                <element signature="e#8662#9001#0" expanded="false" />
-                <element signature="e#8794#8951#0" expanded="false" />
-                <element signature="e#9060#9117#0" expanded="false" />
-                <element signature="e#9128#9191#0" expanded="false" />
-                <element signature="n#!!block;n#_AutoExcel#0" expanded="false" />
-                <element signature="e#9686#9754#0" expanded="false" />
-                <element signature="e#9822#11592#0" expanded="false" />
-                <element signature="e#9894#11585#0" expanded="false" />
-                <element signature="e#10039#11278#0" expanded="false" />
-                <element signature="e#10094#10636#0" expanded="false" />
-                <element signature="e#10119#10282#0" expanded="false" />
-                <element signature="e#10640#11263#0" expanded="false" />
-                <element signature="e#10665#10852#0" expanded="false" />
-                <element signature="e#11282#11574#0" expanded="false" />
-                <element signature="n#!!block;n#_exportExecl#0" expanded="false" />
-                <element signature="e#15326#15616#0" expanded="false" />
-                <element signature="e#15623#15684#0" expanded="false" />
-                <element signature="n#!!block;n#_moTaiKuang#0" expanded="false" />
-                <element signature="e#15839#15894#0" expanded="false" />
-                <element signature="e#16221#16269#0" expanded="false" />
-                <element signature="e#16275#16400#0" expanded="false" />
-                <element signature="e#16414#16464#0" expanded="false" />
-                <element signature="e#16468#16529#0" expanded="false" />
-                <element signature="n#!!block;n#_isEqual#0" expanded="false" />
-                <element signature="e#16602#16662#0" expanded="false" />
-                <element signature="e#16690#16750#0" expanded="false" />
-                <element signature="n#!!block;n#_noPrint#0" expanded="false" />
-                <element signature="n#!!block;n#_selectRadio#0" expanded="false" />
-                <element signature="e#16935#17058#0" expanded="false" />
-                <element signature="n#!!block;n#_replaceIP#0" expanded="false" />
-                <element signature="e#17134#17155#0" expanded="false" />
-                <element signature="e#17186#17204#0" expanded="false" />
-                <element signature="e#17325#17468#0" expanded="false" />
-                <element signature="e#17364#17466#0" expanded="false" />
-                <element signature="e#17399#17460#0" expanded="false" />
-                <element signature="e#17519#17625#0" expanded="false" />
-                <element signature="e#17563#17608#0" expanded="false" />
-                <element signature="e#17682#17779#0" expanded="false" />
-                <element signature="e#17739#17777#0" expanded="false" />
-                <element signature="n#!!block;n#_unique#0" expanded="false" />
-                <element signature="e#17885#18108#0" expanded="false" />
-                <element signature="e#17970#18049#0" expanded="false" />
-                <element signature="n#!!block;n#_sortNumber#0" expanded="false" />
-                <element signature="n#!!block;n#_formatTime#0" expanded="false" />
-                <element signature="e#18285#18302#0" expanded="false" />
-                <element signature="n#!!block;n#_jumpNow#0" expanded="false" />
-                <element signature="e#18372#18402#0" expanded="false" />
-                <element signature="n#!!block;n#MultiselectTr#0" expanded="false" />
-                <element signature="e#18735#18939#0" expanded="false" />
-                <element signature="e#18943#19479#0" expanded="false" />
-                <element signature="e#19247#19356#0" expanded="false" />
-                <element signature="e#19360#19472#0" expanded="false" />
-                <element signature="n#!!block;n#AllSelectThead#0" expanded="false" />
-                <element signature="e#19568#19763#0" expanded="false" />
-                <element signature="e#19767#19953#0" expanded="false" />
-                <element signature="n#!!block;n#_uniqueArr#0" expanded="false" />
-                <element signature="e#20038#20137#0" expanded="false" />
-                <element signature="e#20081#20130#0" expanded="false" />
-                <element signature="e#20141#20583#0" expanded="false" />
-                <element signature="e#20207#20399#0" expanded="false" />
-                <element signature="e#20254#20388#0" expanded="false" />
-                <element signature="e#20311#20373#0" expanded="false" />
-                <element signature="e#20438#20485#0" expanded="false" />
-                <element signature="e#20527#20576#0" expanded="false" />
-                <element signature="n#!!block;n#_formatNumber#0" expanded="false" />
-                <element signature="e#20667#20695#0" expanded="false" />
-                <element signature="e#20714#20752#0" expanded="false" />
-                <element signature="n#!!block;n#_packagingTableData#0" expanded="false" />
-                <element signature="e#21045#21277#0" expanded="false" />
-                <element signature="e#21169#21215#0" expanded="false" />
-                <marker date="1522310502847" expanded="true" signature="14774:14801" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dataChange.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.727272">
-              <caret line="861" column="38" selection-start-line="861" selection-start-column="38" selection-end-line="861" selection-end-column="38" />
-              <folding>
-                <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#span#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#select#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#9;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#10;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#9;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#10;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#11;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#13;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#9;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#10;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#11;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#13;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#9;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#10;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#11;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#0;n#div#0;n#div#5;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#5;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#ul#0;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#0;n#ul#0;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#1;n#ul#0;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#2;n#ul#0;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#li#3;n#ul#0;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#3;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#3;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#script#28;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="e#37917#38131#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dataChange.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42465752">
-              <caret line="304" column="44" selection-start-line="304" selection-start-column="44" selection-end-line="304" selection-end-column="44" />
-              <folding>
-                <element signature="e#174#497#0" expanded="false" />
-                <element signature="e#578#1468#0" expanded="false" />
-                <element signature="e#1748#2053#0" expanded="false" />
-                <element signature="e#2091#3379#0" expanded="false" />
-                <element signature="e#3462#8005#0" expanded="false" />
-                <element signature="e#4962#7940#0" expanded="false" />
-                <element signature="e#8346#8382#0" expanded="false" />
-                <element signature="e#8440#8670#0" expanded="false" />
-                <element signature="e#8724#8943#0" expanded="false" />
-                <element signature="e#9101#25453#0" expanded="false" />
-                <element signature="e#9254#24026#0" expanded="false" />
-                <element signature="e#9310#19867#0" expanded="false" />
-                <element signature="e#9364#10634#0" expanded="false" />
-                <element signature="e#9427#9817#0" expanded="false" />
-                <element signature="e#10688#12082#0" expanded="false" />
-                <element signature="e#12139#13693#0" expanded="false" />
-                <element signature="e#12202#12718#0" expanded="false" />
-                <element signature="e#12776#13293#0" expanded="false" />
-                <element signature="e#13752#14763#0" expanded="false" />
-                <element signature="e#14822#15699#0" expanded="false" />
-                <element signature="e#15759#16635#0" expanded="false" />
-                <element signature="e#16697#17601#0" expanded="false" />
-                <element signature="e#17660#19746#0" expanded="false" />
-                <element signature="e#17726#18502#0" expanded="false" />
-                <element signature="e#18663#19367#0" expanded="false" />
-                <element signature="e#19919#20113#0" expanded="false" />
-                <element signature="e#20726#20928#0" expanded="false" />
-                <element signature="e#20982#22466#0" expanded="false" />
-                <element signature="e#21035#21339#0" expanded="false" />
-                <element signature="e#21396#22275#0" expanded="false" />
-                <element signature="e#22518#24014#0" expanded="false" />
-                <element signature="e#22571#22878#0" expanded="false" />
-                <element signature="e#22935#23818#0" expanded="false" />
-                <element signature="e#24046#24220#0" expanded="false" />
-                <element signature="e#24237#25445#0" expanded="false" />
-                <element signature="e#24364#24476#0" expanded="false" />
-                <element signature="e#24513#24578#0" expanded="false" />
-                <element signature="e#24733#25001#0" expanded="false" />
-                <element signature="e#25489#46193#0" expanded="false" />
-                <element signature="e#25654#46185#0" expanded="false" />
-                <element signature="e#25760#25813#0" expanded="false" />
-                <element signature="e#25884#45742#0" expanded="false" />
-                <element signature="e#26200#28017#0" expanded="false" />
-                <element signature="e#28160#30074#0" expanded="false" />
-                <element signature="e#30223#32193#0" expanded="false" />
-                <element signature="e#32336#33816#0" expanded="false" />
-                <element signature="e#33964#35200#0" expanded="false" />
-                <element signature="e#35348#36575#0" expanded="false" />
-                <element signature="e#36732#38004#0" expanded="false" />
-                <element signature="e#38149#39228#0" expanded="false" />
-                <element signature="e#39376#39685#0" expanded="false" />
-                <element signature="e#39834#40124#0" expanded="false" />
-                <element signature="e#40204#42503#0" expanded="false" />
-                <element signature="e#40304#40832#0" expanded="false" />
-                <element signature="e#40935#42240#0" expanded="false" />
-                <element signature="e#42581#44862#0" expanded="false" />
-                <element signature="e#42675#43204#0" expanded="false" />
-                <element signature="e#43301#44607#0" expanded="false" />
-                <element signature="e#45022#45707#0" expanded="false" />
-                <element signature="e#45815#46174#0" expanded="false" />
-                <element signature="e#46248#46438#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="serviceWorkStatisticsAll.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsAll.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-64.818184">
-              <caret line="431" column="27" selection-start-line="431" selection-start-column="27" selection-end-line="431" selection-end-column="27" />
-              <folding>
-                <element signature="e#3835#4262#0" expanded="false" />
-                <element signature="n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#script#29;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="serviceWorkStatisticsAll.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsAll.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="99" column="10" selection-start-line="99" selection-start-column="5" selection-end-line="99" selection-end-column="10" />
-              <folding>
-                <element signature="e#536#843#0" expanded="false" />
-                <element signature="e#964#1394#0" expanded="false" />
-                <element signature="e#1654#1690#0" expanded="false" />
-                <element signature="e#1755#2025#0" expanded="false" />
-                <element signature="e#2083#2397#0" expanded="false" />
-                <element signature="e#2447#2731#0" expanded="false" />
-                <element signature="e#2859#4714#0" expanded="false" />
-                <element signature="e#3181#3499#0" expanded="false" />
-                <element signature="e#3689#3802#0" expanded="false" />
-                <element signature="e#3839#4079#0" expanded="false" />
-                <element signature="e#4761#4942#0" expanded="false" />
+                <element signature="n#!!block;n#空调机组#0;n#!!block;n#submenu#0;n#!!block;n#大屏幕#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#数据总览#0;n#!!block;n#submenu#0;n#!!block;n#暖通空调#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#历史数据#0;n#!!block;n#submenu#0;n#!!block;n#暖通空调#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能效日历#0;n#!!block;n#submenu#0;n#!!block;n#暖通空调#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#环境监测#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#环境监测-吉大医院#0;n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#环境监测-总行#0;n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#环境监测-分行#0;n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#数据#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#数据总览#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#实时数据#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#历史数据#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能效日历#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#参数分析#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能效对比#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#负荷分析#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能效排名#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#报表#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#报表导出#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#计费方案#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#监控总览#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#测试一下#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#送排风1#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#空调机组22#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#测试一下3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#冷热源3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#电梯3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#动环3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#站房照明3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#给排水3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#变配电系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#配电支路#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#变配电室综合监控#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#综合保护#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#变压器温控器#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#发电系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#电源隔离监测系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#暖通空调系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#暖通空调#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#直燃机#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#远大空调#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#洁净空调系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#洁净空调#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#医用气体#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#空压系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#液氧系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#负压系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#汇流排系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#给排水系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#给排水#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#UPS系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#UPS#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#摄像头#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#实时监控#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#监控回放#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#用电监控#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#电能质量#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#配电系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能源站系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#实时数据#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#改名字#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#用能查询#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#用能查询#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#用能查询（支路）#0;n#!!block;n#submenu#0;n#!!block;n#用能查询#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#用能查询（科室）#0;n#!!block;n#submenu#0;n#!!block;n#用能查询#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#横向对比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#纵向对比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#分项用电环比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#支路用电环比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#同比环比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能耗分项#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#昼夜分析#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#系统损耗#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#用能管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#用能管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能耗排名#0;n#!!block;n#submenu#0;n#!!block;n#用能管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#预警报警#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#用能报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#实时报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#3D报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#摄像头报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#设备管理#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#设备历史#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#设备二维码#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#设备二维码（蓝）#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#设备资料#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#设备预警管理#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#字典管理#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#巡检项目管理#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#巡检内容#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#巡检计划#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#巡检任务#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#任务综合查询#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#异常项目查询#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#保养条目管理#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#保养内容#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#保养计划#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#保养任务#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#任务综合查询#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工单登记管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工单受理管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工长分配管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工单执行管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工单评估管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工单综合查询#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工单返修件#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#未完成工单管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#备件确认#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#备件二级库处理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#备件主库处理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#班组维修工作量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#员工维修工作量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#调度中心工作量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#部门报修量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#维修满意度统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#地图预览#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#操作台#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#返修件二级库处理#0;n#!!block;n#submenu#0;n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#返修件主库处理#0;n#!!block;n#submenu#0;n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#站段周故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#站段自定义故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#车间周故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#车间日故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#车间未修复故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#故障修复明细总表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#故障未修复明细表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#返厂报表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#调度中心报表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#员工管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#角色管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#部门管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#资源管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#修改密码#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#权限分配#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#标识符管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#维修项目#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#地点管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#电话管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#物品类别#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#物品管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#仓库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#入库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#出库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#调拨出库#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#破损管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#移库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#盘点管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#退货管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#库存清单#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#入库报表#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#出库报表#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#台账记录#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#供应商管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#材料月报表#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#材料总支出#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#月末结转#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#车间材料支出#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#销审管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#时间段管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#班次管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#值班管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#人员类型管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#加班管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#加班统计#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#考勤管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#考勤统计#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#地图预览#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#地图预览#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#首页#0;n#!!block;n#submenu#0;n#!!block;n#地图预览#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#新增二级单位#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#人员类别#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#指标信息#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#单位用能系数#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#单位性质#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#计量设备列表配置#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#二级单位计量设备列表#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#手工抄表信息表#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#计量设备类型#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#变更公摊比例#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#结算操作#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#二级单位用能信息表#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#超额用能二级单位列表#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#二级单位用能支付金额汇总列表#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#单位纵向比较#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#天气#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#天气#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#天气#0;n#!!block;n#submenu#0;n#!!block;n#天气#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#测试#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#三列#0;n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#两列#0;n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#历史录像#0;n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#系统故障时间#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#故障月统计#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#故障率统计#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#故障具体分析#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#故障消除率#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工单报修管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工单关单管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工单受理管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工单接单管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工单执行管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#工单综合查询#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#大屏展示#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能耗总览#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#首页#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能耗数据#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能耗指标#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#横向对比#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#同比环比#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能耗分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能耗分项#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#关联分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#趋势预测#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#电能质量#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能效分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能效日历#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能效查询#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#参数分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能效对比#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#用能管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能耗费用#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能耗排名#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#定额管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#用能考核#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#能耗公示#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#节能足迹#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#节能项目管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#后台配置#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#万元GDP#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#就诊人数#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#管理诊断#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#综合诊断#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#报表管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#综合管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#大屏展示#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#submenu#0;n#!!block;n#大屏展示#0;n#!!top" expanded="false" />
+                <element signature="n#!!block;n#三列#0;n#!!block;n#submenu#0;n#!!block;n#大屏展示#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -507,7 +330,7 @@
         <entry file="file://$PROJECT_DIR$/assets/local/configs/config.json">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-2.909091">
-              <caret line="163" column="64" selection-start-line="163" selection-start-column="64" selection-end-line="163" selection-end-column="64" />
+              <caret line="163" column="40" selection-start-line="163" selection-start-column="40" selection-end-line="163" selection-end-column="40" />
               <folding>
                 <element signature="n#!!block;n#allEnergyType#0;n#!!top" expanded="false" />
                 <element signature="e#137#2847#0" expanded="false" />
@@ -527,6 +350,26 @@
                 <element signature="e#3220#3478#0" expanded="false" />
                 <element signature="e#3486#3737#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="monitor.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/views/HAVC/monitor.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.126984">
+              <caret line="35" column="54" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Wtable.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/views/resource/css/Wtable.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.110081114">
+              <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -567,10 +410,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/views/resource/js/productionOrder-3.js" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/gdImplement.js" />
-        <option value="$PROJECT_DIR$/templates/views/gongdanxitong/gdAcceptance.html" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/gdAcceptance.js" />
         <option value="$PROJECT_DIR$/templates/views/resource/js/productionOrder-4.js" />
         <option value="$PROJECT_DIR$/templates/views/gongdangunali/productionOrder-6.html" />
         <option value="$PROJECT_DIR$/templates/views/gongdanxitong/gdOrderRepair.html" />
@@ -596,28 +435,32 @@
         <option value="$PROJECT_DIR$/templates/views/resource/css/3DMap2.css" />
         <option value="$PROJECT_DIR$/assets/local/configs/customMade.json" />
         <option value="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-4_1.js" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-5.js" />
         <option value="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsAll.html" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsMonth.js" />
         <option value="$PROJECT_DIR$/templates/views/gongdanxitong/dutyRecordList.html" />
         <option value="$PROJECT_DIR$/templates/views/resource/js/publicGD.js" />
         <option value="$PROJECT_DIR$/templates/views/resource/js/productionOrder-11.js" />
         <option value="$PROJECT_DIR$/templates/views/HAVC/calendar.html" />
         <option value="$PROJECT_DIR$/templates/views/HAVC/js/calendar.js" />
         <option value="$PROJECT_DIR$/templates/views/resource/js/pointersoffices.js" />
-        <option value="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsMonth.html" />
-        <option value="$PROJECT_DIR$/assets/local/configs/menu.json" />
         <option value="$PROJECT_DIR$/templates/views/resource/js/publicFun.js" />
         <option value="$PROJECT_DIR$/templates/views/resource/js/dutyRecordList.js" />
         <option value="$PROJECT_DIR$/templates/views/gongdanxitong/sectionDetail.html" />
         <option value="$PROJECT_DIR$/templates/views/resource/js/sectionDetail.js" />
         <option value="$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-1.html" />
         <option value="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-1.js" />
-        <option value="$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html" />
         <option value="$PROJECT_DIR$/templates/views/njn-resource/css/dataChange.css" />
+        <option value="$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html" />
         <option value="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsAll.js" />
-        <option value="$PROJECT_DIR$/assets/local/configs/config.json" />
+        <option value="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsWeek.html" />
+        <option value="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsMonth.html" />
+        <option value="$PROJECT_DIR$/assets/local/configs/menu.json" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsMonth.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsWeek.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-5.js" />
         <option value="$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js" />
+        <option value="$PROJECT_DIR$/assets/local/configs/config.json" />
+        <option value="$PROJECT_DIR$/templates/views/HAVC/monitor.html" />
+        <option value="$PROJECT_DIR$/templates/views/resource/css/Wtable.css" />
       </list>
     </option>
   </component>
@@ -692,20 +535,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -944,7 +773,13 @@
       <option name="project" value="LOCAL" />
       <updated>1522380557238</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="3.30">
+      <created>1522394424666</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1522394424666</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -963,12 +798,11 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21759747" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23024236" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.02056277" sideWeight="0.7581665" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.02056277" sideWeight="0.7581665" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32792208" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41125542" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32833958" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -986,6 +820,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41125542" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06810811" sideWeight="0.4915701" order="18" side_tool="false" content_ui="tabs" />
@@ -1049,81 +884,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/templates/views/resource/js/publicFun.js</url>
-          <line>393</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="58" />
+      <option name="time" value="62" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/views/shouye/infoMap/infoMap2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1818182">
-          <caret line="285" column="18" selection-start-line="285" selection-start-column="18" selection-end-line="285" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/guzhangfenxibiao/dailyBugList.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.181818">
-          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/guzhangfenxibiao/failureRepairList.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.909091">
-          <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/guzhangfenxibiao/unfinishedGD.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55684453">
-          <caret line="20" column="51" selection-start-line="0" selection-start-column="0" selection-end-line="507" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/unfinishedGD.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.7810056">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-4_1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7780347">
-          <caret line="1211" column="0" selection-start-line="1211" selection-start-column="0" selection-end-line="1211" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-4_1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.387471">
-          <caret line="629" column="43" selection-start-line="629" selection-start-column="43" selection-end-line="629" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-5.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8692737">
-          <caret line="512" column="5" selection-start-line="512" selection-start-column="5" selection-end-line="512" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-5.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57888633">
-          <caret line="690" column="0" selection-start-line="690" selection-start-column="0" selection-end-line="695" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/guzhangfenxibiao/customAssetMangement.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.8484848">
@@ -1149,13 +914,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.4444447">
           <caret line="469" column="55" selection-start-line="469" selection-start-column="55" selection-end-line="469" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsMonth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53424656">
-          <caret line="107" column="59" selection-start-line="107" selection-start-column="59" selection-end-line="107" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -1192,7 +950,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.4373522">
           <caret line="300" column="19" selection-start-line="300" selection-start-column="8" selection-end-line="300" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1249,11 +1006,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5730594">
           <caret line="90" column="18" selection-start-line="90" selection-start-column="12" selection-end-line="90" selection-end-column="18" />
-          <folding>
-            <element signature="e#707#759#0" expanded="false" />
-            <element signature="e#1213#1354#0" expanded="false" />
-            <element signature="e#1746#1923#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1302,9 +1054,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4155251">
           <caret line="333" column="25" selection-start-line="333" selection-start-column="25" selection-end-line="333" selection-end-column="25" />
-          <folding>
-            <marker date="1515477626274" expanded="true" signature="13464:13528" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1319,20 +1068,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7164887">
           <caret line="405" column="30" selection-start-line="405" selection-start-column="30" selection-end-line="405" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsMonth.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19335707">
-          <caret line="339" column="43" selection-start-line="339" selection-start-column="43" selection-end-line="339" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/local/configs/menu.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.181818">
-          <caret line="1751" column="53" selection-start-line="1751" selection-start-column="53" selection-end-line="1751" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -1359,44 +1094,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/dutyRecordList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42465752">
-          <caret line="90" column="32" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
-          <folding>
-            <element signature="e#395#1092#0" expanded="false" />
-            <element signature="e#2196#2309#0" expanded="false" />
-            <element signature="e#2346#2586#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/dutyRecordList.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27046263">
-          <caret line="381" column="37" selection-start-line="381" selection-start-column="37" selection-end-line="381" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/sectionDetail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.72602737">
-          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/sectionDetail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="336" column="80" selection-start-line="336" selection-start-column="74" selection-end-line="336" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/css/dataChange.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8873072">
           <caret line="332" column="24" selection-start-line="332" selection-start-column="24" selection-end-line="332" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1404,29 +1105,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.4385343">
           <caret line="401" column="49" selection-start-line="401" selection-start-column="49" selection-end-line="401" selection-end-column="49" />
-          <folding>
-            <element signature="e#919#4012#0" expanded="false" />
-            <element signature="e#4474#5823#0" expanded="false" />
-            <element signature="e#5952#6140#0" expanded="false" />
-            <element signature="e#6356#6676#0" expanded="false" />
-            <element signature="e#6740#9654#0" expanded="false" />
-            <element signature="e#9702#9857#0" expanded="false" />
-            <element signature="e#10009#12013#0" expanded="false" />
-            <element signature="e#10101#10195#0" expanded="false" />
-            <element signature="e#12109#16128#0" expanded="false" />
-            <element signature="e#16246#17548#0" expanded="false" />
-            <element signature="e#17602#18592#0" expanded="false" />
-            <element signature="e#18629#18685#0" expanded="false" />
-            <element signature="e#18762#18971#0" expanded="false" />
-            <element signature="e#19047#19359#0" expanded="false" />
-            <element signature="e#19414#19463#0" expanded="false" />
-            <element signature="e#19555#19583#0" expanded="false" />
-            <element signature="e#19637#19862#0" expanded="false" />
-            <marker date="1522373280221" expanded="true" signature="21388:21407" placeholder="..." />
-            <marker date="1522373280221" expanded="true" signature="21679:21693" placeholder="..." />
-            <marker date="1522373280221" expanded="true" signature="21708:21727" placeholder="..." />
-            <marker date="1522373280221" expanded="true" signature="21919:21938" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1434,10 +1112,269 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.57413995">
           <caret line="574" column="20" selection-start-line="574" selection-start-column="20" selection-end-line="574" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/dutyRecordList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7808219">
+          <caret line="79" column="30" selection-start-line="79" selection-start-column="30" selection-end-line="79" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/dutyRecordList.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="66" column="8" selection-start-line="66" selection-start-column="8" selection-end-line="72" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsAll.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.181818">
+          <caret line="444" column="41" selection-start-line="444" selection-start-column="41" selection-end-line="444" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsAll.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="83" column="4" selection-start-line="83" selection-start-column="4" selection-end-line="97" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/sectionDetail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="336" column="44" selection-start-line="336" selection-start-column="44" selection-end-line="336" selection-end-column="176" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/sectionDetail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="112" column="4" selection-start-line="112" selection-start-column="4" selection-end-line="164" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsWeek.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33294663">
+          <caret line="59" column="8" selection-start-line="59" selection-start-column="8" selection-end-line="63" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsMonth.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.151515">
+          <caret line="49" column="34" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
+          <folding>
+            <element signature="n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#3;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#4;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#4;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#5;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#5;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#5;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#6;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#6;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#script#29;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsMonth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.566667">
+          <caret line="109" column="35" selection-start-line="109" selection-start-column="8" selection-end-line="109" selection-end-column="35" />
+          <folding>
+            <element signature="e#442#1127#0" expanded="false" />
+            <element signature="e#1257#1550#0" expanded="false" />
+            <element signature="e#1686#1980#0" expanded="false" />
+            <element signature="e#2127#2497#0" expanded="false" />
+            <element signature="e#2636#2931#0" expanded="false" />
+            <element signature="e#3068#3805#0" expanded="false" />
+            <element signature="e#3930#4300#0" expanded="false" />
+            <element signature="e#4683#4997#0" expanded="false" />
+            <element signature="e#5046#5208#0" expanded="false" />
+            <element signature="e#5269#5430#0" expanded="false" />
+            <element signature="e#5703#5864#0" expanded="false" />
+            <element signature="e#6276#6710#0" expanded="false" />
+            <element signature="e#6933#8225#0" expanded="false" />
+            <element signature="e#7095#7208#0" expanded="false" />
+            <element signature="e#7245#7485#0" expanded="false" />
+            <element signature="e#7855#8214#0" expanded="false" />
+            <element signature="e#8270#9277#0" expanded="false" />
+            <element signature="e#8899#9258#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsWeek.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-24.0">
+          <caret line="113" column="38" selection-start-line="113" selection-start-column="38" selection-end-line="113" selection-end-column="38" />
+          <folding>
+            <element signature="e#567#1252#0" expanded="false" />
+            <element signature="e#578#639#0" expanded="false" />
+            <element signature="e#649#714#0" expanded="false" />
+            <element signature="e#724#789#0" expanded="false" />
+            <element signature="e#799#868#0" expanded="false" />
+            <element signature="e#878#943#0" expanded="false" />
+            <element signature="e#953#1017#0" expanded="false" />
+            <element signature="e#1027#1097#0" expanded="false" />
+            <element signature="e#1107#1172#0" expanded="false" />
+            <element signature="e#1182#1245#0" expanded="false" />
+            <element signature="e#1382#1675#0" expanded="false" />
+            <element signature="e#1393#1450#0" expanded="false" />
+            <element signature="e#1460#1522#0" expanded="false" />
+            <element signature="e#1532#1592#0" expanded="false" />
+            <element signature="e#1602#1668#0" expanded="false" />
+            <element signature="e#1811#2105#0" expanded="false" />
+            <element signature="e#1822#1879#0" expanded="false" />
+            <element signature="e#1889#1952#0" expanded="false" />
+            <element signature="e#1962#2022#0" expanded="false" />
+            <element signature="e#2032#2098#0" expanded="false" />
+            <element signature="e#2252#2622#0" expanded="false" />
+            <element signature="e#2263#2320#0" expanded="false" />
+            <element signature="e#2408#2468#0" expanded="false" />
+            <element signature="e#2478#2544#0" expanded="false" />
+            <element signature="e#2554#2615#0" expanded="false" />
+            <element signature="e#2761#3056#0" expanded="false" />
+            <element signature="e#2772#2829#0" expanded="false" />
+            <element signature="e#2839#2903#0" expanded="false" />
+            <element signature="e#2913#2973#0" expanded="false" />
+            <element signature="e#2983#3049#0" expanded="false" />
+            <element signature="e#3193#3930#0" expanded="false" />
+            <element signature="e#3204#3268#0" expanded="false" />
+            <element signature="e#3278#3343#0" expanded="false" />
+            <element signature="e#3353#3412#0" expanded="false" />
+            <element signature="e#3422#3485#0" expanded="false" />
+            <element signature="e#3495#3556#0" expanded="false" />
+            <element signature="e#3566#3630#0" expanded="false" />
+            <element signature="e#3640#3702#0" expanded="false" />
+            <element signature="e#3712#3778#0" expanded="false" />
+            <element signature="e#3788#3850#0" expanded="false" />
+            <element signature="e#3860#3923#0" expanded="false" />
+            <element signature="e#4055#4425#0" expanded="false" />
+            <element signature="e#4066#4123#0" expanded="false" />
+            <element signature="e#4133#4197#0" expanded="false" />
+            <element signature="e#4207#4269#0" expanded="false" />
+            <element signature="e#4279#4346#0" expanded="false" />
+            <element signature="e#4356#4418#0" expanded="false" />
+            <element signature="e#4808#5122#0" expanded="false" />
+            <element signature="e#5171#5333#0" expanded="false" />
+            <element signature="e#5394#5555#0" expanded="false" />
+            <element signature="e#5620#5890#0" expanded="false" />
+            <element signature="e#5940#6085#0" expanded="false" />
+            <element signature="e#6163#6324#0" expanded="false" />
+            <element signature="e#6525#8719#0" expanded="false" />
+            <element signature="e#6732#7170#0" expanded="false" />
+            <element signature="e#6795#7159#0" expanded="false" />
+            <element signature="e#6837#6946#0" expanded="false" />
+            <element signature="e#6988#7144#0" expanded="false" />
+            <element signature="e#7230#7376#0" expanded="false" />
+            <element signature="e#7271#7365#0" expanded="false" />
+            <element signature="e#7419#8711#0" expanded="false" />
+            <element signature="e#7581#7694#0" expanded="false" />
+            <element signature="e#7731#7971#0" expanded="false" />
+            <element signature="e#7834#7956#0" expanded="false" />
+            <element signature="e#8010#8268#0" expanded="false" />
+            <element signature="e#8051#8106#0" expanded="false" />
+            <element signature="e#8110#8253#0" expanded="false" />
+            <element signature="e#8341#8700#0" expanded="false" />
+            <element signature="e#8438#8575#0" expanded="false" />
+            <element signature="e#8579#8685#0" expanded="false" />
+            <element signature="e#8756#9763#0" expanded="false" />
+            <element signature="e#8777#8820#0" expanded="false" />
+            <element signature="e#8837#9755#0" expanded="false" />
+            <element signature="e#9004#9312#0" expanded="false" />
+            <element signature="e#9114#9246#0" expanded="false" />
+            <element signature="e#9385#9744#0" expanded="false" />
+            <element signature="e#9482#9619#0" expanded="false" />
+            <element signature="e#9623#9729#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-3.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.17321016">
+          <caret line="766" column="42" selection-start-line="766" selection-start-column="28" selection-end-line="766" selection-end-column="42" />
+          <folding>
+            <element signature="e#17920#18276#0" expanded="false" />
+            <element signature="e#18354#18452#0" expanded="false" />
+            <element signature="e#18504#18870#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-3.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.72190034">
+          <caret line="1154" column="51" selection-start-line="1154" selection-start-column="51" selection-end-line="1154" selection-end-column="51" />
           <folding>
             <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#7;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#8;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#9;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#10;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#11;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#13;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#14;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#15;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#16;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#17;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-4_1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45422944">
+          <caret line="630" column="0" selection-start-line="630" selection-start-column="0" selection-end-line="630" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-5.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49107143">
+          <caret line="524" column="19" selection-start-line="524" selection-start-column="19" selection-end-line="524" selection-end-column="19" />
+          <folding>
+            <element signature="e#1409#3279#0" expanded="false" />
+            <element signature="e#3413#3823#0" expanded="false" />
+            <element signature="e#3920#4147#0" expanded="false" />
+            <element signature="e#4263#5708#0" expanded="false" />
+            <element signature="e#6000#6417#0" expanded="false" />
+            <element signature="e#6503#7800#0" expanded="false" />
+            <element signature="e#7885#10532#0" expanded="false" />
+            <element signature="e#8379#9563#0" expanded="false" />
+            <element signature="e#9583#9714#0" expanded="false" />
+            <element signature="e#9731#10436#0" expanded="false" />
+            <element signature="e#10588#10925#0" expanded="false" />
+            <element signature="e#10973#11009#0" expanded="false" />
+            <element signature="e#11152#11736#0" expanded="false" />
+            <element signature="e#11779#13071#0" expanded="false" />
+            <element signature="e#13426#13495#0" expanded="false" />
+            <element signature="e#13511#15348#0" expanded="false" />
+            <element signature="e#15416#16056#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-5.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55504054">
+          <caret line="420" column="49" selection-start-line="420" selection-start-column="49" selection-end-line="420" selection-end-column="49" />
+          <folding>
+            <element signature="n#script#25;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#7;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -1447,8 +1384,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/resource/js/publicFun.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="854" column="17" selection-start-line="854" selection-start-column="17" selection-end-line="854" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.78571427">
+          <caret line="866" column="9" selection-start-line="866" selection-start-column="9" selection-end-line="866" selection-end-column="9" />
           <folding>
             <element signature="e#700#760#0" expanded="false" />
             <element signature="n#!!block;n#_timeYMDComponentsFun#0" expanded="false" />
@@ -1524,6 +1461,7 @@
             <element signature="e#10640#11263#0" expanded="false" />
             <element signature="e#10665#10852#0" expanded="false" />
             <element signature="e#11282#11574#0" expanded="false" />
+            <element signature="n#!!block;n#_FFExcel#0" expanded="false" />
             <element signature="n#!!block;n#_exportExecl#0" expanded="false" />
             <element signature="e#15326#15616#0" expanded="false" />
             <element signature="e#15623#15684#0" expanded="false" />
@@ -1585,17 +1523,357 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsAll.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-64.818184">
-          <caret line="431" column="27" selection-start-line="431" selection-start-column="27" selection-end-line="431" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.51785713">
+          <caret line="301" column="6" selection-start-line="301" selection-start-column="6" selection-end-line="301" selection-end-column="6" />
           <folding>
-            <element signature="e#3835#4262#0" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#script#29;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#174#497#0" expanded="false" />
+            <element signature="e#578#1468#0" expanded="false" />
+            <element signature="e#1748#2053#0" expanded="false" />
+            <element signature="e#2091#3379#0" expanded="false" />
+            <element signature="e#3462#8005#0" expanded="false" />
+            <element signature="e#4962#7940#0" expanded="false" />
+            <element signature="e#8440#8670#0" expanded="false" />
+            <element signature="e#8724#8943#0" expanded="false" />
+            <element signature="e#9101#25598#0" expanded="false" />
+            <element signature="e#9254#24137#0" expanded="false" />
+            <element signature="e#9310#19867#0" expanded="false" />
+            <element signature="e#9364#10634#0" expanded="false" />
+            <element signature="e#9427#9817#0" expanded="false" />
+            <element signature="e#10688#12082#0" expanded="false" />
+            <element signature="e#12139#13693#0" expanded="false" />
+            <element signature="e#12202#12718#0" expanded="false" />
+            <element signature="e#12776#13293#0" expanded="false" />
+            <element signature="e#13752#14763#0" expanded="false" />
+            <element signature="e#14822#15699#0" expanded="false" />
+            <element signature="e#15759#16635#0" expanded="false" />
+            <element signature="e#16697#17601#0" expanded="false" />
+            <element signature="e#17660#19746#0" expanded="false" />
+            <element signature="e#17726#18502#0" expanded="false" />
+            <element signature="e#18663#19367#0" expanded="false" />
+            <element signature="e#19919#20113#0" expanded="false" />
+            <element signature="e#20166#20677#0" expanded="false" />
+            <element signature="e#20726#20928#0" expanded="false" />
+            <element signature="e#21035#21339#0" expanded="false" />
+            <element signature="e#22626#22933#0" expanded="false" />
+            <element signature="e#22990#23873#0" expanded="false" />
+            <element signature="e#24157#24331#0" expanded="false" />
+            <element signature="e#24475#24587#0" expanded="false" />
+            <element signature="e#24624#24689#0" expanded="false" />
+            <element signature="e#24844#25146#0" expanded="false" />
+            <element signature="e#25219#25578#0" expanded="false" />
+            <element signature="e#25905#25958#0" expanded="false" />
+            <element signature="e#26029#45943#0" expanded="false" />
+            <element signature="e#26401#28218#0" expanded="false" />
+            <element signature="e#28361#30275#0" expanded="false" />
+            <element signature="e#30424#32394#0" expanded="false" />
+            <element signature="e#32537#34017#0" expanded="false" />
+            <element signature="e#34165#35401#0" expanded="false" />
+            <element signature="e#35549#36776#0" expanded="false" />
+            <element signature="e#36933#38205#0" expanded="false" />
+            <element signature="e#38350#39429#0" expanded="false" />
+            <element signature="e#39577#39886#0" expanded="false" />
+            <element signature="e#40035#40325#0" expanded="false" />
+            <element signature="e#40405#42704#0" expanded="false" />
+            <element signature="e#40505#41033#0" expanded="false" />
+            <element signature="e#41136#42441#0" expanded="false" />
+            <element signature="e#42782#45063#0" expanded="false" />
+            <element signature="e#42876#43405#0" expanded="false" />
+            <element signature="e#43502#44808#0" expanded="false" />
+            <element signature="e#45223#45908#0" expanded="false" />
+            <element signature="e#46016#46375#0" expanded="false" />
+            <element signature="e#46449#46639#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7775203">
+          <caret line="861" column="37" selection-start-line="861" selection-start-column="37" selection-end-line="861" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/local/configs/menu.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.6825395">
+          <caret line="45" column="31" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="31" />
+          <folding>
+            <element signature="n#!!block;n#空调机组#0;n#!!block;n#submenu#0;n#!!block;n#大屏幕#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#数据总览#0;n#!!block;n#submenu#0;n#!!block;n#暖通空调#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#历史数据#0;n#!!block;n#submenu#0;n#!!block;n#暖通空调#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能效日历#0;n#!!block;n#submenu#0;n#!!block;n#暖通空调#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#环境监测#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#环境监测-吉大医院#0;n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#环境监测-总行#0;n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#环境监测-分行#0;n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#数据#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#数据总览#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#实时数据#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#历史数据#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能效日历#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#参数分析#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能效对比#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#负荷分析#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能效排名#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#报表#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#报表导出#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#计费方案#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#监控总览#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#测试一下#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#送排风1#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#空调机组22#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#测试一下3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#冷热源3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#电梯3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#动环3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#站房照明3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#给排水3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#变配电系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#配电支路#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#变配电室综合监控#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#综合保护#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#变压器温控器#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#发电系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#电源隔离监测系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#暖通空调系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#暖通空调#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#直燃机#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#远大空调#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#洁净空调系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#洁净空调#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#医用气体#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#空压系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#液氧系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#负压系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#汇流排系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#给排水系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#给排水#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#UPS系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#UPS#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#摄像头#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#实时监控#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#监控回放#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#用电监控#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#电能质量#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#配电系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能源站系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#实时数据#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#改名字#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#用能查询#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#用能查询#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#用能查询（支路）#0;n#!!block;n#submenu#0;n#!!block;n#用能查询#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#用能查询（科室）#0;n#!!block;n#submenu#0;n#!!block;n#用能查询#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#横向对比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#纵向对比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#分项用电环比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#支路用电环比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#同比环比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能耗分项#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#昼夜分析#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#系统损耗#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#用能管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#用能管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能耗排名#0;n#!!block;n#submenu#0;n#!!block;n#用能管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#预警报警#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#用能报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#实时报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#3D报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#摄像头报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#设备管理#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#设备历史#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#设备二维码#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#设备二维码（蓝）#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#设备资料#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#设备预警管理#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#字典管理#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#巡检项目管理#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#巡检内容#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#巡检计划#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#巡检任务#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#任务综合查询#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#异常项目查询#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#保养条目管理#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#保养内容#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#保养计划#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#保养任务#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#任务综合查询#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工单登记管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工单受理管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工长分配管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工单执行管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工单评估管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工单综合查询#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工单返修件#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#未完成工单管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#备件确认#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#备件二级库处理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#备件主库处理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#班组维修工作量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#员工维修工作量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#调度中心工作量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#部门报修量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#维修满意度统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#地图预览#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#操作台#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#返修件二级库处理#0;n#!!block;n#submenu#0;n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#返修件主库处理#0;n#!!block;n#submenu#0;n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#站段周故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#站段自定义故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#车间周故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#车间日故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#车间未修复故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#故障修复明细总表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#故障未修复明细表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#返厂报表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#调度中心报表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#员工管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#角色管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#部门管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#资源管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#修改密码#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#权限分配#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#标识符管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#维修项目#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#地点管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#电话管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#物品类别#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#物品管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#仓库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#入库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#出库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#调拨出库#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#破损管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#移库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#盘点管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#退货管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#库存清单#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#入库报表#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#出库报表#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#台账记录#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#供应商管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#材料月报表#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#材料总支出#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#月末结转#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#车间材料支出#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#销审管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#时间段管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#班次管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#值班管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#人员类型管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#加班管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#加班统计#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#考勤管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#考勤统计#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#地图预览#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#地图预览#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#首页#0;n#!!block;n#submenu#0;n#!!block;n#地图预览#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#新增二级单位#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#人员类别#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#指标信息#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#单位用能系数#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#单位性质#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#计量设备列表配置#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#二级单位计量设备列表#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#手工抄表信息表#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#计量设备类型#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#变更公摊比例#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#结算操作#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#二级单位用能信息表#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#超额用能二级单位列表#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#二级单位用能支付金额汇总列表#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#单位纵向比较#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#天气#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#天气#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#天气#0;n#!!block;n#submenu#0;n#!!block;n#天气#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#测试#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#三列#0;n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#两列#0;n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#历史录像#0;n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#系统故障时间#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#故障月统计#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#故障率统计#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#故障具体分析#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#故障消除率#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工单报修管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工单关单管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工单受理管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工单接单管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工单执行管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#工单综合查询#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#大屏展示#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能耗总览#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#首页#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能耗数据#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能耗指标#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#横向对比#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#同比环比#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能耗分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能耗分项#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#关联分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#趋势预测#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#电能质量#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能效分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能效日历#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能效查询#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#参数分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能效对比#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#用能管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能耗费用#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能耗排名#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#定额管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#用能考核#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#能耗公示#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#节能足迹#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#节能项目管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#后台配置#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#万元GDP#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#就诊人数#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#管理诊断#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#综合诊断#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#报表管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#综合管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#大屏展示#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#submenu#0;n#!!block;n#大屏展示#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#三列#0;n#!!block;n#submenu#0;n#!!block;n#大屏展示#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1603,7 +1881,7 @@
     <entry file="file://$PROJECT_DIR$/assets/local/configs/config.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.909091">
-          <caret line="163" column="64" selection-start-line="163" selection-start-column="64" selection-end-line="163" selection-end-column="64" />
+          <caret line="163" column="40" selection-start-line="163" selection-start-column="40" selection-end-line="163" selection-end-column="40" />
           <folding>
             <element signature="n#!!block;n#allEnergyType#0;n#!!top" expanded="false" />
             <element signature="e#137#2847#0" expanded="false" />
@@ -1626,278 +1904,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/HAVC/monitor.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.727272">
-          <caret line="861" column="38" selection-start-line="861" selection-start-column="38" selection-end-line="861" selection-end-column="38" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#span#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#select#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#9;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#10;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#9;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#10;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#11;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#13;n#ul#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#9;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#10;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#11;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#13;n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#9;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#10;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#11;n#ul#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#0;n#div#0;n#div#5;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#5;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#7;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#8;n#ul#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#9;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#4;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#5;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#6;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#7;n#ul#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#0;n#div#1;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#1;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#0;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#1;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#ul#0;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#0;n#ul#0;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#1;n#ul#0;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#2;n#ul#0;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#li#3;n#ul#0;n#div#2;n#div#1;n#div#2;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#3;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#script#28;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="e#37917#38131#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="-7.126984">
+          <caret line="35" column="54" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsAll.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/css/Wtable.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="99" column="10" selection-start-line="99" selection-start-column="5" selection-end-line="99" selection-end-column="10" />
-          <folding>
-            <element signature="e#536#843#0" expanded="false" />
-            <element signature="e#964#1394#0" expanded="false" />
-            <element signature="e#1654#1690#0" expanded="false" />
-            <element signature="e#1755#2025#0" expanded="false" />
-            <element signature="e#2083#2397#0" expanded="false" />
-            <element signature="e#2447#2731#0" expanded="false" />
-            <element signature="e#2859#4714#0" expanded="false" />
-            <element signature="e#3181#3499#0" expanded="false" />
-            <element signature="e#3689#3802#0" expanded="false" />
-            <element signature="e#3839#4079#0" expanded="false" />
-            <element signature="e#4761#4942#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42465752">
-          <caret line="304" column="44" selection-start-line="304" selection-start-column="44" selection-end-line="304" selection-end-column="44" />
-          <folding>
-            <element signature="e#174#497#0" expanded="false" />
-            <element signature="e#578#1468#0" expanded="false" />
-            <element signature="e#1748#2053#0" expanded="false" />
-            <element signature="e#2091#3379#0" expanded="false" />
-            <element signature="e#3462#8005#0" expanded="false" />
-            <element signature="e#4962#7940#0" expanded="false" />
-            <element signature="e#8346#8382#0" expanded="false" />
-            <element signature="e#8440#8670#0" expanded="false" />
-            <element signature="e#8724#8943#0" expanded="false" />
-            <element signature="e#9101#25453#0" expanded="false" />
-            <element signature="e#9254#24026#0" expanded="false" />
-            <element signature="e#9310#19867#0" expanded="false" />
-            <element signature="e#9364#10634#0" expanded="false" />
-            <element signature="e#9427#9817#0" expanded="false" />
-            <element signature="e#10688#12082#0" expanded="false" />
-            <element signature="e#12139#13693#0" expanded="false" />
-            <element signature="e#12202#12718#0" expanded="false" />
-            <element signature="e#12776#13293#0" expanded="false" />
-            <element signature="e#13752#14763#0" expanded="false" />
-            <element signature="e#14822#15699#0" expanded="false" />
-            <element signature="e#15759#16635#0" expanded="false" />
-            <element signature="e#16697#17601#0" expanded="false" />
-            <element signature="e#17660#19746#0" expanded="false" />
-            <element signature="e#17726#18502#0" expanded="false" />
-            <element signature="e#18663#19367#0" expanded="false" />
-            <element signature="e#19919#20113#0" expanded="false" />
-            <element signature="e#20726#20928#0" expanded="false" />
-            <element signature="e#20982#22466#0" expanded="false" />
-            <element signature="e#21035#21339#0" expanded="false" />
-            <element signature="e#21396#22275#0" expanded="false" />
-            <element signature="e#22518#24014#0" expanded="false" />
-            <element signature="e#22571#22878#0" expanded="false" />
-            <element signature="e#22935#23818#0" expanded="false" />
-            <element signature="e#24046#24220#0" expanded="false" />
-            <element signature="e#24237#25445#0" expanded="false" />
-            <element signature="e#24364#24476#0" expanded="false" />
-            <element signature="e#24513#24578#0" expanded="false" />
-            <element signature="e#24733#25001#0" expanded="false" />
-            <element signature="e#25489#46193#0" expanded="false" />
-            <element signature="e#25654#46185#0" expanded="false" />
-            <element signature="e#25760#25813#0" expanded="false" />
-            <element signature="e#25884#45742#0" expanded="false" />
-            <element signature="e#26200#28017#0" expanded="false" />
-            <element signature="e#28160#30074#0" expanded="false" />
-            <element signature="e#30223#32193#0" expanded="false" />
-            <element signature="e#32336#33816#0" expanded="false" />
-            <element signature="e#33964#35200#0" expanded="false" />
-            <element signature="e#35348#36575#0" expanded="false" />
-            <element signature="e#36732#38004#0" expanded="false" />
-            <element signature="e#38149#39228#0" expanded="false" />
-            <element signature="e#39376#39685#0" expanded="false" />
-            <element signature="e#39834#40124#0" expanded="false" />
-            <element signature="e#40204#42503#0" expanded="false" />
-            <element signature="e#40304#40832#0" expanded="false" />
-            <element signature="e#40935#42240#0" expanded="false" />
-            <element signature="e#42581#44862#0" expanded="false" />
-            <element signature="e#42675#43204#0" expanded="false" />
-            <element signature="e#43301#44607#0" expanded="false" />
-            <element signature="e#45022#45707#0" expanded="false" />
-            <element signature="e#45815#46174#0" expanded="false" />
-            <element signature="e#46248#46438#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.110081114">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
