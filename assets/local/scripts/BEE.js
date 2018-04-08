@@ -586,6 +586,8 @@ var BEE = (function(){
                      var _momentNow = moment();
                      var st = _momentNow.subtract('7','days').format('YYYY-MM-DD');
                      var et = _momentNow.add('8','days').format('YYYY-MM-DD');
+                     //首先判断是不是维修人员(待下发行也不显示)
+
                      //获取部门科室编号
                      var bxKeshiNum = sessionStorage.userDepartNum;
                      var prmData = {
@@ -597,11 +599,20 @@ var BEE = (function(){
                          gdSt:st,
                          gdEt:et,
                          isQueryExceedTime:1,
-                         wxKeshi:bxKeshiNum,
+                         //wxKeshi:bxKeshiNum,
                          bxKeshiNum:bxKeshiNum,
                          userID:sessionStorage.getItem('userName'),
                          userName:sessionStorage.getItem('realUserName')
                      };
+
+                     var isWxFlag = JSON.parse(sessionStorage.userInfo).isWx;
+
+                     if(isWxFlag == 1){
+
+                         prmData.wxKeshi = bxKeshiNum;
+
+                     }
+
                      //获取工单信息数据
                      $.ajax({
                          type:'post',
@@ -626,12 +637,22 @@ var BEE = (function(){
                                      num1 ++;
                                  }
                              });
+
+                             //用户是维修班组的人的时候，待下发行不显示
+
+                             if(isWxFlag == 1){
+
+                                 num1 = 0;
+
+                             }
+
                              if(num1 > 0){
                                  //加入待下发信息
                                  infoHtml += addInfoMessage(num1,'待下发','gdAcceptance.html','../gongdanxitong/');
                              }
 
                              //获取二次受理备件
+
                              var num11 = data.zhtecshl;
                              if(num11 > 0){
                                  //加入二次派单备件信息

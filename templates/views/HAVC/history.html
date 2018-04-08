@@ -33,13 +33,41 @@
 
     <!--SHOWLOADING START-->
     <link href="../resource/jQuery-showLoading/css/showLoading.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="../resource/css/HAVC.css">
     <!--SHOWLOADING END-->
     <style type="text/css">
+        .page-content{
+
+            background: #ffffff;
+
+        }
+        .page-bar{
+
+            background: #E2E9F2 !important;
+
+        }
         a {
             text-decoration: none !important;
         }
         .dropdown-menu li > a {
             padding:0;
+        }
+
+        .HSYDT{
+
+            width: 190px;
+
+        }
+
+        .main-content{
+
+            width: 100%;
+
+            min-height: 500px;
+
+            padding: 15px;
+
         }
     </style>
     <link href="../favicon.ico" rel="shortcut icon" />
@@ -175,7 +203,6 @@
                             <i class="fa fa-angle-right"></i>
                         </li>
                     </ul>
-                    <div class="showOrHidden"></div>
                     <div class="page-toolbar">
                     </div>
                 </div>
@@ -183,81 +210,57 @@
                     <div class="col-md-12">
                         <div id="historyBusy">
                             <div class="total-warp">
-                                <div class="row margin-top-15">
-                                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-                                        <div class="portlet light bordered">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-                                                    <span>查询条件</span>
-                                                </div>
-                                                <div class="actions">
+                                <div class="margin-top-15">
+                                    <div class="conditionSelect">
+                                        <div>
+                                            <label>区域选择</label>
+                                            <select id="areaType" class="table-group-action-input form-control"></select>
+                                        </div>
+                                        <div>
+                                            <label>设备类型</label>
+                                            <select id="eqType" class="table-group-action-input form-control"></select>
+                                        </div>
+                                        <div>
+                                            <label>选择因子</label>
+                                            <div style="display: inline-block;vertical-align: middle">
+                                                <a id="openTrvBoxBtn" style="width: 190px;" data-toggle="dropdown" aria-expanded="true" class="btn form-control">
+                                                    <span class="pull-left">选择因子</span>
+                                                    <i class="fa fa-angle-down pull-right" style="line-height:21px;"></i>
+                                                </a>
+                                            </div>
 
+                                        </div>
+                                        <div>
+                                            <label>开始时间</label>
+                                            <div style="display: inline-block;vertical-align: middle">
+                                                <div class="input-group date form_date HSYDT">
+                                                    <input id="spDT" class="form-control" size="16" type="text" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
                                                 </div>
                                             </div>
-                                            <div class="portlet-body">
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <h5>区域选择</h5>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <select id="areaType" class="table-group-action-input form-control"></select>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <h5>设备类型</h5>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <select id="eqType" class="table-group-action-input form-control"></select>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <h5>监测因子</h5>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <a id="openTrvBoxBtn" data-toggle="dropdown" aria-expanded="true" class="btn form-control">
-                                                            <span class="pull-left">选择因子</span>
-                                                            <i class="fa fa-angle-down pull-right" style="line-height:21px;"></i>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <h5>开始时间</h5>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <div class="input-group date form_date HSYDT">
-                                                            <input id="spDT" class="form-control" size="16" type="text" value="" />
+
+                                        </div>
+                                        <div>
+                                            <label>结束时间</label>
+                                            <div style="display: inline-block;vertical-align: middle">
+                                                <div class="input-group date form_date HSYDT">
+                                                    <input id="epDT" class="form-control" size="16" type="text" value="" />
                                                             <span class="input-group-addon">
                                                                 <span class="glyphicon glyphicon-calendar"></span>
                                                             </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <h5>结束时间</h5>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <div class="input-group date form_date HSYDT">
-                                                            <input id="epDT" class="form-control" size="16" type="text" value="" />
-                                                            <span class="input-group-addon">
-                                                                <span class="glyphicon glyphicon-calendar"></span>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12">
-                                                        <a id="hsyBtn" class="btn btn-default yellow pull-left margin-top-15">查询数据</a>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div>
+                                            <a id="hsyBtn" class="btn btn-default pull-left buttonColor">查询数据</a>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
-                                        <div class="portlet light bordered">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-                                                    <i class="fa fa-line-chart"></i><span id="spanTitle">监测点历史数据</span>
-                                                </div>
-                                                <div class="actions">
-
-                                                </div>
-                                            </div>
-                                            <div class="portlet-body">
-                                                <div id="historyChartView" class="full-height-content-body" style="height:600px;"></div>
+                                    <div class="main-content">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div id="historyChartView" style="height:600px;"></div>
                                             </div>
                                         </div>
                                     </div>

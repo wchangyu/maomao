@@ -118,10 +118,10 @@ $(function(){
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": true,
-        "order": true,
-        //"pagingType":"full_numbers",
+        "ordering": true,
+        "order":[],
+        "pagingType":"full_numbers",
         "iDisplayLength":50,//默认每页显示的条数
-        "bStateSave":true,
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -143,7 +143,9 @@ $(function(){
                 text: '导出',
                 className:'saveAs',
                 exportOptions:{
-                    columns:[0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+                    //columns:[0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17]
+                    columns:[0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+
                 }
             }
         ],
@@ -286,6 +288,7 @@ $(function(){
             }
         ]
     });
+
     table.buttons().container().appendTo($('.excelButton'),table.table().container());
 
     //影响单位
@@ -638,6 +641,12 @@ $(function(){
         $('#myModal1').modal('hide');
     })
 
+    //导出按钮
+    //$('.excelButton').click(function(){
+    //
+    //    _FFExcel($('#scrap-datatables')[0])
+    //
+    //})
 
     /*------------------------按钮功能-----------------------------------------*/
     //查询按钮
@@ -653,7 +662,6 @@ $(function(){
     })
 
     //回车事件
-
     var _isEnter = false;
 
     $(document).on('keyup',function(e){

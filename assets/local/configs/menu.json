@@ -1337,6 +1337,14 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "料票管理": {
+        "type": "0",
+        "content": "料票管理",
+        "uri": "../cangkuguanli/materialTickets.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   },

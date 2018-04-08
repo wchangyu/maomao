@@ -30,8 +30,8 @@ $(function(){
             'sbnum':'',
             'sbname':'',
             'azplace':'',
-            'gzplace':'',
-            'wxshx':''
+            'wxshx':'',
+            'gzplace':''
         },
         methods:{
             time:function(){
@@ -968,6 +968,7 @@ $(function(){
         .on('click','.bianji',function(){
 
             optionData('YWGD/ywGDUpt','编辑成功!','编辑失败!','flag');
+
         })
 
     //表格查看按钮
@@ -981,24 +982,29 @@ $(function(){
             _moTaiKuang($('#myModal'), '详情', 'flag', '' ,'', '');
         })
         .on('click','.option-edit',function(){
+
             //当前选中的工单号
 
             _gdCode = $(this).parents('tr').children('.gdCode').children('span').children('a').html();
 
             //信息绑定
             bindData($(this),$('#missed-list'));
+
             //模态框显示
             _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
+
             //添加编辑类
             $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji');
+
             //报修人电话可操作
             $('.bx-choose').removeAttr('readonly').removeClass('disabled-block');
+
         })
 
     //查询按钮
     $('#selected').click(function(){
         //条件查询
-        conditionSelect();
+        conditionSelect(true);
     })
 
     ////执行中【查看】
@@ -1308,6 +1314,7 @@ $(function(){
                         },
                         success:function(result){
                             if(result == 99){
+
                                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单成功！', '');
 
                                 conditionSelect();
@@ -1526,6 +1533,8 @@ $(function(){
         for (var i = 0; i < length; i++) {
             if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
                 //seekArr.push(dom.eq(i).children().eq(1).html())
+
+                console.log(dom.eq(i).children().eq(3).find('span').html());
 
                 gdObj.gzplace = dom.eq(i).children().eq(3).find('span').html();
 
@@ -1842,7 +1851,8 @@ $(function(){
     }
 
     //条件查询
-    function conditionSelect(flag){
+    function conditionSelect(flag,part){
+
         var st = $('.min').val();
 
         var et = moment($('.max').val()).add(1,'d').format('YYYY/MM/DD');
@@ -1858,22 +1868,28 @@ $(function(){
             'createUser':_userIdNum
         }
 
+        if(!part){
+
+            if($('.modal-backdrop').length > 0){
+
+                theTimeout = setTimeout(function(){
+
+                    conditionSelect(true);
+
+                },refreshTime);
+
+                return false;
+            }
+
+        }
+
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
-            //beforeSend: function () {
-            //    $('#theLoading').modal('hide');
-            //    $('#theLoading').modal('show');
-            //},
-            //complete: function () {
-            //    $('#theLoading').modal('hide');
-            //    if($('.modal-backdrop').length > 0){
-            //        $('div').remove('.modal-backdrop');
-            //        $('#theLoading').hide();
-            //    }
-            //},
+            beforeSend: _beforeSendFun,
+            complete: _completeFun,
             success:function(result){
 
                 //根据状态值给表格赋值
@@ -1914,10 +1930,15 @@ $(function(){
 
                 //定时刷新
                 if(flag){
+
                     theTimeout = setTimeout(function(){
+
                         conditionSelect(true);
+
                     },refreshTime);
                 }
+
+                $('#theLoading').modal('hide');
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -1968,6 +1989,7 @@ $(function(){
 
     //报修、编辑方法(编辑的时候传参数flag)
     function optionData(url,successMeg,errorMeg,flag){
+
         //验证非空
         if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.bxren == '' || gdObj.gzplace == '' || gdObj.wxshx == ''){
             if(gdObj.bxkesh == ''){
@@ -1976,7 +1998,10 @@ $(function(){
                 $('.error1').hide();
             }
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
+
         }else{
+
+
             var prm = {
                 'gdJJ':gdObj.gdtype,
                 'gdRange':gdObj.xttype,
@@ -2010,25 +2035,19 @@ $(function(){
                 url:_urls + url ,
                 timeout:_theTimes,
                 data:prm,
-                beforeSend: function () {
-                    $('#theLoading').modal('show');
-                },
-
-                complete: function () {
-                    $('#theLoading').modal('hide');
-                },
                 success:function(result){
+
                     if (result == 99) {
 
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',successMeg, '');
 
                         $('#myModal').modal('hide');
 
-                        //刷新右上角的报警功能
-                        BEE.modificationImportInfo();
+                        $('#myModal2').off('shown.bs.modal').on('shown.bs.modal',function(){
 
-                        //刷新表格
-                        conditionSelect();
+                            conditionSelect(false,true);
+
+                        })
 
                     } else {
 

@@ -1,201 +1,214 @@
-$(function (){
-    /*-------------------------全局变量----------------------------*/
-    //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-    //开始/结束时间插件
-    $('.datatimeblock').datepicker({
-        language:  'zh-CN',
-        todayBtn: 1,
-        todayHighlight: 1,
-        format: 'yyyy/mm/dd',     forceParse: 0
-    });
+$(function(){
+
+    /*---------------------------------------------时间插件--------------------------------*/
+
+    _timeYMDComponentsFun($('.datatimeblock'));
+
     //设置初始时间
-    var _initStart = moment().startOf('month').format('YYYY/MM/DD');
-    var _initEnd = moment().endOf('month').format('YYYY/MM/DD');
-    //显示时间
-    $('.min').val(_initStart);
-    $('.max').val(_initEnd);
-    //实际发送时间
-    var realityStart;
-    var realityEnd;
-    //获得用户名
-    var _userIdNum = sessionStorage.getItem('userName');
-    //获得用户名id
-    var _userIdName = sessionStorage.getItem('realUserName');
-    /*-------------------------表格初始化--------------------------*/
-    //页面表格
-    var _table = $('#scrap-datatables').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": true,
-        "ordering": false,
-        "pagingType":"full_numbers",
-        "iDisplayLength":50,//默认每页显示的条数
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            //"sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
-            'infoEmpty': '没有数据',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
-            }
+    var now = moment().format('YYYY/MM/DD');
+
+    var st = moment(now).startOf('months').format('YYYY/MM/DD');
+
+    var et = moment(now).endOf('months').format('YYYY/MM/DD');
+
+    $('.datatimeblock').eq(0).val(st);
+
+    $('.datatimeblock').eq(1).val(et);
+
+    /*---------------------------------------------表格初始化------------------------------*/
+
+    var col = [
+
+        {
+            title:'姓名',
+            data:'wxRName'
         },
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '导出',
-                className:'saveAs',
-                header:true
+        {
+            title:'维修部门',
+            data:'wxKeshi'
+        },
+        {
+            title:'接工量',
+            data:'gdNum'
+        },
+        {
+            title:'完工量',
+            data:'gdWgNum'
+        },
+        {
+            title:'未完工量',
+            data:'gdWwgNum'
+        },
+        {
+            title:'维修耗时',
+            data:'wxShij',
+            render:function(data, type, full, meta){
+                return data.toFixed(2)
             }
-        ],
-        "dom":'t<"F"lip>',
-        "columns": [
-            {
-                title:'姓名',
-                data:'wxRName'
-            },
-            {
-                title:'维修部门',
-                data:'wxKeshi'
-            },
-            {
-                title:'接工量',
-                data:'gdNum'
-            },
-            {
-                title:'完工量',
-                data:'gdWgNum'
-            },
-            {
-                title:'未完工量',
-                data:'gdWwgNum'
-            },
-            {
-                title:'维修耗时',
-                data:'wxShij',
-                render:function(data, type, full, meta){
-                    return data.toFixed(2)
-                }
-            }
-        ]
-    });
-    _table.buttons().container().appendTo($('.excelButton'),_table.table().container());
-    //报错时不弹出弹框
-    $.fn.dataTable.ext.errMode = function(s,h,m){
-        console.log('')
-    }
-    //给表格的标题赋时间
-    $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + _initStart + '——' + _initEnd);
-    /*-------------------------获取表格数据-----------------------*/
-    _WxBanzuStationData(_BZ);
-
-    function _BZ(){
-
-        _BZList($('#depart'));
-
-    }
-
-    conditionSelect();
-    function conditionSelect(){
-        //获取所有input框的值
-        var filterInput = [];
-        var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
-        for(var i=0;i<filterInputValue.length;i++){
-            filterInput.push(filterInputValue.eq(i).val());
         }
-        realityStart = filterInput[0] + ' 00:00:00';
-        realityEnd = moment(filterInput[1]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
-        var prm = {
-            'gdSt':realityStart,
-            'gdEt':realityEnd,
-            'wxKeshi':filterInput[2],
-            'bxKeshi':'',
-            'userID':_userIdNum,
-            'userName':_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url: _urls + 'YWGD/ywGDRptRen',
-            data:prm,
-            success:function(result){
-                datasTable($("#scrap-datatables"),result)
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
-            }
-        })
-    }
-    /*--------------------------按钮功能------------------------*/
-    //查询按钮
+
+    ]
+
+    _tableInit($('#scrap-datatables'),col,2,false,'','','','','','');
+
+    //加载部门
+    getWxDep();
+
+    /*---------------------------------------------按钮事件-------------------------------*/
+
+    //查询
     $('#selected').click(function(){
-        //判断起止时间是否为空
-        if( $('.min').val() == '' || $('.max').val() == '' ){
-            $('#myModal2').find('.modal-body').html('起止时间不能为空');
-            moTaiKuang($('#myModal2'));
-        }else {
-            //结束时间不能小于开始时间
-            if( $('.min').val() > $('.max').val() ){
-                $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
-                moTaiKuang($('#myModal2'));
-            }else{
-                //给表格的标题赋时间
-                $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + $('.min').val()  + '——' + $('.max').val());
-                conditionSelect();
-            }
-        }
+
+        conditionSelect();
 
     })
-    //重置按钮
+
+    //重置
     $('.resites').click(function(){
-        //时间选为当天，其他输入框置为空
-        var parents = $(this).parents('.condition-query');
-        var inputs = parents.find('input');
-        inputs.val('');
-        //时间置为今天
-        $('.min').val(_initStart);
-        $('.max').val(_initEnd);
+
+        $('.datatimeblock').eq(0).val(st);
+
+        $('.datatimeblock').eq(1).val(et);
+
+        $('#depart').val('');
+
     })
-    //提示框的确定
-    $('.confirm1').click(function(){
-        $('#myModal2').modal('hide');
+
+    //导出
+    $('.excelButton').click(function(){
+
+        _FFExcel($('#scrap-datatables')[0]);
+
     })
-    /*----------------------------打印部分去掉的东西-----------------------------*/
-    //导出按钮,每页显示数据条数,表格页码打印隐藏
-    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
-    /*----------------------------方法------------------------------*/
-    //模态框自适应
-    function moTaiKuang(who){
-        who.modal({
-            show:false,
-            backdrop:'static'
-        })
-        //$('#myModal2').find('.modal-body').html('起止时间不能为空');
-        who.modal('show');
-        var markHeight = document.documentElement.clientHeight;
-        var markBlockHeight = who.find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight)/2;
-        who.find('.modal-dialog').css({'margin-top':markBlockTop});
-    }
-    //dataTables表格填数据
-    function datasTable(tableId,arr){
-        if(arr.length == 0){
-            var table = tableId.dataTable();
-            table.fnClearTable();
-            table.fnDraw();
-        }else{
-            var table = tableId.dataTable();
-            table.fnClearTable();
-            table.fnAddData(arr);
-            table.fnDraw();
+
+    /*---------------------------------------------其他方法-------------------------------*/
+
+    //获取维修部门
+    function getWxDep(){
+
+        var prm = {
+            //是否维修部门
+            isWx:1,
+            //用户id
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName,
+            //角色
+            b_UserRole:_userRole
         }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'RBAC/rbacGetDeparts',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                var str = '<option value="">全部</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].departNum + '">' + result[i].departName + '</option>'
+
+                }
+
+                $('#depart').empty().append(str);
+
+                //获取数据
+                conditionSelect();
+            },
+
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                $('#theLoading').modal('hide');
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+                }
+
+            }
+
+        })
+
+    }
+
+    //条件查询
+    function conditionSelect(){
+
+        var prm = {
+
+            //开始时间
+            gdSt:$('.datatimeblock').eq(0).val(),
+            //结束时间
+            gdEt:moment($('.datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD'),
+            //维修科室
+            wxKeshi:$('#depart').children('option:selected').html()=='全部'?'':$('#depart').children('option:selected').html(),
+            //用户id
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName,
+            //角色
+            b_UserRole:_userRole
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWGD/ywGDRptRen',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            beforeSend: function () {
+
+                $('#theLoading').modal('hide');
+
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
+
+            success:function(result){
+
+                _jumpNow($('#scrap-datatables'),result);
+
+            },
+
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                $('#theLoading').modal('hide');
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+                }
+
+            }
+
+        })
+
     }
 })

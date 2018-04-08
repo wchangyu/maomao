@@ -26,6 +26,7 @@ var Monitor = function () {
                     "pagingType": "full_numbers",
                     "bPaginate": true, //翻页功能
                     //"bStateSave":true,
+                    //"dom":'rt<"bottom"flpi><"clear">',
                     "bSort": false,
                     "bProcessing": false,
                     "iDisplayLength": 20,//默认每页显示的条数,
@@ -35,13 +36,13 @@ var Monitor = function () {
                         'processing': '查询中...',
                         'lengthMenu': '每页 _MENU_ 条',
                         'zeroRecords': '没有数据',
-                        'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+                        'info': '共 _TOTAL_ 条记录，共_PAGES_页',
                         'infoEmpty': '没有数据',
                         'paginate': {
-                            "previous": "上一页",
-                            "next": "下一页",
-                            "first": "首页",
-                            "last": "尾页"
+                            "previous": "<",
+                            "next": ">",
+                            "first": "",
+                            "last": ""
                         }
                     },
                     "aoColumns": [, , , , ]

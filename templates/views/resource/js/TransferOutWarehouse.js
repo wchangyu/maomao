@@ -982,10 +982,10 @@ $(function(){
 
         }else{
             var outStoreDetails1 = [];
-            //工单的信息
-            var gdArr = [];
-            //材料工单
-            var clArr = [];
+            ////工单的信息
+            //var gdArr = [];
+            ////材料工单
+            //var clArr = [];
 
             for(var i=0;i<_rukuArr.length;i++){
                 var obj = {};
@@ -1012,10 +1012,10 @@ $(function(){
                 obj.maintainDate = _rukuArr[i].maintainDate;
                 outStoreDetails1.push(obj);
                 //备件转换
-                if(_rukuArr[i].gdCode){
-                    gdArr.push(_rukuArr[i].gdCode);
-                    clArr.push(_rukuArr[i].itemName);
-                }
+                //if(_rukuArr[i].gdCode){
+                //    gdArr.push(_rukuArr[i].gdCode);
+                //    clArr.push(_rukuArr[i].itemName);
+                //}
             }
 
             //获取填写的入库信息
@@ -1181,12 +1181,16 @@ $(function(){
 
             }else{
                 var outStoreDetails1 = [];
-                //工单的信息
-                var gdArr = [];
-                //材料工单
-                var clArr = [];
+                ////工单的信息
+                //var gdArr = [];
+                ////材料工单
+                //var clArr = [];
 
-                _rukuArr = _tempRKArr;
+                for(var i=0;i<_tempRKArr.length;i++){
+
+                    _rukuArr.push(_tempRKArr[i]);
+
+                }
 
                 for(var i=0;i<_rukuArr.length;i++){
                     var obj = {};
@@ -1213,10 +1217,10 @@ $(function(){
                     obj.maintainDate = _rukuArr[i].maintainDate;
                     outStoreDetails1.push(obj);
                     //备件转换
-                    if(_rukuArr[i].gdCode){
-                        gdArr.push(_rukuArr[i].gdCode);
-                        clArr.push(_rukuArr[i].itemName);
-                    }
+                    //if(_rukuArr[i].gdCode){
+                    //    gdArr.push(_rukuArr[i].gdCode);
+                    //    clArr.push(_rukuArr[i].itemName);
+                    //}
                 }
 
                 //获取填写的入库信息
@@ -1276,7 +1280,13 @@ $(function(){
 
                 var outStoreDetails1 = [];
 
-                _rukuArr = _tempRKArr;
+                _rukuArr.length = 0;
+
+                for(var i=0;i<_tempRKArr.length;i++){
+
+                    _rukuArr.push(_tempRKArr[i]);
+
+                }
 
                 for(var i=0;i<_rukuArr.length;i++){
                     var obj = {};
@@ -1303,10 +1313,10 @@ $(function(){
                     obj.maintainDate = _rukuArr[i].maintainDate;
                     outStoreDetails1.push(obj);
                     //备件转换
-                    if(_rukuArr[i].gdCode){
-                        gdArr.push(_rukuArr[i].gdCode);
-                        clArr.push(_rukuArr[i].itemName);
-                    }
+                    //if(_rukuArr[i].gdCode){
+                    //    gdArr.push(_rukuArr[i].gdCode);
+                    //    clArr.push(_rukuArr[i].itemName);
+                    //}
                 }
 
                 //获取填写的入库信息
@@ -1329,7 +1339,8 @@ $(function(){
                     'contractOrder':(typeof putOutList.gdCode == 'undefined')?'':putOutList.gdCode,
                     'cusName':putOutList.clymc,
                     'phone':putOutList.clydh,
-                    'toStorageNum':putOutList.transferOut
+                    'toStorageNum':putOutList.transferOut,
+                    'createTime':putOutList.shijian
                 }
 
                 $.ajax({

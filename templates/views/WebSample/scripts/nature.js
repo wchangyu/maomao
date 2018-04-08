@@ -141,7 +141,7 @@ function getInk() {
                     if (result == '1') {
                         alert('Notify From Device : Confirmed.');
                     } else if (result == '0') {
-                        alert('Notify From Device : Cancel !');
+                        //alert('Notify From Device : Cancel !');
                         clearInk();
                     }
                 }).fail(function () {

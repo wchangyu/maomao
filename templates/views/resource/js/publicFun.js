@@ -326,7 +326,7 @@ function _datasTable(tableId,arr){
 
 /*--------------------------获取专业名称----------------------------*/
 //获取专业名词
-function _getProfession(url,el,attr,attrNum,attrName){
+function _getProfession(url,el,attr,attrNum,attrName,callbackFun){
     var prm ={
         userID:_userIdNum,
         userName:_userIdName
@@ -352,6 +352,13 @@ function _getProfession(url,el,attr,attrNum,attrName){
             }
 
             el.empty().append(str);
+
+            if(callbackFun){
+
+                callbackFun();
+
+            }
+
         },
         error:function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR.responseText);
@@ -895,4 +902,77 @@ function _packagingTableData(tableData){
 
     return newTableArr;
 };
+
+//ajax发送数据之前的方法
+function _beforeSendFun(){
+
+    $('#theLoading').modal('hide');
+
+    $('#theLoading').modal('show');
+
+}
+
+//ajax发送数据完成的方法
+function _completeFun(){
+
+    $('#theLoading').modal('hide');
+
+    if($('.modal-backdrop').length > 0){
+
+        $('div').remove('.modal-backdrop');
+
+        $('#theLoading').hide();
+    }
+
+}
+
+//失败方法
+function _errorFun(XMLHttpRequest, textStatus, errorThrown){
+
+    $('#theLoading').modal('hide');
+
+    if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+        _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+    }else{
+
+        _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+    }
+
+}
+
+//ajaxerror方法
+function _mainAjaxFun(type,url,prm,successFun){
+
+    $.ajax({
+
+        //发送方式
+        type:type,
+
+        //url
+        url:_urls + url,
+
+        //timeout
+        timeout:_theTimes,
+
+        //参数
+        data:prm,
+
+        //发送数据之前
+        beforeSend:_beforeSendFun,
+
+        //发送数据完成之后
+        complete:_completeFun,
+
+        //成功
+        success:successFun,
+
+        //失败
+        error: _errorFun
+
+    })
+
+}
 

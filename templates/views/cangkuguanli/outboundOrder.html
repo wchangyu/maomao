@@ -25,17 +25,22 @@
     <script src="../resource/js/etSelection.js"></script>
     <script src="../resource/js/vue.js"></script>
     <script src="../resource/js/vue-validator-v2.1.3.js"></script>
-    <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
-    <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <!--签字版-->
+    <link rel="stylesheet" href="../WebSample/styles/main.css">
+    <link rel="stylesheet" href="../WebSample/styles/l398s.css">
+    <!--事件插件-->
     <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
+    <!--表格插件-->
     <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
     <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
     <link rel="stylesheet" href="../resource/TableTools/button/dataTables.bootstrap.css">
+    <!--myCss-->
     <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
     <link rel="stylesheet" href="../resource/css/css/assetManagement-2.css">
     <link rel="stylesheet" href="../resource/css/productionOrder.css">
+
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
 
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -58,7 +63,36 @@
     </style>
     <style>
         .bottom-sign span {
-            margin-right: 82px !important;
+
+            cursor: pointer;
+
+            margin-right: 0;
+
+        }
+
+        .img-block{
+
+            display: inline-block;
+
+            vertical-align: middle;
+
+            width:100px;
+
+            height:60px;
+        }
+
+        .img-block img{
+
+            width: 100px;
+
+            height: 60px;
+
+        }
+
+        .main-content-entry{
+
+            width: 1110px;
+
         }
     </style>
     <style type="text/css" media=print>
@@ -124,10 +158,25 @@
             <tr class="bottom-sign">
                 <td colspan="11" style="text-align: left;font-size:14px;">
                     <span>维保部负责人签字：</span>
+                    <div class="img-block">
+                        <img src="" alt="">
+                    </div>
                     <span>综合维修中心签字：</span>
+                    <div class="img-block">
+                        <img src="" alt="">
+                    </div>
                     <span><font class="user-defined-workshop"></font>负责人签字：</span>
+                    <div class="img-block">
+                        <img src="" alt="">
+                    </div>
                     <span>主管签字：</span>
+                    <div class="img-block">
+                        <img src="" alt="">
+                    </div>
                     <span>仓管员签字：</span>
+                    <div class="img-block">
+                        <img src="" alt="">
+                    </div>
                 </td>
             </tr>
             </tbody>
@@ -138,6 +187,12 @@
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
+<!--签字版-->
+<script src="../WebSample/scripts/vendor/modernizr.js"></script>
+<script src="../WebSample/scripts/vendor.js"></script>
+<script src="../WebSample/scripts/plugins.js"></script>
+<script src="../WebSample/scripts/l398s.js"></script>
+
 <!--[if lt IE 9]>
 <script src="../../../assets/global/plugins/respond.min.js"></script>
 <script src="../../../assets/global/plugins/excanvas.min.js"></script>
@@ -171,8 +226,10 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<!--myScript-->
 <script src="../bank-resource/js/common.js"></script>
 <script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/outboundOrder.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
@@ -182,7 +239,384 @@
 
     </div>
 </div>
+<!--所有提示框-->
+<div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel3">提示</h4>
+            </div>
+            <div class="modal-body">未完成状态工单无法进行撤销操作</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--签字版-->
+<div class="modal fade" id="Signature-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 530px;">
+        <div class="modal-content" style="height: 530px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="header" style="display: none">
+                        <h1 class="text-muted" >PenPower</h1>
+                        <a class="btn btn-sm btn-success home" href="index.html"><span class="glyphicon glyphicon-home"></span> Home</a>
+                    </div>
 
+                    <div class="row-canvas">
+                        <canvas id="ppCanvas" width="600" height="375"></canvas>
+                        <div class="shutdown"></div>
+                    </div>
+
+
+                    <div class="row" style="display: none">
+                        <div class="col-md-12">
+
+                            <!-- Table 1 -->
+                            <table width="100%" class="functions" style="display: none">
+                                <tbody>
+                                <!-- Cols 1 -->
+                                <tr>
+                                    <td width="16.65%">
+                                        <button type="button" id="initBtn" class="btn btn-block btn-success btn-sm" onclick="initDevice()">Initialize Device</button>
+                                    </td>
+                                    <td width="16.65%">
+                                        <button type="button" id="uninitBtn" class="btn btn-block btn-success btn-sm init" onclick="uninitDevice()" disabled>Uninitialize Device</button>
+                                    </td>
+                                    <td width="16.65%">
+                                        Device Type:
+                                    </td>
+                                    <td width="16.65%">
+                                        <input type="text" value="L398" readonly="readonly" class="form-control"></input>
+                                    </td>
+                                    <td width="16.65%">
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getAbout()" disabled>About</button>
+                                    </td>
+                                    <td width="16.65%">
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="clearInk()" disabled>Clear</button>
+                                    </td>
+                                </tr>
+
+                                <!-- Cols 2 -->
+                                <tr>
+                                    <td>
+                                        Pen Color:
+                                    </td>
+                                    <td>
+                                        <select class="form-control" disabled>
+                                            <option value="1">Black</option>
+                                            <option value="2">Red</option>
+                                            <option value="3">Blue</option>
+                                            <option value="4">Green</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        Pen Width:
+                                    </td>
+                                    <td>
+                                        <select id="penWidth" class="form-control init" onchange="pwChange()" disabled>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3" selected="selected">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        Pen Style:
+                                    </td>
+                                    <td>
+                                        <select id="penStyle" class="form-control init" onchange="psChange()" disabled>
+                                            <option value="0">0 Pressure sensitivity</option>
+                                            <option value="1">1 Fixed width</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <!-- Cols 3 -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="saveDrawing()" disabled>Save Drawing Image</button>
+                                    </td>
+                                    <td>
+                                        <select id="sdType" class="form-control  init" disabled>
+                                            <option value="1">BMP</option>
+                                            <option value="2">JPG</option>
+                                            <option value="3">PNG</option>
+                                            <option value="4">GIF</option>
+                                            <option value="5">TIFF</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select id="sdDpi" class="form-control init" disabled>
+                                            <option value="0">150 dpi</option>
+                                            <option value="1">300 dpi</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getSize()" disabled>Get Size</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getPointer()" disabled>ShowPointInfo</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getValid()" disabled>Get Valid</button>
+                                    </td>
+                                </tr>
+
+                                <!-- Cols 4 -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="saveVideo()" disabled>Save Drawing Video</button>
+                                    </td>
+                                    <td>
+                                        <select id="svType" class="form-control  init" disabled>
+                                            <option value="1">MP4</option>
+                                            <option value="2">WMV</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select id="svFps" class="form-control init" disabled>
+                                            <option value="1">5 FPS</option>
+                                            <option value="2">10 FPS</option>
+                                            <option value="3">15 FPS</option>
+                                            <option value="4">20 FPS</option>
+                                            <option value="5">25 FPS</option>
+                                            <option value="6" selected="selected">30 FPS</option>
+                                            <option value="7">60 FPS</option>
+                                            <option value="8">90 FPS</option>
+                                            <option value="9">120 FPS</option>
+                                            <option value="10">150 FPS</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="playbackButtonClick()" disabled>Playback Drawing Video</button>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                                <!-- Cols 5 -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm" disabled="disabled">Active Tablet</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm" disabled="disabled">Deactive Tablet</button>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <input type="text" class="form-control init" placeholder="Width" id="scWidth" disabled></input>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control init" placeholder="Height" id="scHeight" disabled></input>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="setClip()" disabled>Set Clip</button>
+                                    </td>
+                                </tr>
+
+                                <!-- Cols 6 -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getPadid()" disabled>Pad ID</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getPenid()" disabled>Pen ID</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getVerid()" disabled>Version ID</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="showDiilcd()" disabled>Display Version ID</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="hideDiilcd()" disabled>Hide Version ID</button>
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+
+                                <!-- Cols 7 -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="closeLcd()" disabled>Close LCD</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="openLcd()" disabled>Open LCD</button>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getDevinf()" disabled>Get Device Info</button>
+                                    </td>
+                                    <td>
+                                        <select class="form-control init" id="devInfo" disabled>
+                                            <option value="1">Device Connection</option>
+                                            <option value="2">Device X Range</option>
+                                            <option value="3">Device Y Range</option>
+                                            <option value="4">Device Pressure Range</option>
+                                            <option value="5">Device Vendor</option>
+                                            <option value="6">Device Name</option>
+                                            <option value="7">SDK Version</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <!-- Cols 8 -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="saveData()" disabled>Save Device Data</button>
+                                    </td>
+                                    <td>
+                                        <select class="form-control init" id="svData" disabled>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="readData()" disabled>Read Device Data</button>
+                                    </td>
+                                    <td>
+                                        <select class="form-control init" id="reData" disabled>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="clearData()" disabled>Clear Device Data</button>
+                                    </td>
+                                    <td>
+                                        <select class="form-control init" id="clData" disabled>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Table 2 -->
+                            <Table class="encoding" align="center">
+                                <tr>
+                                    <td style="display: none">
+                                        <select class="form-control init" id="encodeType" disabled>
+                                            <option value="1">BMP</option>
+                                            <option value="2">JPG</option>
+                                            <option value="3">PNG</option>
+                                            <option value="4">GIF</option>
+                                            <option value="5">TIF</option>
+                                            <option value="6">INK</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <!-- Table 3 -->
+                            <table class="decode show-code" align="center" style="display: none">
+                                <tr>
+                                    <td>
+                                        <textarea cols="120" rows="10" id="encode" class="form-control init" disabled></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none">
+                                        <input style="margin: 5px 0px;" class="btn btn-primary btn-lg init" type="button" value="Base64 Decode" onclick="decode()" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none">
+                                        <textarea cols="120" rows="10" id="decode" class="form-control init" disabled></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">PointInfo</h4> </div>
+                                <div class="modal-body" id="pointInfo">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <td class="head">X</td>
+                                            <td class="head">Y</td>
+                                            <td align="right" class="head">Pressure</td>
+                                            <td align="right" class="head">bStrokeEnd</td>
+                                            <td align="right" class="head">Time</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="pointContant">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="playbackModal" tabindex="-1" role="dialog" aria-labelledby="playbackLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="playbackLabel">Playback Drawing Video</h4> </div>
+                                <div class="modal-body">
+                                    <video src="" id="playback-video" autoplay="false" controls style="width: 100%;">
+
+                                    </video>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer" style="display: none">
+
+                        <p style="display: none">Powered By PenPower</p>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn init btn-post btn-primary" style="padding: 6px 13px" onclick="encode()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 </body>
+
 <!-- END BODY -->
 </html>

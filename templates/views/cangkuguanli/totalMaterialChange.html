@@ -59,10 +59,55 @@
         .table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
              border-top: 2px solid #ddd !important;
         }
-        .footTd span{
+        .footTd div{
 
             display: inline-block;
             width: 30%;
+
+        }
+
+        .img-block{
+
+            display: inline-block;
+
+            vertical-align: middle;
+
+            width:100px;
+
+            height:60px;
+        }
+        .signSpan{
+
+            cursor: pointer;
+
+        }
+        .row-canvas {
+            text-align: center;
+            margin: 1em 0;
+            width: 100%;
+            position: relative;
+        }
+        #ppCanvas {
+            border: thin solid #ccc;
+            box-shadow: 4px 4px 12px -2px rgba(51, 51, 51, 0.5);
+            z-index: 1;
+        }
+        .img-block img{
+
+            width:100px;
+
+            height:60px;
+
+            position: static;
+
+        }
+        .table-sign-img{
+
+            width: 100px;
+
+            height: 60px;
+
+            position: static !important;
 
         }
     </style>
@@ -284,9 +329,6 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header noprint">
-                                    <li class="main-contents-header-lists0">物品管理</li>
-                                </ul>
                                 <ul class="condition-query noprint">
                                     <li style="display:none;">
                                         <label for="">时间：</label>
@@ -311,17 +353,22 @@
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
-                                <div class="content-main-contents">
-                                    <div class="main-contents-table" style="margin-top: 0;">
-                                        <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                            <caption>
-                                                <h2 style="text-align: center">材料支出汇总表</h2>
-                                                <div class="table-head" style="display:none;">
-                                                    <div>制表日期：<span class="table-time"></span></div>
-                                                    <div>制表人：<span class="table-person"></span></div>
-                                                </div>
-                                            </caption>
-                                            <thead>
+                                <div class="table-title">
+                                    <span class="spanhover">材料支出汇总表</span>
+                                    <span>历史签字报表</span>
+                                </div>
+                                <div style="overflow: hidden;border: 1px solid #cccccc;border-top: none;padding:20px;padding-top:0">
+                                    <div class="content-main-contents content-main-contents1">
+                                        <div class="main-contents-table">
+                                            <table id="" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <caption>
+                                                    <h2 style="text-align: center">材料支出汇总表</h2>
+                                                    <div class="table-head" style="display:none;">
+                                                        <div>制表日期：<span class="table-time"></span></div>
+                                                        <div>制表人：<span class="table-person"></span></div>
+                                                    </div>
+                                                </caption>
+                                                <thead>
                                                 <tr>
                                                     <td rowspan="3">种类/用途</td>
                                                     <td colspan="12">各  维  保  车  间  材  料  支  出  明  细</td>
@@ -348,10 +395,10 @@
                                                     <td>高铁</td>
                                                     <td>普速</td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                            <tfoot>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
                                                 <tr>
                                                     <td>共计</td>
                                                     <td colspan="2"></td>
@@ -365,16 +412,41 @@
                                                 </tr>
 
                                                 <tr><td colspan="14" class="footTd">
+                                                    <div>
+                                                        <span class="signSpan">维保部</span>
+                                                        <div class="img-block">
+                                                            <img src="" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <span class="signSpan">审核</span>
+                                                        <div class="img-block">
+                                                            <img src="" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <span class="signSpan">编制</span>
+                                                        <div class="img-block">
+                                                            <img src="" alt="">
+                                                        </div>
+                                                    </div>
 
-                                                    <span style="">维保部</span>
-                                                    <span style="">审核</span>
-                                                    <span style="">编制</span>
 
                                                 </td></tr>
 
-                                            </tfoot>
-                                        </table>
-                                        <!--<img src="../resource/img/loading.gif" alt="">-->
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="content-main-contents content-main-contents1 hide-block">
+                                        <div class="main-contents-table">
+                                            <table id="history-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -404,6 +476,11 @@
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
+<!--签字版-->
+<script src="../WebSample/scripts/vendor/modernizr.js"></script>
+<script src="../WebSample/scripts/vendor.js"></script>
+<script src="../WebSample/scripts/plugins.js"></script>
+<script src="../WebSample/scripts/l398s.js"></script>
 <!--[if lt IE 9]>
 <script src="../../../assets/global/plugins/respond.min.js"></script>
 <script src="../../../assets/global/plugins/excanvas.min.js"></script>
@@ -424,6 +501,7 @@
 <script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../../../assets/local/scripts/Went.utility.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
@@ -448,140 +526,6 @@
 </script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
-<!--模态框创建工单-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 585px;">
-        <div class="modal-content" style="height: 585px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">创建工单</h4>
-            </div>
-            <div class="modal-body">
-                <!--主体部分-->
-                <ul class="gongdanList" id="myApp33">
-                    <validator name="validation">
-                        <form novalidate>
-                            <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">是否紧急 *：</div>
-                                <div class="input-blockeds">
-                                    <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios"><label for="ones">是</label>
-                                    <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios"><label for="twos">否</label>
-                                </div>
-                            </li>
-                            <li class="floatRight">
-                                <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.persons" style="display: none">请输入电话号码</span></div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['persons']" initial='off'>
-                                </div>
-                            </li>
-                            <li class="floatLeft">
-                                <div class="labels colorTip">报修人信息 *：<span v-show="$validation.person.persons">报修人信息不能为空</span></div>
-                                <div class="input-blockeds">
-                                    <input type="text"  v-model="person" v-validate:person= "['persons']" initial='off'>
-                                </div><!--v-model="person"--><!--initial='off' detect-change="off"-->
-                            </li>
-                            <li class="floatRight">
-                                <div class="labels colorTip">维修地点 *：<span v-show="$validation.place.persons">维修地点不能为空</span></div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="place"  v-validate:place="['persons']" initial='off'>
-                                </div><!--v-model="place"-->
-                            </li>
-                            <li class="floatLeft">
-                                <div class="labels">报修部门：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="section">
-                                </div>
-                            </li>
-                            <li class="floatRight">
-                                <div class="labels colorTip">维修事项 *：<span v-show="$validation.matter.persons">维修事项不能为空</span></div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="matter" v-validate:matter="['persons']" initial='off'>
-                                </div><!--v-model="matter"-->
-                            </li>
-                            <div class="clearfix"></div>
-                            <div>
-                                <div class="labels">报修备注：</div>
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
-                            </div>
-                            <div>
-                                <div class="labels">维修备注：</div>
-                                <textarea style="width: 100%;height: 60px;outline: none" disabled="true" ></textarea>
-                            </div>
-                        </form>
-                    </validator>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary dengji">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<!--模态框详情-->
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content" style="height:527px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel1">工单明细</h4>
-            </div>
-            <div class="modal-body">
-                <ul class="gongdanList" id="workDone">
-                    <li class="floatLeft">
-                        <div class="labels">报修电话：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiudianhua">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">报修人信息：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiuren">
-                        </div>
-                    </li>
-                    <li class="floatLeft">
-                        <div class="labels">报修部门：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiukeshis">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">报修地点：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiudidians">
-                        </div>
-                    </li>
-                    <li class="floatLeft">
-                        <div class="labels">维修事项：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="weixiushixiangs">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">维修部门：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="weixiukeshis">
-                        </div>
-                    </li>
-                    <div class="clearfix"></div>
-                    <div>
-                        <div class="labels">报修备注：</div>
-                        <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhus"></textarea>
-                    </div>
-                    <div>
-                        <div class="labels">维修备注：</div>
-                        <textarea style="width: 100%;height: 60px;outline: none" disabled="true" v-model="wxbeizhu"></textarea>
-                    </div>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
@@ -593,6 +537,373 @@
             <div class="modal-body">请填写红色必填项</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirm1">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--loadding-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
+<!--签字版-->
+<div class="modal fade" id="Signature-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 557px;">
+        <div class="modal-content" style="height: 557px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="header" style="display: none">
+                        <h1 class="text-muted" >PenPower</h1>
+                        <a class="btn btn-sm btn-success home" href="index.html"><span class="glyphicon glyphicon-home"></span> Home</a>
+                    </div>
+
+                    <div class="row-canvas">
+                        <canvas id="ppCanvas" width="600" height="375"></canvas>
+                        <div class="shutdown"></div>
+                    </div>
+
+
+                    <div class="row" style="display: none">
+                        <div class="col-md-12">
+
+                            <!-- Table 1 -->
+                            <table width="100%" class="functions" style="display: none">
+                                <tbody>
+                                <!-- Cols 1 -->
+                                <tr>
+                                    <td width="16.65%">
+                                        <button type="button" id="initBtn" class="btn btn-block btn-success btn-sm" onclick="initDevice()">Initialize Device</button>
+                                    </td>
+                                    <td width="16.65%">
+                                        <button type="button" id="uninitBtn" class="btn btn-block btn-success btn-sm init" onclick="uninitDevice()" disabled>Uninitialize Device</button>
+                                    </td>
+                                    <td width="16.65%">
+                                        Device Type:
+                                    </td>
+                                    <td width="16.65%">
+                                        <input type="text" value="L398" readonly="readonly" class="form-control"></input>
+                                    </td>
+                                    <td width="16.65%">
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getAbout()" disabled>About</button>
+                                    </td>
+                                    <td width="16.65%">
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="clearInk()" disabled>Clear</button>
+                                    </td>
+                                </tr>
+
+                                <!-- Cols 2 -->
+                                <tr>
+                                    <td>
+                                        Pen Color:
+                                    </td>
+                                    <td>
+                                        <select class="form-control" disabled>
+                                            <option value="1">Black</option>
+                                            <option value="2">Red</option>
+                                            <option value="3">Blue</option>
+                                            <option value="4">Green</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        Pen Width:
+                                    </td>
+                                    <td>
+                                        <select id="penWidth" class="form-control init" onchange="pwChange()" disabled>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3" selected="selected">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        Pen Style:
+                                    </td>
+                                    <td>
+                                        <select id="penStyle" class="form-control init" onchange="psChange()" disabled>
+                                            <option value="0">0 Pressure sensitivity</option>
+                                            <option value="1">1 Fixed width</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <!-- Cols 3 -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="saveDrawing()" disabled>Save Drawing Image</button>
+                                    </td>
+                                    <td>
+                                        <select id="sdType" class="form-control  init" disabled>
+                                            <option value="1">BMP</option>
+                                            <option value="2">JPG</option>
+                                            <option value="3">PNG</option>
+                                            <option value="4">GIF</option>
+                                            <option value="5">TIFF</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select id="sdDpi" class="form-control init" disabled>
+                                            <option value="0">150 dpi</option>
+                                            <option value="1">300 dpi</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getSize()" disabled>Get Size</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getPointer()" disabled>ShowPointInfo</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getValid()" disabled>Get Valid</button>
+                                    </td>
+                                </tr>
+
+                                <!-- Cols 4 -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="saveVideo()" disabled>Save Drawing Video</button>
+                                    </td>
+                                    <td>
+                                        <select id="svType" class="form-control  init" disabled>
+                                            <option value="1">MP4</option>
+                                            <option value="2">WMV</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select id="svFps" class="form-control init" disabled>
+                                            <option value="1">5 FPS</option>
+                                            <option value="2">10 FPS</option>
+                                            <option value="3">15 FPS</option>
+                                            <option value="4">20 FPS</option>
+                                            <option value="5">25 FPS</option>
+                                            <option value="6" selected="selected">30 FPS</option>
+                                            <option value="7">60 FPS</option>
+                                            <option value="8">90 FPS</option>
+                                            <option value="9">120 FPS</option>
+                                            <option value="10">150 FPS</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="playbackButtonClick()" disabled>Playback Drawing Video</button>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                                <!-- Cols 5 -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm" disabled="disabled">Active Tablet</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm" disabled="disabled">Deactive Tablet</button>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <input type="text" class="form-control init" placeholder="Width" id="scWidth" disabled></input>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control init" placeholder="Height" id="scHeight" disabled></input>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="setClip()" disabled>Set Clip</button>
+                                    </td>
+                                </tr>
+
+                                <!-- Cols 6 -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getPadid()" disabled>Pad ID</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getPenid()" disabled>Pen ID</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getVerid()" disabled>Version ID</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="showDiilcd()" disabled>Display Version ID</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="hideDiilcd()" disabled>Hide Version ID</button>
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+
+                                <!-- Cols 7 -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="closeLcd()" disabled>Close LCD</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="openLcd()" disabled>Open LCD</button>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="getDevinf()" disabled>Get Device Info</button>
+                                    </td>
+                                    <td>
+                                        <select class="form-control init" id="devInfo" disabled>
+                                            <option value="1">Device Connection</option>
+                                            <option value="2">Device X Range</option>
+                                            <option value="3">Device Y Range</option>
+                                            <option value="4">Device Pressure Range</option>
+                                            <option value="5">Device Vendor</option>
+                                            <option value="6">Device Name</option>
+                                            <option value="7">SDK Version</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <!-- Cols 8 -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="saveData()" disabled>Save Device Data</button>
+                                    </td>
+                                    <td>
+                                        <select class="form-control init" id="svData" disabled>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="readData()" disabled>Read Device Data</button>
+                                    </td>
+                                    <td>
+                                        <select class="form-control init" id="reData" disabled>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-success btn-sm init" onclick="clearData()" disabled>Clear Device Data</button>
+                                    </td>
+                                    <td>
+                                        <select class="form-control init" id="clData" disabled>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Table 2 -->
+                            <Table class="encoding" align="center">
+                                <tr>
+                                    <td style="display: none">
+                                        <select class="form-control init" id="encodeType" disabled>
+                                            <option value="1">BMP</option>
+                                            <option value="2">JPG</option>
+                                            <option value="3">PNG</option>
+                                            <option value="4">GIF</option>
+                                            <option value="5">TIF</option>
+                                            <option value="6">INK</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <!-- Table 3 -->
+                            <table class="decode show-code" align="center" style="display: none">
+                                <tr>
+                                    <td>
+                                        <textarea cols="120" rows="10" id="encode" class="form-control init" disabled></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none">
+                                        <input style="margin: 5px 0px;" class="btn btn-primary btn-lg init" type="button" value="Base64 Decode" onclick="decode()" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: none">
+                                        <textarea cols="120" rows="10" id="decode" class="form-control init" disabled></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">PointInfo</h4> </div>
+                                <div class="modal-body" id="pointInfo">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <td class="head">X</td>
+                                            <td class="head">Y</td>
+                                            <td align="right" class="head">Pressure</td>
+                                            <td align="right" class="head">bStrokeEnd</td>
+                                            <td align="right" class="head">Time</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="pointContant">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="playbackModal" tabindex="-1" role="dialog" aria-labelledby="playbackLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="playbackLabel">Playback Drawing Video</h4> </div>
+                                <div class="modal-body">
+                                    <video src="" id="playback-video" autoplay="false" controls style="width: 100%;">
+
+                                    </video>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer" style="display: none">
+
+                        <p style="display: none">Powered By PenPower</p>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn init btn-post btn-primary" style="padding: 6px 13px" onclick="encode()">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

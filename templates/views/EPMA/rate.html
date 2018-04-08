@@ -32,6 +32,7 @@
     <link href="../resource/jQuery-showLoading/css/showLoading.css" rel="stylesheet" type="text/css">
     <!--SHOWLOADING END-->
     <link href="css/rate.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../resource/css/HAVC.css">
     <link href="../favicon.ico" rel="shortcut icon" />
 </head>
 <body class="page-header-fixed page-quick-sidebar-over-content">
@@ -165,46 +166,52 @@
                             <i class="fa fa-angle-right"></i>
                         </li>
                     </ul>
-                    <div class="showOrHidden"></div>
                     <div class="page-toolbar">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
+                <div>
+                    <div>
                         <div id="rateBusy">
                             <div class="total-warp">
-                                <!--
-                                 <div class="row margin-top-20">
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="clear row pull-left" style="margin-left:0px;">
-                                            <div style="float:left;line-height:35px;margin-left:0px;">选择时间:</div>
-                                            <div style="float:left;width:150px;margin-left:5px;">
+                                <div class="margin-top-20">
+                                    <div class="conditionSelect">
+                                        <div>
+                                            <label>开始时间</label>
+                                            <div style="display: inline-block;vertical-align: middle">
                                                 <div class="input-group date form_date rateDT">
                                                     <input id="spDT" class="form-control" size="16" type="text" value="" />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
                                                 </div>
                                             </div>
-                                            <div class="circle-ellipse">
-                                                <i class="fa fa-arrow-circle-o-right"></i>
-                                            </div>
-                                            <div style="float:left;width:150px;margin-left:0px;">
+                                        </div>
+                                        <div>
+                                            <label>结束时间</label>
+                                            <div style="display: inline-block;vertical-align: middle">
                                                 <div class="input-group date form_date rateDT">
                                                     <input id="epDT" class="form-control" size="16" type="text" value="" />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
                                                 </div>
                                             </div>
-                                            <a id="rateBtn" class="btn btn-default yellow pull-left" style="margin-left:20px;">查询数据</a>
-                                            <a id="excBtn" class="btn btn-default yellow pull-left hide" style="margin-left:15px;">导出EXCEL</a>
+                                        </div>
+                                        <div>
+                                            <a id="rateBtn" class="btn btn-default pull-left buttonColor">查询数据</a>
                                         </div>
                                     </div>
-                                </div>
-                                -->
-                                <div class="row margin-top-20">
-                                    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-12">
+                                    <div class="main-content">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div id="rateMain" class="full-height-content-body" style="margin-top:5px;height:700px;"></div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <span style="margin-left:10%;margin-top:10px;">注:上行为比例区间,下行为冷量区间，冷量单位为KWH</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-12" style="display: none">
                                         <div class="portlet blue-hoki box yellow">
                                             <div class="portlet-title">
                                                 <div class="caption">
@@ -217,32 +224,22 @@
                                                         <h5>开始时间</h5>
                                                     </div>
                                                     <div class="col-xs-12">
-                                                        <div class="input-group date form_date rateDT">
-                                                            <input id="spDT" class="form-control" size="16" type="text" value="" />
-                                                            <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                        </div>
+
                                                     </div>
                                                     <div class="col-xs-12">
                                                         <h5>结束时间</h5>
                                                     </div>
                                                     <div class="col-xs-12">
-                                                        <div class="input-group date form_date rateDT">
-                                                            <input id="epDT" class="form-control" size="16" type="text" value="" />
-                                                            <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                        </div>
+
                                                     </div>
                                                     <div class="col-xs-12">
-                                                        <a id="rateBtn" class="btn btn-default yellow pull-left margin-top-10">查询数据</a>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-10 col-md-9 col-sm-7 col-xs-12">
+                                    <div class="col-lg-10 col-md-9 col-sm-7 col-xs-12" style="display: none">
                                         <!--full-height-content full-height-content-scrollable -->
                                         <div class="portlet blue-hoki box yellow">
                                             <div class="portlet-title">
@@ -251,14 +248,7 @@
                                                 </div>
                                             </div>
                                             <div class="portlet-body">
-                                                <div class="row">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        <div id="rateMain" class="full-height-content-body" style="margin-top:5px;height:700px;"></div>
-                                                    </div>
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        <span style="margin-left:10%;margin-top:10px;">注:上行为比例区间,下行为冷量区间，冷量单位为KWH</span>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

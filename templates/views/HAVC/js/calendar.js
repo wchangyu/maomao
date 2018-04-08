@@ -1,5 +1,4 @@
-﻿﻿//多区域能效日历
-var Calendar = function () {
+﻿var Calendar = function () {
 
     var selectAREA = "EC";//选中东冷站区域
 
@@ -184,7 +183,7 @@ var Calendar = function () {
         $('#lgbx').html('');
         var HTML = '';
         for (var i = 0; i < mgs.length; i++) {
-            HTML += '<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6"><span style="font-size:12px;">' + mgs[i] + '</span></div>';
+            HTML += '<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6"><span style="font-size:14px;">' + mgs[i] + '</span></div>';
         }
         $('#lgbx').html(HTML);
     }
@@ -192,8 +191,8 @@ var Calendar = function () {
     //获取日历数据
     var getKPIs = function () {
         jQuery('#eerBusy').showLoading();
-        $('#monthBtn').addClass('green');
-        $('#dayBtn').removeClass('green');
+        $('#monthBtn').addClass('buttonColor');
+        $('#dayBtn').removeClass('buttonColor');
         selectDType = "M";//默认选中月数据
         var queryDt = initQueryDt();
         $("#todayDT").html(select_year + "年" + select_month + "月");
@@ -219,6 +218,7 @@ var Calendar = function () {
                     if (res.ecps[i].type === "E") {
                         //object.backgroundColor = req.ecps[i].color;
                         //object.backgroundColor = "transparent";
+                        object.className = 'Estyle';
                     }
                     else {
                         //object.backgroundColor = "transparent";
@@ -241,8 +241,8 @@ var Calendar = function () {
                         var selectDt = (year + "-" + month + "-" + date);
                         $("#todayDT").html(year + "年" + month + "月" + date + "日");
                         //默认选中日数据
-                        $('#monthBtn').removeClass('green');
-                        $('#dayBtn').addClass('green');
+                        $('#monthBtn').removeClass('buttonColor');
+                        $('#dayBtn').addClass('buttonColor');
                         selectDType = "D";
                         getExpDs(selectDt);
                         return false;
@@ -355,12 +355,15 @@ var Calendar = function () {
                     object.name = res.lgs[i] + " " + res.ys[i] + "%";
                     ys.push(object);
                 }
+
+                //饼图颜色
                 option = {
                     tooltip: {
                         trigger: 'item',
                         formatter: "{a} <br>{b}"
                     },
                     legend: {
+                        show:true,
                         orient: 'vertical',
                         x: 'left',
                         data: res.lgs
@@ -370,7 +373,31 @@ var Calendar = function () {
                             name: '分项图',
                             type: 'pie',
                             radius: ['50%', '70%'],
-                            data: ys
+                            data: ys,
+                            label:{
+                                normal: {
+                                    color: '#757575'
+                                }
+                            },
+                            labelLine:{
+                                lineStyle:{
+                                    color:'#757575'
+
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: function(params2) {
+
+                                        var colorList = [
+                                            '#0D9DCB','#0CD34C','#CFCF14',
+                                            '#D36E12','#DC2612','#B70723',
+                                            '#7C05CB','#6bb1a6'
+                                        ];
+                                        return colorList[params2.dataIndex]
+                                    }
+                                }
+                            }
                         }
                     ]
                 };
@@ -421,8 +448,8 @@ var Calendar = function () {
 
             //月数据按钮
             $('#monthBtn').click(function () {
-                $(this).addClass("green");
-                $('#dayBtn').removeClass('green');
+                $(this).addClass("buttonColor");
+                $('#dayBtn').removeClass('buttonColor');
                 selectDType = "M";
                 var todayDt = moment(initQueryDt()).format('YYYY-MM');
                 $("#todayDT").html(todayDt);
@@ -431,8 +458,8 @@ var Calendar = function () {
 
             /*日数据按钮*/
             $('#dayBtn').click(function () {
-                $(this).addClass("green");
-                $('#monthBtn').removeClass('green');
+                $(this).addClass("buttonColor");
+                $('#monthBtn').removeClass('buttonColor');
                 selectDType = "D";
                 var todayDt = initQueryDt();//.format('YYYY-MM-DD');
                 $("#todayDT").html(todayDt);

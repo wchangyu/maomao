@@ -892,9 +892,6 @@ $(function(){
     //当前选中的一条物品列表
     var _wpObject = {};
 
-    //存放发送备件申请的物品名称数组
-    var _clArr = [];
-
     /*--------------------------------------------------按钮事件---------------------------------------------------------*/
     //tab选项卡
     $('.table-title').children('span').click(function(){
@@ -999,10 +996,10 @@ $(function(){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
             }else{
                 var outStoreDetails1 = [];
-                //工单的信息
-                var gdArr = [];
-                //材料工单
-                var clArr = [];
+                ////工单的信息
+                //var gdArr = [];
+                ////材料工单
+                //var clArr = [];
 
                 for(var i=0;i<_rukuArr.length;i++){
 
@@ -1029,10 +1026,10 @@ $(function(){
                     obj.localName = _rukuArr[i].localName;
                     outStoreDetails1.push(obj);
                     //备件转换
-                    if(_rukuArr[i].gdCode){
-                        gdArr.push(_rukuArr[i].gdCode);
-                        clArr.push(_rukuArr[i].itemName);
-                    }
+                    //if(_rukuArr[i].gdCode){
+                    //    gdArr.push(_rukuArr[i].gdCode);
+                    //    clArr.push(_rukuArr[i].itemName);
+                    //}
                 }
 
                 //获取填写的入库信息
@@ -1128,7 +1125,8 @@ $(function(){
                 'storageNum':$('#ckselect').val(),
                 'contractOrder':putOutList.gdCode,
                 'cusName':putOutList.clymc,
-                'phone':putOutList.clydh
+                'phone':putOutList.clydh,
+                'createTime':putOutList.shijian
             }
 
             $.ajax({
@@ -1138,8 +1136,11 @@ $(function(){
                 success:function(result){
                     if(result == 99){
                         _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'修改成功!', '');
+
                         $('#myModal').modal('hide');
+
                         conditionSelect();
+
                     }else{
                         _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'修改失败!', '');
                     }
@@ -1201,10 +1202,10 @@ $(function(){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
             }else{
                 var outStoreDetails1 = [];
-                //工单的信息
-                var gdArr = [];
-                //材料工单
-                var clArr = [];
+                ////工单的信息
+                //var gdArr = [];
+                ////材料工单
+                //var clArr = [];
 
                 _rukuArr = _tempRKArr;
 
@@ -1233,10 +1234,10 @@ $(function(){
                     obj.localName = _rukuArr[i].localName;
                     outStoreDetails1.push(obj);
                     //备件转换
-                    if(_rukuArr[i].gdCode){
-                        gdArr.push(_rukuArr[i].gdCode);
-                        clArr.push(_rukuArr[i].itemName);
-                    }
+                    //if(_rukuArr[i].gdCode){
+                    //    gdArr.push(_rukuArr[i].gdCode);
+                    //    clArr.push(_rukuArr[i].itemName);
+                    //}
                 }
 
                 //获取填写的入库信息
@@ -1296,8 +1297,19 @@ $(function(){
 
             }else{
 
+                _rukuArr.length = 0;
+
                 //首先要获取所有物品的信息
-                _rukuArr = _tempRKArr;
+                for(var i=0;i<_tempRKArr.length;i++){
+
+                    _rukuArr.push(_tempRKArr[i]);
+
+                }
+
+                //工单的信息
+                var gdArr = [];
+                //材料工单
+                var clArr = [];
 
                 var outStoreDetails1 = [];
 
@@ -1326,10 +1338,10 @@ $(function(){
                     obj.localName = _rukuArr[i].localName;
                     outStoreDetails1.push(obj);
                     //备件转换
-                    if(_rukuArr[i].gdCode){
-                        gdArr.push(_rukuArr[i].gdCode);
-                        clArr.push(_rukuArr[i].itemName);
-                    }
+                    //if(_rukuArr[i].gdCode){
+                    //    gdArr.push(_rukuArr[i].gdCode);
+                    //    clArr.push(_rukuArr[i].itemName);
+                    //}
                 }
 
                 //获取填写的入库信息
@@ -1352,7 +1364,8 @@ $(function(){
                     'storageNum':$('#ckselect').val(),
                     'contractOrder':(typeof putOutList.gdCode == 'undefined')?'':putOutList.gdCode,
                     'cusName':putOutList.clymc,
-                    'phone':putOutList.clydh
+                    'phone':putOutList.clydh,
+                    'createTime':putOutList.shijian
                 }
 
                 $.ajax({
@@ -1369,6 +1382,7 @@ $(function(){
                             $('#myModal1').modal('hide');
 
                             conditionSelect();
+
                         }else{
                             _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'编辑失败!', '');
                         }
@@ -1561,6 +1575,7 @@ $(function(){
 
         //获取入库信息的详细物品信息
         function sucFun2(result){
+
             _rukuArr.length = 0;
 
             for(var i=0;i<result.length;i++){
@@ -1581,7 +1596,7 @@ $(function(){
                 _rukuArr.push(result[i]);
             }
 
-            _datasTable($('#personTable1'),result);
+            _datasTable($('#personTable1'),_rukuArr);
 
             //共计
             //数量
@@ -1612,6 +1627,7 @@ $(function(){
                 $('#ckselect').attr('disabled',true).addClass('disabled-block');
 
             }
+
         }
 
         detailInfo($thisDanhao,sucFun2);
@@ -1905,6 +1921,7 @@ $(function(){
     $('#myModal1').on('shown.bs.modal',function(){
 
         $('#workDone').find('.kuwei').focus();
+
 
     })
 
@@ -2842,6 +2859,7 @@ $(function(){
             url:_urls + 'YWCK/ywCKGetOutStorageDetail',
             data:prm,
             timeout:_theTimes,
+            async:false,
             beforeSend: function () {
 
                 $('#theLoading').modal('show');
@@ -4217,6 +4235,8 @@ $(function(){
         //审核时间
         putOutList.shenheTime = '';
 
+        //默认修改物品按钮为不可操作
+
         var emptyArr = [];
 
         if(arr){
@@ -4369,9 +4389,6 @@ $(function(){
         }else{
 
             _datasTable($('#wuPinListTable1'),emptyArr);
-
-            console.log(emptyArr);
-
         }
 
         //下拉框都确保隐藏

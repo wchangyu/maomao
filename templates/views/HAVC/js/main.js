@@ -47,7 +47,7 @@
     var init_e_c_p_chartView = function (MIN, MAX, cpV) {
         e_c_p_chartView = echarts.init(document.getElementById('e_c_p_chartView'));
         var miscstr = "元/KW";
-        var cc = [[0.38, '#ff4500'], [0.46, 'orange'], [0.55, 'skyblue'], [1, 'lightgreen']];
+        var cc = [[0.38, '#14E398'], [0.46, '#1E79D7'], [0.55, '#ead01e'], [1, '#F8276C']];
         option = {
             tooltip: {
                 formatter: "{a} <br/>{c} {b}"
@@ -103,7 +103,7 @@
     var init_w_c_p_chartView = function (MIN, MAX, cpV) {
         w_c_p_chartView = echarts.init(document.getElementById('w_c_p_chartView'));
         var miscstr = "元/KW";
-        var cc = [[0.38, '#ff4500'], [0.46, 'orange'], [0.55, 'skyblue'], [1, 'lightgreen']];
+        var cc = [[0.38, '#14E398'], [0.46, '#1E79D7'], [0.55, '#ead01e'], [1, '#F8276C']];
         option = {
             tooltip: {
                 formatter: "{a} <br/>{c} {b}"
@@ -159,7 +159,7 @@
     var init_e_r_p_chartView = function (MIN, MAX, cpV) {
         e_r_p_chartView = echarts.init(document.getElementById('e_r_p_chartView'));
         var miscstr = "元/KW";
-        var cc = [[0.38, '#ff4500'], [0.46, 'orange'], [0.55, 'skyblue'], [1, 'lightgreen']];
+        var cc = [[0.38, '#14E398'], [0.46, '#1E79D7'], [0.55, '#ead01e'], [1, '#F8276C']];
         option = {
             tooltip: {
                 formatter: "{a} <br/>{c} {b}"
@@ -215,7 +215,7 @@
     var init_w_r_p_chartView = function (MIN, MAX, cpV) {
         w_r_p_chartView = echarts.init(document.getElementById('w_r_p_chartView'));
         var miscstr = "元/KW";
-        var cc = [[0.38, '#ff4500'], [0.46, 'orange'], [0.55, 'skyblue'], [1, 'lightgreen']];
+        var cc = [[0.38, '#14E398'], [0.46, '#1E79D7'], [0.55, '#ead01e'], [1, '#F8276C']];
         option = {
             tooltip: {
                 formatter: "{a} <br/>{c} {b}"
@@ -558,6 +558,9 @@
     return {
         init: function () {
             var pos = JSON.parse(sessionStorage.pointers);
+
+            console.log(pos);
+
             var po = pos[0];
             sessionStorage.PointerID = po.pointerID;
             sessionStorage.PointerName = po.pointerName;

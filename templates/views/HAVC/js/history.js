@@ -106,7 +106,7 @@ var History = function () {
 
     //获取设备类型
     var getEqTyAys = function () {
-        var url = sessionStorage.apiUrlPrefix + "/MultiAreaHistory/GetEQTypes";
+        var url = sessionStorage.apiUrlPrefix + "MultiAreaHistory/GetEQTypes";
         $.get(url, function (res) {
             eqTyAy = res;
             //获取区域数据
@@ -116,7 +116,7 @@ var History = function () {
 
     //获取区域数据
     var getAreaAys = function () {
-        var url = sessionStorage.apiUrlPrefix + "/MultiAreaHistory/GetChillAREAs";
+        var url = sessionStorage.apiUrlPrefix + "MultiAreaHistory/GetChillAREAs";
         $.get(url, function (res) {
             chArAy = res;
             //初始化区域选择控件
@@ -185,7 +185,7 @@ var History = function () {
         jQuery('#historyBusy').showLoading();
         var area = $('#areaType').val();
         var eqty = $('#eqType').val();
-        var url = sessionStorage.apiUrlPrefix + "/MultiAreaHistory/GetDataCCodeTrvNodes";
+        var url = sessionStorage.apiUrlPrefix + "MultiAreaHistory/GetDataCCodeTrvNodes";
         $.post(url, {
             pId: sessionStorage.PointerID,
             area: area,
@@ -232,16 +232,20 @@ var History = function () {
         jQuery('#historyBusy').showLoading();
         var sp = $("#spDT").val();
         var ep = $("#epDT").val();
-        var mtsp = moment(sp);
-        var mtep = moment(ep);
+        var mtsp = moment(sp).format('YYYY-MM-DD');
+        var mtep = moment(ep).format('YYYY-MM-DD');;
         var dp = mtep - mtsp;
         var days = Math.floor(dp / (24 * 3600 * 1000));
+
         if (days > 31) {
             alert("提示(历史数据):查看监测因子的历史数据时间段不能超过31天");
             return;
         } else {
+
             mycv = echarts.init(document.getElementById('historyChartView'));
+
             var url = sessionStorage.apiUrlPrefix + "History/GetHistoryDatas";
+
             $.post(url, {
                 pId: sessionStorage.PointerID,
                 cIds: cIds,

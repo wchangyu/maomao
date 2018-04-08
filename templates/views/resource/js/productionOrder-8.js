@@ -131,6 +131,15 @@ $(function(){
     //条件查询车站
     addStationDom($('#bumen').parent());
 
+    //存放当前工单申请备件的数组
+    var _beiJArr = [];
+
+    //工单2
+    var _gdCode2 = '';
+
+    //当前的车站编码
+    var _chezhanCode = '';
+
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -258,7 +267,13 @@ $(function(){
             },
             {
                 title:__names.department,
-                data:'bxKeshi'
+                data:'bxKeshi',
+                className:'stationNum',
+                render:function(data, type, full, meta){
+
+                    return '<span data-num="' + full.bxKeshiNum +'"> ' + data + ' </span>'
+
+                }
             },
             {
                 title:'故障位置',
@@ -676,40 +691,40 @@ $(function(){
             e.stopPropagation();
         })
         .on('click','tr',function(){
-        _gdCircle = $(this).children('td').children('.gongdanId').attr('gdcircle');
-        var $this = $(this);
-        _currentChexiao = true;
-        _currentClick = $this;
-        $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
-        $this.addClass('tables-hover');
-        //获得详情
-        var gdCode = parseInt($this.children('td').children('.gongdanId').attr('gdCode'));
-        var gdZht = parseInt($this.children('.ztz').html());
-        _gdState = gdZht
-        _gdCode = gdCode;
-        var prm = {
-            "gdCode": gdCode,
-            "gdZht": gdZht,
-            "wxKeshi": "",
-            "userID": _userIdNum,
-            'gdCircle':_gdCircle
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDGetDetail',
-            data:prm,
-            success:function(result){
-                if(result){
-                    _zhixingRens = result.wxRens;
-                    _weiXiuCaiLiao = result.wxCls;
-                    _fuZeRen = result.gdWxLeaders;
-                }
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
+            _gdCircle = $(this).children('td').children('.gongdanId').attr('gdcircle');
+            var $this = $(this);
+            _currentChexiao = true;
+            _currentClick = $this;
+            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
+            //获得详情
+            var gdCode = parseInt($this.children('td').children('.gongdanId').attr('gdCode'));
+            var gdZht = parseInt($this.children('.ztz').html());
+            _gdState = gdZht
+            _gdCode = gdCode;
+            var prm = {
+                "gdCode": gdCode,
+                "gdZht": gdZht,
+                "wxKeshi": "",
+                "userID": _userIdNum,
+                'gdCircle':_gdCircle
             }
+            $.ajax({
+                type:'post',
+                url:_urls + 'YWGD/ywGDGetDetail',
+                data:prm,
+                success:function(result){
+                    if(result){
+                        _zhixingRens = result.wxRens;
+                        _weiXiuCaiLiao = result.wxCls;
+                        _fuZeRen = result.gdWxLeaders;
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            })
         })
-    })
         .on('click','.option-beijian',function(e){
 
             //初始化
@@ -718,7 +733,6 @@ $(function(){
             //模态框
             moTaiKuang($('#myModal5'),'维修备件申请');
 
-            //样式
             //样式
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
 
@@ -731,6 +745,12 @@ $(function(){
             _gdState = $(this).parents('tr').find('.ztz').html();
             //工单重发值
             _gdCircle = $(this).parents('tr').find('.gdInfo').children().attr('gdcircle');
+
+            //工单2
+            _gdCode2 = $(this).parents('tr').find('.gdInfo').children('a').html();
+
+            //车站编码
+            _chezhanCode = $(this).parents('tr').find('.stationNum').children('span').attr('data-num');
 
             var prm = {
                 //工单号
@@ -751,9 +771,13 @@ $(function(){
                     var bmArr = [];
                     //存放物料的数组
                     var wlArr = [];
+
+                    _beiJArr.length = 0;
+
                     for(var i=0;i<result.wxCls.length;i++){
                         wlArr.push(result.wxCls[i]);
                         bmArr.push(result.wxCls[i].wxCl);
+                        _beiJArr.push(result.wxCls[i]);
                     }
                     //备件图片
                     _imgBJNum = result.hasBjImage;
@@ -784,6 +808,9 @@ $(function(){
                             console.log(jqXHR.responseText);
                         }
                     })
+
+                    //生成用料单
+
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -998,10 +1025,12 @@ $(function(){
     })
 
     $('#myModal5').on('click','.btn-primary:nth-child(1)',function(){
+
         applySparePart($(this),'flag');
     });
 
     $('#myModal5').on('click','.btn-primary:nth-child(2)',function(){
+
         applySparePart($(this));
     });
 
@@ -1141,7 +1170,7 @@ $(function(){
             url: _urls + 'YWGD/ywGDGetZh2',
             data:prm,
             success:function(result){
-                datasTable($("#scrap-datatables"),result);
+                _jumpNow($("#scrap-datatables"),result);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1495,17 +1524,28 @@ $(function(){
 
     //申请备件(同意【flag】，拒绝)
     function applySparePart(el,flag){
+
         var stateTrend = el.attr('data-value');
+
         var stateHtml = el.html();
+
         if(flag){
+
             var arr = stateTrend.split(',');
+
             if(_trend == ''){
+
                 stateTrend = arr[0];
+
             }else{
+
                 stateTrend = arr[1];
+
             }
+
         }
         var prm = {
+
             "gdCode": _gdCode,
             "clStatusId": stateTrend,
             "clStatus": stateHtml,
@@ -1519,17 +1559,97 @@ $(function(){
             data:prm,
             success:function(result){
                 if( result == 99 ){
-                    $('#myModal2').find('.modal-body').html('操作成功');
-                    moTaiKuang($('#myModal2'),'提示','flag');
-                    $('#myModal5').modal('hide');
-                    //conditionSelect();
+
+                    if(_beiJArr.length == 0){
+
+                        $('#myModal2').find('.modal-body').html('操作成功');
+
+                        moTaiKuang($('#myModal2'),'提示','flag');
+
+                        $('#myModal5').modal('hide');
+
+                        conditionSelect();
+
+                    }else{
+
+                        //审核通过之后创建物料单
+
+                        var arr = [];
+
+                        for(var i=0;i<_beiJArr.length;i++){
+
+                            arr.push(_beiJArr[i].wxCl);
+
+                        }
+
+                        var prm = {
+
+                            //车站编号
+                            bxKeshiNum:_chezhanCode,
+                            //工单号
+                            gdCode2:_gdCode2,
+                            //申请的物品编码
+                            itemNum1:arr
+                        }
+
+                        $.ajax({
+
+                            type:'post',
+
+                            url:_urls + 'YWCK/ywCKAddPickList',
+
+                            timeout:_theTimes,
+
+                            data:prm,
+
+                            success:function(result){
+
+                                if(result == 99){
+
+                                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'审核通过，创建用料单成功！', '');
+
+
+                                    $('#myModal5').modal('hide');
+
+                                    conditionSelect();
+
+
+                                }else{
+
+                                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'审核通过，创建用料单失败！', '');
+
+
+                                    $('#myModal5').modal('hide');
+
+                                }
+
+
+
+                            },
+
+                            error:function(jqXHR, textStatus, errorThrown){
+
+                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'审核通过，创建用料单失败！', '');
+
+                                console.log(jqXHR.responseText);
+
+                            }
+
+                        })
+
+                    }
+
+
                 }else{
                     $('#myModal2').find('.modal-body').html('操作失败');
+
                     moTaiKuang($('#myModal2'),'提示','flag');
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'审核失败！', '');
+
             }
         })
     }
