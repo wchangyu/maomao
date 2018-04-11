@@ -29,10 +29,10 @@ $(function () {
     //初始话容器宽高
     $('.plugin').css({
         width: curWidth,
-        height:curHeight-20
+        height:curHeight
     });
     // 初始化插件参数及插入插件
-    WebVideoCtrl.I_InitPlugin( curWidth, curHeight-20, {
+    WebVideoCtrl.I_InitPlugin( curWidth, curHeight, {
         bWndFull: true,     //是否支持单窗口双击全屏，默认支持 true:支持 false:不支持
         iPackageType: 2,    //2:PS 11:MP4
         iWndowType: 2,

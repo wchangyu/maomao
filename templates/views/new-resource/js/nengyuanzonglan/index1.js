@@ -432,7 +432,9 @@ var officeIdArr = getOfficesId();
 
 //获取配置好的能耗类型数据
 var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
-var allEnergyArr = unitObj.alltypes;
+if(unitObj){
+    var allEnergyArr = unitObj.alltypes;
+}
 
 //------------------------------------页面主体方法-----------------------------------//
 

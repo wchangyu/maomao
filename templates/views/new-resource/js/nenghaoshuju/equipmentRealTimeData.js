@@ -19,8 +19,6 @@ $(function(){
     //
     //zTree.checkNode(nodes[0].children[0].children[0], true, true);
 
-
-
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
     $('.buttons').children('.btn-success').click(function(){
@@ -197,7 +195,6 @@ function getDevAreaByType(){
         }
     })
 }
-
 
 //获取数据
 //flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据

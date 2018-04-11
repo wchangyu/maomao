@@ -30,8 +30,6 @@ $(function(){
     //默认能耗种类
     _ajaxEcType =_getEcTypeValue();
 
-    console.log(_ajaxEcType);
-
     _ajaxEcTypeWord = _getEcTypeWord();
 
     //获取区域位置二级结构
@@ -206,7 +204,9 @@ var option1 = {
 
 //获取配置好的能耗类型数据
 var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
-var allEnergyArr = unitObj.alltypes;
+if(unitObj){
+    var allEnergyArr = unitObj.alltypes;
+}
 
 /*---------------------------------otherFunction------------------------------*/
 
@@ -228,7 +228,6 @@ function getPointerData(url){
         if(o.level == 0){
 
             enterpriseID = 0;
-
 
         }else{
             enterpriseID = o.id;

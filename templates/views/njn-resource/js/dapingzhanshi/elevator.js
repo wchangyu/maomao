@@ -246,6 +246,7 @@ function getSeAreaElevator(){
 
 //绘制页面右侧的table
 function drawDataTableByResult(titleArr,areaDataArr){
+
     //定义title
     var titleHtml = '';
 

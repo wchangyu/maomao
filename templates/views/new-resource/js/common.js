@@ -901,3 +901,9 @@ function getPointersId(){
 };
 
 
+var date0 = moment("2018/03").format("YYYY/MM/DD");
+console.log(date0);
+
+
+
+

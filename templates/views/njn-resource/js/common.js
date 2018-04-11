@@ -9,9 +9,6 @@ $(function(){
     //获取下方能源管理数据
     getPointerData();
 
-    //获取页面左侧下方统计数据
-    getStationAlarmNum();
-
     //点击左侧下方选项卡
     $('.left-tab-container .left-tab').on('click',function(){
 
@@ -289,7 +286,6 @@ function drawRightTab(){
     }
 
 };
-
 
 //能源管理echart
 //左侧下方柱状图

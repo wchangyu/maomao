@@ -1028,6 +1028,11 @@
     height: auto;
 }
 
+/*loading图*/
+.loading-indicator-overlay,.loading-indicator {
+    z-index: 100000 !important;
+}
+
 
 
 

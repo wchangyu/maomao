@@ -343,6 +343,10 @@ $(function(){
 
         var obj = {
 
+            //总开关
+            //设备监控总开关
+            switch:$('.equipmentSystem-button').hasClass('button-on')?1:0,
+
             //设备监控
             TPDevMonitorReturnNew:{
 
@@ -367,7 +371,7 @@ $(function(){
                     },
 
                     //电功率
-                    elecPowe:getValue($('.HVAC'),6,'number'),
+                    elecPower:getValue($('.HVAC'),6,'number'),
 
                     //报警点
                     alarmNum:getValue($('.HVAC'),8,'int'),
@@ -706,7 +710,7 @@ $(function(){
                     ],
 
                     //总费用
-                    allEnergyCostData:Number(0),
+                    allEnergyCostData:getValue($('.ENERGY'),5,'number'),
 
                     //报警点
                     alarmNum:getValue($('.ENERGY'),1,'number'),
@@ -890,7 +894,7 @@ $(function(){
 
         };
 
-        console.log(prm);
+        //console.log(prm);
 
         $.ajax({
 
@@ -979,13 +983,10 @@ $(function(){
 
                     $('.switch-button').removeClass('button-on').addClass('button-off');
 
-
                 }else{
 
                     var result1 = JSON.parse(result);
                     console.log(result1);
-
-
                     //赋值
                     //暖通系统
                     var hvac = $('.HVAC').children('li');
@@ -1009,7 +1010,7 @@ $(function(){
                             hvac.eq(4).children('input').val(obj.hvacAirData.nxVa);
 
                             //电功率
-                            hvac.eq(6).children('input').val(obj.elecPowe);
+                            hvac.eq(6).children('input').val(obj.elecPower);
 
                             //报警点
                             hvac.eq(8).children('input').val(obj.alarmNum);
@@ -1338,6 +1339,9 @@ $(function(){
 
                             //总能耗
                             energy.eq(6).children('input').val(obj.allEnergyData);
+
+                            //总费用
+                            energy.eq(5).children('input').val(obj.allEnergyCostData);
 
                             //报警点
                             energy.eq(1).children('input').val(obj.alarmNum);

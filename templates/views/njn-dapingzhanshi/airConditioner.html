@@ -262,6 +262,72 @@
     </div>
 </div>
 
+<!--报警点弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='alarm-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>报警点位信息</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+                    <li>
+                        <label for="">报警类型</label>
+                        <select name="" id="" class="alarm-select">
+
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">设备名称</label>
+                        <input class="dev-type" type="text" />
+                    </li>
+
+                    <li>
+                        <label for="">报警名称</label>
+                        <input  class="alarm-type" type="text" />
+                    </li>
+
+                    <li>
+                        <button class="demand-button"></button>
+                    </li>
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container ">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="dateTables">
+                        <thead>
+                        <tr>
+                            <th>设备名称</th>
+                            <th>报警名称</th>
+                            <th>位置</th>
+                            <th>服务区域</th>
+                            <th>类型</th>
+                            <th>级别</th>
+                            <th>报警时间</th>
+                            <th>是否已报单</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <script src="../../../assets/global/plugins/respond.min.js"></script>
 <script src="../../../assets/global/plugins/excanvas.min.js"></script>
 <![endif]-->
@@ -309,6 +375,7 @@
         Demo.init(); // init demo features
         BEE.init();
     });
+
 </script>
 </body>
 </html>

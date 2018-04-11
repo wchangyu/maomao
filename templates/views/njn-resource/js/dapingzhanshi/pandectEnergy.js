@@ -3,14 +3,20 @@
  */
 $(function(){
 
+    //从后台获取用户配置的数据
+    getDeployByUser();
+
+    //获取报警类型
+    typeOfAlarm();
+
     //获取页面主题部分数据
-    getTPDevMonitor();
+   // getTPDevMonitor();
 
     ////获取电耗分项数据
     //getFirstEnergyItemData();
 
     //设备报警
-    getStationAlarmData(1);
+    //getStationAlarmData(1);
 
     //时间插件初始化
     _timeYMDComponentsFun($('.datatimeblock'));
@@ -23,6 +29,24 @@ $(function(){
 
         //给当前选中元素添加选中类名
         $(this).addClass('right-tab-choose');
+
+        if(userEquipObj != {}){
+
+            //获取当前的索引
+            var index = $(this).index();
+
+            //获取当前要取出的设备报警数据索引
+            var thisIndex = 2 - ((index - 1) / 2) ;
+
+            //数据赋值
+            leftBottomOption.series[0].data = userEquipAlarmArr[thisIndex].value;
+            leftBottomOption.xAxis[0].data = userEquipAlarmArr[thisIndex].xData;
+
+            //页面重绘数据
+            leftBottomChart.setOption(leftBottomOption,true);
+
+            return false;
+        }
 
         //设备报警
         getStationAlarmData(1);
@@ -39,21 +63,20 @@ $(function(){
         //定时刷新
         setInterval(function(){
 
-            //获取页面主题部分数据
-            getTPDevMonitor();
-
-            //设备报警
-            getStationAlarmData(1);
-
-            //设备报警
-            getStationAlarmData(1);
+            //从后台获取用户配置的数据
+            getDeployByUser();
 
 
         },_refresh * 1000 * 60)
     };
 
+    //-----------------------------报警信息弹窗-----------------------------//
+
     //点击报警信息弹出报警弹窗 并展示数据
     $(".alarm-data-container").on('click',function(){
+
+        //select框默认选中第一个
+        $('#alarm-message .alarm-select option:first').prop("selected", 'selected');
 
         //显示悬浮窗
         $('#alarm-message').modal('show');
@@ -64,23 +87,63 @@ $(function(){
         //放入到弹窗标题中
         $('#alarm-message .systematic-name').html(title);
 
+        //获取当前的设备类型
+        var devTypeArr = $(this).attr('data-devtype').split(',');
+
+        $('#alarm-message .systematic-name').attr('data-devtype',$(this).attr('data-devtype'));
+
+        //获取报警数据
+        getDevMonitAlarmPopup(devTypeArr);
+
     });
+
+    //报警信息弹窗中的查询功能
+    $('#alarm-message .demand-button').on('click',function(){
+
+        //获取当前的设备类型
+        var devTypeArr = $('#alarm-message .systematic-name').attr('data-devtype').split(',');
+
+        //获取报警类型
+        var alarmType = $('#alarm-message .alarm-select').val();
+
+        //获取设备名称
+        var devName = $('#alarm-message .dev-type').val();
+
+        //获取报警名称
+        var alarmName = $('#alarm-message .alarm-type').val();
+
+        var condition =   {
+            "pointerID":curPointerIDArr[0],
+            "devTypeIDs": devTypeArr,
+            "alarmType": alarmType,
+            "devName": devName,
+            "alarmName": alarmName,
+            "startTime": startDate,
+            "endTime": endDate
+        };
+
+        //获取报警数据
+        getDevMonitAlarmPopup(devTypeArr,condition);
+
+    });
+
+    //-----------------------------运行信息弹窗-----------------------------//
 
     //点击运行信息弹出运行弹窗 并展示数据
-    $(".bottom-equipment-chart-show").on('click',function(){
-
-        //显示悬浮窗
-        $('#run-number-message').modal('show');
-
-        //获取当前系统名称
-        var title = $(this).parents(".right-bottom-equipment-container").find(".equipment-title a").html();
-
-        //放入到弹窗标题中
-        $('#run-number-message .systematic-name').html(title);
-
-        //获取数据
-
-    });
+    //$(".bottom-equipment-chart-show").on('click',function(){
+    //
+    //    //显示悬浮窗
+    //    $('#run-number-message').modal('show');
+    //
+    //    //获取当前系统名称
+    //    var title = $(this).parents(".right-bottom-equipment-container").find(".equipment-title a").html();
+    //
+    //    //放入到弹窗标题中
+    //    $('#run-number-message .systematic-name').html(title);
+    //
+    //    //获取数据
+    //
+    //});
 
     //点击运行温度弹出运行弹窗 并展示数据
     $(".bottom-equipment-chart-humiture").on('click',function(){
@@ -127,6 +190,44 @@ $(function(){
 
     });
 
+    //温度弹窗中的查询功能
+    $('#humiture-message .demand-button').on('click',function(){
+
+        //获取当前的设备名称
+        var equipmentName = $('#humiture-message .demand-condition-container li').eq(0).find('input').val();
+
+        var condition = {
+            "reportID": "1",
+            "requesparameters": [
+                {
+                    "name": "dh_name",
+                    "value": equipmentName
+                },
+                {
+                    "name": "dh_weizhi",
+                    "value": ""
+                },
+                {
+                    "name": "dh_ctypeid",
+                    "value": "4321"
+                },
+                {
+                    "name": "dh_devtype",
+                    "value": "7"
+                },
+                {
+                    "name": "dh_pointerid",
+                    "value": curPointerIDArr[0]
+                }
+            ]
+        };
+
+        //获取后台数据
+        getTableData(condition,'#dateTables-humiture');
+    });
+
+    //-----------------------------电功率弹窗-----------------------------//
+
     //点击电功率信息弹出电功率弹窗 并展示数据
     $(".bottom-equipment-chart-electric").on('click',function(){
 
@@ -136,28 +237,55 @@ $(function(){
         //获取当前系统名称
         var title = $(this).parents(".right-bottom-equipment-container").find(".equipment-title a").html();
 
-        //console.log(title);
+        //获取当前的设备类型
+        var devTypeArr = $(this).parents('.right-bottom-equipment-content').find('.alarm-data-container').attr('data-devtype').split(',');
+
+        $('#electric-message .systematic-name').attr('data-devtype',$(this).parents('.right-bottom-equipment-content').find('.alarm-data-container').attr('data-devtype'));
 
         //放入到弹窗标题中
         $('#electric-message .systematic-name').html(title);
 
+        //获取后台数据
+        getDevMonitPowerData(devTypeArr);
+
     });
+
+    //电功率信息弹窗中的查询功能
+    $('#electric-message .demand-button').on('click',function(){
+
+        //获取当前的设备类型
+        var devTypeArr = $('#electric-message .systematic-name').attr('data-devtype').split(',');
+
+        //获取支路名称
+        var serviceName = $('#electric-message .serv-name').val();
+
+        var condition =   {
+            "pointerID":curPointerIDArr[0],
+            "devTypeIDs": devTypeArr,
+            "serviceName": serviceName
+        };
+
+        //获取报警数据
+        getDevMonitPowerData(devTypeArr,condition);
+    });
+
+    //-----------------------------故障率弹窗-----------------------------//
 
     //点击故障率信息弹出故障率弹窗 并展示数据
-    $(".bottom-equipment-chart-fault").on('click',function(){
-
-        //显示悬浮窗
-        $('#failure-message').modal('show');
-
-        //获取当前系统名称
-        var title = $(this).parents(".right-bottom-equipment-container").find(".equipment-title a").html();
-
-        //console.log(title);
-
-        //放入到弹窗标题中
-        $('#failure-message .systematic-name').html(title);
-
-    });
+    //$(".bottom-equipment-chart-fault").on('click',function(){
+    //
+    //    //显示悬浮窗
+    //    $('#failure-message').modal('show');
+    //
+    //    //获取当前系统名称
+    //    var title = $(this).parents(".right-bottom-equipment-container").find(".equipment-title a").html();
+    //
+    //    //console.log(title);
+    //
+    //    //放入到弹窗标题中
+    //    $('#failure-message .systematic-name').html(title);
+    //
+    //});
 
     //点击能耗信息弹出能耗弹窗 并展示数据
     $(".bottom-equipment-chart-energy").on('click',function(){
@@ -165,39 +293,114 @@ $(function(){
         //显示悬浮窗
         $('#energy-message').modal('show');
 
+        var condition = {
+            "reportID": "50000",
+            "requesparameters": [
+                {
+                    "name": "pointerid",
+                    "value": curPointerIDArr[0]
+                },
+                {
+                    "name": "startdate",
+                    "value": startDate
+                },
+                {
+                    "name": "enddate",
+                    "value": endDate
+                }
+            ]
+        };
 
+        //获取后台数据
+        getTableData(condition,'#dateTables-energy');
+
+    });
+
+    //能耗信息弹窗中的查询功能
+    $('#energy-message .demand-button').on('click',function(){
+
+        //获取当前的开始结束时间
+        var startDate = $('#energy-message .demand-condition-container li').eq(0).find('input').val();
+
+        var endDate = $('#energy-message .demand-condition-container li').eq(1).find('input').val();
+        endDate = moment(endDate).add('1','days').format('YYYY-MM-DD');
+
+        var condition = {
+            "reportID": "50000",
+            "requesparameters": [
+                {
+                    "name": "pointerid",
+                    "value": curPointerIDArr[0]
+                },
+                {
+                    "name": "startdate",
+                    "value": startDate
+                },
+                {
+                    "name": "enddate",
+                    "value": endDate
+                }
+            ]
+        };
+
+        //获取后台数据
+        getTableData(condition,'#dateTables-energy');
     });
 
     //点击能耗费用信息弹出能耗费用弹窗 并展示数据
-    $(".bottom-equipment-chart-cost").on('click',function(){
-
-        //显示悬浮窗
-        $('#cost-message').modal('show');
-
-    });
+    //$(".bottom-equipment-chart-cost").on('click',function(){
+    //
+    //    //显示悬浮窗
+    //    $('#cost-message').modal('show');
+    //
+    //});
 
     //点击节能减排信息弹出能耗费用弹窗 并展示数据
-    $(".right-bottom-centent-conservation").on('click',function(){
+    //$(".right-bottom-centent-conservation").on('click',function(){
+    //
+    //    //获取当前能耗类型
+    //    var title = $(this).find('.top-title').html();
+    //
+    //    //放入到弹窗标题中
+    //    $('#conservation-message h4').html(title);
+    //
+    //    //显示悬浮窗
+    //    $('#conservation-message').modal('show');
+    //
+    //});
 
-        //获取当前能耗类型
-        var title = $(this).find('.top-title').html();
+    //-----------------------------右下角故障设备信息弹窗-----------------------------//
 
-        //放入到弹窗标题中
-        $('#conservation-message h4').html(title);
-
-        //显示悬浮窗
-        $('#conservation-message').modal('show');
-
-    });
-
-    //点击能耗费用信息弹出能耗费用弹窗 并展示数据
+    //点击故障设备信息弹出故障设备弹窗 并展示数据
     $(".right-bottom-content-trouble").on('click',function(){
 
         //显示悬浮窗
         $('#trouble-message').modal('show');
 
+        //获取后台数据
+        getDevFaultAlarmPropData()
+
     });
 
+    //故障设备信息弹窗中的查询功能
+    $('#trouble-message .demand-button').on('click',function(){
+
+        //获取当前的开始时间
+        var startDate = $('#electric-message .min-date').val();
+
+        //获取结束时间
+        var endDate = $('#electric-message .max-date').val();
+
+        var condition =   {
+            "pointerID":curPointerIDArr[0],
+            "startTime": startDate,
+            "endTime": endDate
+        };
+
+        //获取报警数据
+        getDevFaultAlarmPropData(condition);
+
+    });
 
     //点击打开消防系统
     $('.platform-title').on('click',function(){
@@ -206,52 +409,22 @@ $(function(){
     });
 
 
+    $('.close').on('click',function(){
 
-    ////当鼠标放到系统选项卡上时
-    //$('.right-bottom-equipment-container').on('hover','.equipment-title',function(){
-    //
-    //    var jumpData = $(this).attr('jump-data');
-    //
-    //    //暖通系统
-    //    if(jumpData){
-    //
-    //        jumpData = parseInt(jumpData);
-    //
-    //        $(".jump-containers").eq(jumpData).show();
-    //
-    //    }
-    //
-    //});
-    //
-    //$('.right-bottom-equipment-container').on('hover','.jump-containers',function(){
-    //
-    //    $(this).show();
-    //});
-    //
-    //
-    ////当鼠标离开系统选项卡上时
-    //$('.right-bottom-equipment-container').on('mouseleave','.equipment-title',function(){
-    //
-    //    var jumpData = $(this).attr('jump-data');
-    //
-    //    //暖通系统
-    //    if(jumpData){
-    //
-    //        jumpData = parseInt(jumpData);
-    //
-    //
-    //        $(".jump-containers").eq(jumpData).hide();
-    //
-    //    }
-    //
-    //});
-    //
-    //$('.right-bottom-equipment-container').on('mouseleave','.jump-containers',function(){
-    //
-    //    $(this).hide();
-    //});
+         $(this).parents('.modal').find('input').val('');
+
+        $('.loading-indicator-overlay').hide();
+
+        $('.loading-indicator').hide();
+
+    });
 
 });
+
+//定义开始结束时间
+var startDate = moment().format('YYYY-MM-DD');
+
+var endDate = moment().add('1','days').format('YYYY-MM-DD');
 
 //左侧下方柱状图
 var leftBottomChart = echarts.init(document.getElementById('echarts-left-bottom'));
@@ -717,7 +890,6 @@ var _rotatingEcharts1 = echarts.init(document.getElementById('equipment-chart-ro
 //_rotatingEcharts1.setOption(_electricityoption,true);
 
 
-
 //站房照明echart
 var _stationEcharts = echarts.init(document.getElementById('equipment-chart-station'));
 
@@ -960,7 +1132,6 @@ var _energyOption = {
 
 //能管重绘数据
 
-
 //设备故障echart图
 var _useelectricityChart = echarts.init(document.getElementById('echarts-left-bottom2'));
 
@@ -1196,7 +1367,6 @@ var option8 = {
     ]
 };
 
-
 //设备故障页面重绘数据
 //_useelectricityChart.setOption(option8,true);
 
@@ -1323,6 +1493,12 @@ _operationresponseChart1.setOption(option8);
 //清空数据
 $('.bottom-content-data span').html('');
 
+//存放用户定义的设备监控数据
+var userEquipObj = {};
+
+//存放设备报警数据
+var userEquipAlarmArr = [];
+
 //-----------------------------------获取页面主体部分数据----------------------------//
 
 //定义环形图颜色集合
@@ -1335,7 +1511,7 @@ var echartNameArr = [_electricityEcharts,_electricityEcharts1,_conditionerEchart
     _stationEcharts,_platformEcharts,_windEcharts,_waterEcharts,  _useelectricityChart];
 
 //插入背景圆形图
-var cicleHtml =   '<div class="bottom-equipment-chart-background"></div>';
+var cicleHtml = '<div class="bottom-equipment-chart-background"></div>';
 
 $('.right-bottom-equipment-container .bottom-equipment-chart-container .bottom-content-data').before(cicleHtml);
 
@@ -1405,10 +1581,29 @@ function getTPDevMonitor(){
                 o.hideLoading();
             });
 
-            if(result == null || result.length == 0){
+            //如果用户定义的设备监控数据不为空
+            if(userEquipObj != {}){
+
+                if(result != null){
+
+                    for(var item in userEquipObj){
+
+                        result[item] = userEquipObj[item];
+                    }
+
+                }else{
+
+                    result = userEquipObj;
+
+                }
+            }
+
+            if(result == null || result.length == 0 || result == {}){
 
                 return false;
             }
+
+            //console.log(result);
 
             //定义设备故障的数组
             var alarmNumArr = [];
@@ -1447,6 +1642,7 @@ function getTPDevMonitor(){
             });
 
             option8.title.text = totalAlarmNum;
+            option8.title.subtext = "故障数";
 
             _useelectricityChart.setOption(option8,true);
 
@@ -1563,14 +1759,14 @@ function getTPDevMonitor(){
 
             //-----------------------------站台照明---------------------------//
             //总回路
-            //var platformAllTimesNum = result.lightSysOBJ.platformLightAllNum;
+            var platformAllTimesNum = result.lightSysOBJ.platformLightAllNum;
 
-            var platformAllTimesNum = 268;
+            //var platformAllTimesNum = 268;
 
             //运行中
-            //var platformrunNum = result.lightSysOBJ.platformLightRunNum;
+            var platformrunNum = result.lightSysOBJ.platformLightRunNum;
 
-            var platformrunNum = 107;
+            //var platformrunNum = 107;
 
             //故障中
             var platformfaultNum = result.lightSysOBJ.platformLightFaultNum;
@@ -1802,7 +1998,7 @@ function getTPDevMonitor(){
             drawEcharts(sendExhaustArr,'equipment-chart-wind',colorArr2,sendExhaustData, _conditioneroption,'');
 
             //故障率
-            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.sellCheckTicketOBJ.runPercent.toFixed(1) + '<span>%</span>');
+            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.sellCheckTicketOBJ.faultPower.toFixed(1) + '<span>%</span>');
 
             //检测点
             $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.sellCheckTicketOBJ.alarmNum);
@@ -1859,6 +2055,37 @@ function getTPDevMonitor(){
 
             $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.energyManagerOBJ.cDataIDNum)
 
+
+
+            //-----------------设备报警数据------------------//
+
+            //判断是否启用
+            if(userEquipObj != {}){
+
+                //页面赋值
+                $('.right-bottom-energyment0 .left-tab-data1 font').html(totalAlarmNum);
+
+                //货值下方折线图
+                drawLineChart(totalAlarmNum,0);
+                drawLineChart(totalAlarmNum,1);
+                drawLineChart(totalAlarmNum,2);
+
+                //数据赋值
+                leftBottomOption.series[0].data = userEquipAlarmArr[0].value;
+                leftBottomOption.xAxis[0].data = userEquipAlarmArr[0].xData;
+
+                //页面重绘数据
+                leftBottomChart.setOption(leftBottomOption,true);
+
+            }else{
+
+                //获取页面左侧下方统计数据
+                getStationAlarmNum();
+
+                //设备报警
+                getStationAlarmData(1);
+
+            }
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -2075,7 +2302,6 @@ function getTableData(condition,dom){
     })
 }
 
-
 //获取电耗分项数据
 function getFirstEnergyItemData(){
 
@@ -2196,19 +2422,6 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
         if(getSeason() == 1){
 
             allData = 5752;
-
-        }else{
-
-            allData =13630 * 2;
-        }
-
-        //如果是冷热源 汽数据
-    }else if(echartsID == 'equipment-chart-electricity1'){
-
-        //如果是夏季
-        if(getSeason() == 1){
-
-            allData = 9496;
 
         }else{
 
@@ -2349,6 +2562,642 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
 
 };
 
+//从后台获取用户配置的数据
+function getDeployByUser(){
+
+    //curPointerIDArr= ['5190180101'];
+
+    $.ajax({
+
+        type:'get',
+
+        url:_urls + 'NJNDeviceShow/GetNJNConfigToFile',
+
+        data:{
+
+            pointerID:curPointerIDArr[0]
+        },
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            leftBottomChart.showLoading({
+                maskColor: 'rgba(33,43,55,0.8)'
+            });
+
+        },
+        success:function(result){
+
+            var result1 = JSON.parse(result);
+
+            //console.log(result1);
+
+            //首先判断整体控制开关是否开启
+            var mainSwitch = result1.switch;
+
+            //获取本地配置
+            var bigScreenSet = sessionStorage.getItem('bigScreenSet');
+
+            //整体控制开关关闭
+            if(mainSwitch == 0 || bigScreenSet == 0){
+
+                //获取页面主题部分数据
+                getTPDevMonitor();
+
+                //设备报警
+                getStationAlarmData(1);
+
+                //获取页面左侧下方统计数据
+                getStationAlarmNum();
+
+            }else{
+
+                //-----------------设备监控数据------------------//
+
+                //获取设备监控数据对象
+                var equipmentObj = result1.TPDevMonitorReturnNew;
+
+                for(var item in equipmentObj){
+
+                    //获取对象当前是否启用的标识
+                    var singleSwitch = equipmentObj[item].switch;
+
+                    //如果启用的话
+                    if(singleSwitch == 1){
+
+                        userEquipObj[item] = equipmentObj[item]
+                    }
+                }
+
+                //获取页面主题部分数据
+                getTPDevMonitor();
+
+                //-----------------安全运行天数数据------------------//
+
+                //判断是否启用
+                if(result1.safeRunningDays.switch == 1){
+
+                    //页面赋值
+                    $('.safe-days').html(result1.safeRunningDays.dayNum);
+
+                }
+
+                //-----------------节能减排数据------------------//
+                //判断是否启用
+                if(result1.energyConservation.switch == 1){
+
+                    //页面赋值
+
+                    //电
+                    $('.right-bottom-centent-data0 .bottom-data font').html(result1.energyConservation.electricSave);
+
+                    //水
+                    $('.right-bottom-centent-data1 .bottom-data font').html(result1.energyConservation.waterSave);
+
+                    //汽
+                    $('.right-bottom-centent-data2 .bottom-data font').html(result1.energyConservation.steamSave);
+
+                    //减排
+                    $('.right-bottom-centent-data3 .bottom-data font').html(result1.energyConservation.emissionReduction);
+
+                }
+
+                //-----------------工单响应数据------------------//
+
+                //判断是否启用
+                if(result1.perationMaintenance.switch == 1){
+
+                    //进行中
+                    var runningNum = result1.perationMaintenance.responseGD.running;
+
+                    //派单中
+                    var dispatchNum = result1.perationMaintenance.responseGD.dispatch;
+
+                    //已完成
+                    var completeNum = result1.perationMaintenance.responseGD.complete;
+
+                    //总数
+                    var totalNum = runningNum + dispatchNum + completeNum;
+
+                    var dataArr = [
+                        {
+                            name:'已完成',
+                            value:completeNum
+                        },
+                        {
+                            name:'派单中',
+                            value:dispatchNum
+                        },
+                        {
+                            name:'进行中',
+                            value:runningNum
+                        }
+                    ];
+
+                    //给echart重新赋值
+                    _useelectricityoption.title.text = totalNum;
+
+                    _useelectricityoption.series[0].data = dataArr;
+
+                    //重绘chart图
+                    _operationresponseChart.setOption(_useelectricityoption);
+
+                }
+
+                //-----------------工单分布数据------------------//
+
+                //判断是否启用
+                if(result1.perationMaintenance.switch == 1){
+
+                    //暖通系统
+                    var hvacAirsOBJNum = result1.perationMaintenance.distributionGD.hvacAirsOBJ;
+
+                    //照明系统
+                    var lightSysOBJNum = result1.perationMaintenance.distributionGD.lightSysOBJ;
+
+                    //电梯系统
+                    var elevatorSysOBJ = result1.perationMaintenance.distributionGD.elevatorSysOBJ;
+
+                    //动环系统
+                    var rotaryFaceSysOBJNum = result1.perationMaintenance.distributionGD.rotaryFaceSysOBJ;
+
+                    //给排水
+                    var sendDrainWaterOBJNum = result1.perationMaintenance.distributionGD.sendDrainWaterOBJ;
+
+                    //消防系统
+                    var fireControlSysOBJ = result1.perationMaintenance.distributionGD.fireControlSysOBJ;
+
+                    //自动售检票
+                    var sellCheckTicketOBJNum = result1.perationMaintenance.distributionGD.sellCheckTicketOBJ;
+
+                    //能源管理
+                    var energyManagerOBJOBJ = result1.perationMaintenance.distributionGD.energyManagerOBJ;
+
+
+                    //总数
+                    var totalNum = hvacAirsOBJNum + lightSysOBJNum + elevatorSysOBJ + rotaryFaceSysOBJNum + sendDrainWaterOBJNum + fireControlSysOBJ + sellCheckTicketOBJNum +energyManagerOBJOBJ;
+
+                    var dataArr = [
+                        {
+                            name:'暖通系统',
+                            value:hvacAirsOBJNum
+                        },
+                        {
+                            name:'照明系统',
+                            value:lightSysOBJNum
+                        },
+                        {
+                            name:'电梯系统',
+                            value:elevatorSysOBJ
+                        },
+                        {
+                            name:'动环系统',
+                            value:rotaryFaceSysOBJNum
+                        },
+                        {
+                            name:'给排水',
+                            value:sendDrainWaterOBJNum
+                        },
+                        {
+                            name:'消防系统',
+                            value:fireControlSysOBJ
+                        },
+                        {
+                            name:'自动售检票',
+                            value:sellCheckTicketOBJNum
+                        },
+                        {
+                            name:'能源管理',
+                            value:energyManagerOBJOBJ
+                        }
+                    ];
+
+                    //给echart重新赋值
+                    option8.title.text = totalNum;
+
+                    option8.series[0].data = dataArr;
+
+                    //重绘chart图
+                    _operationresponseChart1.setOption(option8);
+                }
+
+            };
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            $('#theLoading').modal('hide');
+
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+            }else{
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+            }
+
+        }
+
+    })
+};
+
+//根据传入数据绘制echart图 用于设备报警
+function drawLineChart(totalNum,flag){
+
+    var hourNum;
+
+    //日数据
+    if(flag == 0){
+
+        //获取当前小时数
+        hourNum = parseInt(moment().format('HH')) - 1;
+
+    //月数据
+    }else if(flag == 1){
+
+        //获取当前天数
+        hourNum = parseInt(moment().format('DD')) - 1;
+
+        //年数据
+    }else if(flag == 2){
+
+        //获取当前月份数
+        hourNum = parseInt(moment().format('MM')) - 1;
+
+        totalNum = totalNum * 30;
+    }
+
+
+    //确定数据浮动范围
+    var bigFloatNum = parseInt(totalNum / 4);
+
+    //存放生成的虚拟数据
+    var hourDataArr = [];
+
+    //生成虚拟数据
+    for(var i=0; i<hourNum; i++){
+
+        //随机生成浮动数
+        var floatNum = parseInt(Math.random() * bigFloatNum);
+
+        //随机判断本次取加还是减的操作
+        var randomNum = Math.random() * 2;
+
+        var thisNum = totalNum;
+
+        if(randomNum > 1){
+
+            thisNum = totalNum + floatNum;
+
+        }else{
+
+            thisNum = totalNum - floatNum;
+        }
+
+        hourDataArr.push(thisNum)
+    }
+
+
+    hourDataArr.push(totalNum);
+
+    //页面赋值
+    leftBottomChart.hideLoading();
+
+    //存放数据
+    var dataArr = [];
+
+    //存放x轴
+    var xArr = [];
+
+    for(var i=0; i<hourDataArr.length; i++){
+
+        //x轴数据
+        var xData;
+
+        var date;
+
+        if(flag == 0){
+
+            if(i < 10){
+                date = "0" + i;
+            }else{
+                date = i
+            }
+            //x轴数据
+            xData = date + ":00";
+
+        }else if(flag == 1){
+
+            date = i + 1;
+
+            if(date < 10){
+                date = "0" + date;
+
+            }
+
+            //x轴数据
+            xData = moment().format("YYYY-MM") + "-"+date;
+
+        }else if(flag == 2){
+
+            date = i + 1;
+
+            if(date < 10){
+                date = "0" + date;
+            }
+
+            //x轴数据
+            xData = moment().format("YYYY") + "-"+ date;
+        }
+
+        xArr.push(xData);
+
+        //页面显示数据
+        dataArr.push(hourDataArr[i]);
+
+    }
+
+    var obj = {
+        xData : xArr,
+        value : dataArr
+    };
+
+    userEquipAlarmArr.push(obj);
+
+}
+
+//大屏幕报警
+function getDevMonitAlarmPopup(devTypeArr,condition){
+
+    //传递给后台的参数
+    var  ecParams = {
+        "pointerID":curPointerIDArr[0],
+        "devTypeIDs": devTypeArr,
+        "alarmType": -1,
+        "devName": "",
+        "alarmName": "",
+        "startTime": startDate,
+        "endTime": endDate
+    };
+
+    if(condition){
+
+        ecParams = condition;
+
+    }
+
+    $.ajax({
+
+        type:'post',
+
+        url:_urls + 'NJNDeviceShow/GetDevMonitAlarmPopup',
+
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+           // $('#alarm-message .bottom-table-data-container #dateTables').showLoading();
+        },
+        success:function(result){
+
+           //$('#alarm-message .bottom-table-data-container #dateTables').hideLoading();
+
+            //给页面赋值
+            var tableHtml = "";
+
+            $(result).each(function(i,o){
+
+                tableHtml += "<tr>";
+
+                //设备名称
+                tableHtml += "<td>"+ o.devName+"</td>";
+
+                //报警名称
+                tableHtml += "<td>"+ o.alarmName+"</td>";
+
+                //位置
+                tableHtml += "<td>"+ o.areaName+"</td>";
+
+                //服务区域
+                tableHtml += "<td>"+ o.serviceArea+"</td>";
+
+                //类型
+                tableHtml += "<td>"+ o.cDtnName+"</td>";
+
+                //级别
+                tableHtml += "<td>"+ o.priorityName+"</td>";
+
+                //报警时间
+                tableHtml += "<td>"+ o.dataDate+"</td>";
+
+                //是否报单
+
+                var isBaoDan = '未报单';
+
+                if(o.isBaoDan == 1){
+
+                    isBaoDan = '已报单';
+                }
+
+                tableHtml += "<td>"+ isBaoDan +"</td>";
+
+                tableHtml += "</tr>"
+            });
+
+            //页面赋值
+            $('#dateTables tbody').html(tableHtml);
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+            }else{
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+            }
+
+        }
+
+    })
+};
+
+//大屏幕电功率
+function getDevMonitPowerData(devTypeArr,condition){
+
+    //传递给后台的参数
+    var  ecParams = {
+        "pointerID":curPointerIDArr[0],
+        "devTypeIDs": devTypeArr,
+        "serviceName": ""
+    };
+
+    if(condition){
+
+        ecParams = condition;
+
+    }
+
+    $.ajax({
+
+        type:'post',
+        url:_urls + 'NJNDeviceShow/GetDevMonitPowerData',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            setTimeout(function(){
+                $('#electric-message .bottom-table-data-container ').showLoading();
+            },500);
+        },
+        success:function(result){
+
+            setTimeout(function(){
+
+                $('#electric-message .bottom-table-data-container ').hideLoading();
+
+            },500);
 
 
 
+            //给页面赋值
+            var tableHtml = "";
+
+            $(result).each(function(i,o){
+
+                tableHtml += "<tr>";
+
+                //支路名称
+                tableHtml += "<td>"+ o.serverName+"</td>";
+
+                //电功率
+                tableHtml += "<td>"+ o.powerValue.toFixed(1) +"</td>";
+
+                tableHtml += "</tr>"
+            });
+
+            //页面赋值
+            $('#dateTables-electric tbody').html(tableHtml);
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+            }else{
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+            }
+
+        }
+
+    })
+};
+
+//大屏幕右下角设备故障
+function getDevFaultAlarmPropData(condition){
+
+    //传递给后台的参数
+    var  ecParams = {
+        "pointerID":curPointerIDArr[0],
+        "startTime": startDate,
+        "endTime": endDate
+    };
+
+    if(condition){
+
+        ecParams = condition;
+
+    }
+
+    $.ajax({
+
+        type:'post',
+        url:_urls + 'NJNDeviceShow/GetDevFaultAlarmPropData',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            $('#dateTables-trouble tbody').html('');
+
+            setTimeout(function(){
+                $('#trouble-message .bottom-table-data-container ').showLoading();
+            },500);
+        },
+        success:function(result){
+
+            setTimeout(function(){
+
+                $('#trouble-message .bottom-table-data-container ').hideLoading();
+
+            },500);
+
+            //给页面赋值
+            var tableHtml = "";
+
+            $(result).each(function(i,o){
+
+                tableHtml += "<tr>";
+
+                //设备名称
+                tableHtml += "<td>"+ o.devName+"</td>";
+
+                //故障数据
+                tableHtml += "<td>"+ o.faultNum +"</td>";
+
+                //故障百分比
+                tableHtml += "<td>"+ (o.faultPerce*100).toFixed(1) +"%</td>";
+
+                tableHtml += "</tr>"
+            });
+
+            //页面赋值
+            $('#dateTables-trouble tbody').html(tableHtml);
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+            }else{
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+            }
+
+        }
+
+    })
+};
+
+//报警类型
+function typeOfAlarm(){
+
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
+        success:function(result){
+
+            var html = "<option value='-1'>全部</option>";
+
+            //把设备类型放入页面中
+            $(result).each(function(i,o){
+
+                html += "<option value='"+ o.innerID+"'>"+ o.cDtnName+"</option>"
+            });
+
+            $('.alarm-select').html(html);
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR.responseText);
+        }
+    });
+};

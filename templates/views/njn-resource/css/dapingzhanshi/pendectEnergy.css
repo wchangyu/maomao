@@ -49,6 +49,7 @@
 .right-bottom-equipment .right-bottom-equipment-container h4 a{
     color:white;
     padding:5px;
+    text-decoration: none;
 }
 .right-bottom-equipment .right-bottom-equipment-container h4 a:hover{
     text-decoration: none;

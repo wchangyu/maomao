@@ -239,7 +239,9 @@ var userMonitor = (function(){
 
     //刷新数据
     var refreshData = function(){
+
         if(!_isInstDataLoading && _refreshInterval>0){
+
             if(_refreshAction){ clearTimeout(_refreshAction);}
             _refreshAction = setTimeout(function(){
                 getInstDatasByIds(curProcID);
@@ -954,7 +956,10 @@ var userMonitor = (function(){
 
     //获取实时数据
     var getInstDatasByIds = function(procId){
+
+
         if(_isProcDefLoaded && _isProcCrtlLoaded && _isProcRenderLoaded && !_isInstDataLoading){
+
             //var CTypeCKIDs = "",DTypeDKIDs = "";        //控制量的ID，监测值的ID
             //var DefIDs = [];
             //var procRenders = [];
@@ -1015,6 +1020,9 @@ var userMonitor = (function(){
 
     //在界面上绘制数据
     var initializeContentOnDiv = function(defInstDatas){
+
+        //清空之前的图片数据
+        imgSrcArr.length = 0;
 
         if(!_isProcCrtlLoaded || !_isProcDefLoaded || !_isProcRenderLoaded) return;     //没有载入数据完成则退出
         if(!_procDefs || _procDefs.length==0) return;           //没有绘制对象则退出
@@ -1398,13 +1406,16 @@ var userMonitor = (function(){
             if(_ifCompareSpan){
 
                 //获取要替换的元素
-                $(spanID).replaceWith($spanDef);
+                $('#' + spanID).replaceWith($spanDef);
+
             }else{
 
                 $divContent.append($spanDef);
             };
 
         }
+
+        //定时刷新
         refreshData();
     };
 
@@ -1717,6 +1728,7 @@ var userMonitor = (function(){
     };
 
     function loadDefImg(curPRR,$Img){
+
         $Img.addClass(curPRR.imgID + "img");
 
         var ifLoadDefImg = true;
@@ -1897,7 +1909,7 @@ var userMonitor = (function(){
     var setActionByDef = function(procDef){
         //console.log(33);
         if(!procDef) return;
-        if(_refreshAction){ clearTimeout(_refreshAction); }
+        if(_refreshAction){ clearTimeout(_refreshAction);}
         if(procDef.cType == 166 || procDef.cType >= 500 && procDef.cType <= 600 || procDef.dType >= 500 && procDef.dType <= 600){       //方案跳转
             if(!_isViewAllProcs && _userProcIds.indexOf(procDef.ckId)<0){       //在跳转图中ckId的值就是需要跳转的procID
                 alertMessage("没有权限");
@@ -2052,8 +2064,6 @@ var userMonitor = (function(){
                 }
             }
         }
-
-
     };
 
     //判断是否有控制项
@@ -2336,6 +2346,7 @@ var userMonitor = (function(){
         $trButtons.append($tdButtons);$trButtons.appendTo($table);
         $divCtrls.append($table);
         setDivControlsVisible(true);
+
     };
 
     //绘制全局参数的控制面板
@@ -2691,6 +2702,9 @@ var userMonitor = (function(){
             $divCtrls.removeClass("content-ctrls-show");
             $divCtrls.addClass("content-ctrls-hide");
             $("#content-main-right").unbind("click");
+
+            //定时刷新
+            refreshData();
         }
     };
 
@@ -2720,6 +2734,7 @@ var userMonitor = (function(){
             }
         }
     };
+
     //显示右键菜单
     function setContextMenuVisible(flag,left,top){
         var $contextMenu = $("#content-menu");
@@ -2737,9 +2752,9 @@ var userMonitor = (function(){
                         "height=600,width=700,top=" + iTop + ",left=" + iLeft + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
                 });
             }
-            console.log(left);
-            console.log(top);
-            console.log(_scaleX);
+            //console.log(left);
+            //console.log(top);
+            //console.log(_scaleX);
 
             $contextMenu.css({     //将顶点减一保证鼠标当前在控制面板的范围内
                 "left" : ((left - 1) / _scaleX) + "px",

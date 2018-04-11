@@ -687,8 +687,9 @@ var officeIdArr = getOfficesId();
 
 //获取配置好的能耗类型数据
 var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
-var allEnergyArr = unitObj.alltypes;
-
+if(unitObj){
+    var allEnergyArr = unitObj.alltypes;
+}
 
 //------------------------------------右侧上方实时能耗数据-----------------------------------//
 
@@ -852,8 +853,7 @@ function getPointerRankData(){
         },
         success:function(result){
 
-            console.log(result);
-
+            //console.log(result);
 
             _myChart3.hideLoading();
 
@@ -1435,7 +1435,7 @@ function getTopPageKPIData(){
             _myChart71.hideLoading();
             _myChart72.hideLoading();
 
-            console.log(result);
+            //console.log(result);
 
             //无数据
             if(result == null || result.length == 0){
@@ -1825,7 +1825,6 @@ function getStataionFootfallRank(){
 };
 
 //------------------------------------其他方法-----------------------------------------//
-
 
 //获取能耗分项ID
 function getUnitID(num){

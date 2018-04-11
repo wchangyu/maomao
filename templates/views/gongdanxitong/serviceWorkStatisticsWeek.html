@@ -62,7 +62,6 @@
             border: none!important;
 
         }
-
     </style>
     <style>
         #house-reporting tfoot span{
@@ -95,6 +94,8 @@
             font-size: 0;
 
             outline: none;
+
+            cursor: pointer;
         }
         .content-main-contents{
 
@@ -106,6 +107,11 @@
             text-align: center;
 
             font-size: 22px;
+
+        }
+        .condition-query .datatimeblock{
+
+            background: #ffffff!important;
 
         }
         #depart{
@@ -333,11 +339,16 @@
                                     <li class="main-contents-header-lists0">报表管理</li>
                                 </ul>
                                 <ul class="condition-query condition-query1 noprint">
-                                    <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">时间：</label>
+                                    <li style="line-height: 26px;">
+                                        <label for="">时段：</label>
                                         <div class="input-blocked">
-                                            <input type="text" class="datatimeblock min">
+                                            <input type="text" class="datatimeblock min" disabled>
                                         </div>
+                                        <label for="">-</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="datatimeblock min" disabled>
+                                        </div>
+                                        <input class="selectTime">
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 print" onclick="javascript:window.print();">打印</button></li>
@@ -516,7 +527,7 @@
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
 <script src="../resource/js/publicFun.js"></script>
 <script src="../bank-resource/js/common.js"></script>
-<script src="../resource/js/serviceWorkStatisticsMonth.js"></script>
+<script src="../resource/js/serviceWorkStatisticsWeek.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -524,6 +535,8 @@
         Demo.init(); // init demo features
         BEE.init();
     });
+
+
 
 </script>
 <!-- END JAVASCRIPTS -->

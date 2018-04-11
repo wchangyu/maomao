@@ -1,6 +1,6 @@
 {
   "allEnergyType": {
-    "comment": "注释属性:全部能耗类型,三项分别为分项ID，分项名，分项单位,img:首页显示的类型小图片,color:首页显示的颜色,img2:各个功能页面用到的类型小图片",
+    "comment": "注释属性:全部能耗类型,三项分别为分项ID，分项名，分项单位,img:首页显示的类型小图片,color:首页显示的颜色,img2:各个功能页面用到的类型小图片,secondEnergy:标识二次能源，1为二次能源，0为非二次能源，isShowItem:是否启用该能源，1为启用，0为未启用",
     "alltypes": [
       {
         "etid": "01",
@@ -83,7 +83,6 @@
         "color":"#b1cade",
         "img2":"cold.png",
         "isShowItem":1,
-        "secondEnergy":1,
         "etunitZH":"兆焦"
       },
       {
@@ -166,8 +165,9 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.110/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.110/BEEWebAPI/api/",
+  "apiUriPrefix":"http://202.110.200.107/BEEWebAPIys/api/",
+  "apiUriPrefixYW":"http://202.110.200.107/BEEWebAPIys/api/",
+  "apiUriPrefixYW1":"http://192.168.1.110/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
@@ -176,7 +176,7 @@
   "pageTitle":"能源管理系统",
   "themeColor":"blue",
   "themecolors":"blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
-  "refreshInterval":"0",
+  "refreshInterval":"15",
   "refreshIntervalComment":"监控模块的数据刷新间隔,单位秒,0为不刷新,建议最低20秒",
   "alarmInterval":"10",
   "alarmIntervalComment":"首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟",
@@ -187,7 +187,7 @@
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
   "gongdanInterval":"10",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
-  "indexUrl":"../../new-nengyuanzonglan/new-index1.html",
+  "indexUrl":"new-nengyuanzonglan/new-index1.html",
   "gongdanIndustryType":"1",
   "ckAuditType":"0",
   "imgPath":"http://1.1.1.1/ApService/dimg.aspx",
@@ -195,5 +195,7 @@
   "indexImg":"../../../assets/local/img/img1.png",
   "indexImgComment":"首页图片路径",
   "indexWord":"吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼、8号高干楼等。共有床位，在职员工。吉大一院主要用能设备包括：空调采暖用直燃机机组、医疗消毒用蒸汽锅炉、空调通风末端设备、照明、插座、电梯、医疗设备等。",
-  "indexWordComment":"首页图片简介"
+  "indexWordComment":"首页图片简介",
+  "bigScreenSet":"0",
+  "bigScreenSetComment":"大屏首页人工配置数据开关"
 }
