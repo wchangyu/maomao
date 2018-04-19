@@ -1541,7 +1541,9 @@ $(function(){
 
     //查询
     $('#selected').click(function(){
-        conditionSelect();
+
+        conditionSelect(true);
+
     });
 
     //重置
@@ -2745,7 +2747,7 @@ $(function(){
         })
     }
 
-    //条件查询
+    //条件查询flag为真的时候，启动定时刷新，part为假的时候，有模态框的时候也要定时刷新
     function conditionSelect(flag,part){
 
         var st = $('.min').val();
@@ -2763,6 +2765,13 @@ $(function(){
             'isQueryExceedTime':"1"
         };
 
+        //if(_loginUser.isWx == 1){
+        //
+        //    prm.wxKeshiNum = _userBM;
+        //
+        //}
+
+        //如果part为假的话，模态框的情况下刷新数据，真的话，模态框情况下不刷新数据
         if(!part){
 
             if($('.modal-backdrop').length > 0){
@@ -2783,6 +2792,8 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
+            beforeSend:_beforeSendFun,
+            complete:_completeFun,
             success:function(result){
 
                 //根据状态值给表格赋值
@@ -2872,13 +2883,24 @@ $(function(){
 
                 }
 
+                //记录当前显示的是你哪个表格
+                var index = $('.table-title .spanhover').index();
+
+                $('.content-main-contents1').addClass('hide-block');
+
+                $('.content-main-contents1').eq(index).removeClass('hide-block');
 
                 //定时刷新
                 if(flag){
                     theTimeout = setTimeout(function(){
+
                         conditionSelect(true);
+
                     },refreshTime);
                 }
+
+                $('#theLoading').modal('hide');
+
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -3101,8 +3123,12 @@ $(function(){
 
                         $('#myModal').modal('hide');
 
-                        //刷新表格
-                        conditionSelect();
+                        $('#myModal2').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                            conditionSelect(false,true);
+
+                        })
+
                     }else{
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',errorMeg, '');
                     }
@@ -3277,7 +3303,11 @@ $(function(){
 
                 $('#myModal').modal('hide');
 
-                conditionSelect(false,true);
+                $('#myModal2').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                    conditionSelect(false,true);
+
+                })
 
                 BEE.modificationImportInfo();
 
@@ -3307,10 +3337,18 @@ $(function(){
 
                 }
                 if( _ztChangeSuccess == false ){
+
                     str += '工单下发失败！'
+
                 }else{
+
                     str += '工单下发成功！'
 
+                    $('#myModal2').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                        conditionSelect(false,true);
+
+                    })
 
                     BEE.modificationImportInfo();
                 }
@@ -3364,7 +3402,11 @@ $(function(){
 
                 $('#myModal').modal('hide');
 
-                conditionSelect(false,true);
+                $('#myModal2').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                    conditionSelect(false,true);
+
+                })
 
                 BEE.modificationImportInfo();
 
@@ -3397,6 +3439,12 @@ $(function(){
                     str += '工单重发失败！'
                 }else{
                     str += '工单重发成功！'
+
+                    $('#myModal2').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                        conditionSelect(false,true);
+
+                    })
 
                     BEE.modificationImportInfo();
 
@@ -4182,12 +4230,41 @@ $(function(){
 
                             manager('YWGD/ywGDDelWxLeader','flag');
 
+                        }else{
+
+                            var str = '回退成功！';
+
+                            _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,str, '');
+
+                            $('#Fallback-Modal').modal('hide');
+
+                            $('#myModal3').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                                conditionSelect(false,true);
+
+                            })
+
                         }
+
                     }else if(htState == 2){
                         //删除该工单的执行人
                         if(_zhixingRens.length>0){
 
                             Worker('YWGD/ywGDDelWxR','flag');
+
+                        }else{
+
+                            var str = '回退成功！';
+
+                            $('#Fallback-Modal').modal('hide');
+
+                            _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,str, '');
+
+                            $('#myModal3').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                                conditionSelect(false,true);
+
+                            })
 
                         }
 
@@ -4276,13 +4353,23 @@ $(function(){
 
                     $('#Fallback-Modal').modal('hide');
 
-                    conditionSelect(false,true);
+                    $('#myModal3').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                        conditionSelect(false,true);
+
+                    })
 
                 }else{
 
                     var str = '工长删除失败,退回成功！';
 
                     _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,str, '');
+
+                    $('#myModal3').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                        conditionSelect(false,true);
+
+                    })
 
                 }
 
@@ -4336,13 +4423,25 @@ $(function(){
 
                     $('#Fallback-Modal').modal('hide');
 
-                    conditionSelect(false,true);
+                    $('#myModal3').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                        conditionSelect(false,true);
+
+                    })
 
                 }else{
 
                     var str = '执行人删除失败,退回成功！';
 
                     _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,str, '');
+
+                    $('#Fallback-Modal').modal('hide');
+
+                    $('#myModal3').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                        conditionSelect(false,true);
+
+                    })
 
                 }
 
@@ -4418,7 +4517,11 @@ $(function(){
 
                     $('#Cancel-Modal').modal('hide');
 
-                    conditionSelect(false,true);
+                    $('#myModal3').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                        conditionSelect(false,true);
+
+                    })
 
                 }else{
 

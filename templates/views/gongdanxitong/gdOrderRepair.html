@@ -263,7 +263,6 @@
                             <i class="fa fa-angle-right"></i>
                         </li>
                     </ul>
-                    <div class="showOrHidden"></div>
                     <div class="page-toolbar">
                         <!--<div class="btn-group pull-right">
                             <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -560,7 +559,7 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 single-line one-line">
                                             <div class="single-labels starRed">故障位置：</div>
                                             <div class="single-block">
-                                                <input type="text" class="fuzzy-input" @focus="gzwzFocus()" @keyup="gzwzInput()" v-model="gzplace" v-validate:gzplace= "['isEmpty']" initial='off'>
+                                                <input type="text" class="fuzzy-input" @focus="gzwzFocus()" @keyup="gawzInput()" v-model="gzplace" v-validate:gzplace= "['isEmpty']" initial='off'>
                                                 <ul class="fuzzy-search"></ul>
                                             </div>
                                             <!--点击图标-->

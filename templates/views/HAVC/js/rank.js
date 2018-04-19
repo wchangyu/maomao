@@ -19,6 +19,18 @@
     //冷却塔的ChartView图
     var myctv;
 
+    //冷量冷价
+    var chartLLLJ = null;
+
+    //离心机
+    var chartLXJ = null;
+
+    //溴锂机
+    var chartXLJ = null;
+
+    //地源热泵
+    var chartDYRB = null;
+
     window.onresize = function () {
         if (mylzv && mycv && mychwv && mycwv && myctv) {
             mylzv.resize();
@@ -118,6 +130,94 @@
         });
     }
 
+    //获取区域数据
+    var getAreaAys = function () {
+        var url = sessionStorage.apiUrlPrefix + "MultiAreaHistory/GetChillAREAs";
+
+        $.get(url, function (res) {
+            chArAy = res;
+            //初始化区域选择控件
+            initAreaSelectCtrl();
+        })
+    }
+
+    //初始化区域选择控件
+    var initAreaSelectCtrl = function () {
+        $('#areaType').html();
+        $('#areaType').find('option').remove();
+        $('#areaType').empty();
+
+        var str = '';
+
+        if (chArAy.length > 0) {
+            for (var i = 0; i < chArAy.length; i++) {
+
+                var charK = chArAy[i].item;
+
+                var charV = chArAy[i].name;
+
+                var charT = chArAy[i].tag;
+
+                //$('#areaType').append($("<option value=\"" + charK + "\">" + charV + "</option>"));
+
+                str += '<option data-tag="' + charT + '" value="' + charK +'">' + charV + '</option>';
+
+            }
+        }
+
+        $('#areaType').empty().append(str);
+
+        //默认选中第一个
+        if(chArAy.length > 0){
+
+            $('#areaType').val(chArAy[0].item);
+
+        }
+
+        //(默认)查询能效排名
+        getEERRankDs();
+
+    }
+
+    //echarts
+    var barOption = {
+        //color: ['#2170F4'],
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true,
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : [],
+                axisTick: {
+                    alignWithLabel: true
+                }
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'',
+                type:'bar',
+                barWidth: '60%',
+                data:[]
+            }
+        ]
+    };
+
     //查询能效排名
     var getEERRankDs = function () {
         if(selectDt.length === 0){
@@ -128,45 +228,209 @@
             jQuery('#rankBusy').showLoading();
             var pIds = [];
             pIds.push(sessionStorage.PointerID);
-            var pNts = [];
-            pNts.push(sessionStorage.PointerName);
-            var url = sessionStorage.apiUrlPrefix + "RankEER/GetRankEERAnalysisDs";
+            //var pNts = [];
+            //pNts.push(sessionStorage.PointerName);
+            var url = sessionStorage.apiUrlPrefix + "MultiAreaRank/GetRankDs";
+            //时间
+            var time = moment($('#spDT').val()).format('YYYY-MM-DD');
+
             $.post(url,{
+                //楼宇id列表
                 pIds:pIds,
-                pNts:pNts,
-                DT:dtnowstr(),
-                eType:selectEType
+                //楼宇id
+                pId:sessionStorage.PointerID,
+                //楼宇名称列表
+                pNt:sessionStorage.PointerName,
+                //区域
+                area:$('#areaType').children('option:selected').attr('data-tag'),
+                //DT:dtnowstr(),
+                //时间间隔
+                eType:selectEType,
+                //时间
+                sp:time
             },function (res) {
+
+                //初始化echarts
+                //冷量冷价
+                var chartLLLJ = echarts.init(document.getElementById('lzpMain'));
+
+                //离心机
+                var chartLXJ = echarts.init(document.getElementById('lzMain'));
+
+                //溴锂机
+                var chartXLJ = echarts.init(document.getElementById('cMain'));
+
+                //地源热泵
+                var chartDYRB = echarts.init(document.getElementById('chwMain'));
+
+                //标识
+                var tipBlock = $('.chartTip');
+
                 if(res.code === 0){
-                    var lzxs = res.lzxs;//冷站X轴
-                    var lzys = res.lzys;//冷站Y轴
-                    var lzcs = res.lzcs;
-                    var cxs = res.cxs;//冷机X轴数据
-                    var cys = res.cys;
-                    var ccs = res.ccs;
-                    var chwxs = res.chwxs;//冷冻泵X轴
-                    var chwys = res.chwys;
-                    var chwcs = res.chwcs;
-                    var cwxs = res.cwxs;//冷却泵X轴
-                    var cwys = res.cwys;
-                    var cwcs = res.cwcs;
-                    var ctxs = res.ctxs;//冷却塔X轴
-                    var ctys = res.ctys;
-                    var ctcs = res.ctcs;
-                    drawlzv(lzxs, lzys, lzcs, 'KW/KW');//冷站
-                    drawcv(cxs, cys, ccs,  'KW/KW');//冷机
-                    drawchwv(chwxs, chwys, chwcs,  'KW/KW');//冷冻泵
-                    drawcwv(cwxs, cwys, cwcs,  'KW/KW');//冷却泵
-                    drawctv(ctxs, ctys, ctcs,  'KW/KW');//冷却塔
+
+                    //冷量冷价
+                    drawEchart(chartLLLJ,res,'ewcPrcXs','ewcPrcYs',false,'单位冷量冷价',tipBlock.eq(0));
+
+                    //离心机
+                    drawEchart(chartLXJ,res,'ewclxXs','ewclxYs','ewclxMs','离心机COP',tipBlock.eq(1));
+
+                    //溴锂机
+                    drawEchart(chartXLJ,res,'ewcrbXs','ewcrbYs','ewcrbMs','溴锂机能效',tipBlock.eq(2));
+
+                    //地源热泵
+                    drawEchart(chartDYRB,res,'ewcxlXs','ewcxlYs','ewcxlMs','地源热泵COP',tipBlock.eq(3));
+
                     jQuery('#rankBusy').hideLoading();
+
+
+                    //var lzxs = res.lzxs;//冷站X轴
+                    //var lzys = res.lzys;//冷站Y轴
+                    //var lzcs = res.lzcs;
+                    //var cxs = res.cxs;//冷机X轴数据
+                    //var cys = res.cys;
+                    //var ccs = res.ccs;
+                    //var chwxs = res.chwxs;//冷冻泵X轴
+                    //var chwys = res.chwys;
+                    //var chwcs = res.chwcs;
+                    //var cwxs = res.cwxs;//冷却泵X轴
+                    //var cwys = res.cwys;
+                    //var cwcs = res.cwcs;
+                    //var ctxs = res.ctxs;//冷却塔X轴
+                    //var ctys = res.ctys;
+                    //var ctcs = res.ctcs;
+                    //drawlzv(lzxs, lzys, lzcs, 'KW/KW');//冷站
+                    //drawcv(cxs, cys, ccs,  'KW/KW');//冷机
+                    //drawchwv(chwxs, chwys, chwcs,  'KW/KW');//冷冻泵
+                    //drawcwv(cwxs, cwys, cwcs,  'KW/KW');//冷却泵
+                    //drawctv(ctxs, ctys, ctcs,  'KW/KW');//冷却塔
+
                 }else if(res.code === -1){
+<<<<<<< HEAD:templates/views/HAVC/js/rank.js
+
                     alert('异常错误(能效排名:)' + res.msg);
+
+=======
+                    console.log('异常错误(能效排名:)' + res.msg);
+>>>>>>> remotes/origin/master:templates/views/EPMA/js/rank.js
                     jQuery('#rankBusy').hideLoading();
+
+                    errorEchart(chartLLLJ,'单位冷量冷价',tipBlock.eq(0));
+
+                    errorEchart(chartLXJ,'离心机COP',tipBlock.eq(1));
+
+                    errorEchart(chartXLJ,'溴锂机能效',tipBlock.eq(2));
+
+                    errorEchart(chartDYRB,'地源热泵COP',tipBlock.eq(3));
+
                 }else{
+
                     jQuery('#rankBusy').hideLoading();
                 }
             })
         }
+    }
+
+    //冷量冷家parA横坐标数据，parB纵坐标数据，parC控制颜色数组
+    function drawEchart(el,res,parA,parB,parC,str,tip){
+
+        //确定x轴
+        var xArr = [];
+
+        //确定y轴
+        var yArr = [];
+
+        var yArrS = [];
+
+        //确定X轴
+        if(res[parA]){
+
+            for(var i=0;i<res[parA].length;i++){
+
+                xArr.push(res[parA][i]);
+
+            }
+
+        }
+
+        if(res[parB]){
+
+            for(var i=0;i<res[parB].length;i++){
+
+                yArrS.push(res[parB][i]);
+
+            }
+
+        }
+
+        //修改颜色
+        if(res[parC]){
+
+            for(var i=0;i<yArrS.length;i++){
+
+                var colorStr = '';
+
+                if(res[parC][i] == 0){
+
+                    colorStr = '#2170F4'
+
+                }else if(res[parC][i] == 1){
+
+                    colorStr = '#F8276C'
+
+                }else if(res[parC][i] == 2){
+
+                    colorStr = '#2BE4B4'
+
+                }
+
+                var obj = {};
+
+                obj.value = yArrS[i];
+
+                obj.itemStyle = {
+
+                    color:colorStr
+
+                }
+
+                yArr.push(obj);
+
+            }
+
+        }
+
+        //给echart赋值
+
+        barOption.xAxis[0].data = xArr;
+
+        barOption.series[0].data = yArr;
+
+        barOption.series[0].name = str;
+
+        el.setOption(barOption);
+
+        //标识显示
+        tip.children('label').html(str);
+
+        tip.show();
+
+    }
+
+    function errorEchart(el,str,tip){
+
+        barOption.xAxis[0].data = [];
+
+        barOption.series[0].data = [];
+
+        barOption.series[0].name = str;
+
+        el.setOption(barOption);
+
+        //标识显示
+        tip.children('label').html(str);
+
+        tip.show();
+
     }
 
     function drawctv(xs, ctys, ctcs, misc) {
@@ -745,18 +1009,12 @@
 
     return {
         init: function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
             //初始化时间控件(默认是日)
             initdatetimepicker();
             //切换日月年时间类型
             changeEType();
-            //(默认)查询能效排名
-            getEERRankDs();
+            //获取区域
+            getAreaAys();
             $('#rankBtn').on('click',function () {
                 getEERRankDs();
             })

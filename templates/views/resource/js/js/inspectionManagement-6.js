@@ -744,6 +744,8 @@ $(function(){
 
         $('#myApp33').find('textarea').attr('disabled',false).removeClass('disabled-block');
 
+        $('.auto-fill').addClass('disabled-block').attr('disabled',true);
+
     }
 
     //工单不可操作

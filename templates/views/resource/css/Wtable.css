@@ -86,6 +86,14 @@
 
 }
 
+.dataTables_info{
+
+    font-family: "Micorsoft Yahei";
+
+    color: #959595 !important;
+
+}
+
 .page-bar{
 
     background: #e2e9f2 !important;

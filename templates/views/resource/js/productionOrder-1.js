@@ -297,17 +297,6 @@ $(function(){
     //隐藏不显示项
     $('#myApp33').find('.seeBlock').hide();
 
-    //线路显示
-    if( __routeShow){
-
-      $('.routeShow').show();
-
-    }else{
-
-      $('.routeShow').hide();
-
-    }
-
     $('#theLoading').modal('hide');
 
   })

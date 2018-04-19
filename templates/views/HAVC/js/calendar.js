@@ -1,5 +1,4 @@
-﻿//多区域能效日历
-var Calendar = function () {
+﻿﻿var Calendar = function () {
 
     var selectAREA = "EC";//选中东冷站区域
 
@@ -25,9 +24,9 @@ var Calendar = function () {
 
     function convertDate(strDate) {//字符串转时间格式
         var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
-            function (a) {
-                return parseInt(a, 10) - 1;
-            }).match(/\d+/g) + ')');
+                function (a) {
+                    return parseInt(a, 10) - 1;
+                }).match(/\d+/g) + ')');
         return date;
     }
 
@@ -68,7 +67,7 @@ var Calendar = function () {
                 case 'tt': return d.getHours() < 12 ? 'am' : 'pm';
                 case 'TT': return d.getHours() < 12 ? 'AM' : 'PM';
                 case 'Z': return d.toUTCString().match(/[A-Z]+$/);
-                    // Return quoted strings with the surrounding quotes removed
+                // Return quoted strings with the surrounding quotes removed
                 default: return $0.substr(1, $0.length - 2);
             }
         });
@@ -115,7 +114,7 @@ var Calendar = function () {
 
     //获取设备类型
     var getEqTyAys = function () {
-        var url = sessionStorage.apiUrlPrefix + "MultiAreaCalendar/GetEQTypes";
+        var url = sessionStorage.apiUrlPrefix + "/MultiAreaCalendar/GetEQTypes";
         $.get(url, function (res) {
             eqTyAy = res;
             //获取区域数据
@@ -125,7 +124,7 @@ var Calendar = function () {
 
     //获取区域数据
     var getAreaAys = function () {
-        var url = sessionStorage.apiUrlPrefix + "MultiAreaHistory/GetChillAREAs";
+        var url = sessionStorage.apiUrlPrefix + "/MultiAreaHistory/GetChillAREAs";
         $.get(url, function (res) {
             chArAy = res;
             //初始化区域选择控件
@@ -171,12 +170,12 @@ var Calendar = function () {
     //初始化查询日期
     var initQueryDt = function () {
         return moment(
-                select_year
-                + "-" +
-                select_month
-                + "-" +
-                select_day
-         ).format("YYYY-MM-DD");
+            select_year
+            + "-" +
+            select_month
+            + "-" +
+            select_day
+        ).format("YYYY-MM-DD");
     }
 
     //赋值日历图例数据
@@ -184,7 +183,7 @@ var Calendar = function () {
         $('#lgbx').html('');
         var HTML = '';
         for (var i = 0; i < mgs.length; i++) {
-            HTML += '<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6"><span style="font-size:12px;">' + mgs[i] + '</span></div>';
+            HTML += '<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6"><span style="font-size:14px;">' + mgs[i] + '</span></div>';
         }
         $('#lgbx').html(HTML);
     }
@@ -192,8 +191,8 @@ var Calendar = function () {
     //获取日历数据
     var getKPIs = function () {
         jQuery('#eerBusy').showLoading();
-        $('#monthBtn').addClass('green');
-        $('#dayBtn').removeClass('green');
+        $('#monthBtn').addClass('buttonColor');
+        $('#dayBtn').removeClass('buttonColor');
         selectDType = "M";//默认选中月数据
         var queryDt = initQueryDt();
         $("#todayDT").html(select_year + "年" + select_month + "月");
@@ -219,6 +218,7 @@ var Calendar = function () {
                     if (res.ecps[i].type === "E") {
                         //object.backgroundColor = req.ecps[i].color;
                         //object.backgroundColor = "transparent";
+                        object.className = 'Estyle';
                     }
                     else {
                         //object.backgroundColor = "transparent";
@@ -241,8 +241,8 @@ var Calendar = function () {
                         var selectDt = (year + "-" + month + "-" + date);
                         $("#todayDT").html(year + "年" + month + "月" + date + "日");
                         //默认选中日数据
-                        $('#monthBtn').removeClass('green');
-                        $('#dayBtn').addClass('green');
+                        $('#monthBtn').removeClass('buttonColor');
+                        $('#dayBtn').addClass('buttonColor');
                         selectDType = "D";
                         getExpDs(selectDt);
                         return false;
@@ -314,9 +314,9 @@ var Calendar = function () {
                     $('#e_w_c_zt_eV_text').html(res.eV);
                     $('#e_w_c_zt_gV_text').html(res.gV);
                     $('#e_w_c_zt_cV_text').html(res.cV);
-                    $('#e_w_c_zt_ePrc_text').html(res.ePRc);
-                    $('#e_w_c_zt_gPrc_text').html(res.gPRc);
-                    $('#e_w_c_zt_cPrc_text').html(res.cPRc);
+                    $('#e_w_c_zt_ePrc_text').html(res.ePrc);
+                    $('#e_w_c_zt_gPrc_text').html(res.gPrc);
+                    $('#e_w_c_zt_cPrc_text').html(res.cPrc);
                 } else if ((selectAREA === 'EC' || selectAREA === 'WC')
                     && selectEQTY === 'XLJ') {//东西冷_溴理机
                     $('#e_w_c_xl_eV_text').html(res.eV);
@@ -326,22 +326,22 @@ var Calendar = function () {
                     && selectEQTY === "LXJ") {//东西冷_离心机
                     $('#e_w_c_lx_eV_text').html(res.eV);
                     $('#e_w_c_lx_cV_text').html(res.cV);
-                    $('#e_w_c_lx_ePrc_text').html(res.ePRc);
-                    $('#e_w_c_lx_cPrc_text').html(res.cPRc);
+                    $('#e_w_c_lx_ePrc_text').html(res.ePrc);
+                    $('#e_w_c_lx_cPrc_text').html(res.cPrc);
                 } else if ((selectAREA === 'EC' || selectAREA === 'WC')
                     && selectEQTY === "DYJ") {//东西冷_地源主机
                     $('#e_w_c_rb_eV_text').html(res.eV);
                     $('#e_w_c_rb_cV_text').html(res.cV);
-                    $('#e_w_c_rb_ePrc_text').html(res.ePRc);
-                    $('#e_w_c_rb_cPrc_text').html(res.cPRc);
+                    $('#e_w_c_rb_ePrc_text').html(res.ePrc);
+                    $('#e_w_c_rb_cPrc_text').html(res.cPrc);
                 } else if ((selectAREA === 'EH' || selectAREA === 'WH')
                     && selectEQTY === "ZTH") {//东西热_总体
                     $('#e_w_h_zt_eV_text').html(res.eV);
                     $('#e_w_h_zt_gV_text').html(res.gV);
                     $('#e_w_h_zt_rV_text').html(res.rV);
-                    $('#e_w_h_zt_ePrc_text').html(res.ePRc);
-                    $('#e_w_h_zt_gPrc_text').html(res.gPRc);
-                    $('#e_w_h_zt_rPrc_text').html(res.rPRc);
+                    $('#e_w_h_zt_ePrc_text').html(res.ePrc);
+                    $('#e_w_h_zt_gPrc_text').html(res.gPrc);
+                    $('#e_w_h_zt_rPrc_text').html(res.rPrc);
                 } else {//东西热_换热罐
                     $('#e_w_h_rg_gV_text').html(res.gV);
                     $('#e_w_h_rg_rV_text').html(res.rV);
@@ -355,12 +355,15 @@ var Calendar = function () {
                     object.name = res.lgs[i] + " " + res.ys[i] + "%";
                     ys.push(object);
                 }
+
+                //饼图颜色
                 option = {
                     tooltip: {
                         trigger: 'item',
                         formatter: "{a} <br>{b}"
                     },
                     legend: {
+                        show:true,
                         orient: 'vertical',
                         x: 'left',
                         data: res.lgs
@@ -370,7 +373,31 @@ var Calendar = function () {
                             name: '分项图',
                             type: 'pie',
                             radius: ['50%', '70%'],
-                            data: ys
+                            data: ys,
+                            label:{
+                                normal: {
+                                    color: '#757575'
+                                }
+                            },
+                            labelLine:{
+                                lineStyle:{
+                                    color:'#757575'
+
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: function(params2) {
+
+                                        var colorList = [
+                                            '#0D9DCB','#0CD34C','#CFCF14',
+                                            '#D36E12','#DC2612','#B70723',
+                                            '#7C05CB','#6bb1a6'
+                                        ];
+                                        return colorList[params2.dataIndex]
+                                    }
+                                }
+                            }
                         }
                     ]
                 };
@@ -421,8 +448,8 @@ var Calendar = function () {
 
             //月数据按钮
             $('#monthBtn').click(function () {
-                $(this).addClass("green");
-                $('#dayBtn').removeClass('green');
+                $(this).addClass("buttonColor");
+                $('#dayBtn').removeClass('buttonColor');
                 selectDType = "M";
                 var todayDt = moment(initQueryDt()).format('YYYY-MM');
                 $("#todayDT").html(todayDt);
@@ -431,8 +458,8 @@ var Calendar = function () {
 
             /*日数据按钮*/
             $('#dayBtn').click(function () {
-                $(this).addClass("green");
-                $('#monthBtn').removeClass('green');
+                $(this).addClass("buttonColor");
+                $('#monthBtn').removeClass('buttonColor');
                 selectDType = "D";
                 var todayDt = initQueryDt();//.format('YYYY-MM-DD');
                 $("#todayDT").html(todayDt);

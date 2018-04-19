@@ -248,6 +248,7 @@ $(function(){
             }
         ]
     });
+
     table.buttons().container().appendTo($('.excelButton'),table.table().container());
     //报错时不弹出弹框
     $.fn.dataTable.ext.errMode = function(s,h,m){

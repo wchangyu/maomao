@@ -203,6 +203,7 @@ $(function(){
             },
             //名称输入事件
             searchmc:function(e){
+
                 upDown(e,$('.accord-with-list').eq(1),enterMCName,inputMCName);
             }
 
@@ -2631,13 +2632,23 @@ $(function(){
 
         var e = e||window.event;
 
-        if(e.srcElement.className.indexOf('focusEle')>=0){
+        if(e.srcElement){
+
+            if(e.srcElement.className.indexOf('focusEle')>=0){
 
             $('.hidden1').hide();
 
             var el = $(e.srcElement);
 
-            el.next().next().show();
+            if(el.parent().attr('class').indexOf('disabled-block')>=0){
+
+                return false;
+
+            }else{
+
+                el.next().next().show();
+
+            }
 
         }else if( e.srcElement.className.indexOf('selectBlock')>=0 ){
 
@@ -2700,6 +2711,7 @@ $(function(){
 
         }
 
+        }
     });
 
     //所有下拉框的mouseover事件
@@ -3925,80 +3937,89 @@ $(function(){
 
         var e = e||window.event;
 
-        var chils = ul.children();
+        if(e.target.parentElement.className.indexOf('disabled-block')>=0){
 
-        var lengths = 0;
+            return false;
 
-        lengths = chils.length;
+        }else{
 
-        //ul.show();
+            var chils = ul.children();
 
-        if(e.keyCode == 40){
+            var lengths = 0;
 
-            //console.log('向下');
+            lengths = chils.length;
 
-            if(_numIndex < lengths -1){
+            //ul.show();
 
-                _numIndex ++ ;
+            if(e.keyCode == 40){
 
-            }else{
+                //console.log('向下');
 
-                _numIndex = lengths -1;
+                if(_numIndex < lengths -1){
+
+                    _numIndex ++ ;
+
+                }else{
+
+                    _numIndex = lengths -1;
+
+                }
+
+                ul.children().removeClass('li-color');
+
+                ul.children().eq(_numIndex).addClass('li-color');
+
+                //滚动条问题
+                if(_numIndex> 4){
+
+                    var moveDis = (_numIndex - 4)*26;
+
+                    ul.scrollTop(moveDis);
+                }
+
+            }else if(e.keyCode == 38){
+
+                //console.log('向上');
+
+                if(_numIndex < 1){
+
+                    _numIndex =0;
+
+                }else{
+
+                    _numIndex--;
+
+                }
+
+                ul.children().removeClass('li-color');
+
+                ul.children().eq(_numIndex).addClass('li-color');
+
+                //滚动条问题
+                if(lengths-4>_numIndex){
+
+                    var moveDis = (_numIndex - 4)*26;
+
+                    ul.scrollTop(moveDis);
+
+                }
+
+            }else if(e.keyCode == 13){
+
+                //console.log('回车');
+
+                enterFun();
+
+            }else if(e != 9){
+
+                _numIndex = -1;
+
+                inputFun();
 
             }
-
-            ul.children().removeClass('li-color');
-
-            ul.children().eq(_numIndex).addClass('li-color');
-
-            //滚动条问题
-            if(_numIndex> 4){
-
-                var moveDis = (_numIndex - 4)*26;
-
-                ul.scrollTop(moveDis);
-            }
-
-        }else if(e.keyCode == 38){
-
-            //console.log('向上');
-
-            if(_numIndex < 1){
-
-                _numIndex =0;
-
-            }else{
-
-                _numIndex--;
-
-            }
-
-            ul.children().removeClass('li-color');
-
-            ul.children().eq(_numIndex).addClass('li-color');
-
-            //滚动条问题
-            if(lengths-4>_numIndex){
-
-                var moveDis = (_numIndex - 4)*26;
-
-                ul.scrollTop(moveDis);
-
-            }
-
-        }else if(e.keyCode == 13){
-
-            //console.log('回车');
-
-            enterFun();
-
-        }else if(e != 9){
-
-            _numIndex = -1;
-
-            inputFun();
 
         }
+
     }
 
     //库区回车事件

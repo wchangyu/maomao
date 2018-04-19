@@ -113,7 +113,7 @@
 
     //获取区域数据
     var getAreaAys = function () {
-        var url = sessionStorage.apiUrlPrefix + "/MultiAreaHistory/GetChillAREAs";
+        var url = sessionStorage.apiUrlPrefix + "MultiAreaHistory/GetChillAREAs";
         $.get(url, function (res) {
             chArAy = res;
             //初始化区域选择控件
@@ -126,11 +126,25 @@
         $('#areaType').html();
         $('#areaType').find('option').remove();
         $('#areaType').empty();
+
+        var str = '';
+
         if (chArAy.length > 0) {
             for (var i = 0; i < chArAy.length; i++) {
+
                 var charK = chArAy[i].item;
+
                 var charV = chArAy[i].name;
-                $('#areaType').append($("<option value=\"" + charK + "\">" + charV + "</option>"));
+
+                var charT = chArAy[i].tag;
+
+                //$('#areaType').append($("<option value=\"" + charK + "\">" + charV + "</option>"));
+
+                str += '<option data-tag="' + charT + '" value="' + charK +'">' + charV + '</option>';
+
+                $('#areaType').empty().append(str);
+
+
             }
             initEqTypeSelectCtrl(chArAy[0].item);
         }
@@ -143,23 +157,132 @@
         $('#eqType').html();
         $('#eqType').find('option').remove();
         $('#eqType').empty();
+
+        var str = '';
+
         if (eqtys.length > 0) {
             for (var i = 0; i < eqtys.length; i++) {
                 var eqtyK = eqtys[i].type;
                 var eqtyV = eqtys[i].name;
-                $('#eqType').append($("<option value=\"" + eqtyK + "\">" + eqtyV + "</option>"));
+                var eqtyT = eqtys[i].tag;
+
+                str += '<option data-tag="' + eqtyT + '" value="' + eqtyK +'">' + eqtyV + '</option>';
+
             }
+
+            $('#eqType').empty().append(str);
+
+            //自动选择第一个
+            $('#eqType').val(eqtys[0].type);
+
+        }
+    }
+
+    //echarts配置项
+    var abbrOption = {
+        legend:{
+
+            show:true,
+            data:[]
+        },
+        grid:{
+
+            //left:'50',
+
+            width:'70%'
+
+        },
+        toolbox: { //可视化的工具箱
+            show: true,
+            feature: {
+                dataView: { //数据视图
+                    show: true
+                }
+            },
+            right:50
+        },
+        xAxis: {
+            type: 'category',
+            data: []
+        },
+        yAxis: [
+
+        ],
+        series: [
+
+            //{
+            //    data: [820, 932, 901, 934, 1290, 1330, 1320],
+            //    type: 'line',
+            //    yAxisIndex: 0,
+            //},
+            //
+            //{
+            //
+            //    data: [920, 1132, 1101, 1134, 1490, 1530, 1520],
+            //    type: 'line',
+            //    yAxisIndex: 1
+            //
+            //},
+            //
+            //{
+            //
+            //    data: [720, 932, 901, 934, 1290, 1330, 1320],
+            //    type: 'line',
+            //    yAxisIndex: 2
+            //
+            //},
+            //
+            //{
+            //    data: [120, 132, 101, 134, 190, 1330, 1320],
+            //    type: 'line',
+            //    yAxisIndex: 3
+            //},
+
+        ]
+    };
+
+    //y轴名称
+    function Yname(yarr,namearr){
+
+        var marginL = 0;
+
+        for(var i=0;i<namearr.length;i++){
+
+            if(i > 1){
+
+                marginL = marginL + Number(20) + 60;
+
+            }else{
+
+                marginL = 0;
+
+            }
+
+            var obj = {};
+
+            obj.name = namearr[i];
+
+            obj.type = 'value';
+
+            obj.offset = marginL;
+
+            yarr.push(obj);
+
         }
     }
 
     //获取参数分析数据
     var getAbbrDs = function () {
+
         jQuery('#abbrBusy').showLoading();
+
         abbrChartView = echarts.init(document.getElementById('abbrChartView'));
+
         var sp = $("#spDT").val();
         var ep = $("#epDT").val();
         var eType = $("#eType").val();
         var url = sessionStorage.apiUrlPrefix + "MultiAreaAbbr/GetAbbrAnalysisDs";
+
         $.post(url, {
             "pId": sessionStorage.PointerID,
             "sp": sp,
@@ -168,10 +291,143 @@
             "eqty": selectEQTY,
             "eType": eType
         }, function (res) {
+
+            //设置x轴
+            var xArr= [];
+
+            if(res.xs){
+
+                for(var i=0;i<res.xs.length;i++){
+
+                    xArr.push(res.xs[i]);
+
+                }
+
+            }
+
+            var yIndex = [0,1,2,2,3,3];
+
+            var color = ['#355a9a','#355a9a','#ed7e33','#ffc40f','#274278','#274278'];
+
+            //初始化
+            abbrOption.series = [];
+
+            abbrOption.legend.data = [];
+
+            //设置y轴
+            if(res.ys){
+
+                for(var i=0;i<res.ys.length;i++){
+
+                    var obj = {};
+
+                    obj.name = res.lgs[i];
+
+                    obj.type = 'line';
+
+                    obj.data = res.ys[i];
+
+                    obj.yAxisIndex = yIndex[i];
+
+                    obj.itemStyle = {
+
+                        color:color[i],
+
+                        emphasis:{
+
+                            label:{
+
+                                show:true,
+
+                                formatter:function(params){
+
+                                    return '时间：' + params.name + '\n' + '值：' + params.value
+
+
+                                },
+
+                                fontSize:14,
+
+                                lineHeight:70
+
+                            }
+
+                        }
+
+                    };
+
+                    abbrOption.series.push(obj);
+
+                }
+
+            }
+
+            //图例
+            if(res.lgs){
+
+                for(var i=0;i<res.lgs.length;i++){
+
+                    abbrOption.legend.data.push(res.lgs[i]);
+
+                }
+
+            }
+
+            abbrOption.xAxis.data = xArr;
+
+            //y轴名称
+            //多y轴
+            var yZhou = [];
+
+            //东西冷站离心机
+            if( selectAREA == 'EC' || selectAREA == 'WC'){
+
+                var arr = ['机组能效','供冷量','温度','流量'];
+
+                Yname(yZhou,arr);
+
+            }else if( selectAREA == 'EH' || selectAREA == 'WH' ){
+
+                if( selectEQTY == 'HRB' ){
+
+                    var arr = ['换热效率','供热量','压力','温度','流量'];
+
+                    Yname(yZhou,arr);
+
+                }else if( selectEQTY == 'CNB' ){
+
+                    var arr = ['输送系数','供热量','温度','流量'];
+
+                    Yname(yZhou,arr);
+
+                }
+
+
+            }
+
+
+            //判断
+            abbrOption.yAxis = yZhou;
+
+            abbrChartView.setOption(abbrOption,true);
+
             if (res.code === 0) {
 
                 jQuery('#abbrBusy').hideLoading();
+
             } else {
+
+                //初始化
+                abbrOption.series = [];
+
+                abbrOption.legend.data = [];
+
+                abbrOption.xAxis.data = [];
+
+                abbrOption.yAxis = [];
+
+                abbrChartView.setOption(abbrOption);
+
                 jQuery('#abbrBusy').hideLoading();
             }
         })
@@ -192,14 +448,21 @@
             //选择区域
             $('#areaType').change(function () {
                 var chArId = $(this).val();
-                selectAREA = $(this).children('option:selected').attr('tag');
+                selectAREA = $(this).children('option:selected').attr('data-tag');
+
                 //初始化设备类型选择控件
                 initEqTypeSelectCtrl(chArId);
+
+                selectEQTY = $('#eqType').children('option:selected').attr('data-tag');
+
             });
             //选择设备类型
             $('#eqType').change(function () {
-                selectEQTY = $(this).children('option:selected').attr('tag');
+                selectEQTY = $(this).children('option:selected').attr('data-tag');
             })
+            //默认调用数据
+            getAbbrDs();
+
             //获取数据
             $('#abbrBtn').on('click', function () {
                 getAbbrDs();

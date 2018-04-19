@@ -2,25 +2,56 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/templates/views/resource/js/gdAcceptance.js" line="82" />
-    <bookmark url="file://$PROJECT_DIR$/templates/views/resource/js/gdAcceptance.js" line="2010" />
-    <bookmark url="file://$PROJECT_DIR$/templates/views/resource/js/gdOrderRepair.js" line="2383" />
+    <bookmark url="file://$PROJECT_DIR$/templates/views/resource/js/gdAcceptance.js" line="2012" />
+    <bookmark url="file://$PROJECT_DIR$/templates/views/resource/js/gdOrderRepair.js" line="2402" />
     <bookmark url="file://$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js" line="1080" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/templates/views/resource/js/reportManagement-2.js" line="51" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1af96855-af84-4b37-9f06-ee03021bd231" name="Default" comment="3.30">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsWeek.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/resource/css/Wtable.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsWeek.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+    <list default="true" id="1af96855-af84-4b37-9f06-ee03021bd231" name="Default" comment="4.0811">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/HAVC/abbr.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/HAVC/js/abbr.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/views/EPMA/js/rank.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/views/EPMA/js/rate.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/views/EPMA/rank.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/views/EPMA/rate.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/views/logins/chcmu/img/biaoti (2).png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/views/logins/chcmu/img/erweima (2).png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/views/logins/chcmu/img/fubioati.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/configs/config.json" afterPath="$PROJECT_DIR$/assets/local/configs/config.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/configs/menu.json" afterPath="$PROJECT_DIR$/assets/local/configs/menu.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/scripts/BEE.js" afterPath="$PROJECT_DIR$/assets/local/scripts/BEE.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/EPMA/css/rank.css" afterPath="$PROJECT_DIR$/templates/views/EPMA/css/rank.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/HAVC/calendar.html" afterPath="$PROJECT_DIR$/templates/views/HAVC/calendar.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/HAVC/history.html" afterPath="$PROJECT_DIR$/templates/views/HAVC/history.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/HAVC/js/calendar.js" afterPath="$PROJECT_DIR$/templates/views/HAVC/js/calendar.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/HAVC/js/history.js" afterPath="$PROJECT_DIR$/templates/views/HAVC/js/history.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/HAVC/js/main.js" afterPath="$PROJECT_DIR$/templates/views/HAVC/js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/HAVC/js/monitor.js" afterPath="$PROJECT_DIR$/templates/views/HAVC/js/monitor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/HAVC/main.html" afterPath="$PROJECT_DIR$/templates/views/HAVC/main.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/HAVC/monitor.html" afterPath="$PROJECT_DIR$/templates/views/HAVC/monitor.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsMonth.html" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsMonth.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html" afterPath="$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js" afterPath="$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-5.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-5.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsAll.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsAll.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsMonth.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsMonth.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-branch-baojingxinxi/warningAlarm.html" afterPath="$PROJECT_DIR$/templates/views/bank-branch-baojingxinxi/warningAlarm.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/baobiaoguanli/maintenanceReportManagement.html" afterPath="$PROJECT_DIR$/templates/views/baobiaoguanli/maintenanceReportManagement.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/cangkuguanli/materialMonthlyReport.html" afterPath="$PROJECT_DIR$/templates/views/cangkuguanli/materialMonthlyReport.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/cangkuguanli/wbDetails.html" afterPath="$PROJECT_DIR$/templates/views/cangkuguanli/wbDetails.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/logins/chcmu/login_4.html" afterPath="$PROJECT_DIR$/templates/views/logins/chcmu/login_4.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/css/productionOrder.css" afterPath="$PROJECT_DIR$/templates/views/resource/css/productionOrder.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-3.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-3.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-6.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-6.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/materialMonthlyReport.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/materialMonthlyReport.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/materialOdd.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/materialOdd.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/productionOrder-3.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/productionOrder-3.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/productionOrder-6.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/productionOrder-6.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/productionOrder-7.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/productionOrder-7.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/productionOrder-8.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/productionOrder-8.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/publicFun.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/publicFun.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/totalMaterialChange.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/totalMaterialChange.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-1.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-2.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-3.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-3.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/wbDetails.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/wbDetails.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-6.html" afterPath="$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-6.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,340 +72,7 @@
     <favorites_list name="bbee" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="menu.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/local/configs/menu.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.6825395">
-              <caret line="45" column="31" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="31" />
-              <folding>
-                <element signature="n#!!block;n#空调机组#0;n#!!block;n#submenu#0;n#!!block;n#大屏幕#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#数据总览#0;n#!!block;n#submenu#0;n#!!block;n#暖通空调#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#历史数据#0;n#!!block;n#submenu#0;n#!!block;n#暖通空调#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能效日历#0;n#!!block;n#submenu#0;n#!!block;n#暖通空调#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#环境监测#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#环境监测-吉大医院#0;n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#环境监测-总行#0;n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#环境监测-分行#0;n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#数据#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#数据总览#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#实时数据#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#历史数据#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能效日历#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#参数分析#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能效对比#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#负荷分析#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能效排名#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#报表#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#报表导出#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#计费方案#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#监控总览#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#测试一下#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#送排风1#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#空调机组22#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#测试一下3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#冷热源3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#电梯3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#动环3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#站房照明3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#给排水3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#变配电系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#配电支路#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#变配电室综合监控#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#综合保护#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#变压器温控器#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#发电系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#电源隔离监测系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#暖通空调系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#暖通空调#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#直燃机#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#远大空调#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#洁净空调系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#洁净空调#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#医用气体#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#空压系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#液氧系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#负压系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#汇流排系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#给排水系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#给排水#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#UPS系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#UPS#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#摄像头#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#实时监控#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#监控回放#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#用电监控#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#电能质量#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#配电系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能源站系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#实时数据#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#改名字#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#用能查询#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#用能查询#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#用能查询（支路）#0;n#!!block;n#submenu#0;n#!!block;n#用能查询#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#用能查询（科室）#0;n#!!block;n#submenu#0;n#!!block;n#用能查询#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#横向对比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#纵向对比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#分项用电环比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#支路用电环比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#同比环比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能耗分项#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#昼夜分析#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#系统损耗#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#用能管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#用能管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能耗排名#0;n#!!block;n#submenu#0;n#!!block;n#用能管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#预警报警#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#用能报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#实时报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#3D报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#摄像头报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#设备管理#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#设备历史#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#设备二维码#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#设备二维码（蓝）#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#设备资料#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#设备预警管理#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#字典管理#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#巡检项目管理#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#巡检内容#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#巡检计划#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#巡检任务#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#任务综合查询#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#异常项目查询#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#保养条目管理#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#保养内容#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#保养计划#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#保养任务#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#任务综合查询#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工单登记管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工单受理管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工长分配管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工单执行管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工单评估管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工单综合查询#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工单返修件#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#未完成工单管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#备件确认#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#备件二级库处理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#备件主库处理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#班组维修工作量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#员工维修工作量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#调度中心工作量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#部门报修量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#维修满意度统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#地图预览#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#操作台#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#返修件二级库处理#0;n#!!block;n#submenu#0;n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#返修件主库处理#0;n#!!block;n#submenu#0;n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#站段周故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#站段自定义故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#车间周故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#车间日故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#车间未修复故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#故障修复明细总表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#故障未修复明细表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#返厂报表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#调度中心报表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#员工管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#角色管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#部门管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#资源管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#修改密码#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#权限分配#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#标识符管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#维修项目#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#地点管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#电话管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#物品类别#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#物品管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#仓库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#入库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#出库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#调拨出库#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#破损管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#移库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#盘点管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#退货管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#库存清单#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#入库报表#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#出库报表#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#台账记录#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#供应商管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#材料月报表#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#材料总支出#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#月末结转#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#车间材料支出#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#销审管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#时间段管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#班次管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#值班管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#人员类型管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#加班管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#加班统计#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#考勤管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#考勤统计#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#地图预览#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#地图预览#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#首页#0;n#!!block;n#submenu#0;n#!!block;n#地图预览#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#新增二级单位#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#人员类别#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#指标信息#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#单位用能系数#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#单位性质#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#计量设备列表配置#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#二级单位计量设备列表#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#手工抄表信息表#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#计量设备类型#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#变更公摊比例#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#结算操作#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#二级单位用能信息表#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#超额用能二级单位列表#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#二级单位用能支付金额汇总列表#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#单位纵向比较#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#天气#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#天气#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#天气#0;n#!!block;n#submenu#0;n#!!block;n#天气#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#测试#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#三列#0;n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#两列#0;n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#历史录像#0;n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#系统故障时间#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#故障月统计#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#故障率统计#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#故障具体分析#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#故障消除率#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工单报修管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工单关单管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工单受理管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工单接单管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工单执行管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#工单综合查询#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#大屏展示#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能耗总览#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#首页#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能耗数据#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能耗指标#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#横向对比#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#同比环比#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能耗分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能耗分项#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#关联分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#趋势预测#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#电能质量#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能效分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能效日历#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能效查询#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#参数分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能效对比#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#用能管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能耗费用#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能耗排名#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#定额管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#用能考核#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#能耗公示#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#节能足迹#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#节能项目管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#后台配置#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#万元GDP#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#就诊人数#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#管理诊断#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#综合诊断#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#报表管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#综合管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#大屏展示#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#submenu#0;n#!!block;n#大屏展示#0;n#!!top" expanded="false" />
-                <element signature="n#!!block;n#三列#0;n#!!block;n#submenu#0;n#!!block;n#大屏展示#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/local/configs/config.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.909091">
-              <caret line="163" column="40" selection-start-line="163" selection-start-column="40" selection-end-line="163" selection-end-column="40" />
-              <folding>
-                <element signature="n#!!block;n#allEnergyType#0;n#!!top" expanded="false" />
-                <element signature="e#137#2847#0" expanded="false" />
-                <element signature="e#145#458#0" expanded="false" />
-                <element signature="e#466#773#0" expanded="false" />
-                <element signature="e#781#1082#0" expanded="false" />
-                <element signature="e#1090#1390#0" expanded="false" />
-                <element signature="e#1398#1691#0" expanded="false" />
-                <element signature="e#1699#1993#0" expanded="false" />
-                <element signature="e#2001#2203#0" expanded="false" />
-                <element signature="e#2211#2413#0" expanded="false" />
-                <element signature="e#2421#2627#0" expanded="false" />
-                <element signature="e#2635#2841#0" expanded="false" />
-                <element signature="n#!!block;n#officeEnergyType#0;n#!!top" expanded="false" />
-                <element signature="e#2940#3743#0" expanded="false" />
-                <element signature="e#2948#3212#0" expanded="false" />
-                <element signature="e#3220#3478#0" expanded="false" />
-                <element signature="e#3486#3737#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="monitor.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/views/HAVC/monitor.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.126984">
-              <caret line="35" column="54" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Wtable.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/views/resource/css/Wtable.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.110081114">
-              <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -410,57 +108,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/views/resource/js/productionOrder-4.js" />
-        <option value="$PROJECT_DIR$/templates/views/gongdangunali/productionOrder-6.html" />
-        <option value="$PROJECT_DIR$/templates/views/gongdanxitong/gdOrderRepair.html" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-4.js" />
-        <option value="$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-2.html" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-2.js" />
-        <option value="$PROJECT_DIR$/templates/views/new-nengyuanzonglan/new-index1.html" />
-        <option value="$PROJECT_DIR$/templates/views/passengerStation/passengerStation.html" />
-        <option value="$PROJECT_DIR$/templates/views/passengerStation/passengerStation.css" />
-        <option value="$PROJECT_DIR$/templates/views/passengerStation/passengerStation.js" />
-        <option value="$PROJECT_DIR$/templates/views/logins/chcmu/login.js" />
-        <option value="$PROJECT_DIR$/templates/views/new-resource/js/nengyuanzonglan/index1.js" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/productionOrder-1.js" />
-        <option value="$PROJECT_DIR$/templates/views/shouye/index.html" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/index.js" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/newIndex/newIndex.js" />
-        <option value="$PROJECT_DIR$/templates/views/shouye/newIndex.html" />
-        <option value="$PROJECT_DIR$/templates/views/logins/chcmu/login_4.html" />
-        <option value="$PROJECT_DIR$/templates/views/shouye/infoMap/infoMap2.html" />
-        <option value="$PROJECT_DIR$/assets/local/scripts/login.js" />
-        <option value="$PROJECT_DIR$/assets/admin/layout/scripts/demo.js" />
-        <option value="$PROJECT_DIR$/assets/local/scripts/BEE.js" />
-        <option value="$PROJECT_DIR$/templates/views/resource/css/3DMap2.css" />
-        <option value="$PROJECT_DIR$/assets/local/configs/customMade.json" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-4_1.js" />
-        <option value="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsAll.html" />
-        <option value="$PROJECT_DIR$/templates/views/gongdanxitong/dutyRecordList.html" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/publicGD.js" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/productionOrder-11.js" />
-        <option value="$PROJECT_DIR$/templates/views/HAVC/calendar.html" />
+        <option value="$PROJECT_DIR$/templates/views/gongdanxitong/gdOrders.html" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/gdOrders.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/gdAcceptance.js" />
+        <option value="$PROJECT_DIR$/templates/views/EPMA/rank.html" />
+        <option value="$PROJECT_DIR$/templates/views/EPMA/css/rank.css" />
+        <option value="$PROJECT_DIR$/templates/views/EPMA/js/rank.js" />
         <option value="$PROJECT_DIR$/templates/views/HAVC/js/calendar.js" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/pointersoffices.js" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/publicFun.js" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/dutyRecordList.js" />
-        <option value="$PROJECT_DIR$/templates/views/gongdanxitong/sectionDetail.html" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/sectionDetail.js" />
-        <option value="$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-1.html" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-1.js" />
-        <option value="$PROJECT_DIR$/templates/views/njn-resource/css/dataChange.css" />
-        <option value="$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsAll.js" />
-        <option value="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsWeek.html" />
-        <option value="$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsMonth.html" />
-        <option value="$PROJECT_DIR$/assets/local/configs/menu.json" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsMonth.js" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsWeek.js" />
-        <option value="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-5.js" />
-        <option value="$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js" />
-        <option value="$PROJECT_DIR$/assets/local/configs/config.json" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/productionOrder-3.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/materialMonthlyReport.js" />
+        <option value="$PROJECT_DIR$/templates/views/cangkuguanli/materialMonthlyReport.html" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-2.js" />
+        <option value="$PROJECT_DIR$/templates/views/login_4.html" />
+        <option value="$PROJECT_DIR$/templates/views/HAVC/js/history.js" />
+        <option value="$PROJECT_DIR$/templates/views/logins/chcmu/login_4.html" />
+        <option value="$PROJECT_DIR$/assets/local/scripts/login.js" />
+        <option value="$PROJECT_DIR$/assets/local/scripts/BEE.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/materialOdd.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/totalMaterialChange.js" />
+        <option value="$PROJECT_DIR$/templates/views/HAVC/abbr.html" />
+        <option value="$PROJECT_DIR$/templates/views/HAVC/calendar.html" />
+        <option value="$PROJECT_DIR$/templates/views/HAVC/history.html" />
         <option value="$PROJECT_DIR$/templates/views/HAVC/monitor.html" />
-        <option value="$PROJECT_DIR$/templates/views/resource/css/Wtable.css" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/productionOrder-7.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/css/HAVC.css" />
+        <option value="$PROJECT_DIR$/templates/views/HAVC/main.html" />
+        <option value="$PROJECT_DIR$/templates/views/HAVC/js/main.js" />
+        <option value="$PROJECT_DIR$/templates/views/HAVC/js/monitor.js" />
+        <option value="$PROJECT_DIR$/templates/views/HAVC/js/abbr.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-3.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/productionOrder-1.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/publicGD.js" />
+        <option value="$PROJECT_DIR$/templates/views/cangkuguanli/materialTickets.html" />
+        <option value="$PROJECT_DIR$/templates/views/resource/css/productionOrder.css" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-6.js" />
+        <option value="$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-6.html" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/materialTickets.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/wbDetails.js" />
+        <option value="$PROJECT_DIR$/templates/views/cangkuguanli/wbDetails.html" />
+        <option value="$PROJECT_DIR$/templates/views/baobiaoguanli/maintenanceReportManagement.html" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-1.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/productionOrder-8.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/publicFun.js" />
+        <option value="$PROJECT_DIR$/templates/views/new-resource/js/baobiaoguanli/energyConsumptionReport.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/productionOrder-6.js" />
+        <option value="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-3.js" />
+        <option value="$PROJECT_DIR$/assets/local/configs/config.json" />
+        <option value="$PROJECT_DIR$/assets/local/configs/menu.json" />
+        <option value="$PROJECT_DIR$/templates/views/njn-dapingzhanshi/energyConsumptionReport.html" />
+        <option value="$PROJECT_DIR$/templates/views/bank-branch-baojingxinxi/warningAlarm.html" />
+        <option value="$PROJECT_DIR$/templates/views/njn-dapingzhanshi/energyEfficiencyReport.html" />
+        <option value="$PROJECT_DIR$/templates/views/new-resource/js/baobiaoguanli/energyEfficiencyReport.js" />
       </list>
     </option>
   </component>
@@ -482,6 +180,12 @@
     <OptionsSetting value="true" id="更新" />
     <OptionsSetting value="true" id="状态" />
     <OptionsSetting value="true" id="编辑" />
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
     <ConfirmationsSetting value="0" id="添加" />
     <ConfirmationsSetting value="0" id="移除" />
   </component>
@@ -500,7 +204,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -520,40 +223,43 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="E:/框架案例(metronicv4.0)/metronicv4.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="js-jscs-nodeInterpreter" value="G:\maomaos\node.exe" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="270" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="268" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="276" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1063" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="275" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="251" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="282" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1069" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\bbee\templates\views\" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\bbee\templates\views\logins\chcmu" />
       <recent name="G:\bbee\templates\views\resource\js" />
     </key>
   </component>
@@ -779,7 +485,19 @@
       <option name="project" value="LOCAL" />
       <updated>1522394424666</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="4.02">
+      <created>1522636083450</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1522636083450</updated>
+    </task>
+    <task id="LOCAL-00016" summary="4.08">
+      <created>1523186311309</created>
+      <option name="number" value="00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1523186311309</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -795,14 +513,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23024236" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18802084" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.02056277" sideWeight="0.7581665" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.67336154" sideWeight="0.7581665" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32792208" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32833958" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -820,18 +538,18 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41125542" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41125542" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06810811" sideWeight="0.4915701" order="18" side_tool="false" content_ui="tabs" />
+      <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17207792" sideWeight="0.4915701" order="18" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.02056277" sideWeight="0.7581665" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.7581665" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -848,10 +566,10 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32833958" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18229716" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22497366" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06810811" sideWeight="0.4915701" order="18" side_tool="false" content_ui="tabs" />
+      <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17207792" sideWeight="0.4915701" order="18" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -880,1043 +598,425 @@
     <MESSAGE value="3.23" />
     <MESSAGE value="3.29" />
     <MESSAGE value="3.30" />
-    <option name="LAST_COMMIT_MESSAGE" value="3.30" />
+    <MESSAGE value="4.02" />
+    <MESSAGE value="4.08" />
+    <MESSAGE value="4.0811" />
+    <option name="LAST_COMMIT_MESSAGE" value="4.0811" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.9425287" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="62" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/templates/views/njn-resource/js/dapingzhanshi/coldHeatSource.js</url>
+          <line>476</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/templates/views/njn-resource/js/dapingzhanshi/coldHeatSource.js</url>
+          <line>538</line>
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/templates/views/njn-resource/js/dapingzhanshi/coldHeatSource.js</url>
+          <line>818</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="95" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/views/guzhangfenxibiao/customAssetMangement.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-6.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.8484848">
-          <caret line="399" column="42" selection-start-line="0" selection-start-column="0" selection-end-line="499" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.833526">
+          <caret line="711" column="52" selection-start-line="711" selection-start-column="35" selection-end-line="711" selection-end-column="52" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/energyAnalysis-7.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-6.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42427886">
+          <caret line="573" column="46" selection-start-line="573" selection-start-column="46" selection-end-line="573" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/EPMA/abbr.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25058004">
+          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/new-resource/js/baobiaoguanli/areaEnergyDataStatement1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.04581">
+          <caret line="150" column="25" selection-start-line="150" selection-start-column="25" selection-end-line="150" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/new-baobiaoguanli/areaEnergyDataStatement1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66589326">
+          <caret line="331" column="66" selection-start-line="331" selection-start-column="66" selection-end-line="331" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/materialTickets.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="39" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="39" />
+          <caret line="142" column="4" selection-start-line="142" selection-start-column="4" selection-end-line="142" selection-end-column="54" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/guzhangfenxibiao/secondWeekBugList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5319149">
-          <caret line="167" column="8" selection-start-line="167" selection-start-column="8" selection-end-line="167" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/guzhangfenxibiao/secondWeekBugList.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.4444447">
-          <caret line="469" column="55" selection-start-line="469" selection-start-column="55" selection-end-line="469" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/cangkuguanli/TransferOutWarehouse.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="10.181818">
-          <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/js/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34246576">
-          <caret line="1642" column="0" selection-start-line="1642" selection-start-column="0" selection-end-line="1673" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/js/dapingzhanshi/pandectEnergy.js">
+    <entry file="file://$PROJECT_DIR$/assets/local/configs/setNames.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="1997" column="56" selection-start-line="1997" selection-start-column="12" selection-end-line="1997" selection-end-column="56" />
+          <caret line="16" column="9" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/HTML5.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/wbDetails.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1353" column="0" selection-start-line="1353" selection-start-column="0" selection-end-line="1353" selection-end-column="0" />
-          <caret line="1353" column="26" selection-start-line="1353" selection-start-column="26" selection-end-line="1353" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.33035713">
+          <caret line="439" column="22" selection-start-line="439" selection-start-column="22" selection-end-line="439" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/productionOrder-1.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/cangkuguanli/wbDetails.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.4373522">
-          <caret line="300" column="19" selection-start-line="300" selection-start-column="8" selection-end-line="300" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.027842227">
+          <caret line="357" column="66" selection-start-line="357" selection-start-column="66" selection-end-line="357" selection-end-column="66" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/publicGD.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/css/productionOrder.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="184" column="20" selection-start-line="184" selection-start-column="20" selection-end-line="184" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.027842227">
+          <caret line="307" column="0" selection-start-line="307" selection-start-column="0" selection-end-line="309" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/productionOrder-11.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/HAVC/compare.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-123.4">
-          <caret line="1014" column="13" selection-start-line="1014" selection-start-column="13" selection-end-line="1014" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.027842227">
+          <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/gongdangunali/productionOrder-10.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/baobiaoguanli/reportManagement-1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.0">
-          <caret line="775" column="16" selection-start-line="775" selection-start-column="16" selection-end-line="775" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/global/plugins/fullcalendar/lib/moment.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="-10.109049">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/global/plugins/fullcalendar/fullcalendar.min.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/cangkuguanli/materialTickets.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/HAVC/js/calendar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47517732">
-          <caret line="203" column="43" selection-start-line="203" selection-start-column="43" selection-end-line="203" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/HAVC/calendar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2915129">
-          <caret line="324" column="114" selection-start-line="324" selection-start-column="114" selection-end-line="324" selection-end-column="114" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/onDutyManagement.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5730594">
-          <caret line="90" column="18" selection-start-line="90" selection-start-column="12" selection-end-line="90" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/YWFZ/onDutyManagement.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.084870845">
-          <caret line="403" column="25" selection-start-line="403" selection-start-column="25" selection-end-line="403" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/pointersoffices.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="137" column="4" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="4" />
-          <folding>
-            <element signature="e#3163#3918#0" expanded="false" />
-            <element signature="e#3996#4502#0" expanded="false" />
-            <element signature="e#5262#9792#0" expanded="false" />
-            <element signature="e#5572#8897#0" expanded="false" />
-            <element signature="e#6092#7230#0" expanded="false" />
-            <element signature="e#7285#7399#0" expanded="false" />
-            <element signature="e#7452#8783#0" expanded="false" />
-            <element signature="e#9865#11604#0" expanded="false" />
-            <element signature="e#16396#19073#0" expanded="false" />
-            <element signature="e#20257#22340#0" expanded="false" />
-            <element signature="n#!!block;n#unique#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/productionOrder-3.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3607306">
-          <caret line="1609" column="16" selection-start-line="1609" selection-start-column="16" selection-end-line="1613" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/gongdangunali/productionOrder-3.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73309606">
-          <caret line="986" column="42" selection-start-line="986" selection-start-column="42" selection-end-line="986" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/showOrHidden.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4155251">
-          <caret line="333" column="25" selection-start-line="333" selection-start-column="25" selection-end-line="333" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/energyAnalysis-10.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6438356">
-          <caret line="389" column="12" selection-start-line="389" selection-start-column="12" selection-end-line="389" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/yongnengfenxi/energyAnalysis-10.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7164887">
-          <caret line="405" column="30" selection-start-line="405" selection-start-column="30" selection-end-line="405" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/gdAcceptance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.81560284">
-          <caret line="2762" column="35" selection-start-line="2762" selection-start-column="35" selection-end-line="2762" selection-end-column="35" />
-          <folding>
-            <element signature="e#523#6812#0" expanded="false" />
-            <marker date="1521773582980" expanded="true" signature="10072:10084" placeholder="..." />
-            <marker date="1521773582980" expanded="true" signature="10188:10198" placeholder="..." />
-            <marker date="1521773582980" expanded="true" signature="95615:95628" placeholder="..." />
-            <marker date="1521773582980" expanded="true" signature="96285:96298" placeholder="..." />
-            <marker date="1521773582980" expanded="true" signature="96954:96968" placeholder="..." />
-            <marker date="1521773582980" expanded="true" signature="97750:97764" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/gdAcceptance.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5124555">
-          <caret line="504" column="38" selection-start-line="504" selection-start-column="38" selection-end-line="504" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/css/dataChange.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8873072">
-          <caret line="332" column="24" selection-start-line="332" selection-start-column="24" selection-end-line="332" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.19257541">
+          <caret line="400" column="6" selection-start-line="378" selection-start-column="0" selection-end-line="400" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.4385343">
-          <caret line="401" column="49" selection-start-line="401" selection-start-column="49" selection-end-line="401" selection-end-column="49" />
+        <state vertical-scroll-proportion="0.80335194">
+          <caret line="200" column="0" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57413995">
-          <caret line="574" column="20" selection-start-line="574" selection-start-column="20" selection-end-line="574" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.4153132">
+          <caret line="392" column="42" selection-start-line="392" selection-start-column="42" selection-end-line="392" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/dutyRecordList.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/baobiaoguanli/maintenanceReportManagement.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7808219">
-          <caret line="79" column="30" selection-start-line="79" selection-start-column="30" selection-end-line="79" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.4153132">
+          <caret line="385" column="7" selection-start-line="385" selection-start-column="7" selection-end-line="385" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/dutyRecordList.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/FXJ/dispatchCenterReport.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="66" column="8" selection-start-line="66" selection-start-column="8" selection-end-line="72" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.5684455">
+          <caret line="333" column="42" selection-start-line="333" selection-start-column="42" selection-end-line="333" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsAll.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/new-baobiaoguanli/energyCollectStatement1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.181818">
-          <caret line="444" column="41" selection-start-line="444" selection-start-column="41" selection-end-line="444" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.6403712">
+          <caret line="266" column="67" selection-start-line="266" selection-start-column="67" selection-end-line="266" selection-end-column="67" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsAll.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="83" column="4" selection-start-line="83" selection-start-column="4" selection-end-line="97" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/sectionDetail.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/materialOdd.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="336" column="44" selection-start-line="336" selection-start-column="44" selection-end-line="336" selection-end-column="176" />
+          <caret line="7" column="51" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="51" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/sectionDetail.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/systemMonthCount.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="112" column="4" selection-start-line="112" selection-start-column="4" selection-end-line="164" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.6972067">
+          <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsWeek.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/productionOrder-7.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33294663">
-          <caret line="59" column="8" selection-start-line="59" selection-start-column="8" selection-end-line="63" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.3884393">
+          <caret line="1297" column="44" selection-start-line="1297" selection-start-column="25" selection-end-line="1297" selection-end-column="44" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/gongdanxitong/serviceWorkStatisticsMonth.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/gongdangunali/productionOrder-7.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.151515">
-          <caret line="49" column="34" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
-          <folding>
-            <element signature="n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#4;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#4;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#5;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#5;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#5;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#6;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#6;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#script#29;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.59615386">
+          <caret line="790" column="42" selection-start-line="790" selection-start-column="42" selection-end-line="790" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsMonth.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/productionOrder-8.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.566667">
-          <caret line="109" column="35" selection-start-line="109" selection-start-column="8" selection-end-line="109" selection-end-column="35" />
-          <folding>
-            <element signature="e#442#1127#0" expanded="false" />
-            <element signature="e#1257#1550#0" expanded="false" />
-            <element signature="e#1686#1980#0" expanded="false" />
-            <element signature="e#2127#2497#0" expanded="false" />
-            <element signature="e#2636#2931#0" expanded="false" />
-            <element signature="e#3068#3805#0" expanded="false" />
-            <element signature="e#3930#4300#0" expanded="false" />
-            <element signature="e#4683#4997#0" expanded="false" />
-            <element signature="e#5046#5208#0" expanded="false" />
-            <element signature="e#5269#5430#0" expanded="false" />
-            <element signature="e#5703#5864#0" expanded="false" />
-            <element signature="e#6276#6710#0" expanded="false" />
-            <element signature="e#6933#8225#0" expanded="false" />
-            <element signature="e#7095#7208#0" expanded="false" />
-            <element signature="e#7245#7485#0" expanded="false" />
-            <element signature="e#7855#8214#0" expanded="false" />
-            <element signature="e#8270#9277#0" expanded="false" />
-            <element signature="e#8899#9258#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.38324022">
+          <caret line="144" column="49" selection-start-line="144" selection-start-column="49" selection-end-line="144" selection-end-column="49" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/serviceWorkStatisticsWeek.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/gongdangunali/gdMaintenanceParts.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.0">
-          <caret line="113" column="38" selection-start-line="113" selection-start-column="38" selection-end-line="113" selection-end-column="38" />
-          <folding>
-            <element signature="e#567#1252#0" expanded="false" />
-            <element signature="e#578#639#0" expanded="false" />
-            <element signature="e#649#714#0" expanded="false" />
-            <element signature="e#724#789#0" expanded="false" />
-            <element signature="e#799#868#0" expanded="false" />
-            <element signature="e#878#943#0" expanded="false" />
-            <element signature="e#953#1017#0" expanded="false" />
-            <element signature="e#1027#1097#0" expanded="false" />
-            <element signature="e#1107#1172#0" expanded="false" />
-            <element signature="e#1182#1245#0" expanded="false" />
-            <element signature="e#1382#1675#0" expanded="false" />
-            <element signature="e#1393#1450#0" expanded="false" />
-            <element signature="e#1460#1522#0" expanded="false" />
-            <element signature="e#1532#1592#0" expanded="false" />
-            <element signature="e#1602#1668#0" expanded="false" />
-            <element signature="e#1811#2105#0" expanded="false" />
-            <element signature="e#1822#1879#0" expanded="false" />
-            <element signature="e#1889#1952#0" expanded="false" />
-            <element signature="e#1962#2022#0" expanded="false" />
-            <element signature="e#2032#2098#0" expanded="false" />
-            <element signature="e#2252#2622#0" expanded="false" />
-            <element signature="e#2263#2320#0" expanded="false" />
-            <element signature="e#2408#2468#0" expanded="false" />
-            <element signature="e#2478#2544#0" expanded="false" />
-            <element signature="e#2554#2615#0" expanded="false" />
-            <element signature="e#2761#3056#0" expanded="false" />
-            <element signature="e#2772#2829#0" expanded="false" />
-            <element signature="e#2839#2903#0" expanded="false" />
-            <element signature="e#2913#2973#0" expanded="false" />
-            <element signature="e#2983#3049#0" expanded="false" />
-            <element signature="e#3193#3930#0" expanded="false" />
-            <element signature="e#3204#3268#0" expanded="false" />
-            <element signature="e#3278#3343#0" expanded="false" />
-            <element signature="e#3353#3412#0" expanded="false" />
-            <element signature="e#3422#3485#0" expanded="false" />
-            <element signature="e#3495#3556#0" expanded="false" />
-            <element signature="e#3566#3630#0" expanded="false" />
-            <element signature="e#3640#3702#0" expanded="false" />
-            <element signature="e#3712#3778#0" expanded="false" />
-            <element signature="e#3788#3850#0" expanded="false" />
-            <element signature="e#3860#3923#0" expanded="false" />
-            <element signature="e#4055#4425#0" expanded="false" />
-            <element signature="e#4066#4123#0" expanded="false" />
-            <element signature="e#4133#4197#0" expanded="false" />
-            <element signature="e#4207#4269#0" expanded="false" />
-            <element signature="e#4279#4346#0" expanded="false" />
-            <element signature="e#4356#4418#0" expanded="false" />
-            <element signature="e#4808#5122#0" expanded="false" />
-            <element signature="e#5171#5333#0" expanded="false" />
-            <element signature="e#5394#5555#0" expanded="false" />
-            <element signature="e#5620#5890#0" expanded="false" />
-            <element signature="e#5940#6085#0" expanded="false" />
-            <element signature="e#6163#6324#0" expanded="false" />
-            <element signature="e#6525#8719#0" expanded="false" />
-            <element signature="e#6732#7170#0" expanded="false" />
-            <element signature="e#6795#7159#0" expanded="false" />
-            <element signature="e#6837#6946#0" expanded="false" />
-            <element signature="e#6988#7144#0" expanded="false" />
-            <element signature="e#7230#7376#0" expanded="false" />
-            <element signature="e#7271#7365#0" expanded="false" />
-            <element signature="e#7419#8711#0" expanded="false" />
-            <element signature="e#7581#7694#0" expanded="false" />
-            <element signature="e#7731#7971#0" expanded="false" />
-            <element signature="e#7834#7956#0" expanded="false" />
-            <element signature="e#8010#8268#0" expanded="false" />
-            <element signature="e#8051#8106#0" expanded="false" />
-            <element signature="e#8110#8253#0" expanded="false" />
-            <element signature="e#8341#8700#0" expanded="false" />
-            <element signature="e#8438#8575#0" expanded="false" />
-            <element signature="e#8579#8685#0" expanded="false" />
-            <element signature="e#8756#9763#0" expanded="false" />
-            <element signature="e#8777#8820#0" expanded="false" />
-            <element signature="e#8837#9755#0" expanded="false" />
-            <element signature="e#9004#9312#0" expanded="false" />
-            <element signature="e#9114#9246#0" expanded="false" />
-            <element signature="e#9385#9744#0" expanded="false" />
-            <element signature="e#9482#9619#0" expanded="false" />
-            <element signature="e#9623#9729#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.30408654">
+          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-3.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/productionOrder-6.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.17321016">
-          <caret line="766" column="42" selection-start-line="766" selection-start-column="28" selection-end-line="766" selection-end-column="42" />
-          <folding>
-            <element signature="e#17920#18276#0" expanded="false" />
-            <element signature="e#18354#18452#0" expanded="false" />
-            <element signature="e#18504#18870#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.26815644">
+          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-3.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/gongdangunali/productionOrder-4.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.72190034">
-          <caret line="1154" column="51" selection-start-line="1154" selection-start-column="51" selection-end-line="1154" selection-end-column="51" />
-          <folding>
-            <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#7;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#8;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#9;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#10;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#11;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#13;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#14;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#15;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#16;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#17;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.66589326">
+          <caret line="768" column="43" selection-start-line="768" selection-start-column="43" selection-end-line="768" selection-end-column="43" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-4_1.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/cangkuguanli/materialOdd.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45422944">
-          <caret line="630" column="0" selection-start-line="630" selection-start-column="0" selection-end-line="630" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.4994206">
+          <caret line="320" column="38" selection-start-line="320" selection-start-column="38" selection-end-line="320" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-5.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/gongdangunali/productionOrder-8.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49107143">
-          <caret line="524" column="19" selection-start-line="524" selection-start-column="19" selection-end-line="524" selection-end-column="19" />
-          <folding>
-            <element signature="e#1409#3279#0" expanded="false" />
-            <element signature="e#3413#3823#0" expanded="false" />
-            <element signature="e#3920#4147#0" expanded="false" />
-            <element signature="e#4263#5708#0" expanded="false" />
-            <element signature="e#6000#6417#0" expanded="false" />
-            <element signature="e#6503#7800#0" expanded="false" />
-            <element signature="e#7885#10532#0" expanded="false" />
-            <element signature="e#8379#9563#0" expanded="false" />
-            <element signature="e#9583#9714#0" expanded="false" />
-            <element signature="e#9731#10436#0" expanded="false" />
-            <element signature="e#10588#10925#0" expanded="false" />
-            <element signature="e#10973#11009#0" expanded="false" />
-            <element signature="e#11152#11736#0" expanded="false" />
-            <element signature="e#11779#13071#0" expanded="false" />
-            <element signature="e#13426#13495#0" expanded="false" />
-            <element signature="e#13511#15348#0" expanded="false" />
-            <element signature="e#15416#16056#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.8331402">
+          <caret line="845" column="7" selection-start-line="845" selection-start-column="7" selection-end-line="845" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-5.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/new-resource/js/baobiaoguanli/energyCollectStatement1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55504054">
-          <caret line="420" column="49" selection-start-line="420" selection-start-column="49" selection-end-line="420" selection-end-column="49" />
-          <folding>
-            <element signature="n#script#25;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#7;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.026785715">
+          <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/publicFun.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-3.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.78571427">
-          <caret line="866" column="9" selection-start-line="866" selection-start-column="9" selection-end-line="866" selection-end-column="9" />
-          <folding>
-            <element signature="e#700#760#0" expanded="false" />
-            <element signature="n#!!block;n#_timeYMDComponentsFun#0" expanded="false" />
-            <element signature="n#!!block;n#_yearDate#0" expanded="false" />
-            <element signature="e#1100#1293#0" expanded="false" />
-            <element signature="n#!!block;n#_monthDate#0" expanded="false" />
-            <element signature="e#1394#1590#0" expanded="false" />
-            <element signature="n#!!block;n#_monthDate11#0" expanded="false" />
-            <element signature="e#1670#1866#0" expanded="false" />
-            <element signature="n#!!block;n#_timeHMSComponentsFun#0" expanded="false" />
-            <element signature="e#1971#2179#0" expanded="false" />
-            <element signature="n#!!block;n#_timeOneComponentsFun#0" expanded="false" />
-            <element signature="e#2318#2598#0" expanded="false" />
-            <element signature="n#!!block;n#_dataComponentsFun#0" expanded="false" />
-            <element signature="e#2681#2926#0" expanded="false" />
-            <element signature="n#!!block;n#_timeComponentsFun#0" expanded="false" />
-            <element signature="e#3009#3266#0" expanded="false" />
-            <element signature="e#3272#3335#0" expanded="false" />
-            <element signature="e#3531#3718#0" expanded="false" />
-            <element signature="e#3541#3712#0" expanded="false" />
-            <element signature="e#3659#3702#0" expanded="false" />
-            <element signature="e#3743#3872#0" expanded="false" />
-            <element signature="e#3753#3866#0" expanded="false" />
-            <element signature="e#4008#4040#0" expanded="false" />
-            <element signature="e#4044#4080#0" expanded="false" />
-            <element signature="e#4115#4146#0" expanded="false" />
-            <element signature="e#4150#4180#0" expanded="false" />
-            <element signature="e#4221#4253#0" expanded="false" />
-            <element signature="e#4257#4288#0" expanded="false" />
-            <element signature="e#4326#5201#0" expanded="false" />
-            <element signature="e#4599#5048#0" expanded="false" />
-            <element signature="e#4899#5038#0" expanded="false" />
-            <element signature="e#5384#5415#0" expanded="false" />
-            <element signature="n#!!block;n#_tableInitS#0" expanded="false" />
-            <element signature="e#5532#5648#0" expanded="false" />
-            <element signature="e#5542#5642#0" expanded="false" />
-            <element signature="e#5673#5802#0" expanded="false" />
-            <element signature="e#5683#5796#0" expanded="false" />
-            <element signature="e#5824#5864#0" expanded="false" />
-            <element signature="e#5868#5908#0" expanded="false" />
-            <element signature="e#5963#5993#0" expanded="false" />
-            <element signature="e#6030#6957#0" expanded="false" />
-            <element signature="e#6271#6795#0" expanded="false" />
-            <element signature="e#6646#6785#0" expanded="false" />
-            <element signature="e#6972#7074#0" expanded="false" />
-            <element signature="n#!!block;n#_datasTable#0" expanded="false" />
-            <element signature="e#7180#7242#0" expanded="false" />
-            <element signature="e#7246#7338#0" expanded="false" />
-            <element signature="e#7343#7407#0" expanded="false" />
-            <element signature="n#!!block;n#_getProfession#0" expanded="false" />
-            <element signature="e#7485#7548#0" expanded="false" />
-            <element signature="e#7561#8383#0" expanded="false" />
-            <element signature="e#7686#8265#0" expanded="false" />
-            <element signature="e#7763#7998#0" expanded="false" />
-            <element signature="e#7819#7984#0" expanded="false" />
-            <element signature="e#8002#8218#0" expanded="false" />
-            <element signature="e#8052#8204#0" expanded="false" />
-            <element signature="e#8321#8377#0" expanded="false" />
-            <element signature="n#!!block;n#_ajaxFun#0" expanded="false" />
-            <element signature="e#8464#8502#0" expanded="false" />
-            <element signature="e#8535#9123#0" expanded="false" />
-            <element signature="e#8662#9001#0" expanded="false" />
-            <element signature="e#8794#8951#0" expanded="false" />
-            <element signature="e#9060#9117#0" expanded="false" />
-            <element signature="e#9128#9191#0" expanded="false" />
-            <element signature="n#!!block;n#_AutoExcel#0" expanded="false" />
-            <element signature="e#9686#9754#0" expanded="false" />
-            <element signature="e#9822#11592#0" expanded="false" />
-            <element signature="e#9894#11585#0" expanded="false" />
-            <element signature="e#10039#11278#0" expanded="false" />
-            <element signature="e#10094#10636#0" expanded="false" />
-            <element signature="e#10119#10282#0" expanded="false" />
-            <element signature="e#10640#11263#0" expanded="false" />
-            <element signature="e#10665#10852#0" expanded="false" />
-            <element signature="e#11282#11574#0" expanded="false" />
-            <element signature="n#!!block;n#_FFExcel#0" expanded="false" />
-            <element signature="n#!!block;n#_exportExecl#0" expanded="false" />
-            <element signature="e#15326#15616#0" expanded="false" />
-            <element signature="e#15623#15684#0" expanded="false" />
-            <element signature="n#!!block;n#_moTaiKuang#0" expanded="false" />
-            <element signature="e#15839#15894#0" expanded="false" />
-            <element signature="e#16221#16269#0" expanded="false" />
-            <element signature="e#16275#16400#0" expanded="false" />
-            <element signature="e#16414#16464#0" expanded="false" />
-            <element signature="e#16468#16529#0" expanded="false" />
-            <element signature="n#!!block;n#_isEqual#0" expanded="false" />
-            <element signature="e#16602#16662#0" expanded="false" />
-            <element signature="e#16690#16750#0" expanded="false" />
-            <element signature="n#!!block;n#_noPrint#0" expanded="false" />
-            <element signature="n#!!block;n#_selectRadio#0" expanded="false" />
-            <element signature="e#16935#17058#0" expanded="false" />
-            <element signature="n#!!block;n#_replaceIP#0" expanded="false" />
-            <element signature="e#17134#17155#0" expanded="false" />
-            <element signature="e#17186#17204#0" expanded="false" />
-            <element signature="e#17325#17468#0" expanded="false" />
-            <element signature="e#17364#17466#0" expanded="false" />
-            <element signature="e#17399#17460#0" expanded="false" />
-            <element signature="e#17519#17625#0" expanded="false" />
-            <element signature="e#17563#17608#0" expanded="false" />
-            <element signature="e#17682#17779#0" expanded="false" />
-            <element signature="e#17739#17777#0" expanded="false" />
-            <element signature="n#!!block;n#_unique#0" expanded="false" />
-            <element signature="e#17885#18108#0" expanded="false" />
-            <element signature="e#17970#18049#0" expanded="false" />
-            <element signature="n#!!block;n#_sortNumber#0" expanded="false" />
-            <element signature="n#!!block;n#_formatTime#0" expanded="false" />
-            <element signature="e#18285#18302#0" expanded="false" />
-            <element signature="n#!!block;n#_jumpNow#0" expanded="false" />
-            <element signature="e#18372#18402#0" expanded="false" />
-            <element signature="n#!!block;n#MultiselectTr#0" expanded="false" />
-            <element signature="e#18735#18939#0" expanded="false" />
-            <element signature="e#18943#19479#0" expanded="false" />
-            <element signature="e#19247#19356#0" expanded="false" />
-            <element signature="e#19360#19472#0" expanded="false" />
-            <element signature="n#!!block;n#AllSelectThead#0" expanded="false" />
-            <element signature="e#19568#19763#0" expanded="false" />
-            <element signature="e#19767#19953#0" expanded="false" />
-            <element signature="n#!!block;n#_uniqueArr#0" expanded="false" />
-            <element signature="e#20038#20137#0" expanded="false" />
-            <element signature="e#20081#20130#0" expanded="false" />
-            <element signature="e#20141#20583#0" expanded="false" />
-            <element signature="e#20207#20399#0" expanded="false" />
-            <element signature="e#20254#20388#0" expanded="false" />
-            <element signature="e#20311#20373#0" expanded="false" />
-            <element signature="e#20438#20485#0" expanded="false" />
-            <element signature="e#20527#20576#0" expanded="false" />
-            <element signature="n#!!block;n#_formatNumber#0" expanded="false" />
-            <element signature="e#20667#20695#0" expanded="false" />
-            <element signature="e#20714#20752#0" expanded="false" />
-            <element signature="n#!!block;n#_packagingTableData#0" expanded="false" />
-            <element signature="e#21045#21277#0" expanded="false" />
-            <element signature="e#21169#21215#0" expanded="false" />
-            <marker date="1522310502847" expanded="true" signature="14774:14801" placeholder="..." />
-          </folding>
+        <state vertical-scroll-proportion="-18.151516">
+          <caret line="1067" column="49" selection-start-line="1067" selection-start-column="49" selection-end-line="1067" selection-end-column="49" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51785713">
-          <caret line="301" column="6" selection-start-line="301" selection-start-column="6" selection-end-line="301" selection-end-column="6" />
-          <folding>
-            <element signature="e#174#497#0" expanded="false" />
-            <element signature="e#578#1468#0" expanded="false" />
-            <element signature="e#1748#2053#0" expanded="false" />
-            <element signature="e#2091#3379#0" expanded="false" />
-            <element signature="e#3462#8005#0" expanded="false" />
-            <element signature="e#4962#7940#0" expanded="false" />
-            <element signature="e#8440#8670#0" expanded="false" />
-            <element signature="e#8724#8943#0" expanded="false" />
-            <element signature="e#9101#25598#0" expanded="false" />
-            <element signature="e#9254#24137#0" expanded="false" />
-            <element signature="e#9310#19867#0" expanded="false" />
-            <element signature="e#9364#10634#0" expanded="false" />
-            <element signature="e#9427#9817#0" expanded="false" />
-            <element signature="e#10688#12082#0" expanded="false" />
-            <element signature="e#12139#13693#0" expanded="false" />
-            <element signature="e#12202#12718#0" expanded="false" />
-            <element signature="e#12776#13293#0" expanded="false" />
-            <element signature="e#13752#14763#0" expanded="false" />
-            <element signature="e#14822#15699#0" expanded="false" />
-            <element signature="e#15759#16635#0" expanded="false" />
-            <element signature="e#16697#17601#0" expanded="false" />
-            <element signature="e#17660#19746#0" expanded="false" />
-            <element signature="e#17726#18502#0" expanded="false" />
-            <element signature="e#18663#19367#0" expanded="false" />
-            <element signature="e#19919#20113#0" expanded="false" />
-            <element signature="e#20166#20677#0" expanded="false" />
-            <element signature="e#20726#20928#0" expanded="false" />
-            <element signature="e#21035#21339#0" expanded="false" />
-            <element signature="e#22626#22933#0" expanded="false" />
-            <element signature="e#22990#23873#0" expanded="false" />
-            <element signature="e#24157#24331#0" expanded="false" />
-            <element signature="e#24475#24587#0" expanded="false" />
-            <element signature="e#24624#24689#0" expanded="false" />
-            <element signature="e#24844#25146#0" expanded="false" />
-            <element signature="e#25219#25578#0" expanded="false" />
-            <element signature="e#25905#25958#0" expanded="false" />
-            <element signature="e#26029#45943#0" expanded="false" />
-            <element signature="e#26401#28218#0" expanded="false" />
-            <element signature="e#28361#30275#0" expanded="false" />
-            <element signature="e#30424#32394#0" expanded="false" />
-            <element signature="e#32537#34017#0" expanded="false" />
-            <element signature="e#34165#35401#0" expanded="false" />
-            <element signature="e#35549#36776#0" expanded="false" />
-            <element signature="e#36933#38205#0" expanded="false" />
-            <element signature="e#38350#39429#0" expanded="false" />
-            <element signature="e#39577#39886#0" expanded="false" />
-            <element signature="e#40035#40325#0" expanded="false" />
-            <element signature="e#40405#42704#0" expanded="false" />
-            <element signature="e#40505#41033#0" expanded="false" />
-            <element signature="e#41136#42441#0" expanded="false" />
-            <element signature="e#42782#45063#0" expanded="false" />
-            <element signature="e#42876#43405#0" expanded="false" />
-            <element signature="e#43502#44808#0" expanded="false" />
-            <element signature="e#45223#45908#0" expanded="false" />
-            <element signature="e#46016#46375#0" expanded="false" />
-            <element signature="e#46449#46639#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="-10.4">
+          <caret line="4014" column="16" selection-start-line="4014" selection-start-column="16" selection-end-line="4014" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-3.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7775203">
-          <caret line="861" column="37" selection-start-line="861" selection-start-column="37" selection-end-line="861" selection-end-column="37" />
-          <folding />
+        <state vertical-scroll-proportion="-9.6">
+          <caret line="3263" column="22" selection-start-line="3263" selection-start-column="22" selection-end-line="3263" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/yongnengfenxi/energyAnalysis-8.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.454545">
+          <caret line="13" column="28" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/yongnengfenxi/energyAnalysis-7.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.181818">
+          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/yongnengfenxi/energyAnalysis-6.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.363636">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5040556">
+          <caret line="500" column="44" selection-start-line="500" selection-start-column="44" selection-end-line="500" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/yongnengfenxi/energyAnalysis-5.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7215777">
+          <caret line="478" column="116" selection-start-line="478" selection-start-column="116" selection-end-line="478" selection-end-column="116" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/local/configs/menu.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.6825395">
-          <caret line="45" column="31" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="31" />
-          <folding>
-            <element signature="n#!!block;n#空调机组#0;n#!!block;n#submenu#0;n#!!block;n#大屏幕#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#数据总览#0;n#!!block;n#submenu#0;n#!!block;n#暖通空调#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#历史数据#0;n#!!block;n#submenu#0;n#!!block;n#暖通空调#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能效日历#0;n#!!block;n#submenu#0;n#!!block;n#暖通空调#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#环境监测#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#环境监测-吉大医院#0;n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#环境监测-总行#0;n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#环境监测-分行#0;n#!!block;n#submenu#0;n#!!block;n#环境监测#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#数据#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#数据总览#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#实时数据#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#历史数据#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能效日历#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#参数分析#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能效对比#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#负荷分析#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能效排名#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#报表#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#报表导出#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#计费方案#0;n#!!block;n#submenu#0;n#!!block;n#高效机房#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#监控总览#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#测试一下#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#送排风1#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#空调机组22#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#测试一下3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#冷热源3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#电梯3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#动环3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#站房照明3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#给排水3#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#变配电系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#配电支路#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#变配电室综合监控#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#综合保护#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#变压器温控器#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#发电系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#电源隔离监测系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#暖通空调系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#暖通空调#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#直燃机#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#远大空调#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#洁净空调系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#洁净空调#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#医用气体#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#空压系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#液氧系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#负压系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#汇流排系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#给排水系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#给排水#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#UPS系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#UPS#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#摄像头#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#实时监控#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#监控回放#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#用电监控#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#电能质量#0;n#!!block;n#submenu#0;n#!!block;n#设备监控#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#配电系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能源站系统#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#实时数据#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#改名字#0;n#!!block;n#submenu#0;n#!!block;n#设备监控1#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#用能查询#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#用能查询#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#用能查询（支路）#0;n#!!block;n#submenu#0;n#!!block;n#用能查询#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#用能查询（科室）#0;n#!!block;n#submenu#0;n#!!block;n#用能查询#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#横向对比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#纵向对比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#分项用电环比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#支路用电环比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#同比环比#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能耗分项#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#昼夜分析#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#系统损耗#0;n#!!block;n#submenu#0;n#!!block;n#用能分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#用能管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#用能管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能耗排名#0;n#!!block;n#submenu#0;n#!!block;n#用能管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#预警报警#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#用能报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#实时报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#3D报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#摄像头报警#0;n#!!block;n#submenu#0;n#!!block;n#预警报警#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#设备管理#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#设备历史#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#设备二维码#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#设备二维码（蓝）#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#设备资料#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#设备预警管理#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#字典管理#0;n#!!block;n#submenu#0;n#!!block;n#设备管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#巡检项目管理#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#巡检内容#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#巡检计划#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#巡检任务#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#任务综合查询#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#异常项目查询#0;n#!!block;n#submenu#0;n#!!block;n#巡检管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#保养条目管理#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#保养内容#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#保养计划#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#保养任务#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#任务综合查询#0;n#!!block;n#submenu#0;n#!!block;n#保养管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工单登记管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工单受理管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工长分配管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工单执行管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工单评估管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工单综合查询#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工单返修件#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#未完成工单管理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#备件确认#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#备件二级库处理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#备件主库处理#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#班组维修工作量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#员工维修工作量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#调度中心工作量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#部门报修量统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#维修满意度统计报表#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#地图预览#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#操作台#0;n#!!block;n#submenu#0;n#!!block;n#维修管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#返修件二级库处理#0;n#!!block;n#submenu#0;n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#返修件主库处理#0;n#!!block;n#submenu#0;n#!!block;n#返修件管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#站段周故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#站段自定义故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#车间周故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#车间日故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#车间未修复故障分析表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#故障修复明细总表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#故障未修复明细表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#返厂报表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#调度中心报表#0;n#!!block;n#submenu#0;n#!!block;n#故障明细表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#员工管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#角色管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#部门管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#资源管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#修改密码#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#权限分配#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#标识符管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#维修项目#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#地点管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#电话管理#0;n#!!block;n#submenu#0;n#!!block;n#系统设置#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#物品类别#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#物品管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#仓库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#入库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#出库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#调拨出库#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#破损管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#移库管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#盘点管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#退货管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#库存清单#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#入库报表#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#出库报表#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#台账记录#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#供应商管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#材料月报表#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#材料总支出#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#月末结转#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#车间材料支出#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#销审管理#0;n#!!block;n#submenu#0;n#!!block;n#仓库管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#时间段管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#班次管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#值班管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#人员类型管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#加班管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#加班统计#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#考勤管理#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#考勤统计#0;n#!!block;n#submenu#0;n#!!block;n#运维辅助#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#地图预览#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#地图预览#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#首页#0;n#!!block;n#submenu#0;n#!!block;n#地图预览#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#新增二级单位#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#人员类别#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#指标信息#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#单位用能系数#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#单位性质#0;n#!!block;n#submenu#0;n#!!block;n#二级单位#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#计量设备列表配置#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#二级单位计量设备列表#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#手工抄表信息表#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#计量设备类型#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#变更公摊比例#0;n#!!block;n#submenu#0;n#!!block;n#计量仪表#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#结算操作#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#二级单位用能信息表#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#超额用能二级单位列表#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#二级单位用能支付金额汇总列表#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#单位纵向比较#0;n#!!block;n#submenu#0;n#!!block;n#结算操作#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#天气#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#天气#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#天气#0;n#!!block;n#submenu#0;n#!!block;n#天气#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#测试#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#三列#0;n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#两列#0;n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#历史录像#0;n#!!block;n#submenu#0;n#!!block;n#测试#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#系统故障时间#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#故障月统计#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#故障率统计#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#故障具体分析#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#故障消除率#0;n#!!block;n#submenu#0;n#!!block;n#统计分析#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工单报修管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工单关单管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工单受理管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工单接单管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工单执行管理#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#工单综合查询#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#大屏展示#0;n#!!block;n#submenu#0;n#!!block;n#儿童医院#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能耗总览#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#首页#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能耗数据#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能耗指标#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#横向对比#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#同比环比#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能耗分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能耗分项#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#关联分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#趋势预测#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#电能质量#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能效分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能效日历#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能效查询#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#参数分析#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能效对比#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#用能管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能耗费用#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能耗排名#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#定额管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#用能考核#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#能耗公示#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#节能足迹#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#节能项目管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#后台配置#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#万元GDP#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#就诊人数#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#管理诊断#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#综合诊断#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#报表管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#综合管理#0;n#!!block;n#submenu#0;n#!!block;n#能源管理#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#大屏展示#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#submenu#0;n#!!block;n#大屏展示#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#三列#0;n#!!block;n#submenu#0;n#!!block;n#大屏展示#0;n#!!top" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.16705337">
+          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/local/configs/menu2.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/local/configs/config.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.909091">
+        <state vertical-scroll-proportion="0.11136891">
           <caret line="163" column="40" selection-start-line="163" selection-start-column="40" selection-end-line="163" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/energyAnalysis-5.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5865922">
+          <caret line="438" column="8" selection-start-line="438" selection-start-column="8" selection-end-line="438" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/new-resource/js/baobiaoguanli/energyConsumptionReport.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.03925845">
+          <caret line="143" column="16" selection-start-line="143" selection-start-column="16" selection-end-line="145" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/njn-dapingzhanshi/energyConsumptionReport.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.04114286">
+          <caret line="138" column="24" selection-start-line="138" selection-start-column="24" selection-end-line="138" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-baojingxinxi/warningAlarm.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24685714">
+          <caret line="73" column="31" selection-start-line="73" selection-start-column="31" selection-end-line="73" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/new-nenghaoshuju/energyDemand-1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.288">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/pointersoffices.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.8102508">
+          <caret line="110" column="65" selection-start-line="106" selection-start-column="16" selection-end-line="110" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/resource/js/publicFun.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21483096">
+          <caret line="705" column="0" selection-start-line="705" selection-start-column="0" selection-end-line="721" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/njn-dapingzhanshi/dataChange.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6297143">
+          <caret line="860" column="41" selection-start-line="860" selection-start-column="41" selection-end-line="860" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/js/dataChange.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35332605">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
-            <element signature="n#!!block;n#allEnergyType#0;n#!!top" expanded="false" />
-            <element signature="e#137#2847#0" expanded="false" />
-            <element signature="e#145#458#0" expanded="false" />
-            <element signature="e#466#773#0" expanded="false" />
-            <element signature="e#781#1082#0" expanded="false" />
-            <element signature="e#1090#1390#0" expanded="false" />
-            <element signature="e#1398#1691#0" expanded="false" />
-            <element signature="e#1699#1993#0" expanded="false" />
-            <element signature="e#2001#2203#0" expanded="false" />
-            <element signature="e#2211#2413#0" expanded="false" />
-            <element signature="e#2421#2627#0" expanded="false" />
-            <element signature="e#2635#2841#0" expanded="false" />
-            <element signature="n#!!block;n#officeEnergyType#0;n#!!top" expanded="false" />
-            <element signature="e#2940#3743#0" expanded="false" />
-            <element signature="e#2948#3212#0" expanded="false" />
-            <element signature="e#3220#3478#0" expanded="false" />
-            <element signature="e#3486#3737#0" expanded="false" />
+            <element signature="e#174#497#0" expanded="false" />
+            <element signature="e#578#1468#0" expanded="false" />
+            <element signature="e#1748#2053#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/HAVC/monitor.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/new-resource/js/baobiaoguanli/energyEfficiencyReport.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.126984">
-          <caret line="35" column="54" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
-          <folding />
+        <state vertical-scroll-proportion="2.9222097">
+          <caret line="135" column="35" selection-start-line="135" selection-start-column="35" selection-end-line="135" selection-end-column="35" />
+          <folding>
+            <element signature="e#391#759#0" expanded="false" />
+            <element signature="e#427#577#0" expanded="false" />
+            <element signature="e#606#752#0" expanded="false" />
+            <element signature="e#1043#1079#0" expanded="false" />
+            <element signature="e#1131#1364#0" expanded="false" />
+            <element signature="e#1188#1246#0" expanded="false" />
+            <element signature="e#1299#1357#0" expanded="false" />
+            <element signature="e#1580#1633#0" expanded="false" />
+            <element signature="e#1669#1722#0" expanded="false" />
+            <element signature="e#1927#2092#0" expanded="false" />
+            <element signature="e#2112#2459#0" expanded="false" />
+            <element signature="e#2827#9149#0" expanded="false" />
+            <element signature="e#4931#4945#0" expanded="false" />
+            <element signature="e#7964#7978#0" expanded="false" />
+            <element signature="e#8193#8640#0" expanded="false" />
+            <element signature="e#8243#8351#0" expanded="false" />
+            <element signature="e#8372#8480#0" expanded="false" />
+            <element signature="e#8501#8609#0" expanded="false" />
+            <element signature="e#9166#9505#0" expanded="false" />
+            <marker date="1524130489132" expanded="false" signature="6332:6389" placeholder="..." />
+            <marker date="1524130489132" expanded="true" signature="8753:8810" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/resource/css/Wtable.css">
+    <entry file="file://$PROJECT_DIR$/templates/views/njn-dapingzhanshi/energyEfficiencyReport.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.110081114">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.5029586">
+          <caret line="189" column="102" selection-start-line="189" selection-start-column="102" selection-end-line="189" selection-end-column="102" />
+          <folding>
+            <element signature="n#ul#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#li#3;n#ul#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#0;n#tr#9;n#thead#0;n#table#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

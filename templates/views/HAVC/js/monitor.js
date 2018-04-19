@@ -6,6 +6,47 @@ var Monitor = function () {
 
     var oTable = null;
 
+    //获取区域数据
+    //获取区域数据
+    var getAreaAys = function () {
+        var url = sessionStorage.apiUrlPrefix + "MultiAreaHistory/GetChillAREAs";
+
+        $.get(url, function (res) {
+
+            chArAy = res;
+            //初始化区域选择控件
+            initAreaSelectCtrl();
+        })
+    }
+
+    //初始化区域选择控件
+    var initAreaSelectCtrl = function () {
+        $('#areaType').html();
+        $('#areaType').find('option').remove();
+        $('#areaType').empty();
+
+        var str = '';
+
+        if (chArAy.length > 0) {
+            for (var i = 0; i < chArAy.length; i++) {
+
+                var charK = chArAy[i].item;
+
+                var charV = chArAy[i].name;
+
+                var charT = chArAy[i].tag;
+
+                //$('#areaType').append($("<option value=\"" + charK + "\">" + charV + "</option>"));
+
+                str += '<option data-area="' + charT + '" value="' + charK +'">' + charV + '</option>';
+
+                $('#select-station').empty().append(str);
+
+
+            }
+        }
+    }
+
     var getMoDs = function () {
         jQuery('#IsBusy').showLoading();
         var url = sessionStorage.apiUrlPrefix + "MultiAreaMonitor/GetMultiAreaMonitorDs";
@@ -26,22 +67,23 @@ var Monitor = function () {
                     "pagingType": "full_numbers",
                     "bPaginate": true, //翻页功能
                     //"bStateSave":true,
+                    //"dom":'rt<"bottom"flpi><"clear">',
                     "bSort": false,
                     "bProcessing": false,
-                    "iDisplayLength": 20,//默认每页显示的条数,
+                    "iDisplayLength": 18,//默认每页显示的条数,
                     'language': {
                         'emptyTable': '没有数据',
                         'loadingRecords': '加载中...',
                         'processing': '查询中...',
                         'lengthMenu': '每页 _MENU_ 条',
                         'zeroRecords': '没有数据',
-                        'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+                        'info': '共 _TOTAL_ 条记录，共_PAGES_页',
                         'infoEmpty': '没有数据',
                         'paginate': {
-                            "previous": "上一页",
-                            "next": "下一页",
-                            "first": "首页",
-                            "last": "尾页"
+                            "previous": "<",
+                            "next": ">",
+                            "first": "",
+                            "last": ""
                         }
                     },
                     "aoColumns": [, , , , ]
@@ -61,17 +103,31 @@ var Monitor = function () {
 
     return {
         init: function () {
+
+            //获取区域
+            getAreaAys();
+
             var pos = JSON.parse(sessionStorage.pointers);
             var po = pos[0];
             sessionStorage.PointerID = po.pointerID;
             sessionStorage.PointerName = po.pointerName;
             sessionStorage.EprID = po.enterpriseID;
             sessionStorage.EprName = po.eprName;
-            $('.areabtn').on('click', function () {
-                $('.areabtn').removeClass('green');
-                $(this).addClass('green');
-                area = $(this).attr('data-area');
+            //$('.areabtn').on('click', function () {
+            //
+            //    //area = $(this).attr('data-area');
+            //
+            //    getMoDs();
+            //})
+
+            $('#areabtn').click(function(){
+
+                //获取区域
+                area = $('#select-station').val();
+
                 getMoDs();
+
+
             })
             //查询实时数据
             getMoDs()

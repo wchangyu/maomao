@@ -233,6 +233,18 @@ $(function(){
             }
         },
         {
+            title:'是否返修件',
+            data:'isFX',
+            render:function(data, type, full, meta){
+                if(data == 0){
+                    return '否'
+                }if(data == 1){
+                    return '是'
+                }
+            }
+
+        },
+        {
             title:'分类名称',
             data:'cateName'
         },

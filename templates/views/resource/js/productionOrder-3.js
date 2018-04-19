@@ -1275,9 +1275,9 @@ $(function(){
 
         $('.bxpicture').hide();
         //表格初始化
-        var arr = [];
+        _zhixingRens.length = 0;
 
-        _datasTable($('#personTable1'),arr);
+        _datasTable($('#personTable1'),_zhixingRens);
 
     }
 

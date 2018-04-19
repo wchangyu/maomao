@@ -790,7 +790,7 @@ $(function(){
 
         if(_selectData.length == 0){
 
-            _moTaiKuang($('#myModal5'), '提示', true, 'istap' ,'请选择要启用的数据', '');
+            _moTaiKuang($('#myModal5'), '提示', true, 'istap' ,'请选择要停用的数据', '');
 
         }else{
 

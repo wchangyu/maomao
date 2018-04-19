@@ -167,7 +167,11 @@
   },
   "apiUriPrefix":"http://192.168.1.110/BEEWebAPI/api/",
   "apiUriPrefixYW":"http://192.168.1.110/BEEWebAPI/api/",
+<<<<<<< HEAD
+  "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
+=======
   "apiUriPrefix2":"huaqin.vicp.io:25708/BEEWebAPIys/api/",
+>>>>>>> remotes/origin/master
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
   "isShowTitleEprName":"0",
@@ -187,6 +191,8 @@
   "gongdanInterval":"10",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
   "indexUrl":"../../new-nengyuanzonglan/new-index1.html",
+  "loginUrl":"login_3.html",
+  "loginComment":"设置跳转为哪个登录页",
   "gongdanIndustryType":"1",
   "ckAuditType":"0",
   "imgPath":"http://1.1.1.1/ApService/dimg.aspx",

@@ -126,8 +126,7 @@
         var url = sessionStorage.apiUrlPrefix+ "Main/GetECPItemizeNowDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            //SysrealDt:encodeURIComponent(sysrealdatetime())
-            SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
         },function (res) {
             if(res.code === 0){
                 /*单位:冷站输出冷量*/
@@ -191,7 +190,7 @@
             }else if(res.code === -1){
 
             }else{
-                alert('异常错误(分项实时能效):' + res.msg);
+                console.log('异常错误(分项实时能效):' + res.msg);
             }
         });
     }
@@ -204,8 +203,7 @@
         var url = sessionStorage.apiUrlPrefix+"Main/GetEERNowChartViewDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            //SysrealDt:encodeURIComponent(sysrealdatetime())
-            SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
         },function (res) {
             if(res.code===0){
                 var name = "实时能效(KW/KW)";
@@ -263,7 +261,7 @@
                 myEERLineMain.setOption(option, true);
                 jQuery('#lineBusy').hideLoading();
             }else if(res.code===-1){//异常错误
-                alert('异常错误(能效曲线):' + res.msg);
+                console.log('异常错误(能效曲线):' + res.msg);
                 jQuery('#lineBusy').hideLoading();
             }else{//暂无数据
                 jQuery('#lineBusy').hideLoading();
@@ -279,7 +277,7 @@
         $.post(url,{
             pId:sessionStorage.PointerID,
             //SysrealDt:encodeURIComponent(sysrealdatetime())
-            SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
         },function (res) {
             if(res.code===0){
                 var dvs = [];
@@ -336,7 +334,7 @@
                 };
                 myPowerLineMain.setOption(option, true);
             }else if(res.code===-1){
-                alert('异常错误(实时功率曲线):' + res.msg);
+                console.log('异常错误(实时功率曲线):' + res.msg);
             }else if(res.code===-2){
 
             }
@@ -351,8 +349,7 @@
         var url = sessionStorage.apiUrlPrefix + "Main/GetUBRVNowChartViewDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            //SysrealDt:encodeURIComponent(sysrealdatetime())
-            SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
         },function (res) {
             if(res.code===0){
                 var aroMax = parseFloat(res.aroMaxVa);//能耗最大值
@@ -461,7 +458,7 @@
                 };
                 myTIRLineMain.setOption(option, true);
             }else if(res.code===-1){
-                alert('异常错误(实时热不平衡曲线):' + res.msg);
+                console.log('异常错误(实时热不平衡曲线):' + res.msg);
             }else {
 
             }
@@ -492,8 +489,7 @@
         var url = sessionStorage.apiUrlPrefix + "Main/GetUBRVNowData";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            //SysrealDt:encodeURIComponent(sysrealdatetime())
-            SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
         },function (res) {
             if(res.code === 0){
                 var ubrv = parseFloat(res.ubrVa);
@@ -521,7 +517,7 @@
                 }
                 jQuery('#ubrvBusy').hideLoading();
             }else if(res.code === -1){
-                alert('异常错误(实时热不平衡率数据):' + res.msg );
+                console.log('异常错误(实时热不平衡率数据):' + res.msg );
                 jQuery('#ubrvBusy').hideLoading();
             }else{
                 jQuery('#ubrvBusy').hideLoading();
@@ -534,15 +530,14 @@
         var url = sessionStorage.apiUrlPrefix + "Main/GetElePriceColdNowDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            //SysrealDt:encodeURIComponent(sysrealdatetime())
-            SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
         },function (res) {
             if(res.code === 0){
                 $('#spanEPrice_Misc').html('KWH');
                 var epv = parseFloat(res.ePrCoVa).toFixed(4);
                 $('#spanEPrice').html(epv);
             }else if(res.code === -1){
-                alert('异常错误(实时电价冷量数据):' + res.msg);
+                console.log('异常错误(实时电价冷量数据):' + res.msg);
             }else{
 
             }
@@ -555,8 +550,7 @@
         var url = sessionStorage.apiUrlPrefix + "Main/GetEAnMonNowDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            //SysrealDt:encodeURIComponent(sysrealdatetime())
-            SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
         },function (res) {
             if(res.code === 0){
                 var dm = res.dm;//日
@@ -581,7 +575,7 @@
                 init_eAnMoNow_YM(ym);
                 jQuery('#eAnMonBusy').hideLoading();
             }else if(res.code === -1){
-                alert('异常错误(能效对比):' + res.msg);
+                console.log('异常错误(能效对比):' + res.msg);
                 jQuery('#eAnMonBusy').hideLoading();
             }else{
                 jQuery('#eAnMonBusy').hideLoading();
@@ -856,7 +850,7 @@
                     myAnhsCV.hideLoading();
                 }
             }else if(res.code === -1){
-                alert('异常错误(能效对比单时间段历史数据):' + res.msg);
+                console.log('异常错误(能效对比单时间段历史数据):' + res.msg);
                 myAnhsCV.hideLoading();
             }else{
                 myAnhsCV.hideLoading();
@@ -866,12 +860,6 @@
 
     return {
         init: function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
             var eerVa=0.0;
             //切换实时数据曲线
             changeTab();

@@ -2641,3 +2641,21 @@ Page Loading
   display: none;
   transition: all 2s;
 }
+.navigation-img {
+    
+    display:inline-block;
+    
+    width:28px;
+    
+    height:19px;
+    
+    background:red;
+    
+    vertical-align:middle;
+    
+    margin-right:5px;
+
+    background-position:center !important;
+
+    background-size:contain !important;
+}

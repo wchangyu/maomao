@@ -858,9 +858,13 @@ $(function(){
 
                     _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'申诉成功！', '');
 
-                    conditionSelect();
-
                     $('#myModal1').modal('hide');
+
+                    $('#myModal2').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                        conditionSelect(false,true);
+
+                    })
 
                 }else{
 
@@ -922,13 +926,17 @@ $(function(){
                             if(result == 99){
                                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单成功！', '');
 
-                                conditionSelect();
+                                //conditionSelect();
 
                                 $('#myModal1').modal('hide');
 
                                 $('#confirm-Modal').modal('hide');
 
-                                //BEE.init(false,true);
+                                $('#myModal2').off('shown.bs.modal').on('shown.bs.modal',function(){
+
+                                    conditionSelect(false,true);
+
+                                })
 
                                 BEE.modificationImportInfo();
 
@@ -1342,7 +1350,7 @@ $(function(){
     }
 
     //条件查询
-    function conditionSelect(flag){
+    function conditionSelect(flag,part){
         var st = $('.min').val();
 
         var et = moment($('.max').val()).add(1,'d').format('YYYY/MM/DD');
@@ -1358,22 +1366,40 @@ $(function(){
             'bxKeshiNum':_userBM
         }
 
+        //refreshTime = 5000;
+
+        if(!part){
+
+            if($('.modal-backdrop').length > 0){
+
+                theTimeout = setTimeout(function(){
+
+                    conditionSelect(true);
+
+                },refreshTime);
+
+                return false;
+            }
+
+        }
+
+
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
-            //beforeSend: function () {
-            //    $('#theLoading').modal('hide');
-            //    $('#theLoading').modal('show');
-            //},
-            //complete: function () {
-            //    $('#theLoading').modal('hide');
-            //    if($('.modal-backdrop').length > 0){
-            //        $('div').remove('.modal-backdrop');
-            //        $('#theLoading').hide();
-            //    }
-            //},
+            beforeSend: function () {
+                $('#theLoading').modal('hide');
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+                if($('.modal-backdrop').length > 0){
+                    $('div').remove('.modal-backdrop');
+                    $('#theLoading').hide();
+                }
+            },
             success:function(result){
 
                 //根据状态值给表格赋值
@@ -1389,19 +1415,19 @@ $(function(){
                         zht7.push(result[i]);
                     }
                 }
-                //未接单
-                _datasTable($('#missed-list'),zht1);
-                //执行中
-                _datasTable($('#in-execution'),zht4);
                 //待关单
                 _datasTable($('#waiting-list'),zht6);
                 //已关单
                 _datasTable($('#closing-list'),zht7);
                 //定时刷新
                 if(flag){
+
                     theTimeout = setTimeout(function(){
+
                         conditionSelect(true);
+
                     },refreshTime);
+
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

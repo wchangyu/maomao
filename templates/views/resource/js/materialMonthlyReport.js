@@ -147,7 +147,7 @@ $(function(){
 
     };
 
-    _tableInit($('#scrap-datatables'),col,2,'',totalFn,drawFn);
+    _tableInit($('#scrap-datatables'),col,1,'flag',totalFn,drawFn);
 
     //表格时间
     $('.table-time').html(startTime + '到' + endTime);
@@ -182,7 +182,7 @@ $(function(){
     $('.excelButton11').on('click',function(){
         //_FFExcel($('#scrap-datatables')[0]);
 
-        exportExecl($('#scrap-datatables'));
+        //exportExecl($('#scrap-datatables'));
     });
 
     //导出为excel

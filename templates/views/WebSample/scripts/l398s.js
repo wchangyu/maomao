@@ -154,9 +154,9 @@ function getInk() {
                     type: 'GET'
                 }).done(function (result) {
                     if (result == '1') {
-                        alert('Notify From Device : Confirmed.');
+                        //alert('Notify From Device : Confirmed.');
                     } else if (result == '0') {
-                        alert('Notify From Device : Cancel !');
+                        //alert('Notify From Device : Cancel !');
                         clearInk();
                     }
                 }).fail(function () {
@@ -184,6 +184,7 @@ function drawImage(base64) {
     }, false);
 
     img.src = dataUrl;
+
 };
 
 // clear Ink

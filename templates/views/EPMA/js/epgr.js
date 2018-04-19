@@ -164,7 +164,7 @@ var EPGR=function () {
                 jQuery('#epgrBusy').hideLoading();
             }else if(res.code === -1) {
                 jQuery('#epgrBusy').hideLoading();
-                alert('异常错误(获取电费单价内容):' + res.msg);
+                console.log('异常错误(获取电费单价内容):' + res.msg);
             }else{
                 //没有设置电费单价内容
                 initNullPrices();
@@ -399,12 +399,6 @@ var EPGR=function () {
 
     return {
         init:function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
             //初始化时间控件
             initdatetimepicker();
             //初始化多时间段分钟
