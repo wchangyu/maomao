@@ -1669,3 +1669,58 @@ function packagingTableData(tableData){
     return newTableArr;
 };
 
+//根据设备类型ID获取设备类型名称
+function getEquipNameByID(equipId){
+
+        //定义设别类型名称
+        var equipName = '';
+
+        if(equipId == 1){
+
+            equipName = '冷热源';
+
+        }else if(equipId == 2){
+
+            equipName = '空调机组';
+
+        }else if(equipId == 3){
+
+            equipName = '送排风';
+
+        }else if(equipId == 4){
+
+            equipName = '给排水';
+
+        }else if(equipId == 5){
+
+            equipName = '电梯';
+
+        }else if(equipId == 6){
+
+            equipName = '照明';
+
+        }else if(equipId == 7){
+
+            equipName = '动环';
+
+        }else if(equipId == 18){
+
+            equipName = '直梯';
+
+        }else if(equipId == 19){
+
+            equipName = '扶梯';
+
+        }else if(equipId == 20){
+
+            equipName = '站台照明';
+
+        }else if(equipId == 21){
+
+            equipName = '站房照明';
+
+        }
+
+    return equipName;
+};
+

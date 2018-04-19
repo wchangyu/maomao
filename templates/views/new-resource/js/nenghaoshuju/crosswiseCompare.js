@@ -39,7 +39,7 @@ $(function(){
     zTree.setChkDisabled(nodes[0], true); //父节点禁止勾选
 
     zTree.checkNode(nodes[0].children[0].children[0], true, true);
-    zTree.checkNode(nodes[0].children[0].children[1], true, true);
+    //zTree.checkNode(nodes[0].children[0].children[1], true, true);
 
     //获取支路
     GetAllBranches(2);
@@ -79,6 +79,7 @@ $(function(){
 
     //能耗选择
     $('.typee').click(function(){
+
         $('.typee').removeClass('selectedEnergy');
         $(this).addClass('selectedEnergy');
 

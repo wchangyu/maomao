@@ -386,10 +386,13 @@ var userMonitor = (function(){
 
     //定义数组删除某个元素的方法
     Array.prototype.remove = function(val) {
+
         var index = this.indexOf(val);
+
         if (index > -1) {
             this.splice(index, 1);
         }
+
     };
 
     //定义查询数组中是否包含某个元素的方法
@@ -1231,7 +1234,7 @@ var userMonitor = (function(){
                         jumpPageHeight = defHeight;
 
                     //获取弹窗的页面地址
-                    var url = jumpUrl + "njn-dapingzhanshi/jumpEnergyMonitor.html?width="+defWidth+"height="+defHeight+"ckId="+id+"";
+                    var url = jumpUrl + "yongnengjiance/jumpEnergyMonitor.html?width="+defWidth+"height="+defHeight+"ckId="+id+"";
 
                     var $monitor = '<iframe width="'+defWidth+'" scrolling="no" height="'+defHeight+'" frameborder="0" allowtransparency="true" src='+url+'></iframe>';
 
@@ -1760,7 +1763,6 @@ var userMonitor = (function(){
 
             return false;
         }
-
         $.ajax({
             type:"post",
             data:{"" : curPRR.imgID},
@@ -1954,7 +1956,7 @@ var userMonitor = (function(){
                 }
 
                 //获取弹窗的页面地址
-                var url = jumpUrl + "njn-dapingzhanshi/jumpEnergyMonitor.html?width="+jumpPageWidth+"height="+jumpPageHeight+"ckId="+id+"";
+                var url = jumpUrl + "yongnengjiance/jumpEnergyMonitor.html?width="+jumpPageWidth+"height="+jumpPageHeight+"ckId="+id+"";
 
                 var html = '<div class="content-child-show">' +
                     '<div class="content-child-show-container">' +

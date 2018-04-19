@@ -235,7 +235,6 @@ option = {
     ]
 };
 
-
 var colors1=['#62A8DB','#33E3B6','#F08348','#fad797','#59ccf7','#c3b4df'];
 
 // 指定图表的配置项和数据 用于本日用能分项
@@ -668,7 +667,6 @@ function getWeatherParam(){
 //获取实时时间
 function getNowTime(){
 
-
     var time1 = moment().format('HH:mm');
 
     var time2 = moment().format('YYYY') + '年' + moment().format('MM') + '月' + moment().format('DD') + '日';
@@ -683,8 +681,6 @@ function getNowTime(){
 
      },15000)
 };
-
-
 
 //获取工单统计信息
 function getOrderData(){
@@ -972,101 +968,86 @@ function getTopPageEnergyData(){
         },
         success:function(result){
 
-            //console.log(result);
-
-            $('.fenleinenghao').children().removeClass('equal');
-            $('.fenleinenghao').children().removeClass('down');
-
-            //总能耗
-            $('.fenleinenghao').eq(0).find('.data').html(result[0].currentEnergyData.toFixed(1));
-
-            //同比
-            $('.fenleinenghao').eq(0).find('.child1 span').html(Math.abs(result[0].lastYearEnergyPercent*100).toFixed(1) + '%');
-
-            //环比
-            $('.fenleinenghao').eq(0).find('.child2 span').html(Math.abs(result[0].chainEnergyPercent*100).toFixed(1) + '%');
-
-            //判断箭头方向
-            if(result[0].lastYearEnergyPercent< 0){
-
-                $('.fenleinenghao').eq(0).find('.child1').addClass('down');
-
-            }else if(result[0].lastYearEnergyPercent  == 0){
-
-                $('.fenleinenghao').eq(0).find('.child1').addClass('equal');
-
+            //如果为空直接返回
+            if(result == null || result.length == 0){
+                return false;
             }
 
-            if(result[0].chainEnergyPercent < 0){
+            //定义用于页面展示的字符串
+            var html = "";
 
-                $('.fenleinenghao').eq(0).find('.child2').addClass('down');
+            $(result).each(function(i,o){
 
-            }else if(result[0].chainEnergyPercent == 0){
+                if(i > 2){
+                    return true;
+                }
 
-                $('.fenleinenghao').eq(0).find('.child2').addClass('equal');
+                //获取当前的能耗类型
+                var energyID = o.f_EnergyItemID;
 
-            }
+                //获取当前名称
+                var energyName = o.f_EnergyItemName;
 
-            //电耗
-            $('.fenleinenghao').eq(1).find('.data').html(result[1].currentEnergyData.toFixed(1));
+                //获取当前单位
+                var energyUnit = 'kgce';
 
-            //同比
-            $('.fenleinenghao').eq(1).find('.child1 span').html(Math.abs(result[1].lastYearEnergyPercent*100).toFixed(1) + '%');
+                if(energyID != -2){
 
-            //环比
-            $('.fenleinenghao').eq(1).find('.child2 span').html(Math.abs(result[1].chainEnergyPercent*100).toFixed(1) + '%');
+                    energyUnit = _getEcUnit(energyID);
+                }
 
-            //判断箭头方向
-            if(result[1].lastYearEnergyPercent < 0){
+                //定义控制箭头方向的class名 用于同比
+                var arrowsClass1 = '';
 
-                $('.fenleinenghao').eq(1).find('.child1').addClass('down');
+                //定义控制箭头方向的class名 用于环比
+                var arrowsClass2 = '';
 
-            }else if(result[1].lastYearEnergyPercent == 0){
+                //判断箭头方向（同比）
+                if(o.lastYearEnergyPercent< 0){
 
-                $('.fenleinenghao').eq(1).find('.child1').addClass('equal');
+                    arrowsClass1 = 'down';
 
-            }
+                }else if(o.lastYearEnergyPercent  == 0){
 
-            if(result[1].chainEnergyPercent < 0){
+                    arrowsClass1 = 'equal';
 
-                $('.fenleinenghao').eq(1).find('.child2').addClass('down');
+                }
 
-            }else if(result[1].chainEnergyPercent == 0){
+                //判断箭头方向（环比）
+                if(o.chainEnergyPercent< 0){
 
-                $('.fenleinenghao').eq(1).find('.child2').addClass('equal');
+                    arrowsClass2 = 'down';
 
-            }
+                }else if(o.chainEnergyPercent  == 0){
 
-            //总水耗
-            $('.fenleinenghao').eq(2).find('.data').html(result[2].currentEnergyData.toFixed(1));
+                    arrowsClass2 = 'equal';
 
-            //同比
-            $('.fenleinenghao').eq(2).find('.child1 span').html(Math.abs(result[2].lastYearEnergyPercent*100).toFixed(1) + '%');
+                }
 
-            //环比
-            $('.fenleinenghao').eq(2).find('.child2 span').html(Math.abs(result[2].chainEnergyPercent*100).toFixed(1) + '%');
+                var headHtml =  '<div class="fenleinenghao">';
 
-            //判断箭头方向
-            if(result[2].lastYearEnergyPercent < 0){
+                //if(i > 0){
+                //    headHtml =  '<div class="fenleinenghao fenleinenghao1">';
+                //}
+                //
+                html +=
+                    headHtml +
+                        '<p class="title">'+energyName+'（'+energyUnit+'）</p>' +
+                        '<p class="data">'+ o.currentEnergyData.toFixed(1)+'</p>' +
+                        '<!--同比-->' +
+                        '<div class="child child1 '+arrowsClass1+'">' +
+                            '<p>同比<span>'+Math.abs(o.lastYearEnergyPercent*100).toFixed(1)+'%</span></p>' +
+                        '</div>' +
+                        '<!--环比-->' +
+                        '<div class="child child2 '+arrowsClass2+'">' +
+                            '<p>环比<span>'+Math.abs(result[0].chainEnergyPercent*100).toFixed(1)+'%</span></p>' +
+                        '</div>' +
+                    '</div>';
 
-                $('.fenleinenghao').eq(2).find('.child1').addClass('down');
+            });
 
-            }else if(result[2].lastYearEnergyPercent == 0){
-
-                $('.fenleinenghao').eq(2).find('.child1').addClass('equal');
-
-            }
-
-            if(result[2].chainEnergyPercent < 0){
-
-                $('.fenleinenghao').eq(2).find('.child2').addClass('down');
-
-            }else if(result[2].chainEnergyPercent == 0){
-
-                $('.fenleinenghao').eq(2).find('.child2').addClass('equal');
-
-            }
-
+            //页面赋值
+            $('.classify-energy-container').html(html);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -1255,8 +1236,6 @@ function getFirstEnergyItemData(){
 
             //页面重绘数据
             _myChart1.setOption(option1,true);
-
-
         },
         error:function(jqXHR, textStatus, errorThrown){
             _myChart1.hideLoading();
@@ -1299,8 +1278,6 @@ function getTopPageKPIData(){
         beforeSend:function(){
 
             _myChart4.showLoading();
-
-
         },
         success:function(result){
 
@@ -1402,8 +1379,6 @@ function getTopPageKPIData1(){
             }
 
             window.onresize();
-
-
         },
         error:function(jqXHR, textStatus, errorThrown){
             _myChart4.hideLoading();
@@ -1419,7 +1394,6 @@ function getTopPageKPIData1(){
         }
     })
 };
-
 
 //------------------------------------右下角能耗排名-----------------------------------------//
 

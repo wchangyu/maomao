@@ -6,6 +6,11 @@
  */
 $(function(){
 
+    //获取到当前项目名称
+    var systemName = sessionStorage.getItem('systemName');
+
+    $('.systemTitle').html(systemName);
+
     //时间插件
     _timeYMDComponentsFun($('.datatimeblock'));
 
@@ -306,7 +311,9 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
                 //获取当前已选中的属性
                 var pts = treeObj.getCheckedNodes(true);
 
-                drawEquipmentList(pts[0])
+                if(pts.length > 0){
+                    drawEquipmentList(pts[0]);
+                }
             },
             beforeClick:function(treeId,treeNode){
 
@@ -324,7 +331,9 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
                 //获取当前已选中的属性
                 var pts = treeObj.getCheckedNodes(true);
 
-                drawEquipmentList(pts[0])
+                if(pts.length > 0){
+                    drawEquipmentList(pts[0]);
+                }
 
             }
         }

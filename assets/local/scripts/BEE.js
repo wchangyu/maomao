@@ -14,14 +14,51 @@ var BEE = (function(){
      //登陆页面地址
      var _loginHtml = "login_3.html";
 
+     //获取用户配置的登录页面
+     getLoginHtml();
+
+     function getLoginHtml (){
+
+
+
+             //首先获取url根目录
+             var _Lurls = window.document.location.href.split('templates')[0];
+
+             //获取存放配置文件的地址
+             var configSrc =  _Lurls + "assets/local/configs/config.json?"+ Math.random();
+
+             $.ajax({
+                 url: configSrc,
+                 type: 'get',
+                 async:false,
+                 success: function (data) {
+
+                     loginPath = data["loginPath"] || '';
+                     sessionStorage.loginPath = loginPath;
+                     //console.log(sessionStorage.loginPath)
+
+                 },
+                 error: function (xhr, res, err) {
+                     showAlertInfo(err);
+                 }
+
+             })
+
+
+         //获取到登陆页后赋值
+         _loginHtml = loginPath;
+
+     };
+
      //获取当前地址
 
      var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
 
      if(_LurlLength == 4){
 
-         _loginHtml = "../login_3.html";
+         _loginHtml = "../" + _loginHtml;
 
+         sessionStorage.loginPath =  _loginHtml;
          _assetsPath = '../../../../assets/';
 
      }
@@ -40,6 +77,7 @@ var BEE = (function(){
 
     //从json配置中获取menu,并且配置menu
     var getMenu = function(srcUri){
+
         if(sessionStorage.menuStr){
             var str = sessionStorage.menuStr;
             var $sidebar = $(".page-sidebar-menu");
@@ -53,6 +91,7 @@ var BEE = (function(){
             setPageTitle();
             setHeaderInfo();
         }
+
         //else{
         //    var src = _assetsPath + _localConfigsPath + "menu.json";
         //    src = srcUri || src;
@@ -78,6 +117,7 @@ var BEE = (function(){
 
     //将文本解析为菜单，和插入菜单的父级元素
     var getHTMLFromMenu = function(menu,$src){
+
         var li,$li,ul,$ul;
         for(var p in menu){
             var curType = menu[p]["type"];
@@ -85,6 +125,12 @@ var BEE = (function(){
                 if(curType=="0"){
                     //具体菜单操作
                     if( menu[p]["uri"]){
+
+                        //如果是深层的页面
+                        if(_LurlLength == 4){
+                            menu[p]["uri"] = "../" + menu[p]["uri"];
+                        }
+
                         //li = '<li><a href="' + menu[p]["uri"] +'" type="'+menu[p]["arg"]+'">';
                         li = '<li><a href="' + menu[p]["uri"] + '"';
                         if(menu[p]["target"]){
@@ -204,11 +250,11 @@ var BEE = (function(){
             $('.totalTitle').html(systemName);
         }
 
-        var curLoginPage = sessionStorage.curLoginPage || _loginHtml;
+        var curLoginPage = _loginHtml;
 
-        if(sessionStorage.menuUri && sessionStorage.menuUri.indexOf("../") == 0){
-            curLoginPage = "../" + curLoginPage;
-        }
+        //if(sessionStorage.menuUri && sessionStorage.menuUri.indexOf("../") == 0){
+        //    curLoginPage = "../" + curLoginPage;
+        //}
 
         var $logout = $('.logout-page');
         $logout.attr('href',curLoginPage);
@@ -884,6 +930,7 @@ var BEE = (function(){
          }
      };
 
+
     //根据流程图动态绘制菜单
      var changeMenuByProcs = function(menu){
          //将对象转化为数组，方便处理
@@ -1177,7 +1224,7 @@ var BEE = (function(){
             if(!sessionStorage.userName)
             {
                 sessionStorage.redirectFromPage = window.location.href;      //记录重定向的url
-                window.location.href = "../"+ _loginHtml;
+                window.location.href =  _loginHtml;
 
             }else{
 

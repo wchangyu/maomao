@@ -285,7 +285,7 @@
 
 
                             <!--echart容器-->
-                            <div class="bottom-equipment-chart" id="equipment-chart-conditioner">
+                            <div class="bottom-equipment-chart bottom-equipment-chart-show" id="equipment-chart-conditioner" data-devtype="21">
 
                             </div>
 
@@ -308,7 +308,7 @@
                             </div>
 
                             <!--echart容器-->
-                            <div class="bottom-equipment-chart" id="equipment-chart-conditioner1">
+                            <div class="bottom-equipment-chart bottom-equipment-chart-show" id="equipment-chart-conditioner1" data-devtype="20">
 
                             </div>
 
@@ -346,7 +346,7 @@
 
 
                             <!--echart容器-->
-                            <div class="bottom-equipment-chart" id="equipment-chart-elevator">
+                            <div class="bottom-equipment-chart bottom-equipment-chart-show" id="equipment-chart-elevator" data-devtype="18">
 
                             </div>
 
@@ -370,7 +370,7 @@
                             </div>
 
                             <!--echart容器-->
-                            <div class="bottom-equipment-chart" id="equipment-chart-elevator1">
+                            <div class="bottom-equipment-chart bottom-equipment-chart-show" id="equipment-chart-elevator1" data-devtype="19">
 
                             </div>
 
@@ -409,7 +409,7 @@
 
 
                             <!--echart容器-->
-                            <div class="bottom-equipment-chart" id="equipment-chart-rotating">
+                            <div class="bottom-equipment-chart bottom-equipment-chart-show" id="equipment-chart-rotating">
 
                             </div>
 
@@ -472,7 +472,7 @@
 
 
                             <!--echart容器-->
-                            <div class="bottom-equipment-chart" id="equipment-chart-station">
+                            <div class="bottom-equipment-chart bottom-equipment-chart-show" id="equipment-chart-station">
 
                             </div>
 
@@ -518,13 +518,14 @@
                             <!--数据-->
                             <div class="bottom-content-data">
 
-                                <span class="">600kw</span><br>
-                                <span class="">171kw</span>
+                                <span class=""></span><br>
+                                <span class=""></span><br>
+                                <span></span>
                             </div>
 
 
                             <!--echart容器-->
-                            <div class="bottom-equipment-chart" id="equipment-chart-platform">
+                            <div class="bottom-equipment-chart bottom-equipment-chart-show" id="equipment-chart-platform">
 
                             </div>
 
@@ -542,7 +543,7 @@
                             </div>
 
                             <!--下方统计数据-->
-                            <div class="bottom-equipment-chart-data alarm-data-container" data-devtype="55">
+                            <div class="bottom-equipment-chart-data alarm-data-container1" data-devtype="55">
 
 
                                 <p class="chart-data"><font class="cur-data">0</font><span class="total-data">/1000</span>
@@ -583,7 +584,7 @@
 
 
                             <!--echart容器-->
-                            <div class="bottom-equipment-chart" id="equipment-chart-wind">
+                            <div class="bottom-equipment-chart bottom-equipment-chart-show" id="equipment-chart-wind">
 
                             </div>
 
@@ -652,7 +653,7 @@
                             </div>
 
                             <!--下方统计数据-->
-                            <div class="bottom-equipment-chart-data alarm-data-container" data-devtype="7">
+                            <div class="bottom-equipment-chart-data alarm-data-container2" data-devtype="7">
 
 
                                 <p class="chart-data"><font class="cur-data">0</font><span class="total-data">/1000</span>
@@ -723,7 +724,7 @@
                 <div class="left-tab-container">
 
                     <!--左侧展示内容-->
-                    <div style="float:left" class="left-tab-data-container">
+                    <div style="float:left" class="left-tab-data-container total-equip-alarm">
                         <span class="left-tab-data left-tab-data1">设备报警 <font>2</font></span>
 
                     </div>
@@ -887,15 +888,22 @@
                 <ul class="demand-condition-container">
                     <li>
                         <label for="">设备类型</label>
-                        <select name="" id="">
+                        <select name="" id="" class="equip-types">
                             <option value="">全部</option>
-                            <option value="">冷机</option>
-                            <option value="">热机</option>
                         </select>
                     </li>
                     <li>
+                        <label for="">运行状态</label>
+                        <select name="" id="" class="equip-states">
+                            <option value="0">运行中</option>
+                            <option value="1">故障中</option>
+                            <option value="2">维修中</option>
+                        </select>
+                    </li>
+
+                    <li>
                         <label for="">设备名称</label>
-                        <input type="text" />
+                        <input type="text" class="dev-type" />
                     </li>
 
                     <li>
@@ -913,67 +921,13 @@
                             <th>类型</th>
                             <th>位置</th>
                             <th>服务区域</th>
-                            <th>状态</th>
-                            <th>故障状态</th>
+                            <th>运行状态</th>
                             <th>累计运行时间</th>
                         </tr>
                         </thead>
 
                         <tbody class="scrollbar1">
-                        <tr>
-                            <td>东机房1号冷机</td>
-                            <td>制冷</td>
-                            <td>西冷站</td>
-                            <td>12.4m</td>
-                            <td>停止</td>
-                            <td>维修中</td>
-                            <td>65889.2h</td>
-                        </tr>
-                        <tr>
-                            <td>东机房1号冷机</td>
-                            <td>制冷</td>
-                            <td>西冷站</td>
-                            <td>12.4m</td>
-                            <td>停止</td>
-                            <td>维修中</td>
-                            <td>65889.2h</td>
-                        </tr>
-                        <tr>
-                            <td>东机房1号冷机</td>
-                            <td>制冷</td>
-                            <td>西冷站</td>
-                            <td>12.4m</td>
-                            <td>停止</td>
-                            <td>维修中</td>
-                            <td>65889.2h</td>
-                        </tr>
-                        <tr>
-                            <td>东机房1号冷机</td>
-                            <td>制冷</td>
-                            <td>西冷站</td>
-                            <td>12.4m</td>
-                            <td>停止</td>
-                            <td>维修中</td>
-                            <td>65889.2h</td>
-                        </tr>
-                        <tr>
-                            <td>东机房1号冷机</td>
-                            <td>制冷</td>
-                            <td>西冷站</td>
-                            <td>12.4m</td>
-                            <td>停止</td>
-                            <td>维修中</td>
-                            <td>65889.2h</td>
-                        </tr>
-                        <tr>
-                            <td>东机房1号冷机</td>
-                            <td>制冷</td>
-                            <td>西冷站</td>
-                            <td>12.4m</td>
-                            <td>停止</td>
-                            <td>维修中</td>
-                            <td>65889.2h</td>
-                        </tr>
+
                         </tbody>
                     </table>
 
@@ -1454,6 +1408,179 @@
                             <td>256</td>
                             <td>12%</td>
                         </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--下方所有设备报警弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='alarm-message1' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>全部设备报警点位信息</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+                    <li>
+                        <label for="">报警类型</label>
+                        <select name="" id="" class="alarm-select">
+
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">设备名称</label>
+                        <input class="dev-type" type="text" />
+                    </li>
+
+                    <li>
+                        <label for="">报警名称</label>
+                        <input  class="alarm-type" type="text" />
+                    </li>
+
+                    <li>
+                        <button class="demand-button"></button>
+                    </li>
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container ">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="dateTables-alarm">
+                        <thead>
+                        <tr>
+                            <th>设备名称</th>
+                            <th>报警名称</th>
+                            <th>位置</th>
+                            <th>服务区域</th>
+                            <th>类型</th>
+                            <th>级别</th>
+                            <th>报警时间</th>
+                            <th>是否已报单</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--消防系统报警点弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='alarm-fire-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>报警点位信息</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+
+                    <li>
+                        <label for="">报警内容</label>
+                        <input  class="alarm-content" type="text" />
+                    </li>
+
+                    <li>
+                        <button class="demand-button"></button>
+                    </li>
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container ">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="fire-dateTables">
+                        <thead>
+                        <tr>
+                            <th>设施编码</th>
+                            <th>报警内容</th>
+                            <th>总分类</th>
+                            <th>报警时间</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--能源管理系统报警点弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='alarm-energy-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>报警信息</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+
+                    <li>
+                        <label for="">报警名称</label>
+                        <input  class="alarm-name" type="text" />
+                    </li>
+
+                    <li>
+                        <button class="demand-button"></button>
+                    </li>
+
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container ">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="energy-dateTables">
+                        <thead>
+                        <tr>
+                            <th>报警名称</th>
+                            <th>类型</th>
+                            <th>级别</th>
+                            <th>当前数据</th>
+                            <th>报警表达式</th>
+                            <th>报警时间</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+
                         </tbody>
                     </table>
 

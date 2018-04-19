@@ -133,6 +133,7 @@
     font-size: 12px;
     line-height: 12px;
     z-index: 1000;
+    text-align: right;
 }
 
 /*下方数据统计*/
@@ -468,4 +469,17 @@
 }
 .jump-containers a:hover{
     text-decoration: none;
+}
+
+/*首页中下方设备报警*/
+.total-equip-alarm{
+    cursor: pointer;
+}
+
+.alarm-data-container1{
+    cursor: pointer;
+}
+
+.alarm-data-container2{
+    cursor: pointer;
 }

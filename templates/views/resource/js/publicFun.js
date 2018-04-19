@@ -930,3 +930,35 @@ function _packagingTableData(tableData){
     return newTableArr;
 };
 
+
+//----------------------------------获取配置的能耗数据中信息---------------------------------//
+//根据能耗分项ID获取能耗名称
+function _getEcName(etid){
+
+    var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+
+    if(jsonText){
+        for(var i=0;i<jsonText.alltypes.length;i++){
+            if(etid == jsonText.alltypes[i].etid){
+
+                return jsonText.alltypes[i].etname;
+            }
+        }
+
+    }
+};
+//根据能耗分项ID获取能耗单位
+function _getEcUnit(etid){
+
+    var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+
+    if(jsonText){
+        for(var i=0;i<jsonText.alltypes.length;i++){
+            if(etid == jsonText.alltypes[i].etid){
+
+                return jsonText.alltypes[i].etunit;
+            }
+        }
+    }
+};
+
