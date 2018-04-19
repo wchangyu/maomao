@@ -124,7 +124,7 @@
             arostr += $(this).val() + ",";
         });
         if( arostr === undefined || arostr.length === 0){
-            alert('提示(参数分析):请选择分项参数');
+            console.log('提示(参数分析):请选择分项参数');
             return false;
         }
         jQuery('#abbrBusy').showLoading();
@@ -246,7 +246,7 @@
                 jQuery('#abbrBusy').hideLoading();
             }else if(res.code === -1){
                 jQuery('#abbrBusy').hideLoading();
-                alert('异常错误(参数分析):' + res.msg);
+                console.log('异常错误(参数分析):' + res.msg);
             }else{
                 jQuery('#abbrBusy').hideLoading();
             }
@@ -255,12 +255,6 @@
     
     return {
         init: function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
             //初始化时间控件
             initdatetimepicker();
             //改变复选框的Checked选项

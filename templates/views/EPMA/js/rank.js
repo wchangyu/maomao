@@ -160,7 +160,7 @@
                     drawctv(ctxs, ctys, ctcs,  'KW/KW');//冷却塔
                     jQuery('#rankBusy').hideLoading();
                 }else if(res.code === -1){
-                    alert('异常错误(能效排名:)' + res.msg);
+                    console.log('异常错误(能效排名:)' + res.msg);
                     jQuery('#rankBusy').hideLoading();
                 }else{
                     jQuery('#rankBusy').hideLoading();
@@ -745,12 +745,6 @@
 
     return {
         init: function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
             //初始化时间控件(默认是日)
             initdatetimepicker();
             //切换日月年时间类型
