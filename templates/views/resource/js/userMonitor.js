@@ -1148,6 +1148,7 @@ var userMonitor = (function(){
                         continue;
                     }
                 }
+
                 var curPRR;     //当前render
                 curPRR = _.findWhere(_procRenders,{"id":curPD.procRenderID});
 
