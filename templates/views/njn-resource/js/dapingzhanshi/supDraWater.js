@@ -7,6 +7,51 @@ $(function(){
     //获取页面中的上面要展示的区域及对应的ID
     getDevTypeAreas(devTypeID,getSeAreaDrainWater);
 
+    //获取报警类型
+    typeOfAlarm();
+
+    //点击页面右侧的报警信息弹出报警信息弹窗
+    $('.right-bottom-table').on('click','.carousel-container',function(){
+
+        $('#alarm-message').modal('show');
+
+        //获取当前的区域id
+        var devAreaID = $(this).attr('area-id');
+
+        $('#alarm-message .systematic-name').attr('area-id',devAreaID);
+
+        //获取后台数据
+        getDevMonitAlarmPopup(devAreaID);
+
+    });
+
+    //报警信息弹窗中的查询功能
+    $('#alarm-message .demand-button').on('click',function(){
+
+        //获取当前区域id
+        var devAreaID = $('#alarm-message .systematic-name').attr('area-id');
+
+        //获取报警类型
+        var alarmType = $('#alarm-message .alarm-select').val();
+
+        //获取设备名称
+        var devName = $('#alarm-message .dev-type').val();
+
+        //获取报警名称
+        var alarmName = $('#alarm-message .alarm-type').val();
+
+        var condition =   {
+            "devTypeID": devTypeID,
+            "devAreaID": devAreaID,
+            "alarmType": alarmType,
+            "devName": devName,
+            "alarmName": alarmName
+        };
+
+        //获取报警数据
+        getDevMonitAlarmPopup(devTypeID,condition);
+
+    });
 });
 
 
@@ -339,14 +384,13 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
         if(o.excData2s != null && o.excData2s.length > 0){
 
-            bodyHtml += '<td><div class="carousel-container carousel slide"><div class="carousel-inner">';
+            bodyHtml += '<td><div class="carousel-container carousel slide" area-id="'+ areaID +'"><div class="carousel-inner">';
 
             $(o.excData2s).each(function(i,o){
 
                 if(i == 0){
 
                     bodyHtml += getRightAlarmString(o,true)
-
 
                 }else{
 
@@ -428,6 +472,134 @@ function echartReDraw(realDataArr){
 
     });
 
+};
+
+//大屏幕报警弹窗
+function getDevMonitAlarmPopup(devAreaID,condition){
+
+    //传递给后台的参数
+    var  ecParams = {
+        "devTypeID": devTypeID,
+        "devAreaID": devAreaID,
+        "alarmType": -1,
+        "devName": "",
+        "alarmName": ""
+    };
+
+    if(condition){
+
+        ecParams = condition;
+
+    }
+
+    $.ajax({
+        type:'post',
+        url:_urls + 'NJNDeviceShow/GetSeAreaDevMonitAlarmPopup',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            setTimeout(function(){
+
+                $('#alarm-message .bottom-table-data-container').showLoading();
+
+            },450);
+
+        },
+        success:function(result){
+
+            //给页面赋值
+            var tableHtml = "";
+
+            $(result).each(function(i,o){
+
+                tableHtml += "<tr>";
+
+                //设备名称
+                tableHtml += "<td>"+ o.devName+"</td>";
+
+                //报警名称
+                tableHtml += "<td>"+ o.alarmName+"</td>";
+
+                //位置
+                tableHtml += "<td>"+ o.areaName+"</td>";
+
+                //服务区域
+                tableHtml += "<td>"+ o.serviceArea+"</td>";
+
+                //类型
+                tableHtml += "<td>"+ o.cDtnName+"</td>";
+
+                //级别
+                tableHtml += "<td>"+ o.priorityName+"</td>";
+
+                //报警时间
+                tableHtml += "<td>"+ o.dataDate+"</td>";
+
+                //是否报单
+
+                var isBaoDan = '未报单';
+
+                if(o.isBaoDan == 1){
+
+                    isBaoDan = '已报单';
+                }
+
+                tableHtml += "<td>"+ isBaoDan +"</td>";
+
+                tableHtml += "</tr>"
+            });
+
+            setTimeout(function(){
+
+                $('#alarm-message .bottom-table-data-container').hideLoading();
+
+                //页面赋值
+                $('#dateTables tbody').html(tableHtml);
+
+            },450);
+
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+            }else{
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+            }
+
+        }
+
+    })
+};
+
+//报警类型
+function typeOfAlarm(){
+
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
+        success:function(result){
+
+            var html = "<option value='-1'>全部</option>";
+
+            //把设备类型放入页面中
+            $(result).each(function(i,o){
+
+                html += "<option value='"+ o.innerID+"'>"+ o.cDtnName+"</option>"
+            });
+
+            $('.alarm-select').html(html);
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR.responseText);
+        }
+    });
 };
 
 

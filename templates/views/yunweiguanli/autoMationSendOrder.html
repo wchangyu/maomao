@@ -1,10 +1,13 @@
 <!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
 <html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
     <title></title>
-    <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-    <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -46,8 +49,63 @@
 
     <!--自定义样式-->
     <link rel="stylesheet" href="../new-resource/css/common.css">
-    <link rel="stylesheet" href="../new-resource/css/nenghaoshuju/crosswiseCompare.css">
-    <link rel="stylesheet" href="../new-resource/css/nenghaoshuju/equipmentRealTimeData.css">
+    <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/monitorStatement.css">
+    <style>
+
+        .table td{
+            border: 1px solid #DCDCDC !important;
+        }
+
+        .table{
+            border:1px solid #DCDCDC;
+            background: #E2E9F2;
+        }
+
+        .table-alarm tbody {
+            display:block;
+            max-height:600px;
+            overflow-y:auto;
+        }
+
+
+        .table-alarm thead,.table-alarm tbody tr {
+            display:table;
+            width:100%;
+            table-layout:fixed;
+        }
+
+        .table-alarm thead {
+            width: calc( 100% - 1em )
+        }
+
+        .table-alarm>tbody>tr:nth-of-type(odd) {
+            background-color: #f9f9f9;
+        }
+
+        /*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+        .scrollbar1::-webkit-scrollbar{
+            width: 16px;
+            height: 16px;
+            background-color: #f5f5f5;
+            border-radius: 0 0 15px 0px;
+            border: none !important;
+        }
+        /*定义滚动条的轨道，内阴影及圆角*/
+        .scrollbar1::-webkit-scrollbar-track{
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            /*border-radius: 0 0 13px 0px;*/
+            background-color: rgba(235,235,235,1);
+
+        }
+        /*定义滑块，内阴影及圆角*/
+        .scrollbar1::-webkit-scrollbar-thumb{
+            /*width: 10px;*/
+            height: 20px;
+            /*border-radius: 0 0 15px 0px;*/
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: rgba(188,212,244,1);
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -223,7 +281,6 @@
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -232,7 +289,7 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
+                <!--<div class="showOrHidden"></div>-->
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -263,104 +320,155 @@
                 <div class="col-md-12">
                     <div class="total-warp">
                         <div class="wrap container">
-                            <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                                <div class="content-main">
-                                    <div class="main-left-middle">
-                                        <div class="left-middle-header">区域位置</div>
-                                        <div class="left-middle-main">
-                                            <div class="tree-1 tree-0">
-                                                    <span class="allPointerOne">
-                                                        <div class="selectedRadio"></div>
-                                                    </span>
-                                                <div class="left-middle-input" style="">
-                                                    <input type="text"  id="keys" class="empty form-control" placeholder="搜索...">
-                                                </div>
-                                                <div class="tipess"></div>
-                                                <ul class="allPointer ztree  scrollbar" id="allPointer">
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content-main">
-                                    <div class="main-left-middle1">
-                                        <div class="left-middle-header">条件选择</div>
 
-                                    </div>
+                            <!--存放查询条件-->
+                            <ul class="demand-condition-container condition-query ">
+                                <li>
+                                    <label for="">车站</label>
+                                    <select name="" id="" class="select-station">
+                                        <option value="0">南京南站</option>
+                                    </select>
+                                </li>
 
-                                    <div style="height:20px;"></div>
-                                    <!--已选择设备框-->
-                                    <div class="bottom-select-equipment">
+                                <li>
+                                    <label for="">所属专业</label>
+                                    <select name="" id="" class="select-station">
+                                        <option value="0">暖通空调</option>
+                                        <option value="1">照明</option>
+                                        <option value="2">电梯</option>
+                                    </select>
+                                </li>
 
-                                        <h4 style="margin-left:10px; font-size:14px;margin-bottom:5px;">已选类型 <span class="clear-list">全清</span></h4>
-                                        <div class="select-equipment-container scrollbar scrollbar1">
-                                            <!--<p>-->
-                                            <!--<span class="select-equipment">PY/PF-B1-19-->
-                                            <!--<span class="select-nature">( <b>回路启停</b> <b>回路电流</b> )</span> <font></font>-->
-                                            <!--</span>-->
-                                            <!--</p>-->
+                                <li>
+                                    <label for="">设备类型</label>
+                                    <select name="" id="" class="select-station">
+                                        <option value="0">离心机</option>
+                                        <option value="1">溴锂机</option>
+                                    </select>
+                                </li>
 
-                                        </div>
-                                    </div>
+                                <li>
+                                    <button class="demand-button btn btn-success">查询</button>
+                                </li>
 
+                                <span class="save-excel">↓</span>
+                                <!--清除浮动-->
+                                <div class="clearfix"></div>
+                            </ul>
 
+                            <!--下方主体表格-->
+                            <div class="bottom-main-table">
 
+                                <table id="entry-datatables" class="table table-alarm" cellspacing="0" width="100%" style="text-align:center;">
+                                    <thead style="text-align:center">
+                                        <tr style="text-align:center">
+                                            <th style="text-align:center;background: #E2E9F2;">监测参数名称</th>
+                                            <th  style="text-align:center;background: #E2E9F2;">故障名称</th>
 
-                                    <div class="buttons">
+                                            <th style="text-align:center;background: #E2E9F2;">系统派单条件</th>
+                                            <th  style="text-align:center;background:  #E2E9F2;">是否自动派单</th>
+                                        </tr>
 
-                                        <button class="btn btn-success" style="background: #2170F4 !important;">查询</button>
+                                    </thead>
 
-                                    </div>
-                                </div>
+                                    <tbody class="scrollbar1">
+                                    <tr>
+                                        <td>油槽温度
+                                        </td>
+                                        <td>油槽温度过低</td>
+                                        <td>机组内部报警并停机（主电机启动前油槽温度低于设定值）
+
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" class="table-checkbox"/>
+                                        </td>
+                                    </tr>
+                                        <tr>
+                                            <td>冷冻水流量开关
+                                            </td>
+                                            <td>油槽温度过低</td>
+                                            <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="table-checkbox"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>冷冻水流量开关
+                                            </td>
+                                            <td>油槽温度过低</td>
+                                            <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="table-checkbox"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>冷冻水流量开关
+                                            </td>
+                                            <td>油槽温度过低</td>
+                                            <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="table-checkbox"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>冷冻水流量开关
+                                            </td>
+                                            <td>油槽温度过低</td>
+                                            <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="table-checkbox"/>
+                                            </td>
+                                        </tr>
+                                    <tr>
+                                        <td>冷冻水流量开关
+                                        </td>
+                                        <td>油槽温度过低</td>
+                                        <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" class="table-checkbox"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>冷冻水流量开关
+                                        </td>
+                                        <td>油槽温度过低</td>
+                                        <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" class="table-checkbox"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>冷冻水流量开关
+                                        </td>
+                                        <td>油槽温度过低</td>
+                                        <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" class="table-checkbox"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>冷冻水流量开关
+                                        </td>
+                                        <td>油槽温度过低</td>
+                                        <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" class="table-checkbox"/>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+
                             </div>
-                            <div class="content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                                <div class="right-content">
-                                    <!--<div class="left-middle-header">-->
-                                    <!--<div class="header-one"></div>-->
-                                    <!--<div class="header-two"></div>-->
-                                    <!--<div class="header-three"></div>-->
-                                    <!--</div>-->
-                                    <div class="right-top">
-                                        <div class="right-header">
-                                            <!-- 标题 -->
-                                            <span class="right-header-title"></span>
-                                            <!-- 标题右边 -->
-                                            <ul class="right-header-right">
-                                                <!-- 单位 -->
-                                                <li class="header-right-lists">
-                                                    <!--<label for="">单位：</label>-->
-                                                    <!--&lt;!&ndash;<select name="" id="unit"></select>&ndash;&gt;-->
-                                                    <!--<input type="text" style="width:80px;height:24px;" disabled="disabled" class="unit">-->
-                                                </li>
-                                            </ul>
-                                        </div>
 
-
-                                        <!--下方对比表格-->
-                                        <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" >
-                                            <p class="table-title"><span class="systemTitle">客运车站设备智能化管理系统</span>-<span class="curSystem"></span>-实时参数 <span class="curTime">2017-12-14</span> <span class="save-excel">↓</span></p>
-                                            <table class="table table-striped table-bordered table-advance table-hover
-" id="dateTables">
-                                                <thead>
-                                                <!--<tr>-->
-                                                    <!--<th>对象</th>-->
-                                                    <!--<th>总值</th>-->
-                                                    <!--<th>峰值</th>-->
-                                                    <!--<th>出现时间</th>-->
-                                                    <!--<th>谷值</th>-->
-                                                    <!--<th>出现时间</th>-->
-                                                <!--</tr>-->
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -369,12 +477,11 @@
         <!-- END PAGE CONTENT-->
     </div>
 </div>
-
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
 <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
 <!-- END QUICK SIDEBAR -->
-
+</div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
@@ -402,7 +509,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -442,6 +548,7 @@
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
 <script src="../resource/js/alarm.js"></script>
 <script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -451,9 +558,7 @@
     });
 </script>
 <script src="../new-resource/js/common.js"></script>
-<script src="../new-resource/js/nenghaoshuju/equipmentRealTimeData.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
 </html>
-

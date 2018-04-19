@@ -107,6 +107,7 @@ function getEnergyPublicityData(){
 
             //左上角整体数据
             var tableHtml1 = '';
+
             //总占地面积 建筑面积
             tableHtml1 +=   '<tr>' +
                                 '<td>总占地面积</td><td>'+result.landArea+'</td><td>平米</td>' +
@@ -129,6 +130,7 @@ function getEnergyPublicityData(){
                 //医院模式展示床位
                 tableHtml1 +=  '</tr><tr><td>总床位数</td><td>'+result.bedNum+'</td><td>个</td></tr>';
             }
+
 
             $('#dateTables tbody').html(tableHtml1);
 
@@ -171,48 +173,78 @@ function getEnergyPublicityData(){
             //单位床位用能
             var energy3 = 0;
 
+            var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+            var unitArr = unitObj.alltypes;
+
+            $(unitArr).each(function(i,o){
+
+                //获取当前能耗名称
+                var etname = o.etname;
+
+                //获取当前能耗单位
+                var etunit = o.etunitZH;
+
+                //获取当前能耗id
+                var etid = o.etid;
+
+                //遍历获取到的数组
+                $(energyArr).each(function(i,o){
+
+                    var totalData = o.energyData.toFixed(2);
+
+
+                    //总能耗数据
+                    if(o.energyItemId == etid && o.energyFlag == 1){
+
+                        tableHtml2 +=
+
+                            //总用电
+                            '<tr>' +
+                                //名称
+                            '<td>总用'+etname+'</td>' +
+                                //数值
+                            '<td>'+ totalData+'</td>' +
+                                //单位
+                            '<td>'+etunit+'</td>' +
+                            '</tr>';
+
+                        //单位面积能耗
+                    }else if(o.energyItemId == etid && o.energyFlag == 3){
+
+                        tableHtml2 +=
+                            //单位面积用电
+                            '<tr>' +
+                                //名称
+                            '<td>单位面积用'+etname+'</td>' +
+                                //数值
+                            '<td>'+ totalData+'</td>' +
+                                //单位
+                            '<td>'+etunit+'/平米</td>' +
+                            '</tr>';
+
+                        //单位床位能耗
+                    }else if(o.energyItemId == etid && o.energyFlag == 9){
+
+                        if( ifShowBed == true){
+
+                            tableHtml2 +=
+                                //单位面积用电
+                                '<tr>' +
+                                    //名称
+                                '<td>单位床位用'+etname+'</td>' +
+                                    //数值
+                                '<td>'+ totalData+'</td>' +
+                                    //单位
+                                '<td>'+etunit+'/床</td>' +
+                                '</tr>';
+                        }
+                    }
+
+                });
+            });
+
             $(energyArr).each(function(i,o){
-                //总用电数据
-                if(o.energyItemId == '01' && o.energyFlag == 1){
-
-                    electricity1 = o.energyData.toFixed(2);
-                }
-
-                //单位面积用电数据
-                if(o.energyItemId == '01' && o.energyFlag == 3){
-
-                    electricity2 = o.energyData.toFixed(2);
-                }
-
-                //单位床位用电数据
-                if(o.energyItemId == '01' && o.energyFlag == 9){
-
-                    electricity3 = o.energyData.toFixed(2);
-                }
-
-                //总用水数据
-                if(o.energyItemId == '211' && o.energyFlag == 1){
-
-                    water1 = o.energyData.toFixed(2);
-                }
-
-                //单位面积用水数据
-                if(o.energyItemId == '211' && o.energyFlag == 3){
-
-                    water2 = o.energyData.toFixed(2);
-                }
-
-                //单位床位用水数据
-                if(o.energyItemId == '211' && o.energyFlag == 9){
-
-                    water3 = o.energyData.toFixed(2);
-                }
-
-                //总用气数据
-                if(o.energyItemId == '311' && o.energyFlag == 1){
-
-                    air1 = o.energyData.toFixed(2);
-                }
 
                 //总用能数据
                 if(o.energyItemId == '-2' && o.energyFlag == 1){
@@ -235,85 +267,6 @@ function getEnergyPublicityData(){
             });
 
             tableHtml2 +=
-                //总用电
-                '<tr>' +
-                        //名称
-                    '<td>总用电</td>' +
-                        //数值
-                    '<td>'+ electricity1+'</td>' +
-                        //单位
-                    '<td>度</td>' +
-                '</tr>'+
-
-                //单位面积用电
-                '<tr>' +
-                        //名称
-                    '<td>单位面积用电</td>' +
-                        //数值
-                    '<td>'+ electricity2+'</td>' +
-                        //单位
-                    '<td>度/平米</td>' +
-                '</tr>';
-
-                if( ifShowBed == true){
-
-                    tableHtml2 +=    //单位床位用电
-                        '<tr>' +
-                            //名称
-                        '<td>单位床位用电</td>' +
-                            //数值
-                        '<td>'+ electricity3+'</td>' +
-                            //单位
-                        '<td>度/床</td>' +
-                        '</tr>';
-                }
-
-            tableHtml2 +=
-                    //总用水
-                '<tr>' +
-                        //名称
-                    '<td>总用水</td>' +
-                        //数值
-                    '<td>'+ water1+'</td>' +
-                        //单位
-                    '<td>吨</td>' +
-                '</tr>'+
-
-                    //单位面积用水
-                '<tr>' +
-                        //名称
-                    '<td>单位面积用水</td>' +
-                        //数值
-                    '<td>'+ water2+'</td>' +
-                        //单位
-                    '<td>吨/平米</td>' +
-                '</tr>';
-
-            if( ifShowBed == true){
-
-                tableHtml2 +=    //单位床位用水
-                //单位床位用水
-                '<tr>' +
-                    //名称
-                '<td>单位床位用水</td>' +
-                    //数值
-                '<td>'+ water3+'</td>' +
-                    //单位
-                '<td>吨/床</td>' +
-                '</tr>';
-            }
-            tableHtml2 +=
-
-                //总用气
-                '<tr>' +
-                        //名称
-                    '<td>总用气</td>' +
-                        //数值
-                    '<td>'+ air1+'</td>' +
-                        //单位
-                    '<td>立方米</td>' +
-                '</tr>'+
-
                     //总用能
                 '<tr>' +
                         //名称

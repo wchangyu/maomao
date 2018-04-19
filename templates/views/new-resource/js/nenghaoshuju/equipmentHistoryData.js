@@ -2,6 +2,12 @@
  * Created by admin on 2018/3/11.
  */
 $(function(){
+
+    //获取到当前项目名称
+    var systemName = sessionStorage.getItem('systemName');
+
+    $('.systemTitle').html(systemName);
+
     //获取区域位置的数据
     getDevAreaByType();
 

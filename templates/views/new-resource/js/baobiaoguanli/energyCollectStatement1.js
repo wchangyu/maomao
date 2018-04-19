@@ -258,17 +258,17 @@ function getTableHtml(arr,month,energyID){
             if( energyID == '01'){
 
                 html = //电水耗
-                    '<td style="text-align:center;border:1px solid black">'+ o.energyData.toFixed(2)+'</td>'+
+                    '<td style="text-align:center;border:1px solid black">'+ (o.energyData/10000).toFixed(2)+'</td>'+
                         //电水费
-                    '<td style="text-align:center;border:1px solid black">'+ o.energyPriceData.toFixed(2)+'</td>';
+                    '<td style="text-align:center;border:1px solid black">'+ (o.energyPriceData/10000).toFixed(2)+'</td>';
                 //折合标煤
             }else if(energyID == '-2'){
 
-                html = '<td style="text-align:center;border:1px solid black">'+ o.energyData.toFixed(2)+'</td>';
+                html = '<td style="text-align:center;border:1px solid black">'+ (o.energyData/10000).toFixed(2)+'</td>';
                 //合计
             }else if(energyID == '-3'){
 
-                html = '<td style="text-align:center;border:1px solid black">'+ o.energyPriceData.toFixed(2)+'</td></tr>';
+                html = '<td style="text-align:center;border:1px solid black">'+ (o.energyPriceData/10000).toFixed(2)+'</td></tr>';
 
                 //水耗
             }else if(energyID == '211'){

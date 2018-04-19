@@ -402,14 +402,14 @@ function getPointerData(url,flag){
 
             showDateType = 'Hour';
 
-            endTime = moment(endTime).add('1','h').format("YYYY-MM-DD hh:00");
+            endTime = moment(endTime).add('1','h').format("YYYY-MM-DD HH:00");
 
         //按分钟展示
         }else if(showType == 2){
 
             showDateType = 'Minute';
 
-            endTime = moment(endTime).add('1','mm').format("YYYY-MM-DD hh:mm");
+            endTime = moment(endTime).add('1','mm').format("YYYY-MM-DD HH:mm");
         }
     }
 
@@ -481,7 +481,7 @@ function getPointerData(url,flag){
 
                 }
 
-            } else if(showDateType == 'Hour' ){
+            }else if(showDateType == 'Hour' ){
 
                 //确定x轴
                 for(var i=0;i<allData.length;i++){

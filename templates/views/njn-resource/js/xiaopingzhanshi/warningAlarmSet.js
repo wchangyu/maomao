@@ -8,32 +8,20 @@ $(function(){
     //获取区域位置的数据
     //getDevAreaByType();
 
+    //获取报警类型
+    typeOfAlarm();
+
 
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
-    $('.buttons').children('.btn-success').click(function(){
+    $('.buttons0').children('.btn-success').click(function(){
 
         getPointerData();
 
     });
 
 
-    //chart图自适应
-    window.onresize = function () {
-        if(myChartTopLeft){
-            myChartTopLeft.resize();
-        }
-    };
 
-    var zoomSize = 6;
-    myChartTopLeft.on('click', function (params) {
-        console.log(allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-        myChartTopLeft.dispatchAction({
-            type: 'dataZoom',
-            startValue: allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)],
-            endValue: allDataX[Math.min(params.dataIndex + zoomSize / 2, allDataY.length - 1)]
-        });
-    });
 
     //删除设备列表中的项目
     $('.select-equipment-container').on('click',"font",function(){
@@ -126,81 +114,6 @@ var table = $('#dateTables').DataTable({
 });
 
 /*---------------------------------echart-----------------------------------*/
-
-//折线图
-var myChartTopLeft = echarts.init(document.getElementById('rheader-content-16'));
-
-var echartObj =  {name:'累计值',
-    type:'line',
-    smooth:true,
-    //markPoint : {
-    //    data : [
-    //        {type : 'max', name: '最大值'},
-    //        {type : 'min', name: '最小值'}
-    //    ],
-    //    itemStyle : {
-    //        normal:{
-    //            color:'#019cdf'
-    //        }
-    //    },
-    //    label:{
-    //        normal:{
-    //            textStyle:{
-    //                color:'#d02268'
-    //            }
-    //        }
-    //    }
-    //},
-    //markLine : {
-    //    data : [
-    //        {type : 'average', name: '平均值'}
-    //
-    //
-    //    ]
-    //},
-    data:[]
-};
-
-//折线图配置项
-var optionLine = {
-    tooltip : {
-        trigger: 'axis'
-    },
-    legend: {
-        data:['累计值'],
-        top:'30'
-    },
-    toolbox: {
-        show : true,
-        feature : {
-            dataView : {show: true, readOnly: false},
-            magicType : {show: true, type: ['bar', 'line']},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    calculable : true,
-    xAxis : [
-        {
-            type : 'category',
-            data : ['本期','上期']
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value'
-        }
-    ],
-    grid: {
-        left: '10%',
-        right: '8%'
-    },
-    series : [
-
-    ]
-};
-
-var equipmentObj;
 
 //定义当前的设备列表
 var equipmentArr = [
@@ -757,6 +670,88 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
     }
 
 };
+
+//报警类型
+function typeOfAlarm(){
+
+    var typeFlag = false;
+    //获取本地存储的报警类型
+    var localType;
+    if(sessionStorage.getItem('menuArg')){
+        localType = sessionStorage.getItem('menuArg').split(',')[1];
+    }
+    console.log(localType);
+    if(localType && localType != -1) {
+        typeFlag = true;
+    }
+
+    var zNodes=[];
+    var allAlarmInfo={};
+    allAlarmInfo.id="-1";
+    allAlarmInfo.name="全部";
+    allAlarmInfo.checked="true";
+    allAlarmInfo.open = "true";
+    zNodes.push(allAlarmInfo);
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
+        success:function(result){
+            console.log(result);
+            return false;
+            if(result.length == 0){ //没有数据时候跳出,清除树
+                var lastTree = $.fn.zTree.getZTreeObj("typeSelection");
+                if(lastTree) { lastTree.destroy(); }
+                return;
+            }
+            var branchArr=[];
+            for(var i=0;i<result.length;i++){
+                if(typeFlag){
+                    if(localType.indexOf(result[i].innerID) != -1){
+                        branchArr.push(result[i]);
+                    }
+                }else{
+                    branchArr.push(result[i]);
+                }
+
+            }
+            //遍历数组，确定zNodes；
+            for(var i=0;i<branchArr.length;i++){
+                zNodes.push({id:branchArr[i].innerID,name:branchArr[i].cDtnName,pId:allAlarmInfo.id});
+            }
+            var ztreeSettings = {
+                check: {
+                    enable: true,
+                    chkStyle: "radio",
+                    chkboxType: { "Y": "ps", "N": "ps" },
+                    radioType: 'all'
+
+                },
+                data: {
+                    key: {
+                        title: ""
+                    },
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                view: {
+                    showIcon: false,
+                    showTitle:true
+                },
+                callback: {
+                    onClick:function (event,treeId,treeNode){
+                        _alarm.checkNode(treeNode,!treeNode.checked,true);
+                    }
+                }
+            };
+            _alarm = $.fn.zTree.init($("#typeSelection"), ztreeSettings, zNodes);  //ul的id
+            _alarm_ID = getNodeInfo(_alarm,_alarm_ID);
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR.responseText);
+        }
+    });
+}
 
 
 //根据参数绘制页面中已选设备列表

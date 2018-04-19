@@ -1,6 +1,6 @@
 {
   "allEnergyType": {
-    "comment": "注释属性:全部能耗类型,三项分别为分项ID，分项名，分项单位,img:首页显示的类型小图片,color:首页显示的颜色,img2:各个功能页面用到的类型小图片",
+    "comment": "注释属性:全部能耗类型,三项分别为分项ID，分项名，分项单位,img:首页显示的类型小图片,color:首页显示的颜色,img2:各个功能页面用到的类型小图片,secondEnergy:标识二次能源，1为二次能源，0为非二次能源，isShowItem:是否启用该能源，1为启用，0为未启用",
     "alltypes": [
       {
         "etid": "01",
@@ -13,6 +13,7 @@
         "color":"#bce3de",
         "img2":"electricity.png",
         "isShowItem":1,
+        "secondEnergy":0,
         "etunitZH":"度"
       },
       {
@@ -26,6 +27,7 @@
         "color":"#fcbf92",
         "img2":"water.png",
         "isShowItem":1,
+        "secondEnergy":0,
         "etunitZH":"吨"
       },
       {
@@ -38,7 +40,8 @@
         "selectImg":"qi3.png",
         "color":"#b1cade",
         "img2":"gas.png",
-        "isShowItem":1,
+        "isShowItem":0,
+        "secondEnergy":0,
         "etunitZH":"立方米"
       },
       {
@@ -52,6 +55,7 @@
         "color":"#b1cade",
         "img2":"gas.png",
         "isShowItem":1,
+        "secondEnergy":0,
         "etunitZH":"吨"
       },
       {
@@ -65,10 +69,11 @@
         "color":"#b1cade",
         "img2":"hot.png",
         "isShowItem":1,
+        "secondEnergy":1,
         "etunitZH":"兆焦"
       },
       {
-        "etid": "511",
+        "etid": "512",
         "ettype" : "500",
         "etname": "冷",
         "etunit": "MJ",
@@ -160,9 +165,9 @@
       }
     ]
   },
-  "apiUriPrefix":"http://localhost/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://huaqin.vicp.io:25708/BEEWebAPIys/api/",
-  "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
+  "apiUriPrefix":"http://192.168.1.110/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://192.168.1.110/BEEWebAPI/api/",
+  "apiUriPrefix2":"huaqin.vicp.io:25708/BEEWebAPIys/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
   "isShowTitleEprName":"0",
@@ -189,5 +194,9 @@
   "indexImg":"../../../assets/local/img/img1.png",
   "indexImgComment":"首页图片路径",
   "indexWord":"吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼、8号高干楼等。共有床位，在职员工。吉大一院主要用能设备包括：空调采暖用直燃机机组、医疗消毒用蒸汽锅炉、空调通风末端设备、照明、插座、电梯、医疗设备等。",
-  "indexWordComment":"首页图片简介"
+  "indexWordComment":"首页图片简介",
+  "bigScreenSet":"1",
+  "bigScreenSetComment":"大屏首页人工配置数据开关",
+  "loginPath":"../logins/chcmu/login_4.html",
+  "loginPathComment":"登录页面路径"
 }

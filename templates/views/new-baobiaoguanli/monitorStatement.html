@@ -1,10 +1,13 @@
 <!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
 <html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
     <title></title>
-    <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-    <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -46,8 +49,7 @@
 
     <!--自定义样式-->
     <link rel="stylesheet" href="../new-resource/css/common.css">
-    <link rel="stylesheet" href="../new-resource/css/nenghaoshuju/crosswiseCompare.css">
-    <link rel="stylesheet" href="../new-resource/css/nenghaoshuju/equipmentRealTimeData.css">
+    <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/monitorStatement.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -223,7 +225,6 @@
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -232,7 +233,7 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
+                <!--<div class="showOrHidden"></div>-->
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -263,104 +264,96 @@
                 <div class="col-md-12">
                     <div class="total-warp">
                         <div class="wrap container">
-                            <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                                <div class="content-main">
-                                    <div class="main-left-middle">
-                                        <div class="left-middle-header">区域位置</div>
-                                        <div class="left-middle-main">
-                                            <div class="tree-1 tree-0">
-                                                    <span class="allPointerOne">
-                                                        <div class="selectedRadio"></div>
-                                                    </span>
-                                                <div class="left-middle-input" style="">
-                                                    <input type="text"  id="keys" class="empty form-control" placeholder="搜索...">
-                                                </div>
-                                                <div class="tipess"></div>
-                                                <ul class="allPointer ztree  scrollbar" id="allPointer">
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content-main">
-                                    <div class="main-left-middle1">
-                                        <div class="left-middle-header">条件选择</div>
 
-                                    </div>
+                            <!--存放查询条件-->
+                            <ul class="demand-condition-container condition-query ">
+                                <li>
+                                    <label for="">车站</label>
+                                    <select name="" id="" class="select-station">
+                                        <option value="0">南京南站</option>
+                                    </select>
+                                </li>
 
-                                    <div style="height:20px;"></div>
-                                    <!--已选择设备框-->
-                                    <div class="bottom-select-equipment">
+                                <li>
+                                    <label for="">所属专业</label>
+                                    <select name="" id="" class="select-station">
+                                        <option value="0">暖通空调</option>
+                                        <option value="1">照明</option>
+                                        <option value="2">电梯</option>
+                                    </select>
+                                </li>
 
-                                        <h4 style="margin-left:10px; font-size:14px;margin-bottom:5px;">已选类型 <span class="clear-list">全清</span></h4>
-                                        <div class="select-equipment-container scrollbar scrollbar1">
-                                            <!--<p>-->
-                                            <!--<span class="select-equipment">PY/PF-B1-19-->
-                                            <!--<span class="select-nature">( <b>回路启停</b> <b>回路电流</b> )</span> <font></font>-->
-                                            <!--</span>-->
-                                            <!--</p>-->
+                                <li>
+                                    <label for="">设备系统</label>
+                                    <select name="" id="" class="select-station">
+                                        <option value="0">东冷站</option>
+                                        <option value="1">西冷站</option>
+                                    </select>
+                                </li>
 
-                                        </div>
-                                    </div>
+                                <li>
+                                    <label for="">报表内容</label>
+                                    <select name="" id="" class="select-station">
+                                        <option value="0">地源热泵报表</option>
+                                    </select>
+                                </li>
 
+                                <li>
+                                    <button class="demand-button btn btn-success">查询</button>
+                                </li>
 
+                                <span class="save-excel">↓</span>
+                                <!--清除浮动-->
+                                <div class="clearfix"></div>
+                            </ul>
 
+                            <!--下方主体表格-->
+                            <div class="bottom-main-table">
 
-                                    <div class="buttons">
+                                <table id="entry-datatables" class="table" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">
+                                    <thead style="text-align:center">
+                                        <tr style="text-align:center">
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>
+                                            <th colspan="8" style="text-align:center;background: #FFF;border:1px solid black">地元热泵运行报表</th>
 
-                                        <button class="btn btn-success" style="background: #2170F4 !important;">查询</button>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">数据时间</th>
+                                            <th colspan="10" style="text-align:center;background:  #FFF;border:1px solid black">2017-05-17</th>
+                                        </tr>
 
-                                    </div>
-                                </div>
+                                        <tr>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>
+                                            <th style="text-align:center;background:  #FFF;border:1px solid black" colspan="8" class="data-time">2017-05-17</th>
+
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表信息</th>
+                                            <th colspan="10" style="text-align:center;background:  #FFF;border:1px solid black">位置：南京南站 东冷冻站；编号：1号溴锂机；主要参数：型号RGW135S，额定冷量4748kW</th>
+
+                                        </tr>
+
+                                        <tr>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">运行状态</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度设定(℃)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度(℃)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻回水温度(℃)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">地源出水温度(℃)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">地源回水温度(℃)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸发器压力(kPa)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷凝饱和温度(℃)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻水进口压力温度(kPa)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻水出口压力温度(kPa)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">地源出水压力(kPa)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">地源回水压力(kPa)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">运行功率(kW)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">累计运行时间(h)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">上一小时电耗(kWh)</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">手/自动状态</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">新增故障报警</th>
+                                        </tr>
+
+                                    </thead>
+                                </table>
                             </div>
-                            <div class="content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                                <div class="right-content">
-                                    <!--<div class="left-middle-header">-->
-                                    <!--<div class="header-one"></div>-->
-                                    <!--<div class="header-two"></div>-->
-                                    <!--<div class="header-three"></div>-->
-                                    <!--</div>-->
-                                    <div class="right-top">
-                                        <div class="right-header">
-                                            <!-- 标题 -->
-                                            <span class="right-header-title"></span>
-                                            <!-- 标题右边 -->
-                                            <ul class="right-header-right">
-                                                <!-- 单位 -->
-                                                <li class="header-right-lists">
-                                                    <!--<label for="">单位：</label>-->
-                                                    <!--&lt;!&ndash;<select name="" id="unit"></select>&ndash;&gt;-->
-                                                    <!--<input type="text" style="width:80px;height:24px;" disabled="disabled" class="unit">-->
-                                                </li>
-                                            </ul>
-                                        </div>
 
-
-                                        <!--下方对比表格-->
-                                        <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" >
-                                            <p class="table-title"><span class="systemTitle">客运车站设备智能化管理系统</span>-<span class="curSystem"></span>-实时参数 <span class="curTime">2017-12-14</span> <span class="save-excel">↓</span></p>
-                                            <table class="table table-striped table-bordered table-advance table-hover
-" id="dateTables">
-                                                <thead>
-                                                <!--<tr>-->
-                                                    <!--<th>对象</th>-->
-                                                    <!--<th>总值</th>-->
-                                                    <!--<th>峰值</th>-->
-                                                    <!--<th>出现时间</th>-->
-                                                    <!--<th>谷值</th>-->
-                                                    <!--<th>出现时间</th>-->
-                                                <!--</tr>-->
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -369,12 +362,11 @@
         <!-- END PAGE CONTENT-->
     </div>
 </div>
-
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
 <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
 <!-- END QUICK SIDEBAR -->
-
+</div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
@@ -402,7 +394,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -442,6 +433,7 @@
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
 <script src="../resource/js/alarm.js"></script>
 <script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -451,9 +443,7 @@
     });
 </script>
 <script src="../new-resource/js/common.js"></script>
-<script src="../new-resource/js/nenghaoshuju/equipmentRealTimeData.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
 </html>
-

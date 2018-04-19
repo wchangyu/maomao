@@ -328,19 +328,17 @@ $(function(){
 
                     value:$('.datatimeblock').val() + '/01'
                 },
-
                 //结束时间
                 {
 
                     name:'et',
 
-                    value:moment($('.datatimeblock').val()).endOf('months').format('YYYY/MM/DD')
+                    value:moment($('.datatimeblock').val() + "/01").endOf('months').format('YYYY/MM/DD')
 
                 }
-
             ]
 
-        }
+        };
 
         //判断是否是统计科室费用明细
         if(prm.reportID == '1007'){
@@ -475,4 +473,4 @@ $(function(){
     }
 
 
-})
+});

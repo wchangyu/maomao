@@ -30,8 +30,6 @@ $(function(){
     //默认能耗种类
     _ajaxEcType =_getEcTypeValue();
 
-    console.log(_ajaxEcType);
-
     _ajaxEcTypeWord = _getEcTypeWord();
 
     //获取区域位置二级结构
@@ -204,6 +202,12 @@ var option1 = {
     ]
 };
 
+//获取配置好的能耗类型数据
+var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+if(unitObj){
+    var allEnergyArr = unitObj.alltypes;
+}
+
 /*---------------------------------otherFunction------------------------------*/
 
 //获取数据
@@ -224,7 +228,6 @@ function getPointerData(url){
         if(o.level == 0){
 
             enterpriseID = 0;
-
 
         }else{
             enterpriseID = o.id;
@@ -309,15 +312,27 @@ function getPointerData(url){
             var sArr3 = [];
 
             //分类组成
-            $(result.energyTypeItemMoneys).each(function(i,o){
+            $(result.energyTypeItemMoneys).each(function(i,k){
 
+                //获取当前的能耗类型
+                var energyID = k.energyItemCode;
 
-                var obj = {value : o.energyMoneyData.toFixed(2),name:o.f_EnergyItemName};
+                var obj = {value : k.energyMoneyData.toFixed(2),name:k.f_EnergyItemName};
 
-                sArr1.push(obj);
+                $(allEnergyArr).each(function(i,o){
 
-                legendArr.push(o.f_EnergyItemName);
+                    if(energyID == o.etid){
 
+                        //判断是否是二次能源 不是二次能源的才能展示
+                        if(!o.secondEnergy){
+
+                            sArr1.push(obj);
+
+                            legendArr.push(k.f_EnergyItemName);
+
+                        }
+                    }
+                });
             });
 
                 option.title.text = '分类组成';

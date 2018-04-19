@@ -1,3 +1,7 @@
 #right-container{
     margin-left:30px;
 }
+
+.carousel-container{
+    cursor: pointer;
+}
