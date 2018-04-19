@@ -1291,16 +1291,16 @@ function getDevTypeAreas(devTypeID,fn){
             //获取当前url
             var url = window.location.href;
 
-            if(url.indexOf('exhaustAir.html') > -1 || url.indexOf('supDraWater.html') > -1){
-
-                //获取对应流程图
-                userMonitor.init("1200,698",jumpPageSize,1);
-
-            }else{
-
-                //获取对应流程图
-                userMonitor.init("1200,698",false,1);
-            }
+            //if(url.indexOf('exhaustAir.html') > -1 || url.indexOf('supDraWater.html') > -1){
+            //
+            //    //获取对应流程图
+            //    userMonitor.init("1200,698",jumpPageSize,1);
+            //
+            //}else{
+            //
+            //    //获取对应流程图
+            //    userMonitor.init("1200,698",false,1);
+            //}
 
             $('#monitor-menu-container span').eq(0).click();
 
