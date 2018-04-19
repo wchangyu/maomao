@@ -4,27 +4,25 @@
 
 var BEE = (function(){
 
-    var _assetsPath = '../../../assets/';
-    var _localImgPath = 'local/img/';
-    var _localCssPath = 'local/css/';
-    var _localConfigsPath = 'local/configs/';
-    var _isAlarmShow = false;
-    var _alarmCount = 0;
-
-     //登陆页面地址
-     var _loginHtml = "login_3.html";
-
      //获取当前地址
-
      var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
+
+     var _pathNum = '';
 
      if(_LurlLength == 4){
 
-         _loginHtml = "../login_3.html";
-
-         _assetsPath = '../../../../assets/';
+         _pathNum = '../'
 
      }
+
+    var _assetsPath = _pathNum + '../../../assets/';
+    var _localImgPath = _pathNum + 'local/img/';
+    var _localCssPath = _pathNum + 'local/css/';
+    var _localConfigsPath = _pathNum + 'local/configs/';
+    var _isAlarmShow = false;
+    var _alarmCount = 0;
+     var _loginHtml = _pathNum + 'login_3.html';
+
 
     //摄像头报警
     var _cameraAlarmCount = 0;
@@ -79,21 +77,32 @@ var BEE = (function(){
     //将文本解析为菜单，和插入菜单的父级元素
     var getHTMLFromMenu = function(menu,$src){
         var li,$li,ul,$ul;
+
+        //console.log(menu);
+
         for(var p in menu){
             var curType = menu[p]["type"];
+
             if(curType){
                 if(curType=="0"){
                     //具体菜单操作
                     if( menu[p]["uri"]){
                         //li = '<li><a href="' + menu[p]["uri"] +'" type="'+menu[p]["arg"]+'">';
-                        li = '<li><a href="' + menu[p]["uri"] + '"';
+
+                        li = '<li><a href="'+ _pathNum + menu[p]["uri"] + '"';
+
                         if(menu[p]["target"]){
+
                             li += ' target="' + menu[p]["target"] + '"';
+
                         }
                         li += '>';
+
                         if(window.location.href.endWith(menu[p]["uri"].replace('../','')))
                         {
+
                             li = '<li class="active"><a   href="' + menu[p]["uri"] +'">';
+
                             sessionStorage.menuArg = menu[p]["arg"];        //存储各个菜单的menuArg参数
                             sessionStorage.menuSecond = menu[p]["content"];
                             sessionStorage.menuUri = menu[p]["uri"];
@@ -109,9 +118,9 @@ var BEE = (function(){
                     }else{
                         li = '<li><a href="javascript:void(0);">';
                     }
-
                     li += menu[p]["content"] + '</a></li>';
                     $li = $(li);
+
                     $src.append($li);
                 }
                 else if(curType=="1"){
@@ -379,7 +388,7 @@ var BEE = (function(){
                 var alarmAlert = sessionStorage.alarmAlert || 0;
                 var alarmSong = sessionStorage.alarmSong || 0;
                 //声音
-                var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" style="display: none"></audio>';
+                var audioStr = '<audio src="'+ _pathNum +'../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" style="display: none"></audio>';
 
                 //$('#myModal00').off('shown.bs.modal');
 
@@ -535,7 +544,7 @@ var BEE = (function(){
                              $('.dropdown-extended .dropdown-toggle').css({
                                  display:'inline-block',
                                  height:'100%',
-                                 background:'url(../resource/img/bellSmall.gif) no-repeat center center',
+                                 background:'url('+ _pathNum +'../resource/img/bellSmall.gif) no-repeat center center',
                                  backgroundSize:'26px 24px'
                              });
 
@@ -706,11 +715,11 @@ var BEE = (function(){
                                  $('.dropdown-extended .dropdown-toggle').css({
                                      display:'inline-block',
                                      height:'100%',
-                                     background:'url(../resource/img/bellSmall.gif) no-repeat center center',
+                                     background:'url(' + _pathNum + '../resource/img/bellSmall.gif) no-repeat center center',
                                      backgroundSize:'26px 24px'
                                  });
                                  //声音
-                                 var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain1" controls="controls" autoplay="autoplay"  style="display: none"></audio>';
+                                 var audioStr = '<audio src=" '+ _pathNum +'../resource/song/alert.mp3" id="audioMain1" controls="controls" autoplay="autoplay"  style="display: none"></audio>';
 
                                  if($('#audioMain1').length > 0){
 

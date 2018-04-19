@@ -1,7 +1,3 @@
-
-//用于接收编码
-var _signCode = '';
-
 $(function(){
     var _prm = window.location.search;
 
@@ -9,20 +5,188 @@ $(function(){
         return false
     }
 
-    var gdCode2 = _prm.split('=')[1].split('&')[0];
+    var jumpFlag = _prm.split('?')[1].split('=')[0];
 
-    var orderNum = _prm.split('&')[1].split('=')[1];
+    //票料号码
+    var plCode = '';
 
-    var itemNum = _prm.split('&')[2].split('=')[1];
+    if(jumpFlag == 'a1'){
 
-    var storageNum = _prm.split('&')[3].split('=')[1];
+        var gdCode2 = _prm.split('=')[1].split('&')[0];
 
-    var sn  = _prm.split('&')[4].split('=')[1];
+        var orderNum = _prm.split('&')[1].split('=')[1];
 
-    conditionSelect();
+        var itemNum = _prm.split('&')[2].split('=')[1];
+
+        var storageNum = _prm.split('&')[3].split('=')[1];
+
+        var sn  = _prm.split('&')[4].split('=')[1];
+
+        var station = _prm.split('&')[5].split('=')[1];
+
+        conditionSelect();
+
+    }else if(jumpFlag == 'b1'){
+
+        //传参条件
+        var condition = _prm.split('?')[1].split('&');
+
+        //票料号码
+        plCode = condition[0].split('=')[1];
+
+        //工单号
+        var gdCode2 = condition[1].split('=')[1];
+
+        //物品编码
+        var wpCode = condition[2].split('=')[1];
+
+        plCondition();
+
+    }
+
+    //获得签名
+    function getSign(){
+
+        //获得签名
+        var prm1 = {
+            //料单内部编号
+            plCode:plCode,
+            //用户id
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName
+        }
+
+        //读取签字
+        var successFun = function(result){
+
+            console.log(result);
+
+            if(result.length>0){
+
+                if(result[0].sign1){
+
+                    drawImgLocal(result[0].sign1,$('.img-block').eq(0).children('img'));
+
+                    drawImgLocal(result[0].sign1,$('.img-block').eq(3).children('img'));
+
+                }
+                if(result[0].sign2){
+
+                    drawImgLocal(result[0].sign2,$('.img-block').eq(1).children('img'));
+
+                    drawImgLocal(result[0].sign2,$('.img-block').eq(4).children('img'));
+
+                }
+                if(result[0].sign3){
+
+                    drawImgLocal(result[0].sign3,$('.img-block').eq(2).children('img'));
+
+                    drawImgLocal(result[0].sign3,$('.img-block').eq(5).children('img'));
+
+                }
+            }
+
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWCK/ywCKGetPickList',
+
+            timeout:_theTimes,
+
+            data:prm1,
+
+            success:successFun,
+
+            error:_errorFun
+
+        })
+
+    }
+
+    //获得签名2
+    function getSignII(){
+
+        var prm = {
+
+            //物品编码
+            itemNum:itemNum,
+            //车站
+            bxKeshiNum:station,
+            //工单号
+            gdCode2:gdCode2,
+            //出库单号
+            orderNum:orderNum,
+            //用户id
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName
+
+        }
+
+
+        function getSignIIsuccessFun(result)    {
+
+            console.log(result);
+
+            if(result.length !=0){
+
+                //首先给plCode赋值
+                plCode = result[0].plCode;
+
+                //给签名赋值
+                if(result[0].sign1){
+
+                    drawImgLocal(result[0].sign1,$('.img-block').eq(0).children('img'));
+
+                    drawImgLocal(result[0].sign1,$('.img-block').eq(3).children('img'));
+
+                }
+                if(result[0].sign2){
+
+                    drawImgLocal(result[0].sign2,$('.img-block').eq(1).children('img'));
+
+                    drawImgLocal(result[0].sign2,$('.img-block').eq(4).children('img'));
+
+                }
+                if(result[0].sign3){
+
+                    drawImgLocal(result[0].sign3,$('.img-block').eq(2).children('img'));
+
+                    drawImgLocal(result[0].sign3,$('.img-block').eq(5).children('img'));
+
+                }
+
+            }
+
+        }
+
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWCK/ywCKGetPickListII',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:getSignIIsuccessFun,
+
+            error:_errorFun
+
+        })
+
+
+    }
 
     /*-----------------------------------------公共方法-----------------------------------*/
-
+    //有出库单编号的情况下
     function conditionSelect(){
 
         //获取表格基本数据
@@ -36,6 +200,8 @@ $(function(){
             'itemNum':itemNum
         }
 
+        console.log(prm);
+
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKGetOutStorageItem',
@@ -43,6 +209,8 @@ $(function(){
             contentType:'application/json',
             timeout:_theTimes,
             success:function(result){
+
+                console.log(result);
 
                 //左上
                 $('.left-titles').children('.bottom-line').html(result.compName);
@@ -82,65 +250,77 @@ $(function(){
             }
         })
 
-        //获取签字内容
-        var href1 = window.location;
-
-        return false;
-
-        var prm = {
-            //id
-            relativeID:href1.search.split('=')[1],
-            // 报表页面
-            rptPage:href1.pathname.split('/')[5],
-            //用户id
-            userID:_userIdNum,
-            //用户名
-            userName:_userIdName
-        }
-
-        //读取签字
-        var successFun = function(result){
-
-            if(result.length>0){
-
-                if(result[0].sign1){
-
-                    drawImgLocal(result[0].sign1,$('.img-block').eq(0).children('img'));
-
-                }
-                if(result[0].sign2){
-
-                    drawImgLocal(result[0].sign2,$('.img-block').eq(1).children('img'));
-
-                }
-                if(result[0].sign3){
-
-                    drawImgLocal(result[0].sign3,$('.img-block').eq(2).children('img'));
-
-                }
-            }
-
-
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:_urls + 'YWCK/ywCKGetSignRpt',
-
-            timeout:_theTimes,
-
-            data:prm,
-
-            success:successFun,
-
-            error:_errorFun
-
-        })
+        //获得签名
+        getSignII();
 
     }
 
+    //没有出库单编号的情况下
+    function plCondition(){
+
+        var prm = {
+
+            //票料单号
+            plCode:plCode,
+            //工单号
+            gdCode2:gdCode2,
+            //物品编码
+            ItemNum:wpCode,
+            //用户id
+            userID:_userIdNum,
+            //用户用户
+            userName:_userIdName
+
+        }
+
+        console.log(prm);
+
+        function successFun(result){
+
+            //console.log(result);
+
+            //左上
+            $('.left-titles').children('.bottom-line').html(result.compName);
+            //右上
+            $('.one').html(result.itemSerial);
+            //领料部门
+            $('.two').html(result.wxBz);
+            //工单号
+            $('.three').html('维修费用');
+            //用途
+            $('.four').html(result.gdCode2bxKeshi +'、' + result.bxBeizhu);
+            //材料编号
+            $('.five').html(result.itemNum);
+            //材料名称及规格
+            $('.six').html(result.itemNameSize);
+            //计量单位
+            $('.table-one').html(result.unitName);
+            //请领
+            $('.table-two').html(result.reqNum);
+            //实领
+            $('.table-three').html(result.sendNum);
+            //单价
+            $('.table-four').html(result.price);
+            //金额
+            $('.table-five').html(result.amount);
+            //时间
+            if(result.createTime){
+                var showTime = result.createTime.split(' ')[0];
+                //按年月日分开显示
+                $('.years').html(showTime.split('-')[0]);
+                $('.months').html(showTime.split('-')[1]);
+                $('.days').html(showTime.split('-')[2]);
+            }
+
+        }
+
+        _mainAjaxFun('post','YWCK/ywCKGetOutStorageItemII',prm,successFun)
+
+        //获取签名
+
+        getSign();
+
+    }
 
     /*------------------------------------------签字版------------------------------------*/
 
@@ -173,26 +353,16 @@ $(function(){
 
         setTimeout(function(){
 
-            //发送数据
-            var href1 = window.location;
-
             //参数
             var prm = {
 
-                //相关id _prm.split('&')[1].split('=')[1];
-                relativeID:href1.search.split('&')[1].split('=')[1],
-                // 报表名
-                rptName:'yongliaoda',
-                //报表页面
-                rptPage:href1.pathname.split('/')[5],
-                //签名
-                sign1:$("#encode").val(),
-                //签名时间
-                sign1Date:moment().format('YYYY-MM-DD HH:mm:ss'),
+                //料单内部编号
+                plCode:plCode,
                 //用户id
                 userID:_userIdNum,
                 //用户名
                 userName:_userIdName
+
             }
 
             //签名str
@@ -247,10 +417,6 @@ $(function(){
 
             }
 
-            console.log(prm);
-
-            return false;
-
             //成功回调函数
             var successFun = function(result){
 
@@ -260,7 +426,18 @@ $(function(){
                     //签名框消失
                     $('#Signature-Modal').modal('hide');
                     //刷新数据
-                    getGodownMessage();
+
+                    if(jumpFlag == 'a1'){
+
+                        conditionSelect();
+
+                    }else if(jumpFlag == 'b1'){
+
+                        plCondition();
+
+                    }
+
+                    getSign();
 
                 }else{
 
@@ -270,7 +447,7 @@ $(function(){
 
             }
 
-            _mainAjaxFun('post','YWCK/ywCKSignReport',prm,successFun)
+            _mainAjaxFun('post','YWCK/ywCKSignPickList',prm,successFun);
 
         },100)
 

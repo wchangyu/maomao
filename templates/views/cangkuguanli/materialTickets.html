@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
@@ -8,9 +9,7 @@
 <head>
     <meta charset="utf-8"/>
     <title></title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!--MY STYLE-->
@@ -19,6 +18,7 @@
     <script src="../resource/js/jquery-1.11.2.js"></script>
     <script src="../resource/js/echarts.min.js"></script>
     <script src="../resource/js/moment.js"></script>
+    <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
     <script src="../resource/js/vue.js"></script>
@@ -35,7 +35,6 @@
     <link rel="stylesheet" href="../resource/css/css/assetManagement-2.css">
     <link rel="stylesheet" href="../resource/css/productionOrder.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -48,17 +47,41 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/station/chooseStation.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style>
-        #scrap-datatables thead td{
-            vertical-align: middle !important;
+        .main-contents-table{
+            z-index: 9;
         }
-        .tablefoot{
+        .right-justify{
+            text-align: right !important;
+        }
+        .dataTables_filter label{
 
-            display: inline-block;
-            vertical-align: middle;
-            width: 17%;
+            display: block;
+
+        }
+        .dataTables_filter input{
+
+            border: 1px solid #ebebeb;
+
+            outline: none;
+
+        }
+        .add-select-block{
+
+            left:0px !important;
+
+            top:241px;
+        }
+        .touchingTime{
+            width: 192px !important;
+        }
+        .add-select-block{
+
+            top:29px;
+
         }
         .table-sign-img{
 
@@ -72,6 +95,12 @@
     </style>
     <style type="text/css" media=print>
         .noprint{display : none }
+        @media print {
+            a[href]:after {
+                content: none !important;
+            }
+        }
+
     </style>
 </head>
 <!-- END HEAD -->
@@ -203,10 +232,6 @@
                             </li>
                             <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
                             </li>
-                            <!--<li class="color-light tooltips" data-style="light" data-container="body" data-original-title="亮色">-->
-                            <!--</li>-->
-                            <!--<li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="亮灰">-->
-                            <!--</li>-->
                         </ul>
                     </div>
                     <div class="theme-option">
@@ -257,27 +282,6 @@
                     </li>
                 </ul>
                 <div class="page-toolbar">
-                    <!--<div class="btn-group pull-right">
-                        <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-                        跳转 <i class="fa fa-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li>
-                                <a href="#">跳转点1</a>
-                            </li>
-                            <li>
-                                <a href="#">跳转点2</a>
-                            </li>
-                            <li>
-                                <a href="#">跳转点3</a>
-                            </li>
-                            <li class="divider">
-                            </li>
-                            <li>
-                                <a href="#">跳转点4</a>
-                            </li>
-                        </ul>
-                    </div>-->
                 </div>
             </div>
             <!-- END PAGE HEADER-->
@@ -292,84 +296,61 @@
                                     <li class="main-contents-header-lists0">物品管理</li>
                                 </ul>
                                 <ul class="condition-query noprint">
-
                                     <li>
-                                        <label class="colorTip">日期 *：</label>
+                                        <label for="">日期：</label>
                                         <div class="input-blocked">
-                                            <input type="text" class="datatimeblock min">
+                                            <input type="text" class="datatimeblock min" name="min">
                                         </div>
-                                        <label>到：</label>
+                                        <label for="">到</label>
                                         <div class="input-blocked">
-                                            <input type="text" class="datatimeblock max">
-                                        </div>
-                                    </li>
-                                    <li><label class="colorTip">仓库 *：</label>
-                                        <div class="input-blocked">
-                                            <select id="storage"></select>
+                                            <input type="text" class="datatimeblock max" name="max">
                                         </div>
                                     </li>
-                                    <li style="display: none;"><label for="">库区：</label>
-                                        <div class="input-blocked">
-                                            <select id="kqSelect">
-                                                <option value="">请选择</option>
+                                    <li><label for="">
+                                        <span class="user-defined-workshop"></span>
+                                        ：</label>
+                                        <div class="input-blocked" style="width: 166px">
+                                            <select  style="width: 100%;height:100%;border: none" id="bumen">
                                             </select>
                                         </div>
                                     </li>
-                                    <li>
-                                        <label style="display: inline-block;width: 101px;text-align: right" class="colorTip"><span class="user-defined-workshop"></span> *：</label>
-                                        <div class="input-blocked">
-                                            <select id="yxdw"></select>
+                                    <li style="display: none"><label for="">
+                                        <span class="user-defined-group"></span>
+                                        ：</label>
+                                        <div class="input-blocked" style="width: 166px">
+                                            <select  style="width: 100%;height:100%;border: none" id="wxBz">
+                                            </select>
                                         </div>
                                     </li>
-                                    <li>
-                                        <label style="display: inline-block;width: 101px;text-align: right">单据类型：</label>
+                                    <li><label for="">票料号码：</label>
                                         <div class="input-blocked">
-                                            <select id="tiaojian"></select>
+                                            <input type="text" class="filterInput">
                                         </div>
                                     </li>
-                                    <li>
-                                        <label for="" style="display: inline-block;text-align: right"><span class="user-defined-group"></span>：</label>
+                                    <li><label for="">工单号码：</label>
                                         <div class="input-blocked">
-                                            <select id="userClass"></select>
+                                            <input type="text" class="filterInput">
+                                        </div>
+                                    </li>
+                                    <li><label for="">出库单号码：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="filterInput">
                                         </div>
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
                                     <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
-                                    <li class="excelButton"></li>
+                                    <li><button class="btn btn-success btn1 excelButton">导出</button></li>
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
-                                <div class="content-main-contents">
-                                    <div class="main-contents-table" style="margin-top: 0;">
-                                        <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                            <caption style="text-align: center;font-size: 22px;"></caption>
-                                            <thead>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr colspan="13">
-                                                    <td>共计</td>
-                                                    <td colspan="3"></td>
-                                                    <td class="total-num"></td>
-                                                    <td></td>
-                                                    <td class="total-amount"></td>
-                                                    <td colspan="6"></td>
-                                                </tr>
-                                                <tr colspan="13">
-                                                    <td colspan="13">
-                                                        <div class="tablefoot">维保部负责人签字：</div>
-                                                        <div class="tablefoot">综合维修中心签字：</div>
-                                                        <div class="tablefoot"><span class="user-defined-workshop"></span>负责人签字：</div>
-                                                        <div class="tablefoot"> 主管签字：</div>
-                                                        <div class="tablefoot"> 仓管员签字：</div>
-                                                    </td>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                        <!--<img src="../resource/img/loading.gif" alt="">-->
-                                    </div>
+                                <div class="main-contents-table" style="margin-top: 0;padding: 20px;border-top: none;float:left;width:100%">
+                                    <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                        <thead>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -393,6 +374,29 @@
     </div>
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>
+    </div>
+</div>
+<!--弹窗-->
+<!--所有提示框-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">警告</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
     </div>
 </div>
 <!-- END FOOTER -->
@@ -431,8 +435,6 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/TableTools/js/dataTables.rowsGroup.js"></script>
-
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -441,161 +443,12 @@
         BEE.init();
     });
 </script>
-<script src="../resource/js/publicFun.js"></script>
 <script src="../../../assets/local/configs/setNames.js"></script>
-<script src="../resource/js/wbDetails.js"></script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/publicGD.js"></script>
+<script src="../resource/js/materialTickets.js"></script>
 <!-- END JAVASCRIPTS -->
-<!--弹窗-->
-<!--模态框创建工单-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 585px;">
-        <div class="modal-content" style="height: 585px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">创建工单</h4>
-            </div>
-            <div class="modal-body">
-                <!--主体部分-->
-                <ul class="gongdanList" id="myApp33">
-                    <validator name="validation">
-                        <form novalidate>
-                            <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">是否紧急 *：</div>
-                                <div class="input-blockeds">
-                                    <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios"><label for="ones">是</label>
-                                    <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios"><label for="twos">否</label>
-                                </div>
-                            </li>
-                            <li class="floatRight">
-                                <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.persons" style="display: none">请输入电话号码</span></div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['persons']" initial='off'>
-                                </div>
-                            </li>
-                            <li class="floatLeft">
-                                <div class="labels colorTip">报修人信息 *：<span v-show="$validation.person.persons">报修人信息不能为空</span></div>
-                                <div class="input-blockeds">
-                                    <input type="text"  v-model="person" v-validate:person= "['persons']" initial='off'>
-                                </div><!--v-model="person"--><!--initial='off' detect-change="off"-->
-                            </li>
-                            <li class="floatRight">
-                                <div class="labels colorTip">维修地点 *：<span v-show="$validation.place.persons">维修地点不能为空</span></div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="place"  v-validate:place="['persons']" initial='off'>
-                                </div><!--v-model="place"-->
-                            </li>
-                            <li class="floatLeft">
-                                <div class="labels">报修部门：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="section">
-                                </div>
-                            </li>
-                            <li class="floatRight">
-                                <div class="labels colorTip">维修事项 *：<span v-show="$validation.matter.persons">维修事项不能为空</span></div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="matter" v-validate:matter="['persons']" initial='off'>
-                                </div><!--v-model="matter"-->
-                            </li>
-                            <div class="clearfix"></div>
-                            <div>
-                                <div class="labels">报修备注：</div>
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
-                            </div>
-                            <div>
-                                <div class="labels">维修备注：</div>
-                                <textarea style="width: 100%;height: 60px;outline: none" disabled="true" ></textarea>
-                            </div>
-                        </form>
-                    </validator>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary dengji">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<!--模态框详情-->
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content" style="height:527px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel1">工单明细</h4>
-            </div>
-            <div class="modal-body">
-                <ul class="gongdanList" id="workDone">
-                    <li class="floatLeft">
-                        <div class="labels">报修电话：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiudianhua">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">报修人信息：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiuren">
-                        </div>
-                    </li>
-                    <li class="floatLeft">
-                        <div class="labels">报修部门：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiukeshis">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">报修地点：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiudidians">
-                        </div>
-                    </li>
-                    <li class="floatLeft">
-                        <div class="labels">维修事项：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="weixiushixiangs">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">维修部门：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="weixiukeshis">
-                        </div>
-                    </li>
-                    <div class="clearfix"></div>
-                    <div>
-                        <div class="labels">报修备注：</div>
-                        <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhus"></textarea>
-                    </div>
-                    <div>
-                        <div class="labels">维修备注：</div>
-                        <textarea style="width: 100%;height: 60px;outline: none" disabled="true" v-model="wxbeizhu"></textarea>
-                    </div>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<!--所有提示框-->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 168px;">
-        <div class="modal-content" style="height: 168px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">警告</h4>
-            </div>
-            <div class="modal-body">请填写红色必填项</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm1">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+
 </body>
 <!-- END BODY -->
 </html>

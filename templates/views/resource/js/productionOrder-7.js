@@ -615,10 +615,19 @@ $(function(){
     $('.tianJiaCaiLiao').click(function(){
         //弹出框显示
         _moTaiKuang($('#addWXCL-modal'), '添加维修备件', '', '' ,'', '确定');
-        //初始化
+        //初始化(物品信息模态框初始化);
+        //物品编码初始化
         wuLiaoInfo.wpbm = '';
+        //物品名称初始化
         wuLiaoInfo.wpmc = '';
+        //物品数量初始化
         wuLiaoInfo.wpsl = '';
+        //规格型号初始化
+        wuLiaoInfo.wpsize = '';
+        //分类名称初始化
+        wuLiaoInfo.flmc = '';
+        //单位
+        wuLiaoInfo.wpunite = '';
         $('.exists').hide();
     });
 

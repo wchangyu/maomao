@@ -295,6 +295,26 @@ $(function(){
                 }
             },
             {
+                title:'等待原因',
+                data:'dengyy',
+                render:function(data, type, full, meta){
+
+                    if(data == 1){
+
+                        return '等待技术支持'
+
+                    }else if(data == 2){
+
+                        return '等待配件'
+
+                    }else if( data == 3 ){
+
+                        return '等待外委施工'
+
+                    }
+                }
+            },
+            {
                 title:'备件信息',
                 data:'wxClNames'
             },
@@ -1560,7 +1580,12 @@ $(function(){
             success:function(result){
                 if( result == 99 ){
 
-                    if(_beiJArr.length == 0){
+                    if(flag){
+
+                        //调用创建物料单接口
+                        ldAdd(_beiJArr);
+
+                    }else{
 
                         $('#myModal2').find('.modal-body').html('操作成功');
 
@@ -1570,77 +1595,10 @@ $(function(){
 
                         conditionSelect();
 
-                    }else{
-
-                        //审核通过之后创建物料单
-
-                        var arr = [];
-
-                        for(var i=0;i<_beiJArr.length;i++){
-
-                            arr.push(_beiJArr[i].wxCl);
-
-                        }
-
-                        var prm = {
-
-                            //车站编号
-                            bxKeshiNum:_chezhanCode,
-                            //工单号
-                            gdCode2:_gdCode2,
-                            //申请的物品编码
-                            itemNum1:arr
-                        }
-
-                        $.ajax({
-
-                            type:'post',
-
-                            url:_urls + 'YWCK/ywCKAddPickList',
-
-                            timeout:_theTimes,
-
-                            data:prm,
-
-                            success:function(result){
-
-                                if(result == 99){
-
-                                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'审核通过，创建用料单成功！', '');
-
-
-                                    $('#myModal5').modal('hide');
-
-                                    conditionSelect();
-
-
-                                }else{
-
-                                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'审核通过，创建用料单失败！', '');
-
-
-                                    $('#myModal5').modal('hide');
-
-                                }
-
-
-
-                            },
-
-                            error:function(jqXHR, textStatus, errorThrown){
-
-                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'审核通过，创建用料单失败！', '');
-
-                                console.log(jqXHR.responseText);
-
-                            }
-
-                        })
-
                     }
 
-
                 }else{
+
                     $('#myModal2').find('.modal-body').html('操作失败');
 
                     moTaiKuang($('#myModal2'),'提示','flag');
@@ -1652,6 +1610,87 @@ $(function(){
 
             }
         })
+    }
+
+    //创建物料单
+    function ldAdd(arr){
+
+        //审核通过之后创建物料单
+
+        console.log(arr);
+
+        var wpArr1 = [];
+
+        for(var i=0;i<arr.length;i++){
+
+            var obj = {};
+
+            //车站编号
+            obj.bxKeshiNum = _chezhanCode;
+            //工单号
+            obj.gdCode2 = _gdCode2;
+            //申请的物品编码
+            obj.itemNum1 = arr[i].wxCl;
+            //序列号
+            obj.sn = '';
+            //用户id
+            obj.userID = _userIdNum;
+            //用户名
+            obj.userName = _userIdName;
+
+            wpArr1.push(obj);
+
+        }
+
+        var prm1 = {
+
+            prm:wpArr1
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWCK/ywCKAddPickList',
+
+            timeout:_theTimes,
+
+            data:prm1,
+
+            success:function(result){
+
+                if(result == 99){
+
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'审核通过，创建用料单成功！', '');
+
+                    $('#myModal5').modal('hide');
+
+                    conditionSelect();
+
+
+                }else{
+
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'审核通过，创建用料单失败！', '');
+
+
+                    $('#myModal5').modal('hide');
+
+                }
+
+            },
+
+            error:function(jqXHR, textStatus, errorThrown){
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'审核通过，创建用料单失败！', '');
+
+                console.log(jqXHR.responseText);
+
+            }
+
+        })
+
+
     }
 
     //模态框初始化

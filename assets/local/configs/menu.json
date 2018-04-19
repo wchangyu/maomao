@@ -71,6 +71,30 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "负荷分析": {
+        "type": "0",
+        "content": "负荷分析",
+        "uri": "../HAVC/rate.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "fa fa-tachometer"
+      },
+      "能效排名": {
+        "type": "0",
+        "content": "能效排名",
+        "uri": "../HAVC/rank.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "glyphicon glyphicon-sort-by-order"
+      },
+      "能效对比": {
+        "type": "0",
+        "content": "能效对比",
+        "uri": "../HAVC/compare.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "glyphicon glyphicon-sort-by-order"
       }
     }
   },
@@ -734,9 +758,9 @@
     "iconclass": "icon-settings",
     "content": "巡检管理",
     "submenu": {
-      "巡检项目管理": {
+      "巡检步骤管理": {
         "type": "0",
-        "content": "巡检条目管理",
+        "content": "巡检步骤管理",
         "uri": "../xunjianguanli/inspectionManagement-1.html",
         "uid": "",
         "arg": "",
@@ -1585,37 +1609,6 @@
       }
     }
   },
-  "测试": {
-    "type": "1",
-    "iconclass": "icon-note",
-    "content": "测试",
-    "submenu": {
-      "三列": {
-        "type": "0",
-        "content": "三列",
-        "uri": "../cols/three.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "两列": {
-        "type": "0",
-        "content": "两列",
-        "uri": "../cols/two.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "历史录像": {
-        "type": "0",
-        "content": "历史录像",
-        "uri": "../new-luxiangfenxi/historyMonitor.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      }
-    }
-  },
   "统计分析": {
     "type": "1",
     "iconclass": "icon-note",
@@ -1975,21 +1968,6 @@
         "type": "0",
         "content": "综合管理",
         "uri": "../new-baobiaoguanli/statementManagement.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      }
-    }
-  },
-  "大屏展示": {
-    "type": "1",
-    "iconclass": "icon-note",
-    "content": "大屏展示",
-    "submenu": {
-      "三列": {
-        "type": "0",
-        "content": "三列",
-        "uri": "../cols/three.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

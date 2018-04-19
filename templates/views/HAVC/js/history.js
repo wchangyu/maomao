@@ -229,6 +229,7 @@ var History = function () {
 
     //查询数据
     var onAsyncSuccess = function (cIds) {
+
         jQuery('#historyBusy').showLoading();
         var sp = $("#spDT").val();
         var ep = $("#epDT").val();
@@ -379,6 +380,8 @@ var History = function () {
                 }
                 onAsyncSuccess(cIds);
             });
+            //默认查询历史数据
+            //onAsyncSuccess();
         }
     }
 

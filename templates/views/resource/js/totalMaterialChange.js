@@ -42,7 +42,7 @@ $(function(){
 
                 if(data == ''){
 
-                    return ''
+                    return '<div class="table-sign-img"></div>'
 
                 }else{
 
@@ -68,7 +68,7 @@ $(function(){
 
                 if(data == ''){
 
-                    return ''
+                    return '<div class="table-sign-img"></div>'
 
                 }else{
 
@@ -94,7 +94,7 @@ $(function(){
 
                 if(data == ''){
 
-                    return ''
+                    return '<div class="table-sign-img"></div>'
 
                 }else{
 

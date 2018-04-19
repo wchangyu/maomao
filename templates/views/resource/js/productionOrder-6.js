@@ -143,8 +143,7 @@ $(function(){
                 text: '导出',
                 className:'saveAs',
                 exportOptions:{
-                    //columns:[0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17]
-                    columns:[0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16]
+                    columns:[0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17]
 
                 }
             }
@@ -263,6 +262,10 @@ $(function(){
             {
                 title:'受理时间',
                 data:'shouLiShij'
+            },
+            {
+                title:'关闭时间',
+                data:'guanbiShij'
             },
             {
                 title:'责任人',
@@ -640,13 +643,6 @@ $(function(){
         }
         $('#myModal1').modal('hide');
     })
-
-    //导出按钮
-    //$('.excelButton').click(function(){
-    //
-    //    _FFExcel($('#scrap-datatables')[0])
-    //
-    //})
 
     /*------------------------按钮功能-----------------------------------------*/
     //查询按钮

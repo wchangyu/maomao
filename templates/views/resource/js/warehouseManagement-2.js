@@ -2632,7 +2632,9 @@ $(function(){
 
         var e = e||window.event;
 
-        if(e.srcElement.className.indexOf('focusEle')>=0){
+        if(e.srcElement){
+
+            if(e.srcElement.className.indexOf('focusEle')>=0){
 
             $('.hidden1').hide();
 
@@ -2709,6 +2711,7 @@ $(function(){
 
         }
 
+        }
     });
 
     //所有下拉框的mouseover事件

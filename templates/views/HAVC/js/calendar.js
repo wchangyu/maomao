@@ -1,4 +1,4 @@
-﻿var Calendar = function () {
+﻿﻿var Calendar = function () {
 
     var selectAREA = "EC";//选中东冷站区域
 
@@ -24,9 +24,9 @@
 
     function convertDate(strDate) {//字符串转时间格式
         var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
-            function (a) {
-                return parseInt(a, 10) - 1;
-            }).match(/\d+/g) + ')');
+                function (a) {
+                    return parseInt(a, 10) - 1;
+                }).match(/\d+/g) + ')');
         return date;
     }
 
@@ -67,7 +67,7 @@
                 case 'tt': return d.getHours() < 12 ? 'am' : 'pm';
                 case 'TT': return d.getHours() < 12 ? 'AM' : 'PM';
                 case 'Z': return d.toUTCString().match(/[A-Z]+$/);
-                    // Return quoted strings with the surrounding quotes removed
+                // Return quoted strings with the surrounding quotes removed
                 default: return $0.substr(1, $0.length - 2);
             }
         });
@@ -170,12 +170,12 @@
     //初始化查询日期
     var initQueryDt = function () {
         return moment(
-                select_year
-                + "-" +
-                select_month
-                + "-" +
-                select_day
-         ).format("YYYY-MM-DD");
+            select_year
+            + "-" +
+            select_month
+            + "-" +
+            select_day
+        ).format("YYYY-MM-DD");
     }
 
     //赋值日历图例数据

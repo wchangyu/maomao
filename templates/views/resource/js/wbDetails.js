@@ -103,15 +103,7 @@ $(function(){
             }
         },
         {
-            title:'库区',
-            data:'localName'
-        },
-        {
-            title:'维保部',
-            data:'bxKeshi'
-        },
-        {
-            title:'所属班组',
+            title:__names.group,
             data:'departName'
         },
         {
@@ -136,18 +128,81 @@ $(function(){
         },
         {
             title:'请领人',
-            data:'qlRen'
+            data:'sign1',
+            render:function(data, type, full, meta){
+
+                var dataUrl = 'data:image/png;base64,';
+
+                dataUrl = dataUrl + data;
+
+                // 在image中載入圖檔，再畫到canvas呈現
+                var img = new Image();
+
+                img.src = dataUrl;
+
+                if(data==''){
+
+                    return '<div class="table-sign-img"></div>'
+
+                }else{
+
+                    return '<img class="table-sign-img" src="' + dataUrl +'">'
+
+                }
+            }
         },
         {
             title:'收料人',
-            data:'slRen'
+            data:'sign2',
+            render:function(data, type, full, meta){
+
+                var dataUrl = 'data:image/png;base64,';
+
+                dataUrl = dataUrl + data;
+
+                // 在image中載入圖檔，再畫到canvas呈現
+                var img = new Image();
+
+                img.src = dataUrl;
+
+                if(data==''){
+
+                    return '<div class="table-sign-img"></div>'
+
+                }else{
+
+                    return '<img class="table-sign-img" src="' + dataUrl +'">'
+
+                }
+            }
         },
         {
             title:'发料人',
-            data:'flRen'
+            data:'sign3',
+            render:function(data, type, full, meta){
+
+                var dataUrl = 'data:image/png;base64,';
+
+                dataUrl = dataUrl + data;
+
+                // 在image中載入圖檔，再畫到canvas呈現
+                var img = new Image();
+
+                img.src = dataUrl;
+
+                if(data==''){
+
+                    return '<div class="table-sign-img"></div>'
+
+                }else{
+
+                    return '<img class="table-sign-img" src="' + dataUrl +'">'
+
+                }
+            }
         }
     ];
-    _tableInit($('#scrap-datatables'),col,'1','flag','','');
+    _tableInit($('#scrap-datatables'),col,1,true,'','');
 
 
     //数据
@@ -382,7 +437,7 @@ $(function(){
                 }
                 $('#storage').empty().append(str);
                 if(_isWarehouse){
-                    conditionSelect();
+                    //conditionSelect();
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

@@ -51,6 +51,28 @@
             border-bottom: 1px solid #E2E9F2!important;
 
         }
+        .portlet{
+
+            margin-bottom: 0px;
+
+            padding: 12px 15px;
+
+        }
+        .portlet.light > .portlet-title > .caption{
+
+            padding: 10px;
+
+            background: #ffc000;
+
+            color: #ffffff;
+
+
+        }
+
+        body{
+            min-width: 1555px;
+        }
+
     </style>
     <link href="../favicon.ico" rel="shortcut icon" />
 </head>
@@ -58,7 +80,7 @@
     <div class="page-header navbar navbar-fixed-top">
         <div class="page-header-inner">
             <div class="page-logo">
-                <a href="./EnergyQueryTotalData.html">
+                <a href="">
                     <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default" />
                 </a>
                 <div class="menu-toggler sidebar-toggler hide">
@@ -192,63 +214,130 @@
                     <div class="col-md-12">
                         <div id="historyBusy">
                             <div class="total-warp">
-                                <div class="row margin-top-15">
+                                <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="portlet light areaBottom">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-                                                    <span>东冷站</span>
-                                                </div>
-                                                <div class="actions"></div>
-                                            </div>
+                                        <div class="portlet light areaBottom" style="position: relative">
+                                            <div class="areaTitle">东冷站</div>
                                             <div class="portlet-body">
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-md-8 col-xs-12">
-                                                                <div id="e_c_p_chartView" style="height:260px;width:100%;margin-top:-30px;"></div>
-                                                            </div>
-                                                            <div class="col-md-4 col-xs-12">
-                                                                <div style="text-align:left;">
-                                                                    <h4 class="Wtitle">冷站总体</h4>
-                                                                    <h5 class="Wcontent">输出冷量(KW):<span id="apan_ec_zt_c_text">0</span></h5>
-                                                                    <h5 class="Wcontent">输入电量(KW):<span id="span_ec_zt_e_text">0</span></h5>
-                                                                    <h5 class="Wcontent">输入蒸汽(m³):<span id="span_ec_zt_g_text">0</span></h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="echartBlock">
+                                                        <div id="e_c_p_chartView" style="height:240px;width:100%;margin-top:-30px;"></div>
                                                     </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">
-                                                        <div style="text-align:center">
-                                                            <h4 class="Wtitle">离心机系统</h4>
-                                                            <h5 class="Wcontent">供冷量(KW):<span id="span_ec_lx_c_text">0</span></h5>
-                                                            <h5 class="Wcontent">用电量(KW):<span id="span_ec_lx_e_text">0</span></h5>
-                                                            <h5 class="Wcontent">实时COP:<span id="span_ec_lx_cop_text">0</span></h5>
-                                                            <h5 class="Wcontent">一次泵输送能效:<span id="span_ec_lx_yb_text">0</span></h5>
-                                                            <h5 class="Wcontent">冷却泵输送能效:<span id="span_ec_lx_lqb_text">0</span></h5>
-                                                            <h5 class="Wcontent">冷却塔输送能效:<span id="span_ec_lx_lqt_text">0</span></h5>
+                                                    <div class="dataBlock">
+                                                        <div class="childrenBlock">
+                                                            <h4 class="Wtitle" style="text-indent: 67px">冷站总体</h4>
+                                                            <h5 class="Wcontent">
+                                                                <div>总输出冷量：</div>
+                                                                <span id="span_ec_zt_c_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>总输入电量：</div>
+                                                                <span id="span_ec_zt_e_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>总输入蒸汽：</div>
+                                                                <span id="span_ec_zt_g_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>单位冷价：</div>
+                                                                <span id="span_ec_unit_text">0</span>
+                                                            </h5>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">
-                                                        <div style="text-align:center">
-                                                            <h4 class="Wtitle">溴理机系统</h4>
-                                                            <h5 class="Wcontent">供冷量(KW):<span id="span_ec_xl_c_text">0</span></h5>
-                                                            <h5 class="Wcontent">蒸汽量(吨):<span id="span_ec_xl_g_text">0</span></h5>
-                                                            <h5 class="Wcontent">实时能效:<span id="span_ec_xl_cop_text">0</span></h5>
-                                                            <h5 class="Wcontent">一次泵输送能效:<span id="span_ec_xl_yb_text">0</span></h5>
-                                                            <h5 class="Wcontent">冷却泵输送能效:<span id="span_ec_xl_lqb_text">0</span></h5>
-                                                            <h5 class="Wcontent">冷却塔输送能效:<span id="span_ec_xl_lqt_text">0</span></h5>
+                                                        <div class="childrenBlock">
+                                                            <h4 class="Wtitle" style="text-indent: 54px">离心机系统</h4>
+                                                            <h5 class="Wcontent">
+                                                                <div>输出冷量：</div>
+                                                                <span id="span_ec_lx_c_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>输入电量：</div>
+                                                                <span id="span_ec_lx_e_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>离心机COP：</div>
+                                                                <span id="span_ec_lx_cop_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷却泵输送系数：</div>
+                                                                <span id="span_ec_lx_lqb_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷冻一次泵输送系数：</div>
+                                                                <span id="span_ec_lx_yb_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷却塔风机输送系数：</div>
+                                                                <span id="span_ec_lx_lqt_text">0</span>
+                                                            </h5>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">
-                                                        <div style="text-align:center">
-                                                            <h4 class="Wtitle">地源热泵系统</h4>
-                                                            <h5 class="Wcontent">供冷量(KW):<span id="span_ec_rb_c_text">0</span></h5>
-                                                            <h5 class="Wcontent">用电量(KW):<span id="span_ec_rb_e_text">0</span></h5>
-                                                            <h5 class="Wcontent">实时能效:<span id="span_ec_rb_cop_text">0</span></h5>
-                                                            <h5 class="Wcontent">一次泵输送能效:<span id="span_ec_rb_yb_text">0</span></h5>
-                                                            <h5 class="Wcontent">地源泵输送能效:<span id="span_ec_rb_lqb_text">0</span></h5>
-                                                            <!--<h5 class="Wcontent">冷却塔输送能效:<span id="span_ec_rb_lqt_text">0</span></h5>-->
+                                                        <div class="childrenBlock">
+                                                            <h4 class="Wtitle" style="text-indent: 50px;">溴锂机系统</h4>
+                                                            <h5 class="Wcontent">
+                                                                <div>输出冷量：</div>
+                                                                <span id="span_ec_xl_c_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>输入电量：</div>
+                                                                <span id="span_ec_xl_e_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>输入蒸汽：</div>
+                                                                <span id="span_ec_xl_g_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>溴锂机能效：</div>
+                                                                <span id="span_ec_xl_cop_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷却泵输送系数：</div>
+                                                                <span id="span_ec_xl_lqb_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷冻一次泵输送系数：</div>
+                                                                <span id="span_ec_xl_yb_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷却塔风机输送系数：</div>
+                                                                <span id="span_ec_xl_lqt_text">0</span>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="childrenBlock">
+                                                            <h4 class="Wtitle" style="text-indent: 36px;">地源热泵系统</h4>
+                                                            <h5 class="Wcontent">
+                                                                <div>输出冷量：</div>
+                                                                <span id="span_ec_rb_c_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>输入电量：</div>
+                                                                <span id="span_ec_rb_e_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>地源热泵COP：</div>
+                                                                <span id="span_ec_rb_cop_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>地源泵输送系数：</div>
+                                                                <span id="span_ec_rb_lqb_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷冻一次泵输送系数：</div>
+                                                                <span id="span_ec_rb_yb_text">0</span>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="childrenBlock">
+                                                            <h4 class="Wtitle" style="text-indent: 50px">冷冻二次泵</h4>
+                                                            <h5 class="Wcontent">
+                                                                <div>输送冷量：</div>
+                                                                <span id="span_ec_sb_c_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>输入电量：</div>
+                                                                <span id="span_ec_sb_e_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷冻二次泵输送系数：</div>
+                                                                <span id="span_ec_sb_cop_text">0</span>
+                                                            </h5>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -257,60 +346,127 @@
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="portlet light areaBottom">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-                                                    <span>西冷站</span>
-                                                </div>
-                                                <div class="actions"></div>
-                                            </div>
+                                            <div class="areaTitle">西冷站</div>
                                             <div class="portlet-body">
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-md-8 col-xs-12">
-                                                                <div id="w_c_p_chartView" style="height:260px;width:100%;margin-top:-30px;"></div>
-                                                            </div>
-                                                            <div class="col-md-4 col-xs-12">
-                                                                <div style="text-align:left;">
-                                                                    <h4 class="Wtitle">冷站总体</h4>
-                                                                    <h5 class="Wcontent">输出冷量(KW):<span id="apan_wc_zt_c_text">0</span></h5>
-                                                                    <h5 class="Wcontent">输入电量(KW):<span id="span_wc_zt_e_text">0</span></h5>
-                                                                    <h5 class="Wcontent">输入蒸汽(m³):<span id="span_wc_zt_g_text">0</span></h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="echartBlock">
+                                                        <div id="w_c_p_chartView" style="height:240px;width:100%;margin-top:-30px;"></div>
                                                     </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">
-                                                        <div style="text-align:center">
-                                                            <h4 class="Wtitle">离心机系统</h4>
-                                                            <h5 class="Wcontent">供冷量(KW):<span id="span_wc_lx_c_text">0</span></h5>
-                                                            <h5 class="Wcontent">用电量(KW):<span id="span_wc_lx_e_text">0</span></h5>
-                                                            <h5 class="Wcontent">实时COP:<span id="span_wc_lx_cop_text">0</span></h5>
-                                                            <h5 class="Wcontent">一次泵输送能效:<span id="span_wc_lx_yb_text">0</span></h5>
-                                                            <h5 class="Wcontent">冷却泵输送能效:<span id="span_wc_lx_lqb_text">0</span></h5>
-                                                            <h5 class="Wcontent">冷却塔输送能效:<span id="span_wc_lx_lqt_text">0</span></h5>
+                                                    <div class="dataBlock">
+                                                        <div class="childrenBlock">
+                                                            <h4 class="Wtitle" style="text-indent: 67px">冷站总体</h4>
+                                                            <h5 class="Wcontent">
+                                                                <div>总输出冷量：</div>
+                                                                <span id="apan_wc_zt_c_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>总输入电量：</div>
+                                                                <span id="span_wc_zt_e_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>总输入蒸汽：</div>
+                                                                <span id="span_wc_zt_g_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>单位冷价：</div>
+                                                                <span id="span_wc_unit_text">0</span>
+                                                            </h5>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">
-                                                        <div style="text-align:center">
-                                                            <h4 class="Wtitle">溴理机系统</h4>
-                                                            <h5 class="Wcontent">供冷量(KW):<span id="span_wc_xl_c_text">0</span></h5>
-                                                            <h5 class="Wcontent">蒸汽量(吨):<span id="span_wc_xl_g_text">0</span></h5>
-                                                            <h5 class="Wcontent">实时能效:<span id="span_wc_xl_cop_text">0</span></h5>
-                                                            <h5 class="Wcontent">一次泵输送能效:<span id="span_wc_xl_yb_text">0</span></h5>
-                                                            <h5 class="Wcontent">冷却泵输送能效:<span id="span_wc_xl_lqb_text">0</span></h5>
-                                                            <h5 class="Wcontent">冷却塔输送能效:<span id="span_wc_xl_lqt_text">0</span></h5>
+                                                        <div class="childrenBlock">
+                                                            <h4 class="Wtitle" style="text-indent: 54px">离心机系统</h4>
+                                                            <h5 class="Wcontent">
+                                                                <div>输出冷量：</div>
+                                                                <span id="span_wc_lx_c_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>输入电量：</div>
+                                                                <span id="span_wc_lx_e_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>离心机COP：</div>
+                                                                <span id="span_wc_lx_cop_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷却泵输送系数：</div>
+                                                                <span id="span_wc_lx_lqb_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷冻一次泵输送系数：</div>
+                                                                <span id="span_wc_lx_yb_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷却塔风机输送系数：</div>
+                                                                <span id="span_wc_lx_lqt_text">0</span>
+                                                            </h5>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">
-                                                        <div style="text-align:center">
-                                                            <h4 class="Wtitle">地源热泵系统</h4>
-                                                            <h5 class="Wcontent">供冷量(KW):<span id="span_wc_rb_c_text">0</span></h5>
-                                                            <h5 class="Wcontent">用电量(KW):<span id="span_wc_rb_e_text">0</span></h5>
-                                                            <h5 class="Wcontent">实时能效:<span id="span_wc_rb_cop_text">0</span></h5>
-                                                            <h5 class="Wcontent">一次泵输送能效:<span id="span_wc_rb_yb_text">0</span></h5>
-                                                            <h5 class="Wcontent">地源泵输送能效:<span id="span_wc_rb_lqb_text">0</span></h5>
-                                                            <!--<h5 class="Wcontent">冷却塔输送能效:<span id="span_wc_rb_lqt_text">0</span></h5>-->
+                                                        <div class="childrenBlock">
+                                                            <h4 class="Wtitle" style="text-indent: 50px;">溴锂机系统</h4>
+                                                            <h5 class="Wcontent">
+                                                                <div>输出冷量：</div>
+                                                                <span id="span_wc_xl_c_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>输入电量：</div>
+                                                                <span id="span_wc_xl_e_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>输入蒸汽：</div>
+                                                                <span id="span_wc_xl_g_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>溴锂机能效：</div>
+                                                                <span id="span_wc_xl_cop_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷却泵输送系数：</div>
+                                                                <span id="span_wc_xl_lqb_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷冻一次泵输送系数：</div>
+                                                                <span id="span_wc_xl_yb_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷却塔风机输送系数：</div>
+                                                                <span id="span_wc_xl_lqt_text">0</span>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="childrenBlock">
+                                                            <h4 class="Wtitle" style="text-indent: 36px;">地源热泵系统</h4>
+                                                            <h5 class="Wcontent">
+                                                                <div>输出冷量：</div>
+                                                                <span id="span_wc_rb_c_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>输入电量：</div>
+                                                                <span id="span_wc_rb_e_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>地源热泵COP：</div>
+                                                                <span id="span_wc_rb_cop_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>地源泵输送系数：</div>
+                                                                <span id="span_wc_rb_lqb_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷冻一次泵输送系数：</div>
+                                                                <span id="span_wc_rb_yb_text">0</span>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="childrenBlock">
+                                                            <h4 class="Wtitle" style="text-indent: 50px">冷冻二次泵</h4>
+                                                            <h5 class="Wcontent">
+                                                                <div>输送冷量：</div>
+                                                                <span id="span_wc_sb_c_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>输入电量：</div>
+                                                                <span id="span_wc_sb_e_text">0</span>
+                                                            </h5>
+                                                            <h5 class="Wcontent">
+                                                                <div>冷冻二次泵输送系数：</div>
+                                                                <span id="span_wc_sb_cop_text">0</span>
+                                                            </h5>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -318,78 +474,84 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="portlet light" style="border-right: 1px solid #E2E9F2">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-                                                    <span>东热站</span>
-                                                </div>
-                                                <div class="actions"></div>
-                                            </div>
+                                        <div class="portlet light" style="border-right: 1px solid #E2E9F2;">
+                                            <div class="areaTitle">东热站</div>
                                             <div class="portlet-body">
-                                                <div class="row">
-                                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-md-8 col-xs-12">
-                                                                <div id="e_r_p_chartView" style="height:260px;width:100%;margin-top:-30px;"></div>
-                                                            </div>
-                                                            <div class="col-md-4 col-xs-12">
-                                                                <div style="text-align:center;">
-                                                                    <h4 class="Wtitle">热站总体</h4>
-                                                                    <h5 class="Wcontent">输出热量(KW):<span id="span_eh_zt_h_text">0</span></h5>
-                                                                    <h5 class="Wcontent">输入蒸汽量(m³):<span id="span_eh_zt_g_text">0</span></h5>
-                                                                    <h5 class="Wcontent">输入电量(KW):<span id="span_eh_zt_e_text">0</span></h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                <div class="echartBlock">
+                                                    <div id="e_r_p_chartView" style="min-width: 210px;height:240px;width:100%;margin-top:-30px;"></div>
+                                                </div>
+                                                <div class="dataBlock">
+                                                    <div class="childrenBlock1">
+                                                        <h4 class="Wtitle" style="text-indent: 67px;">热站总体</h4>
+                                                        <h5 class="Wcontent">
+                                                            <div>总输出热量：</div>
+                                                            <span id="span_eh_zt_h_text">0</span>
+                                                        </h5>
+                                                        <h5 class="Wcontent">
+                                                            <div>总输入蒸汽：</div>
+                                                            <span id="span_eh_zt_g_text">0</span>
+                                                        </h5>
+                                                        <h5 class="Wcontent">
+                                                            <div>总输入电量：</div>
+                                                            <span id="span_eh_zt_e_text">0</span>
+                                                        </h5>
+                                                        <h5 class="Wcontent">
+                                                            <div>单位热价：</div>
+                                                            <span id="span_eh_zt_unit_text">0</span>
+                                                        </h5>
                                                     </div>
-                                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                                                        <div style="text-align:center">
-                                                            <h4 class="Wtitle">设备系统</h4>
-                                                            <h5 class="Wcontent">输出热量(KW):<span id="span_eh_eq_h_text">0</span></h5>
-                                                            <h5 class="Wcontent">输入蒸汽量(KW):<span id="span_eh_eq_g_text">0</span></h5>
-                                                            <h5 class="Wcontent">换热罐效率:<span id="span_eh_eq_rg_nx_text">0</span></h5>
-                                                            <h5 class="Wcontent">水泵电量:<span id="span_eh_eq_e_text">0</span></h5>
-                                                            <h5 class="Wcontent">水泵输送系数:<span id="span_eh_eq_sb_xx_text">0</span></h5>
-                                                        </div>
-                                                    </div>                                           
+                                                    <div class="childrenBlock1">
+                                                        <h4 class="Wtitle">设备系统</h4>
+                                                        <h5 class="Wcontent">
+                                                            <div>换热罐效率：</div>
+                                                            <span id="span_eh_eq_rg_nx_text">0</span>
+                                                        </h5>
+                                                        <h5 class="Wcontent">
+                                                            <div>热水泵输送系数：</div>
+                                                            <span id="span_eh_eq_sb_xx_text">0</span>
+                                                        </h5>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                         <div class="portlet light">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-                                                    <span>西热站</span>
-                                                </div>
-                                                <div class="actions"></div>
-                                            </div>
+                                            <div class="areaTitle">西热站</div>
                                             <div class="portlet-body">
-                                                <div class="row">
-                                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-md-8 col-xs-12">
-                                                                <div id="w_r_p_chartView" style="height:260px;width:100%;margin-top:-30px;"></div>
-                                                            </div>
-                                                            <div class="col-md-4 col-xs-12">
-                                                                <div style="text-align:center;">
-                                                                    <h4 class="Wtitle">热站总体</h4>
-                                                                    <h5 class="Wcontent">输出热量(KW):<span id="span_wh_zt_h_text">0</span></h5>
-                                                                    <h5 class="Wcontent">输入蒸汽量(m³):<span id="span_wh_zt_g_text">0</span></h5>
-                                                                    <h5 class="Wcontent">输入电量(KW):<span id="span_wh_zt_e_text">0</span></h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                <div class="echartBlock">
+                                                    <div id="w_r_p_chartView" style="min-width: 210px;height:240px;width:100%;margin-top:-30px;"></div>
+                                                </div>
+                                                <div class="dataBlock">
+                                                    <div class="childrenBlock1">
+                                                        <h4 class="Wtitle" style="text-indent: 67px;">热站总体</h4>
+                                                        <h5 class="Wcontent">
+                                                            <div>总输出热量：</div>
+                                                            <span id="span_wh_zt_h_text">0</span>
+                                                        </h5>
+                                                        <h5 class="Wcontent">
+                                                            <div>总输入蒸汽：</div>
+                                                            <span id="span_wh_zt_g_text">0</span>
+                                                        </h5>
+                                                        <h5 class="Wcontent">
+                                                            <div>总输入电量：</div>
+                                                            <span id="span_wh_zt_e_text">0</span>
+                                                        </h5>
+                                                        <h5 class="Wcontent">
+                                                            <div>单位热价：</div>
+                                                            <span id="span_wh_zt_unit_text">0</span>
+                                                        </h5>
                                                     </div>
-                                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                                                        <div style="text-align:center">
-                                                            <h4 class="Wtitle">设备系统</h4>
-                                                            <h5 class="Wcontent">输出热量(KW):<span id="span_wh_eq_h_text">0</span></h5>
-                                                            <h5 class="Wcontent">输入蒸汽量(KW):<span id="span_wh_eq_g_text">0</span></h5>
-                                                            <h5 class="Wcontent">换热罐效率:<span id="span_wh_eq_rg_nx_text">0</span></h5>
-                                                            <h5 class="Wcontent">水泵电量:<span id="span_wh_eq_e_text">0</span></h5>
-                                                            <h5 class="Wcontent">水泵输送系数:<span id="span_wh_eq_sb_xx_text">0</span></h5>
-                                                        </div>
+                                                    <div class="childrenBlock1">
+                                                        <h4 class="Wtitle">设备系统</h4>
+                                                        <h5 class="Wcontent">
+                                                            <div>换热罐效率：</div>
+                                                            <span id="span_wh_eq_rg_nx_text">0</span>
+                                                        </h5>
+                                                        <h5 class="Wcontent">
+                                                            <div>热水泵输送系数：</div>
+                                                            <span id="span_wh_eq_sb_xx_text">0</span>
+                                                        </h5>
                                                     </div>
                                                 </div>
                                             </div>
