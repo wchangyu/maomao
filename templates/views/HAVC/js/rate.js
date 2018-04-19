@@ -142,7 +142,7 @@ var Rate=function () {
                 mycv.setOption(option);
                 jQuery('#rateBusy').hideLoading();
             }else if(res.code===-1){
-                alert('异常错误(负荷分析):' + res.msg);
+                console.log('异常错误(负荷分析):' + res.msg);
                 jQuery('#rateBusy').hideLoading();
             }else{
                 jQuery('#rateBusy').hideLoading();
@@ -152,12 +152,6 @@ var Rate=function () {
     
     return {
         init: function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
             //初始化时间控件
             initdatetimepicker();
             //获取负荷数据

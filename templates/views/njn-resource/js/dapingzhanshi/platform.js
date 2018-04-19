@@ -58,7 +58,7 @@ var optionBar = {
 
 
 //页面右侧Table的表头集合
-var titleArr = ['','回路数','开启回路占比','故障回路占比','平均照度','功率 KW'];
+var titleArr = ['','回路数','开启回路占比','平均照度','功率 KW'];
 
 //页面右侧Table的统计位置集合
 var areaArr = ['-9.6m','0.0m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
@@ -375,13 +375,13 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
             '</td>' +
 
-            '<td>' +
-
-            '<div class="right-bottom-echart" id="">' +
-
-            '</div>' +
-
-            '</td>' +
+            //'<td>' +
+            //
+            //'<div class="right-bottom-echart" id="">' +
+            //
+            //'</div>' +
+            //
+            //'</td>' +
 
 
             '<td>' +
@@ -424,7 +424,8 @@ function echartReDraw(realDataArr){
 
         optionBar.series[0].data = [referenceData,realData];
 
-        var dataArr = [openLoopProp,alarmLoopProp];
+        //var dataArr = [openLoopProp,alarmLoopProp];
+        var dataArr = [openLoopProp];
 
         var tableDom = document.getElementsByClassName('right-bottom-table')[0];
 

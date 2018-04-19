@@ -32,10 +32,11 @@
     <link rel="stylesheet" href="../njn-resource/css/dataChange.css">
 </head>
 <body>
+
 <!--最外层包裹的容器-->
 <div class="outer-container">
     <div class="title-block" style="padding-left: 345px;">
-        <span class="title-name">设备监控</span>
+        <span class="title-name">整体开关</span>
         <span class="title-button equipmentSystem-button switch-button">开启</span>
     </div>
     <div class="content-block">
@@ -521,12 +522,14 @@
                                 <input type="text">
                             </li>
                             <li class="text-right">
-
+                                <label>总费用</label>
+                                <input type="text">
                             </li>
                             <li>
                                 <label>总能耗</label>
                                 <input type="text">
                             </li>
+
                             <li class="text-right">
 
                             </li>
@@ -582,7 +585,7 @@
         </div>
     </div>
     <div>
-        <div class="bottom-children">
+        <div class="bottom-children" style="display: none">
             <div class="title-block">
                 <span class="title-name">设备报警</span>
             </div>
@@ -666,7 +669,7 @@
                     </ul>
                 </div>
                 <div class="gd-block gd-block-last">
-                    <div class="title-input numberGD">
+                    <div class="title-input numberGD" style="display: none">
                         <label>工单量</label>
                         <input type="text">
                     </div>
@@ -695,7 +698,7 @@
                 </div>
             </div>
         </div>
-        <div class="bottom-children">
+        <div class="bottom-children" style="display: none">
             <div class="title-block" style="width: 402px;">
                 <span class="title-name">设备故障报警占比</span>
                 <div class="button-block">
@@ -813,6 +816,7 @@
 
     </div>
 </div>
+
 <script src="../../../assets/global/plugins/respond.min.js"></script>
 <script src="../../../assets/global/plugins/excanvas.min.js"></script>
 <![endif]-->
@@ -852,7 +856,6 @@
         Layout.init(); // init current layout
         Demo.init(); // init demo features
         BEE.init();
-//        userMonitor.init("1200,698");
     });
 </script>
 <!--页面js-->
@@ -860,5 +863,6 @@
 <script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/pointersoffices.js"></script>
 <script src="../njn-resource/js/dataChange.js"></script>
+
 </body>
 </html>

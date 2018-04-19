@@ -305,9 +305,13 @@
                     //drawctv(ctxs, ctys, ctcs,  'KW/KW');//冷却塔
 
                 }else if(res.code === -1){
+<<<<<<< HEAD:templates/views/HAVC/js/rank.js
 
                     alert('异常错误(能效排名:)' + res.msg);
 
+=======
+                    console.log('异常错误(能效排名:)' + res.msg);
+>>>>>>> remotes/origin/master:templates/views/EPMA/js/rank.js
                     jQuery('#rankBusy').hideLoading();
 
                     errorEchart(chartLLLJ,'单位冷量冷价',tipBlock.eq(0));
@@ -1005,12 +1009,6 @@
 
     return {
         init: function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
             //初始化时间控件(默认是日)
             initdatetimepicker();
             //切换日月年时间类型

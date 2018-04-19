@@ -466,6 +466,11 @@ var Login = function() {
                     var indexUrl = data["indexUrl"] || '';
                     sessionStorage.indexUrl = indexUrl;
 
+                    //大屏首页人工配置数据开关
+                    var bigScreenSet = data["bigScreenSet"] || '';
+                    sessionStorage.bigScreenSet = bigScreenSet;
+
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 

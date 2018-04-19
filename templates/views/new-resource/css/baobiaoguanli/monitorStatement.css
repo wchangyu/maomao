@@ -1,0 +1,50 @@
+.container{
+    min-height: 500px;
+    border:1px solid #E2E9F2;
+    border-radius: 10px !important;
+    margin-top:15px;
+    padding:10px !important;
+    box-sizing: border-box;
+}
+.condition-query li {
+    line-height: 26px !important;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    height: 32px;
+}
+
+.condition-query li {
+    float: left;
+    margin-right: 20px;
+    line-height: 34px;
+}
+
+label {
+    font-weight: 400;
+    font-size: 14px;
+    margin-right:5px;
+}
+
+select {
+    height: 30px;
+    width: 164px;
+}
+
+.btn-success {
+    background: #2170F4 !important;
+}
+
+.btn-success:hover{
+    background: #2170F4 !important;
+}
+
+.save-excel {
+    width: 22px;
+    height: 22px;
+    float: right;
+    border: 1px solid #6E7FA0;
+    margin-right: 20px;
+    text-align: center;
+    cursor: pointer;
+    color: #6E7FA0;
+}

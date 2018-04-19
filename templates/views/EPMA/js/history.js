@@ -125,7 +125,7 @@
                 var nodes = zTree.getNodes();
                 firstzNode(nodes,zTree);
             }else if(res.code === -1){
-                alert('异常错误(因子树形结构数据):' + res.msg);
+                console.log('异常错误(因子树形结构数据):' + res.msg);
                 jQuery('#historyBusy').hideLoading();
             }else{
                 jQuery('#historyBusy').hideLoading();
@@ -161,7 +161,7 @@
         var dp = mtep - mtsp;
         var days = Math.floor(dp / (24 * 3600 * 1000));
         if (days > 31) {
-            alert("提示(历史数据):查看监测因子的历史数据时间段不能超过31天");
+            console.log("提示(历史数据):查看监测因子的历史数据时间段不能超过31天");
             return;
         }else{
             mycv = echarts.init(document.getElementById('historyMain'));
@@ -242,7 +242,7 @@
                     mycv.setOption(option);
                     jQuery('#historyBusy').hideLoading();
                 }else if(res.code === -1){
-                    alert('异常错误(历史数据):' + res.msg);
+                    console.log('异常错误(历史数据):' + res.msg);
                     jQuery('#historyBusy').hideLoading();
                 }else{
                     jQuery('#historyBusy').hideLoading();
@@ -325,15 +325,8 @@
 
     return {
         init: function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
             //初始化时间控件
             initdatetimepicker();
-            //var sp = Format(convertDate(sessionStorage.alaInsDataTime),'yyyy-MM-dd');
             //打开TreeView选择框
             openTrvBox();
             //默认选中节点

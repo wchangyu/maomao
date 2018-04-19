@@ -155,9 +155,10 @@ a{
         font-size: 12px;
         color: #fff;
         line-height: 46px;
-        position: absolute;
-        left: 109px;
-        height:46px;
+        display: inline-block;
+        /*position: absolute;*/
+        /*left: 109px;*/
+        /*height:46px;*/
     }
 }
 @media(min-width: 501px) {
@@ -165,9 +166,10 @@ a{
         font-size: 23px;
         color: #fff;
         line-height: 46px;
-        position: absolute;
-        left: 150px;
-        height:46px;
+        display: inline-block;
+        /*position: absolute;*/
+        /*left: 150px;*/
+        /*height:46px;*/
     }
 }
 .datetimeInput{

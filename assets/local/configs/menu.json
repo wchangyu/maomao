@@ -22,6 +22,14 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "自动派单设置": {
+        "type": "0",
+        "content": "自动派单设置",
+        "uri": "../yunweiguanli/autoMationSendOrder.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   },
@@ -514,7 +522,7 @@
         "content": "配电系统",
         "uri": "../yongnengjiance/energyMonitor.html?arg=11",
         "uid": "",
-        "arg": "1,3101008143",
+        "arg": "2,4",
         "iconclass": ""
       },
       "能源站系统": {

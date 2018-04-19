@@ -47,6 +47,7 @@ $(function(){
                 clickLogin1(account,address,password,port);
 
                 setTimeout(function(){
+
                     //进入当前通道号
                     $('#channels').val(aisleNum);
 

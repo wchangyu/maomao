@@ -857,7 +857,41 @@ function _uniqueArr(maxArr,minArr,attr){
 
     }
 
-}
+};
+
+
+//对后台返回的表格数据进行包装，方便datatables插件进行调用
+function packagingTableData(tableData){
+
+    //定义新生产的table数组
+    var newTableArr = [];
+
+    //获取到名称数组
+    var titleArr = tableData.columns;
+
+    //获取数据数组
+    var dataArr = tableData.data;
+
+    //遍历数据数组
+    $(dataArr).each(function(i,o){
+
+        //定义新的对象
+        var obj = {};
+
+        //取出每行的数据
+        var lineArr = o;
+
+        $(lineArr).each(function(i,o){
+
+            obj[titleArr[i]] = o;
+        });
+
+        //把对象放入到新的数组中
+        newTableArr.push(obj);
+    });
+
+    return newTableArr;
+};
 
 //格式化数字，排除infinity NaN 其他格式
 function _formatNumber(num){
@@ -903,6 +937,7 @@ function _packagingTableData(tableData){
     return newTableArr;
 };
 
+<<<<<<< HEAD
 //ajax发送数据之前的方法
 function _beforeSendFun(){
 
@@ -976,4 +1011,37 @@ function _mainAjaxFun(type,url,prm,successFun){
 
 }
 
+=======
+
+//----------------------------------获取配置的能耗数据中信息---------------------------------//
+//根据能耗分项ID获取能耗名称
+function _getEcName(etid){
+
+    var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+
+    if(jsonText){
+        for(var i=0;i<jsonText.alltypes.length;i++){
+            if(etid == jsonText.alltypes[i].etid){
+
+                return jsonText.alltypes[i].etname;
+            }
+        }
+
+    }
+};
+//根据能耗分项ID获取能耗单位
+function _getEcUnit(etid){
+
+    var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+
+    if(jsonText){
+        for(var i=0;i<jsonText.alltypes.length;i++){
+            if(etid == jsonText.alltypes[i].etid){
+
+                return jsonText.alltypes[i].etunit;
+            }
+        }
+    }
+};
+>>>>>>> remotes/origin/master
 

@@ -55,12 +55,6 @@
 
     return {
         init: function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
             var mt = moment(dtnowstr());
             select_year = mt.year();
             select_month = addZeroToSingleNumber(parseInt(mt.month()) + 1);
@@ -191,7 +185,7 @@
                 jQuery('#eerBusy').hideLoading();
                 loadEERAnalysisExpDs(todayDT);
             }else if(res.code === -1){
-                alert('异常错误(能效日历):' + res.msg );
+                console.log('异常错误(能效日历):' + res.msg );
                 jQuery('#eerBusy').hideLoading();
             }else{
                 jQuery('#eerBusy').hideLoading();
@@ -292,7 +286,7 @@
                 jQuery('#eerBusy').hideLoading();
             }else if(res.code === -1){
                 jQuery('#eerBusy').hideLoading();
-                alert('异常错误(能效对比和分项图):' + res.msg);
+                console.log('异常错误(能效对比和分项图):' + res.msg);
             }else{
                 jQuery('#eerBusy').hideLoading();
             }

@@ -46,7 +46,6 @@ function getDataByConfig(){
 
                 if(o.isShow == 1){
 
-
                     html += '<div class="statement col-lg-4 col-md-4 col-sm-12 col-xs-12">' +
                                 '<div class="'+ o.addClass+'">' +
                                     '<div class="top-img">' +
@@ -64,8 +63,6 @@ function getDataByConfig(){
             //赋值到页面中
             $('.showStatement').html(html);
 
-
         }
     });
-
 };

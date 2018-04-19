@@ -6,6 +6,11 @@
  */
 $(function(){
 
+    //获取到当前项目名称
+    var systemName = sessionStorage.getItem('systemName');
+
+    $('.systemTitle').html(systemName);
+
     //时间插件
     _timeYMDComponentsFun($('.datatimeblock'));
 
@@ -18,8 +23,6 @@ $(function(){
     //zTree.setChkDisabled(nodes[0], true); //父节点禁止勾选
     //
     //zTree.checkNode(nodes[0].children[0].children[0], true, true);
-
-
 
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
@@ -198,7 +201,6 @@ function getDevAreaByType(){
     })
 }
 
-
 //获取数据
 //flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
 function getPointerData(){
@@ -309,7 +311,9 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
                 //获取当前已选中的属性
                 var pts = treeObj.getCheckedNodes(true);
 
-                drawEquipmentList(pts[0])
+                if(pts.length > 0){
+                    drawEquipmentList(pts[0]);
+                }
             },
             beforeClick:function(treeId,treeNode){
 
@@ -327,7 +331,9 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
                 //获取当前已选中的属性
                 var pts = treeObj.getCheckedNodes(true);
 
-                drawEquipmentList(pts[0])
+                if(pts.length > 0){
+                    drawEquipmentList(pts[0]);
+                }
 
             }
         }

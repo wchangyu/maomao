@@ -213,7 +213,7 @@
                 mycv.setOption(option);
                 jQuery('#compareBusy').hideLoading();
             }else if(res.code===-1){
-                alert('异常错误(能效多时间段对比):' + res.msg);
+                console.log('异常错误(能效多时间段对比):' + res.msg);
                 jQuery('#compareBusy').hideLoading();
             }else{
                 jQuery('#compareBusy').hideLoading();
@@ -292,7 +292,7 @@
         $('#compareBtn').on('click',function () {
             var dTs = getDTs();
             if (dTs.length === 0) {
-                alert("提示(多时间段能效对比):请选择时间段分析能效对比");
+                console.log("提示(多时间段能效对比):请选择时间段分析能效对比");
                 return;
             }
             var eType = $("#eType").val();
@@ -304,12 +304,6 @@
 
     return {
         init: function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
             //初始化默认选择时间段
             initdtlist();
             //初始化日期控件

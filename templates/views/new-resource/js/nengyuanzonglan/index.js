@@ -894,19 +894,41 @@ function getAllEnergyItemData(){
             //存放图例中数据
             var legendArr = [];
 
+            var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+
+            var allEnergyArr = jsonText.alltypes;
+
+
             $(result).each(function(i,o){
 
                 var obj = {};
+
+                //获取当前的能耗类型
+                var energyID = o.energyItemCode;
+
                 //获取能耗数据
                 obj.value = o.energyItemValue.toFixed(1);
                 //获取能耗名称
                 obj.name = o.energyItemName;
 
-                dataArr.push(obj);
+                $(allEnergyArr).each(function(i,o){
 
-                //给图例中存储数据
-                legendArr.push(o.energyItemName);
+                    if(energyID == o.etid){
+
+                        //判断是否是二次能源 不是二次能源的才能展示
+                        if(!o.secondEnergy){
+
+                            dataArr.push(obj);
+
+                            //给图例中存储数据
+                            legendArr.push(obj.name);
+
+                        }
+                    }
+
+                });
             });
+
             //图例赋值
             option1.legend.data = legendArr;
             //数据赋值

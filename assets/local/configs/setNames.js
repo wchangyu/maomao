@@ -44,7 +44,7 @@ var __systemConfigArr = [
     {
         pageName :"驾驶舱",
         pageUrl :"new-nengyuanzonglan/new-index.html",
-        //定义驾驶舱中右下角能好排名的配置项
+        //定义驾驶舱中右下角能耗排名的配置项
         indexPageRandingObj : {
 
             btnMessage :[
@@ -83,25 +83,25 @@ var __systemConfigArr = [
                 statementName:"区域能耗报表",
                 jumpUrl: "areaEnergyDataStatement.html",
                 addClass:'statement-contain',
-                isShow:1
+                isShow:0
             },
             {
                 statementName:"部门能耗报表",
                 jumpUrl: "officeEnergyDataManagement.html",
                 addClass:'statement-contain1 statement-contain',
-                isShow:1
+                isShow:0
             },
             {
                 statementName:"水电气分科报表",
                 jumpUrl: "officePQCCDataManagement.html",
                 addClass:'statement-contain',
-                isShow:1
+                isShow:0
             },
             {
                 statementName:"变压器能耗报表",
                 jumpUrl: "electroDetail.html",
                 addClass:'statement-contain',
-                isShow:1
+                isShow:0
             }
         ]
     }

@@ -685,6 +685,12 @@ var pointerIdArr = getPointersId();
 var officeIdArr = getOfficesId();
 
 
+//获取配置好的能耗类型数据
+var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+if(unitObj){
+    var allEnergyArr = unitObj.alltypes;
+}
+
 //------------------------------------右侧上方实时能耗数据-----------------------------------//
 
 //根据配置获取对应能耗种类
@@ -847,8 +853,7 @@ function getPointerRankData(){
         },
         success:function(result){
 
-            console.log(result);
-
+            //console.log(result);
 
             _myChart3.hideLoading();
 
@@ -1215,21 +1220,32 @@ function getAllEnergyItemMoney(){
             //存放总费用
             var totalMoney = 0;
 
-            $(result).each(function(i,o){
+            $(result).each(function(i,k){
 
-                //如果是冷或者暖的数据
-                if(o.energyItemCode == 412 || o.energyItemCode == 512){
+                //获取当前的能耗类型
+                var energyID = k.energyItemCode;
 
-                    return true;
-                }
+                $(allEnergyArr).each(function(i,o){
 
-                dataArr.push(o.energyItemValue.toFixed(1));
+                    if(energyID == o.etid){
+
+                        //判断是否是二次能源 不是二次能源的才能展示
+                        if(!o.secondEnergy){
+
+                            dataArr.push(k.energyItemValue.toFixed(1));
 
 
-                totalMoney += parseFloat(o.energyItemValue.toFixed(1));
+                            totalMoney += parseFloat(k.energyItemValue.toFixed(1));
 
-                //x轴
-                xArr.push(_getEcName(o.energyItemCode));
+                            //x轴
+                            xArr.push(_getEcName(k.energyItemCode));
+
+                        }
+                    }
+
+                });
+
+
             });
 
 
@@ -1419,7 +1435,7 @@ function getTopPageKPIData(){
             _myChart71.hideLoading();
             _myChart72.hideLoading();
 
-            console.log(result);
+            //console.log(result);
 
             //无数据
             if(result == null || result.length == 0){
@@ -1565,12 +1581,16 @@ function getAllEnergyItemData(){
             //存放图例中数据
             var legendArr = [];
 
+
+            var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+
+            var allEnergyArr = jsonText.alltypes;
+
+
             $(result).each(function(i,o){
 
-                if(o.energyItemCode == 412 || o.energyItemCode == 512 ){
-
-                    return true
-                }
+                //获取当前的能耗类型
+                var energyID = o.energyItemCode;
 
                 var obj = {};
                 //获取能耗数据
@@ -1578,10 +1598,22 @@ function getAllEnergyItemData(){
                 //获取能耗名称
                 obj.name = o.energyItemName;
 
-                dataArr.push(obj);
+                $(allEnergyArr).each(function(i,o){
 
-                //给图例中存储数据
-                legendArr.push(o.energyItemName);
+                    if(energyID == o.etid){
+
+                        //判断是否是二次能源 不是二次能源的才能展示
+                        if(!o.secondEnergy){
+
+                            dataArr.push(obj);
+
+                            //给图例中存储数据
+                            legendArr.push(obj.name);
+
+                        }
+                    }
+
+                });
             });
 
             //图例赋值
@@ -1793,7 +1825,6 @@ function getStataionFootfallRank(){
 };
 
 //------------------------------------其他方法-----------------------------------------//
-
 
 //获取能耗分项ID
 function getUnitID(num){
