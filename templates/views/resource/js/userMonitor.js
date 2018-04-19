@@ -108,12 +108,9 @@ var userMonitor = (function(){
             //如果是非跳转页面 则清除页面中缓存的宽高
             if(procId){
 
-
-
             }else{
                 sessionStorage.monitorSize = "";
             }
-
         }
 
         if(jumpPageSize){
