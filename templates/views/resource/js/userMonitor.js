@@ -60,6 +60,8 @@ var userMonitor = (function(){
 
     //monitorSize流程图宽高 jumpPageSize弹出二级页面的宽高 ifRemove是否可以移动 1为不可移动 不传则可移动
     var init = function(monitorSize,jumpPageSize,ifRemove){
+
+        //console.log(455);
         //获取到存储区的监控配置信息
 
         if(window.location.search.split('ckId=')[1]){
@@ -69,12 +71,14 @@ var userMonitor = (function(){
             _configArg3 = undefined;
 
         }else if(sessionStorage.menuArg){
+
             var args = sessionStorage.menuArg.split(",");
             if(args){
                 _configArg1 = args[0];
                 _configArg2 = args[1];
                 _configArg3 = args[2] || undefined;
             }
+
         }
 
         //是否可以移动
@@ -1878,7 +1882,7 @@ var userMonitor = (function(){
         //模态框宽度
         $("#"+modalID).find('.modal-dialog').width(cameraWidth + 50);
 
-    }
+    };
 
     //模态框显示视频
     function showVideoByID(videoMessage,paras){
@@ -1938,7 +1942,7 @@ var userMonitor = (function(){
             }
 
             //如果新建模态框打开流程图
-            if( procDef.prProcLnk == null ||  procDef.prProcLnk.Startpos == 2 || procDef.prcProcLnk&& procDef.prcProcLnk.procLnkBase.type == 502) {
+            if( procDef.prcProcLnk&& procDef.prcProcLnk.procLnkBase.type == 502) {
 
                 //获取当前ID
                 var id = procDef.ckId;
