@@ -3,7 +3,6 @@
  */
 
 var BEE = (function(){
-
     var _assetsPath = '../../../assets/';
     var _localImgPath = 'local/img/';
     var _localCssPath = 'local/css/';
@@ -1306,7 +1305,5 @@ var BEE = (function(){
         },
         modificationImportInfo:modificationImportInfo
     }
-
-
 
 })();
