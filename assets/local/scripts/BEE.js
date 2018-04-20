@@ -4,8 +4,6 @@
 
 var BEE = (function(){
 
-<<<<<<< HEAD
-=======
     var _assetsPath = '../../../assets/';
     var _localImgPath = 'local/img/';
     var _localCssPath = 'local/css/';
@@ -52,22 +50,18 @@ var BEE = (function(){
 
      };
 
->>>>>>> remotes/origin/master
      //获取当前地址
      var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
 
      var _pathNum = '';
 
-<<<<<<< HEAD
      if(_LurlLength == 4){
 
          _pathNum = '../'
-=======
          _loginHtml = "../" + _loginHtml;
 
          sessionStorage.loginPath =  _loginHtml;
          _assetsPath = '../../../../assets/';
->>>>>>> remotes/origin/master
 
      }
 
