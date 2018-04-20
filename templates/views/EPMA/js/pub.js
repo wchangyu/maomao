@@ -106,21 +106,62 @@ var EPMA = function () {
         $('#p_type option:eq(' + idxp + ')').attr('selected', 'selected');
     }
 
+    //获取周
+    var getWeek = function (enW) {
+        if (enW === 'Monday') {
+            return '星期一';
+        } if (enW === 'Tuesday') {
+            return '星期二';
+        } if (enW === 'Wednesday') {
+            return '星期三';
+        } if (enW === 'Thursday') {
+            return '星期四';
+        } if (enW === 'Friday') {
+            return '星期五';
+        } if (enW === 'Saturday') {
+            return '星期六';
+        } if (enW === 'Sunday') {
+            return '星期日';
+        }
+    }
+
+    //初始化日期
+    var initDt = function () {
+        var nowDt = new Date();
+        var year = nowDt.getFullYear();
+        var month = parseInt(nowDt.getMonth()) + 1;
+        var day = nowDt.getDate();
+        var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+        var mt = moment(dtstr);
+        var nowDt = mt.format('YYYY年MM月DD日');
+        $('#loginDT').html(nowDt);//日期
+        var enW = mt.format('dddd');
+        var ews = getWeek(enW);
+        $('#loginWk').html(ews);//星期
+    }
+
     return {
         init: function () {
 
-            //初始化默认界面
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
-
-            $('#pNT').html(po.eprName + po.pointerName);//楼宇名称
+            if (sessionStorage.enterpriseID === undefined) {
+                //初始化默认界面
+                var pos = JSON.parse(sessionStorage.pointers);
+                var po = pos[0];
+                sessionStorage.PointerID = po.pointerID;
+                sessionStorage.PointerName = po.pointerName;
+                sessionStorage.enterpriseID = po.enterpriseID;
+                sessionStorage.eprName = po.eprName;
+                $('#pNT').html(po.eprName + po.pointerName);//楼宇名称
+            }
+            else {
+                $('#pNT').html(sessionStorage.eprName + sessionStorage.PointerName);//楼宇名称
+            }
 
             //初始化eprbox控件
             initeprBox();
+
+            //初始化日期
+            initDt();
 
             //室外温湿度
             $.get(sessionStorage.apiUrlPrefix + "Global/GetTHW",
@@ -155,6 +196,7 @@ var EPMA = function () {
                     }
                 })
 
+            //楼宇实时数据
             var realDtUrl = sessionStorage.apiUrlPrefix + "Global/GetRealDt";
             $.ajax({
                 url: realDtUrl,
@@ -169,41 +211,40 @@ var EPMA = function () {
                 }
             })
 
+            //切换楼宇
             $('#goEprBtn').on('click', function () { //全局楼宇切换
                 var pId = $('#p_type').val();
                 var pNt = $('#p_type').children('option:selected').text();
                 var eprId = $('#epr_type').val();
                 var eprNT = $('#epr_type').children('option:selected').text();
-                sessionStorage.EnterpriseID = eprId;
-                sessionStorage.EnterpriseName = eprNT;
+                sessionStorage.enterpriseID = eprId;
+                sessionStorage.eprName = eprNT;
                 sessionStorage.PointerID = pId;
                 sessionStorage.PointerName = pNt;
                 onhidemenuEpr();
                 $.get(realDtUrl, {
                     pId: sessionStorage.PointerID
                 }, function (res) {
+                    //$('#pNT').html(eprNT + pNt);//楼宇名称
                     sessionStorage.sysDt = res.dt;
                     location.href = "../EPMA/main.html";
                 })
             })
 
-
-            $('#loginDT').html();//日期
-            $('loginWk').html();//星期
-
-            $('#openeprBtn').on('click', function () {//打开选择楼宇框
+            //打开选择楼宇框
+            $('#openeprBtn').on('click', function () {
                 var objCNT = $(this);
                 var menuTop = $('.top-menu').height();//$('.page-header-inner').height();
                 $('#eprBox').css({ left: objCNT.left + "px", top: menuTop + "px" }).slideDown("fast");
                 $("body").bind("mousedown", onbodydownEpr);
             })
 
-            $('#epr_type').change(function () {//切换企业
+            //切换企业
+            $('#epr_type').change(function () {
                 var eprId = $(this).val();
                 var eprs = initeprs();
                 getpointerDs(eprId, eprs);
             });
-
 
 
         }
