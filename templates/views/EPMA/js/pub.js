@@ -164,37 +164,35 @@ var EPMA = function () {
             initDt();
 
             //室外温湿度
-            $.get(sessionStorage.apiUrlPrefix + "Global/GetTHW",
-                { pId: sessionStorage.PointerID },
-                function (res) {
-                    if (res.code === "0") {
-                        if (res.tsw === true) {
-                            $('#span_temperature').show();
-                            $('#temperature').html(res.ist);
-                        }
-                        else {
-                            $('#span_temperature').hide();
-                        }
-                        if (res.hsw === true) {
-                            $('#span_humidity').show();
-                            $('#humidity').html(res.ish);
-                        }
-                        else {
-                            $('#span_humidity').hide();
-                        }
-                        //湿球温度$('#span_wetbuldtemperature').html('0.0');
-                        if (res.wbw === true) {
-                            $('#span_wetbuldtemperature').show();
-                            $('#wetbuldtemperature').html(res.iswbw);
-                        } else {
-                            $('#span_wetbuldtemperature').hide();
-                        }
-                    } else {
+            $.get(sessionStorage.apiUrlPrefix + "Global/GetTHW", { pId: sessionStorage.PointerID }, function (res) {
+                if (res.code === "0") {
+                    if (res.tsw === true) {
+                        $('#span_temperature').show();
+                        $('#temperature').html(res.ist);
+                    }
+                    else {
                         $('#span_temperature').hide();
+                    }
+                    if (res.hsw === true) {
+                        $('#span_humidity').show();
+                        $('#humidity').html(res.ish);
+                    }
+                    else {
                         $('#span_humidity').hide();
+                    }
+                    //湿球温度$('#span_wetbuldtemperature').html('0.0');
+                    if (res.wbw === true) {
+                        $('#span_wetbuldtemperature').show();
+                        $('#wetbuldtemperature').html(res.iswbw);
+                    } else {
                         $('#span_wetbuldtemperature').hide();
                     }
-                })
+                } else {
+                    $('#span_temperature').hide();
+                    $('#span_humidity').hide();
+                    $('#span_wetbuldtemperature').hide();
+                }
+            })
 
             //楼宇实时数据
             var realDtUrl = sessionStorage.apiUrlPrefix + "Global/GetRealDt";
