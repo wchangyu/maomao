@@ -52,6 +52,13 @@
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
         .noprint{display : none }
+
+        @media print {
+            a[href]:after {
+                content: none !important;
+            }
+        }
+
     </style>
     <style>
 
@@ -376,7 +383,7 @@
                                     <br>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
+                                    <!--<li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>-->
                                     <li style="display: none">
                                         <button type="button" class="btn red Fallback">
                                             <i class="fa fa-trash"></i>

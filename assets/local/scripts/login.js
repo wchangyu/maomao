@@ -3,6 +3,7 @@ var Login = function() {
     //首先获取url根目录
     var _Lurls = window.document.location.href.split('templates')[0];
 
+    var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
 
     var _isPointersLoaded = false;
     var _isOfficesLoaded = false;
@@ -431,8 +432,11 @@ var Login = function() {
                     sessionStorage.changeMenuByProcs = changeMenuByProcs;
 
                     //登录后跳转首页配置
+
                     if(data["indexUrl"]){
+
                         _indexUrl = data["indexUrl"];
+
                     }
 
                     //工单自动刷新开关

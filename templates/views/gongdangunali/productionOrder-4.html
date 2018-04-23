@@ -54,6 +54,11 @@
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
         .noprint{display : none }
+        @media print {
+            a[href]:after {
+                content: none !important;
+            }
+        }
     </style>
     <style>
         .deal-with-list{

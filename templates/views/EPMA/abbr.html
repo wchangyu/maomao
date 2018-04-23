@@ -57,21 +57,21 @@
                         <span id="pNT">楼宇</span>
                     </li>
                     <li id="span_temperature" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                        <span class="navigation-img" style="background:url('/assets/admin/layout/img/wendu.png')no-repeat;">
+                        <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/wendu.png')no-repeat;">
                         </span><span id="temperature">0℃</span>
                     </li>
                     <li id="span_humidity" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                        <span class="navigation-img" style="background:url('/assets/admin/layout/img/shidu.png')no-repeat;"></span>
+                        <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/shidu.png')no-repeat;"></span>
                         <span id="humidity">0℃</span>
                     </li>
                     <li id="span_wetbuldtemperature" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                        <span class="navigation-img" style="background:url('/assets/admin/layout/img/shiqiu.png')no-repeat;"></span>
+                        <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/shiqiu.png')no-repeat;"></span>
                         <span id="wetbuldtemperature">0℃</span>
                     </li>
                     <li class="dropdown dropdown-extended dropdown-inbox" title="切换楼宇">
                         <a id="openeprBtn" href="javascript:;" class="dropdown-toggle">
                             <span style="display:inline-block;width:16px;height:19px;
-                                background:url('/assets/admin/layout/img/quyuqiehuan.png')no-repeat;
+                                background:url('../../../assets/admin/layout/img/quyuqiehuan.png')no-repeat;
                                 background-size:100%"></span>
                         </a>
                         <ul class="dropdown-menu">
@@ -80,7 +80,7 @@
                     </li>
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" style="background-color:rgba(0,0,0,0);" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                            <img alt="" class="img-circle" src="/assets/admin/layout/img/user.png" style="width:25px;height:25px;">
+                            <img alt="" class="img-circle" src="../../../assets/admin/layout/img/user.png" style="width:25px;height:25px;">
                             <div class="username username-hide-on-mobile" style="display:inline-block !important;">
                                 <span id="sysuserNT" style="color:#ccc;">马超红</span>
                                 <i class="fa fa-angle-down"></i>
@@ -182,7 +182,6 @@
                             <i class="fa fa-angle-right"></i>
                         </li>
                     </ul>
-                    <div class="showOrHidden"></div>
                     <div class="page-toolbar">
                     </div>
                 </div>
@@ -325,21 +324,21 @@
             <i class="icon-arrow-up"></i>
         </div>
     </div>
-    <div id="eprBox" class="" style="border-bottom:1px solid #e3e3e3;
-            background: url('/assets/admin/layout/img/beijingkuang.png')no-repeat;
-            background-size:300px; z-index: 10000; top: 36px; width: 300px;
+    <div id="eprBox" class="" style="padding-bottom: 10px;
+            background: url('../../../assets/admin/layout/img/beijingkuang.png')no-repeat 0 0;
+            background-size:300px; z-index: 100000000; top: 40px !important; width: 300px;
             height: auto; position: fixed; right: 107px; display: none;">
         <div style="padding:15px 15px;color:#FFFFFF;margin-top:0px;">
             <div class="row">
-                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="margin-bottom:10px;line-height:34px;color:#333333">单位选择</label>
+                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333;padding-right: 0">单位选择</label>
                 <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
-                    <select name="epr_type" id="epr_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;"></select>
+                    <select name="epr_type" id="epr_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
                 </div>
             </div>
             <div class="row">
-                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="margin-bottom:10px;line-height:34px;color:#333333">楼宇选择</label>
+                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">楼宇选择</label>
                 <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
-                    <select name="p_type" id="p_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;"></select>
+                    <select name="p_type" id="p_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
                 </div>
             </div>
             <div class="row">

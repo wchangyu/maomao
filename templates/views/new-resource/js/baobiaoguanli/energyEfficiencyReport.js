@@ -82,7 +82,7 @@ $(function(){
         //获取楼宇和区域名字
         var href = window.location.search;
 
-        href = '?a1=3101800201&a2=EC';
+        //href = '?a1=3101800201&a2=EC';
 
         var hrefPrm = '';
 
