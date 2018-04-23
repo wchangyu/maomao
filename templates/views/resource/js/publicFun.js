@@ -972,6 +972,7 @@ function _packagingTableData(tableData){
     return newTableArr;
 };
 
+
 //ajax发送数据之前的方法
 function _beforeSendFun(){
 
@@ -1045,6 +1046,7 @@ function _mainAjaxFun(type,url,prm,successFun){
 
 }
 
+=======
 
 //----------------------------------获取配置的能耗数据中信息---------------------------------//
 //根据能耗分项ID获取能耗名称
@@ -1076,5 +1078,5 @@ function _getEcUnit(etid){
         }
     }
 };
-
+>>>>>>> remotes/origin/master
 

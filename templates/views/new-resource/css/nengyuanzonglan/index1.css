@@ -144,7 +144,7 @@ p{
 /*总面积*/
 .inside-data{
     width:30%;
-    height:100px;
+    height:auto;
     color:white !important;
     float:left;
     background: url('../../img/fangzi.png') no-repeat 89% 89%;
@@ -724,3 +724,56 @@ h3 .left-patch{
     line-height: 40px;
 
 }
+
+.inside-four{
+
+    width: 25% !important;
+
+    background: #ffffff !important;
+
+    margin: 0 !important;
+
+}
+
+.inside-four p{
+
+    font-size: 14px !important;
+
+    font-family: MicrosoftYaHeiLight !important;
+
+    color:rgba(117,117,117,1) !important;
+
+    text-align: center;
+
+    line-height: 30px;
+
+    height: auto;
+
+}
+
+.inside-four .data{
+
+    font-size:18px !important;
+
+    font-family:MicrosoftYaHei !important;
+
+    color:rgba(76,76,76,1) !important;
+
+    text-align: center !important;
+
+}
+
+.inside-img{
+
+    width: 40px;
+
+    height: 40px;
+
+    margin: 0 auto;
+
+    background: red;
+
+    margin-top: 10px;
+
+}
+

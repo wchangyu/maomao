@@ -530,18 +530,47 @@ function getTopPageData(){
         },
         success:function(result){
 
-            //console.log(result);
-
-            //给页面中赋值
-
-            //总面积
-            $('.inside-data').eq(0).find('.data').html(result[0].statistValue);
-
-            //科室数
-            $('.inside-data').eq(1).find('.data').html(result[1].statistValue);
-
+            //初始化一下
+            //建筑面积
+            $('.inside-data').eq(0).find('.data').html(0);
+            //占地面积
+            $('.inside-data').eq(1).find('.data').html(0);
             //床位数
-            $('.inside-data').eq(2).find('.data').html(result[2].statistValue);
+            $('.inside-data').eq(2).find('.data').html(0);
+            //职工人数
+            $('.inside-data').eq(3).find('.data').html(0);
+            //给页面中赋值
+            if(result.length>0){
+
+                for(var i=0;i<result.length;i++){
+
+                    if(result[i].statistName == '建筑面积'){
+
+                        //建筑面积
+                        $('.inside-data').eq(0).find('.data').html(result[i].statistValue);
+
+                    }else if(result[i].statistName == '占地面积'){
+
+                        //占地面积
+                        $('.inside-data').eq(1).find('.data').html(result[i].statistValue);
+
+                    }else if(result[i].statistName == '床位数'){
+
+                        //床位数
+                        $('.inside-data').eq(2).find('.data').html(result[i].statistValue);
+
+                    }else if(result[i].statistName == '职工人数'){
+
+                        //职工人数
+                        $('.inside-data').eq(3).find('.data').html(result[i].statistValue);
+
+                    }
+
+                }
+
+            }
+
+            return false;
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -574,8 +603,6 @@ function getLeftEnergyData(){
 
         },
         success:function(result){
-
-            //console.log(result);
 
             //如果为空直接返回
             if(result == null || result.length == 0){
@@ -633,7 +660,6 @@ function getWeatherParam(){
         },
         success:function(result){
 
-            //console.log(result);
             //无数据
             if(result == null || result.length == 0){
                 //隐藏温度 和湿度
@@ -701,7 +727,6 @@ function getOrderData(){
         },
         success:function(result){
 
-            //console.log(result);
 
             _myChart6.hideLoading();
 
@@ -861,8 +886,6 @@ function getRealTimeData(){
 
             //return false;
 
-            //console.log(data);
-
             //如果为空直接返回
             if(data == null || data.length == 0){
                 return false;
@@ -923,7 +946,6 @@ function getRealTimeData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             myChart.hideLoading();
-            //console.log(textStatus);
 
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
@@ -1075,7 +1097,6 @@ function getAllEnergyItemData(){
 
     var endDate = getPostTime11()[1];
 
-    //console.log(startDate);
 
     //传递给后台的数据
     var ecParams = {
@@ -1096,8 +1117,6 @@ function getAllEnergyItemData(){
             _myChart.showLoading();
         },
         success:function(result){
-
-            //console.log(result);
 
             //无数据
             if(result == null || result.length == 0){
@@ -1198,8 +1217,6 @@ function getFirstEnergyItemData(){
         },
         success:function(result){
 
-            //console.log(result);
-
             _myChart1.hideLoading();
 
             //无数据
@@ -1283,8 +1300,6 @@ function getTopPageKPIData(){
 
             _myChart4.hideLoading();
 
-            //console.log(result);
-
             //无数据
             if(result == null || result.length == 0){
 
@@ -1341,8 +1356,6 @@ function getTopPageKPIData1(){
         success:function(result){
 
             _myChart5.hideLoading();
-
-            //console.log(result);
 
             //无数据
             if(result == null || result.length == 0){

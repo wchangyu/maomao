@@ -184,7 +184,7 @@
                 }
             }
             else {
-                alert("报表提示(导出):请选择报表类型");
+                console.log("报表提示(导出):请选择报表类型");
             }
             jQuery('#reportBusy').hideLoading();
         });
