@@ -16,6 +16,74 @@ $('.time-options').click(function(){
 
 });
 
+//定义报警中的设备类型
+ deviceType = [
+    {
+        name:"冷热源",
+        id:1
+    },
+    {
+        name:"空调机组",
+        id:2
+    },
+    {
+        name:"送排风",
+        id:3
+    },
+    {
+        name:"给排水",
+        id:4
+    },
+    {
+        name:"动环",
+        id:7
+    },
+    {
+        name:"直梯",
+        id:18
+    },
+    {
+        name:"扶梯",
+        id:19
+    },
+    {
+        name:"站台照明",
+        id:20
+    },
+    {
+        name:"站台照明",
+        id:20
+    },
+    {
+        name:"自动检票",
+        id:56
+    },
+    {
+        name:"自动售票",
+        id:57
+    }
+];
+
+//定义报警中的报警级别
+ alarmLevel = [
+    {
+        name:"普通",
+        id:1
+    },
+    {
+        name:"较急",
+        id:2
+    },
+    {
+        name:"紧急",
+        id:3
+    },
+    {
+        name:"特别紧急",
+        id:4
+    }
+];
+
 //点击上方能耗种类切换时
 $('.energy-types').on('click','div',function(){
 
@@ -900,9 +968,6 @@ function getPointersId(){
     return pointerIdArr;
 };
 
-
-var date0 = moment("2018/03").format("YYYY/MM/DD");
-console.log(date0);
 
 
 

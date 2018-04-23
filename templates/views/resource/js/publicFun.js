@@ -29,6 +29,41 @@ var _maintenanceTeam = sessionStorage.getItem("userDepartNum");
 //图片的路径
 var _urlImg = sessionStorage.getItem("imgPath");
 
+//从本地存储中获取楼宇ID列表
+function getPointersId(){
+
+    //存放楼宇ID列表
+    var pointerIdArr = [];
+
+    var pointerArr = $.parseJSON(sessionStorage.getItem('pointers'));
+
+
+    $(pointerArr).each(function(i,o){
+
+        pointerIdArr.push(o.pointerID);
+    });
+
+    return pointerIdArr;
+};
+
+//从本地存储中获取分户ID列表
+function getOfficesId(){
+
+    //存放分户ID列表
+    var officeIdArr = [];
+
+    var officeArr = $.parseJSON(sessionStorage.getItem('offices'));
+
+
+    $(officeArr).each(function(i,o){
+
+        officeIdArr.push(o.f_OfficeID);
+    });
+
+    return officeIdArr;
+};
+
+
 /*---------------------------时间初始化------------------------*/
 
 //datapicker时间插件初始化(日月年)
@@ -937,7 +972,6 @@ function _packagingTableData(tableData){
     return newTableArr;
 };
 
-<<<<<<< HEAD
 //ajax发送数据之前的方法
 function _beforeSendFun(){
 
@@ -1011,7 +1045,6 @@ function _mainAjaxFun(type,url,prm,successFun){
 
 }
 
-=======
 
 //----------------------------------获取配置的能耗数据中信息---------------------------------//
 //根据能耗分项ID获取能耗名称
@@ -1043,5 +1076,5 @@ function _getEcUnit(etid){
         }
     }
 };
->>>>>>> remotes/origin/master
+
 

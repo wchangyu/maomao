@@ -1,0 +1,107 @@
+
+table.dataTable thead .sorting:after {
+    opacity: 0;
+    content:'';
+}
+table.dataTable thead .sorting_desc:after {
+    content: "";
+    opacity: 0;
+}
+.table thead th{
+    text-align: center !important;
+}
+.theHidden{
+    display: none;
+}
+.real-time{
+    font-size:16px;
+}
+.main-contents-header-lists0{
+    display: none;
+}
+
+.condition-query li select,.condition-query li input {
+    height: 30px;
+    width: 132px;
+}
+
+/*报警概况与维修概况外层容器*/
+.survey-container{
+    margin-bottom:15px;
+}
+
+.survey-container .survey{
+    float: left;
+}
+
+.survey-container .left-survey{
+    margin-right:10px;
+}
+
+/*左侧报警概况*/
+.survey-container .survey h2{
+
+    color:#2B2B2B;
+    font-size:20px;
+    font-weight: 600;
+    margin-bottom:20px;
+}
+
+.survey-container .survey h2 span{
+
+    color:#757575;
+    font-size:15px;
+    font-weight: 200;
+}
+/*长方形框*/
+.survey .survey-data-container{
+    width:230px;
+    height:94px;
+    border-radius: 4px !important;
+    border:#DCDCDC 1px solid;
+    padding: 20px 0px 0px 100px;
+    box-sizing: border-box;
+    float: left;
+    margin-right:12px;
+    margin-bottom:10px;
+}
+/*背景图片*/
+.survey-data-container1{
+    background: url(../../img/house-red.png) no-repeat 20px center;
+}
+
+.survey-data-container2{
+    background: url(../../img/house-yellow.png) no-repeat 20px center;
+}
+.survey-data-container3{
+    background: url(../../img/house-green.png) no-repeat 20px center;
+}
+
+
+/*框中的数据*/
+.survey .survey-data-container p{
+    margin-bottom:5px;
+}
+.survey .survey-data-container .title{
+
+    font-size:14px;
+    color:rgba(149,149,149,1);
+}
+.survey .survey-data-container .data{
+    font-size:26px;
+    color:rgba(76,76,76,1);
+}
+
+/*右侧维修概况echart*/
+#maintain-echart{
+    height:150px;
+    min-width:530px;
+}
+
+.bottom-main-table h3{
+    color:#2B2B2B;
+    font-size:20px;
+    font-weight: 600;
+    margin-bottom:10px;
+
+}
