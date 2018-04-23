@@ -243,6 +243,30 @@ $(function(){
         $('#theLoading').modal('hide');
     })
 
+    //【打印】
+    $('#print').click(function(){
+
+        $(".print-table").print({
+            //Use Global styles
+            globalStyles : false,
+            //Add link with attrbute media=print
+            mediaPrint : true,
+            //Custom stylesheet
+            stylesheet : "http://fonts.googleapis.com/css?family=Inconsolata",
+            //Print in a hidden iframe
+            iframe : false,
+            //Don't print this
+            noPrintSelector : ".avoid-this",
+            //Add this at top
+            prepend : "Hello World!!!<br/>",
+            //Add this on bottom
+            append : "<br/>Buh Bye!",
+            //Log to console when printing is done via a deffered callback
+            deferred: $.Deferred().done(function() { console.log('Printing done', arguments); })
+        });
+
+    })
+
     //表格【查看】
     $('#browse-datatables').on('click','.option-see',function(){
 
@@ -595,17 +619,9 @@ $(function(){
 
                 $('#theLoading').modal('show');
             },
-
             complete: function () {
 
                 $('#theLoading').modal('hide');
-
-                if($('.modal-backdrop').length > 0){
-
-                    $('div').remove('.modal-backdrop');
-
-                    $('#theLoading').hide();
-                }
 
             },
             success:function(result){
@@ -614,7 +630,7 @@ $(function(){
 
                 for(var i=0;i<result.length;i++){
 
-                    var  valueStr = '<div class="print-block-cel"> <div class="table-title1">设备（设施）标识牌</div> <div class="table-img1"> <img src="../resource/img/jt-logo.png" alt=""> <span>江铁实业</span> </div> <div class="title-word1">' + result[i].ddName +
+                    var  valueStr = '<div class="print-block-cel suo"> <div class="table-title1">设备（设施）标识牌</div> <div class="table-img1"> <img src="../resource/img/jt-logo.png" alt=""> <span>江铁实业</span> </div> <div class="title-word1">' + result[i].ddName +
                         '</div> <div class="content-block"> <div class="row-list"> <div class="row-two-left">设备名称</div> <div class="row-two-right">' + result[i].dName +
                         '</div> </div> <div class="row-list"> <div class="row-two-left">使用位置</div> <div class="row-two-right">' + result[i].installAddress +
                         '</div> </div> <div class="three-block"> <div class="three-left"> <div class="row-list"> <div class="row-three-left">规格型号</div> <div class="row-three-right">' + result[i].spec +
