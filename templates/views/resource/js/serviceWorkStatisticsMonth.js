@@ -418,7 +418,6 @@ $(function(){
         })
 
     }
-
     //科室数据
     function getDepart(){
 
@@ -471,6 +470,5 @@ $(function(){
         })
 
     }
-
 
 });
