@@ -49,7 +49,7 @@
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="../new-resource/css/commonHead.css">
-    <link rel="stylesheet" href="../new-resource/css/baojingyujing/historicalAlarm.css">
+    <link rel="stylesheet" href="../new-resource/css/baojingyujing/realTimeAlarm.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style>
@@ -272,6 +272,43 @@
                     <div class="total-warp">
                         <div class="wrap container">
 
+                            <!--上方选项卡-->
+                            <div class="top-tab-control">
+
+                                <div class="top-tab-container top-tab-container-choose">
+                                     <p>设备报警</p>
+                                </div>
+
+                                <div class="top-tab-container top-tab-container1">
+                                    <p>运行报警</p>
+                                </div>
+
+                                <div class="top-tab-container top-tab-container2">
+                                    <p>能耗报警</p>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <!--页面左上角报警信息-->
+                            <div class="left-top-alarm">
+
+                                <span class="alarm-data-container">
+                                    严重报警
+                                    <font class="alarm-data alarm-data0">8</font>
+                                </span>
+
+                                 <span class="alarm-data-container">
+                                    普通报警
+                                    <font class="alarm-data alarm-data1">6</font>
+                                </span>
+
+                                 <span class="alarm-data-container">
+                                    一般报警
+                                    <font class="alarm-data alarm-data2">18</font>
+                                </span>
+                            </div>
+
                             <!--存放查询条件-->
                             <ul class="demand-condition-container condition-query ">
                                 <li>
@@ -289,27 +326,6 @@
                                 </li>
 
                                 <li>
-                                    <label for="">设备类型</label>
-                                    <select name="" id="alarm-device-type" class="select-station">
-
-                                    </select>
-                                </li>
-
-                                <li>
-                                    <label for="">报警名称</label>
-                                    <input name="" id="" class="alarm-incident" value=""/>
-                                </li>
-                                <li>
-                                    <label for="">开始时间</label>
-                                    <input name="" id="" class=" datatimeblock min" value=""/>
-                                </li>
-
-                                <li>
-                                    <label for="">结束时间</label>
-                                    <input name="" id="" class=" datatimeblock max" value=""/>
-                                </li>
-
-                                <li>
                                     <button class="demand-button btn btn-success">查询</button>
                                 </li>
 
@@ -317,57 +333,17 @@
                                 <div class="clearfix"></div>
                             </ul>
 
-                            <!--上方报警概况与维修概况-->
-                            <div class="survey-container">
-                                <!--左侧报警概况-->
-                                <div class="survey left-survey">
 
-                                    <!--标题-->
-                                    <h2>报警概况 <span>(累计)</span></h2>
-
-                                    <!--具体数据-->
-                                    <div class="survey-data-container survey-data-container1">
-
-                                        <p class="title">紧急报警</p>
-                                        <p class="data">0</p>
-                                    </div>
-
-                                    <div class="survey-data-container survey-data-container2">
-
-                                        <p class="title">严重报警</p>
-                                        <p class="data">0</p>
-                                    </div>
-
-                                    <div class="survey-data-container survey-data-container3">
-
-                                        <p class="title">普通报警</p>
-                                        <p class="data">0</p>
-                                    </div>
-                                </div>
-
-                                <!--右侧维修概况-->
-                                <div class="survey left-survey">
-
-                                    <!--标题-->
-                                    <h2>维修概况</h2>
-
-                                    <div class="surver survey-right">
-
-                                        <div id="maintain-echart">
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="clearfix"></div>
-                            </div>
 
                             <!--下方主体表格-->
                             <div class="bottom-main-table">
-                                <h3>报警列表</h3>
+                                <h3>报警列表
+                                    <span class="dispose0">已处理 <font>3</font></span>
+                                    <span class="dispose">未处理 <font>4</font></span>
+                                </h3>
                                 <table id="alarm-datatables" class="table" cellspacing="0" width="100%" style="">
                                     <thead style="text-align:center">
+
 
 
                                     </thead>
@@ -447,7 +423,7 @@
 </script>
 <script src="../resource/js/publicFun.js"></script>
 <script src="../new-resource/js/common.js"></script>
-<script src="../new-resource/js/baojingyujing/historicalAlarm.js"></script>
+<script src="../new-resource/js/baojingyujing/realTimeAlarm.js"></script>
 
 <!--报警处理框-->
 <div class='modal fade' id='myModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
@@ -467,7 +443,6 @@
         </div>
     </div>
 </div>
-
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">

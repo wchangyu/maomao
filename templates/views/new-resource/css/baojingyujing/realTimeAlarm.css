@@ -1,0 +1,101 @@
+/*上方选项卡*/
+.top-tab-container{
+    width: 184px;
+    height: 50px;
+    border-radius: 5px !important;
+    color:white;
+    padding-left:80px;
+    box-sizing: border-box;
+    padding-top:10px;
+    font-size:20px;
+    margin-bottom:35px;
+    background: url(../../../shouye/infoMap/img/shebui.png) no-repeat 15% center;
+    background-size:18%;
+    background-color: #bbbbb8;
+    margin-right:10px;
+    float: left;
+}
+
+.top-tab-container1{
+
+    background: url(../../../shouye/infoMap/img/houqin.png) no-repeat 15% center;
+    background-size:18%;
+    background-color: #bbbbb8;
+}
+
+.top-tab-container2{
+
+    background: url(../../../shouye/infoMap/img/nengyuan.png) no-repeat 15% center;
+    background-size:18%;
+    background-color: #bbbbb8;
+}
+
+.top-tab-container-choose{
+
+    background-color: #3ea2ab;
+}
+
+/*页面左上角报警*/
+.wrap{
+    position: relative;
+}
+.left-top-alarm{
+    position: absolute;
+    right:20px;
+    top:20px;
+}
+.left-top-alarm .alarm-data-container{
+    font-size:16px;
+    color:#959595;
+    display: inline-block;
+    vertical-align: middle;
+}
+.left-top-alarm .alarm-data-container .alarm-data{
+    font-size:28px;
+    color: #F8276C;
+    width:42px;
+    text-align: center;
+    margin-right:10px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.left-top-alarm .alarm-data-container .alarm-data1{
+    color: #EAD01E;
+}
+
+.left-top-alarm .alarm-data-container .alarm-data2{
+    color: #14E398;
+}
+
+.condition-query{
+    margin-bottom:25px;
+}
+
+/*页面下方已处理 未处理*/
+.bottom-main-table .dispose0{
+    width:64px;
+    height:22px;
+    border-radius: 4px !important;
+    font-size:12px;
+    color:#757575;
+    border:1px solid #757575;
+    display: inline-block;
+    margin-left:15px;
+    line-height:20px;
+    text-align: center;
+}
+.bottom-main-table .dispose{
+    width:64px;
+    height:22px;
+    border-radius: 4px !important;
+    font-size:12px;
+    color:#F8276C;
+    border:1px solid #F8276C;
+    display: inline-block;
+    margin-left:15px;
+    line-height:20px;
+    text-align: center;
+}
+
+

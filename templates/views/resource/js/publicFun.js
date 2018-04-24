@@ -1046,8 +1046,6 @@ function _mainAjaxFun(type,url,prm,successFun){
 
 }
 
-=======
-
 //----------------------------------获取配置的能耗数据中信息---------------------------------//
 //根据能耗分项ID获取能耗名称
 function _getEcName(etid){
@@ -1078,5 +1076,4 @@ function _getEcUnit(etid){
         }
     }
 };
->>>>>>> remotes/origin/master
 

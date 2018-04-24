@@ -13,6 +13,9 @@ $(function(){
     //获取全部车站
     getAlarmStation();
 
+    //获取报警设备类型
+    getAlarmDeviceType();
+
     var _ajaxEndTime = moment().format("YYYY/MM/DD");
 
     var _ajaxStartTime = moment().subtract(1,'d').format("YYYY/MM/DD");
@@ -29,14 +32,15 @@ $(function(){
     });
 
     $('#alarm-datatables tbody').on('click', 'td .details-control', function () {
-        var $this = $(this);
-        var cnames = $this.parents('tr').children('.cname').html();
-        var pointerIDs = $this.parents('tr').children('.pointerID').html();
-        var historyArr = [];
+
+        //获取报警日志id
+        var alaLogID = $(this).attr('data-alaLogID');
+
+
 
         for(var i=0;i<totalArr.length;i++){
-            if(totalArr[i].cName == cnames && totalArr[i].pointerID == pointerIDs){
-                historyArr.push(totalArr[i])
+            if(totalArr[i].alaLogID ==alaLogID){
+                historyArr = totalArr[i].childDevAlarmNumPopupReturns;
             }
         }
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
@@ -52,6 +56,9 @@ $(function(){
         }
     } );
 });
+
+//存放所有报警数据
+var totalArr = [];
 
 /*--------------------------表格-------------------------*/
 
@@ -115,38 +122,38 @@ table = $('#alarm-datatables').DataTable({
         {
             "title": "报警级别",
             "class":"",
-            "data":"cName"
+            "data":"priorityName"
         },
         {
-            "title": "报警事件",
-            "data":"pointerName"
-        },
-        {
-            "title": "系统类型",
-            "data":"cDtnName"
+            "title": "报警名称",
+            "data":"alarmName"
         },
         {
             "title": "设备类型",
-            "data":"cDtnName"
+            "data":"devType"
         },
         {
             "title": "设备",
-            "data":"expression"
+            "data":"devName"
         },
         {
             "title": "区域",
-            "data":"data"
+            "data":"areaName"
         },
         {
             "title": "位置",
-            "data":"expression"
+            "data":"devLocal"
         },
         {
             "title": "查看",
             "class":'L-button',
             "targets": -1,
-            "data": null,
-            "defaultContent": "<button class='btn details-control' data-alaLogID=''>显示/隐藏历史</button>"
+            "data": 'alaLogID',
+            "render":function(data,type,row,meta){
+
+                return  "<button class='btn details-control' data-alaLogID="+alaLogID+" >显示/隐藏历史</button>"
+            }
+            //"defaultContent": "<button class='btn details-control' data-alaLogID=''>显示/隐藏历史</button>"
         }
     ]
 });
@@ -175,8 +182,8 @@ var _maintainoption = {
             radius : '85%',
             center: ['50%', '50%'],
             data:[
-                {value:335, name:'已维修'},
-                {value:310, name:'未维修'}
+                {value:0, name:'已维修'},
+                {value:0, name:'未维修'}
             ],
             itemStyle: {
                 normal : {
@@ -221,7 +228,7 @@ function getAlarmLevel(){
     });
 
     $('#alarm-level').html(levelHtml);
-}
+};
 
 //获取全部车站
 function getAlarmStation(){
@@ -237,25 +244,29 @@ function getAlarmStation(){
     });
 
     $('#alarm-station').html(levelHtml);
-}
+
+};
 
 //获取报警设备类型
 function getAlarmDeviceType(){
 
     $.ajax({
-        type:'post',
-        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
+        type:'get',
+        url:sessionStorage.apiUrlPrefix + 'NJNDeviceShow/GetFirstDevTypes',
         success:function(result){
 
-            var html = "<option value='-1'>全部</option>";
+            var html = "<option value='0'>全部</option>";
 
             //把设备类型放入页面中
             $(result).each(function(i,o){
 
-                html += "<option value='"+ o.innerID+"'>"+ o.cDtnName+"</option>"
+                html += "<option value='"+ o.pK_DevType+"'>"+ o.devTypeName+"</option>"
             });
 
-            $('.alarm-select').html(html);
+            $('#alarm-device-type').html(html);
+
+            //获取报警数据
+            alarmHistory();
         },
         error:function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR.responseText);
@@ -267,35 +278,100 @@ function getAlarmDeviceType(){
 //获取报警数据
 function alarmHistory(){
 
+    //获取开始结束时间
+    var startTime = $('.min').val();
+
+    var endTime = moment($('.max').val()).add('1','days').format('YYYY/MM/DD');
+
+    //获取车站
+    var pointerID = $('#alarm-station').val();
+
+    //获取报警级别
+    var priorityID = $('#alarm-level').val();
+
+    //获取报警设备类型
+    var devType = $('#alarm-device-type').val();
+
+    //获取报警名称
+    var alarmName = $('.alarm-incident').val();
+
     //定义传递给后台的数据
     var ecParams = {
-
+        "startTime": startTime,
+        "endTime": endTime,
+        "alarmName": alarmName,
+        "pointerIDs": pointerID,
+        "priorityID": priorityID,
+        "devType": devType,
+        "alarmType": -1,
+        "isBaoDan": -1
 
     };
 
     $.ajax({
         type:'post',
-        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetDevAlarmHistoryData',
+        data:ecParams,
+        beforeSend:function(){
+
+            _maintainEchart.showLoading();
+
+        },
         success:function(result){
 
-            //绘制报警概况的数据
-            var html = "";
+            console.log(result);
 
-            //把设备类型放入页面中
-            $(result).each(function(i,o){
+            _maintainEchart.hideLoading();
 
-                html += "<option value='"+ o.innerID+"'>"+ o.cDtnName+"</option>"
-            });
+            if(result == null || result.length == 0){
 
-            $('.alarm-incident').html(html);
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求无数据', '');
+
+                return false;
+            }
+
+            //获取普通报警
+            $('.survey-data-container1 .data').html(result.u3dAlarmNums[0].alarmNum);
+
+            //获取严重报警
+            $('.survey-data-container2 .data').html(result.u3dAlarmNums[1].alarmNum);
+
+            //获取紧急报警
+            $('.survey-data-container3 .data').html(result.u3dAlarmNums[2].alarmNum + result.u3dAlarmNums[3].alarmNum);
 
             //绘制维修概况的数据
+            //获取已维修数据
+            var endRepairNum = result.u3dAlarmGondDanNum.endRepairNum;
+
+            //获取未维修数据
+            var noRepairNum = result.u3dAlarmGondDanNum.noRepairNum;
+
+            var dataArr = [
+                {value:endRepairNum, name:'已维修'},
+                {value:noRepairNum, name:'未维修'}
+            ];
+
+            _maintainoption.series[0].data = dataArr;
+
+            _maintainEchart.setOption( _maintainoption,true);
 
             //绘制下方报警列表
-            _datasTable($('#alarm-datatables'),result);
+            totalArr.length = 0;
+            totalArr = result.devAlarmNumDatas;
+            _datasTable($('#alarm-datatables'),result.devAlarmNumDatas);
         },
         error:function(jqXHR, textStatus, errorThrown){
+            _maintainEchart.hideLoading();
             console.log(jqXHR.responseText);
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+            }else{
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+            }
         }
     });
 };
@@ -304,28 +380,32 @@ function alarmHistory(){
 function format ( d ) {
 
     var theader = '<table class="table">' +
-        '<thead><tr><td>日期</td><td>时间</td><td>报警级别</td><td>报警事件</td><td>系统类型</td><td>设备类型</td><td>设备</td><td>区域</td><td>位置</td></tr></thead>';
+        '<thead><tr><td>日期</td><td>时间</td><td>报警级别</td><td>报警名称</td><td>设备类型</td><td>设备</td><td>区域</td><td>位置</td></tr></thead>';
     var theaders = '</table>';
-    var tbodyer = '<tbody>'
+    var tbodyer = '<tbody>';
     var tbodyers = '</tbody>';
-    var str = '<tr><td>' + d[1].dataDate.split('T')[0] + ' ' + d[1].dataDate.split('T')[1] +
-        '</td><td>' + d[1].cName +
-        '</td><td>' + d[1].pointerName +
-        '</td><td>' + d[1].cDtnName +
-        '</td><td>' + d[1].expression +
-        '</td><td>' + d[1].data.toFixed(2) +
-        '</td><td>' + d[1].priority +
+    var str = '<tr>' +
+        '<td>' + d[1].dataDate.split('T')[0] +
+        '</td><td>' + d[1].dataDate.split('T')[1] +
+        '</td><td>' + d[1].priorityName +
+        '</td><td>' + d[1].alarmName +
+        '</td><td>' + d[1].devType +
+        '</td><td>' + d[1].devName  +
+        '</td><td>' + d[1].areaName +
+        '</td><td>' + d[1].devLocal +
         '</td></tr>';
     for(var i=2;i< d.length;i++){
-        var atime = d[i].dataDate.split('T')[0] + ' ' + d[i].dataDate.split('T')[1];
-        str += '<tr><td>' + atime +
-            '</td><td>' + d[i].cName +
-            '</td><td>' + d[i].pointerName +
-            '</td><td>' + d[i].cDtnName +
-            '</td><td>' + d[i].expression +
-            '</td><td>' + d[i].data.toFixed(2) +
-            '</td><td>' + d[i].priority +
-            '</td></tr>'
+
+        str += '<tr>' +
+            '<td>' + d[i].dataDate.split('T')[0] +
+            '</td><td>' + d[i].dataDate.split('T')[1] +
+            '</td><td>' + d[i].priorityName +
+            '</td><td>' + d[i].alarmName +
+            '</td><td>' + d[i].devType +
+            '</td><td>' + d[i].devName  +
+            '</td><td>' + d[i].areaName +
+            '</td><td>' + d[i].devLocal +
+            '</td></tr>';
     }
     return theader + tbodyer + str + tbodyers + theaders;
 };

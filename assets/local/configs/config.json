@@ -165,8 +165,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://huaqin.vicp.io:25708/BEEWebAPIysapi/",
-  "apiUriPrefixYW":"http://huaqin.vicp.io:25708/BEEWebAPIysapi/",
+  "apiUriPrefix":"http://192.168.1.110/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://192.168.1.110/BEEWebAPI/api/",
   "apiUriPrefix2":"huaqin.vicp.io:25708/BEEWebAPIys/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
