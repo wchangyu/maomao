@@ -229,32 +229,32 @@ var optionBar = {
             name:'累计值',
             type:'bar',
             data:[],
-            markPoint : {
-                data : [
-                    {type : 'max', name: '最大值'},
-                    {type : 'min', name: '最小值'}
-                ],
-                itemStyle : {
-                    normal:{
-                        color:'#019cdf'
-                    }
-                },
-                label:{
-                    normal:{
-                        textStyle:{
-                            color:'#d02268'
-                        }
-                    }
-                }
-            },
-            markLine : {
-                data : [
-                    {type : 'average', name: '平均值'}
-
-
-                ]
-
-            },
+            //markPoint : {
+            //    data : [
+            //        {type : 'max', name: '最大值'},
+            //        {type : 'min', name: '最小值'}
+            //    ],
+            //    itemStyle : {
+            //        normal:{
+            //            color:'#019cdf'
+            //        }
+            //    },
+            //    label:{
+            //        normal:{
+            //            textStyle:{
+            //                color:'#d02268'
+            //            }
+            //        }
+            //    }
+            //},
+            //markLine : {
+            //    data : [
+            //        {type : 'average', name: '平均值'}
+            //
+            //
+            //    ]
+            //
+            //},
             barMaxWidth: '60'
         }
 
@@ -367,31 +367,31 @@ var optionLine = {
 var echartObj =  {name:'累计值',
     type:'line',
     smooth:true,
-    markPoint : {
-        data : [
-            {type : 'max', name: '最大值'},
-            {type : 'min', name: '最小值'}
-        ],
-        itemStyle : {
-            normal:{
-                color:'#019cdf'
-            }
-        },
-        label:{
-            normal:{
-                textStyle:{
-                    color:'#d02268'
-                }
-            }
-        }
-    },
-    markLine : {
-        data : [
-            {type : 'average', name: '平均值'}
-
-
-        ]
-    },
+    //markPoint : {
+    //    data : [
+    //        {type : 'max', name: '最大值'},
+    //        {type : 'min', name: '最小值'}
+    //    ],
+    //    itemStyle : {
+    //        normal:{
+    //            color:'#019cdf'
+    //        }
+    //    },
+    //    label:{
+    //        normal:{
+    //            textStyle:{
+    //                color:'#d02268'
+    //            }
+    //        }
+    //    }
+    //},
+    //markLine : {
+    //    data : [
+    //        {type : 'average', name: '平均值'}
+    //
+    //
+    //    ]
+    //},
     data:[]
 };
 
@@ -436,11 +436,11 @@ function getPointerData(url,flag){
         var pts = _pointerZtree.getSelectedPointers();
 
         //比较对象不能超过三个
-        if(pts.length > 3){
-            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
-
-            return false;
-        }
+        //if(pts.length > 3){
+        //    _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
+        //
+        //    return false;
+        //}
 
         $(pts).each(function(i,o){
 
@@ -457,11 +457,11 @@ function getPointerData(url,flag){
 
         console.log(ofs);
         //比较对象不能超过三个
-        if(ofs.length > 3){
-            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
-
-            return false;
-        }
+        //if(ofs.length > 3){
+        //    _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
+        //
+        //    return false;
+        //}
 
         $( ofs).each(function(i,o){
 
@@ -475,12 +475,12 @@ function getPointerData(url,flag){
         //确定支路id
         var nodes = branchTreeObj.getCheckedNodes(true);
 
-        //比较对象不能超过三个
-        if(nodes.length > 3){
-            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
-
-            return false;
-        }
+        ////比较对象不能超过三个
+        //if(nodes.length > 3){
+        //    _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
+        //
+        //    return false;
+        //}
         $( nodes).each(function(i,o){
 
             serviceID.push(o.id);
@@ -632,11 +632,11 @@ function getPointerData(url,flag){
             //获取第一项的累计值
             var total = result[0].sumMetaData;
             //获取第一项的峰值
-            var max = result[0].sumMetaData;
+            var max = result[0].maxMetaData;
             //获取第一项的谷值
-            var min = result[0].sumMetaData;
+            var min = result[0].minMetaData;
             //获取第一项的平均值
-            var avg = result[0].sumMetaData;
+            var avg = result[0].avgMetaData;
 
             $(result).each(function(i,o){
 
@@ -653,25 +653,26 @@ function getPointerData(url,flag){
 
                 if(i != 0){
                     //计算累计值百分比
-                    var totalPercent = (((o.sumMetaData - total) / total * 100).toFixed(1)) + '%';
+                    var totalPercent = (((o.sumMetaData -total) / total * 100).toFixed(1)) + '%';
 
                     if( total == 0){
                         totalPercent = 0 + '%';
                     }
                     //计算峰值百分比
-                    var maxPercent = ((o.maxMetaData - max) / total * 100).toFixed(1) + '%';
+                    var maxPercent = ((o.maxMetaData -max) / max * 100).toFixed(1) + '%';
 
                     if( max == 0){
                         maxPercent = 0 + '%';
                     }
                     //计算谷值百分比
-                    var minPercent = ((o.minMetaData - min) / total * 100).toFixed(1) + '%';
+                    var minPercent = ((o.minMetaData -min) / min * 100).toFixed(1) + '%';
 
                     if( min == 0){
                         minPercent = 0 + '%';
                     }
+
                     //计算平均值百分比
-                    var avgPercent = ((o.avgMetaData - avg) / total * 100).toFixed(1) + '%';
+                    var avgPercent = ((o.avgMetaData -avg) / avg * 100).toFixed(1) + '%';
 
                     if( avg == 0){
                         avgPercent = 0 + '%';

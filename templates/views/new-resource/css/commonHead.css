@@ -1,0 +1,92 @@
+h2,h3{
+    margin:0;padding:0
+}
+.container{
+    min-height: 500px;
+    border:1px solid #E2E9F2;
+    border-radius: 10px !important;
+    margin-top:15px;
+    padding:10px !important;
+    box-sizing: border-box;
+}
+.condition-query li {
+    line-height: 26px !important;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    height: 32px;
+}
+
+.condition-query li {
+    float: left;
+    margin-right: 20px;
+    line-height: 34px;
+}
+
+label {
+    font-weight: 400;
+    font-size: 14px;
+    margin-right:5px;
+}
+
+.condition-query li select,.condition-query li input {
+    height: 30px;
+    width: 150px;
+}
+
+
+.btn-success {
+    background: #2170F4 !important;
+}
+
+.btn-success:hover{
+    background: #2170F4 !important;
+}
+
+.save-excel {
+    width: 22px;
+    height: 22px;
+    float: right;
+    border: 1px solid #6E7FA0;
+    margin-right: 20px;
+    text-align: center;
+    cursor: pointer;
+    color: #6E7FA0;
+}
+
+/*时间选择框样式*/
+.datatimeblock{
+    cursor: pointer;
+    outline: none;
+}
+
+.datatimeblock {
+    background: url(../img/clendar.png) no-repeat #ffffff !important;
+    background-size: 23px !important;
+    background-position: 98% center !important;
+    cursor: pointer !important;
+}
+
+/*table样式*/
+table.table{
+    text-align:center;
+    border: 1px solid #DCDCDC;
+    border-collapse: collapse !important;
+}
+table.table td,table.table th{
+    border:1px solid #DCDCDC !important;
+}
+table.table th{
+    background: #E2E9F2;
+}
+
+.dataTables_length{
+    display: none;
+}
+
+.bottom-main-table h3{
+    color:#2B2B2B;
+    font-size:20px;
+    font-weight: 600;
+    margin-bottom:10px;
+
+}

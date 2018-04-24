@@ -166,6 +166,52 @@ $(function(){
 
     });
 
+    //-----------------------------消防运行信息弹窗-----------------------------//
+
+    //点击报警信息弹出报警弹窗 并展示数据
+    $(".bottom-equipment-chart-show1").on('click',function(){
+
+        //select框默认选中第一个
+        $('#run-fire-message .alarm-select option:first').prop("selected", 'selected');
+
+        //显示悬浮窗
+        $('#run-fire-message').modal('show');
+
+        //获取当前系统名称
+        var title = $(this).parents(".right-bottom-equipment-container").find(".equipment-title a").html();
+
+        //放入到弹窗标题中
+        $('#run-fire-message .systematic-name').html(title);
+
+
+        var condition =   {
+            "pointerID":curPointerIDArr[0],
+            "alarmName": '',
+            "fireTTypes": 20
+        };
+
+        //获取报警数据
+        GetFireDetailsForNjDatas(condition,true);
+
+    });
+
+    //报警信息弹窗中的查询功能
+    $('#run-fire-message .demand-button').on('click',function(){
+
+        //获取报警内容
+        var alarmContent = $('#run-fire-message .alarm-content').val();
+
+        var condition =   {
+            "pointerID":curPointerIDArr[0],
+            "alarmName": alarmContent,
+            "fireTTypes": 20
+        };
+
+        //获取报警数据
+        GetFireDetailsForNjDatas(condition,true);
+
+    });
+
     //-----------------------------能源管理报警信息弹窗-----------------------------//
 
     //点击报警信息弹出报警弹窗 并展示数据
@@ -919,7 +965,6 @@ var _electricityoption = {
 //
 //_electricityEcharts1.setOption(_electricityoption,true);
 
-
 //组合空调echart
 var _conditionerEcharts = echarts.init(document.getElementById('equipment-chart-conditioner'));
 
@@ -1059,7 +1104,6 @@ var _conditioneroption = {
 //
 //_conditionerEcharts1.setOption(_electricityoption,true);
 
-
 //电梯系统echart
 var _elevatorEcharts = echarts.init(document.getElementById('equipment-chart-elevator'));
 
@@ -1079,7 +1123,6 @@ var _rotatingEcharts1 = echarts.init(document.getElementById('equipment-chart-ro
 //_rotatingEcharts.setOption(_conditioneroption,true);
 //
 //_rotatingEcharts1.setOption(_electricityoption,true);
-
 
 //站房照明echart
 var _stationEcharts = echarts.init(document.getElementById('equipment-chart-station'));
@@ -3907,7 +3950,7 @@ function getGDRespondInfo1(){
 };
 
 //获取消防系统的报警点弹窗信息
-function GetFireDetailsForNjDatas(condition){
+function GetFireDetailsForNjDatas(condition,flag){
 
     //传递给后台的参数
     var  ecParams = {
@@ -3919,6 +3962,16 @@ function GetFireDetailsForNjDatas(condition){
         ecParams = condition;
     }
 
+    var tableName = '#fire-dateTables';
+
+    var containerName = '#alarm-fire-message';
+
+    if(flag){
+
+        tableName = '#run-dateTables';
+
+        containerName = '#run-fire-message';
+    }
 
     $.ajax({
 
@@ -3931,10 +3984,10 @@ function GetFireDetailsForNjDatas(condition){
         beforeSend:function(){
 
             //页面赋值
-            $('#fire-dateTables tbody').html("");
+            $('' + tableName+ 'tbody').html("");
 
             setTimeout(function(){
-                $('#alarm-fire-message .bottom-table-data-container #fire-dateTables').showLoading();
+                $('' + containerName + ' .bottom-table-data-container ' + tableName+ '').showLoading();
             },500);
 
         },
@@ -3942,7 +3995,7 @@ function GetFireDetailsForNjDatas(condition){
 
             setTimeout(function(){
 
-                $('#alarm-fire-message .bottom-table-data-container #fire-dateTables').hideLoading();
+                $('' + containerName + ' .bottom-table-data-container ' + tableName+ '').hideLoading();
             },500);
 
             //给页面赋值
@@ -3969,14 +4022,13 @@ function GetFireDetailsForNjDatas(condition){
             });
 
             //页面赋值
-            $('#fire-dateTables tbody').html(tableHtml);
-
+            $('' + tableName+ ' tbody').html(tableHtml);
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
 
             setTimeout(function(){
-                $('#alarm-fire-message .bottom-table-data-container #dateTables-alarm').hideLoading();
+                $('' + containerName + ' .bottom-table-data-container' +tableName+ '').hideLoading();
             },500);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
@@ -4123,7 +4175,7 @@ function getAlarmFireType(num){
     }else if(num == 30){
         return '屏蔽'
     }
-}
+};
 
 
 

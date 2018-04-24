@@ -1,10 +1,18 @@
 $(function(){
 
+    //当前楼宇ID
+    var curPointerIDArr = ['3101800201'];
+
     /*-----------------------------------------echarts----------------------------------------*/
 
     var ringChartL = echarts.init(document.getElementById('responseGD'));
 
     var ringChartR = echarts.init(document.getElementById('distributionGD'));
+
+    //定义开始结束时间
+    var startDate = moment().format('YYYY-MM-DD');
+
+    var endDate = moment().add('1','days').format('YYYY-MM-DD');
 
     //右侧运维联动
     var optionRing = {
@@ -34,15 +42,14 @@ $(function(){
                                 height: 0
                             },
                             b: {
-                                fontSize: 14,
-                                lineHeight: 33,
-                                color: '#ffffff',
+                                fontSize: 10,
+                                lineHeight: 20,
+                                color: '#ffffff'
                             },
                             c:{
-                                fontSize: 18,
-                                color: '#ffffff',
+                                fontSize: 10,
+                                color: '#ffffff'
                             }
-
                         }
                     }
                 },
@@ -98,12 +105,12 @@ $(function(){
                                 height: 0
                             },
                             b: {
-                                fontSize: 14,
-                                lineHeight: 33,
+                                fontSize: 10,
+                                lineHeight: 20,
                                 color: '#ffffff',
                             },
                             c:{
-                                fontSize: 18,
+                                fontSize: 10,
                                 color: '#ffffff',
                             }
 
@@ -120,7 +127,7 @@ $(function(){
                         color: function(params) {
 
                             var colorList = [
-                                '#14e398','#ead01e','#f8276c'
+                                '#0d9dcb', '#0cd34c','#cfcf14', '#d36e12', '#dc2612','#b70723', '#7c05cb', '#1c39d9','#f8276c'
                             ];
                             return colorList[params.dataIndex]
                         }
@@ -539,6 +546,430 @@ $(function(){
 
     })
 
+    getDeployByUser();
 
+    //获取运维工单中的工单响应数据
+    function getGDRespondInfo(){
+
+        //传递给后台的参数
+        var  ecParams = {
+            "gdSt": startDate,
+            "gdEt": endDate,
+            "gdSrc": 0, //dSrc=10为江苏运联工单
+            "userID": _userIdNum,
+            "userName": _userIdName,
+            "b_UserRole": _userRole,
+            "b_DepartNum": _userBM
+        };
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWGD/ywGDGetGDRespondInfo',
+
+            data:ecParams,
+            timeout:_theTimes,
+            beforeSend:function(){
+
+               ringChartL.showLoading({
+                    maskColor: 'rgba(33,43,55,0.8)'
+                });
+            },
+            success:function(result){
+
+               ringChartL.hideLoading();
+
+                if(!result.gdStat){
+
+                    //给echart重新赋值
+
+                    optionRing.series[0].data = [];
+
+                    //重绘chart图
+                   ringChartL.setOption(optionRing);
+
+                    $('.total-order').html(0);
+
+                    return false;
+
+                }
+
+                //工单响应数据
+                //进行中
+                var runningNum = result.gdStat.gdInProgress;
+
+                //派单中
+                var dispatchNum = result.gdStat.gdAssign;
+
+                //已完成
+                var completeNum = result.gdStat.gdFinished;
+
+                //总数
+                var totalNum = runningNum + dispatchNum + completeNum;
+
+                var dataArr = [
+                    {
+                        name:'已完成',
+                        value:completeNum,
+                        label:{padding:[10,0,0,-20]}
+                    },
+                    {
+                        name:'派单中',
+                        value:dispatchNum,
+                        label:{padding:[0,0,0,-20]}
+                    },
+                    {
+                        name:'进行中',
+                        value:runningNum,
+                        label:{padding:[0,-10,0,-10]}
+                    }
+                ];
+
+                ringChartL.setOption(optionRing);
+
+                //给echart重新赋值
+
+                optionRing.series[0].data = dataArr;
+
+                $('.total-order').html(totalNum);
+
+                //重绘chart图
+                ringChartL.setOption(optionRing,true);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+               ringChartL.hideLoading();
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+                }
+
+            }
+
+        })
+    };
+
+    //获取运维工单中的工单分布
+    function getGDRespondInfo1(){
+
+        //传递给后台的参数
+        var  ecParams = {
+            "gdSt": startDate,
+            "gdEt": endDate,
+            "gdSrc": 0, //dSrc=10为江苏运联工单
+            "userID": _userIdNum,
+            "userName": _userIdName,
+            "b_UserRole": _userRole,
+            "b_DepartNum": _userBM
+        };
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWGD/ywGDGetGDRespondInfo',
+
+            data:ecParams,
+            timeout:_theTimes,
+            beforeSend:function(){
+
+                ringChartR.showLoading({
+                    maskColor: 'rgba(33,43,55,0.8)'
+                });
+
+            },
+            success:function(result){
+
+                ringChartR.hideLoading();
+
+                //console.log(result);
+
+                if(!result.gdDevInfos || result.gdDevInfos.length == 0){
+
+                    //给echart重新赋值
+                    $('.total-order1').html(0);
+
+                    optionRing1.series[0].data = [];
+
+                    //重绘chart图
+                    ringChartR.setOption(optionRing1);
+
+                    return false;
+                }
+
+                var dataArr = [];
+
+                var totalNum = 0;
+
+                $(result.gdDevInfos).each(function(i,o){
+
+                    var obj = {
+
+                        name: o.dsName,
+                        value: o.gdCnt
+
+                    };
+
+                    totalNum += o.gdCnt;
+
+                    dataArr.push(obj);
+
+                });
+
+                //给echart重新赋值
+                $('.total-order1').html(totalNum);
+
+                optionRing1.series[0].data = dataArr;
+
+                //重绘chart图
+                ringChartR.setOption(optionRing1);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                ringChartR.hideLoading();
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+                }
+
+            }
+
+        })
+    };
+
+    //从后台获取用户配置的数据
+    function getDeployByUser(){
+
+        //curPointerIDArr= ['5190180101'];
+
+        $.ajax({
+
+            type:'get',
+
+            url:_urls + 'NJNDeviceShow/GetNJNConfigToFile',
+
+            data:{
+
+                pointerID:curPointerIDArr[0]
+            },
+            timeout:_theTimes,
+            beforeSend:function(){
+
+
+            },
+            success:function(result){
+
+                var result1 = JSON.parse(result);
+
+                //console.log(result1);
+
+                //首先判断整体控制开关是否开启
+                var mainSwitch = result1.switch;
+
+                //获取本地配置
+                var bigScreenSet = sessionStorage.getItem('bigScreenSet');
+
+                //整体控制开关关闭
+                if(mainSwitch == 0 || bigScreenSet == 0){
+
+                    //获取工单数据
+                    getGDRespondInfo();
+
+                    getGDRespondInfo1();
+
+                }else{
+
+                    //-----------------安全运行天数数据------------------//
+
+                    //判断是否启用
+                    if(result1.safeRunningDays.switch == 1){
+
+                        //页面赋值
+                        $('.safe-days').html(result1.safeRunningDays.dayNum);
+
+                    }
+
+                    //-----------------节能减排数据------------------//
+                    //判断是否启用
+                    if(result1.energyConservation.switch == 1){
+
+                        //页面赋值
+
+                        //电
+                        $('.right-bottom-centent-data0 .bottom-data font').html(result1.energyConservation.electricSave);
+
+                        //水
+                        $('.right-bottom-centent-data1 .bottom-data font').html(result1.energyConservation.waterSave);
+
+                        //汽
+                        $('.right-bottom-centent-data2 .bottom-data font').html(result1.energyConservation.steamSave);
+
+                        //减排
+                        $('.right-bottom-centent-data3 .bottom-data font').html(result1.energyConservation.emissionReduction);
+
+                    }
+
+                    //-----------------工单响应数据------------------//
+
+                    //判断是否启用
+                    if(result1.perationMaintenance.switch == 1){
+
+                        //进行中
+                        var runningNum = result1.perationMaintenance.responseGD.running;
+
+                        //派单中
+                        var dispatchNum = result1.perationMaintenance.responseGD.dispatch;
+
+                        //已完成
+                        var completeNum = result1.perationMaintenance.responseGD.complete;
+
+                        //总数
+                        var totalNum = runningNum + dispatchNum + completeNum;
+
+                        var dataArr = [
+                            {
+                                name:'已完成',
+                                value:completeNum
+                            },
+                            {
+                                name:'派单中',
+                                value:dispatchNum
+                            },
+                            {
+                                name:'进行中',
+                                value:runningNum
+                            }
+                        ];
+
+                        //给echart重新赋值
+                        ringChartL.setOption(optionRing);
+
+                        //给echart重新赋值
+
+                        optionRing.series[0].data = dataArr;
+
+                        $('.total-order').html(totalNum);
+
+                        //重绘chart图
+                        ringChartL.setOption(optionRing,true);
+
+                    }else{
+
+                        //从后台获取数据
+                        getGDRespondInfo();
+
+                        //从后台获取数据
+                        getGDRespondInfo1();
+                    }
+
+                    //-----------------工单分布数据------------------//
+
+                    //判断是否启用
+                    if(result1.perationMaintenance.switch == 1){
+
+                        //暖通系统
+                        var hvacAirsOBJNum = result1.perationMaintenance.distributionGD.hvacAirsOBJ;
+
+                        //照明系统
+                        var lightSysOBJNum = result1.perationMaintenance.distributionGD.lightSysOBJ;
+
+                        //电梯系统
+                        var elevatorSysOBJ = result1.perationMaintenance.distributionGD.elevatorSysOBJ;
+
+                        //动环系统
+                        var rotaryFaceSysOBJNum = result1.perationMaintenance.distributionGD.rotaryFaceSysOBJ;
+
+                        //给排水
+                        var sendDrainWaterOBJNum = result1.perationMaintenance.distributionGD.sendDrainWaterOBJ;
+
+                        //消防系统
+                        var fireControlSysOBJ = result1.perationMaintenance.distributionGD.fireControlSysOBJ;
+
+                        //自动售检票
+                        var sellCheckTicketOBJNum = result1.perationMaintenance.distributionGD.sellCheckTicketOBJ;
+
+                        //能源管理
+                        var energyManagerOBJOBJ = result1.perationMaintenance.distributionGD.energyManagerOBJ;
+
+                        //总数
+                        var totalNum = hvacAirsOBJNum + lightSysOBJNum + elevatorSysOBJ + rotaryFaceSysOBJNum + sendDrainWaterOBJNum + fireControlSysOBJ + sellCheckTicketOBJNum +energyManagerOBJOBJ;
+
+                        var dataArr = [
+                            {
+                                name:'暖通系统',
+                                value:hvacAirsOBJNum
+                            },
+                            {
+                                name:'照明系统',
+                                value:lightSysOBJNum
+                            },
+                            {
+                                name:'电梯系统',
+                                value:elevatorSysOBJ
+                            },
+                            {
+                                name:'动环系统',
+                                value:rotaryFaceSysOBJNum
+                            },
+                            {
+                                name:'给排水',
+                                value:sendDrainWaterOBJNum
+                            },
+                            {
+                                name:'消防系统',
+                                value:fireControlSysOBJ
+                            },
+                            {
+                                name:'自动售检票',
+                                value:sellCheckTicketOBJNum
+                            },
+                            {
+                                name:'能源管理',
+                                value:energyManagerOBJOBJ
+                            }
+                        ];
+
+                        //给echart重新赋值
+                        $('.total-order1').html(totalNum);
+
+                        optionRing1.series[0].data = dataArr;
+
+                        //重绘chart图
+                        ringChartR.setOption(optionRing1);
+                    }
+
+                };
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                $('#theLoading').modal('hide');
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+                }
+
+            }
+
+        })
+    };
 
 });

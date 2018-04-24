@@ -211,8 +211,8 @@
                             <!--数据-->
                             <div class="bottom-content-data" >
 
-                                <span class="">600kw</span><br>
-                                <span class="">171kw</span>
+                                <span class=""></span><br>
+                                <span class=""></span>
                             </div>
 
 
@@ -278,9 +278,9 @@
                             <!--数据-->
                             <div class="bottom-content-data">
 
-                                <span class="">148</span><br>
-                                <span class="">60</span><br>
-                                <span class="">20</span>
+                                <span class=""></span><br>
+                                <span class=""></span><br>
+                                <span class=""></span>
                             </div>
 
 
@@ -339,9 +339,9 @@
                             <!--数据-->
                             <div class="bottom-content-data">
 
-                                <span class="">148</span><br>
-                                <span class="">60</span><br>
-                                <span class="">20</span>
+                                <span class=""></span><br>
+                                <span class=""></span><br>
+                                <span class=""></span>
                             </div>
 
 
@@ -402,9 +402,9 @@
                             <!--数据-->
                             <div class="bottom-content-data">
 
-                                <span class="">148</span><br>
-                                <span class="">60</span><br>
-                                <span class="">20</span>
+                                <span class=""></span><br>
+                                <span class=""></span><br>
+                                <span class=""></span>
                             </div>
 
 
@@ -465,9 +465,9 @@
                             <!--数据-->
                             <div class="bottom-content-data">
 
-                                <span class="">600</span><br>
-                                <span class="">171</span><br>
-                                <span class="">171</span>
+                                <span class=""></span><br>
+                                <span class=""></span><br>
+                                <span class=""></span>
                             </div>
 
 
@@ -525,7 +525,7 @@
 
 
                             <!--echart容器-->
-                            <div class="bottom-equipment-chart bottom-equipment-chart-show" id="equipment-chart-platform">
+                            <div class="bottom-equipment-chart bottom-equipment-chart-show1" id="equipment-chart-platform">
 
                             </div>
 
@@ -577,9 +577,9 @@
                             <!--数据-->
                             <div class="bottom-content-data">
 
-                                <span class="">600</span><br />
-                                <span class="">171</span><br />
-                                <span class="">131</span>
+                                <span class=""></span><br />
+                                <span class=""></span><br />
+                                <span class=""></span>
                             </div>
 
 
@@ -630,8 +630,8 @@
                             <!--数据-->
                             <div class="bottom-content-data">
 
-                                <span class="">600kw</span><br>
-                                <span class="">171kw</span>
+                                <span class=""></span><br>
+                                <span class=""></span>
                             </div>
 
                             <!--echart容器-->
@@ -1536,6 +1536,58 @@
     </div>
 </div>
 
+<!--消防系统运行数弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='run-fire-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>设备运行参数信息</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+
+                    <li>
+                        <label for="">故障内容</label>
+                        <input  class="alarm-content" type="text" />
+                    </li>
+
+                    <li>
+                        <button class="demand-button"></button>
+                    </li>
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container ">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="run-dateTables">
+                        <thead>
+                        <tr>
+                            <th>设施编码</th>
+                            <th>故障内容</th>
+                            <th>总分类</th>
+                            <th>故障时间</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!--能源管理系统报警点弹出信息弹窗-->
 <div class='modal fade big-screen-message' id='alarm-energy-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
     <div class='modal-dialog' style='margin:15% auto;'>
@@ -1632,7 +1684,6 @@
 <script src="../resource/js/publicFun.js"></script>
 <script src="../new-resource/js/common.js"></script>
 <script src="../njn-resource/js/common.js"></script>
-<script src="../njn-resource/js/userMonitor1.js"></script>
 <script src="../njn-resource/js/dapingzhanshi/pandectEnergy.js"></script>
 <script>
     jQuery(document).ready(function() {

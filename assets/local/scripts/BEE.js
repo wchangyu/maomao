@@ -19,6 +19,8 @@ var BEE = (function(){
 
     function getLoginHtml (){
 
+
+
         //首先获取url根目录
         var _Lurls = window.document.location.href.split('templates')[0];
 
@@ -1044,19 +1046,20 @@ var BEE = (function(){
                 return true;
             }else{
                 //return false;
+                if (arg3) {
+                    //获取权限参数
+                    var depart = sessionStorage.userDepartNum;
+                    if (depart && arg3.indexOf(depart) >= 0) {
+                        //return true;
+                    } else {
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+
             }
         }
-
-        if(arg3){
-            //获取权限参数
-            var depart = sessionStorage.userDepartNum;
-            if(depart && arg3.indexOf(depart) >= 0 ){
-                //return true;
-            }else{
-                return false;
-            }
-        }
-
         return true;
     };
 
