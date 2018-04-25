@@ -68,7 +68,7 @@ function getOfficesId(){
 
 //datapicker时间插件初始化(日月年)
 function _timeYMDComponentsFun(el){
-
+    el.datepicker('destroy');
     el.datepicker({
         language:  'zh-CN',
         todayBtn: 1,

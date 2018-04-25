@@ -58,42 +58,6 @@
 
     </style>
     <style>
-        #house-reporting tfoot span{
-
-            display: inline-block;
-
-            vertical-align: middle;
-
-            width: 25%;
-
-        }
-        .selectTime{
-
-            display: inline-block;
-
-            width: 30px;
-
-            height: 30px;
-
-            vertical-align: middle;
-
-            background: url("../resource/img/clendar.png") no-repeat #ffffff !important;
-
-            background-size: 25px 25px !important;
-
-            background-position: center !important;
-
-            border: 1px solid #a9a9a9;
-
-            font-size: 0;
-
-            outline: none;
-        }
-        .condition-query .datatimeblock{
-
-            background: #ffffff!important;
-
-        }
         .content-main-contents{
 
             background: #ffffff;
@@ -320,63 +284,45 @@
                                 </ul>
                                 <ul class="condition-query condition-query1 noprint">
                                     <li style="line-height: 26px;">
-                                        <label for="">时段：</label>
+                                        <label>时间类型</label>
+                                        <select id="timeType" style="height: 28px;">
+                                            <option value="day">日</option>
+                                            <option value="week">周</option>
+                                            <option value="month">月</option>
+                                            <option value="year">年</option>
+                                            <option value="custom">自定义</option>
+                                        </select>
+                                    </li>
+                                    <li style="line-height: 26px;">
+                                        <label>时间选择</label>
                                         <div class="input-blocked">
-                                            <input type="text" class="datatimeblock min" disabled>
+                                            <input type="text" class="datatimeblock min">
                                         </div>
-                                        <label for="">-</label>
+                                    </li>
+                                    <li class="timeShow" style="line-height: 26px;display: none">
+                                        <label>-</label>
                                         <div class="input-blocked">
-                                            <input type="text" class="datatimeblock min" disabled>
+                                            <input type="text" class="datatimeblock max">
                                         </div>
-                                        <input class="selectTime">
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 print" onclick="javascript:window.print();">打印</button></li>
                                     <li><button class="btn btn-success excelButton">导出</button></li>
                                     <div class="clearfix"></div>
                                 </ul>
-                                <div class="table-block-title">服务热线工作统计及分析</div>
+                                <div class="table-block-title">污水处理站累积排放量</div>
                                 <div style="overflow: hidden;position: relative">
-                                    <div class="table-title">
-                                        <span class="spanhover">总体情况</span>
-                                        <span>按房屋分类对维修情况进行统计</span>
-                                    </div>
                                     <!-- 表格 -->
-                                    <div class="table-block1" style="overflow: hidden;border: 1px solid #cccccc;border-top: none;padding:20px;padding-top:0">
-                                        <div class="content-main-contents" style="margin-top: 20px;">
-                                            <div class="main-contents-table">
-                                                <table id="all-reporting" class="table table-striped table-bordered  table-hover" cellspacing="0" width="100%">
-                                                    <thead>
+                                    <div class="content-main-contents" style="margin-top: 20px;">
+                                        <div class="main-contents-table">
+                                            <table id="all-reporting" class="table table-striped table-bordered  table-hover" cellspacing="0" width="100%">
+                                                <thead>
 
-                                                    </thead>
-                                                    <tbody>
+                                                </thead>
+                                                <tbody>
 
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="content-main-contents hide-block" style="margin-top: 20px;">
-                                            <div class="main-contents-table">
-                                                <table id="house-reporting" class="table table-striped table-bordered  table-hover" cellspacing="0" width="100%">
-                                                    <thead>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <td colspan="5"><span>常规申报316件</span><span>平均日工作量45.14件</span><span>日均较上周增加12.71件</span><span>常规未完成事项：</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                分析
-                                                            </td>
-                                                            <td colspan="4">
-
-                                                            </td>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -442,7 +388,7 @@
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
 <script src="../resource/js/publicFun.js"></script>
 <script src="../bank-resource/js/common.js"></script>
-<script src="../resource/js/serviceWorkStatisticsAll.js"></script>
+<script src="../resource/js/waterDisposalStatistics.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

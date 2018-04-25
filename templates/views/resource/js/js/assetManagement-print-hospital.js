@@ -629,16 +629,27 @@ $(function(){
                 var str = '';
 
                 for(var i=0;i<result.length;i++){
-
-                    var  valueStr = '<div class="print-block-cel suo"> <div class="table-title1">设备（设施）标识牌</div> <div class="table-img1"> <img src="../resource/img/jt-logo.png" alt=""> <span>江铁实业</span> </div> <div class="title-word1">' + result[i].ddName +
-                        '</div> <div class="content-block"> <div class="row-list"> <div class="row-two-left">设备名称</div> <div class="row-two-right">' + result[i].dName +
-                        '</div> </div> <div class="row-list"> <div class="row-two-left">使用位置</div> <div class="row-two-right">' + result[i].installAddress +
-                        '</div> </div> <div class="three-block"> <div class="three-left"> <div class="row-list"> <div class="row-three-left">规格型号</div> <div class="row-three-right">' + result[i].spec +
-                        '</div> </div> <div class="row-list"> <div class="row-three-left">启用日期</div> <div class="row-three-right">' + installTime(result[i].installDate) +
-                        '</div> </div> <div class="row-list"> <div class="row-three-left">管理单位</div> <div class="row-three-right">' + result[i].daName +
-                        '</div> </div> <div class="row-list"> <div class="row-three-left">产权单位</div> <div class="row-three-right">南昌铁路局</div> </div> <div class="row-list"> <div class="row-three-left">维护单位</div> <div class="row-three-right">江西铁路实业发展有限公司</div> </div> </div> <div class="img-block"> <img  src="' + _replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum +
-                        '" alt="" > </div> </div> <div class="row-list" style="border-bottom: none"> <div class="row-two-left">报修电话：018-29999 </div> <div class="row-two-right">设备编码：<span>' + result[i].dNum +
-                        '</span> </div> </div> </div> </div>'
+                    var valueStr = '<div class="print-block-cel">' +
+                                        '<div class="three-block">' +
+                                            '<div class="three-left">' +
+                                                '<div class="row-list">' +
+                                                    '<div  class="row-three-left" >设备名称</div>' +
+                                                    '<div class="row-three-right">' + result[i].dName + '</div>'+
+                                                '</div>' +
+                                                '<div class="row-list">' +
+                                                    '<div  class="row-three-left" >设备编号</div>' +
+                                                    '<div class="row-three-right">' + result[i].dNum + '</div>'+
+                                                '</div>' +
+                                                '<div class="row-list noBorder">' +
+                                                    '<div  class="row-three-left" >设备地址</div>' +
+                                                    '<div class="row-three-right">' + result[i].installAddress + '</div>'+
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="img-block">' +
+                                                '<img src="' + _replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum + '" alt="">' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>'
 
                     //开始的标签
                     if(i == 0){
@@ -649,7 +660,7 @@ $(function(){
 
                         str += valueStr;
 
-                    }else if(i % 6 == 0 ){
+                    }else if(i % 12 == 0 ){
 
                         str += '<div class="clearfix noprint"></div></div><div class="PageNext"></div><div class="print-block">' + valueStr
 
