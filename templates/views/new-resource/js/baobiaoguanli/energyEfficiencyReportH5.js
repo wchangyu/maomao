@@ -91,23 +91,6 @@ $(function(){
 
     /*------------------------------------------------其他方法------------------------------------------------------*/
 
-    //获取楼宇
-    function pointerData(){
-
-        var pointer = JSON.parse(sessionStorage.pointers);
-
-        //console.log(pointer);
-
-        var str = '';
-
-        for(var i=0;i<pointer.length;i++){
-
-            str += '<option value="' + pointer[i].pointerID + '">' + pointer[i].pointerName + '</option>'
-
-        }
-
-        $('#pointer').empty().append(str);
-    }
     //获取能源站
     function areaData(){
 
@@ -125,7 +108,7 @@ $(function(){
 
                     for(var i=0;i<result.length;i++){
 
-                        str += '<option value="' + result[i].tag + '">' + result[i].name + '</option>';
+                        str += '<option value="' + result[i].tag + '" data-attr="' + result[i].item + '">' + result[i].name + '</option>';
 
                     }
 
@@ -208,9 +191,9 @@ $(function(){
             var prm = {
 
                 //楼宇id
-                "pointerID": sessionStorage.PointerID,
+                "pointerID": $('#p_type').val(),
                 //区域id
-                "areaID": $('#area').val(),
+                "areaID": $('#area').children('option:selected').attr('data-attr'),
                 //日期类型
                 "showDateType": $('#timeType').children('option:selected').attr('data-attr'),
                 //开始时间
