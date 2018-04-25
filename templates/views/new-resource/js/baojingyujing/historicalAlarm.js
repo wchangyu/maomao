@@ -158,7 +158,6 @@ table = $('#alarm-datatables').DataTable({
     ]
 });
 
-
 //维修概况中的echart
 var _maintainoption = {
     //title : {

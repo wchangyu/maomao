@@ -14,6 +14,7 @@
     background-color: #bbbbb8;
     margin-right:10px;
     float: left;
+    cursor: pointer;
 }
 
 .top-tab-container1{
@@ -73,7 +74,7 @@
 }
 
 /*页面下方已处理 未处理*/
-.bottom-main-table .dispose0{
+.bottom-main-table .dispose{
     width:64px;
     height:22px;
     border-radius: 4px !important;
@@ -84,8 +85,9 @@
     margin-left:15px;
     line-height:20px;
     text-align: center;
+    cursor: pointer;
 }
-.bottom-main-table .dispose{
+.bottom-main-table .choose-dispose {
     width:64px;
     height:22px;
     border-radius: 4px !important;
@@ -96,6 +98,7 @@
     margin-left:15px;
     line-height:20px;
     text-align: center;
+
 }
 
 
