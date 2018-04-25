@@ -720,11 +720,11 @@ function getPostTime1(){
     }else if(dateType == '月'){
 
         startTime = moment().startOf('month').format('YYYY-MM-DD');
-        endTime = moment().endOf('month').format('YYYY-MM-DD');
+        endTime = moment().add('1','days').endOf('month').format('YYYY-MM-DD');
     }else if(dateType == '年'){
 
         startTime = moment().startOf('year').format('YYYY-MM-DD');
-        endTime = moment().endOf('year').format('YYYY-MM-DD');
+        endTime = moment().add('1','days').endOf('year').format('YYYY-MM-DD');
 
     }
 
@@ -749,11 +749,11 @@ function getPostTime11(){
     }else if(dateType == '月'){
 
         startTime = moment().startOf('month').format('YYYY-MM-DD');
-        endTime = moment().endOf('month').format('YYYY-MM-DD');
+        endTime = moment().endOf('month').add('1','days').format('YYYY-MM-DD');
     }else if(dateType == '年'){
 
         startTime = moment().startOf('year').format('YYYY-MM-DD');
-        endTime = moment().endOf('year').format('YYYY-MM-DD');
+        endTime = moment().endOf('year').add('1','days').format('YYYY-MM-DD');
 
     }
 
