@@ -34,6 +34,8 @@ $(function(){
                 var password = o.mappVideoRecorder.f_Password;
                 //给密码解密
                 password = Went.utility.wCoder.wDecode(password,"");
+
+                console.log(password);
                 //端口
                 var port = o.mappVideoRecorder.f_PortNum;
                 //通道号

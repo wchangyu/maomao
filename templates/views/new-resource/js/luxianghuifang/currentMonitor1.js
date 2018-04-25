@@ -113,6 +113,9 @@ function getAlarmCameraData(){
                 //密码
                 var password = result[i].mappVideoRecorder.f_Password;
 
+                //给密码解密
+                password = Went.utility.wCoder.wDecode(password,"");
+
                 //端口
                 var port = result[i].mappVideoRecorder.f_PortNum;
 
