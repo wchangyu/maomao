@@ -182,6 +182,7 @@ function _timeComponentsFun(el){
 
 //基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页,导出列,每页显示列数,最后一个是否分页)；
 function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr,num,isPaging){
+
     var buttonVisible = [
         {
             extend: 'excelHtml5',
@@ -1043,6 +1044,30 @@ function _mainAjaxFun(type,url,prm,successFun){
         error: _errorFun
 
     })
+
+}
+
+//打印插件初始化
+function _printFun(table){
+
+    table.print({
+        //Use Global styles
+        globalStyles : false,
+        //Add link with attrbute media=print
+        mediaPrint : true,
+        //Custom stylesheet
+        stylesheet : "http://fonts.googleapis.com/css?family=Inconsolata",
+        //Print in a hidden iframe
+        iframe : false,
+        //Don't print this
+        noPrintSelector : ".avoid-this",
+        //Add this at top
+        prepend : "Hello World!!!<br/>",
+        //Add this on bottom
+        append : "<br/>Buh Bye!",
+        //Log to console when printing is done via a deffered callback
+        deferred: $.Deferred().done(function() { console.log('Printing done', arguments); })
+    });
 
 }
 

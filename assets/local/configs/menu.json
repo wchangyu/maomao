@@ -735,6 +735,14 @@
         "arg": "",
         "iconclass": ""
       },
+      "设备二维码（医）":{
+        "type": "0",
+        "content": "设备二维码（蓝）",
+        "uri": "../zichanguanli/assetManagement-print-hospital.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
       "设备资料": {
         "type": "0",
         "content": "设备资料",
@@ -1747,6 +1755,26 @@
         "type": "0",
         "content": "服务热线周统计",
         "uri": "../gongdanxitong/serviceWorkStatisticsWeek.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
+      },
+      "科室费用明细月报表": {
+        "type": "0",
+        "content": "科室费用明细月报表",
+        "uri": "../gongdanxitong/departmentCostMonth.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
+      },
+      "科室费用明细年报表": {
+        "type": "0",
+        "content": "科室费用明细年报表",
+        "uri": "../gongdanxitong/departmentCostYear.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
