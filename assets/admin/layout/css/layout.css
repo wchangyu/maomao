@@ -2645,17 +2645,26 @@ Page Loading
     
     display:inline-block;
     
-    width:28px;
+    width:22px;
     
     height:19px;
     
-    background:red;
-    
     vertical-align:middle;
-    
-    margin-right:5px;
 
     background-position:center !important;
 
     background-size:contain !important;
+}
+#temperature,#humidity,#wetbuldtemperature{
+
+  font-weight: 900;
+
+  display: inline-block;
+
+  line-height: 0;
+
+  margin-top: 5px;
+
+  vertical-align: middle;
+
 }
