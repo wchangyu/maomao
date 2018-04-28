@@ -174,7 +174,9 @@ option = {
         text: ''
     },
     tooltip : {
-        trigger: 'axis'
+        trigger: 'axis',
+        formatter:'{a0}<br>{b0}: {c0}'
+
     },
     //calculable : true,
     xAxis : [
@@ -220,7 +222,11 @@ option = {
 
                 }
             },
-            smooth:true
+            smooth:true,
+            //tooltip:{
+            //    formatter:'{b}:{c}'
+            //
+            //}
         },
         { // For shadow
             type: 'bar',
@@ -230,7 +236,7 @@ option = {
             barGap:'-100%',
             barCategoryGap:'40%',
             data: [],
-            animation: false
+            animation: false,
         }
     ]
 };
@@ -882,6 +888,9 @@ function getRealTimeData(){
             myChart.hideLoading();
         },
         success: function (data) {
+
+            console.log(data);
+
             myChart.hideLoading();
 
             //return false;
@@ -919,7 +928,6 @@ function getRealTimeData(){
                     sArr.push('null')
                 }
             }
-
             option.series[0].data = sArr;
             option.xAxis[0].data = xArr;
 

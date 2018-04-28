@@ -34,63 +34,172 @@ $(function(){
 
         {
             title:'工单号',
-            data:''
+            data:'gdCode2',
+            class:'hiddenClock'
         },
         {
             title:'报修时间',
-            data:''
+            data:'gdShij',
+            render:function(data, type, full, meta){
+
+                return data.split(' ')[1]
+
+            }
+
         },
         {
             title:'地点',
-            data:''
+            data:'wxDidian',
+            className:'wxDidian',
+            render:function(data, type, full, meta){
+
+                return '<span title="' + data + '">'+ data + '</span>';
+
+            }
+
         },
         {
             title:'报修内容',
-            data:''
+            data:'bxBeizhu',
+            className:'bxBeizhu',
+            render:function(data, type, full, meta){
+
+                return '<span title="' + data + '">'+ data + '</span>';
+
+            }
         },
-        {
-            title:'链接',
-            data:''
-        },
-        {
-            title:'设备ID',
-            data:''
-        },
+        //{
+        //    title:'设备ID',
+        //    data:'wxShebei'
+        //},
         {
             title:'设备名称',
-            data:''
+            data:'dName'
+        },
+        //{
+        //    title:'设备类别',
+        //    data:'dcName'
+        //},
+        {
+            title:'报修人',
+            data:'createUserName'
+        },
+        //{
+        //    title:'报修电话',
+        //    data:'bxDianhua'
+        //},
+        {
+            title:'等级',
+            data:'gdLeixing',
+            render:function(data, type, full, meta){
+
+                if(data == 1){
+
+                    return '一级'
+
+                }else if(data == 2){
+
+                    return '二级'
+
+                }else if(data == 3){
+
+                    return '三级'
+
+                }else if(data == 4){
+
+                    return '四级'
+
+                }else{
+
+                    return ''
+
+                }
+
+            }
+
         },
         {
-            title:'设备类别',
-            data:''
+            title:'接单人',
+            data:'shouLiRenName'
         },
         {
-            title:'报修录入人',
-            data:''
-        },
-        {
-            title:'报修电话',
-            data:''
-        },
-        {
-            title:'工单等级',
-            data:''
-        },
-        {
-            title:'接单人员',
-            data:''
-        },
-        {
-            title:'工单状态',
-            data:''
+            title:'状态',
+            data:'gdZht',
+            render: function (data, type, full, meta) {
+                if (data == 1) {
+                    return '待下发'
+                }
+                if (data == 2) {
+                    return '待分派'
+                }
+                if (data == 3) {
+                    return '待执行'
+                }
+                if (data == 4) {
+                    return '执行中'
+                }
+                if (data == 5) {
+                    return '等待资源'
+                }
+                if (data == 6) {
+                    return '待关单'
+                }
+                if (data == 7) {
+                    return '任务关闭'
+                }
+                if (data == 999) {
+                    return '任务取消'
+                }
+            }
         }
 
     ]
 
-    _tableInit($('#gd-datatables'),gdCol,1,true,'','',true,'','',false);
+    $('#gd-datatables').DataTable(   {
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": false,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": true,
+        "ordering": false,
+        "pagingType":"full_numbers",
+        "bStateSave":true,
+        "sScrollY": '518px',
+        "bPaginate": false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        'buttons': [
+
+        ],
+        "dom":'t<"F"lp>',
+        "columns": gdCol
+    });
+
+    /*-----------------------------------------------------按钮事件-------------------------------------*/
+
+    $('#gd-datatables tbody').on('click','tr',function(){
+
+        var gdCode = $(this).children().eq(0).html();
+
+        divTable(gdCode);
+
+    })
+
 
     /*------------------------------------------------------其他方法----------------------------------*/
-
+    //默认加载数据
     conditionSelect();
 
     //页面默认加载数据
@@ -102,11 +211,16 @@ $(function(){
         echartData('month');
         //本年数据
         echartData('year');
+        //运维联动
+        gdTable();
 
     }
 
     //echart数据(利用flag来判断日月年)
     function echartData(flag){
+
+        //初始化移除暂无数据的选择项
+        $('.noData').remove();
 
         //开始时间
         var st = '';
@@ -149,93 +263,218 @@ $(function(){
 
         }
 
-        _mainAjaxFun('post','YWGD/ywGDGetGDRespondInfo',prm,GDsuccessFun);
+        $.ajax({
 
-        //执行成功方法
-        function GDsuccessFun(result){
+            type:'post',
 
-            var option = {
-                tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b}: {c} ({d}%)"
-                },
-                legend: {
-                    show:false,
-                    orient: 'vertical',
-                    x: 'left',
-                    data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-                },
-                series: [
-                    {
-                        name:'',
-                        type:'pie',
-                        radius: ['50%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                            normal: {
-                                show: false,
-                                position: 'center'
-                            },
-                            emphasis: {
-                                show: true,
-                                textStyle: {
-                                    fontSize: '30',
-                                    fontWeight: 'bold'
+            url:_urls + 'YWGD/ywGDGetGDRespondInfo',
+
+            beforeSend:function(){
+
+                if(flag == 'day'){
+
+                    //工单响应-天
+                    gdResponseDay.showLoading();
+                    //工单渠道-天
+                    gdBXTypeDay.showLoading();
+                    //工单等级-天
+                    gdGradeDay.showLoading();
+                    //工单分布-天
+                    gdSpreadDay.showLoading();
+
+                }else if( flag == 'month' ){
+
+                    //工单响应-月
+                    gdResponseMonth.showLoading();
+                    //工单渠道-月
+                    gdBXTypeMonth.showLoading();
+                    //工单等级-月
+                    gdGradeMonth.showLoading();
+                    //工单分布-月
+                    gdSpreadMonth.showLoading();
+
+                }else if( flag == 'year' ){
+
+                    //工单响应-年
+                    gdResponseYear.showLoading();
+                    //工单渠道-年
+                    gdBXTypeYear.showLoading();
+                    //工单等级-年
+                    gdGradeYear.showLoading();
+                    //工单分布-年
+                    gdSpreadYear.showLoading();
+
+                }
+
+            },
+
+            complete:function(){
+
+                if(flag == 'day'){
+
+                    //工单响应-天
+                    gdResponseDay.hideLoading();
+                    //工单渠道-天
+                    gdBXTypeDay.hideLoading();
+                    //工单等级-天
+                    gdGradeDay.hideLoading();
+                    //工单分布-天
+                    gdSpreadDay.hideLoading();
+
+                }else if( flag == 'month' ){
+
+                    //工单响应-月
+                    gdResponseMonth.hideLoading();
+                    //工单渠道-月
+                    gdBXTypeMonth.hideLoading();
+                    //工单等级-月
+                    gdGradeMonth.hideLoading();
+                    //工单分布-月
+                    gdSpreadMonth.hideLoading();
+
+                }else if( flag == 'year' ){
+
+                    //工单响应-年
+                    gdResponseYear.hideLoading();
+                    //工单渠道-年
+                    gdBXTypeYear.hideLoading();
+                    //工单等级-年
+                    gdGradeYear.hideLoading();
+                    //工单分布-年
+                    gdSpreadYear.hideLoading();
+
+                }
+
+            },
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            success:function(result){
+
+                var option = {
+
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+                    },
+                    legend: {
+                        show:false,
+                        orient: 'vertical',
+                        x: 'left',
+                        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+                    },
+                    series: [
+                        {
+                            name:'',
+                            type:'pie',
+                            radius: ['50%', '70%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    show: true,
+                                    textStyle: {
+                                        fontSize: '30',
+                                        fontWeight: 'bold'
+                                    }
                                 }
-                            }
-                        },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
-                        },
-                        data:[
-                            {value:335, name:'直接访问'},
-                            {value:310, name:'邮件营销'},
-                            {value:234, name:'联盟广告'},
-                            {value:135, name:'视频广告'},
-                            {value:1548, name:'搜索引擎'}
-                        ]
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data:[
+                                {value:335, name:'直接访问'},
+                                {value:310, name:'邮件营销'},
+                                {value:234, name:'联盟广告'},
+                                {value:135, name:'视频广告'},
+                                {value:1548, name:'搜索引擎'}
+                            ]
+                        }
+                    ]
+                };
+
+                var str = '<span class="noData" style="line-height: 200px">暂无数据</span>';
+
+                //日
+
+                if(flag == 'day'){
+
+                    if(result.length>0){
+
+                        pieNum(result,option,gdResponseDay,gdBXTypeDay,gdGradeDay,gdSpreadDay);
+
+                    }else{
+                        //工单响应
+                        $('#gdResponseDay').empty().append(str);
+                        //工单渠道
+                        $('#gdBXTypeDay').empty().append(str);
+                        //工单等级
+                        $('#gdGradeDay').empty().append(str);
+                        //工单分布
+                        $('#gdSpreadDay').empty().append(str);
                     }
-                ]
-            };
-            //日
 
-            if(flag == 'day'){
+                }
+                if(flag == 'month'){
 
-                if(result.length>0){
+                    if(result){
 
-                    pieNum(result,option,gdResponseDay,gdBXTypeDay,gdGradeDay,gdSpreadDay);
+                        pieNum(result,option,gdResponseMonth,gdBXTypeMonth,gdGradeMonth,gdSpreadMonth);
 
-                }else{}
+                    }else{
 
-            }
-            if(flag == 'month'){
+                        //工单响应
+                        $('#gdResponseMonth').empty().append(str);
+                        //工单渠道
+                        $('#gdBXTypeMonth').empty().append(str);
+                        //工单等级
+                        $('#gdGradeMonth').empty().append(str);
+                        //工单分布
+                        $('#gdSpreadMonth').empty().append(str);
 
-                if(result){
+                    }
 
-                    pieNum(result,option,gdResponseMonth,gdBXTypeMonth,gdGradeMonth,gdSpreadMonth);
+                }
+                if(flag == 'year'){
+                    if(result){
 
-                }else{}
+                        pieNum(result,option,gdResponseYear,gdBXTypeYear,gdGradeYear,gdSpreadYear);
 
-            }
-            if(flag == 'year'){
-                if(result){
+                    }else{
 
-                    pieNum(result,option,gdResponseYear,gdBXTypeYear,gdGradeYear,gdSpreadYear);
+                        //工单响应
+                        $('#gdResponseYear').empty().append(str);
+                        //工单渠道
+                        $('#gdBXTypeYear').empty().append(str);
+                        //工单等级
+                        $('#gdGradeYear').empty().append(str);
+                        //工单分布
+                        $('#gdSpreadYear').empty().append(str);
 
-                }else{}
+                    }
 
-            }
+                }
 
+            },
 
-        }
+            error:_errorFun
+
+        })
 
 
     }
 
     //饼图赋值(结果，配置参数，值1：工单响应，值2：工单渠道，值3：工单等级，值4：工单分布)
     function pieNum(result,option,el1,el2,el3,el4){
+
+        var str = '<span class="noData" style="line-height: 200px">暂无数据</span>';
 
         //工单响应
         if(result.gdStat){
@@ -271,34 +510,11 @@ $(function(){
 
         }else{
 
-            option.series[0].name='工单响应';
+            var dom = $(el1._dom).attr('id')
 
-            //数据
-            option.series[0].data = [
+            var elStr = $('#' + dom);
 
-                {value:0,name:'已完成'},
-
-                {value:0,name:'派单中'},
-
-                {value:0,name:'进行中'},
-
-            ]
-
-            //颜色
-            option.series[0].itemStyle = {
-                normal: {
-                    color: function(params2) {
-
-                        var colorList = [
-                            '#14E398','#EAD01E','#F8276C'
-                        ];
-                        return colorList[params2.dataIndex]
-                    }
-                }
-            }
-
-            //工单响应-年
-            el1.setOption(option);
+            elStr.empty().append(str);
 
         }
         //工单渠道
@@ -370,38 +586,11 @@ $(function(){
 
         }else{
 
-            option.series[0].name='工单渠道';
+            var dom = $(el2._dom).attr('id')
 
-            //数据
-            option.series[0].data = [
+            var elStr = $('#' + dom);
 
-                {value:0,name:'电话'},
-
-                {value:0,name:'平台'},
-
-                {value:0,name:'手机'},
-
-                {value:0,name:'系统'},
-
-                {value:0,name:'江苏运联'}
-
-            ]
-
-            //颜色
-            option.series[0].itemStyle = {
-                normal: {
-                    color: function(params2) {
-
-                        var colorList = [
-                            '#14E398','#0BA3C3','#0353F7','#3C27D5','#901AD3'
-                        ];
-                        return colorList[params2.dataIndex]
-                    }
-                }
-            }
-
-            //工单渠道-年
-            el2.setOption(option);
+            elStr.empty().append(str);
 
         }
         //工单等级
@@ -462,36 +651,11 @@ $(function(){
 
         }else{
 
-            option.series[0].name='工单等级';
+            var dom = $(el3._dom).attr('id')
 
-            option.series[0].data = [
+            var elStr = $('#' + dom);
 
-                {value:0,name:'普通'},
-
-                {value:0,name:'急'},
-
-                {value:0,name:'紧急'},
-
-                {value:0,name:'特急'}
-
-            ]
-
-            //颜色
-            option.series[0].itemStyle = {
-                normal: {
-                    color: function(params2) {
-
-                        var colorList = [
-                            '#14E398','#0353F7','#3C27D5','#901AD3'
-                        ];
-                        return colorList[params2.dataIndex]
-                    }
-                }
-            }
-
-            //工单等级-年
-            el3.setOption(option);
-
+            elStr.empty().append(str);
 
         }
         //工单分布
@@ -564,15 +728,207 @@ $(function(){
 
         }else{
 
-            option.series[0].name='工单分布';
+            var dom = $(el4._dom).attr('id')
 
-            //数据
-            option.series[0].data = [];
+            var elStr = $('#' + dom);
 
-            //工单分布-年
-            el4.setOption(option);
+            elStr.empty().append(str);
 
         }
+
+    }
+
+    //运维统计表格
+    function gdTable(){
+
+        var nowTime = moment().format('YYYY/MM/DD');
+
+        var st = moment(nowTime).format('YYYY/MM/DD');
+
+        var et = moment(nowTime).add(1,'d').format('YYYY/MM/DD');
+
+        var prm = {
+            //开始时间
+            gdSt:st,
+            //结束时间
+            gdEt:et,
+            //用户id
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName
+
+        };
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWGD/ywGDGetDJ',
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            beforeSend:function(){
+
+                $('.table-block').showLoading();
+
+            },
+
+            complete:function(){
+
+                $('.table-block').hideLoading();
+
+            },
+
+            success:function(result){
+
+                _jumpNow($('#gd-datatables'),result.reverse());
+
+                //获取到第一个数据的设备
+
+                var gdCode = result[0].gdCode2;
+
+                divTable(gdCode);
+
+            },
+
+            error:_errorFun
+
+        })
+
+    }
+
+    //获取设备信息
+    function divTable(gdCode){
+
+        //通过工单号的来确定设备？
+        var nowTime = moment().format('YYYY/MM/DD');
+
+        var st = moment(nowTime).format('YYYY/MM/DD');
+
+        var et = moment(nowTime).add(1,'d').format('YYYY/MM/DD');
+
+        var prm = {
+            //工单号
+            gdCode2:gdCode,
+            //开始时间
+            gdSt:st,
+            //结束时间
+            gdEt:et,
+            //用户id
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName
+
+        };
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWGD/ywGDGetDJ',
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            beforeSend:function(){
+
+                $('#equipment-resume').showLoading();
+
+            },
+
+            complete:function(){
+
+                $('#equipment-resume').hideLoading();
+
+            },
+
+            success:function(result){
+
+                //赋值
+                //设备id
+                $('#devID').html(result[0].wxShebei);
+                //设备名称
+                $('#devName').html(result[0].dName);
+                //报修时间
+                $('#bxTime').html(timeFormat(result[0].gdShij));
+                //故障发生时间
+                $('#fsTime').html(timeFormat(result[0].gdFsShij));
+                //故障处理时间
+                $('#clTime').html(timeFormat(result[0].shouLiShij));
+                //故障修复时间
+                $('#xfTime').html(timeFormat(result[0].guanbiShij));
+                //状态码
+                $('#statusCode').html(statusFun(result[0].gdZht));
+                //故障处理进度
+                $('#lastInfo').html(titleFun(result[0].lastUpdateInfo));
+                //故障描述
+                $('#gzDes').html(titleFun(result[0].bxBeizhu));
+                //故障报修人
+                $('#bxRen').html(result[0].bxRen);
+                //故障处理内容
+                $('#wxDes').html(titleFun(result[0].wxBeizhu));
+            },
+
+            error:_errorFun
+
+        })
+
+    }
+
+    //时间格式化2018/4/27 15:16:43-->15:16:43
+    function timeFormat(time){
+
+        if(time){
+
+            return time.split(' ')[1];
+
+        }else{
+
+            return ''
+
+        }
+
+    }
+
+    //状态转换
+    function statusFun(data){
+
+        if (data == 1) {
+            return '待下发'
+        }
+        if (data == 2) {
+            return '待分派'
+        }
+        if (data == 3) {
+            return '待执行'
+        }
+        if (data == 4) {
+            return '执行中'
+        }
+        if (data == 5) {
+            return '等待资源'
+        }
+        if (data == 6) {
+            return '待关单'
+        }
+        if (data == 7) {
+            return '任务关闭'
+        }
+        if (data == 999) {
+            return '任务取消'
+        }
+
+    }
+
+    //添加title属性
+    function titleFun(data){
+
+        var str = '<span title="' + data + '">' + data + '</span>'
+
+        return str;
 
     }
 

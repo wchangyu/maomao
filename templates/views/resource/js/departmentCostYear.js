@@ -128,10 +128,6 @@ $(function(){
 
             }else{
 
-                console.log(result);
-
-                return false;
-
                 var dataArr = _packagingTableData(result[1]);
 
                 _jumpNow($('#oneSectionTable'),dataArr.reverse());

@@ -1780,6 +1780,16 @@
         "iconclass": "",
         "target": "",
         "arg2": "admin,WXBZ01"
+      },
+      "污水处理站累积排放量报表": {
+        "type": "0",
+        "content": "污水处理站累积排放量报表",
+        "uri": "../gongdanxitong/waterDisposalStatistics.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
       }
     }
   },

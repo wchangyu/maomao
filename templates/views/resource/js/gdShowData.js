@@ -310,6 +310,7 @@ $(function(){
             },
         ]
     });
+
     /*--------------------------echart初始化---------------------------------------*/
     var myChart = echarts.init(document.getElementById('energy-demand'));
 
