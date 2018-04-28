@@ -44,14 +44,14 @@ $(function(){
 
     areaData();
 
-    //pointerData();
+    pointerData();
 
     /*------------------------------------------------按钮事件------------------------------------------------------*/
 
     //查询
     $('#selected').click(function(){
 
-        conditionSelect();
+        conditionSelect($('#pointer').val());
 
     })
 
@@ -98,7 +98,7 @@ $(function(){
                     $('#area').empty().append(str);
 
                     //条件查询
-                    conditionSelect();
+                    conditionSelect(sessionStorage.getItem('PointerID'));
 
                 }
 
@@ -111,7 +111,7 @@ $(function(){
     }
 
     //获取条件查询数据
-    function conditionSelect(){
+    function conditionSelect(pointerId){
 
         //首先修改表头名称
 
@@ -174,7 +174,7 @@ $(function(){
             var prm = {
 
                 //楼宇id
-                "pointerID": $('#p_type').val(),
+                "pointerID": pointerId,
                 //区域id
                 "areaID": $('#area').children('option:selected').attr('data-attr'),
                 //日期类型
@@ -197,7 +197,7 @@ $(function(){
 
             var prm = {
                 //楼宇id
-                "pId": $('#p_type').val(),
+                "pId": pointerId,
                 //报表类型
                 "dataType": $('#reporContent').val(),
                 //区域id
@@ -472,6 +472,24 @@ $(function(){
             }
 
         }
+    }
+
+    //获取车站
+    function pointerData(){
+
+        var pointer = JSON.parse(sessionStorage.getItem('pointers'));
+
+        var str = '';
+
+        for(var i=0;i<pointer.length;i++){
+
+            str += '<option value="' + pointer[i].pointerID + '">' + pointer[i].pointerName + '</option>';
+
+        }
+
+        $('#pointer').empty().append(str);
+
+
     }
 
 

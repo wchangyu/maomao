@@ -63,6 +63,11 @@
             margin: 0 auto;
             padding: 10px 20px;
         }
+        .table{
+
+            font-size: 14px;
+
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -305,7 +310,7 @@
                                         <div class="input-blocked">
                                             <select id="reporContent" style="width: 128px;height: 100%;width: 100%;border: none;outline: none">
                                                 <option value="0">工单统计报表</option>
-                                                <option value="1">维修效果报表</option>
+                                                <option value="1">满意度统计报表</option>
                                             </select>
                                         </div>
                                     </li>
@@ -332,6 +337,7 @@
                                 </ul>
                                 <!--下方主体表格  工单统计报表-->
                                 <div class="bottom-main-table">
+                                    <!--工单统计-->
                                     <table id="entry-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">
                                         <thead style="text-align:center">
                                         <tr style="text-align:center">
@@ -350,7 +356,7 @@
                                             <th colspan="10" style="text-align:left;text-indent:35px;background: #E2E9F2;border:1px solid black" class="printBgColor">位置:<span class="locationStation"></span></th>
                                         </tr>
                                         <tr>
-                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="2">报修量排名</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">报修量排名</th>
                                             <th style="text-align:center;background: #E2E9F2;border:1px solid black">子系统</th>
                                             <th style="text-align:center;background: #E2E9F2;border:1px solid black">报单量（单）</th>
                                             <th style="text-align:center;background: #E2E9F2;border:1px solid black">人工报单量（单）</th>
@@ -360,6 +366,43 @@
                                             <th style="text-align:center;background: #E2E9F2;border:1px solid black">完工占比</th>
                                             <th style="text-align:center;background: #E2E9F2;border:1px solid black">维修耗时（h）</th>
                                             <th style="text-align:center;background: #E2E9F2;border:1px solid black">维修h耗材费用（元）</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+
+                                        </tfoot>
+                                    </table>
+                                    <!--工单满意度统计-->
+                                    <table id="Satisfaction-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">
+                                        <thead style="text-align:center">
+                                        <tr style="text-align:center">
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>
+                                            <th colspan="9" id="table-titleS" style="text-align:center;background: #ffffff;border:1px solid black"></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>
+                                            <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="9" class="data-time"></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>
+                                            <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="9" class="derive-time"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="10" style="text-align:left;text-indent:35px;background: #E2E9F2;border:1px solid black" class="printBgColor">位置:<span class="locationStation"></span></th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">维修部门</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">任务量</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">很满意</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">满意</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">一般</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">差</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">很差</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">未评价</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">评价率</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black">满意率</th>
                                         </tr>
                                         </thead>
                                         <tbody>
