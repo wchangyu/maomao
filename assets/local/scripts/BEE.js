@@ -51,16 +51,18 @@ var BEE = (function(){
     };
 
     //获取当前地址
-
     var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
 
     if(_LurlLength > 3){
 
-        //var _logint = _LurlLength - 3;
-        //
-        //for(var i=0; )
+        var _loginSlash = "";
 
-        _loginHtml = "../" + _loginHtml;
+        for(var i=0; i < _LurlLength-3; i++){
+
+            _loginSlash += "../";
+        }
+
+        _loginHtml = _loginSlash + _loginHtml;
 
         sessionStorage.loginPath =  _loginHtml;
         _assetsPath = '../../../../assets/';
