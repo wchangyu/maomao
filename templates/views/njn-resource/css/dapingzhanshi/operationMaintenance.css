@@ -1,0 +1,176 @@
+*{
+    box-sizing: border-box;font-family: "Micorsoft Yahei";
+
+}
+.right-bottom-container-block{
+
+    width: 50%;float: left;
+
+}
+.right-bottom-container-title{
+
+    font-size: 26px;color: #2B2B2B;
+
+}
+.right-bottom-container-chart{
+
+    margin: 0;padding: 0;
+
+}
+.right-bottom-container-chart li{
+
+    float: left;
+
+}
+.right-bottom-container-chart .chart-title{
+
+    border: 1px solid #DCDCDC;border-right: none;border-bottom: none;background:#f5f6f6;
+
+}
+.right-bottom-container-chart .chart-legend{
+
+    border: 1px solid #DCDCDC;border-right: none;border-bottom: none;overflow: hidden;
+
+}
+.chart-title{
+
+    font-size: 18px;color: #3C3C3C;width: 50px;height: 165px;text-align: center;padding-top: 50px;
+
+}
+.chart-legend{
+
+    height: 165px;width: 200px;
+
+}
+.legend-title{
+
+    font-size: 18px;color: #2B2B2B;text-align: center;margin: 7px 0;
+
+}
+.legend-block span{
+
+    width: 13px;height: 10px;background: red;display: inline-block;vertical-align:middle;
+
+}
+.legend-block label{
+
+    display: inline-block;vertical-align:middle;margin: 0;margin-left: 6px;height: 21px;max-width: 65px;
+
+}
+.legend-block{
+
+    margin-bottom: 4px;
+
+}
+.text-center{
+
+    text-align: center;
+
+}
+.label-width{
+
+    width: 103px;text-align: left;height: 21px;overflow: hidden;
+
+}
+.chart-block{
+
+    width: 200px;height:197px;border: 1px solid #DCDCDC;border-bottom: none;border-right: none;text-align: center;
+
+}
+.chart-title1{
+
+    height: 197px;padding-top: 75px;
+
+}
+.right-bottom-container-chart-bottom li{
+
+    border-bottom: 1px solid #DCDCDC;
+
+}
+.table-block tbody{
+
+    overflow-y: scroll;
+
+}
+.table.dataTable thead th, table.dataTable thead td{
+
+    border-bottom: none;
+
+}
+#equipment-resume .title{
+
+    text-align:center;background: #E2E9F2;width:140px;
+
+}
+.table>thead>tr>th{
+
+    border-bottom: none;
+
+    border-right: 1px solid #DCDCDC;
+
+}
+#equipment-resume td{
+
+    min-height: 35px;
+
+}
+.dataTables_scrollHeadInner{
+
+    padding-left: 0 !important;
+
+}
+.dataTables_scrollHead{
+
+    border-bottom:none !important;
+
+}
+.dataTables_scrollHead th{
+
+    text-align: center;
+
+}
+
+.dataTables_scrollHeadInner .table{
+
+    margin-bottom: 0 !important;
+
+}
+
+::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    border: 5px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: 1px 1px 5px rgba(0,0,0,.2) inset;
+}
+
+::-webkit-scrollbar-thumb {
+    min-height: 20px;
+    background-clip: content-box;
+    box-shadow: 0 0 0 5px rgba(0,0,0,.2) inset;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+.table tr td{
+    height: 26px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 150px !important;
+    cursor: pointer;
+}
+.hiddenClock{
+
+    display: none;
+
+}

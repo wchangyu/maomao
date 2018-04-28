@@ -20,7 +20,7 @@
     float: left;  width: 135px;  height: 135px;  border-left: 1px solid #333333;
 }
 .img-block img{
-    width: 120px;  height: 120px;  display: block; margin: auto; margin-top: 6px;  background: red;
+    width: 120px;  height: 120px;  display: block; margin: auto; margin-top: 6px;
 }
 .row-three-right{
     float: left;  width: 174px;  height: 100%;  overflow: hidden;line-height: 45px;text-indent: 10px;

@@ -74,7 +74,7 @@ var EPMA = function () {
         }
         var eprIds = [];
         for (var i = 0; i < eprs.length; i++) {
-            eprIds.push(eprs[i].enterpriseID);
+            eprIds.push(eprs[i].enterpriseID.toString());
         }
         var idxEpr = _.indexOf(eprIds, sessionStorage.enterpriseID);/*默认选中企业*/
         if (idxEpr === -1) {
@@ -151,10 +151,10 @@ var EPMA = function () {
                 sessionStorage.PointerName = po.pointerName;
                 sessionStorage.enterpriseID = po.enterpriseID;
                 sessionStorage.eprName = po.eprName;
-                $('#pNT').html(po.eprName + po.pointerName);//楼宇名称
+                $('#pNT').html(po.eprName + '-' + po.pointerName);//楼宇名称
             }
             else {
-                $('#pNT').html(sessionStorage.eprName + sessionStorage.PointerName);//楼宇名称
+                $('#pNT').html(sessionStorage.eprName + '-' + sessionStorage.PointerName);//楼宇名称
             }
 
             //初始化eprbox控件
@@ -168,14 +168,14 @@ var EPMA = function () {
                 if (res.code === "0") {
                     if (res.tsw === true) {
                         $('#span_temperature').show();
-                        $('#temperature').html(res.ist);
+                        $('#temperature').html(res.ist + '℃');
                     }
                     else {
                         $('#span_temperature').hide();
                     }
                     if (res.hsw === true) {
                         $('#span_humidity').show();
-                        $('#humidity').html(res.ish);
+                        $('#humidity').html(res.ish + '%');
                     }
                     else {
                         $('#span_humidity').hide();
@@ -183,7 +183,7 @@ var EPMA = function () {
                     //湿球温度$('#span_wetbuldtemperature').html('0.0');
                     if (res.wbw === true) {
                         $('#span_wetbuldtemperature').show();
-                        $('#wetbuldtemperature').html(res.iswbw);
+                        $('#wetbuldtemperature').html(res.iswbw + '℃');
                     } else {
                         $('#span_wetbuldtemperature').hide();
                     }
