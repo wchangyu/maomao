@@ -9,6 +9,9 @@ $(function(){
     //获取全部车站
     getAlarmStation();
 
+    //默认获取设备报警
+    getAlarmData(0);
+
     //点击切换选项卡
     $('.top-tab-control').on('click','.top-tab-container',function(){
 
@@ -92,7 +95,7 @@ table = $('#alarm-datatables').DataTable({
             "data":"dataDate",
             "render":function(data,type,row,meta){
                 if(data && data.length >0){
-                    return data.split('T')[0];
+                    return data.split(' ')[0];
                 }
             }
         },
@@ -101,7 +104,7 @@ table = $('#alarm-datatables').DataTable({
             "data":"dataDate",
             "render":function(data,type,row,meta){
                 if(data && data.length >0){
-                    return [1];
+                    return data.split(' ')[1];
                 }
             }
         },
@@ -290,22 +293,34 @@ function getAlarmData(flag){
         type:'post',
         url:sessionStorage.apiUrlPrefix + postUrl,
         data:ecParams,
+        beforeSend:function(){
+
+
+            $('#alarm-datatables').showLoading();
+
+            $('#alarm-datatables1').showLoading();
+
+        },
         success:function(result){
 
+            $('#alarm-datatables').hideLoading();
+
+            $('#alarm-datatables1').hideLoading();
+
             //获取一般报警
-            $('.left-top-alarm .alarm-data0').html(result.u3dAlarmNums[0].alarmNum);
+            $('.left-top-alarm .alarm-data2').html(result.u3dAlarmNums[0].alarmNum);
 
             //获取普通报警
             $('.left-top-alarm .alarm-data1').html(result.u3dAlarmNums[1].alarmNum);
 
             //获取严重报警
-            $('.left-top-alarm .alarm-data2').html(result.u3dAlarmNums[2].alarmNum + result.u3dAlarmNums[3].alarmNum);
+            $('.left-top-alarm .alarm-data0').html(result.u3dAlarmNums[2].alarmNum + result.u3dAlarmNums[3].alarmNum);
 
             //获取已处理报警
-            var dealDevAlarmDatas = result.dealDevAlarmDatas;
+            var dealDevAlarmDatas = result.dealAlarmDatas;
 
             //获取未处理报警
-            var noDealDevAlarmDatas = result.noDealDevAlarmDatas;
+            var noDealDevAlarmDatas = result.noDealAlarmDatas;
 
             //页面赋值
             $('.bottom-main-table .dispose0 font').html(dealDevAlarmDatas.length);
@@ -342,7 +357,7 @@ function getAlarmData(flag){
 
                 $('.dataTables_wrapper').eq(1).hide();
 
-                $('.dataTables_wrapper').eq(2).show();
+                $('.dataTables_wrapper').eq(0).show();
 
                 $('#alarm-datatables1').hide();
 
@@ -354,6 +369,9 @@ function getAlarmData(flag){
 
         },
         error:function(jqXHR, textStatus, errorThrown){
+            $('#alarm-datatables').hideLoading();
+            $('#alarm-datatables1').hideLoading();
+
             console.log(jqXHR.responseText);
         }
     });

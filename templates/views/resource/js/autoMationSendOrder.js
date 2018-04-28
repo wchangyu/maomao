@@ -22,6 +22,12 @@ $(function(){
         //获取后台数据
         ywGetAlarmSetGD();
     });
+
+    //点击确定按钮
+    $('.bottom-btn-success').on('click',function(i,o){
+
+        //
+    });
 });
 
 //设备
@@ -135,9 +141,25 @@ function ywGetAlarmSetGD(flag){
 
             $("#entry-datatables").hideLoading();
 
-            return false;
+            //页面赋值
+            var tbodyHtml = "";
 
-            _datasTable($('#alarm-datatables'),result.devAlarmNumDatas);
+            $(result).each(function(i,o){
+
+                tbodyHtml += "<tr>";
+
+                //监测因子名称
+                tbodyHtml += "<td>"+ o.cNameT+"</td>";
+
+                //故障名称
+                tbodyHtml += "<td>"+ o.alarmName+"</td>";
+
+                //系统派单条件
+                tbodyHtml += "<td>"+ o.cNameT+"</td>";
+
+            });
+
+            return false;
         },
         error:function(jqXHR, textStatus, errorThrown){
             $("#entry-datatables").hideLoading();

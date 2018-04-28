@@ -511,8 +511,10 @@ var option6 = {
             },
             axisLabel: {
                 show:true,
+                padding: [0, 0, 0, -5],
                 formatter: function (value) {
                     return value.toFixed(2);
+                    //return value;
                 }
             },
             data: [{value:5}]
@@ -1485,13 +1487,13 @@ function getTopPageKPIData(){
                 }else if(o.energyItemID == '211'){
 
                     //单位面积能耗
-                    option6.series[0].data[0].value = o.energyNormData.toFixed(2);
+                    option6.series[0].data[0].value = (o.energyNormData*1000).toFixed(2);
 
                     option6.title.text = '单位面积水耗';
 
-                    option6.title.subtext = 't/㎡';
+                    option6.title.subtext = 'kg/㎡';
 
-                    option6.series[0].max = o.kpiConfigBad.toFixed(3);
+                    option6.series[0].max = o.kpiConfigBad*1000;
 
                     option6.series[0].axisLine.lineStyle.color = [
                         [o.kpiConfigExcellent/o.kpiConfigBad, '#62A8DB'], [o.kpiConfigOrdinary/o.kpiConfigBad, '#33E3B6'], [o.kpiConfigWorse/o.kpiConfigBad, '#ffa90b'],[1, '#f8276c']
@@ -1504,18 +1506,18 @@ function getTopPageKPIData(){
                 }else if(o.energyItemID == '2011'){
 
                     //单位面积能耗
-                    option6.series[0].data[0].value = o.energyNormData.toFixed(3);
+                    option6.series[0].data[0].value = (o.energyNormData*1000).toFixed(2);
 
                     option6.title.text = '单位面积汽耗';
 
-                    option6.series[0].max = o.kpiConfigBad.toFixed(1);
+                    option6.series[0].max = o.kpiConfigBad*1000;
 
                     option6.series[0].axisLine.lineStyle.color = [
-                        [o.kpiConfigExcellent/o.kpiConfigBad, '#62A8DB'], [o.kpiConfigOrdinary/o.kpiConfigBad, '#33E3B6'], [o.kpiConfigWorse/o.kpiConfigBad, '#ffa90b'],[1, '#f8276c']
+                        [o.kpiConfigExcellent/o.kpiConfigBad.toFixed(4), '#62A8DB'], [o.kpiConfigOrdinary/o.kpiConfigBad.toFixed(4), '#33E3B6'], [o.kpiConfigWorse/o.kpiConfigBad.toFixed(4), '#ffa90b'],[1, '#f8276c']
 
                     ];
 
-                    option6.title.subtext = 't/㎡';
+                    option6.title.subtext = 'kg/㎡';
 
                     //页面重绘数据
                     _myChart72.setOption(option6,true);

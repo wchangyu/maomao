@@ -695,6 +695,22 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "历史报警1": {
+        "type": "0",
+        "content": "历史报警1",
+        "uri": "../new-baojingyujing/historicalAlarm.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "实时报警1": {
+        "type": "0",
+        "content": "实时报警1",
+        "uri": "../new-baojingyujing/realTimeAlarm.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   },
@@ -1952,6 +1968,14 @@
         "type": "0",
         "content": "就诊人数",
         "uri": "../new-shurucanshu/outpatientNumber.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "到发人次": {
+        "type": "0",
+        "content": "到发人次",
+        "uri": "../new-shurucanshu/arrDepPeoNum.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

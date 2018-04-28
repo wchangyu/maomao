@@ -54,7 +54,7 @@
 .left-top-alarm .alarm-data-container .alarm-data{
     font-size:28px;
     color: #F8276C;
-    width:42px;
+    min-width:42px;
     text-align: center;
     margin-right:10px;
     vertical-align: middle;
@@ -75,7 +75,7 @@
 
 /*页面下方已处理 未处理*/
 .bottom-main-table .dispose{
-    width:64px;
+    min-width:64px;
     height:22px;
     border-radius: 4px !important;
     font-size:12px;
@@ -86,6 +86,8 @@
     line-height:20px;
     text-align: center;
     cursor: pointer;
+    padding:0 5px;
+    box-sizing: content-box;
 }
 .bottom-main-table .choose-dispose {
     width:64px;

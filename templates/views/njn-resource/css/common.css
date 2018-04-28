@@ -1033,7 +1033,41 @@
     z-index: 100000 !important;
 }
 
+/*屏蔽室外温湿度*/
+.right-top-message p:nth-child(3){
+ display: none;
+}
 
+.right-top-message p:nth-child(4){
+    display: none;
+}
+
+.right-top-message .right-top-message-container:nth-child(2){
+    display: none;
+}
+
+.right-top-message .right-top-message-container:nth-child(3){
+    display: none;
+}
+
+.right-top-message-container{
+    text-align: center;
+}
+
+.inner-right-container .right-top-message {
+    width: 261px;
+    height: 69px;
+    background: url(../img/rightTop.png) no-repeat center center;
+    background-size:100% 100%;
+    position: absolute;
+    top: 19px;
+    right: 24px;
+    padding-left: 29px;
+    padding-top: 7px;
+    box-sizing: border-box;
+    display: flex;
+    display: -webkit-flex;
+}
 
 
 

@@ -45,67 +45,21 @@
     <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
     <!--时间插件-->
     <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
-    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
     <!--loading插件-->
     <link rel="stylesheet" href="../resource/jQuery-showLoading/css/showLoading.css"/>
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
 
     <!--自定义样式-->
     <link rel="stylesheet" href="../new-resource/css/common.css">
     <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/monitorStatement.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../new-resource/css/baobiaoguanli/energyEfficiencyReportH5Print.css" />
+
     <style>
-
-        .table td{
-            border: 1px solid #DCDCDC !important;
-        }
-
-        .table{
-            border:1px solid #DCDCDC;
-            background: #E2E9F2;
-        }
-
-        .table-alarm tbody {
-            display:block;
-            max-height:600px;
-            overflow-y:auto;
-        }
-
-
-        .table-alarm thead,.table-alarm tbody tr {
-            display:table;
-            width:100%;
-            table-layout:fixed;
-        }
-
-        .table-alarm thead {
-            width: calc( 100% - 1em )
-        }
-
-        .table-alarm>tbody>tr:nth-of-type(odd) {
-            background-color: #f9f9f9;
-        }
-
-        /*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
-        .scrollbar1::-webkit-scrollbar{
-            width: 16px;
-            height: 16px;
-            background-color: #f5f5f5;
-            border-radius: 0 0 15px 0px;
-            border: none !important;
-        }
-        /*定义滚动条的轨道，内阴影及圆角*/
-        .scrollbar1::-webkit-scrollbar-track{
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-            /*border-radius: 0 0 13px 0px;*/
-            background-color: rgba(235,235,235,1);
-
-        }
-        /*定义滑块，内阴影及圆角*/
-        .scrollbar1::-webkit-scrollbar-thumb{
-            /*width: 10px;*/
-            height: 20px;
-            /*border-radius: 0 0 15px 0px;*/
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-            background-color: rgba(188,212,244,1);
+        .input-blocked input {
+            border: none;
+            height: 28px !important;
+            outline: none;
+            margin: 0 !important;
         }
     </style>
 </head>
@@ -326,30 +280,42 @@
                             <!--存放查询条件-->
                             <ul class="demand-condition-container condition-query ">
                                 <li>
-                                    <label for=""><span class="user-defined-department"></span></label>
+                                    <label for="">车站</label>
                                     <select name="" id="alarm-station" class="select-station">
 
                                     </select>
                                 </li>
 
                                 <li>
-                                    <label for="">设备系统</label>
-                                    <select name="" id="select-devsystem" class="">
+                                    <label for="">报表内容</label>
+                                    <select name="" id="select-content" class="">
 
                                     </select>
                                 </li>
 
-                                <li>
-                                    <label for="">设备类别</label>
-                                    <select name="" id="select-devtype" class="">
-
-                                    </select>
+                                <li style="line-height: 26px;">
+                                    <label for="">报表类型：</label>
+                                    <div class="input-blocked">
+                                        <select id="timeType" style="width: 128px;height: 100%;width: 100%;border: none;outline: none">
+                                            <option value="0" data-attr="Day">月报表</option>
+                                            <option value="1" data-attr="Month">年报表</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li style="line-height: 26px;">
+                                    <label for="">选择时间：</label>
+                                    <div class="input-blocked">
+                                        <input type="text" class="datatimeblock min form-control"/>
+                                    </div>
                                 </li>
 
                                 <li>
                                     <button class="demand-button btn btn-success">查询</button>
                                 </li>
 
+                                <!--<li class="excelButton"></li>-->
+                                <li style="float: right"><div class="excelButton" title="导出为excel">↓</div></li>
+                                <li style="float: right"><img id="print" class="printButton" src="../new-resource/img/printIcon.png" alt=""  title="打印"></li>
                                 <!--清除浮动-->
                                 <div class="clearfix"></div>
                             </ul>
@@ -357,117 +323,175 @@
                             <!--下方主体表格-->
                             <div class="bottom-main-table">
 
-                                <table id="entry-datatables" class="table table-alarm" cellspacing="0" width="100%" style="text-align:center;">
+                                <!--车站年分项电耗报表-->
+                                <table id="entry-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black;">
                                     <thead style="text-align:center">
-                                        <tr style="text-align:center">
-                                            <th style="text-align:center;background: #E2E9F2;">监测参数名称</th>
-                                            <th  style="text-align:center;background: #E2E9F2;">故障名称</th>
+                                    <tr style="text-align:center">
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>
+                                        <th colspan="17" id="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black" class="table-name change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="17" class="data-time change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="17" class="derive-time change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">位置</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="17" class="position-name change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">建筑面积 <br />(平米)</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="building-area"></th>
 
-                                            <th style="text-align:center;background: #E2E9F2;">系统派单条件</th>
-                                            <th  style="text-align:center;background:  #E2E9F2;">是否自动派单</th>
-                                        </tr>
+                                        <th colspan="2" class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">空调面积 <br />(平米)</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="air-conditioner-area"></th>
+                                        <th colspan="2" class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">到发人次 <br />(人/<span class="time-type">年</span>)</th>
+
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="people-amount"></th>
+
+                                        <th colspan="2" class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">电单价 <br />(元/度)</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="electricity-price"></th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="7" class="change-colspan2"> </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="3">日期</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="2">电耗</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="16" class="change-colspan3">分项电耗</th>
+                                    </tr>
+
+                                    <tr class="change-head1 change-head-subentry">
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">照明插座</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">暖通</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">电梯</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">信息</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">广告</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">商业</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">消防</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">其他</th>
+                                    </tr>
+
+                                    <tr class="change-head2 change-head-unit">
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
+                                    </tr>
 
                                     </thead>
 
-                                    <tbody class="scrollbar1">
-                                    <tr>
-                                        <td>油槽温度
-                                        </td>
-                                        <td>油槽温度过低</td>
-                                        <td>机组内部报警并停机（主电机启动前油槽温度低于设定值）
+                                    <tbody>
 
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" class="table-checkbox" checked="checked" />
-                                        </td>
-                                    </tr>
-                                        <tr>
-                                            <td>冷冻水流量开关
-                                            </td>
-                                            <td>油槽温度过低</td>
-                                            <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" class="table-checkbox" checked="checked"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>冷冻水流量开关
-                                            </td>
-                                            <td>油槽温度过低</td>
-                                            <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" class="table-checkbox" checked="checked"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>冷冻水流量开关
-                                            </td>
-                                            <td>油槽温度过低</td>
-                                            <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" class="table-checkbox" checked="checked"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>冷冻水流量开关
-                                            </td>
-                                            <td>油槽温度过低</td>
-                                            <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" class="table-checkbox" checked="checked"/>
-                                            </td>
-                                        </tr>
-                                    <tr>
-                                        <td>冷冻水流量开关
-                                        </td>
-                                        <td>油槽温度过低</td>
-                                        <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" class="table-checkbox" checked="checked"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>冷冻水流量开关
-                                        </td>
-                                        <td>油槽温度过低</td>
-                                        <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" class="table-checkbox" checked="checked"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>冷冻水流量开关
-                                        </td>
-                                        <td>油槽温度过低</td>
-                                        <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" class="table-checkbox" checked="checked"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>冷冻水流量开关
-                                        </td>
-                                        <td>油槽温度过低</td>
-                                        <td>机组内部报警并停机（主机运行型号在运行期间断开，主机备妥信号在压缩机启动
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" class="table-checkbox" checked="checked"/>
-                                        </td>
-                                    </tr>
                                     </tbody>
-
                                 </table>
 
-                                <button class="btn btn-success bottom-btn-success" style="float: right;width:80px;">确定</button>
+                                <!--车站总能耗报表-->
+                                <table id="total-entry-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black;display: none">
+                                    <thead style="text-align:center">
+                                    <tr style="text-align:center">
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>
+                                        <th colspan="8"  style="text-align:center;background: #ffffff;border:1px solid black" class="table-name change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="8" class="data-time change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="8" class="derive-time change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">位置</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="8" class="position-name change-colspan1"></th>
+                                    </tr>
+                                    <tr>
 
-                                <div class="clearfix"></div>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">占地面积 <br />(平米)</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="total-area"></th>
+
+                                        <th colspan="1" class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">空调采暖面积 <br />(平米)</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="air-conditioner-area"></th>
+
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">建筑面积 <br />(平米)</th>
+
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="building-area"></th>
+
+                                        <th colspan="1" class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">到发人次 <br />(人/<span class="time-type">年</span>)</th>
+
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="people-amount"></th>
+
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="1" class="change-colspan2"> </th>
+
+                                    </tr>
+
+                                    <tr class="change-head-price">
+
+                                        <th colspan="1" class="printBgColor energy-type-name" style="text-align:center;background: #E2E9F2;border:1px solid black">电单价 <br />(元/度)</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="energy-type-price"></th>
+
+                                        <th colspan="1" class="printBgColor energy-type-name" style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽单价 <br />(元/吨)</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="energy-type-price"></th>
+
+                                        <th colspan="1" class="printBgColor energy-type-name" style="text-align:center;background: #E2E9F2;border:1px solid black">水单价 <br />(元/吨)</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="energy-type-price"></th>
+
+                                        <th colspan="1" class="printBgColor energy-type-name" style="text-align:center;background: #E2E9F2;border:1px solid black"></th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="energy-type-price"></th>
+
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="1" class="change-colspan2"> </th>
+
+
+
+                                    </tr>
+
+                                    <tr class="change-head2 change-head-name">
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="2">日期</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">电耗</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">电费</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">蒸汽耗</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">蒸汽费</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">水耗</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">水费</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">折合标煤</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">支出合计</th>
+
+                                    </tr>
+
+
+                                    <tr class="change-head2 change-head-unit">
+
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >元</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >立方米</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >元</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >元</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >元</th>
+                                    </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
                             </div>
 
                         </div>
@@ -547,6 +571,10 @@
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <!--时间插件-->
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+<!--打印插件-->
+<script src="../resource/js/jQuery.print.js"></script>
+<!--导出插件-->
+<script src="../new-resource/src/jquery.table2excel.js"></script>
 <!--loading插件-->
 <script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
 
@@ -562,7 +590,7 @@
     });
 </script>
 <script src="../new-resource/js/common.js"></script>
-<script src="../resource/js/autoMationSendOrder.js"></script>
+<script src="../new-resource/js/baobiaoguanli/energyConsumptionStatement.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

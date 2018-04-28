@@ -54,7 +54,11 @@ var BEE = (function(){
 
     var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
 
-    if(_LurlLength == 4){
+    if(_LurlLength > 3){
+
+        //var _logint = _LurlLength - 3;
+        //
+        //for(var i=0; )
 
         _loginHtml = "../" + _loginHtml;
 
