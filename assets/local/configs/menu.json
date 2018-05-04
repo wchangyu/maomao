@@ -23,10 +23,34 @@
         "arg": "",
         "iconclass": ""
       },
+      "运维联动": {
+        "type": "0",
+        "content": "运维联动",
+        "uri": "../njn-dapingzhanshi/operationMaintenance.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
       "自动派单设置": {
         "type": "0",
         "content": "自动派单设置",
         "uri": "../yunweiguanli/autoMationSendOrder.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "能耗报表": {
+        "type": "0",
+        "content": "能耗报表",
+        "uri": "../new-baobiaoguanli/energyConsumptionStatement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "报警报表": {
+        "type": "0",
+        "content": "报警报表",
+        "uri": "../new-baobiaoguanli/alarmStatement.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -233,6 +257,23 @@
         "uid": "",
         "arg": "",
         "iconclass": "icon-credit-card"
+      }
+    }
+  },
+  "系统管理": {
+    "type": "1",
+    "content": "系统管理",
+    "iconclass": "icon-camcorder",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
+      "版本说明": {
+        "type": "0",
+        "content": "版本说明",
+        "uri": "../xitongshezhi/revisionExplain.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   },

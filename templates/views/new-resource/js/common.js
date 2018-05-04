@@ -425,11 +425,19 @@ function getBranchZtree(EnItdata,flag,fun){
                 $('#' + treeId).find('.curSelectedNode').removeClass('curSelectedNode');
 
             },
-            onCheck:function(e,treeId,treeNode){
+            beforeCheck:function(treeId,treeNode){
+
+                branchTreeObj.checkNode(treeNode,!treeNode.checked,false);
 
                 $('#' + treeId).find('.curSelectedNode').removeClass('curSelectedNode');
 
                 $('#' + treeId).find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+
+                return false;
+            },
+            onCheck:function(event,treeId,treeNode){
+
+
 
             }
         }

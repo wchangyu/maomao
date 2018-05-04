@@ -246,10 +246,10 @@ Page Header
   border-radius: 4px;
 }
 
-.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu li{
+.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu-default li{
   display: none;
 }
-.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu li:last-child{
+.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu-default li:last-child{
   display: block;
 }
 

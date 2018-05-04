@@ -354,7 +354,16 @@ $(function(){
             success:function(result){
 
                 var option = {
+                    title:{
+                        text:'毛毛',
+                        top:'middle',
+                        left:'center',
+                        textStyle:{
 
+
+
+                        }
+                    },
                     tooltip: {
                         trigger: 'item',
                         formatter: "{a} <br/>{b}: {c} ({d}%)"

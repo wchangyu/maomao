@@ -326,90 +326,12 @@
                             <!--下方主体表格-->
                             <div class="bottom-main-table">
 
-                                <!--车站年分项电耗报表-->
-                                <table id="entry-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black;">
+                                <!--车站年报警统计报表-->
+                                <table id="alarm-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black;">
                                     <thead style="text-align:center">
                                     <tr style="text-align:center">
                                         <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>
-                                        <th colspan="17" id="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black" class="table-name change-colspan1"></th>
-                                    </tr>
-                                    <tr>
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="17" class="data-time change-colspan1"></th>
-                                    </tr>
-                                    <tr>
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="17" class="derive-time change-colspan1"></th>
-                                    </tr>
-                                    <tr>
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">位置</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="17" class="position-name change-colspan1"></th>
-                                    </tr>
-                                    <tr>
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">建筑面积 <br />(平米)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="building-area"></th>
-
-                                        <th colspan="2" class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">空调面积 <br />(平米)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="air-conditioner-area"></th>
-                                        <th colspan="2" class="printBgColo station-show" style="text-align:center;background: #E2E9F2;border:1px solid black">到发人次 <br />(人/<span class="time-type">年</span>)</th>
-
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="people-amount station-show"></th>
-
-                                        <th colspan="2" class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">电单价 <br />(元/度)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="electricity-price"></th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="7" class="change-colspan2"> </th>
-                                    </tr>
-
-                                    <tr>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="3">日期</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="2">电耗</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="16" class="change-colspan3">分项电耗</th>
-                                    </tr>
-
-                                    <tr class="change-head1 change-head-subentry">
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">照明插座</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">暖通</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">电梯</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">信息</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">广告</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">商业</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">消防</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">其他</th>
-                                    </tr>
-
-                                    <tr class="change-head2 change-head-unit">
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
-                                    </tr>
-
-                                    </thead>
-
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-
-                                <!--车站总能耗报表-->
-                                <table id="total-entry-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black;display: none">
-                                    <thead style="text-align:center">
-                                    <tr style="text-align:center">
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>
-                                        <th colspan="8"  style="text-align:center;background: #ffffff;border:1px solid black" class="table-name change-colspan1"></th>
+                                        <th colspan="8" id="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black" class="table-name change-colspan1"></th>
                                     </tr>
                                     <tr>
                                         <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>
@@ -419,74 +341,22 @@
                                         <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>
                                         <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="8" class="derive-time change-colspan1"></th>
                                     </tr>
-                                    <tr>
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">位置</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="8" class="position-name change-colspan1"></th>
-                                    </tr>
-                                    <tr>
-
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">占地面积 <br />(平米)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="land-area"></th>
-
-                                        <th colspan="1" class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">空调采暖面积 <br />(平米)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="air-conditioner-area"></th>
-
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">建筑面积 <br />(平米)</th>
-
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="building-area"></th>
-
-                                        <th colspan="1" class="printBgColor station-show" style="text-align:center;background: #E2E9F2;border:1px solid black">到发人次 <br />(人/<span class="time-type">年</span>)</th>
-
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="people-amount station-show"></th>
-
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="1" class="change-colspan2"> </th>
-
-                                    </tr>
-
-                                    <tr class="change-head-price">
-
-                                        <th colspan="1" class="printBgColor energy-type-name" style="text-align:center;background: #E2E9F2;border:1px solid black">电单价 <br />(元/度)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="energy-type-price"></th>
-
-                                        <th colspan="1" class="printBgColor energy-type-name" style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽单价 <br />(元/吨)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="energy-type-price"></th>
-
-                                        <th colspan="1" class="printBgColor energy-type-name" style="text-align:center;background: #E2E9F2;border:1px solid black">水单价 <br />(元/吨)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="energy-type-price"></th>
-
-                                        <th colspan="1" class="printBgColor energy-type-name" style="text-align:center;background: #E2E9F2;border:1px solid black"></th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="energy-type-price"></th>
-
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="1" class="change-colspan-price"> </th>
+                                    <!--<tr>-->
+                                        <!--<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">位置</th>-->
+                                        <!--<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="17" class="position-name change-colspan1"></th>-->
+                                    <!--</tr>-->
 
 
-
-                                    </tr>
-
-                                    <tr class="change-head2 change-head-name">
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="2">日期</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">电耗</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">电费</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">蒸汽耗</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">蒸汽费</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">水耗</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">水费</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">折合标煤</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">支出合计</th>
-
-                                    </tr>
-
-
-                                    <tr class="change-head2 change-head-unit">
-
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >元</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >立方米</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >元</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >元</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >元</th>
+                                    <tr class="change-head1 change-head-name">
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">报警量排名</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">子系统</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">报警总数</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">报警处理数</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">报警未处理数</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">严重紧急报警数</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">紧急报警数</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">一般报警数 </th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">普通报警数</th>
                                     </tr>
 
                                     </thead>
@@ -494,110 +364,7 @@
                                     <tbody>
 
                                     </tbody>
-                                </table>
 
-                                <!--车站总能耗指标报表-->
-                                <table id="entry-target-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black;display: none">
-                                    <thead style="text-align:center">
-                                    <tr style="text-align:center">
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>
-                                        <th colspan="12"  style="text-align:center;background: #ffffff;border:1px solid black" class="table-name change-colspan1"></th>
-                                    </tr>
-                                    <tr>
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="12" class="data-time change-colspan1"></th>
-                                    </tr>
-                                    <tr>
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="12" class="derive-time change-colspan1"></th>
-                                    </tr>
-                                    <tr>
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">位置</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="12" class="position-name change-colspan1"></th>
-                                    </tr>
-                                    <tr>
-
-                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">建筑面积 <br />(平米)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="building-area"></th>
-
-                                        <th colspan="1" class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">空调采暖面积 <br />(平米)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="air-conditioner-area"></th>
-
-                                        <th colspan="1" class="printBgColor station-show" style="text-align:center;background: #E2E9F2;border:1px solid black">到发人次 <br />(人/<span class="time-type">年</span>)</th>
-
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="people-amount station-show"></th>
-
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="7" class="change-colspan2"> </th>
-
-                                    </tr>
-
-                                    <tr class="change-head-price">
-
-                                        <th colspan="1" class="printBgColor energy-type-name" style="text-align:center;background: #E2E9F2;border:1px solid black">电单价 <br />(元/度)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="energy-type-price"></th>
-
-                                        <th colspan="1" class="printBgColor energy-type-name" style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽单价 <br />(元/吨)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="energy-type-price"></th>
-
-                                        <th colspan="1" class="printBgColor energy-type-name" style="text-align:center;background: #E2E9F2;border:1px solid black">水单价 <br />(元/吨)</th>
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="energy-type-price"></th>
-
-
-                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="7" class="change-colspan-price"> </th>
-
-
-
-                                    </tr>
-
-                                    <tr class="change-head0 change-head-title">
-
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="3">日期</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="3">电</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="3">水</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="3">蒸汽</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="3">折合标煤</th>
-                                    </tr>
-
-                                    <tr class="change-head2 change-head-name">
-
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">总</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">单位建筑面积电耗</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">单位到发人次电耗</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">总</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">单位建筑面积水耗<br/>(不含客车上水)</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">单位到发人次水耗<br/>(不含客车上水)</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">总</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">单位面积蒸汽耗</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">单位到发人次蒸汽耗</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">总</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">单位面积标煤</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="1">单位到发人次标煤</th>
-
-                                    </tr>
-
-
-                                    <tr class="change-head2 change-head-unit">
-
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度/平米</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >度/人次</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨/平米</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨/人次</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨/平米</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨/人次</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨/平米</th>
-                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨/人次</th>
-
-                                    </tr>
-
-                                    </thead>
-
-                                    <tbody>
-
-                                    </tbody>
                                 </table>
 
 
@@ -699,7 +466,7 @@
     });
 </script>
 <script src="../new-resource/js/common.js"></script>
-<script src="../new-resource/js/baobiaoguanli/energyConsumptionStatement.js"></script>
+<script src="../new-resource/js/baobiaoguanli/alarmStatement.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
