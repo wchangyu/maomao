@@ -60,14 +60,32 @@ $(function(){
     //打印
     $('#print').click(function(){
 
-        _printFun($('#entry-datatables'));
+        //通过判断状态
+        if($('#entry-datatables').css('display') != 'none'){
+
+            _printFun($('#entry-datatables'));
+
+        }else if( $('#Satisfaction-datatables').css('display') != 'none' ){
+
+            _printFun($('#Satisfaction-datatables'));
+
+        }
 
     })
 
     //导出
     $('.excelButton').click(function(){
 
-        _exportExecl($('#entry-datatables'));
+        //通过判断状态
+        if($('#entry-datatables').css('display') != 'none'){
+
+            _exportExecl($('#entry-datatables'));
+
+        }else if( $('#Satisfaction-datatables').css('display') != 'none' ){
+
+            _exportExecl($('#Satisfaction-datatables'));
+
+        }
 
     })
 
@@ -100,22 +118,180 @@ $(function(){
             et = moment($('.datatimeblock').val()).endOf('years').add(1,'d').format('YYYY/MM/DD');
         }
 
-        //参数
-        var prm = {
+        //首先判断是工单统计还是满意度统计
+        if($('#reporContent').val() == 0){
 
-            //车站
-            bxKeshiNum:pointerId,
-            //开始时间
-            st:st,
-            //结束时间
-            et:et
-        }
+            //工单统计
+            //配置
+            //报表名称
+            $('#table-titleH').html($('#reporContent').children('option:selected').html());
 
-        _mainAjaxFun('post','YWGD/ywGDGetDSRpt',prm,successFun);
+            //数据时间
 
-        function successFun(result){
+            if($('#timeType').val() == 0){
 
-            console.log(result);
+                var dataTime = $('.datatimeblock').val().split('/');
+
+                $('#entry-datatables').find('.data-time').html(dataTime[0] + '年' + dataTime[1] + '月');
+
+            }else if($('#timeType').val() == 1){
+
+                $('#entry-datatables').find('.data-time').html($('.datatimeblock').val() + '年');
+
+            }
+
+            //导出时间（查询时间）
+            excelTime = moment().format('YYYY/MM/DD hh:mm:ss');
+
+            $('#entry-datatables').find('.derive-time').html(excelTime);
+
+            //当前位置
+            $('#entry-datatables').find('.locationStation').html($('#area').children('option:selected').html());
+
+            //参数
+            var prm = {
+
+                //车站
+                bxKeshiNum:pointerId,
+                //开始时间
+                st:st,
+                //结束时间
+                et:et
+            }
+
+            _mainAjaxFun('post','YWGD/ywGDGetDSRpt',prm,successFun);
+
+            function successFun(result){
+
+                var str = '';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<tr>' +
+                        '<td style="text-align:center;border:1px solid black">' + result[i].rank + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].dsName + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdCnt + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdByMannualCnt + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdBySysCnt + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdFCnt + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdUFCnt + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdFPer + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdTimeConsume + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdFee + '</td>' +
+
+
+                        '</tr>'
+
+                }
+
+                $('#entry-datatables').children('tbody').empty().append(str);
+
+
+            }
+
+            //都隐藏，然后显示
+            $('.table').hide();
+
+            //显示一部分
+            $('#entry-datatables').show();
+
+        }else{
+
+            //满意度统计
+            //配置
+            //报表名称
+            $('#table-titleS').html($('#reporContent').children('option:selected').html());
+
+            //数据时间
+
+            if($('#timeType').val() == 0){
+
+                var dataTime = $('.datatimeblock').val().split('/');
+
+                $('#Satisfaction-datatables').find('.data-time').html(dataTime[0] + '年' + dataTime[1] + '月');
+
+            }else if($('#timeType').val() == 1){
+
+                $('#Satisfaction-datatables').find('.data-time').html($('.datatimeblock').val() + '年');
+
+            }
+
+            //导出时间（查询时间）
+            excelTime = moment().format('YYYY/MM/DD hh:mm:ss');
+
+            $('#Satisfaction-datatables').find('.derive-time').html(excelTime);
+
+            //当前位置
+            $('#Satisfaction-datatables').find('.locationStation').html($('#area').children('option:selected').html());
+
+            //发送数据
+            var prm = {
+
+                //车站
+                bxKeshiNum:pointerId,
+                //开始时间
+                st:st,
+                //结束时间
+                et:et,
+                //用户id
+                userID:_userIdNum,
+                //用户名
+                userName:_userIdName
+
+            }
+
+            _mainAjaxFun('post','YWGD/ywGDRptMyd',prm,successFun1);
+
+            function successFun1(result){
+
+                var str = '';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<tr>' +
+                        '<td style="text-align:center;border:1px solid black">' + result[i].wxKeshi + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdNum + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdHmy + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdMy + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdYb + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdC + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdHc + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdWpj + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].pjl + '</td>' +
+
+                        '<td style="text-align:center;border:1px solid black">' + result[i].myl + '</td>' +
+
+
+                        '</tr>'
+
+                }
+
+                $('#Satisfaction-datatables').children('tbody').empty().append(str);
+
+            }
+
+            //都隐藏，然后显示
+            $('.table').hide();
+
+            //显示一部分
+            $('#Satisfaction-datatables').show();
 
         }
 

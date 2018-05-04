@@ -355,12 +355,22 @@ $(function(){
 
                 var option = {
                     title:{
-                        text:'毛毛',
-                        top:'middle',
+                        text:'',
+                        subtext:'工单量',
+                        top:'70',
                         left:'center',
                         textStyle:{
 
+                            fontSize:'37',
 
+                            fontWeight:'normal',
+
+                            color:'#3C3C3C'
+
+                        },
+                        subtextStyle:{
+
+                            verticalAlign:'top'
 
                         }
                     },
@@ -372,7 +382,7 @@ $(function(){
                         show:false,
                         orient: 'vertical',
                         x: 'left',
-                        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+                        data:[]
                     },
                     series: [
                         {
@@ -386,10 +396,10 @@ $(function(){
                                     position: 'center'
                                 },
                                 emphasis: {
-                                    show: true,
+                                    show: false,
                                     textStyle: {
-                                        fontSize: '30',
-                                        fontWeight: 'bold'
+                                        fontSize: '20',
+                                        fontWeight: 'normal'
                                     }
                                 }
                             },
@@ -488,6 +498,10 @@ $(function(){
         //工单响应
         if(result.gdStat){
 
+            var totalNum = Number(result.gdStat.gdFinished) + Number(result.gdStat.gdAssign) + Number(result.gdStat.gdInProgress);
+
+            option.title.text = totalNum;
+
             option.series[0].name='工单响应';
 
             //数据
@@ -507,7 +521,7 @@ $(function(){
                     color: function(params2) {
 
                         var colorList = [
-                            '#14E398','#EAD01E','#F8276C'
+                            '#1DD6C2','#0BA3C3','#0353F7'
                         ];
                         return colorList[params2.dataIndex]
                     }
@@ -548,27 +562,33 @@ $(function(){
 
             if(result.gdSrcs){
 
+                var totalNum = 0;
+
                 for(var i=0;i<result.gdSrcs.length;i++){
+
+                    totalNum += Number(result.gdSrcs[i].gdCnt);
+
                     //电话
                     if(result.gdSrcs[i].gdSrc == 1){
 
-                        option.series[0].data[0] = result.gdSrcs[i].gdCnt;
+                        option.series[0].data[0].value = result.gdSrcs[i].gdCnt;
+
                         //手机
                     }else if(result.gdSrcs[i].gdSrc == 2){
 
-                        option.series[0].data[2] = result.gdSrcs[i].gdCnt;
+                        option.series[0].data[2].value = result.gdSrcs[i].gdCnt;
                         //系统
                     }else if(result.gdSrcs[i].gdSrc == 3){
 
-                        option.series[0].data[3] = result.gdSrcs[i].gdCnt;
+                        option.series[0].data[3].value = result.gdSrcs[i].gdCnt;
                         //平台
                     }else if(result.gdSrcs[i].gdSrc == 4){
 
-                        option.series[0].data[1] = result.gdSrcs[i].gdCnt;
+                        option.series[0].data[1].value = result.gdSrcs[i].gdCnt;
                         //江苏运联
                     }else if(result.gdSrcs[i].gdSrc == 10){
 
-                        option.series[0].data[4] = result.gdSrcs[i].gdCnt;
+                        option.series[0].data[4].value = result.gdSrcs[i].gdCnt;
 
                     }
 
@@ -576,13 +596,16 @@ $(function(){
 
             }
 
+            //标题
+            option.title.text = totalNum;
+
             //颜色
             option.series[0].itemStyle = {
                 normal: {
                     color: function(params2) {
 
                         var colorList = [
-                            '#14E398','#0BA3C3','#0353F7','#3C27D5','#901AD3'
+                            '#1DD6C2','#0BA3C3','#0353F7','#3C27D5','#901AD3'
                         ];
                         return colorList[params2.dataIndex]
                     }
@@ -619,7 +642,11 @@ $(function(){
 
             ]
 
+            var totalNum = 0;
+
             for(var i=0;i<result.gdLXs.length;i++){
+
+                totalNum += Number(result.gdLXs[i].gdCnt);
 
                 //普通
                 if(result.gdLXs[i].gdLX == 4){
@@ -641,6 +668,9 @@ $(function(){
                 }
 
             }
+
+            //标题
+            option.title.text = totalNum;
 
             //颜色
             option.series[0].itemStyle = {
@@ -672,6 +702,8 @@ $(function(){
 
             option.series[0].name='工单分布';
 
+            var totalNum = 0;
+
             var color = ['#14E398','#0BA3C3','#0387F7','#0353F7','#283DDA','#3C27D5','#6512D7','#901AD3'];
 
             var leftColorBlock = '';
@@ -679,6 +711,8 @@ $(function(){
             var rightColorBlock = '';
             //生成小色块
             for(var i=0;i<result.gdDevInfos.length;i++){
+
+                totalNum += Number(result.gdDevInfos[i].gdCnt);
 
                 //自动生成工单分布的颜色块
                 if(i%2){
@@ -720,6 +754,9 @@ $(function(){
             $('.legend-areaD').children().eq(1).empty().append(rightColorBlock);
 
             $('.legend-areaD').children().eq(0).empty().append(leftColorBlock);
+
+            //标题
+            option.title.text = totalNum;
 
             //颜色
             option.series[0].itemStyle = {
@@ -772,7 +809,7 @@ $(function(){
 
             type:'post',
 
-            url:_urls + 'YWGD/ywGDGetDJ',
+            url:_urls + 'YWGD/ywGDGetZh2',
 
             timeout:_theTimes,
 
@@ -792,13 +829,17 @@ $(function(){
 
             success:function(result){
 
-                _jumpNow($('#gd-datatables'),result.reverse());
+                if(result.length>0){
 
-                //获取到第一个数据的设备
+                    _jumpNow($('#gd-datatables'),result.reverse());
 
-                var gdCode = result[0].gdCode2;
+                    //获取到第一个数据的设备
 
-                divTable(gdCode);
+                    var gdCode = result[0].gdCode2;
+
+                    divTable(gdCode);
+
+                }
 
             },
 
@@ -836,7 +877,7 @@ $(function(){
 
             type:'post',
 
-            url:_urls + 'YWGD/ywGDGetDJ',
+            url:_urls + 'YWGD/ywGDGetZh2',
 
             timeout:_theTimes,
 
