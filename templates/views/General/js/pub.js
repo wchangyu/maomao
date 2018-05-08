@@ -223,13 +223,9 @@ var EPMA = function () {
                 $.get(realDtUrl, {
                     pId: sessionStorage.PointerID
                 }, function (res) {
-
                     //$('#pNT').html(eprNT + pNt);//楼宇名称
-
                     sessionStorage.sysDt = res.dt;
-
-                    location.href = "../EPMA" + window.location.href.split('EPMA')[1];
-
+                    location.href = "../EPMA/main.html";
                 })
             })
 

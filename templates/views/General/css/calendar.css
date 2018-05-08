@@ -65,8 +65,8 @@
     border: none !important;
   }
 
-  .calendar-title{
+.calendar-title{
 
-      display: inline-block;box-sizing: border-box;text-indent: 10px;padding: 0 1%;
+    display: inline-block;box-sizing: border-box;text-indent: 10px;padding: 0 2%;
 
-  }
+}

@@ -114,7 +114,7 @@ $(function(){
                 text: '导出',
                 className:'saveAs',
                 exportOptions:{
-                    columns:[0,1,3,4,5,6,7,8,9,10,11,12,13]
+                    columns:[0,1,3,4,5,6,7,8,9,10,11,12,13,14]
                 }
             }
         ],

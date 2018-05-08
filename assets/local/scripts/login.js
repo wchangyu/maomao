@@ -474,6 +474,9 @@ var Login = function() {
                     var bigScreenSet = data["bigScreenSet"] || '';
                     sessionStorage.bigScreenSet = bigScreenSet;
 
+                    //是否显示折标能效
+                    var showstep = data["showstep"] || '';
+                    sessionStorage.showstep = showstep;
 
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
