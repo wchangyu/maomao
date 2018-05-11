@@ -684,14 +684,17 @@
 }
 
 #equipment-datatables tbody th, #equipment-datatables tbody td {
-    padding: 6px 4px;
+    padding: 4px 4px;
     min-height:40px !important;
 }
 
-#equipment-datatables{
-    height:690px;
-}
+/*#equipment-datatables{*/
+    /*height:690px;*/
+/*}*/
 
+#equipment-datatables tbody td{
+    height:46px !important;
+}
 
 /*隐藏datatables中每页展示条数的选择框*/
 .dataTables_length{
@@ -1068,6 +1071,8 @@
     display: flex;
     display: -webkit-flex;
 }
+
+
 
 
 

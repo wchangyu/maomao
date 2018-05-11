@@ -138,6 +138,7 @@ h3 .left-patch {
     margin-bottom:40px !important;
     background: url('../../img/hantanhao.png') no-repeat  center 80px;
     position: relative;
+    cursor: pointer;
 }
 
 .right-bottom-content-right .bottom-content-top-introduce .alarm-content span{

@@ -70,6 +70,182 @@ $(function(){
         },_refresh * 1000 * 60)
     };
 
+    //-----------------------------主设备 副设备信息弹窗-----------------------------//
+
+    //初始化表格
+    table = $('#dev-grade-dateTables').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": false,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": false,
+        "ordering": false,
+        // "scrollY": "300px",
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页',
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":'B<"clear">lfrtip',
+        'buttons': [
+            //{
+            //    extend:'csvHtml5',
+            //    text:'保存csv格式'
+            //},
+            //{
+            //    extend: 'excelHtml5',
+            //    text: '保存为excel格式'
+            //},
+            //{
+            //    extend: 'pdfHtml5',
+            //    text: '保存为pdf格式'
+            //}
+        ],
+        "columns": [
+            {
+                "title": "设备名称",
+                "data":"devName"
+            },
+            {
+                "title": "设备类型",
+                "data":"typeName"
+            },
+            {
+                "title": "设备区域",
+                "data":"areaName"
+            },
+            {
+                "title": "服务区域",
+                "data":"serviceArea"
+            },
+            {
+                "title": "子设备信息",
+                "class":'L-button',
+                "targets": -1,
+                "data": 'id',
+                "render":function(data,type,row,meta){
+
+                    if(row.childDevgradeTypeInfos.length == -1){
+
+                        return  "无子设备"
+
+                    }else{
+
+                        return  "<button class='btn-success details-control' data-id="+data+" >查看子设备</button>"
+                    }
+
+
+
+                }
+                //"defaultContent": "<button class='btn details-control' data-alaLogID=''>显示/隐藏历史</button>"
+            }
+        ]
+    });
+
+    //点击主设备 副设备弹出运行弹窗 并展示数据
+    $(".right-picture-data").on('click','.access-device',function(){
+
+        //console.log(33);
+
+        //显示悬浮窗
+        $('#dev-grade-message').modal('show');
+
+        //获取当前的设备类型
+        var devTypeArr = [1,2,3,4,7,18,19,20,21];
+
+        //获取后台数据并页面赋值
+        getDevgradeTypeInfo(devTypeArr);
+
+    });
+
+    //主设备 副设备弹窗中的查询功能
+    $('#dev-grade-message .demand-button').on('click',function(){
+
+        //获取当前的设备类型
+        var devTypeArr = [];
+
+        $("#dev-grade-message .equip-types option").each(function(i,o){
+
+            var thisValue = $(o).attr('value');
+
+            if(thisValue != ""){
+
+                devTypeArr.push(thisValue);
+            }
+
+        });
+
+        //获取用户选中的设备类型
+        var selectDevType = $('#dev-grade-message .equip-types').val();
+
+        if(selectDevType != ''){
+
+            devTypeArr = [selectDevType];
+        };
+
+
+        //获取设备名称
+        var devName = $('#dev-grade-message .dev-type').val();
+
+        console.log($('#dev-grade-message .dev-type').val());
+
+        var condition =   {
+            "pointerID":curPointerIDArr[0],
+            "devTypeIDs": devTypeArr,
+            "devName": devName
+        };
+
+        //获取设备运行数据
+        getDevgradeTypeInfo('',condition);
+
+    });
+
+    $('#dev-grade-dateTables tbody').on('click', 'td .details-control', function () {
+
+        //获取报警日志id
+        var alaLogID = $(this).attr('data-id');
+
+        for(var i=0;i<devGradeArr.length;i++){
+            if(devGradeArr[i].id ==alaLogID){
+                historyArr = devGradeArr[i].childDevgradeTypeInfos;
+            }
+        }
+        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+        var row = table.row( tr );
+        if ( row.child.isShown() ) {
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(historyArr) ).show();
+            tr.addClass('shown');
+        }
+    } );
+
+    //点击运行参数信息中的查看主副设备按钮
+    $('#run-number-message .right-dev-grade').on('click',function(){
+
+        //显示悬浮窗
+        $('#dev-grade-message').modal('show');
+
+        //获取当前的设备类型
+        var devTypeArr = $(this).parent().find('.systematic-name').attr('data-devtype').split(",");
+
+        //获取后台数据并页面赋值
+        getDevgradeTypeInfo(devTypeArr);
+
+    });
+
     //-----------------------------报警信息弹窗-----------------------------//
 
     //点击报警信息弹出报警弹窗 并展示数据
@@ -126,6 +302,8 @@ $(function(){
         getDevMonitAlarmPopup(devTypeArr,condition);
 
     });
+
+
 
     //-----------------------------消防报警信息弹窗-----------------------------//
 
@@ -657,6 +835,9 @@ $(function(){
     });
 
 });
+
+//定义存放所有主副设备信息的数组
+var devGradeArr = [];
 
 //定义开始结束时间
 var startDate = moment().format('YYYY-MM-DD');
@@ -3166,7 +3347,7 @@ function drawLineChart(totalNum,flag){
     };
 
     userEquipAlarmArr.push(obj);
-}
+};
 
 //大屏幕报警
 function getDevMonitAlarmPopup(devTypeArr,condition){
@@ -3753,6 +3934,128 @@ function getDevRunParaPopupData(devTypeArr,condition){
     })
 };
 
+//大屏幕主副设备信息
+function getDevgradeTypeInfo(devTypeArr,condition){
+
+    //传递给后台的参数
+    var  ecParams = {
+
+        "pointerID":curPointerIDArr[0],
+        "devTypeIDs": devTypeArr,
+        "devName": ""
+
+    };
+
+    if(condition){
+        ecParams = condition;
+    }
+
+    $.ajax({
+        type:'post',
+        url:_urls + 'NJNDeviceShow/GetDevgradeTypeInfo',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            if(!condition){
+
+                $('#dev-grade-message .equip-types').html("");
+
+            }
+
+            //页面赋值
+            $('#dev-grade-dateTables tbody').html("");
+
+            setTimeout(function(){
+
+                $('#dev-grade-message .bottom-table-data-container #dev-grade-dateTables').showLoading();
+
+            },500);
+
+        },
+        success:function(result){
+
+            setTimeout(function(){
+
+                $('#dev-grade-message .bottom-table-data-container #dev-grade-dateTables').hideLoading();
+
+            },500);
+
+            //console.log(result);
+            //给设备类型搜索框赋值
+
+            devGradeArr = result;
+
+            if(devTypeArr && devTypeArr != ''){
+
+                var selectHtml = "<option value=''>全部</option>";
+
+                $(devTypeArr).each(function(i,o){
+
+                    //获取当前设备名称
+                    var devTypeName = getEquipNameByID(o);
+
+                    selectHtml += "<option value='"+o+"'>"+devTypeName+"</option>";
+                });
+
+                $('#dev-grade-message .equip-types').html(selectHtml);
+
+            }
+            //给页面赋值
+
+            _datasTable($('#dev-grade-dateTables'),devGradeArr);
+
+            //var tableHtml = "";
+            //
+            //$(result).each(function(i,o){
+            //
+            //    tableHtml += "<tr>";
+            //
+            //    //设备名称
+            //    tableHtml += "<td>"+ o.devName+"</td>";
+            //
+            //    //类型
+            //    tableHtml += "<td>"+ o.typeName+"</td>";
+            //
+            //    //位置
+            //    tableHtml += "<td>"+ o.areaName+"</td>";
+            //
+            //    //服务区域
+            //    tableHtml += "<td>"+ o.serviceArea+"</td>";
+            //
+            //    //查看子设备
+            //    tableHtml += "<td><button class='btn-success details-control' style='background: #2a6796 !important;' data-id='"+ o.id+"'>查看子设备</button></td>";
+            //
+            //    tableHtml += "</tr>"
+            //});
+            //
+            ////页面赋值
+            //$('#dev-grade-dateTables tbody').html(tableHtml);
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            setTimeout(function(){
+
+                $('#dev-grade-message .bottom-table-data-container #dev-grade-dateTables').hideLoading();
+
+            },500);
+
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+            }else{
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+            }
+
+        }
+
+    })
+};
+
 //获取运维工单中的工单响应数据
 function getGDRespondInfo(){
 
@@ -4175,6 +4478,27 @@ function getAlarmFireType(num){
     }else if(num == 30){
         return '屏蔽'
     }
+};
+
+//显示隐藏
+function format ( d ) {
+
+    var theader = '<table class="table">' +
+        '<thead><tr><td>设备名称</td><td>设备类型</td><td>设备位置</td><td>服务区域</td></tr></thead>';
+    var theaders = '</table>';
+    var tbodyer = '<tbody>';
+    var tbodyers = '</tbody>';
+    var str = "";
+    for(var i=0;i< d.length;i++){
+
+        str +='<tr>' +
+            '<td>' + d[i].devName +
+            '</td><td>' + d[i].typeName +
+            '</td><td>' + d[i].areaName +
+            '</td><td>' + d[i].serviceArea +
+            '</td></tr>';
+    }
+    return theader + tbodyer + str + tbodyers + theaders;
 };
 
 

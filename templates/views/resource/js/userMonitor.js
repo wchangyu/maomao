@@ -9,7 +9,6 @@ _scaleX = 1;
 var containHeight = 800;
 
 
-
 var userMonitor = (function(){
 
     var _urlPrefix = sessionStorage.apiUrlPrefix;
@@ -70,6 +69,24 @@ var userMonitor = (function(){
             _configArg2 = window.location.search.split('ckId=')[1];
             _configArg3 = undefined;
 
+
+
+        }else if(window.location.search.split('configArg1=')[1]){
+
+            var postData = window.location.search.split('configArg1=')[1];
+
+            _configArg1 = postData.split('configArg2=')[0];
+            _configArg2 = postData.split('configArg2=')[1].split('configArg3=')[0];
+            _configArg3 = postData.split('configArg3=')[1];
+
+            if(_configArg3 == -1){
+                _configArg3 = undefined;
+            }
+
+            console.log( _configArg1, _configArg2, _configArg3)
+
+            containHeight =600;
+
         }else if(sessionStorage.menuArg){
 
             var args = sessionStorage.menuArg.split(",");
@@ -83,6 +100,7 @@ var userMonitor = (function(){
 
         //是否可以移动
         if(ifRemove){
+
             ifProcMove = false;
         }
 
@@ -142,10 +160,12 @@ var userMonitor = (function(){
         if(sessionStorage.refreshInterval){
             _refreshInterval = parseInt(sessionStorage.refreshInterval);
         }
+
         //返回首页
         $(".functions-1").click(function(){
             getUserProcs();
         });
+
         //刷新数据
         $(".functions-2").click(function(){
             if(!_isInstDataLoading){
@@ -349,6 +369,10 @@ var userMonitor = (function(){
 
             }
 
+        //如果是按楼宇和监测因子xuan选择
+        }else if(_configArg1 == 5){
+
+            getAllProcsByPCID(_configArg2,_configArg3);
         }
     };
 
@@ -582,6 +606,27 @@ var userMonitor = (function(){
             }
         }
         return curProcs;
+    };
+
+    //根据定义的方案类型，获取该类型下的监控方案，返回数据
+    var getAllProcsByPCID = function(pointerID,cdataID){
+        var prms2 = {
+            "pointerID": pointerID,
+            "cdataID": cdataID
+        };
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            data:prms2,
+            url:_urlPrefix + "PR/PR_GetAllProcsByPCID",
+            success:function(data){
+                _allProcs = data;       //暂存全部方案
+                _allPointerProcs = data;
+                //setProcList(_allProcs);
+                getProcsByPointerId();
+            },
+            error:function(xhr,res,err){ logAjaxError("PR_GetAllProcsByParameter",err); }
+        });
     };
 
     //获取当前方案的子项目 def crtl render
@@ -1960,7 +2005,7 @@ var userMonitor = (function(){
                 //获取弹窗的页面地址
                 var url = jumpUrl + "yongnengjiance/jumpEnergyMonitor.html?width="+jumpPageWidth+"height="+jumpPageHeight+"ckId="+id+"";
 
-                var html = '<div class="content-child-show">' +
+                var html = '<div class="content-child-show" id="'+id+'">' +
                     '<div class="content-child-show-container">' +
                     '<div class="close1">X</div>' +
                     '<iframe width="'+jumpPageWidth+'" scrolling="no" height="'+jumpPageHeight+'" frameborder="0" allowtransparency="true" src='+url+'></iframe>' +
@@ -1968,6 +2013,25 @@ var userMonitor = (function(){
                     '</div>';
 
                 $('#right-container').append(html);
+
+                //获取当前父流程图宽度
+                var parentWidth = $('#right-container .content-main-right').width();
+
+                //获取缩放比例
+                var parentScaleString = $('#right-container .content-main-right').css('transform');
+
+                var parentScale = parseFloat(parentScaleString.split('matrix(')[1].split(',')[0]);
+
+                //获取缩放比例
+
+                var thisScale = parentWidth * 0.8 * parentScale / jumpPageWidth;
+
+                $('#' + id + "").css({
+
+                    'transformOrigin': 'left top 0px',
+                    'transform': 'scale('+thisScale+')'
+
+                 });
 
             }else{
 

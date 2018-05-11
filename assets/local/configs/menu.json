@@ -55,6 +55,7 @@
         "arg": "",
         "iconclass": ""
       }
+
     }
   },
   "暖通空调": {
@@ -267,6 +268,15 @@
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
+
+      "基础信息": {
+        "type": "0",
+        "content": "基础信息",
+        "uri": "../xitongshezhi/basicsMessage.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
       "版本说明": {
         "type": "0",
         "content": "版本说明",
@@ -287,13 +297,13 @@
         "content": "监控总览",
         "uri": "../yongnengjiance/energyMonitor.html?a=1",
         "uid": "",
-        "arg": "1,8816008016",
+        "arg": "2,4",
         "iconclass": ""
       },
       "测试一下": {
         "type": "0",
         "content": "测试一下",
-        "uri": "../yongnengjiance/energyMonitor.html?a=1",
+        "uri": "../yongnengjiance/energyMonitor.html?a=2",
         "uid": "",
         "arg": "1,3101007489",
         "iconclass": ""
@@ -564,6 +574,14 @@
         "uri": "../yongnengjiance/energyMonitor.html?arg=11",
         "uid": "",
         "arg": "2,14",
+        "iconclass": ""
+      },
+      "测试一下": {
+        "type": "0",
+        "content": "测试一下",
+        "uri": "../yongnengjiance/energyMonitor.html?arg=11",
+        "uid": "",
+        "arg": "5,3101800201,22526",
         "iconclass": ""
       },
       "能源站系统": {

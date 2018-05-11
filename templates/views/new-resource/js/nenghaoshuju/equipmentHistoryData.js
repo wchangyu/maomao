@@ -442,11 +442,11 @@ function getDevInfoCTypes(equipObj){
         data:ecParams,
         timeout:_theTimes,
         beforeSend:function(){
-
+            $('.left-middle-main1').showLoading();
         },
         success:function(result){
 
-
+            $('.left-middle-main1').hideLoading();
             console.log(result);
 
             //判断是否返回数据
@@ -477,6 +477,7 @@ function getDevInfoCTypes(equipObj){
         },
         error:function(jqXHR, textStatus, errorThrown){
             myChartTopLeft.hideLoading();
+            $('.left-middle-main1').hideLoading();
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
@@ -712,6 +713,13 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
 
                 treeObj1.checkNode(treeNode,!treeNode.checked,false);
 
+                var nodes = treeObj1.getCheckedNodes(true)[0];
+
+                if(nodes == undefined){
+
+                    return false;
+                }
+
                 //如果是点击属性选择树状图
                 if(flag == 2){
                     $('#' + treeId).find('.checkbox_true_full_focus').next('a').addClass('curSelectedNode');
@@ -738,7 +746,6 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
                     var pts = treeObj.getCheckedNodes(true);
 
                     getDevInfoCTypes(pts[0]);
-
 
                 }
 

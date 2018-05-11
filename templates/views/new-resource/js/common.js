@@ -16,6 +16,8 @@ $('.time-options').click(function(){
 
 });
 
+_urls = sessionStorage.getItem("apiUrlPrefix");
+
 //定义报警中的设备类型
  deviceType = [
     {
@@ -101,8 +103,10 @@ $('.energy-types').on('click','div',function(){
 
         $('.energy-types div').removeClass('selectedEnergy');
     }
+
     //定义单位数组
     var unitArr = unitArr1;
+
 
     for(var i=0; i<$('.energy-types .specific-energy').length; i++){
 
@@ -174,9 +178,19 @@ $('.energy-types').on('click','div',function(){
 
     //改变右上角单位
     var html = '';
-    $(unitArr).each(function(i,o){
-        html += '<option value="'+ o.unitNum+'">'+ o.unitName+'</option>'
-    });
+
+    if(ettype == 100){
+
+        $(unitArr).each(function(i,o){
+            html += '<option value="'+ o.unitNum+'">'+ o.unitName+'</option>'
+        });
+    }else{
+
+        //获取当前单位
+        var unit = getUnit(ettype);
+
+        html += '<option value="'+ 0+'">'+ unit+'</option>'
+    }
 
     $('#unit').html(html);
 
@@ -380,8 +394,6 @@ function GetAllBranches(flag,energy){
             console.log(jqXHR.responseText);
         }
     })
-
-
 
 };
 

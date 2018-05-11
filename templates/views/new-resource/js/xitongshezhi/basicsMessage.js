@@ -53,7 +53,7 @@ function getPointerBaseInfo(){
 
             $('.out-body-container').hideLoading();
 
-            console.log(result);
+            //console.log(result);
 
             //获取当前楼宇图片地址
             var imgUrl = result.pointerImgLocal;
@@ -149,7 +149,6 @@ function drawTbodyData(arr,addLength){
 
     var tbodyHtml = "";
 
-
     $(arr).each(function(i,o){
 
         tbodyHtml += "<tr>";
@@ -179,8 +178,6 @@ function drawTbodyData(arr,addLength){
                 tbodyHtml += "<td style='text-align:center;background: #ffffff;border:1px solid #DCDCDC'>"+j+"</td>";
 
             }
-
-
 
         });
 

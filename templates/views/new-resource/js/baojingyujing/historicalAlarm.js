@@ -36,8 +36,6 @@ $(function(){
         //获取报警日志id
         var alaLogID = $(this).attr('data-alaLogID');
 
-
-
         for(var i=0;i<totalArr.length;i++){
             if(totalArr[i].alaLogID ==alaLogID){
                 historyArr = totalArr[i].childDevAlarmNumPopupReturns;
@@ -383,17 +381,8 @@ function format ( d ) {
     var theaders = '</table>';
     var tbodyer = '<tbody>';
     var tbodyers = '</tbody>';
-    var str = '<tr>' +
-        '<td>' + d[1].dataDate.split(' ')[0] +
-        '</td><td>' + d[1].dataDate.split(' ')[1] +
-        '</td><td>' + d[1].priorityName +
-        '</td><td>' + d[1].alarmName +
-        '</td><td>' + d[1].devType +
-        '</td><td>' + d[1].devName  +
-        '</td><td>' + d[1].areaName +
-        '</td><td>' + d[1].devLocal +
-        '</td></tr>';
-    for(var i=2;i< d.length;i++){
+    var str = '';
+    for(var i=0;i< d.length;i++){
 
         str += '<tr>' +
             '<td>' + d[i].dataDate.split(' ')[0] +

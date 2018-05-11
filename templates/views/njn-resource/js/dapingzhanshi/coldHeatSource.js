@@ -186,7 +186,34 @@ $(function(){
     //获取页面中的上面要展示的区域及对应的ID
     getDevTypeAreas(devTypeID);
 
+    //获取当前报警信息
+    getAlarmData("EC");
+
+    //点击报警查看报警详细信息
+    $('.alarm-content').on('click',function(i,o){
+
+        //获取当前要显示的报警信息id
+        var id = $(this).attr('data-id');
+
+        //找到当前报警列表
+        $(alarmArr).each(function(i,o){
+
+            if(o.innerID == id){
+
+                //显示模态框
+                $('#alarm-message').modal('show');
+
+                //展示数据
+                showAlarmDataMessage(o.alarm_List);
+
+            }
+        });
+    });
+
 });
+
+//定义存放当前报警信息的集合
+var alarmArr = [];
 
 //定义当前的设备类型 冷热源为1
 var devTypeID = 1;
@@ -1221,7 +1248,7 @@ var option2 = {
         trigger: 'axis'
     },
     legend: {
-        data:['电量']
+        data:['总供水温度(℃)']
     },
     grid: {
         left: '3%',
@@ -1243,7 +1270,7 @@ var option2 = {
                 color:'#999'
             }
         },
-        data: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+        data: []
     },
     yAxis: {
         type: 'value',
@@ -1255,7 +1282,7 @@ var option2 = {
     },
     series: [
         {
-            name:'电量',
+            name:'总供水温度(℃)',
             type:'line',
             stack: '总量',
             itemStyle:{
@@ -1424,7 +1451,120 @@ $('#monitor-menu-container').on('click','span',function(){
 
 });
 
+//获取后台报警数据
+function getAlarmData(area){
 
+    //获取当前时间
+    var curDt = moment().format('YYYY-MM-DD HH:mm');
+
+    //传递给后台的参数
+    var  ecParams = {
+        "pointerID":curPointerIDArr[0],
+        "dt": curDt, //当前时间
+        "area": area
+    };
+
+    $.ajax({
+
+        type:'post',
+
+        url:_urls + 'EWCH/GetAlarmNowDs',
+
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+
+
+        },
+        success:function(result){
+
+
+            console.log(result);
+
+            //页面赋值
+            alarmArr = result.master;
+
+            //遍历报警数组给页面赋值
+            var html = "";
+
+            $(alarmArr).each(function(i,o){
+
+                //获取当前报警条数
+                var alarmLength = o.alarm_List.length;
+
+                html += '<p class="alarm-content" data-id="'+ o.innerID+'">'+ o.cDtnName+'<font></font> <span>X'+alarmLength+'</span></p>';
+
+
+            });
+
+            if(area == 'EC' || area == 'WC'){
+
+                $('.alarm-content-container').eq(0).html(html);
+
+            }else{
+
+                $('.alarm-content-container').eq(1).html(html);
+            }
+
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            setTimeout(function(){
+                $('' + containerName + ' .bottom-table-data-container' +tableName+ '').hideLoading();
+            },500);
+
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+            }else{
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+            }
+
+        }
+
+    })
+};
+
+
+function showAlarmDataMessage(messageArr){
+
+    $(messageArr).each(function(i,o){
+
+        tableHtml += "<tr>";
+
+        //设备名称
+        tableHtml += "<td>"+ o.devName+"</td>";
+
+        //报警名称
+        tableHtml += "<td>"+ o.alarmName+"</td>";
+
+        //位置
+        tableHtml += "<td>"+ o.areaName+"</td>";
+
+        //服务区域
+        tableHtml += "<td>"+ o.serviceArea+"</td>";
+
+        //类型
+        tableHtml += "<td>"+ o.cDtnName+"</td>";
+
+        //级别
+        tableHtml += "<td>"+ o.priorityName+"</td>";
+
+        //报警时间
+        tableHtml += "<td>"+ o.dataDate+"</td>";
+
+        tableHtml += "</tr>";
+
+    });
+
+    //页面赋值
+    $('#alarm-message tbody').html(tableHtml);
+};
 /*-------------------------------------------表格初始化--------------------------------------------*/
 var table = $('#equipment-datatables').DataTable({
     "bProcessing" : true,

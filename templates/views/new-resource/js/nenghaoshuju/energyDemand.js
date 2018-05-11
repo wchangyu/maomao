@@ -114,6 +114,9 @@ $(function(){
 
 });
 
+var _pointerZtree;
+var _officeZtree;
+
 //记录能耗种类
 var _ajaxEcType = '';
 
@@ -308,6 +311,7 @@ var optionLine = {
 //获取数据
 //flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
 function getPointerData(url,flag){
+
     //定义存放返回数据的数组（本期 X Y）
     var allData = [];
     var allDataX = [];
@@ -332,16 +336,52 @@ function getPointerData(url,flag){
     //获取名称
     var areaName = '';
 
+    var treeObj = $.fn.zTree.getZTreeObj('allPointer');
+
+    //定义查询标识
+    var isPointerFlag = 0;
+
+    //获取企业id
+    var enterpriseID = '';
+
+    //获取区域id
+    var districtID = '';
+
     //楼宇数据
     if(flag == 1){
+
         //确定楼宇id
         var pts = _pointerZtree.getSelectedPointers(),pointerID;
 
+        //确定支路id
+        var nodes = treeObj.getCheckedNodes(true)[0];
 
-        $(pts).each(function(i,o){
+        //console.log(33);
 
-            postPointerID.push(o.pointerID)
-        });
+        //当前勾选企业
+        if(nodes.nodeType == 1){
+
+            isPointerFlag = 1;
+
+            enterpriseID = nodes.id;
+
+            //当前勾选区域
+        }else if(nodes.nodeType == 0){
+
+            isPointerFlag = 2;
+
+            districtID = nodes.id;
+
+        }else{
+
+            $(pts).each(function(i,o){
+
+                postPointerID.push(o.pointerID)
+            });
+
+        }
+
+
         areaName = $('.radio_true_full').next().attr('title');
 
         //分户数据
@@ -352,8 +392,10 @@ function getPointerData(url,flag){
         officeID = ofs[0].f_OfficeID;
 
         areaName = ofs[0].f_OfficeName;
+
         //支路数据
     }else if(flag == 3){
+
         //确定支路id
         var nodes = branchTreeObj.getCheckedNodes(true);
 
@@ -397,6 +439,8 @@ function getPointerData(url,flag){
 
             showDateType = 'Day';
 
+            endTime = moment(endTime).add('1','days').format("YYYY-MM-DD");
+
          //按小时展示
         }else if(showType == 1){
 
@@ -424,8 +468,17 @@ function getPointerData(url,flag){
         "showDateType": showDateType,
         "selectDateType": selectDateType,
         "startTime": startTime,
+        "isPointerFlag": isPointerFlag,
+        "enterpriseID": enterpriseID,
+        "districtID": districtID,
         "endTime": endTime
     };
+
+    if(startTime == "" || endTime == ""){
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请输入时间', '');
+        return false;
+    }
 
     //发送请求
     $.ajax({

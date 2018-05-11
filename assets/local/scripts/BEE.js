@@ -42,8 +42,7 @@ var BEE = (function(){
                 showAlertInfo(err);
             }
 
-        })
-
+        });
 
         //获取到登陆页后赋值
         _loginHtml = loginPath;

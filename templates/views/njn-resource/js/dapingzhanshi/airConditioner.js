@@ -63,7 +63,7 @@ $(function(){
 
 
 //页面右侧Table的表头集合
-var titleArr = ['','设备数','运行占比','自动运行占比','回风平均温度','回风CO2浓度','故障占比','报警'];
+var titleArr = ['','设备数','运行占比','自动运行占比','回风平均温度(℃)','回风CO2浓度(PPM)','故障占比','报警'];
 
 //页面右侧Table的统计位置集合
 var areaArr = ['-9.6m','0.0m','-9.6m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
@@ -681,18 +681,33 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
                 '</div>' +
 
-                '</td>' +
+                '</td>';
 
-                ' <!--回风平均温度-->' +
-                '<td>' +
+                <!--回风平均温度-->
+                if( o.returnAirTemp == -1){
+                    bodyHtml +=  '<td>' +
+                    ' <span class="table-small-patch '+ returnAirColor+ '">'+ '--'+'</span>' +
+                    '</td>';
+                }else{
+
+                    bodyHtml += '<td>' +
                     ' <span class="table-small-patch '+ returnAirColor+ '">'+ o.returnAirTemp.toFixed(1)+'</span>' +
-                '</td>' +
+                    '</td>';
+                }
 
-                '<!--回风co2平均浓度-->' +
-                '<td>' +
-                    '<span class="table-small-patch '+ co2Color+ '">'+ o.co2MMol.toFixed(1)+'</span>' +
-                '</td>' +
+                <!--回风co2平均浓度-->
+                if( o.co2MMol == -1){
+                    bodyHtml +=  '<td>' +
+                        ' <span class="table-small-patch '+ co2Color+ '">'+ '--'+'</span>' +
+                        '</td>';
+                }else{
 
+                    bodyHtml += '<td>' +
+                        ' <span class="table-small-patch '+ co2Color+ '">'+ o.co2MMol.toFixed(1)+'</span>' +
+                        '</td>';
+                }
+
+        bodyHtml +=
                 '<td>' +
 
                     '<div class="right-bottom-echart" id="">' +
