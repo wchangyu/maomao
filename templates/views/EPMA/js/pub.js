@@ -18,7 +18,7 @@ var EPMA = function () {
           || $(event.target).parents("#eprBox").length > 0)) {
             onhidemenuEpr();
         }
-    }
+    };
 
     var onhidemenuEpr = function () {
         $("#eprBox").fadeOut("fast");
@@ -247,8 +247,6 @@ var EPMA = function () {
                 var eprs = initeprs();
                 getpointerDs(eprId, eprs);
             });
-
-
         }
     }
 

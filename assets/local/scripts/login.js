@@ -240,6 +240,7 @@ var Login = function() {
                     dataType:'json',
                     success:function(pointers){
                         sessionStorage.pointers = JSON.stringify(pointers);
+                        sessionStorage.allPointers = JSON.stringify(pointers);
                         _isPointersLoaded = true;
                         getEnterpriseList();
                         directToIndex();

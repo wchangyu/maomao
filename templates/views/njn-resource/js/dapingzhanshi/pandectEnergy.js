@@ -995,6 +995,8 @@ var leftBottomOption = {
 //重绘chart图
 leftBottomChart.setOption(option0);
 
+var ishasLoadings = false;
+
 //定义是否出现加载遮罩的标识
 var ifShowLoading = true;
 

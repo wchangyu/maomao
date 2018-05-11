@@ -1,6 +1,57 @@
 /**
  * Created by admin on 2017/11/15.
  */
+
+$(function(){
+
+    //页面右上角选择单位
+    drawChangeUnitButton();
+
+
+    ///*-----------------------------------------下拉框事件--------------------------------------*/
+    var rotateNum = 1;
+    //点击下拉框时
+    $('.add-select-block li').html();
+    $(document).on('click',function(){
+
+        if($('.add-select-block').is(':hidden')){
+
+        }else{
+            //$('.add-select-block span').removeClass('checked');
+            $('.add-select-block').css({
+                display:'none'
+            }) ;
+            rotateNum = 2;
+            var num = rotateNum * 180;
+            var string = num + 'deg';
+            $('.add-input-select').children('div').css({
+                'transform':'rotate('+string+')'
+            })
+        }
+
+    });
+    $('.add-input-select').click(function(e){
+        $('.add-select-block').not($(this).parents('.add-input-father').children('.add-select-block')).css({
+            display:'none'
+        });
+        rotateNum++;
+        var num = rotateNum * 180;
+        var string = num + 'deg';
+
+        $(this).parents('.add-input-father').children('.add-select-block').slideToggle('fast');
+        $(this).children('div').css({
+
+            'transform':'rotate('+string+')'
+        })
+
+        e.stopPropagation();
+
+    });
+
+
+
+
+});
     //时间选择
 $('.time-options').click(function(){
     $('.time-options').removeClass('time-options-1');
@@ -987,6 +1038,212 @@ function getPointersId(){
 
     return pointerIdArr;
 };
+
+//页面右上角选择单位
+function drawChangeUnitButton(){
+
+    //定义页面右上角的切换单位按钮
+    var changeButtonHtml =
+        '<li class="dropdown dropdown-extended dropdown-inbox" title="切换楼宇">' +
+        '<a id="openeprBtn" href="javascript:;" class="dropdown-toggle">' +
+        '<span style="display:inline-block;width:16px;height:19px;' +
+        'background:url(\'../../../assets/admin/layout/img/quyuqiehuan.png\')no-repeat;' +
+        'background-size:100%">' +
+        '</span>' +
+        '</a>' +
+        '<ul class="dropdown-menu" style="display: none;">' +
+        '<li>' +
+        '</li>' +
+        '</ul>' +
+        '</li>';
+
+    $('.top-menu .navbar-nav').prepend(changeButtonHtml);
+
+    //获取全部企业并给页面赋值
+    drawAllCompany();
+
+    ////定义弹出框
+    //var popupHtml =
+    //    '<div id="eprBox" style="padding-bottom: 10px;' +
+    //    'background: url(\'../../../assets/admin/layout/img/beijingkuang.png\')no-repeat;' +
+    //    'background-size:300px; z-index: 10000; top: 40px; width: 300px;' +
+    //    'height: auto; position: fixed; right: 146px;">' +
+    //    '<div style="padding:15px 15px;color:#FFFFFF;margin-top:0px;">' +
+    //    '<div class="row">' +
+    //    '<label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">单位选择</label>' +
+    //    '<div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">' +
+    //    '<select name="epr_type" id="epr_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>' +
+    //    '</div>' +
+    //    '</div>' +
+    //    '<div class="row">' +
+    //    '<label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">楼宇选择</label>' +
+    //    '<div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">' +
+    //    '<select name="p_type" id="p_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>' +
+    //    '</div>' +
+    //    '</div>' +
+    //    '<div class="row">' +
+    //    '<label class="col-md-4 col-sm-4 col-xs-4 control-label" style="margin-bottom:10px;line-height:34px;"></label>' +
+    //    '<div class="col-md-8 col-xs-8 col-xs-8">' +
+    //    '<button id="goEprBtn" type="submit" class="btn blue pull-left">' +
+    //    '切换' +
+    //    '</button>' +
+    //    '</div>' +
+    //    '</div>' +
+    //    '</div>' +
+    //    '</div>';
+    //
+    //$('.page-footer').after(popupHtml);
+
+};
+
+//获取全部企业并给页面赋值
+function drawAllCompany(){
+
+    //从session中获取全部企业信息
+    var strPointers = sessionStorage.allPointers;
+    var tempAllPointers = [];
+
+    if(strPointers){
+        tempAllPointers = JSON.parse(strPointers);
+    }
+
+    //获取企业列表
+    var _enterpriseArr = unique(tempAllPointers,'enterpriseID');
+
+    var pushHtml = "";
+
+    $(_enterpriseArr).each(function(i,o){
+
+        pushHtml += '  <li>'+
+            '<input type="checkbox" id="'+ o.enterpriseID+'">'+
+            '<label for="'+ o.enterpriseID+'" data-id="'+ o.enterpriseID+'" title="'+o.eprName+'">'+ o.eprName+'</label>'+
+            '</li>';
+    });
+
+    pushHtml +=   '<li>'+
+            '<button style="width:50px" class="btn-success train-depot">确定</button>'+
+            '<button style="width:50px;margin-left:10px;" class="btn-danger">取消</button>'+
+        '</li>';
+
+    $('#eprBox .add-select-company').html(pushHtml);
+
+
+    //防止点击li时下拉框关闭
+    $('.add-select-company li').off('click');
+    $('.add-select-company li').on('click',function(e){
+
+        //if($(this).find('span').hasClass('checked')){
+        //    $(this).find('span').removeClass('checked')
+        //}else{
+        //    $(this).find('span').addClass('checked');
+        //}
+
+        //阻止事件冒泡
+        e.stopPropagation();
+        //return false;
+    });
+
+    //下拉框中确定按钮被点击时
+    $('.add-select-company .btn-success').off('click');
+    $('.add-select-company .btn-success').on('click',function(e){
+
+        //获取到用户选择的单位数量
+        var depotNum = $(".add-select-company input[type='checkbox']").length;
+
+        var totalNum = 0;
+
+        for(var i=0; i<depotNum; i++){
+
+            var thisNum = false;
+
+            var dom = $(".add-select-company input[type='checkbox']").eq(i).prop('checked');
+
+            if(dom == true){
+
+                totalNum ++ ;
+
+                thisNum = true;
+            }
+
+            if(totalNum == 1 &&　thisNum){
+
+                //获取当前的企业名称及id
+                var companyName = $(".add-select-company input[type='checkbox']").eq(i).parent().find('label').html();
+
+                $('.add-input-select0 span').html(companyName);
+
+                var companyID = $(".add-select-company input[type='checkbox']").eq(i).attr('id');
+
+                $('.add-input-select0 span').attr('data-id',companyID);
+            }
+
+        }
+        //console.log(totalNum);
+
+        if(totalNum > 1){
+
+            $('.add-input-select0 span').html('当前已选择' + totalNum + '个单位');
+
+        }
+
+        $(document).click();
+
+    });
+
+    $('.add-select-company label').off('click');
+    $('.add-select-company label').on('click',function(e){
+
+        //获取到用户选择的单位数量
+        var depotNum = $(".add-select-company input[type='checkbox']").length;
+
+        for(var i=0; i<depotNum; i++){
+
+            $(".add-select-company input[type='checkbox']").eq(i).prop('checked',false);
+
+        }
+
+
+                var dom = $(this);
+
+                //获取当前的企业名称及id
+                var companyName = dom.html();
+
+                $('.add-input-select0 span').html(companyName);
+
+                var companyID = dom.attr('data-id');
+
+                $('.add-input-select0 span').attr('data-id',companyID);
+
+                $(document).click();
+
+                $('')
+
+    });
+
+    //下拉框中取消按钮被点击时
+    $('.add-select-company .btn-danger').off('click');
+    $('.add-select-company .btn-danger').on('click',function(e){
+
+        //获取到用户选择的单位数量
+        var depotNum = $(".add-select-company input[type='checkbox']").length;
+
+        for(var i=0; i<depotNum; i++){
+
+            $(".add-select-company input[type='checkbox']").eq(i).prop('checked',false);
+
+        }
+
+        $('.add-input-select0 span').html('全部');
+
+        $(document).click();
+
+    });
+
+
+    //楼宇ztree树
+    _pointerZtree = _getPointerZtree($("#allSelectPointer"),1);
+
+}
 
 
 
