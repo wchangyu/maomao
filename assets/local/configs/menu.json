@@ -287,6 +287,99 @@
       }
     }
   },
+  "General": {
+    "type": "1",
+    "content": "General",
+    "iconclass": "icon-home",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
+      "数据": {
+        "type": "2",
+        "content": "数据"
+      },
+      "General": {
+        "type": "0",
+        "content": "General",
+        "uri": "../General/main.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-bar-chart"
+      },
+      "Efficiency calendar": {
+        "type": "0",
+        "content": "Efficiency calendar",
+        "uri": "../General/calendar.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-bar-chart"
+      },
+      "Historical Data": {
+        "type": "0",
+        "content": "Historical Data",
+        "uri": "../General/history.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-bar-chart"
+      },
+      "Real time data": {
+        "type": "0",
+        "content": "Real time data",
+        "uri": "../General/monitor.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-bar-chart"
+      },
+      "Parameter Efficiency": {
+        "type": "0",
+        "content": "Parameter Efficiency",
+        "uri": "../General/abbr.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-bar-chart"
+      },
+      "Efficiency contrast": {
+        "type": "0",
+        "content": "Efficiency contrast",
+        "uri": "../General/compare.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-bar-chart"
+      },
+      "Load capacity": {
+        "type": "0",
+        "content": "Load capacity",
+        "uri": "../General/rate.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-bar-chart"
+      },
+      "Ranking": {
+        "type": "0",
+        "content": "Ranking",
+        "uri": "../General/rank.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-bar-chart"
+      },
+      "Billing scheme": {
+        "type": "0",
+        "content": "Billing scheme",
+        "uri": "../General/epgr.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-bar-chart"
+      },
+      "Report export": {
+        "type": "0",
+        "content": "Report export",
+        "uri": "../General/report.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-bar-chart"
+      }
+    }
+  },
   "设备监控": {
     "type": "1",
     "content": "设备监控",

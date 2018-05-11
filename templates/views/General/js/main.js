@@ -162,8 +162,7 @@
                 var cte_fx = parseFloat(res.cteVa).toFixed(2);
                 $('#ctev').html(cte_fx);
                 /*冷站实时功率*/
-                var lzpV = (parseFloat((res.cpVa == null)?0:res.cpVa) + parseFloat((res.chwpVa == null)?0:res.chwpVa) + parseFloat((res.cwpVa == null)?0:res.cwpVa) + parseFloat((res.ctpVa == null)?0:res.ctpVa));
-
+                var lzpV = (parseFloat(res.cpVa) + parseFloat(res.chwpVa) + parseFloat(res.cwpVa) + parseFloat(res.ctpVa));
                 $('#lznowp').html(lzpV.toFixed(1));
                 /*冷站实时冷量*/
                 var lzlV = parseFloat(res.lVa)
@@ -180,51 +179,23 @@
                 eerMaxV=9;
                 if(lzpV===0){
                     initEERArea(0.0,eerMinV,eerMaxV);
-
-                    $('.GBEE').html('(0.00)');
-
-                    $('#cevBK').html('(0.00)');
-
-
                 }else{
                     eerV = parseFloat(lzlV / lzpV).toFixed(3);
-
                     if (eerV > 15) {
                         eerV = 15;
                     }
                     initEERArea(eerV,eerMinV,eerMaxV);
-
-                    //实时折标能效、COP 标况 = COP实测 /(1+(冷冻出水温度-7）×2%）/（1+（30-冷却回水温度）×3%））
-
-                    //COP实测eerV
-
-                    //冷冻出水温度
-                    var chwOutWt = parseFloat(res.chwOutWt);//冷冻出水温度
-
-                    var cwInWt = parseFloat(res.cwInWt);//冷却回水温度
-
-                    //能效国际标况
-                    var nx_stp = parseFloat(eerV / (1 + (chwOutWt - 7) * 0.02) / (1 + (30 - cwInWt) * 0.03)).toFixed(2);
-
-                    //折标能效
-                    var zb_stp = parseFloat(res.copstp);
-
-                    $('.GBEE').html('(' + zb_stp + ')');
-
-                    /*冷机能效标况*/
-                    $('#cevBK').html('(' + nx_stp + ')');
-
                 }
                 jQuery('#itemizeBusy').hideLoading();
             }else if(res.code === -1){
 
             }else{
-                console.log('异常错误(分项实时能效):' + res.msg);
+                console.log('error(Real time efficiency rate):' + res.msg);
             }
         });
     }
 
-    //实时能效曲线(显示折标能效)
+    //实时能效曲线
     var myEERLineMain = null;
     var initNOWEERCharView=function () {
         jQuery('#lineBusy').showLoading();
@@ -235,45 +206,19 @@
             SysrealDt:encodeURIComponent(sessionStorage.sysDt)
         },function (res) {
             if(res.code===0){
-
-                //返回的数据中，第一个是实时能效曲线值，第二个是折标能效值；
-                var name = ["实时能效(KW/KW)","折标能效"];
-                //两条线的颜色数组
+                var name = "Real time efficiency rate(KW/KW)";
                 var dvs = [];
-
                 for (var i = 0; i < res.ys.length; i++) {
-
                     var object = {};
-
-                    object.name = name[i];
-
+                    object.name = name;
                     object.type = "line";
-
                     object.data = [];
-
                     for (var j = 0; j < res.ys[i].length; j++) {
-
                         var v = res.ys[i][j];
-
                         object.data.push(v);
-
                     }
-
                     dvs.push(object);
-
                 }
-
-                var colorArr = ['#c23531','#294bd7'];
-
-                //设置颜色
-                for(var j=0;j<dvs.length;j++){
-
-                    dvs[j].itemStyle = {};
-
-                    dvs[j].itemStyle.color = colorArr[j];
-
-                }
-
                 option = {
                     title: {
                         //subtext: 'KW/RT'
@@ -282,7 +227,7 @@
                         trigger: 'axis'
                     },
                     legend: {
-                        data: name
+                        data: [name]
                     },
                     toolbox: {
                         show: false,
@@ -316,97 +261,7 @@
                 myEERLineMain.setOption(option, true);
                 jQuery('#lineBusy').hideLoading();
             }else if(res.code===-1){//异常错误
-                console.log('异常错误(能效曲线):' + res.msg);
-                jQuery('#lineBusy').hideLoading();
-            }else{//暂无数据
-                jQuery('#lineBusy').hideLoading();
-            }
-        })
-    }
-
-    //实时能效曲线(不显示折标能效)
-    var initNOWEERCharView1=function () {
-        jQuery('#lineBusy').showLoading();
-        myEERLineMain = echarts.init(document.getElementById('eerLineMain'));
-        var url = sessionStorage.apiUrlPrefix+"Main/GetEERNowChartViewDs";
-        $.post(url,{
-            pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
-        },function (res) {
-            if(res.code===0){
-
-                //返回的数据中，第一个是实时能效曲线值，第二个是折标能效值；
-                var name = ["实时能效(KW/KW)"];
-                //两条线的颜色数组
-                var dvs = [];
-
-                for (var i = 0; i < 1; i++) {
-
-                    var object = {};
-
-                    object.name = name[i];
-
-                    object.type = "line";
-
-                    object.data = [];
-
-                    for (var j = 0; j < res.ys[0].length; j++) {
-
-                        var v = res.ys[0][j];
-
-                        object.data.push(v);
-
-                    }
-
-                    dvs.push(object);
-
-                }
-
-                console.log(dvs);
-
-                option = {
-                    title: {
-                        //subtext: 'KW/RT'
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data: name[0]
-                    },
-                    toolbox: {
-                        show: false,
-                        feature: {
-                            dataZoom: {
-                                yAxisIndex: 'none'
-                            },
-                            magicType: { type: ['line', 'bar'] },
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        axisLabel: {
-                            rotate: 45,
-                            margin: 20,
-                            textStyle: {
-                                color: "#222"
-                            }
-                        },
-                        data: res.xs
-                    },
-                    yAxis: {
-                        type: 'value',
-                        axisLabel: {
-                            formatter: '{value}'
-                        }
-                    },
-                    series: dvs
-                };
-                myEERLineMain.setOption(option, true);
-                jQuery('#lineBusy').hideLoading();
-            }else if(res.code===-1){//异常错误
-                console.log('异常错误(能效曲线):' + res.msg);
+                console.log('error(Graphic Curve):' + res.msg);
                 jQuery('#lineBusy').hideLoading();
             }else{//暂无数据
                 jQuery('#lineBusy').hideLoading();
@@ -428,7 +283,7 @@
                 var dvs = [];
                 for (var i = 0; i < res.ys.length; i++) {
                     var object = {};
-                    object.name = "冷站实时功率(KW)";
+                    object.name = "Real time KW(KW)";
                     object.type = "line";
                     object.data = [];
                     for (var j = 0; j < res.ys[i].length; j++) {
@@ -446,7 +301,7 @@
                         trigger: 'axis'
                     },
                     legend: {
-                        data: ['冷站实时功率(KW)']
+                        data: ['Real time KW(KW)']
                     },
                     toolbox: {
                         show: false,
@@ -479,7 +334,7 @@
                 };
                 myPowerLineMain.setOption(option, true);
             }else if(res.code===-1){
-                console.log('异常错误(实时功率曲线):' + res.msg);
+                console.log('error(Real time KW):' + res.msg);
             }else if(res.code===-2){
 
             }
@@ -518,13 +373,13 @@
                     var object = {};
                     object.type = "value";
                     if (i == 0) {
-                        object.name = "能耗";
+                        object.name = "energy consumption";
                         object.min = 0;
                         object.max = aroMax;
                         object.interval = ((parseInt(aroMax) + 1) / 5);
                     }
                     else {
-                        object.name = "热不平衡率";
+                        object.name = "Thermal unbalance rate";
                         if (res.ys[3] === undefined) {
                             object.min = 0;
                             object.max = 100;
@@ -578,7 +433,7 @@
                 var ys = [];
                 for (var i = 0; i < res.ys.length; i++) {
                     var object = {};
-                    object.name = res.lgs[i];
+                    object.name = __setTranslate(res.lgs)[i];
                     object.type = "line";
                     if (i == res.ys.length - 1) {
                         object.yAxisIndex = 1;
@@ -595,7 +450,7 @@
                         trigger: 'axis'
                     },
                     legend: {
-                        data: res.lgs
+                        data: __setTranslate(res.lgs)
                     },
                     xAxis: xs,
                     yAxis: yAxis,
@@ -603,10 +458,7 @@
                 };
                 myTIRLineMain.setOption(option, true);
             }else if(res.code===-1){
-                console.log('异常错误(实时热不平衡曲线):' + res.msg);
-
-
-
+                console.log('error(Thermal unbalance rate):' + res.msg);
             }else {
 
             }
@@ -665,7 +517,7 @@
                 }
                 jQuery('#ubrvBusy').hideLoading();
             }else if(res.code === -1){
-                console.log('异常错误(实时热不平衡率数据):' + res.msg );
+                console.log('error(Thermal unbalance rate):' + res.msg );
                 jQuery('#ubrvBusy').hideLoading();
             }else{
                 jQuery('#ubrvBusy').hideLoading();
@@ -685,7 +537,7 @@
                 var epv = parseFloat(res.ePrCoVa).toFixed(4);
                 $('#spanEPrice').html(epv);
             }else if(res.code === -1){
-                console.log('异常错误(实时冷量单价数据):' + res.msg);
+                console.log('error:(Real time electricity price cold data ):' + res.msg);
             }else{
 
             }
@@ -703,27 +555,27 @@
             if(res.code === 0){
                 var dm = res.dm;//日
                 $('#spanAnM_day').attr('tag_dt', dm.ysDT + "," + dm.tyDT);
-                $('#spanAnM_day').attr('tag_dtx', "上日能效,本日能效");
+                $('#spanAnM_day').attr('tag_dtx', "Yesterday,Today");
                 $('#spanAnM_day').attr('tag_dty', dm.eiType);
                 init_eAnMoNow_DM(dm);
                 var wm = res.wm;//周
                 $('#spanAnM_week').attr('tag_dt', wm.ysDT + "," + wm.tyDT);
-                $('#spanAnM_week').attr('tag_dtx', "上周能效,本周能效");
+                $('#spanAnM_week').attr('tag_dtx', "Last week,This week");
                 $('#spanAnM_week').attr('tag_dty', wm.eiType);
                 init_eAnMoNow_WM(wm);
                 var mm = res.mm;//月
                 $('#spanAnM_month').attr('tag_dt', mm.ysDT + "," + mm.tyDT);
-                $('#spanAnM_month').attr('tag_dtx', "上月能效,本月能效");
+                $('#spanAnM_month').attr('tag_dtx', "Last Month,This Month");
                 $('#spanAnM_month').attr('tag_dty', mm.eiType);
                 init_eAnMoNow_MM(mm);
                 var ym = res.ym;//年
                 $('#spanAnM_year').attr('tag_dt', ym.ysDT + "," + ym.tyDT);
-                $('#spanAnM_year').attr('tag_dtx', "去年能效,本年能效");
+                $('#spanAnM_year').attr('tag_dtx', "Last Year,This Year");
                 $('#spanAnM_year').attr('tag_dty', ym.eiType);
                 init_eAnMoNow_YM(ym);
                 jQuery('#eAnMonBusy').hideLoading();
             }else if(res.code === -1){
-                console.log('异常错误(能效对比):' + res.msg);
+                console.log('error(Efficiency Comparison):' + res.msg);
                 jQuery('#eAnMonBusy').hideLoading();
             }else{
                 jQuery('#eAnMonBusy').hideLoading();
@@ -846,14 +698,14 @@
         $('.spanAnM').on('click', function () {
             var sAn = $(this);
             var dts = sAn.attr('tag_dt');/*时间段。用逗号隔开*/
-            var title = "[" + sAn.html() + "]" + "能效对比历史曲线";
+            var title = "[" + sAn.html() + "]" + "Efficiency Comparison";
             var lgs = sAn.attr('tag_dtx');/*时间段对应的图例*/
             var eiType = sAn.attr('tag_dty');/*查看类型：日、周、月、年*/
             $('#myModalLabel_eAn').html(title);
             $('#MYEANHISTORYMODAL').modal('show');
             myeAnhsCV = echarts.init(document.getElementById('eAnhistoryMain'));
             myeAnhsCV.showLoading({
-                text: '获取数据获取中',
+                text: 'loading',
                 effect: 'whirling'
             });
             var url = sessionStorage.apiUrlPrefix + "Main/GetEAnMonHistorypreDs";
@@ -871,6 +723,7 @@
                     var o_xs = res.xs;
                     var o_ys = res.dvs;
                     var lgs = [];
+
                     for (var i = 0; i < o_lgs.length; i++) {
                         lgs.push(o_lgs[i]);
                     }
@@ -941,7 +794,7 @@
     function eAnMoHistorysglDs(perDTs, eiType) {
         myAnhsCV = echarts.init(document.getElementById('AnhistoryMain'));
         myAnhsCV.showLoading({
-            text: '获取数据获取中',
+            text: 'Loading',
             effect: 'whirling'
         });
         var url = sessionStorage.apiUrlPrefix + "Main/GetEAnMonHistorysglDs";
@@ -961,7 +814,7 @@
                     var ys = [];
                     for (var i = 0; i < 1; i++) {
                         var object = {};
-                        object.name = "能效";
+                        object.name = "Energy Efficiency ";
                         object.type = "line";
                         object.data = [];
                         for (var j = 0; j < res.ys[i].length; j++) {
@@ -998,7 +851,7 @@
                     myAnhsCV.hideLoading();
                 }
             }else if(res.code === -1){
-                console.log('异常错误(能效对比单时间段历史数据):' + res.msg);
+                console.log('error(Efficiency Comparison):' + res.msg);
                 myAnhsCV.hideLoading();
             }else{
                 myAnhsCV.hideLoading();
@@ -1006,178 +859,8 @@
         })
     }
 
-    //标况表格
-    var COPBK = function(){
-
-        //列
-        var col = [
-
-            {
-                title:'时间',
-                data:'dt'
-
-            },
-            {
-                title:'机房总功率（KW）',
-                data:'jfzgl'
-            },
-            {
-                title:'冷冻供水温度(℃)',
-                data:'ldgswd'
-            },
-            {
-                title:'冷冻回水温度(℃)',
-                data:'ldhswd'
-            },
-            {
-                title:'瞬时流量/(m³/h)',
-                data:'ssll'
-            },
-            {
-                title:'冷却供水温度(℃)',
-                data:'lqgswd'
-            },
-            {
-                title:'冷却回水温度(℃)',
-                data:'lqhswd'
-            },
-            {
-                title:'主机平均负载',
-                data:'zjpjfz'
-            },
-            {
-                title:'制冷量',
-                data:'zll'
-            },
-            {
-                title:'实测COP（KW/RT）',
-                data:'sccop'
-            },
-            {
-                title:'标况COP',
-                data:'bkcop'
-            }
-
-        ]
-
-        //表格初始化
-        _tableInit($('#table'),col,2,false,'','',true,'','','');
-
-        //发送数据
-        $.ajax({
-
-            type:'post',
-
-            url:_urls + '/Main/GetNowCTypeIDs',
-
-            timeout:_theTimes,
-
-            data:{
-
-                //楼宇id
-                pId:sessionStorage.PointerID,
-                //实时时间
-                SysrealDt:encodeURIComponent(sessionStorage.sysDt)
-            },
-
-            beforeSend:function(){
-
-                $('#tableBK').showLoading();
-
-            },
-
-            complete:function(){
-
-                $('#tableBK').hideLoading();
-
-            },
-
-            success:function(res){
-
-                if(res.code == 0){
-
-                    _jumpNow($('#table'),res);
-
-                }else if(res.code == -1){
-
-                    console.log('异常错误(折标能效):' + res.msg);
-
-                }
-
-
-            },
-
-            error:function(XMLHttpRequest, textStatus, errorThrown){
-
-                console.log('异常错误(折标能效):' + textStatus  );
-
-            }
-
-
-        })
-
-    }
-
-    //显示折标
-    function showBK(){
-
-        //标况表格
-        COPBK();
-        //整体能效中的显示
-        $('.GBEE').show();
-        //分项实时能效的显示
-        //样式
-        $('.cold-dev').children().eq(1).children().show().css({'height':'23px'})
-
-        //实时能效曲线
-        initNOWEERCharView();
-
-        //能效对比隐藏
-        $('#eAnMonBusy').hide();
-
-        //折标能效显示
-        $('#tableBK').show();
-
-    }
-
-    //不显示折标
-    function hideBK(){
-
-        //不显示折标能效
-        //日周月年能效对比
-        initEAnMoDs();
-
-        //查看日周月年能效对比(多时间)历史数据
-        initEAnMoHistorypreDs();
-
-        //查看日周月年能效对比(单时间)历史数据
-        initEAnMoNistorysglDs();
-
-        //整体能效中的不显示
-        $('.GBEE').hide();
-
-        //分项实时能效的不现实
-        $('.cold-dev').children().eq(1).children().show().css({'height':'40px'})
-
-        $('.cold-dev').children().eq(1).children().eq(1).hide();
-
-        //能效曲线
-        initNOWEERCharView1();
-
-        //能效对比显示
-        $('#eAnMonBusy').show();
-
-        //折标能效隐藏
-        $('#tableBK').hide();
-
-    }
-
-    //整体刷新
-    //function
-
     return {
         init: function () {
-
             var eerVa=0.0;
             //切换实时数据曲线
             changeTab();
@@ -1185,7 +868,8 @@
             initEERArea(eerVa,0,3);
             //实时ECP能效冷量功率数据
             initNOWECP();
-
+            //实时能效曲线
+            initNOWEERCharView();
             //实时功率曲线
             initNOEWPowerChartView();
             //实时热不平衡曲线
@@ -1194,55 +878,12 @@
             initTIRData();
             //实时电价冷量数据
             initElePriceColdData();
-
-            //显示折标能效
-            if(sessionStorage.showstep == '1'){
-
-                showBK();
-
-
-            }else if(sessionStorage.showstep == '0' ){
-
-
-                hideBK();
-
-            }
-
-            //十分钟自动刷新
-            setInterval(function(){
-
-                var eerVa=0.0;
-                //切换实时数据曲线
-                changeTab();
-                //能效区间表盘
-                initEERArea(eerVa,0,3);
-                //实时ECP能效冷量功率数据
-                initNOWECP();
-
-                //实时功率曲线
-                initNOEWPowerChartView();
-                //实时热不平衡曲线
-                initTIRChartView();
-                //实时热不平衡率数据
-                initTIRData();
-                //实时电价冷量数据
-                initElePriceColdData();
-
-                //显示折标能效
-                if(sessionStorage.showstep == '1'){
-
-                    showBK();
-
-
-                }else if(sessionStorage.showstep == '0' ){
-
-
-                    hideBK();
-
-                }
-
-            },1000*60*10);
-
+            //日周月年能效对比
+            initEAnMoDs();
+            //查看日周月年能效对比(多时间)历史数据
+            initEAnMoHistorypreDs();
+            //查看日周月年能效对比(单时间)历史数据
+            initEAnMoNistorysglDs();
         }
     }
 

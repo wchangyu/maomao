@@ -68,18 +68,15 @@ $(function(){
 
             }
         },
-        //{
-        //    title:'设备ID',
-        //    data:'wxShebei'
-        //},
+        {
+            title:'设备ID',
+            data:'wxShebei',
+            class:'hiddenClock devNum'
+        },
         {
             title:'设备名称',
             data:'dName'
         },
-        //{
-        //    title:'设备类别',
-        //    data:'dcName'
-        //},
         {
             title:'报修人',
             data:'createUserName'
@@ -191,9 +188,9 @@ $(function(){
 
     $('#gd-datatables tbody').on('click','tr',function(){
 
-        var gdCode = $(this).children().eq(0).html();
+        var dNum = $(this).children('.devNum').html();
 
-        divTable(gdCode);
+        divTable(dNum);
 
     })
 
@@ -850,38 +847,17 @@ $(function(){
     }
 
     //获取设备信息
-    function divTable(gdCode){
-
-        //通过工单号的来确定设备？
-        var nowTime = moment().format('YYYY/MM/DD');
-
-        var st = moment(nowTime).format('YYYY/MM/DD');
-
-        var et = moment(nowTime).add(1,'d').format('YYYY/MM/DD');
-
-        var prm = {
-            //工单号
-            gdCode2:gdCode,
-            //开始时间
-            gdSt:st,
-            //结束时间
-            gdEt:et,
-            //用户id
-            userID:_userIdNum,
-            //用户名
-            userName:_userIdName
-
-        };
+    function divTable(dNum){
 
         $.ajax({
 
-            type:'post',
+            type:'get',
 
-            url:_urls + 'YWGD/ywGDGetZh2',
+            url:_urls + 'YWGD/GetDevGD',
+
+            data:dNum,
 
             timeout:_theTimes,
-
-            data:prm,
 
             beforeSend:function(){
 
@@ -897,32 +873,12 @@ $(function(){
 
             success:function(result){
 
-                //赋值
-                //设备id
-                $('#devID').html(result[0].wxShebei);
-                //设备名称
-                $('#devName').html(result[0].dName);
-                //报修时间
-                $('#bxTime').html(timeFormat(result[0].gdShij));
-                //故障发生时间
-                $('#fsTime').html(timeFormat(result[0].gdFsShij));
-                //故障处理时间
-                $('#clTime').html(timeFormat(result[0].shouLiShij));
-                //故障修复时间
-                $('#xfTime').html(timeFormat(result[0].guanbiShij));
-                //状态码
-                $('#statusCode').html(statusFun(result[0].gdZht));
-                //故障处理进度
-                $('#lastInfo').html(titleFun(result[0].lastUpdateInfo));
-                //故障描述
-                $('#gzDes').html(titleFun(result[0].bxBeizhu));
-                //故障报修人
-                $('#bxRen').html(result[0].bxRen);
-                //故障处理内容
-                $('#wxDes').html(titleFun(result[0].wxBeizhu));
+                console.log(result);
+
             },
 
             error:_errorFun
+
 
         })
 

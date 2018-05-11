@@ -63,7 +63,6 @@ function getOfficesId(){
     return officeIdArr;
 };
 
-
 /*---------------------------时间初始化------------------------*/
 
 //datapicker时间插件初始化(日月年)
@@ -1087,6 +1086,7 @@ function _getEcName(etid){
 
     }
 };
+
 //根据能耗分项ID获取能耗单位
 function _getEcUnit(etid){
 
