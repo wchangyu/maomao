@@ -126,15 +126,16 @@
         var url = sessionStorage.apiUrlPrefix+ "Main/GetECPItemizeNowDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 /*单位:冷站输出冷量*/
-                $('#lznowlvMisc').html('KW');
+                //$('#lznowlvMisc').html('KW');
                 /*单位:冷站散热量*/
-                $('#lzsrlvMisc').html('KW');
+                //$('#lzsrlvMisc').html('KW');
                 /*单位:分项实时能效描述*/
-                $('#itemizeMisc').html('KW/KW');
+                //$('#itemizeMisc').html('KW/KW');
                 /*冷站散热量*/
                 $('#lzsrlv').html(res.srlVa);
                 /*冷机功率(小数位数为1位)*/
@@ -232,12 +233,22 @@
         var url = sessionStorage.apiUrlPrefix+"Main/GetEERNowChartViewDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code===0){
 
                 //返回的数据中，第一个是实时能效曲线值，第二个是折标能效值；
-                var name = ["实时能效(KW/KW)","折标能效"];
+                if(sessionStorage.misc == 1){
+
+                    var name = ["实时能效(KW/KW)","折标能效"];
+
+                }else if(sessionStorage.misc == 2){
+
+                    var name = ["实时能效(KW/RT)","折标能效"];
+
+                }
+
                 //两条线的颜色数组
                 var dvs = [];
 
@@ -331,7 +342,8 @@
         var url = sessionStorage.apiUrlPrefix+"Main/GetEERNowChartViewDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code===0){
 
@@ -422,13 +434,25 @@
         $.post(url,{
             pId:sessionStorage.PointerID,
             //SysrealDt:encodeURIComponent(sysrealdatetime())
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+
         },function (res) {
             if(res.code===0){
                 var dvs = [];
                 for (var i = 0; i < res.ys.length; i++) {
                     var object = {};
-                    object.name = "冷站实时功率(KW)";
+
+                    if(sessionStorage.misc == 1){
+
+                        object.name = "冷站实时功率(KW)";
+
+                    }else if(sessionStorage.misc == 2){
+
+                        object.name = "冷站实时功率(RT)";
+
+                    }
+
+
                     object.type = "line";
                     object.data = [];
                     for (var j = 0; j < res.ys[i].length; j++) {
@@ -477,6 +501,17 @@
                     },
                     series: dvs
                 };
+
+                if(sessionStorage.misc == 1){
+
+                    option.legend.data[0] = '冷站实时功率(KW)';
+
+                }else if( sessionStorage.misc == 2 ){
+
+                    option.legend.data[0] = '冷站实时功率(RT)';
+
+                }
+
                 myPowerLineMain.setOption(option, true);
             }else if(res.code===-1){
                 console.log('异常错误(实时功率曲线):' + res.msg);
@@ -494,7 +529,8 @@
         var url = sessionStorage.apiUrlPrefix + "Main/GetUBRVNowChartViewDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code===0){
                 var aroMax = parseFloat(res.aroMaxVa);//能耗最大值
@@ -637,7 +673,8 @@
         var url = sessionStorage.apiUrlPrefix + "Main/GetUBRVNowData";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 var ubrv = parseFloat(res.ubrVa);
@@ -678,10 +715,11 @@
         var url = sessionStorage.apiUrlPrefix + "Main/GetElePriceColdNowDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
-                $('#spanEPrice_Misc').html('KWH');
+                //$('#spanEPrice_Misc').html('KWH');
                 var epv = parseFloat(res.ePrCoVa).toFixed(4);
                 $('#spanEPrice').html(epv);
             }else if(res.code === -1){
@@ -698,7 +736,8 @@
         var url = sessionStorage.apiUrlPrefix + "Main/GetEAnMonNowDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt)
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 var dm = res.dm;//日
@@ -861,7 +900,8 @@
                 pId:sessionStorage.PointerID,
                 preDTs:dts,
                 eiType:eiType,
-                prelgs:lgs
+                prelgs:lgs,
+                misc:sessionStorage.misc
             },function (res) {
                 if (res.xs === null) {
                     myeAnhsCV.hideLoading();
@@ -948,7 +988,8 @@
         $.post(url,{
             pId:sessionStorage.PointerID,
             perDTs:perDTs,
-            eiType:eiType
+            eiType:eiType,
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 if(res.xs.length === 0){
@@ -1060,6 +1101,16 @@
 
         ]
 
+        if(sessionStorage.misc == 1){
+
+            col[9].title = '实测COP（KW/KW）'
+
+        }else if(sessionStorage.misc == 2){
+
+            col[9].title = '实测COP（KW/RT）'
+
+        }
+
         //表格初始化
         _tableInit($('#table'),col,2,false,'','',true,'','','');
 
@@ -1077,7 +1128,9 @@
                 //楼宇id
                 pId:sessionStorage.PointerID,
                 //实时时间
-                SysrealDt:encodeURIComponent(sessionStorage.sysDt)
+                SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+                //单位
+                misc:sessionStorage.misc
             },
 
             beforeSend:function(){
@@ -1242,6 +1295,7 @@
                 }
 
             },1000*60*10);
+
 
         }
     }

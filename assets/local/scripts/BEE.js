@@ -51,12 +51,18 @@ var BEE = (function(){
     };
 
     //获取当前地址
-
     var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
 
-    if(_LurlLength == 4){
+    if(_LurlLength > 3){
 
-        _loginHtml = "../" + _loginHtml;
+        var _loginSlash = "";
+
+        for(var i=0; i < _LurlLength-3; i++){
+
+            _loginSlash += "../";
+        }
+
+        _loginHtml = _loginSlash + _loginHtml;
 
         sessionStorage.loginPath =  _loginHtml;
         _assetsPath = '../../../../assets/';
@@ -1091,6 +1097,7 @@ var BEE = (function(){
                 }
             });
         }
+
         //判断是否存在符合条件的流程图
         if(procsArr.length == 0){
             return false;

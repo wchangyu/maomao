@@ -478,6 +478,10 @@ var Login = function() {
                     var showstep = data["showstep"] || '';
                     sessionStorage.showstep = showstep;
 
+                    //高效机房单位
+                    var misc = data["misc"] || '';
+                    sessionStorage.misc = misc;
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 

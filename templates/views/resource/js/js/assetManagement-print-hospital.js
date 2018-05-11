@@ -265,6 +265,7 @@ $(function(){
             deferred: $.Deferred().done(function() { console.log('Printing done', arguments); })
         });
 
+
     })
 
     //表格【查看】
@@ -629,7 +630,7 @@ $(function(){
                 var str = '';
 
                 for(var i=0;i<result.length;i++){
-                    var valueStr = '<div class="print-block-cel">' +
+                    var valueStr = '<div class="print-block-cel PageNext">' +
                                         '<div class="three-block">' +
                                             '<div class="three-left">' +
                                                 '<div class="row-list">' +

@@ -179,3 +179,13 @@
     border-bottom: 1px solid #ffffff !important;
 
 }
+.tables-hover{
+
+    background: #FBEC88 !important;
+
+}
+.dev-block{
+
+    max-height: 430px;overflow: auto;
+
+}

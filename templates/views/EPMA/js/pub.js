@@ -143,6 +143,17 @@ var EPMA = function () {
     return {
         init: function () {
 
+            //高校机房单位切换
+            if( sessionStorage.misc == 1 ){
+
+                $('body').append('<script src="js/language_cn.js" type="text/javascript"></script>');
+
+            }else if( sessionStorage.misc == 2 ){
+
+                $('body').append('<script src="js/language_en.js" type="text/javascript"></script>');
+
+            }
+
             if (sessionStorage.enterpriseID === undefined) {
                 //初始化默认界面
                 var pos = JSON.parse(sessionStorage.pointers);

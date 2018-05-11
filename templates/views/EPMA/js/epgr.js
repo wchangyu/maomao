@@ -49,7 +49,8 @@ var EPGR=function () {
         jQuery('#epgrBusy').showLoading();
         var url = sessionStorage.apiUrlPrefix + "EPGr/GetPriceGrpDs";
         $.get(url,{
-            pId:sessionStorage.PointerID
+            pId:sessionStorage.PointerID,
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 //是否编辑,TRUE=是,则是编辑

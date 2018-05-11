@@ -140,7 +140,8 @@
             pId:sessionStorage.PointerID,
             dTs:dTs,
             mType:mType,
-            eType:eType
+            eType:eType,
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code===0){
                 var titleText = "多时间段能效对比分析";
@@ -210,6 +211,17 @@
                     },
                     series: dvs
                 };
+
+                if(sessionStorage.misc == 1){
+
+                    option.title.subtext = 'KW/KW'
+
+                }else if(sessionStorage.misc == 2){
+
+                    option.title.subtext = 'KW/RT'
+
+                }
+
                 mycv.setOption(option);
                 jQuery('#compareBusy').hideLoading();
             }else if(res.code===-1){
@@ -227,7 +239,8 @@
             pId:sessionStorage.PointerID,
             dTs:dTs,
             mType:mType,
-            eType:eType
+            eType:eType,
+            misc:sessionStorage.misc
         },function (res) {
             //表格显示数据源
             var dataArr = [];

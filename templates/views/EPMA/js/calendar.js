@@ -132,7 +132,8 @@
         var url = sessionStorage.apiUrlPrefix + "CalendarEER/GetCalendarECPAnalysisDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            sp:todayDT
+            sp:todayDT,
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 var ecpDs=res.ecPs;//数据源
@@ -201,7 +202,8 @@
         $.post(url,{
             pId:sessionStorage.PointerID,
             sp: encodeURIComponent(sp),
-            dType: selectDType
+            dType: selectDType,
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 //标杆值
@@ -237,9 +239,9 @@
                 $('#tableMark').children('tbody').children('tr').eq(0).children('td').eq(idxK).removeClass('color').html('当前楼(' + lzeerV + ')');
                 $('#tableMark').children('tbody').children('tr').eq(1).children('td').eq(idxK).addClass('markindicator');
                 $('#emisc').html("KWH/KWH");
-                $('#cmisc').html("KWH");
-                $('#eer_com_c_misc').html('KWH');
-                $('#eer_com_cpirceV_misc').html('KWH');
+                //$('#cmisc').html("KWH");
+                //$('#eer_com_c_misc').html('KWH');
+                //$('#eer_com_cpirceV_misc').html('KWH');
                 var tds = $('table tr:first td');//第一行
                 if (lzeerV === 0) {
                     $('#latentV').html("0");
