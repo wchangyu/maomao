@@ -349,7 +349,7 @@ $(function(){
         for(var i=0;i<_allDataArr.length;i++){
 
             if(_allDataArr[i].itkNum == $thisBM){
-
+                console.log(_allDataArr[i]);
                 //是否启用
                 implementingState.sfqy = _allDataArr[i].isActive;
                 //任务单号
@@ -369,13 +369,13 @@ $(function(){
                 //计划编码
                 implementingState.jhbm = _allDataArr[i].dipNum;
                 //接单时间
-                $('#jdsj').val(_allDataArr[i].tkRecTime);
+                $('#jdsjs').val(_allDataArr[i].tkRecTime);
                 //开始时间
-                $('#kssj').val(_allDataArr[i].tkTime);
+                $('#kssjs').val(_allDataArr[i].tkTime);
                 //完成时间
-                $('#wcsj').val(_allDataArr[i].tkCompTime);
+                $('#wcsjs').val(_allDataArr[i].tkCompTime);
                 //备注
-                $('#beizhu').val(_allDataArr[i].remark);
+                $('#beizhus').val(_allDataArr[i].remark);
 
             }
 

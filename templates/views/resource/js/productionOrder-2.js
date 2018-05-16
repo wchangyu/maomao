@@ -211,7 +211,7 @@ $(function(){
             },
             {
                 title:'设备类型',
-                data:'wxShiX'
+                data:'dcName'
             },
             {
                 title:'故障位置',

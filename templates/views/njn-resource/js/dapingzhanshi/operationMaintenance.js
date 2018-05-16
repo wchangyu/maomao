@@ -75,7 +75,8 @@ $(function(){
         },
         {
             title:'设备名称',
-            data:'dName'
+            data:'dName',
+            className:'devName'
         },
         {
             title:'报修人',
@@ -160,7 +161,8 @@ $(function(){
         "ordering": false,
         "pagingType":"full_numbers",
         "bStateSave":true,
-        "sScrollY": '518px',
+        //"sScrollY": '518px',
+        "sScrollY": '218px',
         "bPaginate": false,
         'language': {
             'emptyTable': '没有数据',
@@ -190,7 +192,13 @@ $(function(){
 
         var dNum = $(this).children('.devNum').html();
 
-        divTable(dNum);
+        var dName = $(this).children('devName').html();
+
+        $('#gd-datatables tbody').find('tr').removeClass('tables-hover');
+
+        $(this).addClass('tables-hover');
+
+        divTable(dNum,dName);
 
     })
 
@@ -422,7 +430,7 @@ $(function(){
 
                 if(flag == 'day'){
 
-                    if(result.length>0){
+                    if(result){
 
                         pieNum(result,option,gdResponseDay,gdBXTypeDay,gdGradeDay,gdSpreadDay);
 
@@ -525,7 +533,9 @@ $(function(){
                 }
             }
 
-            //工单响应-年
+            //console.log(option);
+
+            //工单响应
             el1.setOption(option);
 
         }else{
@@ -706,6 +716,7 @@ $(function(){
             var leftColorBlock = '';
 
             var rightColorBlock = '';
+
             //生成小色块
             for(var i=0;i<result.gdDevInfos.length;i++){
 
@@ -717,7 +728,7 @@ $(function(){
                     //奇数插入第二个父元素console.log('奇数'+i);
                     rightColorBlock += '<div class="legend-block label-width">' +
                         '<span style="background: ' + color[i] + '"></span>' +
-                        '<label>' + result.gdDevInfos[i].dsName + '</label>' +
+                        '<label>' + result.gdDevInfos[i].dsName + '</label>'  +
                         '</div>'
 
                 }else{
@@ -832,9 +843,11 @@ $(function(){
 
                     //获取到第一个数据的设备
 
-                    var gdCode = result[0].gdCode2;
+                    var dNum = result[0].wxShebei;
 
-                    divTable(gdCode);
+                    var dName = result[0].dName;
+
+                    divTable(dNum,dName);
 
                 }
 
@@ -847,7 +860,24 @@ $(function(){
     }
 
     //获取设备信息
-    function divTable(dNum){
+    function divTable(dNum,dName){
+
+        //初始化
+
+        //设备编码
+        $('#devID').html('');
+
+        //设备名称
+        $('#devName').html('');
+
+        //赋值
+
+        //设备编码
+        $('#devID').html(dNum);
+
+        //设备名称
+        $('#devName').html(dName);
+
 
         $.ajax({
 
@@ -855,7 +885,11 @@ $(function(){
 
             url:_urls + 'YWGD/GetDevGD',
 
-            data:dNum,
+            data:{
+
+                dNum:dNum
+
+            },
 
             timeout:_theTimes,
 
@@ -873,7 +907,41 @@ $(function(){
 
             success:function(result){
 
-                console.log(result);
+                //绑定数据
+                if(result.length>0){
+
+                    var str = ''
+
+                    for(var i=0;i<result.length;i++){
+
+                        str += '<tr>' +
+                            //报修时间
+                            '<td>' + result[i].gdShij + '</td>' +
+                            //故障发生时间
+                            '<td>' + result[i].gdFsShij + '</td>' +
+                            //故障处理时间
+                            '<td>' + result[i].jiedanShij + '</td>' +
+                            //故障修复时间
+                            '<td>' + result[i].wangongshij + '</td>' +
+                            //状态
+                            '<td>' + result[i].gdZhtStr + '</td>' +
+                            //故障处理进度
+                            '<td>' + result[i].lastUpdateInfo + '</td>' +
+                            //故障描述
+                            '<td>' + result[i].bxBeizhu + '</td>' +
+                            //故障报修人
+                            '<td>' + result[i].bxRen + '</td>' +
+                            //故障处理内容
+                            '<td>' + result[i].wxBeizhu + '</td>' +
+                            '</tr>'
+
+                    }
+
+                    //插入表格
+                    $('#equipment-resume tbody').empty().append(str);
+
+                }
+
 
             },
 
@@ -883,60 +951,5 @@ $(function(){
         })
 
     }
-
-    //时间格式化2018/4/27 15:16:43-->15:16:43
-    function timeFormat(time){
-
-        if(time){
-
-            return time.split(' ')[1];
-
-        }else{
-
-            return ''
-
-        }
-
-    }
-
-    //状态转换
-    function statusFun(data){
-
-        if (data == 1) {
-            return '待下发'
-        }
-        if (data == 2) {
-            return '待分派'
-        }
-        if (data == 3) {
-            return '待执行'
-        }
-        if (data == 4) {
-            return '执行中'
-        }
-        if (data == 5) {
-            return '等待资源'
-        }
-        if (data == 6) {
-            return '待关单'
-        }
-        if (data == 7) {
-            return '任务关闭'
-        }
-        if (data == 999) {
-            return '任务取消'
-        }
-
-    }
-
-    //添加title属性
-    function titleFun(data){
-
-        var str = '<span title="' + data + '">' + data + '</span>'
-
-        return str;
-
-    }
-
 
 })

@@ -138,7 +138,8 @@
             arostr:arostr,
             sp:sp,
             ep:ep,
-            eType:eType
+            eType:eType,
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 var maxVa = parseInt(res.aroMaxVa);//能耗最大值
@@ -242,6 +243,16 @@
                     yAxis: yAs,
                     series: dvs
                 };
+                if(sessionStorage.misc == 1){
+
+                    option.title.subtext = 'KW/KW'
+
+                }else if(sessionStorage.misc == 2){
+
+                    option.title.subtext = 'KW/RT'
+
+                }
+
                 mycv.setOption(option);
                 jQuery('#abbrBusy').hideLoading();
             }else if(res.code === -1){

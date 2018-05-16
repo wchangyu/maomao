@@ -229,7 +229,9 @@ var EPMA = function () {
 
                     sessionStorage.sysDt = res.dt;
 
-                    location.href = "../EPMA" + window.location.href.split('EPMA')[1];
+                    //location.href = "../EPMA" + window.location.href.split('EPMA')[1];
+
+                    location.href = window.location.href
 
                 })
             })

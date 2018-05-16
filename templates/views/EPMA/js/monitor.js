@@ -6,7 +6,8 @@
         jQuery('#IsBusy').showLoading();
         var url = sessionStorage.apiUrlPrefix + "Monitor/GetMonitorInstDs";
         $.post(url,{
-            sSearch:sessionStorage.PointerID
+            sSearch:sessionStorage.PointerID,
+            misc:sessionStorage.misc
         },function (res) {
             var dataArr=[];
             dataArr = res.aaData;

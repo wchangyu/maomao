@@ -57,10 +57,23 @@ var Rate=function () {
         $.post(url,{
             pId:'8817180401',
             sp:sp,
-            ep:ep
+            ep:ep,
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code===0){
-                var miscstr = 'KW/KW';
+                var miscstr
+                    //= 'KW/KW';
+
+                if(sessionStorage.misc == 1){
+
+                    miscstr = 'KW/KW'
+
+                }else if(sessionStorage.misc == 2){
+
+                    miscstr = 'KW/RT'
+
+                }
+
                 var maxeerVa = 9;
                 var maxRateVa = res.rateMaxVa;
                 var ys = [];

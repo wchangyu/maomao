@@ -127,15 +127,16 @@
         else{
             jQuery('#rankBusy').showLoading();
             var pIds = [];
-            pIds.push('8817180401');
+            pIds.push(sessionStorage.PointerID);
             var pNts = [];
-            pNts.push('安利8#冷站');
+            pNts.push(sessionStorage.PointerName);
             var url = sessionStorage.apiUrlPrefix + "RankEER/GetRankEERAnalysisDs";
             $.post(url,{
                 pIds:pIds,
                 pNts:pNts,
                 DT:dtnowstr(),
-                eType:selectEType
+                eType:selectEType,
+                misc:sessionStorage.misc
             },function (res) {
                 if(res.code === 0){
                     var lzxs = res.lzxs;//冷站X轴
@@ -153,11 +154,24 @@
                     var ctxs = res.ctxs;//冷却塔X轴
                     var ctys = res.ctys;
                     var ctcs = res.ctcs;
-                    drawlzv(lzxs, lzys, lzcs, 'KW/KW');//冷站
-                    drawcv(cxs, cys, ccs,  'KW/KW');//冷机
-                    drawchwv(chwxs, chwys, chwcs,  'KW/KW');//冷冻泵
-                    drawcwv(cwxs, cwys, cwcs,  'KW/KW');//冷却泵
-                    drawctv(ctxs, ctys, ctcs,  'KW/KW');//冷却塔
+
+                    var Luntil = '';
+
+                    if(sessionStorage.misc == 1){
+
+                        Luntil = 'KW/KW'
+
+                    }else if(sessionStorage.misc == 2){
+
+                        Luntil = 'KW/RT'
+
+                    }
+
+                    drawlzv(lzxs, lzys, lzcs, Luntil);//冷站
+                    drawcv(cxs, cys, ccs,  Luntil);//冷机
+                    drawchwv(chwxs, chwys, chwcs,  Luntil);//冷冻泵
+                    drawcwv(cwxs, cwys, cwcs,  Luntil);//冷却泵
+                    drawctv(ctxs, ctys, ctcs,  Luntil);//冷却塔
                     jQuery('#rankBusy').hideLoading();
                 }else if(res.code === -1){
                     alert('异常错误(能效排名:)' + res.msg);

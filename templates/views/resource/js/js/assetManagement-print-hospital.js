@@ -265,6 +265,7 @@ $(function(){
             deferred: $.Deferred().done(function() { console.log('Printing done', arguments); })
         });
 
+
     })
 
     //表格【查看】
@@ -629,50 +630,85 @@ $(function(){
                 var str = '';
 
                 for(var i=0;i<result.length;i++){
-                    var valueStr = '<div class="print-block-cel">' +
-                                        '<div class="three-block">' +
-                                            '<div class="three-left">' +
-                                                '<div class="row-list">' +
-                                                    '<div  class="row-three-left" >设备名称</div>' +
-                                                    '<div class="row-three-right">' + result[i].dName + '</div>'+
-                                                '</div>' +
-                                                '<div class="row-list">' +
-                                                    '<div  class="row-three-left" >设备编号</div>' +
-                                                    '<div class="row-three-right">' + result[i].dNum + '</div>'+
-                                                '</div>' +
-                                                '<div class="row-list noBorder">' +
-                                                    '<div  class="row-three-left" >设备地址</div>' +
-                                                    '<div class="row-three-right">' + result[i].installAddress + '</div>'+
-                                                '</div>' +
-                                            '</div>' +
-                                            '<div class="img-block">' +
-                                                '<img src="' + _replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum + '" alt="">' +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</div>'
 
-                    //开始的标签
-                    if(i == 0){
+                    if( i== 0 ){
 
-                        str += '<div class="print-block">' +  valueStr
+                        str += '<div class="print-block-cel print-block-celS">' +
+                            '<div class="three-block">' +
+                            '<div class="three-left">' +
+                            '<div class="row-list">' +
+                            '<div  class="row-three-left" >设备名称</div>' +
+                            '<div class="row-three-right">' + result[i].dName + '</div>'+
+                            '</div>' +
+                            '<div class="row-list">' +
+                            '<div  class="row-three-left" >设备编号</div>' +
+                            '<div class="row-three-right">' + result[i].dNum + '</div>'+
+                            '</div>' +
+                            '<div class="row-list noBorder">' +
+                            '<div  class="row-three-left" >设备地址</div>' +
+                            '<div class="row-three-right">' + result[i].installAddress + '</div>'+
+                            '</div>' +
+                            '</div>' +
+                            '<div class="img-block">' +
+                            '<img src="' + _replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum + '" alt="">' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
 
-                    }else if(i == result.length - 1){
+                    }else if(i == result.length-1){
 
-                        str += valueStr;
-
-                    }else if(i % 12 == 0 ){
-
-                        str += '<div class="clearfix noprint"></div></div><div class="PageNext"></div><div class="print-block">' + valueStr
+                        str += '<div class="print-block-cel print-block-celE">' +
+                            '<div class="three-block">' +
+                            '<div class="three-left">' +
+                            '<div class="row-list">' +
+                            '<div  class="row-three-left" >设备名称</div>' +
+                            '<div class="row-three-right">' + result[i].dName + '</div>'+
+                            '</div>' +
+                            '<div class="row-list">' +
+                            '<div  class="row-three-left" >设备编号</div>' +
+                            '<div class="row-three-right">' + result[i].dNum + '</div>'+
+                            '</div>' +
+                            '<div class="row-list noBorder">' +
+                            '<div  class="row-three-left" >设备地址</div>' +
+                            '<div class="row-three-right">' + result[i].installAddress + '</div>'+
+                            '</div>' +
+                            '</div>' +
+                            '<div class="img-block">' +
+                            '<img src="' + _replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum + '" alt="">' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
 
                     }else{
 
-                        str += valueStr
+                        str += '<div class="print-block-cel print-block-celC PageNext">' +
+                            '<div class="three-block">' +
+                            '<div class="three-left">' +
+                            '<div class="row-list">' +
+                            '<div  class="row-three-left" >设备名称</div>' +
+                            '<div class="row-three-right">' + result[i].dName + '</div>'+
+                            '</div>' +
+                            '<div class="row-list">' +
+                            '<div  class="row-three-left" >设备编号</div>' +
+                            '<div class="row-three-right">' + result[i].dNum + '</div>'+
+                            '</div>' +
+                            '<div class="row-list noBorder">' +
+                            '<div  class="row-three-left" >设备地址</div>' +
+                            '<div class="row-three-right">' + result[i].installAddress + '</div>'+
+                            '</div>' +
+                            '</div>' +
+                            '<div class="img-block">' +
+                            '<img src="' + _replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum + '" alt="">' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
 
                     }
 
                 }
 
                 $('.print-table').empty().append(str);
+
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
 

@@ -3441,6 +3441,9 @@ $(function(){
 
         var inconformityArr =[];
         //首先判断的是每个工单的材料id
+
+        console.log(_gdArr);
+
         for(var i=0;i<_gdArr.length;i++){
             //将工单中缺某个选择出来
 
@@ -3472,6 +3475,7 @@ $(function(){
                 '</span>' + '<span>' + eligibleArr[i].bxKeshi +
                 '</span>' + '</li>';
         }
+
         for(var i=0;i<eligibleArr.length;i++){
 
             inconformityArr.removeByValue(eligibleArr[i].gdCode2,'gdCode2');

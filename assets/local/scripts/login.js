@@ -487,6 +487,10 @@ var Login = function() {
                     var showChooseUnit = data["showChooseUnit"] || '';
                     sessionStorage.showChooseUnit = showChooseUnit;
 
+                    //语言选择
+                    var misc = data["misc"] || '';
+                    sessionStorage.misc = misc;
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 
