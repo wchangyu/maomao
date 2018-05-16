@@ -157,8 +157,8 @@ var EPMA = function () {
                 $('#pNT').html(sessionStorage.eprName + '-' + sessionStorage.PointerName);//楼宇名称
             }
 
-            //初始化eprbox控件
-            initeprBox();
+            ////初始化eprbox控件
+            //initeprBox();
 
             //初始化日期
             initDt();
@@ -192,7 +192,7 @@ var EPMA = function () {
                     $('#span_humidity').hide();
                     $('#span_wetbuldtemperature').hide();
                 }
-            })
+            });
 
             //楼宇实时数据
             var realDtUrl = sessionStorage.apiUrlPrefix + "Global/GetRealDt";
@@ -207,18 +207,19 @@ var EPMA = function () {
                         sessionStorage.sysDt = res.dt;
                     }
                 }
-            })
+            });
 
             //切换楼宇
             $('#goEprBtn').on('click', function () { //全局楼宇切换
-                var pId = $('#p_type').val();
-                var pNt = $('#p_type').children('option:selected').text();
-                var eprId = $('#epr_type').val();
-                var eprNT = $('#epr_type').children('option:selected').text();
-                sessionStorage.enterpriseID = eprId;
-                sessionStorage.eprName = eprNT;
-                sessionStorage.PointerID = pId;
-                sessionStorage.PointerName = pNt;
+                //var pId = $('#p_type').val();
+                //var pNt = $('#p_type').children('option:selected').text();
+                //var eprId = $('#epr_type').val();
+                //var eprNT = $('#epr_type').children('option:selected').text();
+                //sessionStorage.enterpriseID = eprId;
+                //sessionStorage.eprName = eprNT;
+                //sessionStorage.PointerID = pId;
+                //sessionStorage.PointerName = pNt;
+
                 onhidemenuEpr();
                 $.get(realDtUrl, {
                     pId: sessionStorage.PointerID

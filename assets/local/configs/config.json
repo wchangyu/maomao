@@ -165,8 +165,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://101.201.108.12/BEEWebAPIhqat/api/",
-  "apiUriPrefixYW":"http://101.201.108.12/BEEWebAPIhqat/api/",
+  "apiUriPrefix":"http://192.168.1.114/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://192.168.1.114/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
@@ -182,6 +182,8 @@
   "allPointerName" : "全院",
   "alarmAlert":"0",
   "alarmSong":"0",
+  "alarmSongGrade":"2",
+  "alarmSongGradeComment":"报警等级达到当前级别时开启提示声音 1普通 2较急 3紧急 4特别紧急",
   "changeMenuByProcs":"0",
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
   "gongdanInterval":"10",
@@ -202,5 +204,7 @@
   "loginPath":"../logins/chcmu/login_4.html",
   "loginPathComment":"登录页面路径",
   "showstep":"1",
-  "showstepComment":"是否显示折标能效"
+  "showstepComment":"是否显示折标能效",
+  "showChooseUnit":"1",
+  "showChooseUnitComment":"是否启用右上角选择单位功能 0为不启用 1为启用"
 }

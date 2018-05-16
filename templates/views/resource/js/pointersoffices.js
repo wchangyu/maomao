@@ -186,14 +186,39 @@ var ObjectSelection = function(){
                     //点击zTree文字时可勾选 不加只能点击前面圆圈才能勾选
                     zTreePointer.checkNode(treeNode,!treeNode.checked,true);
 
+                    if(treeId == 'allSelectPointer'){
+
+                        var nodes = zTreePointer.getCheckedNodes(true)[0];
+
+                        //勾选楼宇
+                        if(nodes.nodeType == 2){
+
+                            $('#eprBox .add-input-select1 span').html(nodes.name);
+
+                            $('#eprBox .add-input-select1 span').attr('data-id',nodes.id);
+
+                        }else{
+
+                            $('#eprBox .add-input-select1 span').html('全部');
+
+                            $('#eprBox .add-input-select1 span').attr('data-id',nodes.id);
+                        }
+
+                        $('#eprBox .add-select-pointer').css({
+                            display:'none'
+                        }) ;
+
+                    }
+
                     //如果当前页面存在支路
-                    if($('#allBranch').length>0){
+                    if($('#allBranch').length>0 && treeId != 'allSelectPointer'){
                         //获取当前楼宇下的支路
                         GetAllBranches();
                     }
-                    if(getShowRadio){
-                        //获取楼宇ID
 
+                    if(getShowRadio){
+
+                        //获取楼宇ID
                         var id =  zTreePointer.getCheckedNodes(true)[0].id;
 
                         sessionStorage.curPointerId = id;
@@ -221,12 +246,42 @@ var ObjectSelection = function(){
 
                     $('#' + treeId).find('.curSelectedNode').removeClass('curSelectedNode');
 
+
                 },
                 onCheck:function(e,treeId,treeNode){
                         $(treeNode).css("background", "blue");
 
+                    if(treeId == 'allSelectPointer'){
+
+                        var nodes = zTreePointer.getCheckedNodes(true)[0];
+
+                        //勾选楼宇
+                        if(nodes.nodeType == 2){
+
+
+                            $('#eprBox .add-input-select1 span').html(nodes.name);
+
+                            $('#eprBox .add-input-select1 span').attr('data-id',nodes.id)
+                        }
+
+                        $('#eprBox .add-select-pointer').css({
+                            display:'none'
+                        }) ;
+
+                        $('#eprBox .add-select-pointer').css({
+                            display:'none'
+                        }) ;
+
+                    }else{
+
+                        $('#eprBox .add-input-select1 span').html('全部');
+
+                        $('#eprBox .add-input-select1 span').attr('data-id',nodes.id);
+                    }
+
                         //如果当前页面存在支路
-                        if($('#allBranch').length>0){
+                        if($('#allBranch').length>0 && treeId != 'allSelectPointer'){
+
                             //获取当前楼宇下的支路
                             GetAllBranches();
                         }
@@ -278,17 +333,60 @@ var ObjectSelection = function(){
             zTreePointer  = $.fn.zTree.init(this._$ulPointers,setting1,this._allPointers);
             var nodes = zTreePointer.getNodes();
             //console.log(nodes);
-            if(getShowRadio){
+            var dataArr = nodes[0].children;
+            //console.log(nodes);
+           // console.log(dataArr);
+
+            if(sessionStorage.PointerID && sessionStorage.showChooseUnit != 0){
+                //console.log($ulPointers);
+
+                var pId = sessionStorage.PointerID;
+
+                var thisNum = 0;
+
+                var thatNum = 0;
+
+                //获取当前勾选的是第几个楼宇
+                $(dataArr).each(function(i,o){
+
+                    var childArr = o.children;
+
+                    $(childArr).each(function(k,j){
+
+                        var id = j.id;
+
+                        if(id == pId){
+
+                            thisNum = i;
+
+                            thatNum = k;
+
+                            return false
+                        }
+
+                    });
+
+                });
+
+                zTreePointer.checkNode(nodes[0], false, false);  //父节点不被选中
+                zTreePointer.checkNode(nodes[0].children[thisNum].children[thatNum], true, true);
 
             }else{
-                if(getOptFirst){
 
-                    zTreePointer.checkNode(nodes[0].children[0].children[0],true,false,false);
-                    zTreePointer.expandNode(nodes[0],true,false,true);
+                if(getShowRadio){
+
                 }else{
-                    zTreePointer.checkNode(nodes[0],true,false,false);
-                    zTreePointer.expandNode(nodes[0],true,false,true);
+                    if(getOptFirst){
+
+                        zTreePointer.checkNode(nodes[0].children[0].children[0],true,false,false);
+                        zTreePointer.expandNode(nodes[0],true,false,true);
+                    }else{
+                        zTreePointer.checkNode(nodes[0],true,false,false);
+                        zTreePointer.expandNode(nodes[0],true,false,true);
+                    }
+
                 }
+
 
             }
 

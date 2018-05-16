@@ -390,15 +390,15 @@
         "content": "监控总览",
         "uri": "../yongnengjiance/energyMonitor.html?a=1",
         "uid": "",
-        "arg": "2,4",
+        "arg": "2,18",
         "iconclass": ""
       },
       "测试一下": {
         "type": "0",
         "content": "测试一下",
-        "uri": "../yongnengjiance/energyMonitor.html?a=2",
+        "uri": "../yongnengjiance/energyMonitor.html?a=101",
         "uid": "",
-        "arg": "1,3101007489",
+        "arg": "1,5090017033",
         "iconclass": ""
       },
       "送排风1": {
