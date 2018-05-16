@@ -202,5 +202,6 @@
   "loginPath":"../logins/chcmu/login_4.html",
   "loginPathComment":"登录页面路径",
   "showstep":"1",
-  "showstepComment":"是否显示折标能效"
+  "showstepComment":"是否显示折标能效",
+  "misc":"1"
 }

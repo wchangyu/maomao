@@ -152,6 +152,7 @@
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
                         + "&eType=" + eType;
+                        + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
                 else if (selectRpt === "zteb") {//电耗报表
@@ -159,6 +160,7 @@
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
                         + "&eType=" + eType;
+                        + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
                 else if (selectRpt === "ztbr") {//负荷报表
@@ -166,6 +168,7 @@
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
                         + "&eType=" + eType;
+                        + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
                 else if (selectRpt === "ztic") {//能效报表
@@ -173,6 +176,7 @@
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
                         + "&eType=" + eType;
+                        + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
                 else if (selectRpt === "nxba") {//能效对标分析报表
@@ -180,6 +184,7 @@
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
                         + "&eType=" + eType;
+                        + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
             }
