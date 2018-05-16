@@ -197,11 +197,13 @@ option = {
         }
     ],
     grid: {
-        left: '5%',
+        left: '1%',
         right: '5%',
-        bottom:'15%',
+        bottom:'5%',
         top:'5%',
+        containLabel: true,
         borderColor:'white'
+
         //show:true
     },
     series : [
@@ -738,10 +740,13 @@ function getOrderData(){
 
             //判断是日月年
             var date = $('.top-cut1 .onClicks').html();
+
             //订单量
             var orderNum = 0;
+
             //完成量
             var finishNum = 0;
+
             //进行中
             var disposeNum = 0;
 
@@ -804,6 +809,7 @@ function getOrderData(){
                 //给图例中存储数据
                 legendArr.push(obj.name);
             });
+
             //图例赋值
             option1.legend.data = legendArr;
             //数据赋值
@@ -949,7 +955,7 @@ function getRealTimeData(){
             option.series[1].data = shadowArr;
 
             //重绘chart图
-            myChart.setOption(option);
+            myChart.setOption(option,true);
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -1081,7 +1087,6 @@ function getTopPageEnergyData(){
 
         },
         error:function(jqXHR, textStatus, errorThrown){
-
 
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
@@ -1545,6 +1550,7 @@ function getOfficeRankData(){
     //获取配置好的能耗类型数据
     var unitObj = $.parseJSON(sessionStorage.getItem('officeEnergyType'));
     var txt = unitObj.alltypes;
+
     //获取能耗分项ID集合
     var energyItemIDArr = [];
 
@@ -1625,7 +1631,6 @@ function getOfficeRankData(){
 
             //页面重绘数据
             _myChart2.setOption(option2,true);
-
 
         },
         error:function(jqXHR, textStatus, errorThrown){

@@ -15,24 +15,16 @@
     <meta content="" name="author"/>
     <!--MY STYLE-->
     <link rel="stylesheet" href="../resource/css/leftBat.css">
-    <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
-    <link rel="stylesheet" href="../resource/css/warningAlarm-3.css">
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
     <script src="../resource/js/echarts.min.js"></script>
-    <script src="../resource/js/moment.js"></script>
-    <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
-    <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
+    <script src="../resource/js/moment.js"></script>
+    <script src="../new-resource/js/showOrHidden.js"></script>
+    <script src="../../../assets/local/scripts/underscore-min.js"></script>
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
-    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
-    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
-    <!--<link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">-->
-    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.bootstrap.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -40,20 +32,38 @@
     <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN THEME STYLES -->
-    <!--loading插件-->
-    <link rel="stylesheet" href="../resource/jQuery-showLoading/css/showLoading.css"/>
-
     <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="../new-resource/css/commonHead.css">
-    <link rel="stylesheet" href="../new-resource/css/baojingyujing/realTimeAlarm.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-    <style>
+    <!--datatables-->
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+    <!--时间插件-->
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <!--loading插件-->
+    <link rel="stylesheet" href="../resource/jQuery-showLoading/css/showLoading.css"/>
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
 
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../new-resource/css/common.css">
+    <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/monitorStatement.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../new-resource/css/baobiaoguanli/energyEfficiencyReportH5Print.css" />
+
+    <style>
+        .input-blocked input {
+            border: none;
+            height: 28px !important;
+            outline: none;
+            margin: 0 !important;
+        }
+        .bottom-main-table{
+            min-height: 600px;
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -235,10 +245,8 @@
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-
                         <i class="fa fa-angle-right"></i>
                     </li>
-
                 </ul>
                 <!--<div class="showOrHidden"></div>-->
                 <div class="page-toolbar">
@@ -272,43 +280,6 @@
                     <div class="total-warp">
                         <div class="wrap container">
 
-                            <!--上方选项卡-->
-                            <div class="top-tab-control">
-
-                                <div class="top-tab-container top-tab-container-choose">
-                                     <p>设备报警</p>
-                                </div>
-
-                                <div class="top-tab-container top-tab-container1">
-                                    <p>运行报警</p>
-                                </div>
-
-                                <div class="top-tab-container top-tab-container2">
-                                    <p>能耗报警</p>
-                                </div>
-
-                                <div class="clearfix"></div>
-                            </div>
-
-                            <!--页面左上角报警信息-->
-                            <div class="left-top-alarm">
-
-                                <span class="alarm-data-container">
-                                    严重报警
-                                    <font class="alarm-data alarm-data0">0</font>
-                                </span>
-
-                                 <span class="alarm-data-container">
-                                    较急报警
-                                    <font class="alarm-data alarm-data1">0</font>
-                                </span>
-
-                                 <span class="alarm-data-container">
-                                    普通报警
-                                    <font class="alarm-data alarm-data2">0</font>
-                                </span>
-                            </div>
-
                             <!--存放查询条件-->
                             <ul class="demand-condition-container condition-query ">
                                 <li>
@@ -319,63 +290,98 @@
                                 </li>
 
                                 <li>
-                                    <label for="">报警级别</label>
-                                    <select name="" id="alarm-level" class="select-station">
+                                    <label for="">报表内容</label>
+                                    <select name="" id="select-content" class="">
 
                                     </select>
+                                </li>
+
+                                <li style="line-height: 26px;">
+                                    <label for="">报表类型：</label>
+                                    <div class="input-blocked">
+                                        <select id="timeType" style="width: 128px;height: 100%;width: 100%;border: none;outline: none">
+                                            <option value="0" data-attr="Day">月报表</option>
+                                            <option value="1" data-attr="Month">年报表</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li style="line-height: 26px;">
+                                    <label for="">选择时间：</label>
+                                    <div class="input-blocked">
+                                        <input type="text" class="datatimeblock min form-control"/>
+                                    </div>
                                 </li>
 
                                 <li>
                                     <button class="demand-button btn btn-success">查询</button>
                                 </li>
 
+                                <!--<li class="excelButton"></li>-->
+                                <li style="float: right"><div class="excelButton" title="导出为excel">↓</div></li>
+                                <li style="float: right"><img id="print" class="printButton" src="../new-resource/img/printIcon.png" alt=""  title="打印"></li>
                                 <!--清除浮动-->
                                 <div class="clearfix"></div>
                             </ul>
 
-
-
                             <!--下方主体表格-->
                             <div class="bottom-main-table">
-                                <h3>报警列表
-                                    <span class="dispose dispose0 ">已处理 <font>0</font></span>
-                                    <span class="dispose dispose1 choose-dispose">未处理 <font>0</font></span>
-                                </h3>
-                                <table id="alarm-datatables" class="table" cellspacing="0" width="100%" style="">
+
+                                <!--车站年报警统计报表-->
+                                <table id="alarm-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black;">
                                     <thead style="text-align:center">
+                                    <tr style="text-align:center">
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>
+                                        <th colspan="8" id="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black" class="table-name change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="8" class="data-time change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="8" class="derive-time change-colspan1"></th>
+                                    </tr>
+                                    <!--<tr>-->
+                                        <!--<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">位置</th>-->
+                                        <!--<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="17" class="position-name change-colspan1"></th>-->
+                                    <!--</tr>-->
 
 
+                                    <tr class="change-head1 change-head-name">
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">报警量排名</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">子系统</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">报警总数</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">报警处理数</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">报警未处理数</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">严重紧急报警数</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">紧急报警数</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">一般报警数 </th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="1">普通报警数</th>
+                                    </tr>
 
                                     </thead>
 
                                     <tbody>
 
                                     </tbody>
+
                                 </table>
 
-                                <table id="alarm-datatables1" class="table" cellspacing="0" width="100%" style="display: none">
-                                    <thead style="text-align:center">
 
-
-                                    </thead>
-
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
                             </div>
 
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- END PAGE CONTENT-->
         </div>
+        <!-- END PAGE CONTENT-->
     </div>
-    <!-- END CONTENT -->
-    <!-- BEGIN QUICK SIDEBAR -->
-    <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
-    <!-- END QUICK SIDEBAR -->
+</div>
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+<!-- END QUICK SIDEBAR -->
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
@@ -386,6 +392,23 @@
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>
     </div>
+</div>
+
+<!--所有提示框-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
@@ -405,7 +428,13 @@
 <script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-
+<!-- END CORE PLUGINS -->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
 <!--datatable-->
 <script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
 <script src="../resource/TableTools/button/buttons.print.min.js"></script>
@@ -416,20 +445,18 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/moment.js"></script>
-<script src="../resource/js/alarm.js"></script>
-
-<!-- END CORE PLUGINS -->
-<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-<script src="../../../assets/local/scripts/BEE.js"></script>
-<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
-<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
-<!--loading插件-->
-<script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
 <!--时间插件-->
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+<!--打印插件-->
+<script src="../resource/js/jQuery.print.js"></script>
+<!--导出插件-->
+<script src="../new-resource/src/jquery.table2excel.js"></script>
+<!--loading插件-->
+<script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
+
+<script src="../resource/js/alarm.js"></script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -438,44 +465,8 @@
         BEE.init();
     });
 </script>
-<script src="../resource/js/publicFun.js"></script>
 <script src="../new-resource/js/common.js"></script>
-<script src="../new-resource/js/baojingyujing/realTimeAlarm.js"></script>
-
-<!--报警处理框-->
-<div class='modal fade' id='myModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-    <div class='modal-dialog' style='position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px'>
-        <div class='modal-content'>
-            <div class='modal-header'>
-                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                <h4 class='modal-title' id='myModalLabel'>报警处理备注</h4>
-            </div>
-            <div class='modal-body'>
-                <textarea type='text'  style='width: 538px;line-height: 30px;border: 1px solid #CCCCCC;outline: none'></textarea>
-            </div>
-            <div class='modal-footer'>
-                <button type='button' class='btn btn-primary submitNote'>提交更改</button>
-                <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--所有提示框-->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 168px;">
-        <div class="modal-content" style="height: 168px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">警告</h4>
-            </div>
-            <div class="modal-body">请填写红色必填项</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm1">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+<script src="../new-resource/js/baobiaoguanli/alarmStatement.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

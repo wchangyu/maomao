@@ -1,3 +1,4 @@
+
 /**
  * Created by admin on 2017/12/12.
  */
@@ -45,18 +46,6 @@ $(function(){
                 //登录当前设备
                 clickLogin1(account,address,password,port);
 
-                setTimeout(function(){
-                    //进入当前通道号
-                    $('#channels').val(aisleNum);
-
-                    //开始预览
-                    clickStartRealPlay();
-
-                    //始终只有一个回放窗口
-                    changeWndNum(1);
-
-                },1000);
-
             }
         });
 
@@ -78,7 +67,7 @@ function getAlarmCameraData(){
         url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllCameraData',
         success:function(result){
 
-            //console.log(result);
+            console.log(result);
 
             alarmCameraDataArr = result;
 
@@ -101,21 +90,29 @@ function getAlarmCameraData(){
             //页面赋值
             $('.monitor-message').html(monitorMessageHtml);
 
-            //登陆当前硬盘录像机
+            //登陆当前摄像头
+            $(result).each(function(i,o){
 
-            //账号
-            var account = result[0].mappVideoRecorder.f_User;
-            //地址
-            var address = result[0].mappVideoRecorder.f_RecIP;
-            //密码
-            var password = result[0].mappVideoRecorder.f_Password;
-            //给密码解密
-            password = Went.utility.wCoder.wDecode(password,"");
-            //端口
-            var port = result[0].mappVideoRecorder.f_PortNum;
+                //账号
+                var account = result[i].mappVideoRecorder.f_User;
+                //地址
+                var address = result[i].mappVideoRecorder.f_RecIP;
+                //密码
+                var password = result[i].mappVideoRecorder.f_Password;
 
-            //登录当前设备
-            clickLogin1(account,address,password,port);
+                //给密码解密
+                password = Went.utility.wCoder.wDecode(password,"");
+
+                //端口
+                var port = result[i].mappVideoRecorder.f_PortNum;
+
+                console.log(password);
+
+                //登录当前设备
+                clickLogin1(account,address,password,port);
+
+            });
+
 
             //几个账号打开几个窗口
             if (result.length > 9) {
@@ -132,8 +129,10 @@ function getAlarmCameraData(){
 
                 $(result).each(function(i,o){
 
+                    //ip
                     //通道号
                     var aisleNum = o.f_AisleNum;
+                    //console.log(aisleNum);
 
                     //窗口号
                     g_iWndIndex = i;
@@ -148,8 +147,7 @@ function getAlarmCameraData(){
 
                 });
 
-            },1000);
-
+            },5000);
 
         },
         error:function(){

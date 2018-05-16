@@ -94,7 +94,7 @@
 
                 <p class="right-picture-statistics">接入设备：<span></span>台</p>
 
-                <p class="right-picture-statistics">检测点位：<span></span>点</p>
+                <p class="right-picture-statistics">监测点位：<span></span>点</p>
 
             </div>
         </div>
@@ -261,10 +261,14 @@
                                     <span class="left-patch"></span>
                                     运行报警
                                 </h3>
-                                <p class="alarm-content">设备故障报警 <font></font> <span>X3</span></p>
-                                <p class="alarm-content">故障超标报警 <font></font>  <span>X0</span></p>
-                                <p class="alarm-content">能效数据报警 <font></font> <span>X0</span></p>
-                                <p class="alarm-content" style="margin-bottom:0 !important;">数据突变报警  <font></font> <span>X1</span></p>
+
+                                <div class="alarm-content-container">
+                                    <p class="alarm-content">设备故障报警 <font></font> <span>X3</span></p>
+                                    <p class="alarm-content">故障超标报警 <font></font>  <span>X0</span></p>
+                                    <p class="alarm-content">能效数据报警 <font></font> <span>X0</span></p>
+                                    <p class="alarm-content" style="margin-bottom:0 !important;">数据突变报警  <font></font> <span>X1</span></p>
+                                </div>
+
                             </div>
                             <!--换热效率-->
                             <div class="bottom-content-top-introduce bottom-content-top-efficiency quota-data-bottom">
@@ -443,10 +447,13 @@
                                     <span class="left-patch"></span>
                                     运行报警
                                 </h3>
-                                <p class="alarm-content">设备故障报警 <font></font> <span>X3</span></p>
-                                <p class="alarm-content">故障超标报警 <font></font>  <span>X0</span></p>
-                                <p class="alarm-content">能效数据报警 <font></font> <span>X0</span></p>
-                                <p class="alarm-content" style="margin-bottom:0 !important;">数据突变报警  <font></font> <span>X1</span></p>
+                                <div class="alarm-content-container">
+                                    <p class="alarm-content">设备故障报警 <font></font> <span>X3</span></p>
+                                    <p class="alarm-content">故障超标报警 <font></font>  <span>X0</span></p>
+                                    <p class="alarm-content">能效数据报警 <font></font> <span>X0</span></p>
+                                    <p class="alarm-content" style="margin-bottom:0 !important;">数据突变报警  <font></font> <span>X1</span></p>
+                                </div>
+
                             </div>
                             <!--换热效率-->
                             <div class="bottom-content-top-introduce bottom-content-top-efficiency quota-data-bottom">
@@ -503,9 +510,9 @@
                                     </h3>
                                     <!--选项卡-->
                                     <div class="consumption-container consumption-container1">
-                                        <span class="onClick">总供热量</span>
-                                        <span>总蒸汽量曲线</span>
-                                        <span>总能耗量</span>
+                                        <span class="onClick">供热量</span>
+                                        <span>汽耗</span>
+                                        <span>电耗</span>
                                     </div>
                                     <div class="right-bottom-content-bottom-echart" id="consumotion-echart">
                                     </div>
@@ -568,6 +575,71 @@
                 <!-- 下方设备列表 -->
                 <div class="clearfix"></div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!--报警点弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='alarm-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>报警点位信息</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+                    <li>
+                        <label for="">报警类型</label>
+                        <select name="" id="" class="alarm-select">
+
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">设备名称</label>
+                        <input class="dev-type" type="text" />
+                    </li>
+
+                    <li>
+                        <label for="">报警名称</label>
+                        <input  class="alarm-type" type="text" />
+                    </li>
+
+                    <li>
+                        <button class="demand-button"></button>
+                    </li>
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container ">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="dateTables">
+                        <thead>
+                        <tr>
+                            <th>设备名称</th>
+                            <th>报警名称</th>
+                            <th>位置</th>
+                            <th>服务区域</th>
+                            <th>类型</th>
+                            <th>级别</th>
+                            <th>报警时间</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

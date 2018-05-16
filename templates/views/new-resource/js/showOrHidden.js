@@ -93,6 +93,8 @@ $(function(){
         $('.left-middle-tab').removeClass('onChecked');
 
         $('.left-middle-tab').removeClass('isChoose');
+
+
         //判断页面中是否存在能耗类型选项
         if(typeof _energyTypeSel!="undefined" ){
             if($(this).index() == 0){

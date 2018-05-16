@@ -23,6 +23,14 @@
         "arg": "",
         "iconclass": ""
       },
+      "运维联动": {
+        "type": "0",
+        "content": "运维联动",
+        "uri": "../njn-dapingzhanshi/operationMaintenance.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
       "自动派单设置": {
         "type": "0",
         "content": "自动派单设置",
@@ -30,7 +38,24 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "能耗报表": {
+        "type": "0",
+        "content": "能耗报表",
+        "uri": "../new-baobiaoguanli/energyConsumptionStatement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "报警报表": {
+        "type": "0",
+        "content": "报警报表",
+        "uri": "../new-baobiaoguanli/alarmStatement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
+
     }
   },
   "暖通空调": {
@@ -236,6 +261,32 @@
       }
     }
   },
+  "系统管理": {
+    "type": "1",
+    "content": "系统管理",
+    "iconclass": "icon-camcorder",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
+
+      "基础信息": {
+        "type": "0",
+        "content": "基础信息",
+        "uri": "../xitongshezhi/basicsMessage.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "版本说明": {
+        "type": "0",
+        "content": "版本说明",
+        "uri": "../xitongshezhi/revisionExplain.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
   "General": {
     "type": "1",
     "content": "General",
@@ -339,13 +390,13 @@
         "content": "监控总览",
         "uri": "../yongnengjiance/energyMonitor.html?a=1",
         "uid": "",
-        "arg": "1,8816008016",
+        "arg": "2,4",
         "iconclass": ""
       },
       "测试一下": {
         "type": "0",
         "content": "测试一下",
-        "uri": "../yongnengjiance/energyMonitor.html?a=1",
+        "uri": "../yongnengjiance/energyMonitor.html?a=2",
         "uid": "",
         "arg": "1,3101007489",
         "iconclass": ""
@@ -618,6 +669,14 @@
         "arg": "2,14",
         "iconclass": ""
       },
+      "测试一下": {
+        "type": "0",
+        "content": "测试一下",
+        "uri": "../yongnengjiance/energyMonitor.html?arg=11",
+        "uid": "",
+        "arg": "5,3101800201,22526",
+        "iconclass": ""
+      },
       "能源站系统": {
         "type": "0",
         "content": "能源站系统",
@@ -785,6 +844,22 @@
         "type": "0",
         "content": "摄像头报警",
         "uri": "../new-baojingyujing/warningCamera.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "历史报警1": {
+        "type": "0",
+        "content": "历史报警1",
+        "uri": "../new-baojingyujing/historicalAlarm.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "实时报警1": {
+        "type": "0",
+        "content": "实时报警1",
+        "uri": "../new-baojingyujing/realTimeAlarm.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -2083,6 +2158,14 @@
         "type": "0",
         "content": "就诊人数",
         "uri": "../new-shurucanshu/outpatientNumber.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "到发人次": {
+        "type": "0",
+        "content": "到发人次",
+        "uri": "../new-shurucanshu/arrDepPeoNum.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

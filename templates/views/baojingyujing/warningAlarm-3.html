@@ -92,6 +92,19 @@
             margin-top: 0px;
             margin-bottom:-10px;
         }
+        #my-userMonitor .modal-content,#my-userMonitor .modal-dialog{
+            width:930px !important;
+        }
+
+        #my-userMonitor .modal-body{
+            padding:0 !important;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        #my-userMonitor .modal-header {
+            padding:0px 15px;
+
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -431,6 +444,30 @@
         </div>
     </div>
 </div>
+
+<!--流程图弹窗-->
+<div class='modal fade' id='my-userMonitor' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:100px auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>流程图信息</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <iframe src="../yongnengjiance/jumpEnergyMonitor1.html" frameborder="0" width="900" height="600" style="overflow: hidden" scrolling="no">
+
+                </iframe>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">

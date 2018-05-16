@@ -153,6 +153,24 @@ $(function(){
                     "targets": -1,
                     "data": null,
                     "defaultContent": "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>点击处理</button>"
+                },
+                {
+                    "title": "查看流程图",
+                    "orderable": false,
+                    "targets": -1,
+                    "data": "isHavingProc",
+                    "render":function(data,type,row,meta){
+
+                        if(data == 0){
+
+                            return  "<span style='width:80px;display: inline-block'>无</span>"
+
+                        }else{
+
+                            return  "<button class='btn btn-success examine-monitor' data-pointer="+row.pointerID+"  data-cdataID="+row.cdataID+">点击查看</button>";
+
+                        }
+                    }
                 }
             ]
         });
@@ -303,6 +321,25 @@ $(function(){
                     "targets": -1,
                     "data": null,
                     "defaultContent": "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>点击处理</button>"
+                },
+                {
+                    "title": "查看流程图",
+                    "orderable": false,
+                    "targets": -1,
+                    "data": "isHavingProc",
+                    "render":function(data,type,row,meta){
+
+                        if(data == 0){
+
+                            return  "<span style='width:80px;display: inline-block'>无</span>"
+
+                        }else{
+
+                            return  "<button class='btn btn-success examine-monitor' data-pointer="+row.pointerID+"  data-cdataID="+row.cdataID+">点击查看</button>";
+
+                        }
+                    }
+
                 }
             ]
         });
@@ -313,6 +350,7 @@ $(function(){
 
     //显示时间；
     $('.real-time').html(showStartRealTime + '到' + showStartRealTime);
+
     //指定楼宇为全部；
     getPointerID();
 
@@ -334,6 +372,7 @@ $(function(){
     $('.logoToRead').click(function(){
         logoToRead();
     });
+
     $('#datatables tbody').on('click', 'td .details-control', function () {
         var $this = $(this);
         var cnames = $this.parents('tr').children('.cname').html();
@@ -418,7 +457,28 @@ $(function(){
         alarmHistory();
 
     });
+
+    //点击打开流程图
+    $('#datatables').on('click','.examine-monitor',function(){
+
+        //打开模态框
+        $('#my-userMonitor').modal('show');
+
+        //获取当前传递的参数
+        var config1 = 5;
+
+        var config2 = $(this).attr('data-pointer');
+
+        var config3 = $(this).attr('data-cdataid');
+
+        //拼接打开的url地址
+        var postUrl = "../yongnengjiance/jumpEnergyMonitor1.html?configArg1=" + config1 + "configArg2=" + config2 + "configArg3=" + config3 + "";
+
+        $('#my-userMonitor iframe').attr('src',postUrl);
+
+    });
 });
+
 //指定能耗种类的类型为全部；
 var _ajaxEcType = " ";
 //指定全部报警类型为全部；
@@ -432,6 +492,7 @@ function getPointerID(){
         }
     }
 }
+
 //实时数据（开始）；
 var startRealTime = moment().subtract('24','hours').format('YYYY-MM-DD HH:mm:ss');
 var endRealTime = moment().format('YYYY-MM-DD HH:mm:ss');

@@ -483,3 +483,50 @@
 .alarm-data-container2{
     cursor: pointer;
 }
+
+.access-device{
+    cursor: pointer;
+}
+
+#dev-grade-dateTables tbody tr:nth-of-type(even) {
+    background: none !important;
+}
+
+td .table {
+    background:none;
+}
+
+td .table tbody {
+    display: block;
+    height: auto;
+    max-height: 200px;
+    overflow-y: auto;
+
+}
+
+td .table tbody tr {
+    background: none !important;
+}
+
+td .table thead tr {
+    background: none !important;
+}
+
+td .table{
+    background: none !important;
+}
+
+/*运行参数信息中右侧查看主副设备信息按钮*/
+.right-dev-grade{
+
+    float: right;
+    margin-right:50px;
+    color:#0a94d4;
+    font-size:14px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    height:26px;
+    line-height: 26px;
+    text-decoration: underline;
+}

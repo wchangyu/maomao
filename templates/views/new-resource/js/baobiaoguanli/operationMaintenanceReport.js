@@ -35,7 +35,7 @@ $(function(){
 
         }
 
-    })
+    });
 
     /*-----------------------------------变量--------------------------------------------*/
 
@@ -116,7 +116,6 @@ $(function(){
             st = moment($('.datatimeblock').val()).startOf('years').format('YYYY/MM/DD');
 
             et = moment($('.datatimeblock').val()).endOf('years').add(1,'d').format('YYYY/MM/DD');
-
         }
 
         //首先判断是工单统计还是满意度统计

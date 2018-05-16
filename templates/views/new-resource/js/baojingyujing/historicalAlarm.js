@@ -36,8 +36,6 @@ $(function(){
         //获取报警日志id
         var alaLogID = $(this).attr('data-alaLogID');
 
-
-
         for(var i=0;i<totalArr.length;i++){
             if(totalArr[i].alaLogID ==alaLogID){
                 historyArr = totalArr[i].childDevAlarmNumPopupReturns;
@@ -105,8 +103,8 @@ table = $('#alarm-datatables').DataTable({
             "title":"日期",
             "data":"dataDate",
             "render":function(data,type,row,meta){
-                if(data && data.length >0){
-                    return data.split('T')[0];
+                if(data){
+                    return data.split(' ')[0];
                 }
             }
         },
@@ -114,8 +112,8 @@ table = $('#alarm-datatables').DataTable({
             "title":"时间",
             "data":"dataDate",
             "render":function(data,type,row,meta){
-                if(data && data.length >0){
-                    return [1];
+                if(data){
+                    return data.split(' ')[1];
                 }
             }
         },
@@ -151,7 +149,7 @@ table = $('#alarm-datatables').DataTable({
             "data": 'alaLogID',
             "render":function(data,type,row,meta){
 
-                return  "<button class='btn details-control' data-alaLogID="+alaLogID+" >显示/隐藏历史</button>"
+                return  "<button class='btn details-control' data-alaLogID="+data+" >显示/隐藏历史</button>"
             }
             //"defaultContent": "<button class='btn details-control' data-alaLogID=''>显示/隐藏历史</button>"
         }
@@ -330,13 +328,13 @@ function alarmHistory(){
             }
 
             //获取普通报警
-            $('.survey-data-container1 .data').html(result.u3dAlarmNums[0].alarmNum);
+            $('.survey-data-container3 .data').html(result.u3dAlarmNums[0].alarmNum);
 
             //获取严重报警
             $('.survey-data-container2 .data').html(result.u3dAlarmNums[1].alarmNum);
 
             //获取紧急报警
-            $('.survey-data-container3 .data').html(result.u3dAlarmNums[2].alarmNum + result.u3dAlarmNums[3].alarmNum);
+            $('.survey-data-container1 .data').html(result.u3dAlarmNums[2].alarmNum + result.u3dAlarmNums[3].alarmNum);
 
             //绘制维修概况的数据
             //获取已维修数据
@@ -346,7 +344,7 @@ function alarmHistory(){
             var noRepairNum = result.u3dAlarmGondDanNum.noRepairNum;
 
             var dataArr = [
-                {value:endRepairNum, name:'已维修'},
+                {value:endRepairNum, name:'已维修',label:{padding:[20,0,0,0]}},
                 {value:noRepairNum, name:'未维修'}
             ];
 
@@ -383,21 +381,12 @@ function format ( d ) {
     var theaders = '</table>';
     var tbodyer = '<tbody>';
     var tbodyers = '</tbody>';
-    var str = '<tr>' +
-        '<td>' + d[1].dataDate.split('T')[0] +
-        '</td><td>' + d[1].dataDate.split('T')[1] +
-        '</td><td>' + d[1].priorityName +
-        '</td><td>' + d[1].alarmName +
-        '</td><td>' + d[1].devType +
-        '</td><td>' + d[1].devName  +
-        '</td><td>' + d[1].areaName +
-        '</td><td>' + d[1].devLocal +
-        '</td></tr>';
-    for(var i=2;i< d.length;i++){
+    var str = '';
+    for(var i=0;i< d.length;i++){
 
         str += '<tr>' +
-            '<td>' + d[i].dataDate.split('T')[0] +
-            '</td><td>' + d[i].dataDate.split('T')[1] +
+            '<td>' + d[i].dataDate.split(' ')[0] +
+            '</td><td>' + d[i].dataDate.split(' ')[1] +
             '</td><td>' + d[i].priorityName +
             '</td><td>' + d[i].alarmName +
             '</td><td>' + d[i].devType +

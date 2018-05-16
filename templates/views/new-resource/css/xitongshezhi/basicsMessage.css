@@ -1,0 +1,29 @@
+.left-body-container img{
+    width:100%;
+}
+
+.left-body-container h3{
+    color:#4C4C4C;
+    font-size:26px;
+    font-weight: 600;
+}
+
+.left-body-container p{
+    font-size:18px;
+    color:#4C4C4C;
+    text-indent:2em;
+}
+
+#alarm-datatables>thead>tr>th {
+    padding: 14px 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+#system-datatables>thead>tr>th,#system-datatables>tbody>tr>td {
+    padding: 20px 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}

@@ -119,7 +119,7 @@ function getAlarmCameraData(){
                 //端口
                 var port = result[i].mappVideoRecorder.f_PortNum;
 
-                console.log(password);
+                //console.log(password);
 
                 //登录当前设备
                 clickLogin1(account,address,password,port);

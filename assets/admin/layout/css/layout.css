@@ -245,6 +245,14 @@ Page Header
   -o-border-radius: 4px;
   border-radius: 4px;
 }
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu-default li{
+  display: none;
+}
+.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu-default li:last-child{
+  display: block;
+}
+
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu:before {
   position: absolute;
   top: -7px;

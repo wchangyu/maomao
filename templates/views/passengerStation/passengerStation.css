@@ -498,3 +498,13 @@ li{
     cursor: pointer;
 
 }
+
+
+/*屏蔽右上角信息*/
+.temperature-header{
+    display: none !important;
+}
+
+.humidity-header{
+    display: none !important;
+}

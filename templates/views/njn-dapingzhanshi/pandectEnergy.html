@@ -98,9 +98,9 @@
 
                 <p class="right-picture-statistics">接入系统：<span></span>个</p>
 
-                <p class="right-picture-statistics">接入设备：<span></span>台</p>
+                <p class="right-picture-statistics access-device">接入设备：<span></span>台</p>
 
-                <p class="right-picture-statistics">检测点位：<span></span>点</p>
+                <p class="right-picture-statistics">监测点位：<span></span>点</p>
 
             </div>
         </div>
@@ -750,7 +750,10 @@
             <!--运维联动-->
             <div class="right-bottom-centent right-bottom-energyment right-bottom-operation" style="margin-right:0">
 
-                <h2 class="right-bottom-centent-title">运维联动</h2>
+                <h2 class="right-bottom-centent-title">
+
+                    <a href="operationMaintenance.html"> 运维联动 </a>
+                </h2>
 
                 <!--下方环形图-->
                 <div class="right-bottom-content-chart" style="border-radius: 15px 0 0 15px !important;">
@@ -878,7 +881,10 @@
 
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
 
-                <h4><span class="systematic-name"></span>设备运行参数信息</h4>
+                <h4>
+                    <span class="systematic-name"></span>设备运行参数信息
+                   <span class="right-dev-grade">查看主副设备信息</span>
+                </h4>
 
             </div>
 
@@ -1628,6 +1634,64 @@
                             <th>当前数据</th>
                             <th>报警表达式</th>
                             <th>报警时间</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--展示主设备，副设备信息弹窗-->
+<div class='modal fade big-screen-message' id='dev-grade-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>主，副设备信息</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+                    <li>
+                        <label for="">设备类型</label>
+                        <select name="" id="" class="equip-types">
+                            <option value="">全部</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">设备名称</label>
+                        <input type="text" class="dev-type" />
+                    </li>
+
+                    <li>
+                        <button class="demand-button"></button>
+                    </li>
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="dev-grade-dateTables">
+                        <thead>
+                        <tr>
+                            <th>设备名称</th>
+                            <th>设备类型</th>
+                            <th>设备区域</th>
+                            <th>服务区域</th>
+                            <th>子设备信息</th>
                         </tr>
                         </thead>
 

@@ -90,3 +90,21 @@ table.table th{
     margin-bottom:10px;
 
 }
+
+.details-control{
+    background: #4796b7 !important;
+    color: #fff !important;
+    border-color: #3ea49d;
+}
+
+.details-control:hover {
+    background: #2a6796 !important;
+    color: #fff;
+}
+.table th{
+    text-align: center !important;
+}
+.table {
+    min-height: 500px;
+}
+
