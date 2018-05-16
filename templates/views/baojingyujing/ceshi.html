@@ -57,9 +57,11 @@
     <link rel="stylesheet" href="../resource/station/chooseStation.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-    <link rel="stylesheet" media="print" href="../resource/css/css/assetManagement-print-hospital1.css" />
+    <link rel="stylesheet" media="print" href="../resource/css/css/assetManagement-print-hospital.css" />
     <style>
-
+        .caozuo{
+            width:150px !important;
+        }
         table{
             width: 381px;
             height: 230px;
@@ -75,8 +77,17 @@
             padding: 0 10px;
             height: 26px !important;
         }
+        .suo{
+
+            transform:scale(1);//设置缩放比例
+        -ms-transform:scale(1);
+            -webkit-transform:scale(1);
+            -o-transform:scale(1);
+            -moz-transform:scale(1);
+
+        }
         .row-three-left{
-            width: 70px;  border-right: 2px solid #333333;  overflow: hidden;height: 100%;line-height: 45px;text-indent:10px;
+            width: 70px;  border-right: 1px solid #333333;  overflow: hidden;height: 100%;line-height: 45px;text-indent:10px;
         }
         .row-three-right{
             width: 174px;  height: 100%;  overflow: hidden;line-height: 45px;text-indent: 10px;
@@ -84,6 +95,25 @@
 
     </style>
 
+    <style type="text/css" media=print>
+
+        @media print{
+
+            .PageNext{
+
+                page-break-before:always;
+
+            }
+
+            .img-block{
+
+                border: 10px solid #333333;
+
+            }
+
+        }
+
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -405,11 +435,120 @@
                                 <ul class="content-main-contents-header noprint">
                                     <li class="main-contents-header-lists0">设备浏览</li>
                                 </ul>
-                                <div class="content-main-contents  print-table" >
+                                <!--<div style="">This is the first DIV.</div>-->
+                                <!--<div STYLE="page-break-before:always">This is the second DIV.</div>-->
+                                <!--<div STYLE="page-break-after:always">This is the third DIV.</div>-->
+                                <!--<div>This is the fourth DIV.</div>-->
+                                <!--<div STYLE="page-break-before:right">This is the fifth DIV.</div>-->
+                                <!--<div STYLE="page-break-after:right">This is the sixth DIV.</div>-->
+                                <!--<div>-->
+                                    <!--<div STYLE="page-break-after:always">1111111111111111111111111111111111111111</div>-->
+                                    <!--<div STYLE="page-break-after:always">222222222222222222222222222222222222222</div>-->
+                                    <!--<div STYLE="page-break-after:always">33333333333333333333333333333333333333333333</div>-->
+                                <!--</div>-->
+                                <button onclick="window.print();">打印</button>
+                                <div>
+                                    <div class="" style="width:100px;height:100px;border:1px solid red;">
+                                        <!--<div class="three-block">-->
+                                            <!--<div class="three-left">-->
+                                                <!--<div class="row-list">-->
+                                                    <!--<div class="row-three-left">设备名称</div>-->
+                                                    <!--<div class="row-three-right">1号楼空调</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="row-list">-->
+                                                    <!--<div class="row-three-left">设备编号</div>-->
+                                                    <!--<div class="row-three-right">DE17121413541737</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="row-list noBorder">-->
+                                                    <!--<div class="row-three-left">设备地址</div>-->
+                                                    <!--<div class="row-three-right">1#B2F</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
 
+                                            <!--<div class="img-block">-->
+                                                <!--<img src="http://192.168.1.112/ApService/showQR.aspx?asc=DE17121413541737" alt="">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </div>
+                                    <div class="" STYLE="page-break-before:always;width:100px;height:100px;border:1px solid red;" >
+                                        <!--<div class="three-block">-->
+                                            <!--<div class="three-left">-->
+                                                <!--<div class="row-list">-->
+                                                    <!--<div class="row-three-left">设备名称</div>-->
+                                                    <!--<div class="row-three-right">1号楼空调</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="row-list">-->
+                                                    <!--<div class="row-three-left">设备编号</div>-->
+                                                    <!--<div class="row-three-right">DE17121413541737</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="row-list noBorder">-->
+                                                    <!--<div class="row-three-left">设备地址</div>-->
+                                                    <!--<div class="row-three-right">1#B2F</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
 
-
+                                            <!--<div class="img-block">-->
+                                                <!--<img src="http://192.168.1.112/ApService/showQR.aspx?asc=DE17121413541737" alt="">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </div>
+                                    <!--<div style="">This is the first DIV.</div>-->
+                                    <!--<div STYLE="page-break-before:always">This is the second DIV.</div>-->
+                                    <!--<div STYLE="page-break-before:always">This is the third DIV.</div>-->
+                                    <!--<div STYLE="page-break-after:always">1111111111111111111111111111111111111111</div>-->
+                                    <!--<div STYLE="page-break-after:always">222222222222222222222222222222222222222</div>-->
+                                    <!--<div STYLE="page-break-after:always">33333333333333333333333333333333333333333333</div>-->
                                 </div>
+                                <!--<div class="  print-table " >-->
+                                    <!--&lt;!&ndash;<div class="print-block-cel PageNext" >&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<div class="three-block">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div class="three-left">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<div class="row-list">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="row-three-left">设备名称</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="row-three-right">1号楼空调</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<div class="row-list">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="row-three-left">设备编号</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="row-three-right">DE17121413541737</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<div class="row-list noBorder">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="row-three-left">设备地址</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="row-three-right">1#B2F</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                                            <!--&lt;!&ndash;<div class="img-block">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<img src="http://192.168.1.112/ApService/showQR.aspx?asc=DE17121413541737" alt="">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div class="print-block-cel PageNext" STYLE="page-break-before:always" >&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<div class="three-block">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div class="three-left">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<div class="row-list">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="row-three-left">设备名称</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="row-three-right">1号楼空调</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<div class="row-list">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="row-three-left">设备编号</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="row-three-right">DE17121413541737</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<div class="row-list noBorder">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="row-three-left">设备地址</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="row-three-right">1#B2F</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                                            <!--&lt;!&ndash;<div class="img-block">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<img src="http://192.168.1.112/ApService/showQR.aspx?asc=DE17121413541737" alt="">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                                    <!--&lt;!&ndash;<div style="">This is the first DIV.</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div STYLE="page-break-before:always">This is the second DIV.</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div STYLE="page-break-after:always">This is the third DIV.</div>&ndash;&gt;-->
+                                <!--</div>-->
                             </div>
                             <div id="main" style="width: 100%;height: 100%;position: absolute;background: rgba(0,0,0,0.5);display: none;"></div>
                             <div class="clearfix"></div>
@@ -718,6 +857,7 @@
 </script>
 <!-- END JAVASCRIPTS jquery.PrintArea-->
 <script src="../resource/js/jQuery.print.js"></script>
+<script src="../resource/js/jQuery.PrintArea.js"></script>
 <script src="../bank-resource/js/common.js"></script>
 <script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/js/assetManagement-print-hospital.js"></script>

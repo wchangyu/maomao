@@ -20,7 +20,9 @@ $(function(){
             wxbz:'',
             gzplace:'',
             wxcontent:'',
-            gzcontent:''
+            gzcontent:'',
+            //协助科室
+            xzbz:''
         }
     });
 
@@ -77,6 +79,8 @@ $(function(){
     ];
     //表格初始化
     tableInit($('#fzr-list'),fzrListCol,'2','','','');
+
+    tableInit($('#fzr-listX'),fzrListCol,'2','','','');
 
     getMessageToShow();
 
@@ -203,6 +207,10 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+
+        //协助信息
+        assistFun(_gdCode);
+
     };
 
     //获取日志信息（备件logType始终传2）
@@ -334,6 +342,40 @@ function tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
     if(flag){
         _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     }
+
+}
+
+//获取协助信息
+function assistFun(gdCode){
+
+    $.ajax({
+
+        type:'post',
+
+        url:_urls + 'YWGD/ywGDFZGetDetail',
+
+        timeout:_theTimes,
+
+        data:{
+
+            'gdCode':gdCode
+
+        },
+
+        success:function(result){
+
+            //维修科室
+            $('#xzbz').val(result.wxKeshi);
+
+            $('#departX').val(result.wxKeshi);
+            //协助执行人
+            _datasTable($('#fzr-listX'),result.wxRens);
+
+        },
+
+        error:_errorFun
+
+    })
 
 }
 

@@ -42,8 +42,7 @@ var BEE = (function(){
                 showAlertInfo(err);
             }
 
-        })
-
+        });
 
         //获取到登陆页后赋值
         _loginHtml = loginPath;
@@ -1202,6 +1201,496 @@ var BEE = (function(){
         });
     };
 
+    //--------------------------页面右上角单位与楼宇的显示------------------------//
+    //页面右上角选择单位
+    function drawChangeUnitButton(){
+
+        $('body').append('<script src="../resource/js/pointersoffices.js"></script>');
+
+        $('body').append('<script src="../resource/js/showOrHidden.js"></script>');
+
+        $('body').append('<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>');
+
+        $('body').append('<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>');
+
+        $('body').append(' <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">');
+
+        $('#eprBox').remove();
+
+        //定义页面右上角的切换单位按钮
+        var changeButtonHtml =
+            '<li class="dropdown dropdown-extended dropdown-inbox" title="切换楼宇">' +
+            '<a id="openeprBtn" href="javascript:;" class="dropdown-toggle">' +
+            '<span style="display:inline-block;width:16px;height:19px;' +
+            'background:url(\'../../../assets/admin/layout/img/quyuqiehuan.png\')no-repeat;' +
+            'background-size:100%">' +
+            '</span>' +
+            '</a>' +
+            '<ul class="dropdown-menu" style="display: none;">' +
+            '<li>' +
+            '</li>' +
+            '</ul>' +
+            '</li>';
+
+
+        if($('.dropdown-inbox').length == 0){
+
+            $('.top-menu .navbar-nav').prepend(changeButtonHtml);
+        }
+
+        ////定义弹出框
+        var popupHtml ='<div id="eprBox" style="padding-bottom: 10px;' +
+            'background: url(\'../../../assets/admin/layout/img/beijingkuang.png\')no-repeat;' +
+            'background-size:100% 100%; z-index: 10000; top: 40px; width: 350px;' +
+            'height: auto; position: fixed; display: none">' +
+            '<div style="padding:15px 15px;color:#FFFFFF;margin-top:0px;">' +
+            '<div class="row">' +
+            '<label class="col-md-3 col-sm-3 col-xs-3 control-label" style="padding:0;text-indent:18px;margin-bottom:10px;line-height:34px;color:#333333">单位选择</label>' +
+            '<div class="col-md-9 col-sm-9 col-xs-9" style="margin-bottom:10px;">' +
+            '<div class="add-input-father" style="margin-left:0px">' +
+            '<div class="add-input-block" style="margin-left:0">' +
+            '<div type="text" class="add-input add-input-select add-input-select0" style="">' +
+            '<span>全部</span>' +
+            '<div class="add-input-arrow" style="transform: rotate(540deg);"></div>' +
+            '</div>' +
+            '</div>' +
+            '<ul class="add-select-block add-select-company scrollbar" style="z-index: 1000; ">' +
+            '</ul>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="row">' +
+            '<label class="col-md-3 col-sm-3 col-xs-3 control-label" style="padding:0;text-indent:18px;margin-bottom:10px;line-height:34px;color:#333333">楼宇选择</label>' +
+            '<div class="col-md-9 col-sm-9 col-xs-9" style="margin-bottom:10px;">' +
+            '<div class="add-input-father" style="margin-left:0px">' +
+            '<div class="add-input-block" style="margin-left:0">' +
+            '<div type="text" class="add-input add-input-select add-input-select1" style="">' +
+            '<span>全部</span>' +
+            '<div class="add-input-arrow" style="transform: rotate(540deg);"></div>' +
+            '</div>' +
+            '</div>' +
+            '<ul id="allSelectPointer" class="allPointer ztree add-select-block add-select-pointer scrollbar" style="z-index: 1000; ">' +
+
+
+            '</ul>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="row">' +
+            '<label class="col-md-4 col-sm-4 col-xs-4 control-label" style="margin-bottom:10px;line-height:34px;"></label>' +
+            '<div class="col-md-8 col-xs-8 col-xs-8">' +
+            '<button id="goEprBtn" type="button" class="btn blue pull-left">' +
+            '切换' +
+            '</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+        ;
+
+        $('.page-footer').after(popupHtml);
+
+        //获取全部企业并给页面赋值
+        drawAllCompany();
+
+        //下拉框事件
+        dropDown();
+    };
+
+    //获取全部企业并给页面赋值
+    function drawAllCompany(){
+
+        //从session中获取全部企业信息
+        var strPointers = sessionStorage.allPointers;
+        var tempAllPointers = [];
+
+        if(strPointers){
+            tempAllPointers = JSON.parse(strPointers);
+        }
+
+        //获取企业列表
+        var _enterpriseArr = unique(tempAllPointers,'enterpriseID');
+
+        var pushHtml = "";
+
+        $(_enterpriseArr).each(function(i,o){
+
+            pushHtml += '  <li>'+
+                '<input type="checkbox" id="'+ o.enterpriseID+'">'+
+                '<label for="'+ o.enterpriseID+'" data-id="'+ o.enterpriseID+'" title="'+o.eprName+'">'+ o.eprName+'</label>'+
+                '</li>';
+        });
+
+        pushHtml +=   '<li>'+
+            '<button style="width:50px" class="btn-success train-depot">确定</button>'+
+            '<button style="width:50px;margin-left:10px;" class="btn-danger">取消</button>'+
+            '</li>';
+
+        $('#eprBox .add-select-company').html(pushHtml);
+
+
+        //防止点击li时下拉框关闭
+        $('.add-select-company li').off('click');
+        $('.add-select-company li').on('click',function(e){
+
+            //if($(this).find('span').hasClass('checked')){
+            //    $(this).find('span').removeClass('checked')
+            //}else{
+            //    $(this).find('span').addClass('checked');
+            //}
+
+            //阻止事件冒泡
+            e.stopPropagation();
+            //return false;
+        });
+
+        //下拉框中确定按钮被点击时
+        $('.add-select-company .btn-success').off('click');
+        $('.add-select-company .btn-success').on('click',function(e){
+
+            //获取到用户选择的单位数量
+            var depotNum = $(".add-select-company input[type='checkbox']").length;
+
+            var totalNum = 0;
+
+            var enterpriseIDArr = [];
+
+            for(var i=0; i<depotNum; i++){
+
+                var thisNum = false;
+
+                var dom = $(".add-select-company input[type='checkbox']").eq(i).prop('checked');
+
+                if(dom == true){
+
+                    totalNum ++ ;
+
+                    thisNum = true;
+
+                    var enterpriseID = $(".add-select-company input[type='checkbox']").eq(i).attr('id');
+                    enterpriseIDArr.push(enterpriseID);
+
+                }
+
+                if(totalNum == 1 &&　thisNum){
+
+                    //获取当前的企业名称及id
+                    var companyName = $(".add-select-company input[type='checkbox']").eq(i).parent().find('label').html();
+
+                    $('.add-input-select0 span').html(companyName);
+
+                    var companyID = $(".add-select-company input[type='checkbox']").eq(i).attr('id');
+
+                    $('.add-input-select0 span').attr('data-id',companyID);
+                }
+
+            }
+            //console.log(totalNum);
+
+            if(totalNum > 1){
+
+                $('.add-input-select0 span').html('当前已选择' + totalNum + '个单位');
+
+            }
+
+            $('#eprBox .add-select-company').css({
+                display:'none'
+            }) ;
+
+            //更新页面中楼宇树状图
+            upDateTree(enterpriseIDArr);
+
+        });
+
+        $('.add-select-company label').off('click');
+        $('.add-select-company label').on('click',function(e){
+
+
+            //获取到用户选择的单位数量
+            var depotNum = $(".add-select-company input[type='checkbox']").length;
+
+            for(var i=0; i<depotNum; i++){
+
+                $(".add-select-company input[type='checkbox']").eq(i).prop('checked',false);
+
+            }
+
+            var dom = $(this);
+
+            //获取当前的企业名称及id
+            var companyName = dom.html();
+
+            $('.add-input-select0 span').html(companyName);
+
+            var companyID = dom.attr('data-id');
+
+            $('.add-input-select0 span').attr('data-id',companyID);
+
+            $('#eprBox .add-select-company').css({
+                display:'none'
+            }) ;
+
+            //更新页面中楼宇树状图
+            upDateTree([companyID],true);
+
+        });
+
+        //下拉框中取消按钮被点击时
+        $('.add-select-company .btn-danger').off('click');
+        $('.add-select-company .btn-danger').on('click',function(e){
+
+            //获取到用户选择的单位数量
+            var depotNum = $(".add-select-company input[type='checkbox']").length;
+
+            for(var i=0; i<depotNum; i++){
+
+                $(".add-select-company input[type='checkbox']").eq(i).prop('checked',false);
+
+            }
+
+            $('.add-input-select0 span').html('全部');
+
+            $('#eprBox .add-select-company').css({
+                display:'none'
+            }) ;
+
+        });
+
+        if(!sessionStorage.PointerID){
+
+            //默认显示第一个
+            $('.add-select-company label').eq(0).click();
+
+
+        }else{
+
+            //获取当前的单位id
+            var eprId = sessionStorage.enterpriseID;
+
+            //获取到用户选择的单位数量
+            var depotNum = $(".add-select-company input[type='checkbox']").length;
+
+            for(var i=0; i<depotNum; i++){
+
+                if($(".add-select-company input[type='checkbox']").eq(i).attr('id') == eprId){
+
+                    $('.add-select-company label').eq(i).click();
+                }
+
+            }
+
+        }
+
+        //获取当前选中的企业id
+        var enterpriseID = $('#eprBox .add-input-select0 span').attr('data-id');
+
+        //更新页面中楼宇树状图
+        upDateTree([enterpriseID]);
+
+        //获取当前企业
+        var eprId = $('#eprBox .add-input-select0 span').attr('data-id');
+
+        var eprNT = $('#eprBox .add-input-select0 span').html();
+
+        sessionStorage.enterpriseID = eprId;
+        sessionStorage.eprName = eprNT;
+
+        //获取当前楼宇
+        var pId = $('#eprBox .add-input-select1 span').attr('data-id');
+
+        var pNt = $('#eprBox .add-input-select1 span').html();
+
+        sessionStorage.PointerID = pId;
+        sessionStorage.PointerName = pNt;
+
+    }
+
+    //更新页面中楼宇树状图
+    function upDateTree(enterpriseIDArr,flag){
+
+        //从session中获取全部企业信息
+        var strPointers = sessionStorage.allPointers;
+        var tempAllPointers = [];
+
+        if(strPointers){
+            tempAllPointers = JSON.parse(strPointers);
+        }
+
+        //改变session中缓存的楼宇
+        var curPointersArr = [];
+
+        $(enterpriseIDArr).each(function(k,j){
+
+            var enterpriseID = j;
+
+            $(tempAllPointers).each(function(i,o){
+
+                if(o.enterpriseID == enterpriseID){
+
+                    curPointersArr.push(o);
+                }
+            });
+        });
+
+        sessionStorage.pointers = JSON.stringify(curPointersArr);
+
+        //楼宇ztree树
+        _getPointerZtree($("#allSelectPointer"),1);
+
+        _getPointerZtree($("#allPointer"),1);
+
+        if(sessionStorage.PointerID && !flag){
+
+            //获取当前企业信息
+            var eprId = sessionStorage.enterpriseID;
+
+            var eprNT = sessionStorage.eprName ;
+
+            $('#eprBox .add-input-select0 span').attr('data-id',eprId);
+            $('#eprBox .add-input-select0 span').html(eprNT);
+
+            //获取当前楼宇
+            var pId = sessionStorage.PointerID;
+
+            var pNt =sessionStorage.PointerName ;
+
+            $('#eprBox .add-input-select1 span').attr('data-id',pId);
+            $('#eprBox .add-input-select1 span').html(pNt);
+
+            //获取当前勾选的是第几个楼宇
+            var thisNum = -1;
+
+            $(curPointersArr).each(function(i,o){
+
+                thisNum++;
+
+                if(o.pointerID == pId){
+
+                    return false
+                }
+
+            });
+
+            var zTree = $.fn.zTree.getZTreeObj("allSelectPointer");
+            var nodes = zTree.getNodes();
+
+            zTree.checkNode(nodes[0], false, false);  //父节点不被选中
+            zTree.setChkDisabled(nodes[0], true); //父节点禁止勾选
+            zTree.setChkDisabled(nodes[0].children[0], true); //父节点禁止勾选
+
+            zTree.checkNode(nodes[0].children[0].children[thisNum], true, true);
+
+
+
+        }else{
+
+            //右上角默认勾选第一个
+            var zTree = $.fn.zTree.getZTreeObj("allSelectPointer");
+            var nodes = zTree.getNodes();
+
+            zTree.checkNode(nodes[0], false, false);  //父节点不被选中
+            zTree.setChkDisabled(nodes[0], true); //父节点禁止勾选
+            zTree.setChkDisabled(nodes[0].children[0], true); //父节点禁止勾选
+
+            zTree.checkNode(nodes[0].children[0].children[0], true, true);
+
+            //获取当前选择的信息
+            var nodes = zTree.getCheckedNodes(true)[0];
+
+            //勾选楼宇
+            if(nodes.nodeType == 2){
+
+
+                $('#eprBox .add-input-select1 span').html(nodes.name);
+
+                $('#eprBox .add-input-select1 span').attr('data-id',nodes.id)
+            }
+
+        }
+
+    };
+
+    ///*-----------------------------------------下拉框事件--------------------------------------*/
+
+    function dropDown(){
+
+        var rotateNum = 1;
+        //点击下拉框时
+        $('.add-select-block li').html();
+
+        $(document).on('click',function(){
+
+            $('#eprBox').hide();
+
+        });
+
+
+        $('#eprBox .add-input-select').click(function(e){
+            $('.add-select-block').not($(this).parents('.add-input-father').children('.add-select-block')).css({
+                display:'none'
+            });
+            rotateNum++;
+            var num = rotateNum * 180;
+            var string = num + 'deg';
+
+            $(this).parents('.add-input-father').children('.add-select-block').slideToggle('fast');
+            $(this).children('div').css({
+
+                //'transform':'rotate('+0+')'
+            })
+
+            e.stopPropagation();
+
+        });
+
+        //打开关闭右上角选择单位 楼宇弹窗
+
+        $("#eprBox").click(function(event){
+            event.stopPropagation();
+        });
+
+
+        //点击上方图标 显示单位楼宇选择框
+        $('.top-menu').on('click','.dropdown-inbox',function(e){
+
+            //获取当前位置
+            var rightWidth = $(this).offset().left - 300;
+
+            $('#eprBox').css({
+                'left':'' + rightWidth + 'px'
+            }).slideDown("fast");
+
+            e.stopPropagation();
+
+        });
+
+        //点击切换单位框中的确定按钮
+        $('#goEprBtn').on('click',function(){
+
+            //获取当前企业
+            var eprId = $('#eprBox .add-input-select0 span').attr('data-id');
+
+            var eprNT = $('#eprBox .add-input-select0 span').html();
+
+            sessionStorage.enterpriseID = eprId;
+            sessionStorage.eprName = eprNT;
+
+            //获取当前楼宇
+            var pId = $('#eprBox .add-input-select1 span').attr('data-id');
+
+            var pNt = $('#eprBox .add-input-select1 span').html();
+
+            sessionStorage.PointerID = pId;
+            sessionStorage.PointerName = pNt;
+
+            $('#eprBox').hide();
+
+        });
+
+    }
+
+
+
     //iframe只显示部分div
 
     //获取当前的url
@@ -1223,6 +1712,8 @@ var BEE = (function(){
 
         $('.toggler').hide();
     }
+
+
 
     return {
 
@@ -1264,6 +1755,9 @@ var BEE = (function(){
                         getAlarmInfo();
 
                     }
+
+                    //页面右上角选择单位
+                    //drawChangeUnitButton();
 
                 }
 

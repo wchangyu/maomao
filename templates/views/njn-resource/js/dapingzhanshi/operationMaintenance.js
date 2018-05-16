@@ -716,6 +716,7 @@ $(function(){
             var leftColorBlock = '';
 
             var rightColorBlock = '';
+
             //生成小色块
             for(var i=0;i<result.gdDevInfos.length;i++){
 
@@ -727,7 +728,7 @@ $(function(){
                     //奇数插入第二个父元素console.log('奇数'+i);
                     rightColorBlock += '<div class="legend-block label-width">' +
                         '<span style="background: ' + color[i] + '"></span>' +
-                        '<label>' + result.gdDevInfos[i].dsName + '</label>' +
+                        '<label>' + result.gdDevInfos[i].dsName + '</label>'  +
                         '</div>'
 
                 }else{

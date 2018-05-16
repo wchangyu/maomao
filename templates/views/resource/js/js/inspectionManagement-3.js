@@ -145,12 +145,17 @@ $(function(){
             //日历插件
             timeFun:function(){
 
-
                 var e = e||window.event;
 
                 var el = $(e.srcElement);
 
-                _timeYMDComponentsFun(el);
+                el.datepicker({
+                    language:  'zh-CN',
+                    todayBtn: 1,
+                    todayHighlight: 1,
+                    format: 'yyyy/mm/dd',
+                    autoclose:1
+                });
 
             }
         }
@@ -665,6 +670,13 @@ $(function(){
     $('.excelButton').children('.dt-buttons').addClass('hidding');
 
     $('.excelButton').children('.dt-buttons').eq(0).removeClass('hidding');
+
+    //模态框显示执行的方法
+    $('#myModal').on('shown.bs.modal',function(){
+
+        //$('.datatimeblock').focus().blur();
+
+    })
 
     /*-------------------------------------------------按钮------------------------------------------------*/
 

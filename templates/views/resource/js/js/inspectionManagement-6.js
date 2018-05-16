@@ -247,6 +247,9 @@ $(function(){
         //工单号隐藏
         $('.gdcodehide').hide();
 
+        //电话允许输入
+        $('#bxTel').removeClass('disabled-block').attr('disabled',false);
+
     })
 
     //表格【查看工单】

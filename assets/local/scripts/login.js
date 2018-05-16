@@ -240,6 +240,7 @@ var Login = function() {
                     dataType:'json',
                     success:function(pointers){
                         sessionStorage.pointers = JSON.stringify(pointers);
+                        sessionStorage.allPointers = JSON.stringify(pointers);
                         _isPointersLoaded = true;
                         getEnterpriseList();
                         directToIndex();
@@ -478,7 +479,7 @@ var Login = function() {
                     var showstep = data["showstep"] || '';
                     sessionStorage.showstep = showstep;
 
-                    //高效机房单位
+                    //语言选择
                     var misc = data["misc"] || '';
                     sessionStorage.misc = misc;
 

@@ -127,9 +127,9 @@
         else{
             jQuery('#rankBusy').showLoading();
             var pIds = [];
-            pIds.push('8817180401');
+            pIds.push(sessionStorage.PointerID);
             var pNts = [];
-            pNts.push('安利8#冷站');
+            pNts.push(sessionStorage.PointerName);
             var url = sessionStorage.apiUrlPrefix + "RankEER/GetRankEERAnalysisDs";
             $.post(url,{
                 pIds:pIds,

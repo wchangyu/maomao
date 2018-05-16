@@ -1,6 +1,6 @@
 $(function(){
     /*-----------------------------------------全局变量------------------------------------------*/
-    //获得用户名
+    //获得用户id
     var _userIdName = sessionStorage.getItem('userName');
 
     //获取本地url
@@ -17,7 +17,10 @@ $(function(){
     Vue.validator('emailFormat',function(val){
         val=val.replace(/^\s+|\s+$/g,'');
         return /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test(val);
-    })
+    });
+
+    //当前地点的id
+    var _thisId = '';
 
     //新增地点登记对象
     var user = new Vue({
@@ -113,7 +116,7 @@ $(function(){
             {
               title:'',
               data:'id',
-              class:'hidden'
+              class:'hidden locationId'
             },
             {
                 title:'地点名称',
@@ -201,12 +204,12 @@ $(function(){
         //编辑确定按钮功能
         .on('click','.bianji',function(){
             //发送请求
-            editOrView('YWGD/SysLocaleUpdate','编辑成功!','编辑失败!',false,true);
+            editOrView('YWGD/SysLocaleUpdate','编辑成功!','编辑失败!',true);
         })
         //删除确定按钮功能
         .on('click','.shanchu',function(){
             //发送请求
-            editOrView('YWGD/SysLocaleDelete','删除成功!','删除失败!','false');
+            editOrView('YWGD/SysLocaleDelete','删除成功!','删除失败!',true);
         })
     //表格操作
     $('#personal-table tbody')
@@ -221,6 +224,8 @@ $(function(){
         //编辑
         .on('click','.option-edit',function(){
 
+            _thisId = $(this).parents('tr').find('.locationId').html();
+
             //详情框
             moTaiKuang($('#myModal'),'编辑');
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
@@ -230,6 +235,9 @@ $(function(){
         })
         //删除
         .on('click','.option-delete',function(){
+
+            _thisId = $(this).parents('tr').find('.locationId').html();
+
             //详情框
             moTaiKuang($('#myModal'),'确定要删除吗？');
             $('#myModal').find('.btn-primary').addClass('shanchu').removeClass('dengji').removeClass(('bianji'));
@@ -283,7 +291,7 @@ $(function(){
             url:_urls + 'YWGD/SysLocaleGetAll',
             data:prm,
             success:function(result){
-                console.log(result);
+
                 _allPersonalArr = [];
                 for(var i=0;i<result.length;i++){
                     _allPersonalArr.push(result[i]);
@@ -309,75 +317,78 @@ $(function(){
         }
     }
 
-    //编辑、登记方法
-    function editOrView(url,successMeg,errorMeg,flag,flag1){
-        //判断必填项是否为空
-        if( user.addressname == ''||user.plies == ''||user.department == ''||user.build == '' ){
+    //编辑、登记方法都为false的时候，是登记，flag为真的时候是删除、删除，传id值
+    function editOrView(url,successMeg,errorMeg,flag){
+
+        //首先判断必填项是否为空
+        if( user.addressname == ''||user.plies == ''||user.department == ''||user.build == ''){
+
             tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
+
         }else{
 
-                    //判断是编辑、登记、还是删除
-                    var prm = {};
-                    if(flag){
-                        prm = {
-                            "userID":_userIdName
-                        };
+            var prm = {
 
-                            //获取当前ID
-                            for(var i=0;i<_allPersonalArr.length;i++){
-                                if(_allPersonalArr[i].locnum == user.addressnum){
+                //地点名称
+                "locname": user.addressname,
+                //部门编码
+                "departnum": user.department,
+                //部门名称
+                "departname": $('#djbm').val()==''?'':$('#djbm').children('option:selected').html(),
+                //楼栋编码
+                "ddnum": user.build,
+                //楼栋名称
+                "ddname": $('#building').val()==''?'':$('#building').children('option:selected').html(),
+                //备注
+                "memo": user.remarks,
+                //层数
+                "floor": user.plies,
+                //用户id
+                "userId":_userIdName
 
-                                    prm.id = _allPersonalArr[i].id;
-                                }
-                            }
+            }
+
+            //编辑
+            if(flag){
+
+                prm.id = _thisId;
+
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:_urls + url,
+
+                data:prm,
+
+                success:function(result){
+
+                    if(result == 99 ){
+
+                        tipInfo($('#myModal1'),'提示',successMeg,'flag');
+
+                        $('#myModal').modal('hide');
+
+                        conditionSelect();
 
                     }else{
-                        //获取部门名称
-                        var departName =  $("#djbm").find("option:selected").text();
-                        //获取楼宇名称
-                        var buildName =  $("#building").find("option:selected").text();
-                        prm = {
-                            "locName":user.addressname,
-                            "floor": user.plies,
-                            "departNum":user.department,
-                            "departName":departName,
-                            "ddnum":user.build,
-                            "ddname":buildName,
-                            "memo":user.remarks
-                            //"userID":_userIdName
-                        };
 
-                        if(flag1){
-                            //获取当前ID
-                            for(var i=0;i<_allPersonalArr.length;i++){
-                                if(_allPersonalArr[i].locnum == user.addressnum){
-
-                                        prm.id = _allPersonalArr[i].id;
-                                }
-                            }
-                        }
+                        tipInfo($('#myModal1'),'提示',errorMeg,'flag');
 
                     }
-                    //发送数据
-                    $.ajax({
-                        type:'post',
-                        url:_urls + url,
-                        data:prm,
-                        success:function(result){
-                            if(result == 99){
-                                //提示登记成功
-                                tipInfo($('#myModal1'),'提示',successMeg,'flag');
-                                $('#myModal').modal('hide');
-                            }else if(result == 3){
-                                //提示登记失败
-                                tipInfo($('#myModal1'),'提示',errorMeg,'flag');
-                            }
-                            conditionSelect();
-                        },
-                        error:function(jqXHR, textStatus, errorThrown){
-                            console.log(jqXHR.responseText);
-                        }
-                    })
+
+                },
+
+                error:function(jqXHR, textStatus, errorThrown){
+
+
+                    tipInfo($('#myModal1'),'提示',JSON.parse(jqXHR.responseText).message,'flag');
+
+                }
+
+            })
 
 
         }
@@ -386,11 +397,10 @@ $(function(){
     //查看、删除绑定数据
     function bindingData(el,flag){
         var thisBM = el.parents('tr').children('.userNum').html();
-        console.log(_allPersonalArr);
+
         //根据工号绑定数据
         for(var i=0;i<_allPersonalArr.length;i++){
             if(_allPersonalArr[i].locnum == thisBM){
-                console.log(_allPersonalArr[i]);
                 //绑定数据
                 user.addressnum = _allPersonalArr[i].locnum;
                 user.addressname = _allPersonalArr[i].locname;

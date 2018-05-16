@@ -14,7 +14,7 @@ $(function(){
         format: 'yyyy/mm/dd',     forceParse: 0
     });
     //设置初始时间
-     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
+     var _initStart = moment().subtract(14,'days').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
     //显示时间
     $('.min').val(_initStart);

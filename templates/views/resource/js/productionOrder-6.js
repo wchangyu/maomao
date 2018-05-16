@@ -229,7 +229,7 @@ $(function(){
             },
             {
                 title:'系统类型',
-                data:'wxShiX'
+                data:'dcName'
             },
             {
                 title:'设备名称',

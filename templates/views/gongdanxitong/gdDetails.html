@@ -134,14 +134,19 @@
                                         <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off'>
                                     </div>
                                 </div>
-                                <div class="row autoFile"style="margin-left: 0;">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels ">维修班组：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="wxbz" v-validate:wxbz= "['isEmpty']" initial='off' id="wxbz">
-                                        </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                    <div class="single-labels "><span class="user-defined-group"></span>：</div>
+                                    <div class="single-block">
+                                        <input type="text" v-model="wxbz" v-validate:wxbz= "['isEmpty']" initial='off' id="wxbz">
                                     </div>
                                 </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                    <div class="single-labels" style="width: auto">协助<span class="user-defined-group"></span>：</div>
+                                    <div class="single-block">
+                                        <input type="text" v-model="xzbz" v-validate:xzbz= "['isEmpty']" initial='off' id="xzbz">
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
                                 <div style="margin:15px 16px;">
                                     <div class="single-line" >
                                         <div class="single-labels ">故障位置：</div>
@@ -191,12 +196,28 @@
                 <div class="tipe-block">执行人列表</div>
                 <div class="tableHover" style="padding-top: 20px;">
                     <div class="bumen">
-                        <div class="labels" style="display: inline-block;vertical-align: middle">部门:</div>
+                        <div class="labels" style="display: inline-block;vertical-align: middle"><span class="user-defined-group"></span>:</div>
                         <div class="input-blockeds" style="width: 300px;display: inline-block;vertical-align: middle">
                             <input id="depart">
                         </div>
                     </div>
                     <table class="table table-hover" id="fzr-list">
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                <div class="tipe-block">协助人列表</div>
+                <div class="tableHover" style="padding-top: 20px;">
+                    <div class="bumen">
+                        <div class="labels" style="display: inline-block;vertical-align: middle"><span class="user-defined-group"></span>:</div>
+                        <div class="input-blockeds" style="width: 300px;display: inline-block;vertical-align: middle">
+                            <input id="departX">
+                        </div>
+                    </div>
+                    <table class="table table-hover" id="fzr-listX">
                         <thead>
                         </thead>
                         <tbody></tbody>
@@ -263,7 +284,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-
 <!--处理过程-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 500px;">
@@ -289,6 +309,29 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
+<!--所有提示框-->
+<div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <script src="../resource/js/publicGD.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
 </body>
 </html>

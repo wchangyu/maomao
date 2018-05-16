@@ -18,7 +18,7 @@ var EPMA = function () {
           || $(event.target).parents("#eprBox").length > 0)) {
             onhidemenuEpr();
         }
-    }
+    };
 
     var onhidemenuEpr = function () {
         $("#eprBox").fadeOut("fast");
@@ -143,17 +143,6 @@ var EPMA = function () {
     return {
         init: function () {
 
-            //高校机房单位切换
-            if( sessionStorage.misc == 1 ){
-
-                $('body').append('<script src="js/language_cn.js" type="text/javascript"></script>');
-
-            }else if( sessionStorage.misc == 2 ){
-
-                $('body').append('<script src="js/language_en.js" type="text/javascript"></script>');
-
-            }
-
             if (sessionStorage.enterpriseID === undefined) {
                 //初始化默认界面
                 var pos = JSON.parse(sessionStorage.pointers);
@@ -168,8 +157,8 @@ var EPMA = function () {
                 $('#pNT').html(sessionStorage.eprName + '-' + sessionStorage.PointerName);//楼宇名称
             }
 
-            //初始化eprbox控件
-            initeprBox();
+            ////初始化eprbox控件
+            //initeprBox();
 
             //初始化日期
             initDt();
@@ -203,7 +192,7 @@ var EPMA = function () {
                     $('#span_humidity').hide();
                     $('#span_wetbuldtemperature').hide();
                 }
-            })
+            });
 
             //楼宇实时数据
             var realDtUrl = sessionStorage.apiUrlPrefix + "Global/GetRealDt";
@@ -218,18 +207,19 @@ var EPMA = function () {
                         sessionStorage.sysDt = res.dt;
                     }
                 }
-            })
+            });
 
             //切换楼宇
             $('#goEprBtn').on('click', function () { //全局楼宇切换
-                var pId = $('#p_type').val();
-                var pNt = $('#p_type').children('option:selected').text();
-                var eprId = $('#epr_type').val();
-                var eprNT = $('#epr_type').children('option:selected').text();
-                sessionStorage.enterpriseID = eprId;
-                sessionStorage.eprName = eprNT;
-                sessionStorage.PointerID = pId;
-                sessionStorage.PointerName = pNt;
+                //var pId = $('#p_type').val();
+                //var pNt = $('#p_type').children('option:selected').text();
+                //var eprId = $('#epr_type').val();
+                //var eprNT = $('#epr_type').children('option:selected').text();
+                //sessionStorage.enterpriseID = eprId;
+                //sessionStorage.eprName = eprNT;
+                //sessionStorage.PointerID = pId;
+                //sessionStorage.PointerName = pNt;
+
                 onhidemenuEpr();
                 $.get(realDtUrl, {
                     pId: sessionStorage.PointerID
@@ -239,7 +229,9 @@ var EPMA = function () {
 
                     sessionStorage.sysDt = res.dt;
 
-                    location.href = "../EPMA" + window.location.href.split('EPMA')[1];
+                    //location.href = "../EPMA" + window.location.href.split('EPMA')[1];
+
+                    location.href = window.location.href
 
                 })
             })
@@ -258,8 +250,6 @@ var EPMA = function () {
                 var eprs = initeprs();
                 getpointerDs(eprId, eprs);
             });
-
-
         }
     }
 

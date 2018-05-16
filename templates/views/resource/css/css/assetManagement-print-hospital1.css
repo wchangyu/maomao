@@ -1,0 +1,74 @@
+*{
+    box-sizing: border-box;
+
+    font-weight: bold;
+
+    font-size: 12px;
+
+    font-family: "Micorsoft Yahei";
+}
+.print-block-cel{
+    display: block;  border:2px solid #333333;   overflow: hidden;
+
+    font-size: 0;
+
+    margin-left: 40px !important;
+    margin-right: 40px !important;
+    margin-bottom: 0 !important;
+    margin-top: 50px !important;
+
+}
+.three-block{
+    overflow: hidden;font-size: 0;
+}
+.three-left{
+    /*width: 244px;  */
+    display: inline-block;  overflow: hidden;
+}
+.row-list{
+    width: 100%;  height: 45px;  border-bottom: 2px solid #333333;  overflow: hidden;font-size: 13px;
+}
+.row-three-left{
+    display: inline-block;  width: 100px;  border-right: 2px solid #333333;  overflow: hidden;height: 100%;line-height: 45px;text-indent:10px;
+}
+.img-block{
+    display: inline-block;  width: 103px;  height: 135px;  border-left: 2px solid #333333;
+}
+.img-block img{
+    width: 100px;  height: 100px;  display: block; margin: auto; margin-top: 6px;
+}
+.row-three-right{
+    display: inline-block;  width: 214px;  height: 100%;  overflow: hidden;line-height: 45px;text-indent: 10px;
+}
+.noBorder{
+    border-bottom: none;
+}
+.print-block{
+    width: 461px;margin: auto;
+}
+.PageNext{
+
+    page-break-before:always;
+
+}
+.print-block-cel{
+
+    zoom:0.6;
+    -ms-zoom:0.6;
+    -webkit-zoom:0.6;
+    -o-zoom:0.6;
+    -moz-zoom:0.6;
+    margin-left: 40px !important;
+    margin-right: 40px !important;
+    margin-bottom: 0 !important;
+    margin-top: 30px !important;
+}
+.print-block-celS{
+
+    margin-top: -20px !important;
+}
+
+.print-table{
+
+
+}

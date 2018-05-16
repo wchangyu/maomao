@@ -138,9 +138,14 @@ $(function(){
                 data:'gdCode',
                 class:'gd-code',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
 
-                        return '<span style="color: #c00000">'+ data + '</span>';
+                    if(row.color){
+
+                        return  '<span style="color: green">'+ data + '</span>';
+
+                    }else if(row.gdZht == 2){
+
+                        return  '<span style="color: #c00000">'+ data + '</span>';
 
                     }else if( row.gdZht == 4 ){
 
@@ -153,6 +158,8 @@ $(function(){
                     }else{
                         return '<span style="color: #333333">'+ data + '</span>';
                     }
+
+
                 }
 
             },
@@ -161,7 +168,37 @@ $(function(){
                 data:'gdZht',
                 className:'gongdanZt',
                 render:function(data, type, row, meta){
-                    if (data == 1) {
+                    if(row.color){
+
+                        if (data == 1) {
+                            return '待下发'
+                        }
+                        else if (data == 2) {
+                            return '<span style="color: green">'+ '待分派' + '</span>'
+                        }
+                        else if (data == 3) {
+                            return '待执行'
+                        }
+                        else if (data == 4) {
+                            return '<span style="color: green">'+ '执行中' + '</span>';
+                        }
+                        else if (data == 5) {
+                            return '<span style="color: green">'+ '等待资源' + '</span>';
+                        }
+                        else if (data == 6) {
+                            return '待关单'
+                        }
+                        else if (data == 7) {
+                            return '任务关闭'
+                        }
+                        else if (data == 11) {
+                            return '申诉'
+                        }
+                        else if (data == 999) {
+                            return '任务取消'
+                        }
+
+                    }else if (data == 1) {
                         return '待下发'
                     }
                     else if (data == 2) {
@@ -174,7 +211,7 @@ $(function(){
                         return '<span style="color: #4472c4">'+ '执行中' + '</span>';
                     }
                     else if (data == 5) {
-                        return '等待资源'
+                        return '<span style="color: #ffcf00">'+ '等待资源' + '</span>';
                     }
                     else if (data == 6) {
                         return '待关单'
@@ -195,13 +232,21 @@ $(function(){
                 title:'报修科室',
                 data:'bxKeshi',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.color){
+
+                        return  '<span style="color: green">'+ data + '</span>';
+
+                    }else if(row.gdZht == 2){
 
                         return '<span style="color: #c00000">'+ data + '</span>';
 
                     }else if( row.gdZht == 4 ){
 
                         return '<span style="color: #4472c4">'+ data + '</span>';
+
+                    }else if( row.gdZht == 5 ){
+
+                        return '<span style="color: #ffcf00">'+ data + '</span>';
 
                     }else{
 
@@ -214,13 +259,21 @@ $(function(){
                 title:'故障位置',
                 data:'wxDidian',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.color){
+
+                        return  '<span style="color: green">'+ data + '</span>';
+
+                    }if(row.gdZht == 2){
 
                         return '<span style="color: #c00000">'+ data + '</span>';
 
                     }else if( row.gdZht == 4 ){
 
                         return '<span style="color: #4472c4">'+ data + '</span>';
+
+                    }else if( row.gdZht == 5 ){
+
+                        return '<span style="color: #ffcf00">'+ data + '</span>';
 
                     }else{
 
@@ -233,7 +286,11 @@ $(function(){
                 title:'维修事项',
                 data:'wxXm',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.color){
+
+                        return  '<span style="color: green">'+ data + '</span>';
+
+                    }else if(row.gdZht == 2){
 
                         return '<span style="color: #c00000;cursor: pointer;" title="' + data +
                             '">'+ data + '</span>';
@@ -241,6 +298,11 @@ $(function(){
                     }else if( row.gdZht == 4 ){
 
                         return '<span style="color: #4472c4;cursor: pointer;" title="' + data +
+                            '">'+ data + '</span>';
+
+                    }else if( row.gdZht == 5 ){
+
+                        return '<span style="color: #ffcf00;cursor: pointer;" title="' + data +
                             '">'+ data + '</span>';
 
                     }else{
@@ -255,13 +317,21 @@ $(function(){
                 title:'故障描述',
                 data:'bxBeizhu',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.color){
+
+                        return  '<span style="color: green">'+ data + '</span>';
+
+                    }else if(row.gdZht == 2){
 
                         return '<span style="color: #c00000">'+ data + '</span>';
 
                     }else if( row.gdZht == 4 ){
 
                         return '<span style="color: #4472c4">'+ data + '</span>';
+
+                    }else if( row.gdZht == 5 ){
+
+                        return '<span style="color: #ffcf00">'+ data + '</span>';
 
                     }else{
 
@@ -274,13 +344,21 @@ $(function(){
                 title:'报修人',
                 data:'bxRen',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.color){
+
+                        return  '<span style="color: green">'+ data + '</span>';
+
+                    }else if(row.gdZht == 2){
 
                         return '<span style="color: #c00000">'+ data + '</span>';
 
                     }else if( row.gdZht == 4 ){
 
                         return '<span style="color: #4472c4">'+ data + '</span>';
+
+                    }else if( row.gdZht == 5 ){
+
+                        return '<span style="color: #ffcf00">'+ data + '</span>';
 
                     }else{
 
@@ -293,13 +371,21 @@ $(function(){
                 title:'维修人',
                 data:'wxUserNames',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.color){
+
+                        return  '<span style="color: green">'+ data + '</span>';
+
+                    }else if(row.gdZht == 2){
 
                         return '<span class="wxUser" style="color: #c00000" title="'+data+'">'+data+'</span>';
 
                     }else if( row.gdZht == 4 ){
 
                         return '<span class="wxUser" style="color: #4472c4" title="'+data+'">'+data+'</span>';
+
+                    }else if( row.gdZht == 5 ){
+
+                        return '<span style="color: #ffcf00">'+ data + '</span>';
 
                     }else{
 
@@ -435,7 +521,6 @@ $(function(){
             async:false,
             success:function(result){
 
-
                 var dataArr = [];
 
                 $(result).each(function(i,o){
@@ -475,40 +560,8 @@ $(function(){
                     }
                 }
 
-
-                datasTable($("#scrap-datatables"),dataArr);
-                //获取table高度
-                var tableHeight = $('#scrap-datatables').height();
-
-                //console.log(tableHeight);
-
-                if(timer){
-                    clearInterval(timer);
-                }
-
-                if(result.length > 0){
-
-                    var i=-1;
-                    timer = setInterval(function(){
-                        i++;
-                        var height = i * 548 * -1;
-
-                        if( tableHeight + height <= 0){
-                            $('#scrap-datatables').css({
-                                top:0
-                            })
-                            i = -1;
-                        }else{
-                            $('#scrap-datatables').css({
-                                top:height+'px'
-                            })
-                        }
-                    },10000)
-                }
-
-                setTimeout(function(){
-                    conditionSelect();
-                },_refresh * 1000 * 60);
+                //协助数据
+                assistFun(dataArr);
 
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -710,6 +763,124 @@ $(function(){
             return '  星期六'
 
         }
+
+    }
+
+    //协助数据
+    function assistFun(arr){
+
+        var prm = {
+
+            //工单号
+            gdCode:'',
+            //状态
+            gdZht: 2
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWGD/GetGongdanFZList',
+
+            data:prm,
+
+            success:function(result){
+
+                for(var i=0;i<result.length;i++){
+
+                    //arr.push(result[i]);
+
+                    result[i].color = 'green';
+
+                    arr.push(result[i]);
+
+                }
+
+                console.log(arr);
+
+                datasTable($("#scrap-datatables"),arr);
+                //获取table高度
+                var tableHeight = $('#scrap-datatables').height();
+
+                if(timer){
+                    clearInterval(timer);
+                }
+
+                if(result.length > 0){
+
+                    var i=-1;
+                    timer = setInterval(function(){
+                        i++;
+                        var height = i * 548 * -1;
+
+                        if( tableHeight + height <= 0){
+                            $('#scrap-datatables').css({
+                                top:0
+                            })
+                            i = -1;
+                        }else{
+                            $('#scrap-datatables').css({
+                                top:height+'px'
+                            })
+                        }
+                    },10000)
+                }
+
+                setTimeout(function(){
+                    conditionSelect();
+                },_refresh * 1000 * 60);
+
+            },
+
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    console.log('请求超时');
+
+                }else{
+
+                    console.log('请求失败');
+
+                }
+
+                datasTable($("#scrap-datatables"),arr);
+                //获取table高度
+                var tableHeight = $('#scrap-datatables').height();
+
+                if(timer){
+                    clearInterval(timer);
+                }
+
+                if(result.length > 0){
+
+                    var i=-1;
+                    timer = setInterval(function(){
+                        i++;
+                        var height = i * 548 * -1;
+
+                        if( tableHeight + height <= 0){
+                            $('#scrap-datatables').css({
+                                top:0
+                            })
+                            i = -1;
+                        }else{
+                            $('#scrap-datatables').css({
+                                top:height+'px'
+                            })
+                        }
+                    },10000)
+                }
+
+                setTimeout(function(){
+                    conditionSelect();
+                },_refresh * 1000 * 60);
+
+            }
+
+        })
 
     }
 
