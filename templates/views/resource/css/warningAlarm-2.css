@@ -159,3 +159,21 @@ tbody tr{
     margin-left: 20px;
     padding-top: 5px !important;
 }
+
+/*不同报警等级 文字颜色不同*/
+.general-alarm{
+    color:#4472c4;
+}
+
+.ordinary-alarm{
+    color:#ffcf00;
+}
+
+.urgency-alarm{
+    color:orangered;
+}
+
+.particularly-urgency-alarm{
+    color:#c00000;
+}
+

@@ -4,6 +4,10 @@ $(function(){
         var o1 = $(".content-main-left").css("display");
         var url = window.location.href;
 
+        if(url.indexOf('yongnengjiance') > -1){
+            return false;
+        }
+
         if(o1 == 'block'){
             $('.content-main-left').hide();
 

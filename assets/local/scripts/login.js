@@ -424,6 +424,10 @@ var Login = function() {
                     var alarmSong = data["alarmSong"] || "0";
                     sessionStorage.alarmSong = alarmSong;
 
+                    //报警声音等级
+                    var alarmSongGrade = data["alarmSongGrade"] || "0";
+                    sessionStorage.alarmSongGrade = alarmSongGrade;
+
                     //zTree绘制楼宇列表时是否显示全部楼宇
                     var allPointerName = data["allPointerName"] || '';
                     sessionStorage.allPointerName = allPointerName;
@@ -478,6 +482,10 @@ var Login = function() {
                     //是否显示折标能效
                     var showstep = data["showstep"] || '';
                     sessionStorage.showstep = showstep;
+
+                    //是否启用右上角单位选择
+                    var showChooseUnit = data["showChooseUnit"] || '';
+                    sessionStorage.showChooseUnit = showChooseUnit;
 
                     //语言选择
                     var misc = data["misc"] || '';

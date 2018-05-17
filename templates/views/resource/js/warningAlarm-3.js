@@ -172,7 +172,32 @@ $(function(){
                         }
                     }
                 }
-            ]
+            ],
+            createdRow: function(row,data,index){
+
+                //普通报警
+                if(data.priorityID == 1){
+
+                    $(row).addClass('general-alarm');
+
+                //较急报警
+                }else if(data.priorityID == 2){
+
+                    $(row).addClass('ordinary-alarm');
+
+                //紧急报警
+                }else if(data.priorityID == 3){
+
+                    $(row).addClass('urgency-alarm');
+
+                //特别紧急报警
+                }else if(data.priorityID == 4){
+
+                    $(row).addClass('particularly-urgency-alarm');
+                }
+
+            }
+
         });
     }else{
         //表格初始化
@@ -341,7 +366,16 @@ $(function(){
                     }
 
                 }
-            ]
+            ],
+            createdRow: function(row,data,index){
+                //console.log(33);
+
+                if(data.prDefId == 0){
+
+                    $('td', row).eq(2).addClass('equal');
+                }
+            }
+
         });
 
         $('.hiddenButton').hide();
@@ -503,13 +537,16 @@ var totalArr = [];
 //获取所有数据
 var _history = [];
 function alarmHistory(){
+
     var prm = {
         'st' : startRealTime,
         'et' : endRealTime,
         'pointerIds' : pointerID,
         'excTypeInnderId' : excTypeInnderId,
-        'energyType' : _ajaxEcType
+        'energyType' : _ajaxEcType,
+        "userID" :  _userIdNum
     };
+
     $.ajax({
         type:'post',
         url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
@@ -561,6 +598,7 @@ function alarmHistory(){
         }
     });
 }
+
 //去重
 function existItem(arr,item){ //遍历数组中的所有数，如果有相同的pointerID&&cdataID，返回true，如果没有的话返回false；
     for(var i= 0,len=arr.length;i<len;i++){
@@ -620,7 +658,7 @@ function typeOfAlarm(){
         url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
         success:function(result){
 
-            console.log(result);
+           // console.log(result);
 
             var html = '<option value="-1">全部</option>';
 
