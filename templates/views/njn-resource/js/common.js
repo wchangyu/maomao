@@ -182,6 +182,8 @@ var ifShowLoading1 = true;
 //定义送排风 给排水弹出页面的宽高
 var jumpPageSize = "1020,586";
 
+console.log(sessionStorage.PointerID)
+
 //定义初始的楼宇ID
 if(!sessionStorage.PointerID){
 
@@ -191,7 +193,6 @@ if(!sessionStorage.PointerID){
         sessionStorage.PointerID = po.pointerID;
         sessionStorage.PointerName = po.pointerName;
     }
-
 }
 
 //定义流程图的方案类型

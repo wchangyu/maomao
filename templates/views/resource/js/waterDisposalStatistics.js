@@ -90,10 +90,10 @@ $(function(){
             title:'余氯（mg/L）',
             data:'余氯（mg/L)'
         },
-        {
-            title:'COD浓度（mg/L）',
-            data:'COD浓度（mg/L）'
-        },
+        //{
+        //    title:'COD浓度（mg/L）',
+        //    data:'COD浓度（mg/L）'
+        //},
         {
             title:'盐用量（公斤）',
             data:'盐用量（公斤）'
@@ -195,9 +195,13 @@ $(function(){
 
         function successFun(result){
 
-            var dataArr = _packagingTableData(result[1]);
+            if(result != null){
 
-            _jumpNow($('#all-reporting'),dataArr);
+                var dataArr = _packagingTableData(result[1]);
+
+                _jumpNow($('#all-reporting'),dataArr);
+
+            }
 
         }
 

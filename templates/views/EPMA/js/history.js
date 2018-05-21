@@ -311,7 +311,7 @@
             var zTree = $.fn.zTree.getZTreeObj("DCTreeView");
             var nodes = zTree.getCheckedNodes(true);
             if (nodes.length == 0) {
-                alert("提示(历史数据):请选择一项监测因子查询历史数据");
+                console.log("提示(历史数据):请选择一项监测因子查询历史数据");
                 return;
             }
             else {

@@ -151,7 +151,7 @@
                     var url = sessionStorage.apiUrlPrefix + "ZTNXReport/ReportFormZTNXs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
                         + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
@@ -159,7 +159,7 @@
                     var url = sessionStorage.apiUrlPrefix + "ZTEBReport/ReportFormZTEBs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
                         + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
@@ -167,7 +167,7 @@
                     var url = sessionStorage.apiUrlPrefix + "ZTBRReport/ReportFormZTBRs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
                         + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
@@ -175,7 +175,7 @@
                     var url = sessionStorage.apiUrlPrefix + "ZTICReport/ReportFormZTICs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
                         + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
@@ -183,7 +183,7 @@
                     var url = sessionStorage.apiUrlPrefix + "NXBAReport/ReportFormNXBAs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
                         + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }

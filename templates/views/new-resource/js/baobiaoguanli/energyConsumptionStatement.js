@@ -118,6 +118,15 @@ $(function() {
             //展示当前表格
             $('#entry-target-datatables').show();
 
+
+        }else if(energyStatementID == 4){
+
+            //获取车站分享水耗报表
+            getEnergyItemReports();
+
+            //展示当前表格
+            $('#entry-water-datatables').show();
+
         }
 
         $('#timeType').change();
@@ -170,6 +179,10 @@ var energyStatementArr = [
     {
         "name":"车站能耗指标报表",
         "value":3
+    },
+    {
+        "name":"车站分项水耗报表",
+        "value":4
     }
 ];
 
@@ -848,6 +861,132 @@ function getEnergyKPIReport(){
 
             //页面赋值
             $('#entry-target-datatables tbody').html(tbodyHtml);
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+
+            $('.bottom-main-table').hideLoading();
+            console.log(jqXHR.responseText);
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+            }else{
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+            }
+        }
+    });
+
+};
+
+//获取车站分项水耗报表
+function getEnergyItemReports(){
+
+    //获取当前车站
+    var pointerID = $('#alarm-station').val();
+
+    //展示日期类型
+    var showDateType = $('#timeType').find("option:selected").attr('data-attr');
+
+    //获取开始结束时间
+    var startTime;
+
+    var endTime;
+
+    if(showDateType == "Day"){
+
+        startTime = moment($('.min').val()).startOf('month').format('YYYY-MM-DD');
+
+        endTime = moment($('.min').val()).add('1','month').startOf('month').format('YYYY-MM-DD');
+    }else{
+
+        startTime = moment($('.min').val()).startOf('year').format('YYYY-MM-DD');
+
+        endTime = moment($('.min').val()).add('1','year').startOf('year').format('YYYY-MM-DD');
+    }
+
+    //定义传递给后台的数据
+    var ecParams = {
+        "startTime": startTime,
+        "endTime": endTime,
+        "showDateType": showDateType,
+        "pointerID": pointerID
+
+    };
+
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix + 'EnergyReportV2/GetEnergyItemReport',
+        data:ecParams,
+        beforeSend:function(){
+
+            $('.bottom-main-table').showLoading();
+
+        },
+        success:function(result){
+
+            $('.bottom-main-table').hideLoading();
+
+            //报表名称
+            var title = $('#select-content').find("option:selected").text();
+
+            $('#entry-water-datatables #table-titleH').html(title);
+
+            //数据时间
+            $('#entry-water-datatables .data-time').html($('.min').val());
+
+            //导出时间
+            $('#entry-water-datatables .derive-time').html(moment().format('YYYY/MM/DD HH:mm'));
+
+            //位置
+            var station = $('#alarm-station').find("option:selected").text();
+
+            $('#entry-water-datatables .position-name').html(station);
+
+            //建筑面积
+            var buildArea = result.buildArea;
+
+            $('#entry-water-datatables .building-area').html(buildArea);
+
+            //空调面积
+            var airArea = result.airArea;
+
+            $('#entry-water-datatables .air-conditioner-area').html(airArea);
+
+            //到发人次
+            var travellerNum = result.travellerNum;
+
+            $('#entry-water-datatables .people-amount').html(travellerNum);
+
+            if(showDateType == "Day"){
+
+                $('#entry-water-datatables .time-type').html('月');
+
+            }else{
+
+                $('#entry-water-datatables .time-type').html('年');
+            }
+
+            //电单价
+            var elecEnergyPrice = result.elecEnergyPrice;
+
+            $('#entry-water-datatables .electricity-price').html(elecEnergyPrice);
+
+
+            //判断是否是铁路模式
+            if(result.beeWebMode != 2){
+
+                $('#entry-water-datatables .station-show').html('');
+
+            }
+
+            //绘制下方主体数据
+            var tbodyHtml = drawTbodyData(result.energyItemDTDatas);
+
+            //页面赋值
+            $('#entry-water-datatables tbody').html(tbodyHtml);
 
         },
         error:function(jqXHR, textStatus, errorThrown){

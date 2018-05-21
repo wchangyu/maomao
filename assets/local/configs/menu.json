@@ -390,15 +390,15 @@
         "content": "监控总览",
         "uri": "../yongnengjiance/energyMonitor.html?a=1",
         "uid": "",
-        "arg": "2,4",
+        "arg": "2,18",
         "iconclass": ""
       },
       "测试一下": {
         "type": "0",
         "content": "测试一下",
-        "uri": "../yongnengjiance/energyMonitor.html?a=2",
+        "uri": "../yongnengjiance/energyMonitor.html?a=101",
         "uid": "",
-        "arg": "1,3101007489",
+        "arg": "1,5090017033",
         "iconclass": ""
       },
       "送排风1": {
@@ -1953,6 +1953,36 @@
         "type": "0",
         "content": "污水处理站累积排放量报表",
         "uri": "../gongdanxitong/waterDisposalStatistics.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
+      },
+      "设备运行报表": {
+        "type": "0",
+        "content": "设备运行报表",
+        "uri": "../gongdanxitong/equipmentRunningReport.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
+      },
+      "某个设备运行报表": {
+        "type": "0",
+        "content": "设备运行报表",
+        "uri": "../gongdanxitong/oneEquipmentRunningReport.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
+      },
+      "污水站录入": {
+        "type": "0",
+        "content": "污水站录入",
+        "uri": "../gongdanxitong/managementOfSewage.html",
         "uid": "",
         "arg": "",
         "iconclass": "",

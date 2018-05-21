@@ -342,7 +342,8 @@ $(function(){
                     //获取ID
                     var id = row.alaLogID;
 
-                    return '<span data-id ="'+id+'"  style="color:black" class="open-views" title="点击查看">'+data+'</span>'
+                    //return '<span data-id ="'+id+'"  style="color:black" class="open-views" title="点击查看">'+data+'</span>'
+                    return '<span data-id ="'+id+'"  class="open-views" title="">'+data+'</span>'
                 }
             },
             {
@@ -413,7 +414,31 @@ $(function(){
                     }
                 }
             }
-        ]
+        ],
+        createdRow: function(row,data,index){
+
+            //普通报警
+            if(data.priorityID == 1){
+
+                $(row).addClass('general-alarm');
+
+                //较急报警
+            }else if(data.priorityID == 2){
+
+                $(row).addClass('ordinary-alarm');
+
+                //紧急报警
+            }else if(data.priorityID == 3){
+
+                $(row).addClass('urgency-alarm');
+
+                //特别紧急报警
+            }else if(data.priorityID == 4){
+
+                $(row).addClass('particularly-urgency-alarm');
+            }
+
+        }
     });
     /*-----------------------树------------------------------*/
     //区域选择
@@ -835,7 +860,8 @@ $(function(){
             'pointerIds' : pointer,
             'excTypeInnderId' : alarm,
             'energyType' : energy,
-            'groupTypeId' : localType
+            'groupTypeId' : localType,
+            "userID" :  _userIdNum
         };
         $.ajax({
             type:'post',

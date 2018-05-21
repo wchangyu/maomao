@@ -26,7 +26,7 @@ $(function(){
             data:'gdDate'
         },
         {
-            title:'需求单位',
+            title:'楼宇名称',
             data:'building'
         },
         {
@@ -35,11 +35,11 @@ $(function(){
         },
         {
             title:'通知发出时间',
-            data:'shouliShij'
+            data:'shoulShij'
         },
         {
             title:'故障原因',
-            data:'bxBeizhu'
+            data:'BxBeizhu'
         },
         {
             title:'执行班组',
@@ -201,7 +201,15 @@ $(function(){
             data:'gdFee'
         },
         {
-            title:'备注',
+            title:'报修日期',
+            data:'gdShij'
+        },
+        {
+            title:'报修内容',
+            data:'bxBeizhu'
+        },
+        {
+            title:'报修内容',
             data:'wxBeizhu'
         }
 
@@ -406,15 +414,19 @@ $(function(){
 
             success:function(result){
 
-                if(result.length == 0){
+                if(result != null){
 
-                    return false;
+                    if(result.length == 0){
 
-                }else{
+                        return false;
 
-                    var dataArr = _packagingTableData(result[1]);
+                    }else{
 
-                    _jumpNow(table,dataArr.reverse());
+                        var dataArr = _packagingTableData(result[1]);
+
+                        _jumpNow(table,dataArr.reverse());
+
+                    }
 
                 }
 

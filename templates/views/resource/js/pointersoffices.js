@@ -333,17 +333,60 @@ var ObjectSelection = function(){
             zTreePointer  = $.fn.zTree.init(this._$ulPointers,setting1,this._allPointers);
             var nodes = zTreePointer.getNodes();
             //console.log(nodes);
-            if(getShowRadio){
+            var dataArr = nodes[0].children;
+            //console.log(nodes);
+           // console.log(dataArr);
+
+            if(sessionStorage.PointerID && sessionStorage.showChooseUnit != 0){
+                //console.log($ulPointers);
+
+                var pId = sessionStorage.PointerID;
+
+                var thisNum = 0;
+
+                var thatNum = 0;
+
+                //获取当前勾选的是第几个楼宇
+                $(dataArr).each(function(i,o){
+
+                    var childArr = o.children;
+
+                    $(childArr).each(function(k,j){
+
+                        var id = j.id;
+
+                        if(id == pId){
+
+                            thisNum = i;
+
+                            thatNum = k;
+
+                            return false
+                        }
+
+                    });
+
+                });
+
+                zTreePointer.checkNode(nodes[0], false, false);  //父节点不被选中
+                zTreePointer.checkNode(nodes[0].children[thisNum].children[thatNum], true, true);
 
             }else{
-                if(getOptFirst){
 
-                    zTreePointer.checkNode(nodes[0].children[0].children[0],true,false,false);
-                    zTreePointer.expandNode(nodes[0],true,false,true);
+                if(getShowRadio){
+
                 }else{
-                    zTreePointer.checkNode(nodes[0],true,false,false);
-                    zTreePointer.expandNode(nodes[0],true,false,true);
+                    if(getOptFirst){
+
+                        zTreePointer.checkNode(nodes[0].children[0].children[0],true,false,false);
+                        zTreePointer.expandNode(nodes[0],true,false,true);
+                    }else{
+                        zTreePointer.checkNode(nodes[0],true,false,false);
+                        zTreePointer.expandNode(nodes[0],true,false,true);
+                    }
+
                 }
+
 
             }
 

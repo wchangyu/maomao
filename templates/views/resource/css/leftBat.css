@@ -236,6 +236,7 @@ a{
     top: 29px;
     max-height: 300px;
     overflow: auto;
+    left:0px;
 }
 #eprBox .add-select-company li {
     list-style: none;
@@ -260,9 +261,6 @@ a{
     margin:0 !important;
 }
 
-#eprBox .add-select-company li:last-child {
-    text-align: right;
-}
 
 #eprBox .btn-danger {
     color: #fff;
@@ -272,6 +270,11 @@ a{
 
 #eprBox .btn-danger:hover{
     border-color: #666 !important;
+}
+
+#eprBox .add-select-company{
+    padding-top:30px;
+    padding-right: 0px;
 }
 
 
@@ -308,4 +311,13 @@ a{
 
 .dropdown-inbox .dropdown-menu{
     display: none !important;
+}
+
+#openeprBtn{
+    background: none !important;
+}
+
+/*显示当前选择楼宇框*/
+#pNT{
+    cursor: pointer;
 }

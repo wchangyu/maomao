@@ -32,7 +32,7 @@
     display: inline-block;  width: 100px;  border-right: 2px solid #333333;  overflow: hidden;height: 100%;line-height: 45px;text-indent:10px;
 }
 .img-block{
-    display: inline-block;  width: 103px;  height: 135px;  border-left: 2px solid #333333;
+    display: inline-block;  width: 103px;  height: 135px;  border-left: 2px solid #333333;padding-top: 10px;
 }
 .img-block img{
     width: 100px;  height: 100px;  display: block; margin: auto; margin-top: 6px;

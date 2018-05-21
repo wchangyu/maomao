@@ -330,13 +330,20 @@ var userMonitor = (function(){
 
     //根据配置文件中的分类配置调用方法获取数据
     var getProcs = function(){
+
         if(_configArg1 == 0){
             getAllProcsByParameter(_configArg2,-1);
+
         }else if(_configArg1 == 1){
+
             getAllProcsByProcList(_configArg2);
+
         }else if(_configArg1 == 2){
+
             getAllProcs();
+
         }else if(_configArg1 == 3){
+
             var bindKeyId;
             if(_configArg2 == '2'){       //bindType=2时候代表按照楼宇获取
                 if(sessionStorage.curPointerId){
@@ -429,6 +436,7 @@ var userMonitor = (function(){
     };
 
     var getProcsByPointerId = function(notSetProcList){
+
         var pointerId = sessionStorage["curPointerId"];
         var menuusepointer = sessionStorage.menuusepointer;
         if(menuusepointer){
@@ -667,6 +675,7 @@ var userMonitor = (function(){
             data:{"" : procId},
             url:_urlPrefix + "PR/GetPRCollectModels",
             success:function(data){
+
                 _isProcRenderLoaded = true;
                 _isProcDefLoaded = true;
                 _isProcCrtlLoaded = true;
@@ -2213,8 +2222,8 @@ var userMonitor = (function(){
         $table.append($caption);
         if(!isAir){
             if(ccCount<3){
-                $divCtrls.css({"width" : "160px","height" : "120px"});
-                var baseWidth = 79, baseHeight = 38;       //基础宽高
+                $divCtrls.css({"width" : "250px","height" : "120px"});
+                var baseWidth = 72, baseHeight = 31;       //基础宽高
                 var $tr = $("<tr>");
                 for(var i=0;i<ccCount;i++){
                     var curCtrl = curCtrls[i];
@@ -2225,7 +2234,7 @@ var userMonitor = (function(){
                 }
                 $tr.appendTo($table);
             }else{
-                var baseWidth = 49, baseHeight = 38;       //基础宽高
+                var baseWidth = 55, baseHeight = 31;       //基础宽高
                 for(var r = 0;r < ccCount;r += 3){      //按照三列设计
                     var $tr = $("<tr name='" + r + "'>");
                     for(var c = 0; c < 3 && r+c<ccCount;c++){     //添加各个ctrl的按钮
@@ -2237,10 +2246,10 @@ var userMonitor = (function(){
                     }
                     $table.append($tr);
                 }
-                $divCtrls.css({"width" : "160px","height" : (ccCount / 3 * 40 + 80) + "px"});   //80为多一行+标题行
+                $divCtrls.css({"width" : "240px","height" : (ccCount / 3 * 40 + 80) + "px"});   //80为多一行+标题行
             }
         }else{      //空调面板
-            var baseWidth = 39,baseHeight = 38;       //基础宽高
+            var baseWidth = 55,baseHeight = 38;       //基础宽高
             var highTemp = 29,temp = 15;
             for(var r =0;r<4,temp<highTemp;r+=4){
                 var $tr = $("<tr name='" + r + "'>");
@@ -2253,7 +2262,7 @@ var userMonitor = (function(){
                 }
                 $table.append($tr);
             }
-            $divCtrls.css({"width" : "160px","height" : (15 / 4 * 40 + 40) + "px"});
+            $divCtrls.css({"width" : "240px","height" : (15 / 4 * 40 + 40) + "px"});
         }
         $divCtrls.append($table);
         setDivControlsVisible(true);
@@ -2273,7 +2282,7 @@ var userMonitor = (function(){
         $divCtrls.attr("data-prdefid",prDefId);     //设置当前divCtrls的defID
         $divCtrls.attr("data-ctrltype","input");
         $divCtrls.empty();
-        $divCtrls.css({"width":"300px","height":"200px"});
+        $divCtrls.css({"width":"350px","height":"200px"});
         var $table = $("<table>");      //生成显示table
         var $caption = $("<caption style='font-size:12px;color:blue;'>输入参数</caption>");
         $table.append($caption);
@@ -2284,7 +2293,7 @@ var userMonitor = (function(){
             if(curProcDef.recservicecfgValue.dataType == 1){        //布尔型
                 $table.css({"width":"270px","height":"190px;"});
                 var $tr = $("<tr>"),$td = $("<td>");
-                $td.css("text-align","center");
+                $td.css("text-align","left");
                 var htmlBool = '<span><label>请选择:</label><input type="radio" id="ctrl-panel-on" name="def" value="开">开';
                 htmlBool += '<input type="radio" name="def" value="关">关</span>';
                 $td.append(htmlBool);
@@ -2299,14 +2308,14 @@ var userMonitor = (function(){
                 $tr.append($td);
                 $tr.appendTo($table);
                 var $tr1 = $("<tr>"),$td1 = $("<td>");          //输入框
-                var htmlTextarea = '<textarea id="ctrl-panel-textarea" cols="36" rows="5" autofocus></textarea>';
+                var htmlTextarea = '<textarea id="ctrl-panel-textarea" cols="28" rows="3" autofocus></textarea>';
                 $td1.append(htmlTextarea);
                 $tr1.append($td1);
                 $tr1.appendTo($table);
             }else if(curProcDef.recservicecfgValue.dataType == 5){      //日期
                 $table.css({"width":"270px","height":"190px"});
                 var $tr = $("<tr>"),$td = $("<td>");
-                $td.css("text-align","center");
+                $td.css("text-align","left");
                 var htmlTime = "<span>启动时间</span>&nbsp;&nbsp;&nbsp;&nbsp;";
                 htmlTime += "<input id='ctrl-panel-hour' type='text' maxlength='2' style='width:40px;' autofocus><span>时</span>";
                 htmlTime += "<input id='ctrl-panel-minute' type='text' maxlength='2' style='width:40px;'><span>分</span>";
@@ -2326,7 +2335,7 @@ var userMonitor = (function(){
             }
         }else{      //输入字符串信息
             var $tr1 = $("<tr>"),$td1 = $("<td>");          //输入框
-            var htmlTextarea = '<textarea id="ctrl-panel-textarea" cols="50" rows="10" autofocus></textarea>';
+            var htmlTextarea = '<textarea id="ctrl-panel-textarea" cols="28" rows="3" autofocus></textarea>';
             $td1.append(htmlTextarea);
             $tr1.append($td1);
             $tr1.appendTo($table);
@@ -2652,8 +2661,18 @@ var userMonitor = (function(){
             //$divCtrls.attr('id','content-ctrls');
             $divCtrls.appendTo($contentmain);
         }
+
+        //定义左移的距离
+        var leftDistance = 0;
+
+        if((left - 1) / _scaleX > 400){
+
+            leftDistance = 150;
+
+        }
+
         $divCtrls.css({     //将顶点减一保证鼠标当前在控制面板的范围内
-            "left" : ((left - 1) / _scaleX) + "px",
+            "left" : ((left - 1) / _scaleX - leftDistance) + "px",
             "top"  : ((top - 1) / _scaleX) + "px"
         });
         return $divCtrls;

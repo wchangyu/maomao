@@ -327,7 +327,7 @@
                             <div class="bottom-main-table">
 
                                 <!--车站年分项电耗报表-->
-                                <table id="entry-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black;">
+                                <table id="entry-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black;display: none">
                                     <thead style="text-align:center">
                                     <tr style="text-align:center">
                                         <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>
@@ -591,6 +591,79 @@
                                         <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨/平米</th>
                                         <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨/人次</th>
 
+                                    </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+
+                                <!--车站分项水耗报表-->
+                                <table id="entry-water-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black;">
+                                    <thead style="text-align:center">
+                                    <tr style="text-align:center">
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>
+                                        <th colspan="13" id="" style="text-align:center;background: #ffffff;border:1px solid black" class="table-name change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="13" class="data-time change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="13" class="derive-time change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">位置</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="13" class="position-name change-colspan1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">建筑面积 <br />(平米)</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="building-area"></th>
+
+                                        <th colspan="2" class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">空调面积 <br />(平米)</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="air-conditioner-area"></th>
+                                        <th colspan="2" class="printBgColo station-show" style="text-align:center;background: #E2E9F2;border:1px solid black">到发人次 <br />(人/<span class="time-type">年</span>)</th>
+
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="people-amount station-show"></th>
+
+                                        <th colspan="2" class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">水单价 <br />(元/吨)</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="" class="electricity-price"></th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="3" class="change-colspan2"> </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="3">日期</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="2">水耗<br/>(含客车上)</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="2"  class="">东水表</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="2"  class="">西水表</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="" colspan="10" class="">分项水耗</th>
+                                    </tr>
+
+                                    <tr class="change-head1 ">
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">东侧空调补水箱补水</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">西侧空调补水箱补水</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">东侧冷却塔补水</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">西侧冷却塔补水</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" colspan="2">其他</th>
+                                    </tr>
+
+                                    <tr class="change-head2 ">
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >吨</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black" >%</th>
                                     </tr>
 
                                     </thead>

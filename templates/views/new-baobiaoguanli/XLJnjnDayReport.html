@@ -310,21 +310,28 @@
                                 <li style="float: right"><img id="print" class="printButton" src="../new-resource/img/printIcon.png" alt=""></li>
                                 <div class="clearfix"></div>
                             </ul>
+                            <br>
+                            <div style="line-height: 26px;margin-bottom: 10px">
+                                <label for="">设备：</label>
+                                <div class="input-blocked">
+                                    <select id="dev" style="width: 128px;height: 100%;width: 100%;border: none;outline: none"></select>
+                                </div>
+                            </div>
                             <table id="entry-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">
                                 <thead style="text-align:center">
                                 <tr style="text-align:center">
                                     <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>
-                                    <th colspan="23" id="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>
+                                    <th colspan="24" id="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>
                                 </tr>
                                 <tr>
                                     <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>
-                                    <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="23" class="data-time"></th>
+                                    <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="24" class="data-time"></th>
                                 </tr>
                                 <tr>
                                     <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>
-                                    <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="23" class="derive-time"></th>
+                                    <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="24" class="derive-time"></th>
                                 </tr>
-                                <tr><th colspan="24" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span></span></th></tr>
+                                <tr><th colspan="25" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span id="location"></span><span id="eqName"></span></th></tr>
                                 <tr>
                                     <th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>
                                     <th style="text-align:center;background: #E2E9F2;border:1px solid black">运行状态</th>

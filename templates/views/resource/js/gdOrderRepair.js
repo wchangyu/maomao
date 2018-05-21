@@ -564,7 +564,23 @@ $(function(){
         },
         {
             title:'等待原因',
-            data:'dengyy'
+            data:'dengyy',
+            render:function(data, type, full, meta){
+
+                if(data == 1){
+
+                    return '等待技术支持'
+
+                }else if(data == 2){
+
+                    return '等待配件'
+
+                }else if( data == 3 ){
+
+                    return '等待外委施工'
+
+                }
+            }
         },
         {
             title:'预计完成时间',

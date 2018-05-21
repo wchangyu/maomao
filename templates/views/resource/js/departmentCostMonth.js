@@ -52,9 +52,18 @@ $(function(){
             data:'gdFee'
         },
         {
-            title:'备注',
+            title:'报修日期',
+            data:'gdShij'
+        },
+        {
+            title:'报修内容',
+            data:'bxBeizhu'
+        },
+        {
+            title:'报修内容',
             data:'wxBeizhu'
         }
+
 
     ]
 
@@ -122,15 +131,19 @@ $(function(){
 
         function successFun(result){
 
-            if(result.length == 0){
+            if(result != null){
 
-                return false;
+                if(result.length == 0){
 
-            }else{
+                    return false;
 
-                var dataArr = _packagingTableData(result[1]);
+                }else{
 
-                _jumpNow($('#oneSectionTable'),dataArr.reverse());
+                    var dataArr = _packagingTableData(result[1]);
+
+                    _jumpNow($('#oneSectionTable'),dataArr.reverse());
+
+                }
 
             }
 
