@@ -204,6 +204,12 @@ var Login = function() {
 
         if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded && _isProceLoaded){
 
+            if(sessionStorage.indexUrl){
+
+                _indexUrl = sessionStorage.indexUrl
+
+            }
+
             if(window.screen.width > 2500){
 
                 window.location.href = 'njn-dapingzhanshi/pandectEnergy.html';
@@ -215,9 +221,11 @@ var Login = function() {
                 window.location.href = sessionStorage.redirectFromPage;
                 sessionStorage.removeItem('redirectFromPage');
             }else{
+
                 window.location.href = _indexUrl;
             }
         }
+
         //if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded){
         //    if(sessionStorage.redirectFromPage){
         //        window.location.href = sessionStorage.redirectFromPage;
@@ -551,7 +559,7 @@ var Login = function() {
             handleLogin();      //获取到配置信息后，处理登录相关
         }
 
-    }
+    };
 
 
     var particle = function(){

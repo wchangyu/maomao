@@ -25,7 +25,6 @@
     font-size:14px;
     color:#4C4C4C;
     text-indent:25px;
-
 }
 
 .quota-data-bottom h3 {
@@ -142,9 +141,10 @@ h3 .left-patch {
 }
 
 .right-bottom-content-right .bottom-content-top-introduce .alarm-content span{
-    margin-left:70px;
+    margin-right:20px;
     font-size:20px;
     color:#686868;
+    float: right;
 }
 
 .right-bottom-content-right .bottom-content-top-introduce .alarm-content font{
@@ -284,6 +284,29 @@ h3 .left-patch {
     vertical-align: bottom;
 }
 
+#glwd-container{
+
+    position: absolute;
+    left:42px;
+    top:28px;
+}
+#glwd-container span{
+
+    width:85px;
+    height:25px;
+    display: inline-block;
+    border:1px solid #dadada;
+    text-align: center;
+    line-height: 21px;
+    margin-right:-1px;
+    cursor: pointer;
+    vertical-align: bottom;
+}
+
+#glwd-container .onClick {
+    border-top: 3px solid #36b0a9;
+}
+
 .right-bottom-content-right .consumption-container .onClick{
     border-top:3px solid #36b0a9;
 }
@@ -375,3 +398,4 @@ h3 .left-patch {
     height: 250px !important;
     width: 690px;
 }
+

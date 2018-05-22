@@ -261,6 +261,13 @@ a{
     margin:0 !important;
 }
 
+#eprBox label{
+    margin-right: 0 !important;
+}
+
+#eprBox .btn-success {
+    background: #4796b7 !important;
+}
 
 #eprBox .btn-danger {
     color: #fff;

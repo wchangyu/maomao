@@ -353,6 +353,7 @@ var userMonitor = (function(){
             if(bindKeyId){
                 getAllProcsByBind(_configArg2,bindKeyId);
             }
+
             //按区域绘制对应流程图
         }else if(_configArg1 == 4){
 
@@ -366,9 +367,11 @@ var userMonitor = (function(){
             var procTypeID = _configArg3;
 
             if(bindKeyId){
+
                 if(procTypeID){
 
                     getAllProcsByBind(bindType,bindKeyId,procTypeID);
+
                 }else{
 
                     getAllProcsByBind(bindType,bindKeyId);
@@ -475,6 +478,7 @@ var userMonitor = (function(){
     //设置左侧的监控方案列表
     //如果selectedProc为空默认选中第一个，否则选中传值
     var setProcList = function(procs,selectedProc){
+       // console.log(procs);
         var $ul = $(".content-main-left>ul");
         $(".content-main-left>ul li").remove();
         if(!procs || procs.length==0) {
@@ -2053,7 +2057,8 @@ var userMonitor = (function(){
 
                 initializeProcSubs(_curProc.procID);
 
-                //displayAllProc();
+                //重新绘制左侧选择列表
+                displayAllProc();
             }
         }else{
 
@@ -2156,7 +2161,7 @@ var userMonitor = (function(){
         return false;
     };
 
-    //根据数据返回的结果显示所有的监控流程,显示在右边,默认只显示第一等级，可导航改变
+    //根据数据返回的结果显示所有的监控流程,显示在左边,默认只显示第一等级，可导航改变
     var displayAllProc = function(){
         var procLVs = [],tmpprocLVs = [];
         if(_configArg1){

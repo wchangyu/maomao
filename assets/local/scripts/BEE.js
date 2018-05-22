@@ -959,6 +959,7 @@ var BEE = (function(){
         }
         return -1;
     };
+
     //定义数组删除某个元素的方法
     Array.prototype.remove = function(val) {
         var index = this.indexOf(val);
@@ -1655,7 +1656,7 @@ var BEE = (function(){
 
         return testStr.indexOf(","+val+",")!=-1;
 
-    }
+    };
 
 
     //更新页面中楼宇树状图
@@ -1884,7 +1885,7 @@ var BEE = (function(){
 
         });
 
-    }
+    };
 
     //判断是否引用了某个js或css
     function isInclude(name){
@@ -1893,7 +1894,7 @@ var BEE = (function(){
         for(var i=0;i<es.length;i++)
             if(es[i][js?'src':'href'].indexOf(name)!=-1)return true;
         return false;
-    }
+    };
 
     //iframe只显示部分div
 
@@ -1915,7 +1916,7 @@ var BEE = (function(){
         $('body').css({background:'#ffffff'});
 
         $('.toggler').hide();
-    }
+    };
 
     return {
 
@@ -1963,7 +1964,6 @@ var BEE = (function(){
 
                         drawChangeUnitButton();
                     }
-
                 }
 
             }
