@@ -83,7 +83,7 @@
         var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
         var mt= moment(dtstr);
         var nowDt=mt.format('YYYY-MM-DD');
-        var startDt = mt.subtract(7, 'days').format('YYYY-MM-DD');
+        var startDt = mt.subtract(1, 'days').format('YYYY-MM-DD');
         $("#spDT").val(startDt);
         $("#epDT").val(nowDt);
         $('.abbrDT').datetimepicker({
@@ -104,15 +104,26 @@
     //改变复选框的Checked选项
     var changeCheckBoxAttr =function () {
         $("[name=chkDC]:checkbox").bind("click", function () {
-            if ($(this).attr('tag') === "L") {
-                //$('#cbxWT').removeAttr("checked");
-                $('#cbxWT').attr("checked",false);
-            }
-            if ($(this).attr('tag') === "W") {
-                //$('#cbxE').removeAttr("checked");
+
+            if( $(this).attr('tag') === 'L' ){
+
+                //水温互斥，
+                $('#cbxWT').attr('checked',false);
+
+                $('#cbxWT').parent('span').removeClass('checked');
+
+            }else if( $(this).attr('tag') === 'W' ){
+
+                //电量互斥
                 $('#cbxE').attr('checked',false);
-                //$('#cbxC').removeAttr("checked");
+
+                $('#cbxE').parent('span').removeClass('checked');
+
+                //冷量互斥
                 $('#cbxC').attr('checked',false);
+
+                $('#cbxC').parent('span').removeClass('checked');
+
             }
         });
     }
@@ -121,12 +132,15 @@
     var getAbbrDs = function () {
         var arostr = "";
         $("input[name=chkDC]:checked").each(function () {
+
             arostr += $(this).val() + ",";
         });
+
         if( arostr === undefined || arostr.length === 0){
             console.log('提示(参数分析):请选择分项参数');
             return false;
         }
+
         jQuery('#abbrBusy').showLoading();
         mycv = echarts.init(document.getElementById('eerMain'));
         var sp = $("#spDT").val();
@@ -168,13 +182,25 @@
                     cgs.push(object);
                 }
                 var yAs = [];
+
                 if (lgs.length == 1) {
                     var object = {};
                     object.type = "value";
                     object.name = "能效";
                     object.min = 0;
-                    object.max = 7;
-                    object.interval = 0.7;
+                    if(sessionStorage.misc == 2){
+
+                        object.max = 5;
+                        object.interval = 0.5;
+
+                    }else{
+
+                        object.max = 3;
+                        object.interval = 0.3;
+
+                    }
+                    //object.max = 7;
+                    //object.interval = 0.7;
                     yAs.push(object);
                 }
                 else {
@@ -184,8 +210,21 @@
                         if (i == 0) {
                             object.name = "能效";
                             object.min = 0;
-                            object.max = 7;
-                            object.interval = 0.7;
+
+                            if(sessionStorage.misc == 2){
+
+                                object.max = 5;
+                                object.interval = 0.5;
+
+                            }else{
+
+                                object.max = 3;
+                                object.interval = 0.3;
+
+                            }
+
+                            //object.max = 7;
+                            //object.interval = 0.7;
                         }
                         else {
                             if (IsCalsW === true) {

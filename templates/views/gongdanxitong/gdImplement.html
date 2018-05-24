@@ -648,11 +648,35 @@
                                                 </thead>
                                                 <tbody></tbody>
                                             </table>
-                                            <div style="padding: 10px;"><label>工时费（元）&nbsp;&nbsp;&nbsp;:</label><input type="text" id="hourFee" style="outline: none;margin-left: 20px;"></div>
-                                            <div style="padding: 10px;"><label>合计金额（元）:</label><input type="text" id="total" style="outline: none;margin-left: 20px;"></div>
+                                            <div style="padding: 10px;display: none"><label>工时费（元）&nbsp;&nbsp;&nbsp;:</label><input type="text" id="hourFee" style="outline: none;margin-left: 20px;"></div>
+                                            <div style="padding: 10px;"><label>材料小计（元）:</label><input type="text" id="total" style="outline: none;margin-left: 20px;"></div>
                                         </div>
                                     </div>
-                                    <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                    <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                                        <div class="tipe-block">工时费清单</div>
+
+                                        <div class="tableHover">
+                                            <div class="" style="padding-top:10px;">
+                                                <div class="label label-sm label-warning addGS" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;cursor: pointer;">
+                                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>添加工时
+                                                </div>
+                                            </div>
+                                            <table class="table table-hover cl-table" id="gs-list">
+                                                <thead>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                            <div style="padding: 10px;"><label>维修费用小计（元）:</label><input type="text" id="totalGS" style="outline: none;margin-left: 20px;"></div>
+                                        </div>
+                                    </div>
+                                    <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                                        <div class="tipe-block">工单费用总计</div>
+                                        <div class="tableHover">
+                                            <div style="padding: 10px;"><label>工单费用总计:&nbsp;&nbsp;&nbsp;&nbsp;</label><input id="zFee"
+                                                    type="text"></div>
+                                        </div>
+                                    </div>
+                                    <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
                                         <div class="tipe-block">验收人</div>
                                         <div class="tableHover">
                                             <div style="padding: 10px;"><label>验收人选择:&nbsp;&nbsp;&nbsp;&nbsp;</label><select id="receiver" style="width:120px;"></select></div>
@@ -826,7 +850,7 @@
                             </div>
                         </li>
                         <li class="floatLeft">
-                            <div class="labels">分类名称：</div>
+                            <div class="labels">仓库：</div>
                             <div class="input-blockeds">
                                 <select id="flmcs"></select>
                             </div>
@@ -1137,7 +1161,136 @@
         </div>
     </div>
 </div>
-
+<!--选择工时费弹窗-->
+<div class="modal fade" id="fee-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 676px;width: 1000px !important;">
+        <div class="modal-content" style="height: 676px;width: 1000px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">添加维修费用</h4>
+            </div>
+            <div class="modal-body">
+                <!--主体部分-->
+                <div class="gongdanList" id="GS" style="height: 513px;overflow-y: auto;font-size: 14px;overflow-x: hidden">
+                    <div class="label label-sm label-warning selectFY" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;cursor: pointer;">
+                        <i class="fa fa-plus" style="margin-right: 2px;"></i>项目费用选择
+                    </div>
+                    <validator name="validation">
+                        <form novalidate>
+                            <!--填写材料-->
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line" >
+                                    <div class="single-labels starRed" style="font-size: 14px;width: 90px;">项目名称</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="mc" class="no-edit">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels starRed" style="font-size: 14px;width: 90px;">项目编码</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="bm" class="no-edit">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels starRed" style="font-size: 14px;width: 90px;">项目类别</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="lb" class="no-edit">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels starRed" style="font-size: 14px;width: 90px;">费用（元）</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="fee" class="no-edit">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels starRed" style="font-size: 14px;width: 90px;">数量</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="sl" @keyup="numFun()">
+                                    </div>
+                                    <div style="height: 32px">
+                                        <span class="colorTip errorFee" style="display: none;text-indent: 93px;line-height: 30px;height: 30px;">请输入大于0的整数</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels" style="font-size: 14px;width: 90px;">备注</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="remark" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="float: right;margin-right: 20px;">
+                                <button type="button" class="btn btn-success" id="addRKFee">添加</button>
+                                <button type="button" class="btn btn-success" id="addResetFee">重置</button>
+                            </div>
+                        </form>
+                    </validator>
+                    <table class="table table-hover cl-table" id="gs-selecting">
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="appendToGS">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--选择材料-->
+<div class="modal fade" id="fee-ModalList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 520px;">
+        <div class="modal-content" style="height: 520px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">操作维修备件</h4>
+            </div>
+            <div class="modal-body">
+                <div class="gongdanContent" style="height: 360px;">
+                    <ul class="gongdanList">
+                        <li class="floatLeft">
+                            <div class="labels">项目编码 ：</div>
+                            <div class="input-blockeds">
+                                <input type="text" id="feeBM">
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels">项目名称 ：</div>
+                            <div class="input-blockeds">
+                                <input type="text" id="feeMC">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">项目分类：</div>
+                            <div class="input-blockeds">
+                                <select id="flmcs1"></select>
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <button type="button" class="btn btn-success tianJiaFee" style="margin-top: 27px;">查询</button>
+                            <div class="alert alert-danger exists" style="text-align: center;width: 200px;float:right;"> <button class="close" data-close="alert"></button>
+                                <span>该物料已存在</span>
+                            </div>
+                        </li>
+                        <div class="clearfix"></div>
+                    </ul>
+                    <table id="gsTable" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0" width="100%">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm addGS1">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <!--选择故障位置弹窗-->
 <div class='modal fade' id='choose-area' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
     <div class='modal-dialog'style='width:430px;margin:10% auto'>
@@ -1360,7 +1513,22 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-
+<!--第二层删除模态框-->
+<div class="modal fade" id="second-Del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">

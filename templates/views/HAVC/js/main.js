@@ -299,7 +299,7 @@
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWCZTNOW";
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'EC'
         }, function (res) {
 
@@ -324,7 +324,7 @@
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWCZTNOW";
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'WC'
         }, function (res) {
             if (res.code === 0) {
@@ -347,7 +347,7 @@
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWHZTNOW";
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'EH'
         }, function (res) {
 
@@ -372,7 +372,7 @@
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWHZTNOW";
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'WH'
         }, function (res) {
             if (res.code === 0) {
@@ -395,10 +395,13 @@
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWCLXNOW";
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'EC'
         }, function (res) {
             if (res.code === 0) {
+
+                console.log(res);
+
                 $('#span_ec_lx_c_text').html(numberTwo(res.cV));
                 $('#span_ec_lx_e_text').html(numberTwo(res.eV));
                 $('#span_ec_lx_cop_text').html(numberTwo(res.copV));
@@ -421,7 +424,7 @@
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWCLXNOW";
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'WC'
         }, function (res) {
             if (res.code === 0) {
@@ -447,7 +450,7 @@
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWCXLNOW";
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'EC'
         }, function (res) {
             if (res.code === 0) {
@@ -474,7 +477,7 @@
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWCXLNOW";
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'WC'
         }, function (res) {
             if (res.code === 0) {
@@ -499,9 +502,10 @@
     //东冷站_地源热泵系统
     var init_e_c_rb_v_text = function () {
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWCRBNOW";
+
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'EC'
         }, function (res) {
             if (res.code === 0) {
@@ -527,7 +531,7 @@
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWCRBNOW";
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'WC'
         }, function (res) {
             if (res.code === 0) {
@@ -555,7 +559,7 @@
 
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'EC'
         }, function (res) {
 
@@ -579,7 +583,7 @@
 
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'WC'
         }, function (res) {
 
@@ -601,7 +605,7 @@
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWHEQNOW";
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'EH'
         }, function (res) {
 
@@ -626,7 +630,7 @@
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWHEQNOW";
         $.post(url, {
             pId: sessionStorage.PointerID,
-            dt: sysrealdt,
+            dt: moment().format('YYYY-MM-DD HH:mm:ss'),
             AREA: 'WH'
         }, function (res) {
             if (res.code === 0) {

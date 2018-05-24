@@ -63,6 +63,29 @@
             margin: 0 auto;
             padding: 10px 20px;
         }
+        .ztree li span.button.chk{
+
+            width: 21px !important;
+
+            height: 21px !important;
+
+        }
+        .ztree li span.button{
+
+            width: 21px !important;
+
+            height: 21px !important;
+
+        }
+        .checkState{
+
+            background: url("../new-resource/img/checStatus.png") no-repeat;
+
+            background-position: center;
+
+            background-size: 15px;
+
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -293,7 +316,21 @@
                                     </div>
                                 </li>
                                 <li style="line-height: 26px;">
-                                    <label for="">能源站：</label>
+                                    <label for="">报表类型：</label>
+                                    <div class="input-blocked">
+                                        <select id="dev-type" style="width: 128px;height: 100%;width: 100%;border: none;outline: none">
+                                            <option value="1" data-value="2">空调箱</option>
+                                            <option value="2" data-value="1">换热站</option>
+                                            <option value="3" data-value="1">蒸汽换热罐</option>
+                                            <option value="4" data-value="1">离心机</option>
+                                            <option value="5" data-value="1">溴化锂机</option>
+                                            <option value="6" data-value="1">地源热泵</option>
+                                            <option value="7" data-value="1">冷却塔</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li style="line-height: 26px;" id="areablock">
+                                    <label for="">区域：</label>
                                     <div class="input-blocked">
                                         <select id="area" style="width: 128px;height: 100%;width: 100%;border: none;outline: none"></select>
                                     </div>
@@ -313,56 +350,34 @@
                             <br>
                             <div style="line-height: 26px;margin-bottom: 10px">
                                 <label for="">设备：</label>
-                                <div class="input-blocked">
-                                    <select id="dev" style="width: 128px;height: 100%;width: 100%;border: none;outline: none"></select>
+                                <div class="input-blocked" style="position: relative;">
+                                    <select id="dev" style="width: 128px;height: 100%;width: 100%;border: none;outline: none">
+                                    </select>
+                                    <div class="ztreeblock" style="background: #ffffff;display:none;border:1px solid black;padding: 10px;position: absolute;top: 30px;left:-1px;">
+                                        <div>
+                                            <!--全选-->
+                                            <label for="checkAll">全选</label><span style="display: inline-block;vertical-align:middle;width: 20px;height: 20px;border: 1px solid #cccccc" id="checkAll"></span>
+                                            <!--全不选-->
+                                            <label for="cancelAll">取消</label><span style="display: inline-block;vertical-align:middle;width: 20px;height: 20px;border: 1px solid #cccccc" id="cancelAll"></span>
+                                        </div>
+                                        <ul class="ztree" id="dev-tree" style="width: 240px;min-height: 200px;"></ul>
+                                        <input type="text" id="key" class="empty form-control" placeholder="搜索..." style="border: 1px solid #cccccc;margin: 10px 0;text-indent: 10px;">
+                                        <div id="tip" style="line-height: 30;color: red;height: 30px;"></div>
+                                        <div style="text-align: center">
+                                            <button class="btn btn-success btn1" id="selectDev">选择</button>
+                                            <button class="btn btn-default btn1" style="margin-left: 5px" id="cancelDev">关闭</button>
+                                        </div>
+
+                                    </div>
                                 </div>
+
+                                <div id="alreadySelect" style="display: inline-block"></div>
                             </div>
-                            <table id="entry-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">
-                                <thead style="text-align:center">
-                                <tr style="text-align:center">
-                                    <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>
-                                    <th colspan="19" id="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>
-                                </tr>
-                                <tr>
-                                    <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>
-                                    <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="19" class="data-time"></th>
-                                </tr>
-                                <tr>
-                                    <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>
-                                    <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="19" class="derive-time"></th>
-                                </tr>
-                                <tr><th colspan="20" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span id="location"></span><span id="eqName"></span></th></tr>
-                                <tr>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">运行状态</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度设定（℃）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度（℃）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻回水温度（℃）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">地源出水温度（℃）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">地源回水温度（℃）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸发器压力（kPa）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸发饱和温度（℃）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷凝器压力（kPa）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷凝饱和温度（℃）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻水进口压力（kPa）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻水出口压力（kPa）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">地源出水压力（kPa）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">地源回水压力（kPa）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">运行功率（kW）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">累计运行时间（h）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">上一小时电耗（kWh）</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">手/自动状态</th>
-                                    <th style="text-align:center;background: #E2E9F2;border:1px solid black">新增故障报警</th>
-                                </tr>
+                            <!--空调箱-->
+                            <div class="table-area">
 
+                            </div>
 
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                <tfoot>
-
-                                </tfoot>
-                            </table>
                         </div>
                     </div>
                 </div>
@@ -428,7 +443,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel3">提示</h4>
             </div>
-            <div class="modal-body">未完成状态工单无法进行撤销操作</div>
+            <div class="modal-body"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -488,8 +503,7 @@
         EPMA.init();
     });
 </script>
-<script src="../new-resource/js/baobiaoguanli/DYRBnjnDayReport.js"></script>
-<script src="../new-resource/js/baobiaoguanli/pointerAndEnergy.js"></script>
+<script src="../new-resource/js/baobiaoguanli/runningReport.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

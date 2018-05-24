@@ -234,7 +234,8 @@
         $.post(url,{
             pId:sessionStorage.PointerID,
             SysrealDt:encodeURIComponent(sessionStorage.sysDt),
-            misc:sessionStorage.misc
+            misc:sessionStorage.misc,
+            stp:sessionStorage.showstep
         },function (res) {
             if(res.code===0){
 
@@ -441,18 +442,7 @@
                 var dvs = [];
                 for (var i = 0; i < res.ys.length; i++) {
                     var object = {};
-
-                    if(sessionStorage.misc == 1){
-
-                        object.name = "冷站实时功率(KW)";
-
-                    }else if(sessionStorage.misc == 2){
-
-                        object.name = "冷站实时功率(RT)";
-
-                    }
-
-
+                    object.name = "冷站实时功率(KW)";
                     object.type = "line";
                     object.data = [];
                     for (var j = 0; j < res.ys[i].length; j++) {
@@ -502,15 +492,7 @@
                     series: dvs
                 };
 
-                if(sessionStorage.misc == 1){
-
-                    option.legend.data[0] = '冷站实时功率(KW)';
-
-                }else if( sessionStorage.misc == 2 ){
-
-                    option.legend.data[0] = '冷站实时功率(RT)';
-
-                }
+                option.legend.data[0] = '冷站实时功率(KW)';
 
                 myPowerLineMain.setOption(option, true);
             }else if(res.code===-1){
@@ -612,9 +594,23 @@
                     yAxis.push(object);
                 }
                 var ys = [];
+
+                var resLgs = [];
+
+
+                if(sessionStorage.misc == 1){
+
+                    resLgs = ["冷量(KW)", "冷机功率(KW)", "散热量(KW)", "热不平衡率(%)"]
+
+                }else if(sessionStorage.misc == 2){
+
+                    resLgs = ["冷量(RT)", "冷机功率(KW)", "散热量(RT)", "热不平衡率(%)"]
+
+                }
+
                 for (var i = 0; i < res.ys.length; i++) {
                     var object = {};
-                    object.name = res.lgs[i];
+                    object.name = resLgs[i];
                     object.type = "line";
                     if (i == res.ys.length - 1) {
                         object.yAxisIndex = 1;
@@ -631,7 +627,7 @@
                         trigger: 'axis'
                     },
                     legend: {
-                        data: res.lgs
+                        data: resLgs
                     },
                     xAxis: xs,
                     yAxis: yAxis,
@@ -1119,7 +1115,7 @@
 
             type:'post',
 
-            url:_urls + '/Main/GetNowCTypeIDs',
+            url:_urls + 'Main/GetNowCTypeIDs',
 
             timeout:_theTimes,
 
@@ -1249,13 +1245,32 @@
             initElePriceColdData();
 
             //显示折标能效
-            if(sessionStorage.showstep == '1'){
+
+            var flagZB = false;
+
+            //判断session中的PointerID是否在steps数组中
+            if(sessionStorage.steps.indexOf(sessionStorage.PointerID)>0){
+
+                flagZB = true;
+
+            }else{
+
+                flagZB = false;
+
+            }
+
+
+            if(flagZB){
+
+                //显示折标
+
+                sessionStorage.showstep = 1;
 
                 showBK();
 
+            }else if(!flagZB ){
 
-            }else if(sessionStorage.showstep == '0' ){
-
+                sessionStorage.showstep = 0;
 
                 hideBK();
 
@@ -1282,12 +1297,12 @@
                 initElePriceColdData();
 
                 //显示折标能效
-                if(sessionStorage.showstep == '1'){
+                if(flagZB){
 
                     showBK();
 
 
-                }else if(sessionStorage.showstep == '0' ){
+                }else if(!flagZB){
 
 
                     hideBK();

@@ -28,76 +28,96 @@ $(function(){
 
     $('#selected').click(function(){
 
+        tableInit();
+
         conditionSelect($('#pointer').val());
 
     })
 
+    /*------------------------------其他方法--------------------------*/
 
-})
+    function conditionSelect(pointer){
 
-function conditionSelect(pointer){
+        var prm = {
 
-    var prm = {
+            //楼宇id
+            pId:pointer,
 
-        //楼宇id
-        pId:pointer,
+            //能源站
+            AREA:$('#area').val(),
 
-        //能源站
-        AREA:$('#area').val(),
+            //时间
+            sp:$('.datatimeblock').val()
 
-        //时间
-        sp:$('.datatimeblock').val()
+        };
 
-    };
+        _mainAjaxFun('post','MultiReportRLgs/GetReportLZSBRLgs',prm,successFun);
 
-    _mainAjaxFun('post','MultiReportRLgs/GetReportLZSBRLgs',prm,successFun);
-
-
-}
-
-function successFun(result){
-
-    if(result){
-
-        //报表名称
-        $('#table-titleH').html(result.report_Name);
-        //数据时间
-        $('.data-time').html(result.report_Dt);
-        //导出时间
-        excelTime = moment().format('YYYY/MM/DD');
-        $('.derive-time').html(excelTime);
-        //位置
-        $('#location').html(result.location);
-        //设备
-        $('#eqName').html(result.eqname);
-        //循环数据
-        if(result.report_list>0){
-
-            //将属性重新排列
-
-            var str = '';
-
-            for(var i=0;i<result.report_list.length;i++){
-
-                str += '<tr>';
-
-                //遍历属性，生成td j是属性
-                for(var j in result.report_list[i] ){
-
-                    str += '<td>' + result.report_list[i][j] +'</td>';
-
-                }
-
-                str +='</tr>'
-
-
-            }
-
-            $('.table').find('tbody').empty().append(str);
-
-        }
 
     }
 
+    function successFun(result){
 
-}
+        if(result){
+
+            //报表名称
+            $('#table-titleH').html(result.report_Name);
+            //数据时间
+            $('.data-time').html(result.report_Dt);
+            //导出时间
+            excelTime = moment().format('YYYY/MM/DD');
+            $('.derive-time').html(excelTime);
+            //位置
+            $('#location').html(result.location);
+            //设备
+            $('#eqName').html(result.eqname);
+            //循环数据
+            if(result.report_list>0){
+
+                //将属性重新排列
+
+                var str = '';
+
+                for(var i=0;i<result.report_list.length;i++){
+
+                    str += '<tr>';
+
+                    //遍历属性，生成td j是属性
+                    for(var j in result.report_list[i] ){
+
+                        str += '<td>' + result.report_list[i][j] +'</td>';
+
+                    }
+
+                    str +='</tr>'
+
+
+                }
+
+                $('.table').find('tbody').empty().append(str);
+
+            }
+
+        }
+
+
+    }
+
+    //表格初始化
+    function tableInit(){
+
+        //报表名称
+        $('#table-titleH').html('');
+        //数据时间
+        $('.data-time').html('');
+        //导出时间
+        $('.derive-time').html('');
+        //位置
+        $('#location').html('');
+        $('#eqName').html('');
+        //表格初始化
+        $('.table tbody').empty();
+
+    }
+
+})

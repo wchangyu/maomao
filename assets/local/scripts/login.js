@@ -499,6 +499,10 @@ var Login = function() {
                     var misc = data["misc"] || '';
                     sessionStorage.misc = misc;
 
+                    //是否显示折标能效（数组）
+                    var steps = data["steps"] || '';
+                    sessionStorage.steps = steps;
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 

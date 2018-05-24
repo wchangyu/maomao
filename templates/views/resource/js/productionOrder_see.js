@@ -196,7 +196,7 @@ $(function(){
                 $('.bjpicture').show();
 
             }
-            _imgWGNum = 0;
+            _imgWGNum = result.hasWgImage;
             //按钮显示隐藏
             if( _imgWGNum == 0 ){
 

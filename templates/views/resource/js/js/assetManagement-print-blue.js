@@ -902,7 +902,7 @@ $(function(){
                         '</div> </div> <div class="three-block"> <div class="three-left"> <div class="row-list"> <div class="row-three-left">规格型号</div> <div class="row-three-right">' + result[i].spec +
                         '</div> </div> <div class="row-list"> <div class="row-three-left">启用日期</div> <div class="row-three-right">' + installTime(result[i].installDate) +
                         '</div> </div> <div class="row-list"> <div class="row-three-left">管理单位</div> <div class="row-three-right">' + result[i].daName +
-                        '</div> </div> <div class="row-list"> <div class="row-three-left">产权单位</div> <div class="row-three-right">南昌铁路局</div> </div> <div class="row-list"> <div class="row-three-left">维护单位</div> <div class="row-three-right">江西铁路实业发展有限公司</div> </div> </div> <div class="img-block"> <img  src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum +
+                        '</div> </div> <div class="row-list"> <div class="row-three-left">产权单位</div> <div class="row-three-right">中国铁路南昌局集团有限公司</div> </div> <div class="row-list"> <div class="row-three-left">维护单位</div> <div class="row-three-right">江西铁路实业发展有限公司</div> </div> </div> <div class="img-block"> <img  src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum +
                         '" alt="" > </div> </div> <div class="row-list" style="border-bottom: none"> <div class="row-two-left">报修电话：018-29999 </div> <div class="row-two-right">设备编码：<span>' + result[i].dNum +
                         '</span> </div> </div> </div> </div>'
 

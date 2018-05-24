@@ -238,7 +238,7 @@
                 var idxK = parseInt(res.idxK);
                 $('#tableMark').children('tbody').children('tr').eq(0).children('td').eq(idxK).removeClass('color').html('当前楼(' + lzeerV + ')');
                 $('#tableMark').children('tbody').children('tr').eq(1).children('td').eq(idxK).addClass('markindicator');
-                $('#emisc').html("KWH/KWH");
+                //$('#emisc').html("KWH/KWH");
                 //$('#cmisc').html("KWH");
                 //$('#eer_com_c_misc').html('KWH');
                 //$('#eer_com_cpirceV_misc').html('KWH');

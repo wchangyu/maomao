@@ -1013,6 +1013,23 @@ function _errorFun(XMLHttpRequest, textStatus, errorThrown){
 
 }
 
+//失败方法2
+function _errorFun1(XMLHttpRequest, textStatus, errorThrown){
+
+    $('#theLoading').modal('hide');
+
+    if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+        console.log('请求超时')
+
+    }else{
+
+        console.log('请求失败')
+
+    }
+
+}
+
 //ajaxerror方法
 function _mainAjaxFun(type,url,prm,successFun){
 

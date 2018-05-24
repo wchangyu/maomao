@@ -1,7 +1,5 @@
 *{
     box-sizing: border-box;
-
-    font-weight: bold;
 }
 .print-block-cel{
     display: inline-block;  border:2px solid #333333;  margin: 20px 30px;  overflow: hidden;margin-bottom: 30px;

@@ -293,12 +293,6 @@
                                     </div>
                                 </li>
                                 <li style="line-height: 26px;">
-                                    <label for="">能源站：</label>
-                                    <div class="input-blocked">
-                                        <select id="area" style="width: 128px;height: 100%;width: 100%;border: none;outline: none"></select>
-                                    </div>
-                                </li>
-                                <li style="line-height: 26px;">
                                     <label for="">选择时间：</label>
                                     <div class="input-blocked">
                                         <input type="text" class="datatimeblock min form-control"/>
@@ -310,6 +304,13 @@
                                 <li style="float: right"><img id="print" class="printButton" src="../new-resource/img/printIcon.png" alt=""></li>
                                 <div class="clearfix"></div>
                             </ul>
+                            <br>
+                            <div style="line-height: 26px;margin-bottom: 10px">
+                                <label for="">设备：</label>
+                                <div class="input-blocked">
+                                    <select id="dev" style="width: 128px;height: 100%;width: 100%;border: none;outline: none"></select>
+                                </div>
+                            </div>
                             <table id="entry-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">
                                 <thead style="text-align:center">
                                 <tr style="text-align:center">
@@ -324,7 +325,7 @@
                                     <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>
                                     <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="14" class="derive-time"></th>
                                 </tr>
-                                <tr><th colspan="16" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span></span></th></tr>
+                                <tr><th colspan="16" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span id="location"></span><span id="eqName"></span></th></tr>
                                 <tr>
                                     <th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>
                                     <th style="text-align:center;background: #E2E9F2;border:1px solid black">子系统控制模式</th>

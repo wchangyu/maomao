@@ -1958,6 +1958,36 @@
         "iconclass": "",
         "target": "",
         "arg2": "admin,WXBZ01"
+      },
+      "设备运行报表": {
+        "type": "0",
+        "content": "设备运行报表",
+        "uri": "../gongdanxitong/equipmentRunningReport.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
+      },
+      "某个设备运行报表": {
+        "type": "0",
+        "content": "设备运行报表",
+        "uri": "../gongdanxitong/oneEquipmentRunningReport.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
+      },
+      "污水站录入": {
+        "type": "0",
+        "content": "污水站录入",
+        "uri": "../gongdanxitong/managementOfSewage.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
       }
     }
   },

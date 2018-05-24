@@ -197,7 +197,15 @@ $(function(){
             data:'gdFee'
         },
         {
-            title:'备注',
+            title:'报修日期',
+            data:'gdShij'
+        },
+        {
+            title:'报修内容',
+            data:'bxBeizhu'
+        },
+        {
+            title:'维修内容',
             data:'wxBeizhu'
         }
 
@@ -385,16 +393,19 @@ $(function(){
 
             success:function(result){
 
+                if(result != null){
 
-                if(result.length == 0){
+                    if(result.length == 0){
 
-                    return false;
+                        return false;
 
-                }else{
+                    }else{
 
-                    var dataArr = _packagingTableData(result[1]);
+                        var dataArr = _packagingTableData(result[1]);
 
-                    _jumpNow(table,dataArr.reverse());
+                        _jumpNow(table,dataArr.reverse());
+
+                    }
 
                 }
 

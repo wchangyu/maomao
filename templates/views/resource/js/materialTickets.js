@@ -18,6 +18,8 @@ $(function(){
 
     $('.datatimeblock').eq(1).val(et);
 
+    //条件查询车站
+    addStationDom($('#bumen').parent());
 
     /*------------------------------------------表格初始化---------------------------------------------*/
 
@@ -192,7 +194,9 @@ $(function(){
             //结束时间
             et:moment($('.datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD'),
             //维保车间
-            bxKeshiNum:$('#bumen').val(),
+            wxKeshiNum:$('#bumen1').val(),
+            //车站
+            bxKeshiNum:$('.add-input-select').children('span').attr('values'),
             //票料号码
             pickListNum:$('.filterInput').eq(0).val(),
             //工单号码
@@ -322,15 +326,15 @@ $(function(){
                     }
 
                     //赋值
-                    $('#bumen').empty().append(WBZstr);
+                    $('#bumen1').empty().append(WBZstr);
 
                     $('#wxBz').empty().append(WXBZstr);
 
                     if(AisWBZ){
 
-                        $('#bumen').val(_maintenanceTeam);
+                        $('#bumen1').val(_maintenanceTeam);
 
-                        $('#bumen').attr('disabled',true).addClass('disabled-block');
+                        $('#bumen1').attr('disabled',true).addClass('disabled-block');
 
                     }else if(AisBZ){
 
@@ -341,9 +345,9 @@ $(function(){
 
                             if(_maintenanceTeam == result.wxBanzus[i].departNum){
 
-                                $('#bumen').val(result.wxBanzus[i].parentNum)
+                                $('#bumen1').val(result.wxBanzus[i].parentNum)
 
-                                $('#bumen').attr('disabled',true).addClass('disabled-block');
+                                $('#bumen1').attr('disabled',true).addClass('disabled-block');
 
                             }
 
@@ -351,7 +355,7 @@ $(function(){
 
                     }else{
 
-                        $('#bumen').attr('disabled',false).removeClass('disabled-block');
+                        $('#bumen1').attr('disabled',false).removeClass('disabled-block');
 
                     }
 
