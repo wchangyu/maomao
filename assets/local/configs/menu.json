@@ -390,7 +390,7 @@
         "content": "监控总览",
         "uri": "../yongnengjiance/energyMonitor.html?a=1",
         "uid": "",
-        "arg": "2,18",
+        "arg": "2,10",
         "iconclass": ""
       },
       "测试一下": {
@@ -438,7 +438,7 @@
         "content": "电梯3",
         "uri": "../njn-dapingzhanshi/elevator.html",
         "uid": "",
-        "arg": "0,35",
+        "arg": "2,35",
         "iconclass": ""
       },
       "动环3": {

@@ -123,7 +123,6 @@ function ywGetAlarmSetGD(flag){
             "b_UserRole": _userRole,
             "b_DepartNum": _userBM
         };
-
     }
 
     $.ajax({
@@ -137,7 +136,7 @@ function ywGetAlarmSetGD(flag){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
             $("#entry-datatables").hideLoading();
 
@@ -157,6 +156,8 @@ function ywGetAlarmSetGD(flag){
                 //系统派单条件
                 tbodyHtml += "<td>"+ o.cNameT+"</td>";
 
+                tbodyHtml += "</tr>";
+
             });
 
             return false;
@@ -175,4 +176,51 @@ function ywGetAlarmSetGD(flag){
             }
         }
     });
+};
+
+//给后台提交数据
+function ywAlarmSetGDUpt(){
+
+
+    var prm ={
+        "alarmgis": [
+            {
+                "pointerID": "string",
+                "cDataID": 0,
+                "flag": 0,
+                "cNameT": "string",
+                "alarmName": "string",
+                "memo": "string",
+                "expression": "string"
+            }
+        ],
+        userID:_userIdNum,  //当前用户id
+        userName:_userIdName,  //当前用户名
+        "b_UserRole": _userRole,
+        "b_DepartNum": _userBM
+    };
+
+    $.ajax({
+        type:'post',
+        url:_urls + 'NJNDeviceShow/ywAlarmSetGDUpt',
+        data:prm,
+        timeout:_theTimes,
+        success:function(result){
+
+            var str = '<option value="">全部</option>';
+
+            for(var i=0;i<result.length;i++){
+
+                str += '<option value="' + result[i][attrNum] + '">' + result[i][attrName] + '</option>';
+
+            };
+
+            el1.empty().append(str);
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR.responseText);
+        }
+    })
+
 };

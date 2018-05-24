@@ -121,8 +121,8 @@ $(function() {
 
         }else if(energyStatementID == 4){
 
-            //获取车站分享水耗报表
-            getEnergyItemReports();
+            //获取车站分项水耗报表
+            getEnergyItemWaterReports();
 
             //展示当前表格
             $('#entry-water-datatables').show();
@@ -279,11 +279,11 @@ function dynamicDrawThead1(arr,tableID,priceArr){
 
         if(i == arr.length - 1){
 
-            subentryNameHtml +=  '<th style="text-align:center;background: #E2E9F2;border:1px solid black">'+ o.showTitle+'</th>';
+            subentryNameHtml +=  '<th style="text-align:center;background: #E2E9F2;border:1px solid black" class="change-colspan-data">'+ o.showTitle+'</th>';
 
         }else{
 
-            subentryNameHtml +=  '<th style="text-align:center;background: #E2E9F2;border:1px solid black" class="change-colspan-data">'+ o.showTitle+'</th>';
+            subentryNameHtml +=  '<th style="text-align:center;background: #E2E9F2;border:1px solid black" >'+ o.showTitle+'</th>';
 
         }
 
@@ -316,7 +316,7 @@ function dynamicDrawThead1(arr,tableID,priceArr){
     if(arrLength < 8){
 
         //计算第六行中单价空白区域长度
-        var colspan3 = 9 - arrLength;
+        var colspan3 = 9 - priceArr.length * 2;
 
         $(tableID + ' '+ '.change-colspan-price').attr('colspan',colspan3);
 
@@ -340,6 +340,7 @@ function dynamicDrawThead1(arr,tableID,priceArr){
 
         //计算第六行中单价空白区域长度
         var colspan3 = 3;
+
 
         $(tableID + ' '+ '.change-colspan-price').attr('colspan',colspan3);
 
@@ -717,11 +718,11 @@ function getEnergyDataReport(){
             var tbodyHtml;
 
             //判断数据长度是否小于最小长度
-            if(result.energyTitles < 8){
+            if(result.energyTitles.length < 8){
 
                 //计算需要最后一列长度
 
-                var addLength = 9 -result.energyTitles;
+                var addLength = 9 -result.energyTitles.length;
 
                 tbodyHtml = drawTbodyData(result.energyItemDTDatas,addLength);
 
@@ -882,7 +883,7 @@ function getEnergyKPIReport(){
 };
 
 //获取车站分项水耗报表
-function getEnergyItemReports(){
+function getEnergyItemWaterReports(){
 
     //获取当前车站
     var pointerID = $('#alarm-station').val();
@@ -918,7 +919,7 @@ function getEnergyItemReports(){
 
     $.ajax({
         type:'post',
-        url:sessionStorage.apiUrlPrefix + 'EnergyReportV2/GetEnergyItemReport',
+        url:sessionStorage.apiUrlPrefix + 'EnergyReportV2/GetNJNWaterStationEnergyItemReport',
         data:ecParams,
         beforeSend:function(){
 
@@ -927,12 +928,14 @@ function getEnergyItemReports(){
         },
         success:function(result){
 
+            console.log(result);
+
             $('.bottom-main-table').hideLoading();
 
             //报表名称
             var title = $('#select-content').find("option:selected").text();
 
-            $('#entry-water-datatables #table-titleH').html(title);
+            $('#entry-water-datatables .table-name').html(title);
 
             //数据时间
             $('#entry-water-datatables .data-time').html($('.min').val());
@@ -1012,14 +1015,15 @@ function drawTbodyData(arr,addLength){
 
     var tbodyHtml = "";
 
-
         $(arr).each(function(i,o){
 
             tbodyHtml += "<tr>";
 
+            var thisLength = o.energyDTDatas.length;
+
             $(o.energyDTDatas).each(function(k,j){
 
-                if( addLength && k == o.energyDTDatas.length-1 ){
+                if( addLength && k == thisLength-1 ){
 
                     tbodyHtml += "<td style='text-align:center;background: #ffffff;border:1px solid black' colspan='"+addLength+"'>"+j+"</td>";
 

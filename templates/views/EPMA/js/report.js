@@ -22,11 +22,11 @@
 
     //初始化时间控件
     var initdatetimepicker = function () {
-        var nowDt=new Date();
-        var year=nowDt.getFullYear();
-        var month=parseInt(nowDt.getMonth())+1;
-        var day=nowDt.getDate();
-        selectDt=year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+        var nowDt = new Date();
+        var year = nowDt.getFullYear();
+        var month = parseInt(nowDt.getMonth()) + 1;
+        var day = nowDt.getDate();
+        selectDt = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
         $("#spDT").val(selectDt);
         change_day();
     };
@@ -88,7 +88,7 @@
             selectDt = year + "-" + month + "-" + date;
         });
     }
-    
+
     //切换并且选中报表类型
     var changeTile = function () {
         $('.tile').on('click', function () {
