@@ -1245,13 +1245,32 @@
             initElePriceColdData();
 
             //显示折标能效
-            if(sessionStorage.showstep == '1'){
+
+            var flagZB = false;
+
+            //判断session中的PointerID是否在steps数组中
+            if(sessionStorage.steps.indexOf(sessionStorage.PointerID)>0){
+
+                flagZB = true;
+
+            }else{
+
+                flagZB = false;
+
+            }
+
+
+            if(flagZB){
+
+                //显示折标
+
+                sessionStorage.showstep = 1;
 
                 showBK();
 
+            }else if(!flagZB ){
 
-            }else if(sessionStorage.showstep == '0' ){
-
+                sessionStorage.showstep = 0;
 
                 hideBK();
 
@@ -1278,12 +1297,12 @@
                 initElePriceColdData();
 
                 //显示折标能效
-                if(sessionStorage.showstep == '1'){
+                if(flagZB){
 
                     showBK();
 
 
-                }else if(sessionStorage.showstep == '0' ){
+                }else if(!flagZB){
 
 
                     hideBK();

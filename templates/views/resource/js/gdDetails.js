@@ -453,7 +453,7 @@ function assistFun(gdCode){
 
         },
 
-        error:_errorFun
+        error:_errorFun1
 
     })
 

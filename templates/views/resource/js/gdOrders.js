@@ -423,7 +423,6 @@ $(function(){
         //故障描述不可操作
         $('.gzDesc').attr('readOnly','readOnly').addClass('disabled-block');
 
-
         //维修内容显示
         $('.wxnr').hide();
 
@@ -546,7 +545,7 @@ $(function(){
         $('#wxbz').attr('data-bm',$('#depart').val())
         //获取人员列表
         var prm = {
-            'departNum':$('#depart').val(),
+            'departNum':_userBM,
             'userID':_userIdNum,
             'userName':_userIdName
         }
@@ -1717,7 +1716,7 @@ $(function(){
 
                 }else{
 
-                    $('.table-title').children('span').eq(2).hide();
+                    $('.table-title').children('span').eq(4).hide();
 
                     $('.table-title').children('span').eq(0).addClass('spanhover');
 
@@ -1820,7 +1819,8 @@ $(function(){
 
                 //获取人员列表
                 var prm = {
-                    'departNum':$('#depart').val(),
+                    //'departNum':$('#depart').val(),
+                    'departNum':_userBM,
                     'userID':_userIdNum,
                     'userName':_userIdName
                 }

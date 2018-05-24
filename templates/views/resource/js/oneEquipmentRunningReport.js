@@ -113,7 +113,7 @@ $(function(){
                 //改变标题
                 $('#devName').html(dataArr[0].devName);
 
-                _jumpNow($('#all-reporting'),dataArr);
+                _jumpNow($('#all-reporting'),dataArr.reverse());
 
             }
 

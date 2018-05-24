@@ -205,7 +205,7 @@ $(function(){
             data:'bxBeizhu'
         },
         {
-            title:'报修内容',
+            title:'维修内容',
             data:'wxBeizhu'
         }
 

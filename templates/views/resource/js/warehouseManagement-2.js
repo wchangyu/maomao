@@ -238,7 +238,7 @@ $(function(){
     });
 
     //供货方名称
-    getSupplier();
+    getSupplier(true);
 
     //供货商旋转
     var _rotate;
@@ -808,7 +808,7 @@ $(function(){
     //点击刷新
     $('#reSupplier').click(function(){
 
-        getSupplier();
+        getSupplier(false);
 
     })
 
@@ -4571,7 +4571,7 @@ $(function(){
     var SupplierArr = [];
 
     //供货方名称
-    function getSupplier(){
+    function getSupplier(flag){
 
         $.ajax({
             type:'get',
@@ -4607,15 +4607,22 @@ $(function(){
 
                     var obj = result[i];
 
-                    //obj.supName = result[i].supName + '我是毛毛我是毛毛我是毛毛我是毛毛我是毛毛我是毛毛我是毛毛'
-
                     obj.pinyin = codefans_net_CC2PY(result[i].supName);
 
                     SupplierArr.push(result[i]);
 
                 }
 
-                addStationDom($('#supplier').parent());
+                if(flag){
+
+                    addStationDom($('#supplier').parent(),true);
+
+                }else{
+
+                    addStationDom($('#supplier').parent(),false);
+
+                }
+
 
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -4848,12 +4855,16 @@ $(function(){
 
     var ABCArr = [ABC,ABC1,ABC2,ABC3,ABC4,ABC5];
 
-    function addStationDom(dom){
+    function addStationDom(dom,flag){
 
-        dom.after(stationHtml);
+        if(flag){
 
-        dom.hide();
+            dom.after(stationHtml);
 
+            dom.hide();
+
+        }
+        $('.add-input-block').off();
         //标签页选项卡事件
         $('.add-input-block').on('click',function(){
 

@@ -17,16 +17,21 @@ $(function(){
     var excelTime = moment().format('YYYY/MM/DD');
 
     //区域
-    //_areaData($('#area'),function(){
-    //
-    //    conditionSelect(sessionStorage.PointerID);
-    //
-    //})
+    var area = $('#dev-type').children('option:selected').attr('data-value');
+
+    areaBlock(area,true);
 
     //ztree搜索功能
     var key = $("#key");
 
     searchKey();
+
+    //更换报表类型，获取区域
+    $('#dev-type').change(function(){
+
+        areaBlock($('#dev-type').children('option:selected').attr('data-value'));
+
+    })
 
     /*-----------------------------------按钮事件-------------------------------------------------*/
 
@@ -258,6 +263,8 @@ $(function(){
     //获取设备
     function conditionSelect(pointer){
 
+        $('#theLoading').modal('show');
+
         var prm = {
 
             //楼宇id
@@ -276,12 +283,6 @@ $(function(){
 
         var url = urlArr[$('#dev-type').val()-1];
 
-        if( $('#dev-type').val() == 1 || $('#dev-type').val() == 2 ){
-
-            prm.AREA = ''
-
-        }
-
         $.ajax({
 
             type:'post',
@@ -293,16 +294,17 @@ $(function(){
             timeout:_theTimes,
 
             //发送数据之前
-            beforeSend:_beforeSendFun,
+            //beforeSend:_beforeSendFun,
 
             //发送数据完成之后
-            complete:_completeFun,
+            //complete:_completeFun,
 
             //成功
             success:function(result){
 
-                //处理设备数据
+                $('#theLoading').modal('hide');
 
+                //处理设备数据
                 if(result.code == 0){
 
                     _allDevArr.length = 0;
@@ -325,7 +327,8 @@ $(function(){
                 }else{
 
                     //提示错误
-                    _moTaiKuang($('#tip-Modal'),'提示', false, 'istap' ,result.msg, '');
+                    _moTaiKuang($('#tip-Modal'),'提示', true, 'istap' ,result.msg, '');
+
 
                 }
 
@@ -1019,6 +1022,70 @@ $(function(){
 
         $('#pointer').val(sessionStorage.PointerID);
 
+
+    }
+
+    //获取设备区域flag表示第一次
+    function areaBlock(devNum,flag){
+
+        var prm = {
+
+            devType:devNum
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'MultiReportRLgs/GetDevTypeAreaDs',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                if(result != null){
+
+                    if(result.code == 0){
+
+                        if(result.areas.length >0){
+
+                            var str = '';
+
+                            for(var i=0;i<result.areas.length;i++){
+
+                                str += '<option value="' + result.areas[i].areaID + '">' + result.areas[i].areaName +'</option>'
+
+                            }
+
+                            $('#area').empty().append(str);
+
+                        }
+
+                        //条件查询
+                        if(flag){
+
+                            conditionSelect(sessionStorage.PointerID);
+
+                        }
+
+                    }else{
+
+                        //_moTaiKuang($('#tip-Modal'),'提示',true,'istap',result.msg,'');
+
+                        console.log(result.msg);
+
+                    }
+
+                }
+
+            },
+
+            error:_errorFun1
+
+        })
 
     }
 

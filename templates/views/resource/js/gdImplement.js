@@ -2724,7 +2724,7 @@ $(function(){
         $('#hourFee').val('');
 
         //合计金额初始化
-        $('#total').val();
+        $('#total').val('');
 
         //维修内容初始化
         $('.wxcontent').val('');
@@ -2736,6 +2736,15 @@ $(function(){
 
         //验收人
         $('#receiver').val('');
+
+        //维修费用
+        _datasTable($('#gs-list'),arr);
+
+        //工时小计
+        $('#totalGS').val('');
+
+        //总费用
+        $('#zFee').val('');
 
     }
 
@@ -3106,7 +3115,7 @@ $(function(){
         var prm = {
             'userID':_userIdNum,
             'userName':_userIdName,
-            'b_UserRole':_userRole,
+            'b_UserRole':'admin',
             "hasLocation":1
         }
         $.ajax({
@@ -3385,6 +3394,7 @@ $(function(){
                     str += ''
 
                 }
+
 
                 $('#theLoading').modal('hide');
 
@@ -4415,7 +4425,7 @@ $(function(){
 
         }else{
 
-            var prm = {
+            var prm =   {
 
                 //工单号
                 gdCode:_gdCode,
