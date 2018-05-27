@@ -120,10 +120,17 @@
         },function (res) {
             if(res.code === 0){
                 var zNodes = res.dctrVs;
+
                 $.fn.zTree.init($("#DCTreeView"), setting, zNodes).expandAll(true);
+
                 var zTree = $.fn.zTree.init($("#DCTreeView"), setting, zNodes);
-                var nodes = zTree.getNodes();
+
+                //var nodes = zTree.getNodes();
+
+                var nodes = [];
+
                 firstzNode(nodes,zTree);
+
             }else if(res.code === -1){
                 console.log('异常错误(因子树形结构数据):' + res.msg);
                 jQuery('#historyBusy').hideLoading();
@@ -136,6 +143,7 @@
     //默认选中检测因子第一项
     var firstzNode = function (nodes, zTree) {
         var cIds = "";
+
         if (nodes.length === 0) {
             jQuery('#historyBusy').hideLoading();
             return;

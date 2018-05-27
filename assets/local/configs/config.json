@@ -201,7 +201,7 @@
   "indexWordComment":"首页图片简介",
   "bigScreenSet":"1",
   "bigScreenSetComment":"大屏首页人工配置数据开关",
-  "loginPath":"../logins/chcmu/login_4.html",
+  "loginPath":"../logins/Precision_energy_efficiency_CN/login.html",
   "loginPathComment":"登录页面路径",
   "showstep": "1",
   "showstepComment":"是否显示折标能效",

@@ -66,10 +66,6 @@ $(function(){
         //无
 
         //计费方案
-    }else if( _Lname == 'epgr.html' ){
-
-        $('.Luntil').html('RTH')
-
     }
 
 })
