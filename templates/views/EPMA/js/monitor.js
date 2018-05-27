@@ -31,7 +31,7 @@
                         'processing': '查询中...',
                         'lengthMenu': '每页 _MENU_ 条',
                         'zeroRecords': '没有数据',
-                        'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+                        'info': '当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录',
                         'infoEmpty': '没有数据',
                         'paginate':{
                             "previous": "上一页",

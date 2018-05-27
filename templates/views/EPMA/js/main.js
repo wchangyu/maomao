@@ -376,8 +376,22 @@
         },function (res) {
             if(res.code===0){
 
+                console.log(res);
+
                 //返回的数据中，第一个是实时能效曲线值，第二个是折标能效值；
-                var name = ["实时能效(KW/KW)"];
+
+                var name = '';
+
+                if(sessionStorage.misc == 1){
+
+                    name = ["实时能效(KW/KW)"];
+
+                }else if(sessionStorage.misc == 2){
+
+                    name = ["实时能效(KW/RT)"];
+
+                }
+
                 //两条线的颜色数组
                 var dvs = [];
 
@@ -403,8 +417,6 @@
 
                 }
 
-                console.log(dvs);
-
                 option = {
                     title: {
                         //subtext: 'KW/RT'
@@ -413,7 +425,7 @@
                         trigger: 'axis'
                     },
                     legend: {
-                        data: name[0]
+                        data: name
                     },
                     toolbox: {
                         show: false,
@@ -444,6 +456,8 @@
                     },
                     series: dvs
                 };
+
+
                 myEERLineMain.setOption(option, true);
                 jQuery('#lineBusy').hideLoading();
             }else if(res.code===-1){//异常错误
