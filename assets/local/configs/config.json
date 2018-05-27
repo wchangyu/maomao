@@ -203,7 +203,7 @@
   "bigScreenSetComment":"大屏首页人工配置数据开关",
   "loginPath":"../logins/chcmu/login_4.html",
   "loginPathComment":"登录页面路径",
-  "showstep":"1",
+  "showstep": "1",
   "showstepComment":"是否显示折标能效",
   "steps":"[8816180101]",
   "misc":"2"
