@@ -190,13 +190,13 @@
                     object.min = 0;
                     if(sessionStorage.misc == 2){
 
-                        object.max = 5;
-                        object.interval = 0.5;
+                        object.max = 3;
+                        object.interval = 0.3;
 
                     }else{
 
-                        object.max = 3;
-                        object.interval = 0.3;
+                        object.max = 7;
+                        object.interval = 0.7;
 
                     }
                     //object.max = 7;
@@ -213,13 +213,13 @@
 
                             if(sessionStorage.misc == 2){
 
-                                object.max = 5;
-                                object.interval = 0.5;
+                                object.max = 3;
+                                object.interval = 0.3;
 
                             }else{
 
-                                object.max = 3;
-                                object.interval = 0.3;
+                                object.max = 7;
+                                object.interval = 0.7;
 
                             }
 

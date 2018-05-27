@@ -38,6 +38,7 @@
         var month = parseInt(nowDt.getMonth())+1;
         var day = nowDt.getDate();
         var nowstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+
         return nowstr;
     }
 
@@ -134,7 +135,8 @@
             $.post(url,{
                 pIds:pIds,
                 pNts:pNts,
-                DT:dtnowstr(),
+                //DT:dtnowstr(),
+                DT:moment($('#spDT').val()).endOf('months').format('YYYY-MM-DD'),
                 eType:selectEType,
                 misc:sessionStorage.misc
             },function (res) {

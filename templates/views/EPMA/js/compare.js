@@ -89,6 +89,19 @@
         $("#spanDT").html("已选择时间段(" + dTList.length + ")");
     }
 
+    //移除已选择日期
+    var removeDT = function (el) {
+
+        var inputV = el.attr('data-id');
+
+        dTList = $.grep(dTList, function (value) {
+            return value != inputV;
+        });
+        $("#spanDT").html("已选择时间段(" + dTList.length + ")");
+        hideDtBox();
+    }
+
+
     //打开已选择时间段框
     var openAlreadyDtBox = function () {
         $("#openBtn").on('click', function () {
@@ -103,20 +116,20 @@
             $("#ULDT").html("");
             for (var i = 0; i < dTList.length; i++) {
                 var curDT = dTList[i];
-                $("#ULDT").append("<li><a data-id=" + curDT + " onclick='removeDT(this);'>" + curDT + "</a></li>");
+                //$("#ULDT").append("<li><a data-id=" + curDT + " onclick='removeDT(this);'>" + curDT + "</a></li>");
+
+                $("#ULDT").append("<li><a data-id=" + curDT + " '>" + curDT + "</a></li>");
+
             }
         });
     }
 
-    //移除已选择日期
-    var removeDT = function (e) {
-        var inputV = e.getAttribute("data-id");
-        dTList = $.grep(dTList, function (value) {
-            return value != inputV;
-        });
-        $("#spanDT").html("已选择时间段(" + dTList.length + ")");
-        hideDtBox();
-    }
+
+    $('#ULDT').on('click','a',function(){
+
+        removeDT($(this));
+
+    })
 
     function onBodyDown(event) {
         if (!(event.target.id == "openBtn"
@@ -167,6 +180,8 @@
                     }
                     dvs.push(object);
                 }
+
+
                 option = {
                     title: {
                         //text: titleText,
@@ -222,7 +237,7 @@
 
                 }
 
-                mycv.setOption(option);
+                mycv.setOption(option,true);
                 jQuery('#compareBusy').hideLoading();
             }else if(res.code===-1){
                 console.log('异常错误(能效多时间段对比):' + res.msg);
@@ -232,7 +247,127 @@
             }
         })
     }
-    
+
+    tableInit();
+
+    //表格初始化
+    function tableInit(){
+
+        var col = [
+
+            {
+                title:'对象',
+                data:'DX'
+            },
+            {
+                title:'整体值',
+                data:'ZTZ',
+                render:function(data, type, full, meta){
+                    if(data == 'NaN'){
+
+                        return '非数字'
+
+                    }else{
+
+                        return data
+
+                    }
+                }
+            },
+            {
+                title:'平均值',
+                data:'PJZ',
+                render:function(data, type, full, meta){
+                    if(data == 'NaN'){
+
+                        return '非数字'
+
+                    }else{
+
+                        return data
+
+                    }
+                }
+
+            },
+            {
+                title:'10%最优平均值',
+                data:'ZYZ',
+                render:function(data, type, full, meta){
+                    if(data == 'NaN'){
+
+                        return '非数字'
+
+                    }else{
+
+                        return data
+
+                    }
+                }
+            },
+            {
+                title:'10%最差平均值',
+                data:'ZCZ',
+                render:function(data, type, full, meta){
+                    if(data == 'NaN'){
+
+                        return '非数字'
+
+                    }else{
+
+                        return data
+
+                    }
+                }
+            }
+
+        ]
+
+        oTable = $("#avg_table").dataTable({
+            "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+            "paging": false,   //是否分页
+            "destroy": true,//还原初始化了的datatable
+            "searching": false,
+            "ordering": false,
+            "bFilter": false,
+            "bPaginate": false, //翻页功能
+            "bSort": false,
+            "bProcessing": false,
+            "oLanguage": {
+                "sLengthMenu": "每页显示 _MENU_ 条记录",
+                "sZeroRecords": "没有任何能效对比数据",
+                "sEmptyTable": "没有任何能效对比数据",
+                "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+                "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
+                "sInfoEmpty": "",
+                "sSearch": "搜索",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上一页",
+                    "sNext": "下一页",
+                    "sLast": "末页"
+                },
+            },
+            "aoColumns": col
+            // "columns":[
+            //     {
+            //         title:'对象',
+            //         data:'',
+            //         visible:false,
+            //     },{
+            //         title:'整体值'
+            //     },{
+            //         title:'平均值'
+            //     },{
+            //         title:'10%最优平均值'
+            //     },{
+            //         title:'10%最差平均值'
+            //     }
+            // ]
+        });
+
+    }
+
     var getCompareEERTableDs =function (eType,mType,dTs) {
         var url = sessionStorage.apiUrlPrefix + "CompareEER/GetCompareEERTableDs";
         $.post(url,{
@@ -242,62 +377,39 @@
             eType:eType,
             misc:sessionStorage.misc
         },function (res) {
+
             //表格显示数据源
             var dataArr = [];
-            dataArr = res.aaData;
-            if(oTable===null){
-                oTable = $("#avg_table").dataTable({
-                    "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-                    "paging": false,   //是否分页
-                    "destroy": true,//还原初始化了的datatable
-                    "searching": false,
-                    "paging": false,
-                    "searching": false,
-                    "ordering": false,
-                    "bFilter": false,
-                    "bPaginate": false, //翻页功能
-                    "bSort": false,
-                    "bProcessing": false,
-                    "oLanguage": {
-                        "sLengthMenu": "每页显示 _MENU_ 条记录",
-                        "sZeroRecords": "没有任何能效对比数据",
-                        "sEmptyTable": "没有任何能效对比数据",
-                        "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
-                        "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
-                        "sInfoEmpty": "",
-                        "sSearch": "搜索",
-                        "oPaginate": {
-                            "sFirst": "首页",
-                            "sPrevious": "上一页",
-                            "sNext": "下一页",
-                            "sLast": "末页"
-                        },
-                    },
-                    "aoColumns": [, , , , , ]
-                    // "columns":[
-                    //     {
-                    //         title:'对象',
-                    //         data:'',
-                    //         visible:false,
-                    //     },{
-                    //         title:'整体值'
-                    //     },{
-                    //         title:'平均值'
-                    //     },{
-                    //         title:'10%最优平均值'
-                    //     },{
-                    //         title:'10%最差平均值'
-                    //     }
-                    // ]
-                });
-                $('.dataTables_info').hide();
+
+            if(res != null){
+
+                if(res.aaData){
+
+                    for(var i=0;i<res.aaData.length;i++){
+
+                        var obj = {};
+
+                        //对象
+                        obj.DX = res.aaData[i][0];
+                        //整体值
+                        obj.ZTZ = res.aaData[i][1];
+                        //平均值
+                        obj.PJZ = res.aaData[i][2];
+                        //10%最优平均值
+                        obj.ZYZ = res.aaData[i][3];
+                        //10%最差平均值
+                        obj.ZCZ = res.aaData[i][4];
+
+                        dataArr.push(obj);
+
+                    }
+
+                }
+
             }
-            //清空一下table
-            oTable.fnClearTable();
-            //想表格中添加东西数据o
-            oTable.fnAddData(dataArr);
-            //重绘表格
-            oTable.fnDraw();
+
+            _datasTable($('#avg_table'),dataArr);
+
         })
     }
 
