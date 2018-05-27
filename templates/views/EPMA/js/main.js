@@ -117,6 +117,17 @@
                 },
             ]
         };
+
+        if(sessionStorage.misc == 1){
+
+            option.series[0].data[0].name = 'KW/KW';
+
+        }else if(sessionStorage.misc == 2){
+
+            option.series[0].data[0].name = 'KW/RT';
+
+        }
+
         myEERAreaMain.setOption(option, true);
     }
 
@@ -126,7 +137,7 @@
         var url = sessionStorage.apiUrlPrefix+ "Main/GetECPItemizeNowDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            SysrealDt:sessionStorage.sysDt,
             misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
@@ -188,11 +199,27 @@
 
 
                 }else{
-                    eerV = parseFloat(lzlV / lzpV).toFixed(3);
 
-                    if (eerV > 15) {
-                        eerV = 15;
+                    if(sessionStorage.misc == 1){
+
+                        //KW/KW
+                        eerV = parseFloat(lzlV / lzpV).toFixed(3);
+
+                        if (eerV > 15) {
+                            eerV = 15;
+                        }
+
+                    }else if(sessionStorage.misc == 2){
+
+                        //KW/RT
+                        eerV = parseFloat(lzpV / lzlV).toFixed(3);
+
+                        if (eerV > 3) {
+                            eerV = 3.000;
+                        }
+
                     }
+
                     initEERArea(eerV,eerMinV,eerMaxV);
 
                     //实时折标能效、COP 标况 = COP实测 /(1+(冷冻出水温度-7）×2%）/（1+（30-冷却回水温度）×3%））
@@ -344,7 +371,8 @@
         $.post(url,{
             pId:sessionStorage.PointerID,
             SysrealDt:encodeURIComponent(sessionStorage.sysDt),
-            misc:sessionStorage.misc
+            misc:sessionStorage.misc,
+            stp:sessionStorage.showstep
         },function (res) {
             if(res.code===0){
 
@@ -732,7 +760,7 @@
         var url = sessionStorage.apiUrlPrefix + "Main/GetEAnMonNowDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            SysrealDt:sessionStorage.sysDt,
             misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
@@ -778,6 +806,7 @@
         $('#yseV').html(dm.ysV);
         $('#tyeV').html(dm.tyV);
         $('#daymV').html(dm.monV);
+
         if (dm.momE === 0)//N
         {
             $("#day-circle").attr('src', 'img/arrowNormal.png');

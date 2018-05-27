@@ -105,26 +105,10 @@
         "arg": "",
         "iconclass": ""
       },
-      "负荷分析": {
-        "type": "0",
-        "content": "负荷分析",
-        "uri": "../HAVC/rate.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "fa fa-tachometer"
-      },
       "能效排名": {
         "type": "0",
         "content": "能效排名",
         "uri": "../HAVC/rank.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "glyphicon glyphicon-sort-by-order"
-      },
-      "能效对比": {
-        "type": "0",
-        "content": "能效对比",
-        "uri": "../HAVC/compare.html",
         "uid": "",
         "arg": "",
         "iconclass": "glyphicon glyphicon-sort-by-order"
