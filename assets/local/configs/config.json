@@ -165,15 +165,15 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.115/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.115/BEEWebAPI/api/",
+  "apiUriPrefix":"http://192.168.1.127/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://192.168.1.127/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
   "isShowTitleEprName":"0",
   "isShowTitleEprNameComment":"是否在systemTitle的基础上追加企业名称",
   "pageTitle":"能源管理系统",
-  "themeColor":"blue",
+  "themeColor":"darkblue",
   "themecolors":"blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
   "refreshInterval":"0",
   "refreshIntervalComment":"监控模块的数据刷新间隔,单位秒,0为不刷新,建议最低20秒",
@@ -205,6 +205,6 @@
   "loginPathComment":"登录页面路径",
   "showstep": "1",
   "showstepComment":"是否显示折标能效",
-  "steps":"[8816180101]",
-  "misc":"2"
+  "steps":"[8816180101,8817180401]",
+  "misc":"1"
 }

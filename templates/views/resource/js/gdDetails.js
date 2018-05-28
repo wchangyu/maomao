@@ -459,44 +459,4 @@ function assistFun(gdCode){
 
 }
 
-//获取工单维修项目
-function feeFun(){
-
-    var prm = {
-
-        //工单号
-        gdCode:'',
-        //用户id
-        "userID": _userIdNum,
-        //用户名
-        "userName": _userIdName
-
-    }
-
-    $.ajax({
-
-        type:'post',
-
-        url:_urls + '',
-
-        data:prm,
-
-        timeout:_theTimes,
-
-        success:function(result){
-
-            console.log(result);
-
-        },
-
-        error:function(jqXHR, textStatus, errorThrown){
-
-            console.log(jqXHR.responseText);
-
-        }
-
-    })
-
-}
-
 

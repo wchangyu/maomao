@@ -223,6 +223,14 @@
         "arg": "",
         "iconclass": "glyphicon glyphicon-sort-by-order"
       },
+      "能耗分析": {
+        "type": "0",
+        "content": "能耗分析",
+        "uri": "../EPMA/aro.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "glyphicon glyphicon-sort-by-order"
+      },
       "报表": {
         "type": "2",
         "content": "报表"
