@@ -5,9 +5,6 @@ $(function(){
     //初始化时间控件
     initdatetimepicker();
 
-    //对象选择ztree树
-    ztreeData();
-
     /*---------------------------------------表格初始化----------------------------------*/
 
     var col = [];
@@ -56,27 +53,31 @@ $(function(){
 
             {
                 title:'对象',
-                data:''
+                data:'kpiN'
             },
             {
                 title:'总值<span class="Lunite">(KWH/RTH)</span>',
-                data:''
+                data:'totalV'
+            },
+            {
+                title:'峰值<span class="Lunite">(KWH/RTH)</span>',
+                data:'maxV'
             },
             {
                 title:'出现时间',
-                data:''
+                data:'maxDT'
             },
             {
                 title:'谷值<span class="Lunite">(KWH/RTH)</span>',
-                data:''
+                data:'minV'
             },
             {
                 title:'出现时间',
-                data:''
+                data:'minDT'
             },
             {
                 title:'平均值<span class="Lunite">(KWH/RTH)</span>',
-                data:''
+                data:'averV'
             }
 
         ]
@@ -122,13 +123,13 @@ $(function(){
         ]
     };
 
+    //树加载完之后默认加载数据
+    ztreeData();
+
     /*---------------------------------------按钮事件-----------------------------------*/
 
     //条件查询
     $('#aroBtn').click(function(){
-
-        //loadding
-        //$('')
 
         //条件查询
         conditionSelect();
@@ -141,6 +142,18 @@ $(function(){
         $('#treeCNT').slideToggle();
 
     })
+
+    //窗口重置
+    window.onresize = function(){
+
+        if(mychart){
+
+            mychart.resize();
+
+        }
+
+    }
+
 
     /*---------------------------------------其他方法----------------------------------*/
 
@@ -240,6 +253,8 @@ $(function(){
         }
 
         var zTreeObj = $.fn.zTree.init($("#treeView"), setting, treeArr);
+
+        conditionSelect();
 
     }
 

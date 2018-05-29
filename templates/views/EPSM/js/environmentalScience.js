@@ -3,14 +3,15 @@ $(function(){
     //去重数组
     var uniqueArr = [];
 
-    //保存treeNode
-    var _treeNodeArr = [];
+    //声明charts对象
+    var mycharts = null;
 
+    //获取所有区域id
+    var areaArr = [];
 
     /*--------------------------------时间插件-------------------------*/
 
     _timeYMDComponentsFun($('.datatimeblock'));
-
 
     /*---------------------------------ztree---------------------------*/
 
@@ -59,7 +60,6 @@ $(function(){
         ]
     };
 
-
     /*--------------------------------按钮功能---------------------------*/
 
     //全清
@@ -100,11 +100,56 @@ $(function(){
 
     })
 
+    var chartAry=[];
+
+    //窗口重置
+    window.onresize = function(){
+
+        for (var i = 0;i<chartAry.length;i++){
+            if(chartAry[i]){
+                chartAry[i].resize();
+            }
+        }
+
+    }
 
     /*---------------------------------其他方法--------------------------*/
 
     //ztree树
-    function devTree(arr){
+    function devTree(obj1,arr1){
+
+        //记录第一个子节点
+        var ifFirst = null;
+
+        //重新整合数据，将arr1的数据格式和arr一致
+        var reFormArr = [];
+
+        for(var i=0;i<obj1.devs.length;i++){
+
+            var obj = {};
+
+            //parentOBJID
+            obj.parentOBJID = obj1.devs[i].typeID;
+
+            //returnOBJID
+            obj.returnOBJID = obj1.devs[i].id;
+
+            //returnOBJName
+            obj.returnOBJName = obj1.devs[i].devName;
+
+            //returnType
+            obj.returnType = 5;
+
+            reFormArr.push(obj);
+
+        }
+
+        //将区域中的第一个值付给ifFirst
+        ifFirst = reFormArr[0].returnOBJID;
+
+        //将两个数组结合
+
+        var newCompleteArr = arr1.concat(reFormArr);
 
         var setting = {
             check: {
@@ -129,7 +174,7 @@ $(function(){
                     //勾选当前选中的节点
                     zTreeObj.checkNode(treeNode, !treeNode.checked, true);
 
-                    if(treeNode.returnType == 4){
+                    if(treeNode.returnType == 5){
 
                         //判断是否是选中状态
                         if(treeNode.checked){
@@ -147,7 +192,6 @@ $(function(){
                                 $('.main-selected-block').append(str);
 
                                 uniqueArr.push(treeNode.id);
-
 
                             }
 
@@ -184,7 +228,7 @@ $(function(){
                 onCheck:function(e,treeId,treeNode){
 
                     //点击前边的按钮选中事件
-                    if(treeNode.returnType == 4){
+                    if(treeNode.returnType == 5){
 
                         //判断是否是选中状态
                         if(treeNode.checked){
@@ -237,31 +281,19 @@ $(function(){
 
         var treeArr = [];
 
-        var ifFirst = true;
+        for(var i=0;i<newCompleteArr.length;i++){
 
-        var firstId;
-
-        //定义选中第一个有检测因子的区域索引
-        var areaIndex = 0;
-
-        for(var i=0;i<arr.length;i++){
             var obj = {};
-            obj.id = arr[i].returnOBJID;
-            obj.name = arr[i].returnOBJName;
-            obj.pId = arr[i].parentOBJID;
-            obj.returnType = arr[i].returnType;
 
-            if(arr[i].returnType == 4 && ifFirst == true){
+            obj.id = newCompleteArr[i].returnOBJID;
 
-                ifFirst = false;
+            obj.name = newCompleteArr[i].returnOBJName;
 
-                firstId = arr[i].parentOBJID;
+            obj.pId = newCompleteArr[i].parentOBJID;
 
-            }
+            obj.returnType = newCompleteArr[i].returnType;
 
-            if(arr[i].returnType == 4){
-
-
+            if(newCompleteArr[i].returnType > 4){
 
                 obj.nocheck = false;
 
@@ -272,36 +304,41 @@ $(function(){
             }
 
             treeArr.push(obj);
+
         }
 
         var zTreeObj = $.fn.zTree.init($("#allPointer"), setting, treeArr);
 
         zTreeObj.expandAll(true);
 
-        var nodes = zTreeObj.getNodes();
+        var node = zTreeObj.getNodeByParam("id",ifFirst);
 
+        zTreeObj.selectNode(node);
 
-        //获取当前第一个有检测因子的区域的索引
+        zTreeObj.checkNode(node);
 
-        var areaArr = nodes[0].children[0].children[0].children;
+        //已选择类型自动填写
 
-        $(areaArr).each(function(i,o){
+        var selectedArr = getCheckedNodeFun();
 
-            if(o.id == firstId){
+        var str = '';
 
+        for(var i=0;i<selectedArr.length;i++){
 
-                areaIndex = i;
+            str += '<div class="main-selected-list">' +
+                '<div class="main-selected-list1" attr-id="' + selectedArr[i].id + '">' + selectedArr[i].name +
+                '</div>' +
+                '<div class="remove-selected">x</div>' +
+                '</div>';
 
-                return false;
-            }
-        });
+            uniqueArr.push(selectedArr[i].id);
 
-        zTreeObj.checkNode(nodes[0].children[0].children[0].children[areaIndex].children[0],true,false,false);
+        }
+
+        $('.main-selected-block').append(str);
 
         //条件查询
         realTimeData();
-
-
     }
 
     //获取ztree数据
@@ -330,7 +367,24 @@ $(function(){
 
                 if(result){
 
-                    devTree(result);
+                    var arr1 = [];
+
+                    areaArr.length = 0;
+
+                    for(var i=0;i<result.length;i++){
+
+                        arr1.push(result[i]);
+
+                        if(result[i].returnType == 4){
+
+                            areaArr.push(result[i]);
+
+                        }
+
+                    }
+
+                    devType(arr1);
+
 
                 }
 
@@ -342,7 +396,6 @@ $(function(){
 
     }
 
-    //获取已选中的节点
     //获取勾选的节点
     function getCheckedNodeFun(){
 
@@ -371,7 +424,7 @@ $(function(){
         var prm = {
 
             //检测因子
-            typeIds:arr,
+            ids:arr,
 
             //时间
             dt:moment().format('YYYY-MM-DD HH:mm:ss')
@@ -397,18 +450,25 @@ $(function(){
                     var str = '';
 
                     //生成实时数据块
-                    for(var i=0;i<result.mos.length;i++){
 
-                        var misc = (result.mos[i].misc == null)?'':result.mos[i].misc;
+                    if(result.mos != null){
 
-                        str += '<div class="real-time-list">' +
-                                    '<p>' + result.mos[i].data +
-                                        '<span>' + misc + '</span></p>' +
-                                    '<div>' + result.mos[i].nt + '</div>' +
+                        for(var i=0;i<result.mos.length;i++){
+
+                            var misc = (result.mos[i].misc == null)?'':result.mos[i].misc;
+
+                            str += '<div class="real-time-list">' +
+                                '<p>' + result.mos[i].data +
+                                '<span>' + misc + '</span></p>' +
+                                '<div>' + result.mos[i].nt + '</div>' +
                                 '</div>';
 
 
+                        }
+
                     }
+
+
 
                     $('.real-time-block').eq(0).empty().append(str);
 
@@ -438,7 +498,9 @@ $(function(){
 
                         var idInfo = listChart.eq(i).attr('id');
 
-                        drawChart(idInfo,result,i);
+                        var mycharts = 'mycharts_'+(0+i);
+
+                        drawChart(mycharts,idInfo,result,i);
 
                     }
 
@@ -448,8 +510,6 @@ $(function(){
                     console.log(result.msg)
 
                 }
-
-
 
             },
 
@@ -598,9 +658,9 @@ $(function(){
     }
 
     //echart赋值
-    function drawChart(idInfo,result,i){
+    function drawChart(mycharts,idInfo,result,i){
 
-        var mychart = echarts.init(document.getElementById(idInfo));
+        mycharts = echarts.init(document.getElementById(idInfo));
 
         //设置legend
         var legendArr = [];
@@ -637,9 +697,57 @@ $(function(){
         //legend
         option.legend.data = legendArr;
 
-        mychart.setOption(option,true);
+        mycharts.setOption(option,true);
 
-        console.log(dataY);
+        chartAry.push(mycharts);
+
+    }
+
+    //根据区域，获取设备类型
+    function devType(arr1){
+
+        var arr = [];
+
+        for(var i=0;i<areaArr.length;i++){
+
+            arr.push(areaArr[i].returnOBJID);
+
+        }
+
+        //根据获得的areaArr来获取设备类型
+        var prm = {
+
+            typeIDs:arr
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'EVNMo/GetDevInfoDsByTypeAndArea',
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            success:function(result){
+
+                var arr = [];
+
+                for(var i=0;i<result.length;i++){
+
+                    arr.push(result[i]);
+
+                }
+
+                devTree(result,arr1);
+
+            },
+
+            error:_errorFun1
+
+        })
 
     }
 

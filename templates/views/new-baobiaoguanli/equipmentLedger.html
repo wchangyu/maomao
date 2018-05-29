@@ -49,10 +49,21 @@
 
     <!--自定义样式-->
     <link rel="stylesheet" href="../new-resource/css/common.css">
-    <link rel="stylesheet" href="css/environmentalScience.css">
-
-    <link href="../resource/jQuery-showLoading/css/showLoading.css" rel="stylesheet" type="text/css">
-
+    <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/statementManagement.css">
+    <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/energyCollectStatement.css">
+    <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/monitorStatement.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../new-resource/css/baobiaoguanli/energyEfficiencyReportH5Print.css" />
+    <style>
+        .page-content {
+            background-color: #fff;
+        }
+        .main-content-entry {
+            width: 100%;
+            /* border: 1px solid #ccc; */
+            margin: 0 auto;
+            padding: 10px 20px;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -65,7 +76,7 @@
 <!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
 <!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
 <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
-<body class="page-header-fixed page-quick-sidebar-over-content">
+<body class="page-header-fixed page-quick-sidebar-over-content"     style="background: #153b60;" >
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
     <!-- BEGIN HEADER INNER -->
@@ -243,7 +254,7 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
+                <!--<div class="showOrHidden"></div>-->
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -274,94 +285,61 @@
                 <div class="col-md-12">
                     <div class="total-warp">
                         <div class="wrap container">
-                            <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                                <div class="content-main">
-                                    <div class="main-left-middle">
-                                        <div class="left-middle-header">区域选择</div>
-                                        <div class="left-middle-main">
-                                            <div class="tree-1 tree-0">
-                                                <ul class="allPointer ztree" id="allPointer">
-                                                </ul>
-                                            </div>
-                                        </div>
+                            <ul class="condition-query condition-query1 noprint">
+                                <li style="line-height: 26px;">
+                                    <label for=""><span class="user-defined-department"></span>：</label>
+                                    <div class="input-blocked">
+                                        <select id="pointer" style="width: 128px;height: 100%;width: 100%;border: none;outline: none"></select>
                                     </div>
-                                </div>
-                                <div class="content-main">
-                                    <div class="main-left-middle1">
-                                        <div class="left-middle-header">条件选择</div>
-
-                                        <div class="search-block">
-                                            <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
-                                            <div class="tipe" id="tip"></div>
-                                        </div>
-                                        <!--已选择的区域-->
-                                        <div class="dev-select">
-                                            <div>
-                                                <div class="selected-block">已选择类型</div>
-                                                <div class="empty-block">
-                                                    <button id="emptyAll">全清</button>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                                <div class="main-selected-block">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--时间选择-->
-                                        <div class="choose-time position-center" style="text-align: center;">
-                                            <div style="margin-bottom: 10px;display: none;">
-                                                <label for="">开始时间：</label>
-                                                <div class="input-blocked">
-                                                    <input type="text" class="datatimeblock min" name="min" id="sp">
-                                                </div>
-                                            </div>
-                                            <div style="margin-bottom: 10px;display: none;">
-                                                <label for="">结束时间：</label>
-                                                <div class="input-blocked">
-                                                    <input type="text" class="datatimeblock min" name="min" id="ep">
-                                                </div>
-                                            </div>
-                                            <div style="margin-bottom: 20px">
-                                                <button type="button" class="btn btn-default" id="btn" style="background: #2170F4;color: #ffffff">查询</button>
-                                            </div>
-                                        </div>
+                                </li>
+                                <li style="line-height: 26px;">
+                                    <label for="">设备系统：</label>
+                                    <div class="input-blocked">
+                                        <select id="select-devsystem" style="width: 128px;height: 100%;width: 100%;border: none;outline: none"></select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                                <div class="right-content row">
-                                    <div class="right-top">
-                                        <div >
-                                            <div class="right-title">实时数据
-
-                                                <span id="real-time-int">全部监测因子的实时数据</span>
-
-                                            </div>
-
-                                            <div class="real-time-block" style="min-height: 100px">
-
-
-                                            </div>
-                                        </div>
-
-                                        <div>
-
-                                            <div class="right-title">历史数据
-
-                                                <span id="real-time-chart">监测因子历史数据</span>
-
-                                            </div>
-
-                                            <div class="real-time-block row">
-
-
-
-                                            </div>
-
-                                        </div>
+                                </li>
+                                <li style="line-height: 26px;">
+                                    <label for="">设备位置：</label>
+                                    <div class="input-blocked">
+                                        <select id="select-location" style="width: 128px;height: 100%;width: 100%;border: none;outline: none"></select>
                                     </div>
-                                </div>
-                            </div>
+                                </li>
+                                <li style="line-height: 26px;">
+                                    <label for="">设备关键字：</label>
+                                    <div class="input-blocked">
+                                        <input id="dev-key" type="text" style="width: 128px;height: 100%;border: none;outline: none">
+                                    </div>
+                                </li>
+                                <li><button class="btn btn-success btn1" id="selected">查询</button></li>
+                                <!--<li class="excelButton"></li>-->
+                                <li style="float: right"><div class="excelButton">↓</div></li>
+                                <li style="float: right"><img id="print" class="printButton" src="../new-resource/img/printIcon.png" alt=""></li>
+                                <div class="clearfix"></div>
+                            </ul>
+                            <table id="entry-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">
+                                <thead style="text-align:center">
+                                    <tr>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">设备ID</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">设备名称</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">设备型号</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">购买日期</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">运行日期</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">使用年限（年）</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">累计运行时间（h）</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">累计保养次数</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">累计维修次数</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">所属专业</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">设备类别</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">所属车站</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black">设备位置</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -385,18 +363,51 @@
         <i class="icon-arrow-up"></i>
     </div>
 </div>
-
+<div id="eprBox" class="" style="padding-bottom: 10px;
+            background: url('../../../assets/admin/layout/img/beijingkuang.png')no-repeat 0 0;
+            background-size:300px; z-index: 100000000; top: 40px !important; width: 300px;
+            height: auto; position: fixed; right: 107px; display: none;">
+    <div style="padding:15px 15px;color:#FFFFFF;margin-top:0px;">
+        <div class="row">
+            <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333;padding-right: 0;margin-right: 0;">单位选择</label>
+            <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
+                <select name="epr_type" id="epr_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333;margin-right: 0;">楼宇选择</label>
+            <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
+                <select name="p_type" id="p_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="margin-bottom:10px;line-height:34px;margin-right: 0"></label>
+            <div class="col-md-8 col-xs-8 col-xs-8">
+                <button id="goEprBtn" type="submit" class="btn blue pull-left">
+                    切换
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <!--所有提示框-->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
+<!--所有提示框-->
+<div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
         <div class="modal-content" style="height: 168px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                <h4 class="modal-title" id="myModalLabel3">提示</h4>
             </div>
-            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-body">未完成状态工单无法进行撤销操作</div>
             <div class="modal-footer">
-                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
@@ -438,23 +449,24 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <!--时间插件-->
+<script src="../resource/js/jQuery.print.js"></script>
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
 <script src="../resource/js/alarm.js"></script>
 <script src="../resource/js/publicFun.js"></script>
-<script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js" type="text/javascript"></script>
-
 <script src="../EPMA/js/pub.js"></script>
-
+<script src="../new-resource/js/common.js"></script>
+<script src="../new-resource/src/jquery.table2excel.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         Demo.init(); // init demo features
         BEE.init();
+        EPMA.init();
     });
 </script>
-<script src="../new-resource/js/common.js"></script>
-<script src="js/environmentalScience.js"></script>
+<script src="../new-resource/js/baobiaoguanli/equipmentLedger.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

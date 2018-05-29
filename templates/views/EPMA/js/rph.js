@@ -34,6 +34,9 @@ $(function(){
 
     _tableInit($('#avg_table'),col,2,true,'','',true,'','',false);
 
+    //默认查询
+    conditionSelect();
+
     /*---------------------------------------按钮事件-----------------------------------*/
 
     //按钮事件
@@ -44,6 +47,17 @@ $(function(){
 
     })
 
+
+    //窗口重置
+    window.onresize = function(){
+
+        if(mychart){
+
+            mychart.resize();
+
+        }
+
+    }
 
     /*---------------------------------------echarts-----------------------------------*/
 
@@ -89,8 +103,8 @@ $(function(){
                 type: 'value',
                 name: '热不平衡率',
                 min: 0,
-                max: '',
-                interval: '',
+                max: 100,
+                interval: 10,
                 axisLabel: {
                     formatter: '{value}'
                 }
@@ -237,7 +251,29 @@ $(function(){
                         dataY.push(obj);
                     }
 
+                    //判断间隔
+                    //根据最大值来确定纵坐标的间隔
+                    var _max = 0;
+
+                    var _interval = 0;
+
+                    var max = result.aroMax;
+
+                    var lengths = parseInt(max).toString().length -1;
+
+                    var first = Number(String(max).substr(0,1)) + Number(1);
+
+                    _max = first * Math.pow(10,lengths);
+
+                    _interval = _max / 10;
+
+                    option.yAxis[0].max = _max;
+
+                    option.yAxis[0].interval = _interval;
+
                     option.series = dataY;
+
+                    //console.log(option);
 
                     mychart.setOption(option,true);
 
