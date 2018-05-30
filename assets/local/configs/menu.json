@@ -814,7 +814,7 @@
   "预警报警": {
     "type": "1",
     "iconclass": "icon-bell",
-    "content": "报警预警",
+    "content": "预警报警",
     "submenu": {
       "用能报警": {
         "type": "0",
