@@ -2,6 +2,8 @@
 
     var mycv = null;
 
+    var treeObj = null;
+
     window.onresize = function (ev) {
         if(mycv){
             mycv.resize();
@@ -77,7 +79,7 @@
         },
         check: {
             enable: true,
-            chkboxType: { "Y": "", "N": "" }
+            chkboxType: { "Y": "ps", "N": "ps" }
         },
         data: {
             simpleData: {
@@ -88,8 +90,16 @@
             }
         },
         callback: {
-            onCheck: onCheck
-            //onAsyncSuccess: onAsyncSuccess
+            onClick: function(e,treeId,treeNode){
+
+
+
+                var zTreeObj = $.fn.zTree.getZTreeObj("DCTreeView");;
+
+                //勾选当前选中的节点
+                zTreeObj.checkNode(treeNode, !treeNode.checked, true);
+
+            }
         }
     };
 
