@@ -17,7 +17,7 @@ var stationHtml = '<div class="add-input-father" style="margin-left:10px">' +
     '            <div class="add-input-arrow"></div>' +
     '        </div>' +
     '    </div>' +
-    '    <div class="add-select-block" style="">' +
+    '    <div class="add-select-block add-select-block1" style="">' +
     '        <div class="com_hotresults" id="thetable" style="width:440px">' +
     '            <div class="ac_title">' +
     '                <span>请根据拼音首字母进行选择</span>' +

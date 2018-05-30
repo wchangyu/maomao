@@ -250,6 +250,64 @@ var EPMA = function () {
                 var eprs = initeprs();
                 getpointerDs(eprId, eprs);
             });
+
+            //切换单位图标
+            $('#miscBtn').click(function(){
+
+                //首先判断是否存在
+                if($('#eprBox1').length == 1){
+
+                    //移除
+                    $('#eprBox1').remove();
+
+                }else{
+
+                    //创建
+                    var str = "<div id=\"eprBox1\" style=\"padding-bottom: 10px;" +
+                        "            background: url('../../../assets/admin/layout/img/bgUnite.png')no-repeat;" +
+                        "            background-size:300px; z-index: 10000; top: 42px; width: 300px;" +
+                        "            height: auto; position: fixed; right: 107px; display: block;\">" +
+                        "        <div style=\"padding:15px 15px;color:#FFFFFF;margin-top:0px;\">" +
+                        "            <div class=\"row\">" +
+                        "                <label class=\"col-md-4 col-sm-4 col-xs-4 control-label\" style=\"padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333\">单位切换</label>" +
+                        "                <div class=\"col-md-8 col-sm-8 col-xs-8\" style=\"margin-bottom:10px;\">" +
+                        "                    <select name=\"epr_unit\" id=\"epr_unit\" class=\"form-control input-small input-inline\" style=\"border:1px solid #4A93BE;border-radius: 5px !important;\">" +
+                        "                        <option value=\"1\" selected=\"selected\">KW/KW</option>" +
+                        "                        <option value=\"2\" selected=\"selected\">KW/RT</option>" +
+                        "                    </select>" +
+                        "                </div>" +
+                        "            </div>" +
+                        "            <div class=\"row\">" +
+                        "                <label class=\"col-md-4 col-sm-4 col-xs-4 control-label\" style=\"margin-bottom:10px;line-height:34px;\"></label>" +
+                        "                <div class=\"col-md-8 col-xs-8 col-xs-8\">" +
+                        "                    <button id=\"goEprBtn1\" type=\"submit\" class=\"btn blue pull-left\">" +
+                        "                        切换" +
+                        "                    </button>" +
+                        "                </div>" +
+                        "            </div>" +
+                        "        </div>" +
+                        "    </div>";
+
+                    $('body').append(str);
+
+                    //选中问题
+                    $('#epr_unit').val(sessionStorage.misc);
+
+                }
+
+            })
+
+            //单位切换按钮
+
+            $('body').on('click','#goEprBtn1',function(){
+
+                //首先将选中的值写进session中
+                sessionStorage.misc = $('#epr_unit').val();
+
+                //跳转回本页面
+                location.href = window.location.href;
+
+            })
         }
     }
 
