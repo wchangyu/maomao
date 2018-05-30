@@ -165,7 +165,7 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.127/BEEWebAPI/api/",
+  "apiUriPrefix":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixYW":"http://192.168.1.127/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
@@ -205,6 +205,6 @@
   "loginPathComment":"登录页面路径",
   "showstep": "1",
   "showstepComment":"是否显示折标能效",
-  "steps":"[8816180101,8817180401]",
+  "steps":"[8817180901,8817180801]",
   "misc":"2"
 }
