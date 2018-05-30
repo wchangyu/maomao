@@ -318,7 +318,7 @@ $(function(){
 
             type:'post',
 
-            url:_urls + 'AnalysisAro/GetAnalysisAroChartViewDs',
+            url:sessionStorage.apiUrlPrefix + 'AnalysisAro/GetAnalysisAroChartViewDs',
 
             data:prm,
 
@@ -519,7 +519,7 @@ $(function(){
 
             type:'post',
 
-            url:_urls + 'AnalysisAro/GetAnalysisAroTableDs',
+            url:sessionStorage.apiUrlPrefix + 'AnalysisAro/GetAnalysisAroTableDs',
 
             timeout:_theTimes,
 

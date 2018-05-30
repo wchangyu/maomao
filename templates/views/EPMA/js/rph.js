@@ -182,7 +182,7 @@ $(function(){
 
             type:'post',
 
-            url:_urls + 'ThIR/GetThIRAnalysisDs',
+            url:sessionStorage.apiUrlPrefix + 'ThIR/GetThIRAnalysisDs',
 
             data:prm,
 

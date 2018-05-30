@@ -863,92 +863,100 @@ $(function(){
     function divTable(dNum,dName){
 
         //初始化
+        if(dNum == ''){
 
-        //设备编码
-        $('#devID').html('');
+            return false;
 
-        //设备名称
-        $('#devName').html('');
+        }else{
 
-        //赋值
+            //设备编码
+            $('#devID').html('');
 
-        //设备编码
-        $('#devID').html(dNum);
+            //设备名称
+            $('#devName').html('');
 
-        //设备名称
-        $('#devName').html(dName);
+            //赋值
+
+            //设备编码
+            $('#devID').html(dNum);
+
+            //设备名称
+            $('#devName').html(dName);
 
 
-        $.ajax({
+            $.ajax({
 
-            type:'get',
+                type:'get',
 
-            url:_urls + 'YWGD/GetDevGD',
+                url:_urls + 'YWGD/GetDevGD',
 
-            data:{
+                data:{
 
-                dNum:dNum
+                    dNum:dNum
 
-            },
+                },
 
-            timeout:_theTimes,
+                timeout:_theTimes,
 
-            beforeSend:function(){
+                beforeSend:function(){
 
-                $('#equipment-resume').showLoading();
+                    $('#equipment-resume').showLoading();
 
-            },
+                },
 
-            complete:function(){
+                complete:function(){
 
-                $('#equipment-resume').hideLoading();
+                    $('#equipment-resume').hideLoading();
 
-            },
+                },
 
-            success:function(result){
+                success:function(result){
 
-                //绑定数据
-                if(result.length>0){
+                    //绑定数据
+                    if(result.length>0){
 
-                    var str = ''
+                        var str = ''
 
-                    for(var i=0;i<result.length;i++){
+                        for(var i=0;i<result.length;i++){
 
-                        str += '<tr>' +
-                            //报修时间
-                            '<td>' + result[i].gdShij + '</td>' +
-                            //故障发生时间
-                            '<td>' + result[i].gdFsShij + '</td>' +
-                            //故障处理时间
-                            '<td>' + result[i].jiedanShij + '</td>' +
-                            //故障修复时间
-                            '<td>' + result[i].wangongshij + '</td>' +
-                            //状态
-                            '<td>' + result[i].gdZhtStr + '</td>' +
-                            //故障处理进度
-                            '<td>' + result[i].lastUpdateInfo + '</td>' +
-                            //故障描述
-                            '<td>' + result[i].bxBeizhu + '</td>' +
-                            //故障报修人
-                            '<td>' + result[i].bxRen + '</td>' +
-                            //故障处理内容
-                            '<td>' + result[i].wxBeizhu + '</td>' +
-                            '</tr>'
+                            str += '<tr>' +
+                                    //报修时间
+                                '<td>' + result[i].gdShij + '</td>' +
+                                    //故障发生时间
+                                '<td>' + result[i].gdFsShij + '</td>' +
+                                    //故障处理时间
+                                '<td>' + result[i].jiedanShij + '</td>' +
+                                    //故障修复时间
+                                '<td>' + result[i].wangongshij + '</td>' +
+                                    //状态
+                                '<td>' + result[i].gdZhtStr + '</td>' +
+                                    //故障处理进度
+                                '<td>' + result[i].lastUpdateInfo + '</td>' +
+                                    //故障描述
+                                '<td>' + result[i].bxBeizhu + '</td>' +
+                                    //故障报修人
+                                '<td>' + result[i].bxRen + '</td>' +
+                                    //故障处理内容
+                                '<td>' + result[i].wxBeizhu + '</td>' +
+                                '</tr>'
+
+                        }
+
+                        //插入表格
+                        $('#equipment-resume tbody').empty().append(str);
 
                     }
 
-                    //插入表格
-                    $('#equipment-resume tbody').empty().append(str);
 
-                }
+                },
 
-
-            },
-
-            error:_errorFun
+                error:_errorFun
 
 
-        })
+            })
+
+
+        }
 
     }
 
