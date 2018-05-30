@@ -344,12 +344,23 @@ $(function(){
     //获取ztree数据
     function ztreeData(){
 
+        //读出所有楼的id
+        var arr = JSON.parse(sessionStorage.pointers);
+
+        var ids = [];
+
+        for(i=0;i<arr.length;i++){
+
+            ids.push(arr[i].pointerID)
+
+        }
+
         var prm = {
 
             //设备类型
             devTypeID:62,
             //楼宇ids
-            pointerIDs:sessionStorage.PointerID
+            pointerIDs:ids
 
         }
 

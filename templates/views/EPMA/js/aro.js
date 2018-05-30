@@ -207,7 +207,7 @@ $(function(){
             check: {
                 enable: true,
                 chkStyle: "checkbox",
-                chkboxType: { "Y": "", "N": "" },
+                chkboxType: { "Y": "ps", "N": "ps" },
                 radioType:'all'
             },
             data: {
@@ -233,6 +233,10 @@ $(function(){
 
 
                 }
+
+                //onClick:treenodeClick,
+
+                //onCheck:treenodeClick
             }
         };
 
@@ -244,15 +248,17 @@ $(function(){
             obj.name = arr[i].name;
             obj.pId = arr[i].pid;
             obj.item = arr[i].item;
-            if(i==0){
-
-                obj.checked = true;
-
-            }
             treeArr.push(obj);
         }
 
         var zTreeObj = $.fn.zTree.init($("#treeView"), setting, treeArr);
+
+
+        //var node = zTreeObj.getNodes()[0];
+
+        //zTreeObj.setting.callback.onClick(null, zTreeObj.setting.treeId, node);
+
+        //获取第一个元素下的所有节点，然后选中
 
         conditionSelect();
 
@@ -603,5 +609,6 @@ $(function(){
         return nodes;
 
     }
+
 
 })
