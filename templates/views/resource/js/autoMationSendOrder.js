@@ -5,10 +5,10 @@ $(function(){
 
 
     //设备系统
-    DevList('YWDev/ywDMGetDSs',$('#select-devsystem'),'dsNum','dsName');
+    devSys()
 
-    //设备类别
-    DevList('YWDev/ywDMGetDCs',$('#select-devtype'),'dcNum','dcName');
+    //设备位置
+    devLocaltion();
 
     //获取全部车站
     getAlarmStation();
@@ -34,46 +34,59 @@ $(function(){
 //存放所有获取的数组
 var dataArr = [];
 
-//设备
-function DevList(url,el1,attrNum,attrName){
 
-    var prm ={
-        //当前用户id
-        userID:_userIdNum,
-        //当前用户名
-        userName:_userIdName
-    };
+//设备系统
+function devSys(){
 
     $.ajax({
+
         type:'post',
-        url:_urls + url,
-        data:prm,
+
+        url:_urls + 'NJNDeviceShow/ywDevGetDevType',
+
         timeout:_theTimes,
+
         success:function(result){
 
-            var str = '<option value="">全部</option>';
+            if(result){
 
-            for(var i=0;i<result.length;i++){
+                var str = '<option value="0">全部</option>'
 
-                str += '<option value="' + result[i][attrNum] + '">' + result[i][attrName] + '</option>';
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].typeID + '">' + result[i].typeName + '</option>'
+
+                }
+
+                $('#select-devsystem').empty().append(str);
 
             }
 
-            el1.empty().append(str);
-
         },
+
         error:function(jqXHR, textStatus, errorThrown){
+
             console.log(jqXHR.responseText);
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+            }else{
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+            }
         }
+
     })
 
-};
+}
 
 //获取全部车站
 function getAlarmStation(){
 
     //存放楼宇ID列表
-    var levelHtml = "<option value=''>全部</option>";
+    var levelHtml = "<option value='0'>全部</option>";
 
     var pointerArr = $.parseJSON(sessionStorage.getItem('pointers'));
 
@@ -95,7 +108,7 @@ function ywGetAlarmSetGD(flag){
     //获取设备系统
     var dsNum = $('#select-devsystem').val();
 
-    //获取设备类型
+    //获取设备位置
     var dcNum = $('#select-devtype').val();
 
     //定义传递给后台的数据
@@ -104,8 +117,10 @@ function ywGetAlarmSetGD(flag){
      ecParams = {
         //"typeID": 0,
         //"areaID": areaId,
-        "dsNum": dsNum,
-        "dcNum": dcNum,
+         //设备系统
+         typeID:dsNum,
+         //设备位置
+         areaID:dcNum,
         "ddNum": ddNum,
         userID:_userIdNum,
         userName:_userIdName,
@@ -119,9 +134,11 @@ function ywGetAlarmSetGD(flag){
         ecParams = {
             //"typeID": 0,
             //"areaID": areaId,
-            "dsNum": "",
-            "dcNum": "",
-            "ddNum": "",
+            //设备系统
+            typeID:0,
+            //设备位置
+            areaID:0,
+            "ddNum": 0,
             userID:_userIdNum,
             userName:_userIdName,
             "b_UserRole": _userRole,
@@ -250,3 +267,51 @@ function ywAlarmSetGDUpt(){
     })
 
 };
+
+//设备位置
+function devLocaltion(){
+
+    $.ajax({
+
+        type:'post',
+
+        url:_urls + 'NJNDeviceShow/ywDevGetDevArea',
+
+        timeout:_theTimes,
+
+        success:function(result){
+
+            if(result){
+
+                var str = '<option value="0">全部</option>'
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].areaID + '">' + result[i].areaName + '</option>'
+
+                }
+
+                $('#select-devtype').empty().append(str);
+
+            }
+
+
+        },
+
+        error:function(jqXHR, textStatus, errorThrown){
+
+            console.log(jqXHR.responseText);
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+            }else{
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+            }
+        }
+
+    })
+
+}
