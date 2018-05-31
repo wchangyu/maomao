@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
@@ -16,21 +15,15 @@
     <meta content="" name="author"/>
     <!--MY STYLE-->
     <link rel="stylesheet" href="../resource/css/leftBat.css">
-    <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
     <script src="../resource/js/echarts.min.js"></script>
-    <script src="../resource/js/moment.js"></script>
-    <script src="../../../assets/local/scripts/BEE.js"></script>
-    <script src="../../../assets/local/scripts/underscore-min.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
-    <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
+    <script src="../resource/js/moment.js"></script>
+    <script src="../new-resource/js/showOrHidden.js"></script>
+    <script src="../../../assets/local/scripts/underscore-min.js"></script>
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
-    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
-    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
-    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
-    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
@@ -45,16 +38,76 @@
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
-    <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
     <link rel="shortcut icon" href="../favicon.ico"/>
+    <!--datatables-->
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+    <!--时间插件-->
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
+    <!--loading插件-->
+    <link rel="stylesheet" href="../resource/jQuery-showLoading/css/showLoading.css"/>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../new-resource/css/common.css">
+    <link rel="stylesheet" href="../njn-resource/css/common.css">
+    <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/monitorStatement.css">
     <style>
-        .theHidden{
-            display: none;
-        }
-        .main-contents-header-lists0{
-            display: none;
+
+        .table td{
+            border: 1px solid #DCDCDC !important;
         }
 
+        .table{
+            border:1px solid #DCDCDC;
+            background: #E2E9F2;
+        }
+
+        .table-alarm tbody {
+            display:block;
+            max-height:600px;
+            overflow-y:auto;
+        }
+
+
+        .table-alarm thead,.table-alarm tbody tr {
+            display:table;
+            width:100%;
+            table-layout:fixed;
+        }
+
+        .table-alarm thead {
+            width: calc( 100% - 1em )
+        }
+
+        .table-alarm>tbody>tr:nth-of-type(odd) {
+            background-color: #f9f9f9;
+        }
+
+        /*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+        .scrollbar1::-webkit-scrollbar{
+            width: 16px;
+            height: 16px;
+            background-color: #f5f5f5;
+            border-radius: 0 0 15px 0px;
+            border: none !important;
+        }
+        /*定义滚动条的轨道，内阴影及圆角*/
+        .scrollbar1::-webkit-scrollbar-track{
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            /*border-radius: 0 0 13px 0px;*/
+            background-color: rgba(235,235,235,1);
+
+        }
+        /*定义滑块，内阴影及圆角*/
+        .scrollbar1::-webkit-scrollbar-thumb{
+            /*width: 10px;*/
+            height: 20px;
+            /*border-radius: 0 0 15px 0px;*/
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: rgba(188,212,244,1);
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -102,7 +155,7 @@
                     <ul class="dropdown-menu">
                         <li class="external">
                             <h3><span class="bold"></span> 当日报警</h3>
-                            <a href="warningAlarm-3.html">查看详细</a>
+                            <a href="../baojingyujing/warningAlarm-3.html">查看详细</a>
                         </li>
                     </ul>
                     <audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" preload="auto" style="display: none"></audio>
@@ -236,12 +289,10 @@
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-
                         <i class="fa fa-angle-right"></i>
                     </li>
-
                 </ul>
-                <div class="showOrHidden"></div>
+                <!--<div class="showOrHidden"></div>-->
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -271,108 +322,39 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="total-warp">
-                        <div class="wrap">
-                            <!-- 标题 -->
-                            <!-- 左边选择区域 -->
-                            <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                                <div class="content-main">
-                                    <div class="main-left-middle">
-                                        <div class="left-middle-header">对象选择</div>
-                                        <div class="left-middle-main">
-                                            <div class="left-middle-input">
-                                                <div class="left-middle-tab">区域位置</div>
-                                            </div>
-                                            <div class="tree-1 tree-3"id="tree-2">
-                                                <ul class="allPointer ztree" id="allPointer"></ul>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                                <div class="content-main">
-                                    <div class="left-middle-header">条件选择</div>
-                                    <div class="tree-11">
-                                        <div>报警类型</div>
-                                        <ul class="typeSelection ztree" id="typeSelection">
-                                        </ul>
-                                    </div>
-                                    <div class="tree-11">
-                                        <div>能耗种类</div>
-                                        <ul class="energyTypes ztree" id="energyTypes">
-                                        </ul>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="content-main">
-                                    <div class="select-times">
-                                        <div class="left-middle-header">时段选择</div>
-                                        <div class="left-middle-select">
-                                            <select class="types">
-                                                <option value ="日">按日</option>
-                                                <option value="周">按周</option>
-                                                <option value="月">按月</option>
-                                                <option value="年">按年</option>
-                                            </select>
-                                        </div>
-                                        <div id='wrapper'>
-                                            <div class="left-middle-input" style="height:auto;">
-                                                <div class="datetimepickereType" style="display: none;"></div>
-                                                <div style="width: 150px;display: inline-block;vertical-align: middle;line-height: 25px;">
-                                                    <div style="margin-bottom: 5px;overflow: hidden"><div style="float: left;margin-right: 10px;">开始</div><div style="float: left;border: 1px solid #CCCCCC;width: 113px;height:25px;" class="datetimeStart"></div></div>
-                                                    <div class="clearfix"></div>
-                                                    <div><div style="float: left;margin-right: 10px;">结束</div><div style="float: left;border: 1px solid #CCCCCC;width: 113px;height:25px;" class="datetimeEnd"></div></div>
-                                                </div>
-                                                <div class="datetimeInput" style="float: none;display: inline-block;vertical-align: middle">
-                                                    <input type="text" id="datetimepicker">
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                            <div class="buttons">
-                                                <button class="btn btn-success btns">查询</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="wrap container">
+
+                            <!--下方主体表格-->
+                            <div class="bottom-main-table">
+
+                                <table class="right-bottom-table" style="min-width:600px;">
+                                    <thead>
+                                    <tr>
+
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
 
 
-                            <div class="content-main-contents content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                                <ul class="content-main-contents-header">
-                                    <li class="main-contents-header-lists0">用能报警</li>
-                                </ul>
-                                <!-- 表格 -->
-                                <div class="content-main-contents">
-                                    <button title="针对未处理报警进行阅读标识" class="btn btn-success logoToRead" style="float: right">标识阅读</button>
-                                    <div class="main-contents-table">
-                                        <table id="datatables" class="table table-striped b-t b-light" cellspacing="0" width="100%">
-                                            <thead>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                        <img src="../resource/img/loading.gif" alt="">
-                                    </div>
-                                </div>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="clearfix"></div>
 
                         </div>
                     </div>
-                    <!--&lt;!&ndash;3D弹窗&ndash;&gt;-->
-                    <!--<div id='3d-view'style='width:100%;min-height: 500px;position:absolute;left:0;top:-32px;display: none;z-index: 9999;padding-left:15px;padding-right: 15px;box-sizing: border-box'>-->
-                        <!--<div style="text-align: right">-->
-                            <!--<button style="font-size:20px;padding-left:5px;padding-right:5px;margin-left:240px;" class="close-view">关闭</button>-->
-                        <!--</div>-->
-                        <!--<iframe src="http://huaqindemo.dms365.com" name="myframe" width="100%" height="500" id="myframe"></iframe>-->
-                    </div>
                 </div>
-            <!-- END PAGE CONTENT-->
+            </div>
         </div>
+        <!-- END PAGE CONTENT-->
     </div>
-    <!-- END CONTENT -->
-    <!-- BEGIN QUICK SIDEBAR -->
-    <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
-    <!-- END QUICK SIDEBAR -->
+</div>
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+<!-- END QUICK SIDEBAR -->
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
@@ -384,47 +366,6 @@
         <i class="icon-arrow-up"></i>
     </div>
 </div>
-
-<div class="modal fade ui-draggable in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px">
-        <div class="modal-content">
-            <div class="modal-header ui-draggable-handle checked">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel" style="margin-bottom: 10px;">报警处理备注</h4>
-                <input type="text" class="modal-body" style="width:100%;">
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary submitNote">提交更改</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--报警备注信息-->
-<div class="modal fade ui-draggable in" id="myModal0" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px">
-
-        <div class="modal-content">
-            <div class="modal-header ui-draggable-handle checked">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-                <h4 class="modal-title" id="myModalLabel0" style="margin-bottom: 10px;">报警备注信息</h4>
-
-                <div class="message">
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-</div>
-
 
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -442,17 +383,13 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-
-
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
-
 <!--[if lt IE 9]>
 <script src="../../../assets/global/plugins/respond.min.js"></script>
 <script src="../../../assets/global/plugins/excanvas.min.js"></script>
 <![endif]-->
-
 <script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
 <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
@@ -464,6 +401,13 @@
 <script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
 <!--datatable-->
 <script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
 <script src="../resource/TableTools/button/buttons.print.min.js"></script>
@@ -474,18 +418,14 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/moment.js"></script>
-<script src="../resource/js/alarm.js"></script>
-<!-- END CORE PLUGINS -->
-<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-
-<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
-<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<!--时间插件-->
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+<!--loading插件-->
+<script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
+
+<script src="../resource/js/alarm.js"></script>
 <script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/showOrHidden.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -494,56 +434,7 @@
         BEE.init();
     });
 </script>
-<script src="../resource/js/warningAlarm-2.js"></script>
-<!--<script>-->
-    <!--var height = $(window).height()-200;-->
-    <!--if(height > 500){-->
-        <!--$('iframe').height(height);-->
-    <!--}-->
-
-    <!--// exec iframe function-->
-
-    <!--var iframeTag = 0;-->
-    <!--function exec_iframe(method,params){-->
-
-        <!--iframeTag++;-->
-
-        <!--var url = 'http://huaqindemo.dms365.com/exec.html?method='+method;-->
-        <!--if(typeof(params)!='undefined'){-->
-            <!--url += '&p='+params;-->
-        <!--}-->
-
-        <!--var exec_obj = document.createElement('iframe');-->
-        <!--exec_obj.name = 'tmp_frame'+ iframeTag;-->
-        <!--exec_obj.src = encodeURI(url);-->
-        <!--exec_obj.style.display = 'none';-->
-        <!--document.body.appendChild(exec_obj);-->
-        <!--exec_obj.onload  = function(){-->
-            <!--exec_obj.remove();-->
-        <!--};-->
-
-        <!--return true;-->
-    <!--}-->
-
-
-    <!--//报警数据传递-->
-    <!--function warnUpload(){-->
-        <!--var warnData = [-->
-            <!--{"id":"w1","adddress":"空调机组01","name":"空调机组01","code":"AHU-01","type":"异常报警","desc":"设备故障，请注意！","level":0},-->
-            <!--{"id":"w2","adddress":"空调机组02","name":"空调机组02","code":"AHU-01","type":"异常报警","desc":"设备故障，请注意呀！","level":1},-->
-            <!--{"id":"w3","adddress":"空调机组03","name":"空调机组03","code":"AHU-01","type":"异常报警","desc":"设备故障，请注意！","level":2}-->
-        <!--];-->
-
-        <!--return exec_iframe('warnupload',JSON.stringify(warnData));-->
-    <!--}-->
-
-    <!--function CheckWarn(){-->
-        <!--warnUpload();-->
-        <!--exec_iframe('warn');//查看报警总览-->
-    <!--}-->
-
-
-<!--</script>-->
+<script src="../njn-resource/js/dapingzhanshi/showLightData.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

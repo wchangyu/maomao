@@ -210,7 +210,7 @@ var Login = function() {
 
             }
 
-            if(window.screen.width > 2500){
+            if(window.screen.width > 2500 && sessionStorage.bigScreenSwitch == 1){
 
                 window.location.href = 'njn-dapingzhanshi/pandectEnergy.html';
 
@@ -486,6 +486,11 @@ var Login = function() {
                     //大屏首页人工配置数据开关
                     var bigScreenSet = data["bigScreenSet"] || '';
                     sessionStorage.bigScreenSet = bigScreenSet;
+
+                    //登陆时是否进行自动识别大屏标识
+                    var bigScreenSwitch = data["bigScreenSwitch"] || '';
+                    sessionStorage.bigScreenSwitch = bigScreenSwitch;
+
 
                     //是否显示折标能效
                     var showstep = data["showstep"] || '';

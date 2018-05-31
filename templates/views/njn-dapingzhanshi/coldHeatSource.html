@@ -370,9 +370,9 @@
                                     </h3>
                                     <!--选项卡-->
                                     <div class="consumption-container">
-                                        <span class="onClick">电耗曲线</span>
+                                        <span class="onClick">冷量曲线</span>
+                                        <span>电耗曲线</span>
                                         <span>汽耗曲线</span>
-                                        <span>冷量曲线</span>
                                         <span>冷冻温度曲线</span>
                                     </div>
                                     <div class="right-bottom-content-bottom-echart" id="consumotion-echart0">
@@ -572,7 +572,18 @@
             <!--设备列表-->
             <div class="right-bottom-show-type right-bottom-show-type-table" style="display: none">
 
-                <table id="equipment-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                <table id="equipment-datatables" class="table table-striped table-bordered table-advance table-hover equipment-table" cellspacing="0" width="100%">
+                    <thead>
+
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+
+                </table>
+
+                <table id="equipment-datatables1" class="table table-striped table-bordered table-advance table-hover equipment-table" cellspacing="0" width="100%">
+
                     <thead>
 
                     </thead>
@@ -629,6 +640,7 @@
                 </ul>
 
                 <div class="bottom-table-data-container ">
+
                     <table class="table-alarm table table-striped table-bordered table-advance" id="dateTables">
                         <thead>
                         <tr>

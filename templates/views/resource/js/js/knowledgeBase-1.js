@@ -774,7 +774,8 @@ uploader.on( 'uploadComplete', function( file ) {
 });
 $btn.click(function(){
     uploader.upload();
-})
+});
+
 $('#thelist').on('click','.remove-img',function(){
 
     var id = $(this).parents('.file-item').attr('id');

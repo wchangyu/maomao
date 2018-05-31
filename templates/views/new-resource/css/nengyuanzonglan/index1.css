@@ -116,7 +116,10 @@ p{
 }
 
 /*轮播图*/
-.carousel-control{
+/*.carousel-control{*/
+    /*display: none !important;*/
+/*}*/
+.carousel-indicators{
     display: none !important;
 }
 
@@ -124,6 +127,7 @@ p{
 .total-warp .container{
     /*background: #FBFBFB;*/
 }
+
 
 .wrap {
     border: none !important;
@@ -694,8 +698,8 @@ h3 .left-patch{
 }
 .carousel-indicators{
 
-    left: 70%;
-    text-indent: 100px;
+    left: 48%;
+    text-indent: 0px;
 
 }
 .new-alarm:nth-child(1) .alarmIcon{

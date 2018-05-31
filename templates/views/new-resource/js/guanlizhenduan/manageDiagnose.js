@@ -161,6 +161,40 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
     //给页面中添加诊断信息
     $('#content-container').html(diagHtml);
 
+    if(indexItem == 2){
+
+        diagHtml += '</div></div>';
+
+        //给页面中添加诊断信息
+        $('#content-container').html(diagHtml);
+
+        //找到存放问题个数的元素位置并赋值
+        $('#content-container .specific-problem').eq(indexItem ).find('h3 span').html('发现'+0 +'个' + diagnoseArr[indexItem].diagTypeName + "问题");
+
+        //对此分类下的问题进行折叠
+        $('#content-container .specific-problem').eq(indexItem ).find('h3 .right-arrow').addClass('up-arrow');
+
+        $('#content-container .specific-problem').eq(indexItem ).find('.bottom-problem').toggle();
+        //如果不是最后一个诊断类型
+        if(indexItem < diagnoseArr.length - 1) {
+
+            //改变诊断进程中的显示
+            $('.diagnose-course .right-content font').html('正在诊断' + diagnoseArr[indexItem+1].diagTypeName + '问题');
+
+        }
+
+        //获取到页面中的字符串
+        diagHtml = $('#content-container').html();
+
+            indexItem ++ ;
+
+            //继续获取诊断信息
+            getExecuteOneKeyDiagItem(indexItem,0);
+
+            return false;
+
+    }
+
     //传递数据
     $.ajax({
         type: 'post',
@@ -169,7 +203,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
         data:diagObj,
         success: function (result) {
             count ++ ;
-            console.log(result);
+            //console.log(result);
             //console.log(count);
 
             //是否继续获取能耗诊断信息
@@ -250,6 +284,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
                 //记录所有问题总个数
                 curDiagProblemAccount++;
                 //给存放所有诊断结果的数组中添加数据
+
                 var obj = o;
                 //给诊断结果添加唯一标识
                 obj.indexId = curDiagProblemAccount;
@@ -263,8 +298,9 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
             //获取到当前分类下需诊断项目个数
             var diagItemLength = diagnoseArr[indexItem].oneKeyDiagItems.length;
 
-            //如果当前项目不是该分类下最后一个
-            if(indexDiag < diagItemLength - 1){
+            //如果当前项目不是该分类下最后一个 且不是设备安全诊断
+            if(indexDiag < diagItemLength - 1 && indexItem != 2){
+
                 //诊断项目加一
                 indexDiag ++;
 
@@ -327,7 +363,6 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
             }
 
             //继续获取诊断信息
-
             getExecuteOneKeyDiagItem(indexItem,indexDiag);
 
 

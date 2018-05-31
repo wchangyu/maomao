@@ -60,15 +60,21 @@ function successFun(result){
 
         //报表名称
         $('#table-titleH').html(result.report_Name);
+
         //数据时间
         $('.data-time').html(result.report_Dt);
+
         //导出时间
         excelTime = moment().format('YYYY/MM/DD');
+
         $('.derive-time').html(excelTime);
+
         //位置
         $('#location').html(result.location);
+
         //设备
         $('#eqName').html(result.eqname);
+
         //循环数据
         if(result.report_list>0){
 

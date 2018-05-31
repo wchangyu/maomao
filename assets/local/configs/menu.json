@@ -54,10 +54,19 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "照明数据": {
+        "type": "0",
+        "content": "照明数据",
+        "uri": "../njn-dapingzhanshi/showLightData.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
 
     }
   },
+
   "暖通空调": {
     "type": "1",
     "content": "暖通空调",
@@ -390,7 +399,7 @@
         "content": "监控总览",
         "uri": "../yongnengjiance/energyMonitor.html?a=1",
         "uid": "",
-        "arg": "2,10",
+        "arg": "2,4",
         "iconclass": ""
       },
       "测试一下": {
@@ -811,9 +820,9 @@
       }
     }
   },
-  "预警报警": {
+  "报警预警": {
     "type": "1",
-    "iconclass": "icon-bell",
+    "iconclass": "icon-home",
     "content": "报警预警",
     "submenu": {
       "用能报警": {

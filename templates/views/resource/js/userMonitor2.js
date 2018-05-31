@@ -12,7 +12,8 @@ var containHeight = 800;
 var userMonitor = (function(){
 
     var _urlPrefix = sessionStorage.apiUrlPrefix;
-    //_urlPrefix = "http://localhost/BEEWebApi/api/";        //测试临时使用，调用本机地址
+    _urlPrefix = "http://huaqin.vicp.io:25708/BEEWebApiys/api/";//测试临时使用，调用本机地址
+
     var _userProcIds;       //当前用户的监控方案权限
     var _configArg1 = 0;        //配置文件中配置的类型，取值为0:启用监控类型;1:启用|隔开的监控方案ID;2:启用混合模式
     var _configArg2 = "0";       //配置文件中配置的参数，取值对应_configType 0:类型ID;1:|隔开的监控方案ID;2:1代表初始方案类型
@@ -379,7 +380,7 @@ var userMonitor = (function(){
 
             }
 
-        //如果是按楼宇和监测因子xuan选择
+            //如果是按楼宇和监测因子xuan选择
         }else if(_configArg1 == 5){
 
             getAllProcsByPCID(_configArg2,_configArg3);
@@ -478,7 +479,7 @@ var userMonitor = (function(){
     //设置左侧的监控方案列表
     //如果selectedProc为空默认选中第一个，否则选中传值
     var setProcList = function(procs,selectedProc){
-       // console.log(procs);
+        // console.log(procs);
         var $ul = $(".content-main-left>ul");
         $(".content-main-left>ul li").remove();
         if(!procs || procs.length==0) {
@@ -1135,23 +1136,23 @@ var userMonitor = (function(){
                     if(o.procDefID == _defInsDataResults[i].procDefID){
 
 
-                            //判断是否需要进行重绘
-                          if(o.procRenderID == _defInsDataResults[i].procRenderID && o.enableScriptResult == _defInsDataResults[i].enableScriptResult && o.renderExprResult == _defInsDataResults[i].renderExprResult && o.visibleScriptResult == _defInsDataResults[i].visibleScriptResult){
+                        //判断是否需要进行重绘
+                        if(o.procRenderID == _defInsDataResults[i].procRenderID && o.enableScriptResult == _defInsDataResults[i].enableScriptResult && o.renderExprResult == _defInsDataResults[i].renderExprResult && o.visibleScriptResult == _defInsDataResults[i].visibleScriptResult){
 
-                              //当前元素不需要进行重绘
-                              ifRedrawSpan = false;
+                            //当前元素不需要进行重绘
+                            ifRedrawSpan = false;
 
-                          }else{
+                        }else{
 
-                              //给当前缓存重新赋值
-                              o.procRenderID = _defInsDataResults[i].procRenderID;
+                            //给当前缓存重新赋值
+                            o.procRenderID = _defInsDataResults[i].procRenderID;
 
-                              o.enableScriptResult = _defInsDataResults[i].enableScriptResult;
+                            o.enableScriptResult = _defInsDataResults[i].enableScriptResult;
 
-                              o.renderExprResult = _defInsDataResults[i].renderExprResult;
+                            o.renderExprResult = _defInsDataResults[i].renderExprResult;
 
-                              o.visibleScriptResult = _defInsDataResults[i].visibleScriptResult;
-                          }
+                            o.visibleScriptResult = _defInsDataResults[i].visibleScriptResult;
+                        }
                     }
 
                 });
@@ -1250,14 +1251,14 @@ var userMonitor = (function(){
                 //如果是嵌入式视频
                 if(curProcDef.dType >= 500 &&  curProcDef.dType <=600 && curProcDef.prdProcLnk && curProcDef.prdProcLnk.procLnkBase && curProcDef.prdProcLnk.procLnkBase.type == 503){
                     //console.log(curProcDef);
-                        $Video.css({"width":defWidth,"height":defHeight});
-                        //是否自动播放
-                        if(curProcDef.prdProcLnk.paras[0] == 1){
-                            $Video.attr('autoplay','autoplay');
-                        }
-                        $spanImg.append($Video);
-                        $spanImg.width("100%");
-                        $spanTxt.width(0);
+                    $Video.css({"width":defWidth,"height":defHeight});
+                    //是否自动播放
+                    if(curProcDef.prdProcLnk.paras[0] == 1){
+                        $Video.attr('autoplay','autoplay');
+                    }
+                    $spanImg.append($Video);
+                    $spanImg.width("100%");
+                    $spanTxt.width(0);
 
                     $Video.attr("src",curProcDef.prdProcLnk.procLnkBase.url);
 
@@ -1288,14 +1289,14 @@ var userMonitor = (function(){
                 }else if(curProcDef.dType >= 500 &&  curProcDef.dType <=600 && curProcDef.prdProcLnk && curProcDef.prdProcLnk.procLnkBase && curProcDef.prdProcLnk.procLnkBase.type == 502 && curProcDef.prdProcLnk.procLnkBase.startpos != 3){
                     //console.log(curProcDef);
 
-                        id = curProcDef.prdProcLnk.paras[0];
+                    id = curProcDef.prdProcLnk.paras[0];
 
-                        jumpPageWidth = defWidth;
+                    jumpPageWidth = defWidth;
 
-                        jumpPageHeight = defHeight;
+                    jumpPageHeight = defHeight;
 
                     //获取弹窗的页面地址
-                    var url = jumpUrl + "yongnengjiance/jumpEnergyMonitor.html?width="+defWidth+"height="+defHeight+"ckId="+id+"";
+                    var url = jumpUrl + "yongnengjiance/jumpEnergyMonitor2 .html?width="+defWidth+"height="+defHeight+"ckId="+id+"";
 
                     var $monitor = '<iframe width="'+defWidth+'" scrolling="no" height="'+defHeight+'" frameborder="0" allowtransparency="true" src='+url+'></iframe>';
 
@@ -1353,10 +1354,10 @@ var userMonitor = (function(){
                     if(curPRR.isFontItalic) { $Txt.css("font-style","italic"); }
                     if(curPRR.isFontUnderline) { $Txt.css("text-decoration","underline"); }
                     if((curPRR.showFlag == 2 || curPRR.showFlag == 3) && curPRR.imgID) {
-                            //console.log(33);
+                        //console.log(33);
 
-                            //如果有图片，载入图片
-                            loadDefImg(curPRR, $Img);
+                        //如果有图片，载入图片
+                        loadDefImg(curPRR, $Img);
                     }
 
 
@@ -1792,7 +1793,7 @@ var userMonitor = (function(){
     };
 
     function loadDefImg(curPRR,$Img){
-        //console.log(curPRR);
+        console.log(curPRR);
 
         $Img.addClass(curPRR.imgID + "img");
 
@@ -1836,11 +1837,11 @@ var userMonitor = (function(){
                 //遍历存放img路径信息的数据
                 $(imgSrcArr).each(function(i,o){
                     //如果id相等 则取出其中保存的页面元素
-                     if(o.id == curPRR.imgID){
-                         eleArr = o.elem;
-                     }
+                    if(o.id == curPRR.imgID){
+                        eleArr = o.elem;
+                    }
                 });
-                //console.log(imgSrcArr);
+                console.log(imgSrcArr);
 
                 //将获取到的图片地址 循环赋值给页面中的元素
                 $(eleArr).each(function(i,o){
@@ -1854,7 +1855,7 @@ var userMonitor = (function(){
     };
 
     function loadDefImg1(id,$Img){
-        //console.log(id);
+        console.log(id);
 
         $Img.addClass(id + "img");
         $.ajax({
@@ -1902,25 +1903,25 @@ var userMonitor = (function(){
         var url = jumpUrl + "new-luxianghuifang/insetCurrentMonitor.html?width="+cameraWidth+"height="+cameraHeight+"cameraID="+cameraID+"";
 
         var html = '<div class=\'modal fade content-child-shows\' id="'+modalID+'" tabindex=\'-1\' role=\'dialog\' aria-labelledby=\'myModalLabel\' aria-hidden=\'true\' data-backdrop="static">' +
-        '    <div class=\'modal-dialog\' style=\'margin:15% auto;\'>' +
-        '        <div class=\'modal-content\' style="position:relative">' +
+            '    <div class=\'modal-dialog\' style=\'margin:15% auto;\'>' +
+            '        <div class=\'modal-content\' style="position:relative">' +
             "<iframe width='100%' height='100%'   style='position:absolute;  top:0px;left:0px; z-Index:-1;'></iframe>"+
-        '            <div class=\'modal-header\'>' +
+            '            <div class=\'modal-header\'>' +
 
-        '                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+            '                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
 
-        '                <h4></h4>' +
+            '                <h4></h4>' +
 
-        '            </div>' +
+            '            </div>' +
 
-        '            <div class="modal-body">' +
+            '            <div class="modal-body">' +
             '<iframe width="'+cameraWidth+'" scrolling="no" height="'+cameraHeight+'" frameborder="0" allowtransparency="true" src='+url+'></iframe>' +
 
-        '            </div>' +
+            '            </div>' +
 
-        '        </div>' +
-        '    </div>' +
-        '</div>';
+            '        </div>' +
+            '    </div>' +
+            '</div>';
 
         $('#right-container').append(html);
 
@@ -2018,7 +2019,7 @@ var userMonitor = (function(){
                 }
 
                 //获取弹窗的页面地址
-                var url = jumpUrl + "yongnengjiance/jumpEnergyMonitor.html?width="+jumpPageWidth+"height="+jumpPageHeight+"ckId="+id+"";
+                var url = jumpUrl + "yongnengjiance/jumpEnergyMonitor2.html?width="+jumpPageWidth+"height="+jumpPageHeight+"ckId="+id+"";
 
                 var html = '<div class="content-child-show" id="'+id+'">' +
                     '<div class="content-child-show-container">' +
@@ -2046,7 +2047,7 @@ var userMonitor = (function(){
                     'transformOrigin': 'left top 0px',
                     'transform': 'scale('+thisScale+')'
 
-                 });
+                });
 
             }else{
 
@@ -2192,7 +2193,7 @@ var userMonitor = (function(){
 
     //获取鼠标坐标，left,top
     var getMousePos = function(){
-         var e= window.event || arguments.callee.caller.arguments[0] ;
+        var e= window.event || arguments.callee.caller.arguments[0] ;
         var pt = [];
         pt.push(e.clientX);
         pt.push(e.clientY);
@@ -2897,57 +2898,57 @@ _theImgProcHeight = 0;
 
 $('.showOrHidden').click(function(){
 
-        $('#container').hide();
-        $('#eyeOnOff').html('切换鹰眼模式');
-        $('.content-main-right').css({
-            marginLeft:0,
-            marginTop:0
-        });
+    $('#container').hide();
+    $('#eyeOnOff').html('切换鹰眼模式');
+    $('.content-main-right').css({
+        marginLeft:0,
+        marginTop:0
+    });
 
-        var o1 = $(".content-main-left").css("display");
-        if(o1 == 'block'){
+    var o1 = $(".content-main-left").css("display");
+    if(o1 == 'block'){
+        $('.content-main-left').css({
+            display:'none'
+        });
+        $('.content-main-right').animate({
+            'margin-left':'0px'
+        },100);
+        $('.showOrHidden').css({
+            'background':'url("../resource/img/show.png")no-repeat',
+            'background-size':'20px',
+            'background-position':'center'
+        });
+        $('#right-container').css({
+            left:'0'
+        })
+        $('#container').css({
+            left:'0'
+        });
+        changeTransform('none');
+    }else if(o1 == 'none'){
+        $('.content-main-left').animate({
+            'width':'250px'
+        },100,function(){
             $('.content-main-left').css({
-                display:'none'
+                display:'block'
             });
-            $('.content-main-right').animate({
-                'margin-left':'0px'
-            },100);
             $('.showOrHidden').css({
-                'background':'url("../resource/img/show.png")no-repeat',
+                'background':'url("../resource/img/hidden.png")no-repeat',
                 'background-size':'20px',
                 'background-position':'center'
-            });
-            $('#right-container').css({
-                left:'0'
             })
-            $('#container').css({
-                left:'0'
-            });
-            changeTransform('none');
-        }else if(o1 == 'none'){
-            $('.content-main-left').animate({
-                'width':'250px'
-            },100,function(){
-                $('.content-main-left').css({
-                    display:'block'
-                });
-                $('.showOrHidden').css({
-                    'background':'url("../resource/img/hidden.png")no-repeat',
-                    'background-size':'20px',
-                    'background-position':'center'
-                })
-            })
-            $('#right-container').css({
-                left:'250px'
-            })
-            $('#container').css({
-                left:'0px'
-            })
+        })
+        $('#right-container').css({
+            left:'250px'
+        })
+        $('#container').css({
+            left:'0px'
+        })
 
-            changeTransform('block');
+        changeTransform('block');
 
-        }
-    });
+    }
+});
 
 
 function changeTransform(o1){

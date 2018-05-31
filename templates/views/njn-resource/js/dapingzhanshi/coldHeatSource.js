@@ -27,7 +27,7 @@ var addZeroToSingleNumber=function (num) {
         curnum += num;
     }
     return curnum;
-}
+};
 
 //系统实时日期时间
 var sysrealdt = function () {
@@ -37,7 +37,7 @@ var sysrealdt = function () {
     var day = nowDt.getDate();
     var dt = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
     return dt;
-}
+};
 
 window.onresize = function (ev) {
     if(chartViewLDCMain){
@@ -85,21 +85,19 @@ $(function(){
 
         }
 
-
-
         //电耗曲线
-        if(index == 0){
+        if(index == 1){
 
             getTDayEs(ew);
 
         //汽耗曲线
-        }else if(index == 1){
+        }else if(index == 2){
 
             //获取[汽耗曲线]历史数据
             getTDayQs(ew);
 
         //冷量曲线
-        }else if(index == 2){
+        }else if(index == 0){
 
             //获取[冷量曲线]历史数据
             getTDayCs(ew);
@@ -192,6 +190,9 @@ $(function(){
         //获取当前报警信息
         getAlarmData(ew);
 
+        //获取负荷率
+        getLRADs(ew);
+
     });
 
     //获取[离心机组系统]实时数据
@@ -206,17 +207,20 @@ $(function(){
     //获取[冷却侧系统]实时数据
     getLQCAE('EC');
 
-    //获取[冷冻侧系统]实时数据
+    ////获取[冷冻侧系统]实时数据
     getLDCAE('EC');
 
-    //获取[电耗曲线]历史数据
-    getTDayEs('EC');
+    //获取[冷量曲线]历史数据
+    getTDayCs('EC');
 
     //设备运行数据
     getRunData('EC',"C");
 
     //获取页面中的上面要展示的区域及对应的ID
     getDevTypeAreas(devTypeID);
+
+    //获取负荷率
+    getLRADs('EC');
 
     //点击报警查看报警详细信息
     $('.alarm-content-container').on('click','.alarm-content',function(i,o){
@@ -240,8 +244,8 @@ $(function(){
 
                 //展示数据
                 showAlarmDataMessage(o.alarm_List);
-
             }
+
         });
 
     });
@@ -253,6 +257,96 @@ var alarmArr = [];
 
 //定义当前的设备类型 冷热源为1
 var devTypeID = 1;
+
+//负荷率
+// 指定图表的配置项和数据
+var option01 = {
+    title:{
+        text: '0%',
+        textStyle:{
+            fontSize:'20',
+            fontWeight:'bold',
+            color:'#2170F4'
+        },
+        textBaseline:'middle',
+        x:'center',
+        bottom:'30%'
+    },
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)",
+        show:false
+    },
+    legend: {
+        orient: 'vertical',
+        x: 'left',
+        y:'10px',
+        data:[]
+    },
+    series: [
+        {
+            name:'负荷率',
+            type:'pie',
+            radius: ['70%', '80%'],
+            center:['50%', '50%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: true,
+                    position: 'inside'
+                },
+                emphasis: {
+                    show: false,
+                    textStyle: {
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            itemStyle : {
+                normal : {
+                    color:function(params){
+                        var colorList = [
+                            '#e2e2e2','#2170F4'
+                        ];
+                        return colorList[params.dataIndex]
+
+                    },
+                    label : {
+                        show : true
+                    },
+                    labelLine : {
+                        show : false
+                    }
+                },
+                emphasis : {
+                    label : {
+                        show : false,
+                        position : 'center',
+                        textStyle : {
+                            fontSize : '30',
+                            fontWeight : 'bold'
+                        }
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[0,100]
+        }
+    ]
+};
+
+var _myChart101 =  echarts.init(document.getElementById('bottom-content-chart'));
+
+var _myChart202=  echarts.init(document.getElementById('bottom-content-chart1'));
+
+_myChart101.setOption( option01,true);
+
+_myChart202.setOption( option01,true);
 
 //获取设备运行数据
 function getRunData(ew,ch){
@@ -330,7 +424,7 @@ function getRunData(ew,ch){
 
         }
     })
-}
+};
 
 //改变设备状态
 function changeEquipState(stateObj,index,dom,mode){
@@ -369,6 +463,87 @@ function changeEquipState(stateObj,index,dom,mode){
 
         $(dom).find('.top-control .top-control-span').eq(0).html('过渡季');
     }
+
+};
+
+//获取冷站负荷率
+function getLRADs(area){
+
+    //获取当前时间
+    var curDt = moment().format('YYYY-MM-DD HH:mm');
+
+    //传递给后台的参数
+    var  ecParams = {
+        "pId":curPointerIDArr[0],
+        "dt": curDt, //当前时间
+        "area": area
+    };
+
+    $.ajax({
+
+        type:'post',
+
+        url:_urls + 'EWCH/GetLRADs',
+
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+            _myChart101.showLoading();
+            _myChart202.showLoading();
+
+        },
+        success:function(result){
+
+            _myChart101.hideLoading();
+            _myChart202.hideLoading();
+
+            //console.log(result);
+
+            var loadRate = parseFloat(result.lrtV);
+
+
+            if(result.lrtV == null){
+
+                loadRate = 0;
+            }
+
+            //console.log(option01);
+
+            //页面赋值
+            option01.title.text = loadRate + "%";
+
+            option01.series[0].data = [100-loadRate,loadRate];
+
+            if(area == "EC" || area == "WC"){
+
+                _myChart202.setOption( option01,true);
+
+            }else{
+
+                _myChart101.setOption( option01,true);
+            }
+
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            _myChart101.hideLoading();
+            _myChart202.hideLoading();
+
+
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+            }else{
+
+                _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+            }
+
+        }
+
+    })
 
 }
 
@@ -480,7 +655,8 @@ function drawTDayGLWs(res){
             data: res.xs
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
+            name:'单位:(℃)'
         },
         series: serary
     };
@@ -535,7 +711,8 @@ function getTDayCs(ew){
                     data: res.xs
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name:'单位:(kw)'
                 },
                 series: serary
             };
@@ -595,7 +772,8 @@ function getTDayQs(ew) {
                     data: res.xs
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name:'单位:(kg)'
                 },
                 series: serary
             };
@@ -656,7 +834,8 @@ function getTDayEs(ew) {
                     data: res.xs
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name:'单位:(kw)'
                 },
                 series: serary
             };
@@ -719,7 +898,8 @@ function getTotalHeatData(ew){
                     data: res.xs
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name:'单位:(kw)'
                 },
                 series: serary
             };
@@ -781,7 +961,8 @@ function getTotalSteamData(ew){
                     data: res.xs
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name:'单位:(m³)'
                 },
                 series: serary
             };
@@ -842,7 +1023,8 @@ function getTotalEnergyData(ew){
                     data: res.xs
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name:'单位:(kw)'
                 },
                 series: serary
             };
@@ -937,19 +1119,20 @@ function getLDCAE(ew) {
     chartViewLDCMain.showLoading();
     $.post(url,par,function (res) {
         chartViewLDCMain.hideLoading();
+        //console.log(res);
         if(res.code === 0){
-            $('#span_LDC_rVa_text').html(res.cVa);
+            $('#span_LDC_cVa_text').html(res.cVa);
             $('#span_LDC_eVa_text').html(res.eVa);
             $('#span_LDC_nxVa_text').html(res.nxVa);
             var option = initareaoption(cc,res.minVa,res.maxVa,res.nxVa);
             chartViewLDCMain.setOption( option,true);
         }else if(res.code === -1){
-            $('#span_LDC_rVa_text').html('0');
+            $('#span_LDC_cVa_text').html('0');
             $('#span_LDC_eVa_text').html('0');
             $('#span_LDC_nxVa_text').html('0');
             console.log('异常错误(冷冻侧):' + res.msg);
         }else{
-            $('#span_LDC_rVa_text').html('0');
+            $('#span_LDC_cVa_text').html('0');
             $('#span_LDC_eVa_text').html('0');
             $('#span_LDC_nxVa_text').html('0');
         }
@@ -1219,95 +1402,6 @@ var initareaoption1 = function (cc,minVa,maxVa,nxVa){
 };
 
 
-//负荷率
-// 指定图表的配置项和数据
-var option = {
-    title:{
-        text: '0%',
-        textStyle:{
-            fontSize:'20',
-            fontWeight:'bold',
-            color:'#2170F4'
-        },
-        textBaseline:'middle',
-        x:'center',
-        bottom:'30%'
-    },
-    tooltip: {
-        trigger: 'item',
-        formatter: "{a} <br/>{b}: {c} ({d}%)"
-    },
-    legend: {
-        orient: 'vertical',
-        x: 'left',
-        y:'10px',
-        data:[]
-    },
-    series: [
-        {
-            name:'负荷率',
-            type:'pie',
-            radius: ['70%', '80%'],
-            center:['50%', '50%'],
-            avoidLabelOverlap: false,
-            label: {
-                normal: {
-                    show: true,
-                    position: 'inside'
-                },
-                emphasis: {
-                    show: true,
-                    textStyle: {
-                        fontSize: '30',
-                        fontWeight: 'bold'
-                    }
-                }
-            },
-            itemStyle : {
-                normal : {
-                    color:function(params){
-                        var colorList = [
-                            '#2170F4','#e2e2e2'
-                        ];
-                        return colorList[params.dataIndex]
-
-                    },
-                    label : {
-                        show : true
-                    },
-                    labelLine : {
-                        show : false
-                    }
-                },
-                emphasis : {
-                    label : {
-                        show : true,
-                        position : 'center',
-                        textStyle : {
-                            fontSize : '30',
-                            fontWeight : 'bold'
-                        }
-                    }
-                }
-            },
-            labelLine: {
-                normal: {
-                    show: false
-                }
-            },
-            data:[0,100]
-        }
-    ]
-};
-
-var _myChart1 =  echarts.init(document.getElementById('bottom-content-chart'));
-
-var _myChart2=  echarts.init(document.getElementById('bottom-content-chart1'));
-
-_myChart1.setOption( option,true);
-
-_myChart2.setOption( option,true);
-
 //换热效率
 // 指定图表的配置项和数据
 var option1 = {
@@ -1479,9 +1573,7 @@ var _myChart4 = echarts.init(document.getElementById('consumotion-echart'));
 
 _myChart4.setOption( option2,true);
 
-
 //_heatDataChart.setOption( option2,true);
-
 
 //供热温度曲线
 var _myChart5 = echarts.init(document.getElementById('temperature-echart'));
@@ -1503,7 +1595,6 @@ var monitorAreaArr = [
 //把区域信息放入到流程图页面中
 sessionStorage.monitorArea = JSON.stringify(monitorAreaArr);
 
-
 //点击不同区域获取不同的设备列表
 $('#monitor-menu-container').on('click','span',function(){
 
@@ -1513,11 +1604,14 @@ $('#monitor-menu-container').on('click','span',function(){
     //定义当前的设备类型
     var devTypeID = 1;
 
-    //获取当前的设备列表
-    getSecondColdHotSour('NJNDeviceShow/GetSecondColdHotSour', devTypeID, areaID);
-
     //获取当前是东冷站还是西冷站
     var ew = '';
+
+    $('.equipment-table').hide();
+
+    $('.right-bottom-show-type-table .dataTables_info').hide();
+
+    $('.right-bottom-show-type-table .paging_simple_numbers').hide();
 
     //如果是冷站数据
     if(areaID == 60 || areaID == 62){
@@ -1554,11 +1648,20 @@ $('#monitor-menu-container').on('click','span',function(){
         //获取[冷冻侧系统]实时数据
         getLDCAE(ew);
 
-        //获取[电耗曲线]历史数据
-        getTDayEs(ew);
+        //获取[冷量曲线]历史数据
+        getTDayCs(ew);
 
         //设备运行数据
         getRunData(ew,"C");
+
+        //获取当前的设备列表
+        $('#equipment-datatables').show();
+
+        $('.right-bottom-show-type-table .dataTables_info').eq(0).show();
+
+        $('.right-bottom-show-type-table .paging_simple_numbers').eq(0).show();
+
+        getSecondColdHotSour('NJNDeviceShow/GetSecondColdHotSour', devTypeID, areaID);
 
     //如果是热站数据
     }else{
@@ -1588,10 +1691,17 @@ $('#monitor-menu-container').on('click','span',function(){
 
         //设备运行数据
         getRunData(ew,"H");
+
+        //获取当前的设备列表
+        $('#equipment-datatables1').show();
+
+        $('.right-bottom-show-type-table .dataTables_info').eq(1).show();
+
+        $('.right-bottom-show-type-table .paging_simple_numbers').eq(1).show();
+
+        getSecondColdHotSour('NJNDeviceShow/GetSecondColdHotSour', devTypeID, areaID,$('#equipment-datatables1'));
+
     }
-
-
-
 });
 
 //获取后台报警数据
@@ -1871,7 +1981,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4522'){
 
-                        result =  o.cTypeID
+                        result =  o.cDataValue
 
                     }
                 });
@@ -1892,7 +2002,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4523'){
 
-                        result =  o.cTypeID
+                        result =  o.cDataValue
 
                     }
                 });
@@ -1912,7 +2022,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4524'){
 
-                        result =  o.cTypeID
+                        result =  o.cDataValue
 
                     }
                 });
@@ -1932,7 +2042,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4525'){
 
-                        result =  o.cTypeID
+                        result =  o.cDataValue
 
                     }
                 });
@@ -1941,6 +2051,214 @@ var table = $('#equipment-datatables').DataTable({
 
             }
         },
+        {
+            title:'累计运行时间（h）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+
+
+                return '';
+
+            }
+        },
+        {
+            title:'功率（kW）',
+            data:'powerValue'
+        }
+    ]
+});
+
+/*-------------------------------------------表格初始化--------------------------------------------*/
+var table1 = $('#equipment-datatables1').DataTable({
+    "bProcessing" : true,
+    "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+    //是否分页
+    "destroy": true,//还原初始化了的datatable
+    "paging":true,
+    "ordering": false,
+    'searching':false,
+    'language': {
+        'emptyTable': '没有数据',
+        'loadingRecords': '加载中...',
+        //这里很重要，如果你的加载中是文字，则直接写上文字即可，如果是gif的图片，使用img标签就可以加载
+        "sProcessing" : "<span style='color:#ff0000;'>正在加载</span>",
+        'lengthMenu': '每页 _MENU_ 条',
+        'zeroRecords': '没有数据',
+        'info': '第 _PAGE_ 页 / 总 _PAGES_ 页  总记录数为 _TOTAL_ 条',
+        "sInfoEmpty" : "记录数为0",
+        "sInfoFiltered" : "(全部记录数 _MAX_ 条)",
+        'paginate': {
+            'first':      '第一页',
+            'last':       '最后一页',
+            'next':       '下一页',
+            'previous':   '上一页'
+        },
+        'infoEmpty': ''
+    },
+    'buttons': [
+
+    ],
+    "dom":'B<"clear">lfrtip',
+    //数据源
+    'columns':[
+        {
+            title:'序号',
+            data:'areaName',
+            render:function(data, type, row, meta){
+
+
+                return meta.row + 1;
+
+            }
+        },
+        {
+            title:'设备位置',
+            data:'areaName',
+            className:'位置'
+        },
+        {
+            title:'所属系统',
+            data:'typeName'
+        },
+        {
+            title:'设备名称',
+            data:'devName'
+        },
+        {
+            title:'设备编号',
+            data:'devNum'
+        },
+        {
+            title:'服务区域',
+            data:'serviceArea'
+        },
+        {
+            title:'季节模式',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+
+                return '';
+
+            }
+        },
+        {
+            title:'控制模式',
+            data:'',
+            render:function(data, type, row, meta){
+
+
+                return '';
+
+            }
+        },
+        {
+            title:'手自动状态',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'运行状态',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                var result = '';
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4521'){
+
+                        if(o.cDataValue == 1){
+
+                            result =  "ON"
+                        }else{
+                            result =  "OFF";
+                        }
+
+
+                    }
+                });
+
+                return result;
+
+            }
+        },
+        {
+            title:'故障状态',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                var result = '';
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '16'){
+
+                        if(o.cDataValue == 1){
+
+                            result =  "故障"
+                        }else{
+                            result =  "正常";
+                        }
+
+
+                    }
+                });
+
+                return result;
+
+            }
+        },
+        {
+            title:'采暖供水温度（℃）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                var result = '';
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4535'){
+
+                        result =  o.cDataValue
+
+                    }
+                });
+
+                return result;
+
+
+            }
+        },
+        //{
+        //    title:'采暖回水温度（℃）',
+        //    data:'devCtypeDatas',
+        //    render:function(data, type, row, meta){
+        //
+        //        var result = '';
+        //
+        //        $(data).each(function(i,o){
+        //
+        //            if(o.cTypeID == '4523'){
+        //
+        //                result =  o.cTypeID
+        //
+        //            }
+        //        });
+        //
+        //        return result;
+        //
+        //    }
+        //},
         {
             title:'累计运行时间（h）',
             data:'devCtypeDatas',

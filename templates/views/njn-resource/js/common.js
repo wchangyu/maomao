@@ -182,7 +182,7 @@ var ifShowLoading1 = true;
 //定义送排风 给排水弹出页面的宽高
 var jumpPageSize = "1020,586";
 
-console.log(sessionStorage.PointerID);
+//console.log(sessionStorage.PointerID);
 
 //定义初始的楼宇ID
 if(!sessionStorage.PointerID){
@@ -1097,7 +1097,7 @@ function getPostTime(){
 };
 
 //根据区域ID以及设备类型从后台获取设备列表
-function getSecondColdHotSour(url,devTypeID,areaID){
+function getSecondColdHotSour(url,devTypeID,areaID,dom){
 
     //传递给后台的数据
     var ecParams = {
@@ -1132,9 +1132,15 @@ function getSecondColdHotSour(url,devTypeID,areaID){
 
             }
 
-            //console.log(result);
-            _datasTable($('#equipment-datatables'),result);
+            if(dom){
 
+                _datasTable(dom,result);
+
+            }else{
+
+                //console.log(result);
+                _datasTable($('#equipment-datatables'),result);
+            }
         },
         error:function(jqXHR, textStatus, errorThrown){
 

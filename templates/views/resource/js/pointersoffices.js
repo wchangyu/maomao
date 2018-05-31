@@ -332,6 +332,7 @@ var ObjectSelection = function(){
 
             zTreePointer  = $.fn.zTree.init(this._$ulPointers,setting1,this._allPointers);
             var nodes = zTreePointer.getNodes();
+            console.log(nodes);
             //console.log(nodes);
             var dataArr = nodes[0].children;
             //console.log(nodes);
@@ -396,7 +397,7 @@ var ObjectSelection = function(){
                 userMonitor.getProcsByPointerId();
             }
         }
-    }
+    };
 
     //设置
     this.initOffices = function($ulOffices,multiSelectionMode){
@@ -427,6 +428,7 @@ var ObjectSelection = function(){
                 fontCss : {'line-height':'30px'}
             },
             callback: {
+
                 onClick: function(e,treeId,treeNode){zTreeOffice.checkNode(treeNode,!treeNode.checked,true)},
                 beforeClick:function(treeId,treeNode){
 

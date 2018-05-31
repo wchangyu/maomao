@@ -1500,6 +1500,7 @@ function alarmHistory(){
         'st' : startRealTime,
         'et' : endRealTime,
         'pointerIds' : pointerID,
+        "dealFlag": -1, //0为未处理 -1为全部
         'excTypeInnderId' : '',
         'energyType' : ''
     };
@@ -1510,7 +1511,6 @@ function alarmHistory(){
         beforeSend: function () {
             $('#theLoading').modal('show');
         },
-
         complete: function () {
             $('#theLoading').modal('hide');
         },

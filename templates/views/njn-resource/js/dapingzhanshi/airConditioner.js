@@ -147,6 +147,7 @@ function drawDataTable(titleArr,areaArr){
 //配置流程图页面中的区域位置
 var monitorAreaArr = [
 
+
 ];
 
 //把区域信息放入到流程图页面中

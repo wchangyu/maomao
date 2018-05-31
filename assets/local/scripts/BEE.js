@@ -12,14 +12,14 @@ var BEE = (function(){
     var _alarmCount = 0;
 
     //登陆页面地址
-    var _loginHtml = "login_3.html";
+    var _loginHtml = "../login_3.html";
+
+    var _loginSlash = "";
 
     //获取用户配置的登录页面
     getLoginHtml();
 
     function getLoginHtml (){
-
-
 
         //首先获取url根目录
         var _Lurls = window.document.location.href.split('templates')[0];
@@ -45,7 +45,10 @@ var BEE = (function(){
         });
 
         //获取到登陆页后赋值
-        _loginHtml = loginPath;
+        if(loginPath && loginPath != ''){
+
+            _loginHtml = loginPath;
+        }
 
     };
 
@@ -53,8 +56,6 @@ var BEE = (function(){
     var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
 
     if(_LurlLength > 3){
-
-        var _loginSlash = "";
 
         for(var i=0; i < _LurlLength-3; i++){
 
@@ -339,6 +340,9 @@ var BEE = (function(){
         var year = now.getFullYear(),month = now.getMonth() + 1,day = now.getDate();
         var st = year + "/" + month + "/" + day + " 00:00:00";
         var et = year + "/" + month + "/" + day + " " + now.getHours() + ":" + now.getMinutes() + ":00";
+
+        st = moment().format('YYYY-MM-DD HH:mm:00');
+
         var prmData = {
             "st" : st,
             "et" : et,
@@ -346,7 +350,6 @@ var BEE = (function(){
             "energyType":"",
             "pointerIds":ptIds
         };
-
         $.ajax({
             type:'post',
             url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
@@ -455,7 +458,7 @@ var BEE = (function(){
                 var alarmAlert = sessionStorage.alarmAlert || 0;
                 var alarmSong = sessionStorage.alarmSong || 0;
                 //声音
-                var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" style="display: none"></audio>';
+                var audioStr = '<audio src="'+_loginSlash+'../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" style="display: none"></audio>';
 
                 //$('#myModal00').off('shown.bs.modal');
 
@@ -517,7 +520,7 @@ var BEE = (function(){
         if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0' && _alarmCount > 0) {
             infoHtml += '<li class="external">' +
                 '   <h3><span class="bold">'+_alarmCount+' </span> 当日报警</h3>' +
-                '   <a href="../baojingyujing/warningAlarm-3.html" target="_blank">查看详细</a>' +
+                '   <a href="'+ _loginSlash+'../baojingyujing/warningAlarm-3.html" target="_blank">查看详细</a>' +
                 '</li>';
 
         }
@@ -527,7 +530,7 @@ var BEE = (function(){
 
             infoHtml += '<li class="external">' +
                 '   <h3><span class="bold">'+_cameraAlarmCount+' </span> 摄像头报警</h3>' +
-                '   <a href="../new-baojingyujing/warningCamera.html" target="_blank">查看详细</a>' +
+                '   <a href="'+ _loginSlash+'../new-baojingyujing/warningCamera.html" target="_blank">查看详细</a>' +
                 '</li>';
         }
 
@@ -611,7 +614,7 @@ var BEE = (function(){
                             $('.dropdown-extended .dropdown-toggle').css({
                                 display:'inline-block',
                                 height:'100%',
-                                background:'url(../resource/img/bellSmall.gif) no-repeat center center',
+                                background:'url('+_loginSlash+'../resource/img/bellSmall.gif) no-repeat center center',
                                 backgroundSize:'26px 24px'
                             });
 
@@ -761,14 +764,14 @@ var BEE = (function(){
                                 $('.dropdown-extended .dropdown-toggle').css({
                                     display:'inline-block',
                                     height:'100%',
-                                    background:'url(../resource/img/bellSmall.gif) no-repeat center center',
+                                    background:'url('+_loginSlash+'../resource/img/bellSmall.gif) no-repeat center center',
                                     backgroundSize:'26px 24px'
                                 });
 
                                 //声音
                                 if(ifHintVoice){
 
-                                    var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain1" controls="controls" autoplay="autoplay"  style="display: none"></audio>';
+                                    var audioStr = '<audio src="'+_loginSlash+'../resource/song/alert.mp3" id="audioMain1" controls="controls" autoplay="autoplay"  style="display: none"></audio>';
 
                                     if($('#audioMain1').length > 0 ){
 
@@ -875,6 +878,7 @@ var BEE = (function(){
         var curMenu = sessionStorage.curMenuStr;
         //获取当前页面文件路径
         var url = window.location.href;
+
         //判断是否有打开查看详细的权限
         if(curMenu.indexOf(address) != -1){
             html +='<li class="external">' +
@@ -882,7 +886,7 @@ var BEE = (function(){
             if(url.indexOf(address) != -1){
                 html += '</li>';
             }else{
-                html +=  '<a href="'+catalog+''+address+'" target="_blank">查看详细</a>' +
+                html +=  '<a href="'+_loginSlash+''+catalog+''+address+'" target="_blank">查看详细</a>' +
                     '</li>';
             }
 
@@ -894,6 +898,7 @@ var BEE = (function(){
 
     //给页面动态插入显示楼宇的树状图
     function insertionPointer(){
+
         //判断是否需要显示楼宇
         var _isShowPointer = sessionStorage.getItem('menuusepointer');
         //如果不需要显示，终止函数
@@ -1244,24 +1249,25 @@ var BEE = (function(){
             return false;
         }
 
-        $('body').append('<script src="../resource/js/pointersoffices.js"></script>');
+        $('body').append('<script src="'+_loginSlash+'../resource/js/pointersoffices.js"></script>');
 
-        $('body').append('<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>');
+        $('body').append('<script src="'+_loginSlash+'../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>');
 
-        $('body').append('<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>');
+        $('body').append('<script src="'+_loginSlash+'../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>');
 
-        $('body').append(' <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">');
+        $('body').append(' <link rel="stylesheet" href="'+_loginSlash+'../resource/zTree_v3-master/css/metroStyle/metroStyle.css">');
 
         if(!isInclude('leftBat.css')){
 
-            $('head').prepend(' <link rel="stylesheet" href="../resource/css/leftBat.css">');
+            $('head').prepend(' <link rel="stylesheet" href="'+_loginSlash+'../resource/css/leftBat.css">');
+
         }
 
         if(!isInclude('showOrHidden.js')){
 
-            $('body').append('<script src="../new-resource/js/showOrHidden.js"></script>');
-        }
+            $('body').append('<script src="'+_loginSlash+'../new-resource/js/showOrHidden.js"></script>');
 
+        }
 
 
         //定义页面右上角的切换单位按钮
@@ -1269,7 +1275,7 @@ var BEE = (function(){
             '<li class="dropdown dropdown-extended dropdown-inbox" title="切换楼宇">' +
             '<a id="openeprBtn" href="javascript:;" class="dropdown-toggle">' +
             '<span style="display:inline-block;width:16px;height:19px;' +
-            'background:url(\'../../../assets/admin/layout/img/quyuqiehuan.png\')no-repeat;' +
+            'background:url(\'../../'+_loginSlash+'../assets/admin/layout/img/quyuqiehuan.png\')no-repeat;' +
             'background-size:100%">' +
             '</span>' +
             '</a>' +
@@ -1287,7 +1293,7 @@ var BEE = (function(){
 
         ////定义弹出框
         var popupHtml ='<div id="eprBox" style="padding-bottom: 10px;' +
-            'background: url(\'../../../assets/admin/layout/img/beijingkuang.png\')no-repeat;' +
+            'background: url(\'../../../'+_loginSlash+'assets/admin/layout/img/beijingkuang.png\')no-repeat;' +
             'background-size:100% 100%; z-index: 10000; top: 40px; width: 350px;' +
             'height: auto; position: fixed; display: none">' +
             '<div style="padding:15px 15px;color:#FFFFFF;margin-top:0px;">' +
@@ -1896,12 +1902,21 @@ var BEE = (function(){
         return false;
     };
 
+
     //iframe只显示部分div
 
     //获取当前的url
     var curUrl = window.parent.location.href;
 
     if( curUrl.indexOf('passengerStation.html') > -1 ){
+        //console.log($('.page-header'));
+
+        hideLeftMenu();
+
+    };
+
+    function hideLeftMenu(){
+
 
         $('.page-header').hide();
 
@@ -1916,7 +1931,18 @@ var BEE = (function(){
         $('body').css({background:'#ffffff'});
 
         $('.toggler').hide();
-    };
+
+        if($('.page-header').length < 1){
+
+            setTimeout(function(){
+                hideLeftMenu();
+
+            },500)
+
+        }
+
+
+    }
 
     return {
 

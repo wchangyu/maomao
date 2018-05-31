@@ -83,25 +83,25 @@ var __systemConfigArr = [
                 statementName:"区域能耗报表",
                 jumpUrl: "areaEnergyDataStatement.html",
                 addClass:'statement-contain',
-                isShow:0
+                isShow:1
             },
             {
                 statementName:"部门能耗报表",
                 jumpUrl: "officeEnergyDataManagement.html",
                 addClass:'statement-contain1 statement-contain',
-                isShow:0
+                isShow:1
             },
             {
                 statementName:"水电气分科报表",
                 jumpUrl: "officePQCCDataManagement.html",
                 addClass:'statement-contain',
-                isShow:0
+                isShow:1
             },
             {
                 statementName:"变压器能耗报表",
                 jumpUrl: "electroDetail.html",
                 addClass:'statement-contain',
-                isShow:0
+                isShow:1
             }
         ]
     }

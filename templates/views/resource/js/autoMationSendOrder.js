@@ -26,9 +26,13 @@ $(function(){
     //点击确定按钮
     $('.bottom-btn-success').on('click',function(i,o){
 
-        //
+        //给后台提交数据
+         ywAlarmSetGDUpt();
     });
 });
+
+//存放所有获取的数组
+var dataArr = [];
 
 //设备
 function DevList(url,el1,attrNum,attrName){
@@ -138,12 +142,16 @@ function ywGetAlarmSetGD(flag){
 
             //console.log(result);
 
+            dataArr.length = 0;
+
             $("#entry-datatables").hideLoading();
 
             //页面赋值
             var tbodyHtml = "";
 
             $(result).each(function(i,o){
+
+                dataArr.push(o);
 
                 tbodyHtml += "<tr>";
 
@@ -154,13 +162,25 @@ function ywGetAlarmSetGD(flag){
                 tbodyHtml += "<td>"+ o.alarmName+"</td>";
 
                 //系统派单条件
-                tbodyHtml += "<td>"+ o.cNameT+"</td>";
+                tbodyHtml += "<td>"+ o.cNameT+"</td><td>";
 
-                tbodyHtml += "</tr>";
+                //flag为1 默认选中
+                if(o.flag == 1){
+
+                    tbodyHtml += '<input type="checkbox" class="table-checkbox" checked="checked"/>';
+
+                }else{
+
+                    tbodyHtml += '<input type="checkbox" class="table-checkbox" />';
+
+                }
+
+                tbodyHtml += "</td></tr>";
 
             });
 
-            return false;
+            //表格赋值
+            $('#entry-datatables tbody').html(tbodyHtml);
         },
         error:function(jqXHR, textStatus, errorThrown){
             $("#entry-datatables").hideLoading();
@@ -181,19 +201,32 @@ function ywGetAlarmSetGD(flag){
 //给后台提交数据
 function ywAlarmSetGDUpt(){
 
+    var postDataArr = [];
+
+    //获取当前传递给后台的数组
+    $(dataArr).each(function(i,o){
+
+        //获取当前数据自动派单的状态
+        var dom = $('#entry-datatables tbody').find('input').eq(i);
+
+        var ifChoose = dom.is(':checked');
+
+        if(ifChoose){
+
+            o.flag = 1
+
+        }else{
+
+            o.flag = 0;
+        }
+
+        postDataArr.push(o);
+
+    });
+
 
     var prm ={
-        "alarmgis": [
-            {
-                "pointerID": "string",
-                "cDataID": 0,
-                "flag": 0,
-                "cNameT": "string",
-                "alarmName": "string",
-                "memo": "string",
-                "expression": "string"
-            }
-        ],
+        "alarmgis": postDataArr,
         userID:_userIdNum,  //当前用户id
         userName:_userIdName,  //当前用户名
         "b_UserRole": _userRole,
@@ -207,15 +240,8 @@ function ywAlarmSetGDUpt(){
         timeout:_theTimes,
         success:function(result){
 
-            var str = '<option value="">全部</option>';
-
-            for(var i=0;i<result.length;i++){
-
-                str += '<option value="' + result[i][attrNum] + '">' + result[i][attrName] + '</option>';
-
-            };
-
-            el1.empty().append(str);
+            //获取后台数据
+            ywGetAlarmSetGD();
 
         },
         error:function(jqXHR, textStatus, errorThrown){

@@ -371,15 +371,17 @@ $(function(){
                 "data":"priority"
             },
             {
-                "title": "阅读选择",
+                "title": "处理状态",
                 "class":'L-checkbox',
                 "targets": -1,
                 "data": 'flag',
                 "render":function(data,type,row,meta){
-                    if(data>0){
-                        return "<div class='checker'><span class='checked'><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div>已阅读";
+                    if(data==1){
+                        return "<div class='checker'><span class='checked'><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>已阅读</span>";
+                    }else if(data==3){
+                        return "已处理";
                     }else{
-                        return "<div class='checker'><span><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div>未阅读";
+                        return "<div class='checker'><span><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>未处理</span>";
                     }
                 }
             },
@@ -398,7 +400,18 @@ $(function(){
                 "class":'L-button',
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<button class='btn btn-success details-control' data-alaLogID=''>显示/隐藏历史</button>"
+                "render":function(data,type,row,meta){
+
+                    if(row.rowDetailsExcDatas.length == 0){
+
+                        return  "无"
+
+                    }else{
+
+                        return  "<button class='btn btn-success details-control' data-alaLogID=''>显示/隐藏历史</button>";
+
+                    }
+                }
             },
             {
                 "title": "处理备注",
@@ -406,7 +419,14 @@ $(function(){
                 "render":function(data,type,row,meta){
 
                     if(data == 0){
-                        return "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>点击处理</button>"
+
+                        if(row.flag == 3){
+                            return "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>追加备注</button>"
+
+                        }else{
+                            return "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>点击处理</button>"
+                        }
+
                     }
                     else {
 
@@ -484,7 +504,7 @@ $(function(){
 
         for(var i=0;i<totalArr.length;i++){
             if(totalArr[i].cName == cnames && totalArr[i].pointerID == pointerIDs){
-                historyArr.push(totalArr[i])
+                historyArr = totalArr[i].rowDetailsExcDatas;
             }
         }
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
@@ -591,15 +611,7 @@ $(function(){
         var theaders = '</table>';
         var tbodyer = '<tbody>'
         var tbodyers = '</tbody>';
-        var str = '<tr><td>' + d[1].dataDate.split('T')[0] + ' ' + d[1].dataDate.split('T')[1] +
-            '</td><td>' + d[1].cName +
-            '</td><td>' + d[1].pointerName +
-            '</td><td>' + d[1].cDtnName +
-            '</td><td>' + d[1].expression +
-            '</td><td>' + d[1].data.toFixed(2) +
-            '</td><td>' + d[1].priority +
-            '</td></tr>';
-        for(var i=2;i< d.length;i++){
+        for(var i=0;i< d.length;i++){
             var atime = d[i].dataDate.split('T')[0] + ' ' + d[i].dataDate.split('T')[1];
             str += '<tr><td>' + atime +
                 '</td><td>' + d[i].cName +
@@ -861,8 +873,10 @@ $(function(){
             'excTypeInnderId' : alarm,
             'energyType' : energy,
             'groupTypeId' : localType,
+            "dealFlag": -1, //0为未处理 -1为全部
             "userID" :  _userIdNum
         };
+
         $.ajax({
             type:'post',
             url:_url + 'Alarm/GetAllExcData',
@@ -877,19 +891,9 @@ $(function(){
                 var pcids = [];
                 for(var i=0;i<result.length;i++){
                     totalArr.push(result[i]);
-                    if(!existItem(pcids,result[i])){  //没有存在相同的pointerID&&cdataID；确保pcids数组中所有pointerID和csataID不同
-                        pcids.push({"pointerID":result[i].pointerID,"cdataID":result[i].cdataID});
-                    }
+
                 }
-                for(var i= 0,len=pcids.length,lenD=result.length;i<len;i++){ //推荐写法
-                    for(var j= 0;j<lenD;j++){ //遍历pcids里的pointerID和cdataID属性
-                        if(pcids[i].pointerID==result[j].pointerID && pcids[i].cdataID== result[j].cdataID){
-                            dataArr.push(result[j]);  //因为后台返回的数据是降序，所以只要有一个就push到dataArr中
-                            break;  //跳处循环；
-                        }
-                    }
-                }
-                datasTable($("#datatables"),dataArr);
+                datasTable($("#datatables"),totalArr);
 
                 ////绘制3dViews中展示的数据
                 //var warnData = [];

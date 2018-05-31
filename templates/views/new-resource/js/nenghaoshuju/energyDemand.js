@@ -48,6 +48,7 @@ $(function(){
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
     $('.buttons').children('.btn-success').click(function(){
+
         //获得选择的能耗类型
         _ajaxEcType =_getEcTypeValue(_ajaxEcType);
 

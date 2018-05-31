@@ -2,6 +2,7 @@ $(function(){
     var _url = sessionStorage.getItem('apiUrlPrefix');
     /*------------------------------------获取新闻栏目------------------------------------*/
     conditionSelect();
+
     //获取所有新闻条目
     function conditionSelect(){
         $.ajax({
@@ -140,8 +141,10 @@ $(function(){
         // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
         resize: false
     });
+
     //添加东西之后判断是否能预览，如果是图片能预览，否则反之，
     uploader.on( 'fileQueued', function( file ) {
+
         //我现在就是想要实现单文件上传
         var $li = $(
                 '<div id="' + file.id + '" class="file-item thumbnail">' +
@@ -164,9 +167,11 @@ $(function(){
             $img.attr( 'src', src );
         }, thumbnailWidth, thumbnailHeight );
     });
+
     //文件上传进度
     // 文件上传过程中创建进度条实时显示。
     uploader.on( 'uploadProgress', function( file, percentage ) {
+
         var $li = $( '#'+file.id ),
             $percent = $li.find('.progress .progress-bar');
 
@@ -178,34 +183,65 @@ $(function(){
                 '</div>').appendTo( $li ).find('.progress-bar');
         }
 
-        $li.find('p.state').text('上传中');
+        //获取文件宽高
+        console.log(file._info);
 
-        $percent.css( 'width', percentage * 100 + '%' );
+        //获取当前图片的宽，高
+        var  imgWidth = file._info.width;
+
+        var imgHeight = file._info.height;
+
+        console.log(imgWidth / imgHeight)
+
+        if( imgWidth / imgHeight > 1.6 ||  imgWidth / imgHeight < 1.2){
+
+            $li.find('p.state').text('请选择长宽比合适的图片上传(推荐比例1.4:1)');
+
+            uploader.stop(true);
+
+        }else{
+
+            $li.find('p.state').text('上传中');
+
+            $percent.css( 'width', percentage * 100 + '%' );
+
+        }
+
+
+
+
     });
+
     //文件成功，失败处理
     uploader.on( 'uploadSuccess', function( file,response ) {
         _uploaderPath = response;
         $( '#'+file.id ).find('p.state').text('已上传').css({'color':'green'});
     });
+
     uploader.on( 'uploadError', function( file ) {
         $( '#'+file.id ).find('p.state').text('上传出错').css({'color':'red'});
     });
+
     uploader.on( 'uploadComplete', function( file ) {
         $( '#'+file.id ).find('.progress').fadeOut();
     });
+
     $('#ctlBtn').click(function(){
         if($('#thelist').children().length > 1){
             moTaiKuang($('#myModal'),'只能上传一张图片！')
         }else{
+
             uploader.upload();
         }
     });
+
     $('#thelist').on('click','.file-item',function(){
         //页面删掉
         $(this).remove();
         //队列删除
         uploader.removeFile($(this)[0].id,true);
     });
+
     $('#deleted').click(function(){
         var fileNamePath = {
             '':_uploaderPath

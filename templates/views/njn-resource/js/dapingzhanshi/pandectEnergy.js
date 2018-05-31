@@ -2066,7 +2066,7 @@ function getTPDevMonitor(){
             //-----------------------------暖通系统---------------------------//
 
             //电冷能效
-           var elecColdEffic = result.hvacAirsOBJ.hvacAirData.nxVa + '%';
+           var elecColdEffic = result.hvacAirsOBJ.hvacAirData.nxVa;
 
             //elecColdEffic = "80.8%";
 
@@ -2098,6 +2098,7 @@ function getTPDevMonitor(){
 
                 eleUnit = "KW";
 
+
             }else{
 
                 elecColdDataArr = [
@@ -2110,8 +2111,9 @@ function getTPDevMonitor(){
                 //$('.right-bottom-container .right-bottom-equipment .right-bottom-equipment-container ').eq(0).find('.equipment-title a').html('换热站');
 
                 eleUnit = "KW";
-            }
 
+                elecColdEffic += "%";
+            }
 
             //给echarts赋值
             drawEcharts(elecColdDataArr,'equipment-chart-electricity',colorArr1,elecColdCenterData, _electricityoption, eleUnit);
@@ -2360,7 +2362,6 @@ function getTPDevMonitor(){
             //运行中
             var fireControlrunNum = result.fireControlSysOBJ.runNum;
 
-
             //故障中
             var fireControlfaultNum = result.fireControlSysOBJ.faultNum;
 
@@ -2402,7 +2403,6 @@ function getTPDevMonitor(){
             //维修中
             var sendExhaustrepairNum = result.sellCheckTicketOBJ.repairNum;
 
-
             var sendExhaustArr = [
                 {name:'运行中',data:sendExhaustrunNum},
                 {name:'故障中',data:sendExhaustfaultNum},
@@ -2421,7 +2421,6 @@ function getTPDevMonitor(){
             $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.sellCheckTicketOBJ.alarmNum);
 
             $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.sellCheckTicketOBJ.cDataIDNum);
-
 
             //-----------------------------能源管理---------------------------//
 
@@ -2451,6 +2450,7 @@ function getTPDevMonitor(){
 
                     dataArr.push(obj);
                 }
+
             });
 
 
@@ -2471,8 +2471,6 @@ function getTPDevMonitor(){
             $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.energyManagerOBJ.alarmNum);
 
             $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.energyManagerOBJ.cDataIDNum);
-
-
 
             //-----------------设备报警数据------------------//
 
@@ -2852,10 +2850,11 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
             allData = dataArr[0].data * 1.5;
 
         }else{
+
             allData = centerData.data;
+
         }
     }
-
 
     //定义图例集合
     var legendArr = [];
@@ -3423,13 +3422,12 @@ function getDevMonitAlarmPopup(devTypeArr,condition){
                 tableHtml += "<td>"+ o.dataDate+"</td>";
 
                 //是否报单
-
                 var isBaoDan = '未报单';
 
                 if(o.isBaoDan == 1){
 
                     isBaoDan = '已报单';
-                }
+                };
 
                 tableHtml += "<td>"+ isBaoDan +"</td>";
 
@@ -3486,8 +3484,11 @@ function getDevMonitPowerData(devTypeArr,condition){
         beforeSend:function(){
 
             setTimeout(function(){
+
                 $('#electric-message .bottom-table-data-container ').showLoading();
+
             },500);
+
         },
         success:function(result){
 
@@ -3655,7 +3656,7 @@ function getEnergyCostData(condition){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
             setTimeout(function(){
 
@@ -3801,7 +3802,7 @@ function getDevAlarmNumPopupData(condition){
 
             setTimeout(function(){
                 $('#alarm-message1 .bottom-table-data-container #dateTables-alarm').hideLoading();
-            },500)
+            },500);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 
@@ -3883,6 +3884,7 @@ function getDevRunParaPopupData(devTypeArr,condition){
                 $('#run-number-message .equip-types').html(selectHtml);
 
             }
+
             //给页面赋值
             var tableHtml = "";
 
@@ -4469,6 +4471,7 @@ function typeOfAlarm(){
         }
     });
 };
+
 
 //获取消防系统中报警分类
 function getAlarmFireType(num){

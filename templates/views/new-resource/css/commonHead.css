@@ -108,3 +108,7 @@ table.table th{
     min-height: 500px;
 }
 
+.table .table{
+    min-height: 100px !important;
+}
+

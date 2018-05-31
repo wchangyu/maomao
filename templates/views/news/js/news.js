@@ -140,6 +140,9 @@ $(function(){
         //动态创建list方法
         function creatEle(result,attr,liBlock,ulList,flag){
             console.log(result);
+            if(!result){
+                return false;
+            }
             for(var i=0;i<result[attr].length;i++){
                 //创建tab li 的字符串
                 var topRightLi = '';

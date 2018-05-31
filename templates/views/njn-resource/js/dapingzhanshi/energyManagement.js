@@ -3,6 +3,9 @@
  */
 $(function(){
 
+    //判断当前是大屏还是小屏
+
+
     //获取实时数据中上方的能耗种类
     getEcTypeByDeploy();
 
@@ -1868,3 +1871,15 @@ function getUnitById(id){
         }
     }
 };
+
+//判断当前是大屏还是小屏，并修改页面中跳转链接
+function changeJumpUrl(){
+
+    if(window.screen.width > 2500){
+
+        window.location.href = 'njn-dapingzhanshi/pandectEnergy.html';
+
+        return false;
+    }
+
+}
