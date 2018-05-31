@@ -14,6 +14,9 @@ $(function(){
     $('.datatimeblock').eq(1).val(et);
 
     /*--------------------------------------------变量----------------------------------------------------*/
+    //仓库列表
+    var _ckArr = [];
+
     //报修vue变量
     var gdObj = new Vue({
         el:'#myApp33',
@@ -152,6 +155,44 @@ $(function(){
         }
     })
 
+    //添加工时费用vue
+    var feeObj = new Vue({
+        el:'#GS',
+        data:{
+            //项目名称
+            'mc':'',
+            //项目编码
+            'bm':'',
+            //项目类别
+            'lb':'',
+            //费用
+            'fee':'',
+            //数量
+            'sl':'',
+            //备注
+            'remark':''
+        },
+        methods:{
+
+            numFun:function(){
+
+                var mny = /^[0-9]*[1-9][0-9]*$/;
+
+                if(mny.test(feeObj.sl)){
+
+                    $('.errorFee').hide();
+
+                }else{
+
+                    $('.errorFee').show();
+
+                }
+
+            }
+
+        }
+    })
+
     //标记当前打开的是不是报修按钮
     var _isDeng = false;
 
@@ -210,6 +251,12 @@ $(function(){
     //执行人是否执行成功
     var _zxrIsSuccess = '';
 
+    //工时费是否执行完成
+    var _gsfIsComplete = false;
+
+    //工时费是否执行成功
+    var _gsfIsSuccess = '';
+
     //申请关闭是否完成
     var _gbIsComplete = false;
 
@@ -217,7 +264,10 @@ $(function(){
     var _gbIsSuccess = false;
 
     //物品分类
-    classification();
+    //classification();
+
+    //仓库
+    warehouse();
 
     //存放员工信息数组
     var _workerArr = [];
@@ -250,6 +300,20 @@ $(function(){
 
     var _isChange = true;
 
+    //项目费用类别获取
+    feeClass();
+
+    //所有项目费用列表
+    var _feeArr = [];
+
+    //获取所有维修费用列表
+    feeConditionSelect(true);
+
+    //第二层模态框的费用数组
+    var _secondFeeArr = [];
+
+    //第一层模态框费用数组
+    var _firstFeeArr = [];
 
     /*-------------------------------------------------按钮事件-----------------------------------------*/
 
@@ -550,6 +614,16 @@ $(function(){
     //选择材料
     $('.selectCL').click(function(){
 
+        //初始化
+        //物品编码
+        $('#wpbms').val('');
+        //物品名称
+        $('#wpmcs').val('');
+        //仓库
+        $('#flmcs').val('');
+        //表格初始化
+        _datasTable($('#weiXiuCaiLiaoTable'),_allWLArr);
+
         //模态框显示
         _moTaiKuang($('#myModal5'), '选择材料', '', '' ,'', '确定');
 
@@ -558,7 +632,9 @@ $(function(){
     //选择材料条件搜索
     $('.tianJiaSelect').click(function(){
 
-        ClListData();
+        //warehouse();
+        CLStok();
+
 
     });
 
@@ -573,6 +649,7 @@ $(function(){
         _bjObject.wpmc = $this.children('.wlmc').html();
         _bjObject.size = $this.children('.size').html();
         _bjObject.unit = $this.children('.unit').html();
+        _bjObject.money = $this.children('.money').html();
     });
 
     //选择材料点击事件的确定按钮
@@ -584,11 +661,12 @@ $(function(){
         clObj.dw = _bjObject.unit;
         clObj.size = _bjObject.size;
         clObj.sl = '';
-        clObj.dj = '';
+        clObj.dj = _bjObject.money;
         clObj.je = '';
 
         //模态框关闭
         $('#myModal5').modal('hide');
+
     })
 
     //添加材料【添加】按钮
@@ -727,6 +805,11 @@ $(function(){
         var total = Number($('#hourFee').val()) + Number(_totalFree);
 
         $('#total').val(total.toFixed(2));
+
+        //关联总费用
+        var zFee = Number($('#total').val()) + Number($('#totalGS').val());
+
+        $('#zFee').val(zFee.toFixed(2))
     })
 
     //外层材料选择删除
@@ -763,11 +846,21 @@ $(function(){
     //申请关单
     $('#myModal').on('click','.closeGD',function(){
 
-        //提示是否执行申请关单操作
-        _moTaiKuang($('#confirm-Modal'), '提示', '', 'istap' ,'执行申请关单操作？', '确定');
+        //首先要验证材料费用和维修费用还有总费用是不是数字
 
-        //添加类
-        $('#confirm-Modal').find('.modal-footer').children('.btn-primary').addClass('closeGD1');
+        if( $('#total').val() == 'NaN' || $('#totalGS').val() == 'NaN' || $('#zFee').val() == 'NaN' ){
+
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请确保数字格式正确！', '');
+
+        }else{
+
+            //提示是否执行申请关单操作
+            _moTaiKuang($('#confirm-Modal'), '提示', '', 'istap' ,'执行申请关单操作？', '确定');
+
+            //添加类
+            $('#confirm-Modal').find('.modal-footer').children('.btn-primary').addClass('closeGD1');
+
+        }
 
     })
 
@@ -782,6 +875,9 @@ $(function(){
 
         //执行人
         addWorks();
+
+        //维修工时费
+        feeFun();
 
         //关闭申请
         closingApplication();
@@ -1132,6 +1228,414 @@ $(function(){
 
     })
 
+    //添加工时费用
+    $('.addGS').click(function(){
+
+        //初始化
+        _secondFeeArr.length = 0;
+
+        for(var i=0;i<_firstFeeArr.length;i++){
+
+            _secondFeeArr.push(_firstFeeArr[i]);
+
+        }
+        feeNumInit(_secondFeeArr);
+        //模态框显示
+        _moTaiKuang($('#fee-Modal'),'添加维修费用', false, '' ,'', '添加费用');
+
+    })
+
+    //添加工时费用确定按钮
+    $('#appendToGS').click(function(){
+
+        //模态框消失
+        $('#fee-Modal').modal('hide');
+
+        //_second传给first
+        _firstFeeArr = [];
+
+        for(var i = 0;i<_secondFeeArr.length;i++){
+
+            _firstFeeArr.push(_secondFeeArr[i]);
+
+        }
+
+        //给第一层的工时费用表格赋值
+        _datasTable($('#gs-list'),_firstFeeArr);
+
+        //合计金额
+        var amount = 0;
+
+        for(var i=0;i<_firstFeeArr.length;i++){
+
+            var fee = Number(_firstFeeArr[i].workfee) * Number(_firstFeeArr[i].workhour);
+
+            amount += fee;
+
+        }
+
+        //给总金额赋值
+        $('#totalGS').val(Number(amount).toFixed(2));
+
+        //关联总费用
+        var zFee = Number($('#total').val()) + Number($('#totalGS').val());
+
+        $('#zFee').val(zFee.toFixed(2));
+
+    })
+
+    //项目费用选择
+    $('.selectFY').click(function(){
+
+        //初始化
+        feeListInit();
+
+        //模态框显示
+        _moTaiKuang($('#fee-ModalList'),'添加维修费用', false, '' ,'', '添加费用');
+
+    })
+
+    //条件查询工时费
+    $('.tianJiaFee').click(function(){
+
+        feeConditionSelect();
+
+    })
+
+    //点击项目费用表格，选择费用
+    $('#gsTable tbody').on('click','tr',function(){
+
+        $('#gsTable tbody').find('tr').removeClass('tables-hover');
+
+        $(this).addClass('tables-hover');
+
+    })
+
+    //选择费用确定按钮
+    $('.addGS1').click(function(){
+
+        //将选中的表格值赋值
+        var info = $('#gsTable tbody').find('.tables-hover')
+
+        //项目名称
+        feeObj.mc = info.children().eq(1).html();
+        //项目编码
+        feeObj.bm = info.children().eq(0).html();
+        //项目类别
+        feeObj.lb = info.children().eq(2).html();
+        //费用
+        feeObj.fee = info.children().eq(3).html();
+        //数量
+        feeObj.sl = '';
+
+        //模态框消失
+        $('#fee-ModalList').modal('hide');
+
+    })
+
+    //给工时费添加数量(第一层模态框的数组叫first，二second)；
+    $('#addRKFee').click(function(){
+
+        //将填写好的数量等等写入secondArr；
+        var currentObj = {};
+        //项目名称
+        currentObj.wxname = feeObj.mc;
+        //项目编码
+        currentObj.wxnum = feeObj.bm;
+        //项目类别
+        currentObj.wxclassname = feeObj.lb;
+        //费用（元）
+        currentObj.workfee = feeObj.fee;
+        //数量
+        currentObj.workhour = feeObj.sl;
+        //备注
+        currentObj.memo = feeObj.remark;
+
+        //验证非空
+        if(feeObj.mc == '' || feeObj.bm == '' || feeObj.lb == '' || feeObj.fee == '' || feeObj.sl == '' ){
+
+            //提示
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请填写红色必填项', '');
+
+        }else{
+
+            //验证格式
+            var o = $('.errorFee').css('display');
+
+            if( o != 'none'){
+
+                _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请填写格式正确的内容', '');
+
+            }else{
+
+                //验证通过，将对象的值付给表格
+                if( _secondFeeArr.length == 0 ){
+
+                    _secondFeeArr.push(currentObj);
+
+                }else{
+
+                    var isExist = false;
+
+                    for(var i=0;i<_secondFeeArr.length;i++){
+
+                        if(_secondFeeArr[i].wxnum === currentObj.wxnum){
+
+                            isExist = true;
+
+                            break;
+
+                        }
+
+                    }
+
+                    if(!isExist){
+
+                        _secondFeeArr.push(currentObj);
+
+                    }else{
+
+                        _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'已经添加过', '');
+
+                    }
+
+                }
+
+                _datasTable($('#gs-selecting'),_secondFeeArr);
+
+                //初始化input框
+                //项目名称
+                feeObj.mc = '';
+                //项目编码
+                feeObj.bm = '';
+                //项目类别
+                feeObj.lb = '';
+                //费用
+                feeObj.fee = '';
+                //数量
+                feeObj.sl = '';
+                //备注
+                feeObj.remark = '';
+
+            }
+
+
+        }
+
+    })
+
+    //给工时费添加数量重置按钮
+    $('#addResetFee').click(function(){
+
+        //项目名称
+        feeObj.mc = '';
+        //项目编码
+        feeObj.bm = '';
+        //项目类别
+        feeObj.lb = '';
+        //费用
+        feeObj.fee = '';
+        //数量
+        feeObj.sl = '';
+        //备注
+        feeObj.remark = '';
+        //可否编辑
+        $('#GS').find('.no-edit').removeClass('disabled-block').attr('disabled',false);
+
+    })
+
+    //第二层模态框表格的编辑操作
+    $('#gs-selecting tbody').on('click','.option-bianji',function(){
+
+        //样式
+        $('#gs-selecting tbody').children().removeClass('tables-hover');
+
+        $(this).parents('tr').addClass('tables-hover');
+
+        //项目框自动赋值
+        $('#GS').find('.no-edit').addClass('disabled-block').attr('disabled',true);
+
+        //按钮变为保存
+        $(this).html('保存').removeClass('option-bianji').addClass('option-baocun');
+
+        //赋值
+        var thisData = $(this).parents('tr');
+        //项目名称
+        feeObj.mc = thisData.children().eq(1).html();
+        //项目编码
+        feeObj.bm = thisData.children().eq(0).html();
+        //项目类别
+        feeObj.lb = thisData.children().eq(2).html();
+        //费用
+        feeObj.fee = thisData.children().eq(3).html();
+        //数量
+        feeObj.sl = thisData.children().eq(4).html();
+        //备注
+        feeObj.remark = thisData.children().eq(5).html();
+
+    })
+
+    //第二层模态框表格的保存操作
+    $('#gs-selecting tbody').on('click','.option-baocun',function(){
+
+        var currentObj = {};
+
+        //根据项目编码，修改数量
+        //项目名称
+        currentObj.wxname = feeObj.mc;
+        //项目编码
+        currentObj.wxnum = feeObj.bm;
+        //项目类别
+        currentObj.wxclassname = feeObj.lb;
+        //费用（元）
+        currentObj.workfee = feeObj.fee;
+        //数量
+        currentObj.workhour = feeObj.sl;
+        //备注
+        currentObj.memo = feeObj.remark;
+
+        //验证非空
+        if(feeObj.mc == '' || feeObj.bm == '' || feeObj.lb == '' || feeObj.fee == '' || feeObj.sl == '' ){
+
+            //提示
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请填写红色必填项', '');
+
+        }else{
+
+            //验证格式
+            var o = $('.errorFee').css('display');
+
+            if( o != 'none' ){
+
+                _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请填写格式正确的内容', '');
+
+            }else{
+
+                for(var i=0;i<_secondFeeArr.length;i++){
+
+                    if(_secondFeeArr[i].wxnum == currentObj.wxnum){
+
+                        //重新赋值
+                        //项目编码
+                        _secondFeeArr[i].wxnum = currentObj.wxnum;
+                        //项目名称
+                        _secondFeeArr[i].wxname = currentObj.wxname;
+                        //项目类别
+                        _secondFeeArr[i].wxclassname = currentObj.wxclassname;
+                        //费用
+                        _secondFeeArr[i].workfee = currentObj.workfee;
+                        //数量
+                        _secondFeeArr[i].workhour = currentObj.workhour;
+                        //备注
+                        _secondFeeArr[i].memo = currentObj.memo;
+
+                    }
+
+                }
+
+                _datasTable($('#gs-selecting'),_secondFeeArr);
+
+                //input框充值
+                //项目名称
+                feeObj.mc = '';
+                //项目编码
+                feeObj.bm = '';
+                //项目类别
+                feeObj.lb = '';
+                //费用
+                feeObj.fee = '';
+                //数量
+                feeObj.sl = '';
+                //备注
+                feeObj.remark = '';
+                //可否编辑
+                $('#GS').find('.no-edit').removeClass('disabled-block').attr('disabled',false);
+
+            }
+
+        }
+
+    })
+
+    //第二层模态框表格的删除操作
+    $('#gs-selecting tbody').on('click','.option-shanchu',function(){
+
+        //样式
+        //样式
+        $('#gs-selecting tbody').children().removeClass('tables-hover');
+
+        $(this).parents('tr').addClass('tables-hover');
+
+        //模态框删除
+
+        var str = $(this).parents('tr').children(1).html();
+
+        _moTaiKuang($('#second-Del'), '确定要删除吗？', false, 'istap' ,str, '删除');
+
+    })
+
+    //删除确定按钮
+    $('#second-Del').on('click','.btn-primary',function(){
+
+        //删除
+        var str = $('#second-Del').find('.modal-body').html();
+
+        var obj = {};
+
+        for(var i=0;i<_secondFeeArr.length;i++){
+
+            if(_secondFeeArr[i].wxnum == str){
+
+                obj = _secondFeeArr[i];
+
+            }
+
+        }
+
+        _secondFeeArr.remove(obj);
+
+        _datasTable($('#gs-selecting'),_secondFeeArr);
+
+        //模态框消失
+        $('#second-Del').modal('hide');
+
+    })
+
+    //输入材料小计或者维修费用小计的时候，自动计算总费用
+    $('#total').keyup(function(){
+
+        //关联总费用
+        var zFee = Number($('#total').val()) + Number($('#totalGS').val());
+
+        $('#zFee').val(zFee.toFixed(2))
+
+    })
+
+    $('#total').blur(function(){
+
+      var values = Number($('#total').val()).toFixed(2);
+
+      $('#total').val(values)
+
+    })
+
+    $('#totalGS').keyup(function(){
+
+        //关联总费用
+        var zFee = Number($('#total').val()) + Number($('#totalGS').val());
+
+        $('#zFee').val(zFee.toFixed(2))
+
+    })
+
+    $('#totalGS').blur(function(){
+
+        var values = Number($('#totalGS').val()).toFixed(2);
+
+        $('#totalGS').val(values)
+
+    })
+
 
     /*------------------------------------------------表格初始化------------------------------------------*/
 
@@ -1259,7 +1763,23 @@ $(function(){
         },
         {
             title:'等待原因',
-            data:'dengyy'
+            data:'dengyy',
+            render:function(data, type, full, meta){
+
+                if(data == 1){
+
+                    return '等待技术支持'
+
+                }else if(data == 2){
+
+                    return '等待配件'
+
+                }else if( data == 3 ){
+
+                    return '等待外委施工'
+
+                }
+            }
         },
         {
             title:'预计完成时间',
@@ -1602,8 +2122,8 @@ $(function(){
     //材料选择列表
     var clSelectList =  [
         {
-            title:'分类名称',
-            data:'cateName',
+            title:'仓库',
+            data:'storageName',
             className:'flmc'
         },
         {
@@ -1622,6 +2142,18 @@ $(function(){
             className:'size'
         },
         {
+            title:'单价',
+            className:'money',
+            render:function(data, type, full, meta){
+
+                var prince = Number(full.amount)/Number(full.num);
+
+                return prince.toFixed(2);
+
+            }
+
+        },
+        {
             title:'单位',
             data:'unitName',
             className:'unit'
@@ -1632,9 +2164,6 @@ $(function(){
 
     //负责人数据
     fzrFun();
-
-    //物品列表
-    ClListData();
 
     //条件刷新
     //conditionSelect(true);
@@ -2001,6 +2530,109 @@ $(function(){
     //获取维修人员
     servicPerson();
 
+    //项目费用list
+    var feeCol = [
+
+        {
+            title:'项目编码',
+            data:'wxnum'
+        },
+        {
+            title:'项目名称',
+            data:'wxname'
+        },
+        {
+            title:'项目类别',
+            data:'wxclassname'
+        },
+        {
+            title:'工作费用',
+            data:'workfee',
+            render:function(data, type, full, meta){
+
+                return Number(data).toFixed(2)
+
+            }
+        }
+
+    ]
+
+    _tableInit($('#gsTable'),feeCol,'2','','','');
+
+    //费用添加数量时的表格
+    var feeNumCol = [
+
+        {
+            title:'项目编码',
+            data:'wxnum'
+        },
+        {
+            title:'项目名称',
+            data:'wxname'
+        },
+        {
+            title:'项目类别',
+            data:'wxclassname'
+        },
+        {
+            title:'工作费用',
+            data:'workfee',
+            render:function(data, type, full, meta){
+
+                return Number(data).toFixed(2)
+
+            }
+        },
+        {
+            title:'数量',
+            data:'workhour'
+        },
+        {
+            title:'备注',
+            data:'memo'
+        },
+        {
+            title:'操作',
+            data:null,
+            defaultContent: "<span class='data-option option-bianji btn default btn-xs green-stripe'>编辑</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
+        }
+
+    ]
+
+    _tableInit($('#gs-selecting'),feeNumCol,'2','','','','');
+
+    //第一层费用表格
+    var feefirstCol = [
+
+        {
+            title:'项目编码',
+            data:'wxnum'
+        },
+        {
+            title:'项目名称',
+            data:'wxname'
+        },
+        {
+            title:'项目类别',
+            data:'wxclassname'
+        },
+        {
+            title:'工作费用',
+            data:'workfee'
+        },
+        {
+            title:'数量',
+            data:'workhour'
+        },
+        {
+            title:'备注',
+            data:'memo'
+        }
+
+    ]
+
+    _tableInit($('#gs-list'),feefirstCol,'2','','','',true);
+
     /*------------------------------------------------其他方法--------------------------------------------*/
 
     var equipmentArr = [];
@@ -2092,7 +2724,7 @@ $(function(){
         $('#hourFee').val('');
 
         //合计金额初始化
-        $('#total').val();
+        $('#total').val('');
 
         //维修内容初始化
         $('.wxcontent').val('');
@@ -2104,6 +2736,15 @@ $(function(){
 
         //验收人
         $('#receiver').val('');
+
+        //维修费用
+        _datasTable($('#gs-list'),arr);
+
+        //工时小计
+        $('#totalGS').val('');
+
+        //总费用
+        $('#zFee').val('');
 
     }
 
@@ -2454,7 +3095,7 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:_urls + 'YWCK/ywCKGetItems',
+            url:_urls + 'YWCK/ywCKRptItemStock',
             data:prm,
             success:function(result){
                 _allWLArr.length = 0;
@@ -2467,6 +3108,121 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+
+    //获取所有仓库
+    function warehouse(){
+        var prm = {
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':'admin',
+            "hasLocation":1
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetStorages',
+            data:prm,
+            success:function(result){
+
+                _ckArr.length = 0;
+
+                var str = '<option value="">请选择</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    _ckArr.push(result[i]);
+
+                    str += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
+
+                }
+                $('#flmcs').empty().append(str);
+
+                CLStok(true);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //获取所有物品库存
+    function CLStok(flag){
+
+        var prm = {
+
+            //仓库
+            //storageNums:$('#flmcs').val(),
+            //物品编码
+            itemNum : $.trim($('#wpbms').val()),
+            //物品名称
+            itemName: $.trim($('#wpmcs').val()),
+            //用户id
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName,
+            //部门
+            b_UserRole:_userRole,
+            //hasNum
+            hasNum:1
+
+        }
+
+        var arr = [];
+
+        if($('#flmcs').val() == '' || $('#flmcs').val() == null ){
+
+
+            for(var i=0;i<_ckArr.length;i++){
+
+                arr.push(_ckArr[i].storageNum);
+
+            }
+
+            prm.storageNums = arr;
+
+        }else{
+
+            prm.storageNum = $('#flmcs').val();
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWCK/ywCKRptItemStock',
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            success:function(result){
+
+                if(flag){
+
+                    _allWLArr.length = 0;
+
+                    for(var i=0;i<result.length;i++){
+
+                        _allWLArr.push(result[i]);
+
+                    }
+
+                }
+
+
+                _datasTable($('#weiXiuCaiLiaoTable'),result)
+
+            },
+
+            error:function(jqXHR, textStatus, errorThrown){
+
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
     }
 
     //添加物料方法
@@ -2540,8 +3296,10 @@ $(function(){
             wxBeizhu:$('.wxcontent').val(),
             yanShouRen:$('#receiver').val(),
             yanShouRenName:$('#receiver').children('option:selected').html() == '请选择'?'':$('#receiver').children('option:selected').html(),
-            gdFee:$('#total').val(),
-            gongShiFee:$('#hourFee').val(),
+            //工单总费用
+            gdFee:$('#zFee').val(),
+            //维修项目总费用
+            gongShiFee:$('#totalGS').val(),
             userID:_userIdNum,
             userName:_userIdName,
             b_UserRole:_userRole
@@ -2580,9 +3338,9 @@ $(function(){
         })
     }
 
-    //判断添加物品和关单申请是否完成
+    //判断添加物品和关单申请和工时费是否完成
     function isComplete(){
-        if( _clIsComplete && _gbIsComplete  && _zxrIsComplete){
+        if( _clIsComplete && _gbIsComplete  && _zxrIsComplete && _gsfIsComplete){
 
                 var str = '';
 
@@ -2622,6 +3380,21 @@ $(function(){
 
                     str += '申请关单失败！'
                 }
+
+                if( _gsfIsSuccess == 'true' ){
+
+                    str += '添加维修工时费成功！'
+
+                }else if(_gsfIsSuccess == 'false'){
+
+                    str += '添加维修工时费失败！'
+
+                }else{
+
+                    str += ''
+
+                }
+
 
                 $('#theLoading').modal('hide');
 
@@ -3536,5 +4309,191 @@ $(function(){
         })
 
     })
+
+    //工时费的时候，类别获取
+    function feeClass(){
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWGD/ywGDwxxmClassGetAll',
+
+            success:function(result){
+
+                var str = '<option value="">全部</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].wxclassname + '">' + result[i].wxclassname +'</option>';
+
+                }
+
+                $('#flmcs1').empty().append(str);
+
+            },
+
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+
+
+
+            }
+
+        })
+
+    }
+
+    //条件查询工时费
+    function feeConditionSelect(flag){
+
+        var prm = {
+
+            //项目编码
+            wxnum:$('#feeBM').val(),
+            //项目名称
+            wxname:$('#feeMC').val(),
+            //项目分类
+            wxclassname:$('#flmcs1').val()
+        }
+
+        _mainAjaxFun('post','YWGD/ywGDWxxmcostGetAll',prm,function(result){
+
+            if(flag){
+
+                _feeArr.length = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    _feeArr.push(result[i])
+
+                }
+
+                console.log(result);
+
+            }else{
+
+                _datasTable($('#gsTable'),result);
+
+            }
+
+
+        })
+
+    }
+
+    //选择查询工时费初始化
+    function feeListInit(){
+
+        //项目编码
+        $('#feeBM').val('');
+
+        //项目名称
+        $('#feeMC').val();
+
+        //项目分类
+        $('#flmcs1').val();
+
+        //表格
+        _datasTable($('#gsTable'),_feeArr);
+
+    }
+
+    //给工时费添加数量模态框初始化
+    function feeNumInit(arr){
+
+        //项目名称
+        feeObj.mc = '';
+        //项目编码
+        feeObj.bm = '';
+        //项目类别
+        feeObj.lb = '';
+        //费用
+        feeObj.fee = '';
+        //数量
+        feeObj.sl = '';
+
+        _datasTable($('#gs-selecting'),arr);
+
+    }
+
+    //工时费接口
+    function feeFun(){
+
+        if(_firstFeeArr.length == 0){
+
+            _gsfIsComplete = true;
+
+        }else{
+
+            var prm =   {
+
+                //工单号
+                gdCode:_gdCode,
+                //工时费
+                gdWxxmlist:_firstFeeArr,
+                //用户id
+                userID:_userIdNum,
+                //用户名
+                userName:_userIdName,
+                //角色
+                b_UserRole:_userRole,
+                //部门
+                b_DepartNum:_userBM
+
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:_urls + 'YWGD/ywGDAddWxxm',
+
+                data:prm,
+
+                timeout:_theTimes,
+
+                success:function(result){
+
+                    //console.log(result);
+
+                    _gsfIsComplete = true;
+
+                    if(result == 99){
+
+                        _gsfIsSuccess = 'true';
+
+                    }else{
+
+                        _gsfIsSuccess = 'false';
+
+                    }
+
+                    isComplete();
+
+                },
+
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+
+                    _gsfIsComplete = true;
+
+                    if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                        console.log('超时');
+
+                    }else{
+
+                        console.log('请求失败');
+
+                    }
+
+                }
+
+            })
+
+        }
+
+
+
+    }
 
 })

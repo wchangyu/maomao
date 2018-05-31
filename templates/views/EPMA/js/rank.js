@@ -38,6 +38,7 @@
         var month = parseInt(nowDt.getMonth())+1;
         var day = nowDt.getDate();
         var nowstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+
         return nowstr;
     }
 
@@ -121,7 +122,7 @@
     //查询能效排名
     var getEERRankDs = function () {
         if(selectDt.length === 0){
-            alert('提示(能效排名):请选择时间');
+            console.log('提示(能效排名):请选择时间');
             return;
         }
         else{
@@ -134,7 +135,8 @@
             $.post(url,{
                 pIds:pIds,
                 pNts:pNts,
-                DT:dtnowstr(),
+                //DT:dtnowstr(),
+                DT:moment($('#spDT').val()).endOf('months').format('YYYY-MM-DD'),
                 eType:selectEType,
                 misc:sessionStorage.misc
             },function (res) {
@@ -174,7 +176,7 @@
                     drawctv(ctxs, ctys, ctcs,  Luntil);//冷却塔
                     jQuery('#rankBusy').hideLoading();
                 }else if(res.code === -1){
-                    alert('异常错误(能效排名:)' + res.msg);
+                    console.log('异常错误(能效排名:)' + res.msg);
                     jQuery('#rankBusy').hideLoading();
                 }else{
                     jQuery('#rankBusy').hideLoading();

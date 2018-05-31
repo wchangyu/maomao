@@ -55,7 +55,7 @@ var Rate=function () {
         var ep = $('#epDT').val();
         var url = sessionStorage.apiUrlPrefix + "RateEER/GetRateEERs";
         $.post(url,{
-            pId:'8817180401',
+            pId:sessionStorage.PointerID,
             sp:sp,
             ep:ep,
             misc:sessionStorage.misc
@@ -64,17 +64,22 @@ var Rate=function () {
                 var miscstr
                     //= 'KW/KW';
 
+                var maxeerVa = '';
+
                 if(sessionStorage.misc == 1){
 
-                    miscstr = 'KW/KW'
+                    miscstr = 'KW/KW';
+
+                    maxeerVa = 9;
 
                 }else if(sessionStorage.misc == 2){
 
                     miscstr = 'KW/RT'
 
+                    maxeerVa = 3;
+
                 }
 
-                var maxeerVa = 9;
                 var maxRateVa = res.rateMaxVa;
                 var ys = [];
                 for (var i = 0; i < res.ys.length; i++) {

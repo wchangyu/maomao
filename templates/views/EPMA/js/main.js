@@ -117,6 +117,17 @@
                 },
             ]
         };
+
+        if(sessionStorage.misc == 1){
+
+            option.series[0].data[0].name = 'KW/KW';
+
+        }else if(sessionStorage.misc == 2){
+
+            option.series[0].data[0].name = 'KW/RT';
+
+        }
+
         myEERAreaMain.setOption(option, true);
     }
 
@@ -126,7 +137,7 @@
         var url = sessionStorage.apiUrlPrefix+ "Main/GetECPItemizeNowDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            SysrealDt:sessionStorage.sysDt,
             misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
@@ -188,11 +199,27 @@
 
 
                 }else{
-                    eerV = parseFloat(lzlV / lzpV).toFixed(3);
 
-                    if (eerV > 15) {
-                        eerV = 15;
+                    if(sessionStorage.misc == 1){
+
+                        //KW/KW
+                        eerV = parseFloat(lzlV / lzpV).toFixed(3);
+
+                        if (eerV > 15) {
+                            eerV = 15;
+                        }
+
+                    }else if(sessionStorage.misc == 2){
+
+                        //KW/RT
+                        eerV = parseFloat(lzpV / lzlV).toFixed(3);
+
+                        if (eerV > 3) {
+                            eerV = 3.000;
+                        }
+
                     }
+
                     initEERArea(eerV,eerMinV,eerMaxV);
 
                     //实时折标能效、COP 标况 = COP实测 /(1+(冷冻出水温度-7）×2%）/（1+（30-冷却回水温度）×3%））
@@ -234,7 +261,8 @@
         $.post(url,{
             pId:sessionStorage.PointerID,
             SysrealDt:encodeURIComponent(sessionStorage.sysDt),
-            misc:sessionStorage.misc
+            misc:sessionStorage.misc,
+            stp:sessionStorage.showstep
         },function (res) {
             if(res.code===0){
 
@@ -343,12 +371,27 @@
         $.post(url,{
             pId:sessionStorage.PointerID,
             SysrealDt:encodeURIComponent(sessionStorage.sysDt),
-            misc:sessionStorage.misc
+            misc:sessionStorage.misc,
+            stp:sessionStorage.showstep
         },function (res) {
             if(res.code===0){
 
+                console.log(res);
+
                 //返回的数据中，第一个是实时能效曲线值，第二个是折标能效值；
-                var name = ["实时能效(KW/KW)"];
+
+                var name = '';
+
+                if(sessionStorage.misc == 1){
+
+                    name = ["实时能效(KW/KW)"];
+
+                }else if(sessionStorage.misc == 2){
+
+                    name = ["实时能效(KW/RT)"];
+
+                }
+
                 //两条线的颜色数组
                 var dvs = [];
 
@@ -374,8 +417,6 @@
 
                 }
 
-                console.log(dvs);
-
                 option = {
                     title: {
                         //subtext: 'KW/RT'
@@ -384,7 +425,7 @@
                         trigger: 'axis'
                     },
                     legend: {
-                        data: name[0]
+                        data: name
                     },
                     toolbox: {
                         show: false,
@@ -415,6 +456,8 @@
                     },
                     series: dvs
                 };
+
+
                 myEERLineMain.setOption(option, true);
                 jQuery('#lineBusy').hideLoading();
             }else if(res.code===-1){//异常错误
@@ -441,18 +484,7 @@
                 var dvs = [];
                 for (var i = 0; i < res.ys.length; i++) {
                     var object = {};
-
-                    if(sessionStorage.misc == 1){
-
-                        object.name = "冷站实时功率(KW)";
-
-                    }else if(sessionStorage.misc == 2){
-
-                        object.name = "冷站实时功率(RT)";
-
-                    }
-
-
+                    object.name = "冷站实时功率(KW)";
                     object.type = "line";
                     object.data = [];
                     for (var j = 0; j < res.ys[i].length; j++) {
@@ -502,15 +534,7 @@
                     series: dvs
                 };
 
-                if(sessionStorage.misc == 1){
-
-                    option.legend.data[0] = '冷站实时功率(KW)';
-
-                }else if( sessionStorage.misc == 2 ){
-
-                    option.legend.data[0] = '冷站实时功率(RT)';
-
-                }
+                option.legend.data[0] = '冷站实时功率(KW)';
 
                 myPowerLineMain.setOption(option, true);
             }else if(res.code===-1){
@@ -612,9 +636,23 @@
                     yAxis.push(object);
                 }
                 var ys = [];
+
+                var resLgs = [];
+
+
+                if(sessionStorage.misc == 1){
+
+                    resLgs = ["冷量(KW)", "冷机功率(KW)", "散热量(KW)", "热不平衡率(%)"]
+
+                }else if(sessionStorage.misc == 2){
+
+                    resLgs = ["冷量(RT)", "冷机功率(KW)", "散热量(RT)", "热不平衡率(%)"]
+
+                }
+
                 for (var i = 0; i < res.ys.length; i++) {
                     var object = {};
-                    object.name = res.lgs[i];
+                    object.name = resLgs[i];
                     object.type = "line";
                     if (i == res.ys.length - 1) {
                         object.yAxisIndex = 1;
@@ -631,7 +669,7 @@
                         trigger: 'axis'
                     },
                     legend: {
-                        data: res.lgs
+                        data: resLgs
                     },
                     xAxis: xs,
                     yAxis: yAxis,
@@ -736,7 +774,7 @@
         var url = sessionStorage.apiUrlPrefix + "Main/GetEAnMonNowDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            SysrealDt:sessionStorage.sysDt,
             misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
@@ -782,6 +820,7 @@
         $('#yseV').html(dm.ysV);
         $('#tyeV').html(dm.tyV);
         $('#daymV').html(dm.monV);
+
         if (dm.momE === 0)//N
         {
             $("#day-circle").attr('src', 'img/arrowNormal.png');
@@ -1119,7 +1158,7 @@
 
             type:'post',
 
-            url:_urls + '/Main/GetNowCTypeIDs',
+            url:_urls + 'Main/GetNowCTypeIDs',
 
             timeout:_theTimes,
 
@@ -1249,13 +1288,32 @@
             initElePriceColdData();
 
             //显示折标能效
-            if(sessionStorage.showstep == '1'){
+
+            var flagZB = false;
+
+            //判断session中的PointerID是否在steps数组中
+            if(sessionStorage.steps.indexOf(sessionStorage.PointerID)>0){
+
+                flagZB = true;
+
+            }else{
+
+                flagZB = false;
+
+            }
+
+
+            if(flagZB){
+
+                //显示折标
+
+                sessionStorage.showstep = 1;
 
                 showBK();
 
+            }else if(!flagZB ){
 
-            }else if(sessionStorage.showstep == '0' ){
-
+                sessionStorage.showstep = 0;
 
                 hideBK();
 
@@ -1282,12 +1340,12 @@
                 initElePriceColdData();
 
                 //显示折标能效
-                if(sessionStorage.showstep == '1'){
+                if(flagZB){
 
                     showBK();
 
 
-                }else if(sessionStorage.showstep == '0' ){
+                }else if(!flagZB){
 
 
                     hideBK();

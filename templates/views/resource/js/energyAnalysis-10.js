@@ -81,7 +81,7 @@ $(function(){
 	function searchNode(e) {
 
 		//获取树
-		var zTree = $.fn.zTree.getZTreeObj("energyConsumption");
+		var zTree = $.fn.zTree.getZTreeObj("dev");
 
 		//去掉input中的空格（首尾）
 		var value = $.trim($('#key').get(0).value);

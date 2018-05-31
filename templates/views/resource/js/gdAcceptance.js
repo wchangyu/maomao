@@ -878,7 +878,23 @@ $(function(){
         },
         {
             title:'等待原因',
-            data:'dengyy'
+            data:'dengyy',
+            render:function(data, type, full, meta){
+
+                if(data == 1){
+
+                    return '等待技术支持'
+
+                }else if(data == 2){
+
+                    return '等待配件'
+
+                }else if( data == 3 ){
+
+                    return '等待外委施工'
+
+                }
+            }
         },
         {
             title:'预计完成时间',
@@ -2178,8 +2194,6 @@ $(function(){
 
             }
 
-
-
             //模态框显示
             _moTaiKuang($('#myModal'), '下发', '', '' ,'', '下发');
 
@@ -2520,9 +2534,6 @@ $(function(){
 
     })
 
-
-
-
     /*-------------------------------------------------其他方法-----------------------------------------*/
     //所有设备数组
     var equipmentArr = [];
@@ -2757,6 +2768,9 @@ $(function(){
         $('.gzDesc').val('');
 
         $('.fuzzy-search').empty().hide();
+
+        //清空负责人
+        _fzrArr.length = 0;
     }
 
     //报修科室
@@ -3400,24 +3414,6 @@ $(function(){
     //分配负责任人（true第一次 false第二次）
     function assigFZR(flag){
 
-        //获取负责人
-        //获取已选中的工号，然后确定选中人的信息
-        //var arr = [];
-        //
-        //var allPerson = $('.checker');
-        //
-        //var allWorkNum = $('#fzr-list tbody').find('.workNum');
-        //
-        //for(var i=0;i<allPerson.length;i++){
-        //    if(allPerson.eq(i).children('.checked').length != 0){
-        //        for(var j=0;j<_fzrArr.length;j++){
-        //            if(allWorkNum.eq(i).html() == _fzrArr[j].userNum){
-        //                arr.push(_fzrArr[j]);
-        //            }
-        //        }
-        //    }
-        //}
-
         //负责人数组
         var fzrArr = [];
         for(var i=0;i<_fzrArr.length;i++){
@@ -3427,6 +3423,7 @@ $(function(){
             obj.wxRDh = _fzrArr[i].mobile;
             fzrArr.push(obj);
         }
+
         var prm = {
             gdCode : _gdCode,
             gdWxRs : fzrArr,

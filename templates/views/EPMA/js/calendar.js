@@ -133,11 +133,14 @@
         $.post(url,{
             pId:sessionStorage.PointerID,
             sp:todayDT,
+            //sp:moment($('#spDT').val()).endOf('months').format('YYYY-MM-DD'),
             misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 var ecpDs=res.ecPs;//数据源
                 var eds = [];
+                //日历，每一天
+
                 for (var i = 0; i < ecpDs.length; i++) {
                     var object = {};
                     object.title = ecpDs[i].title;
@@ -155,6 +158,7 @@
                     }
                     eds.push(object);
                 }
+
                 $('#calendar').fullCalendar('destroy');
                 $('#calendar').fullCalendar({
                     handleWindowResize: true,
@@ -201,7 +205,7 @@
         var url = sessionStorage.apiUrlPrefix + "CalendarEER/GetCalendarEERAnalysisExpDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            sp: encodeURIComponent(sp),
+            sp:sp,
             dType: selectDType,
             misc:sessionStorage.misc
         },function (res) {
@@ -238,7 +242,7 @@
                 var idxK = parseInt(res.idxK);
                 $('#tableMark').children('tbody').children('tr').eq(0).children('td').eq(idxK).removeClass('color').html('当前楼(' + lzeerV + ')');
                 $('#tableMark').children('tbody').children('tr').eq(1).children('td').eq(idxK).addClass('markindicator');
-                $('#emisc').html("KWH/KWH");
+                //$('#emisc').html("KWH/KWH");
                 //$('#cmisc').html("KWH");
                 //$('#eer_com_c_misc').html('KWH');
                 //$('#eer_com_cpirceV_misc').html('KWH');
@@ -250,8 +254,26 @@
                     //-- KW/KW 潜力=(实际值-目标值)*-1/目标值*100% --/
                     //-- KW/RT 潜力=(实际值-目标值)/目标值*100% --/
                     var pocV = 0.0;
-                    //KW/KW
-                    pocV = Math.abs(((lzeerV - benchMarkV) / benchMarkV * 100));
+
+                    console.log(sessionStorage.misc);
+
+                    if(sessionStorage.misc == 1){
+
+                        //KW/KW
+
+                        //KW/KW
+                        pocV = Math.abs(((lzeerV - benchMarkV) / benchMarkV * 100));
+
+                    }else if(sessionStorage.misc == 2){
+
+                        //KW/RT
+                        //KW/KW
+                        pocV = Math.abs(((lzeerV - benchMarkV) * -1 / benchMarkV * 100));
+
+                    }
+
+                    console.log(pocV);
+
                     $('#latentV').html(pocV.toFixed(2).toString());
                     //$('#latentV').html(Math.abs(((benchMarkV - lzeerV) / benchMarkV * 100)).toFixed(2).toString());
                 }

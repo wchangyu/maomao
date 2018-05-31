@@ -13,6 +13,9 @@ $(function(){
     //导出时间
     var excelTime = nowTime;
 
+    //记录获取到的设备的数组
+    var _allData = [];
+
     //获取楼宇
     _pointerData();
 
@@ -23,79 +26,145 @@ $(function(){
 
     });
 
-
     /*------------------------------按钮事件---------------------------*/
 
     $('#selected').click(function(){
+
+        //表格初始化
+        tableInit();
 
         conditionSelect($('#pointer').val());
 
     })
 
+    //切换设备
+    $('#dev').change(function(){
 
-})
+        $('#theLoading').modal('show');
 
-function conditionSelect(pointer){
+        //表格初始化
+        tableInit();
 
-    var prm = {
+        dataByName($('#dev').children('option:selected').html());
 
-        //楼宇id
-        pId:pointer,
+        $('#theLoading').modal('hide');
 
-        //能源站
-        AREA:$('#area').val(),
+    })
 
-        //时间
-        sp:$('.datatimeblock').val()
+    /*-----------------------------其他方法---------------------------*/
 
-    };
 
-    _mainAjaxFun('post','MultiReportRLgs/GetReportLZLXRLgs',prm,successFun);
-}
+    function conditionSelect(pointer){
 
-function successFun(result){
+        var prm = {
 
-    if(result){
+            //楼宇id
+            pId:pointer,
 
-        //报表名称
-        $('#table-titleH').html(result.report_Name);
-        //数据时间
-        $('.data-time').html(result.report_Dt);
-        //导出时间
-        excelTime = moment().format('YYYY/MM/DD');
-        $('.derive-time').html(excelTime);
-        //位置
-        $('#location').html(result.location);
-        //设备
-        $('#eqName').html(result.eqname);
-        //循环数据
-        if(result.report_list>0){
+            //能源站
+            AREA:$('#area').val(),
 
-            //将属性重新排列
+            //时间
+            sp:$('.datatimeblock').val()
+
+        };
+
+        _mainAjaxFun('post','MultiReportRLgs/GetReportLZLXRLgs',prm,successFun);
+    }
+
+    function successFun(result){
+
+        if(result.code == 0){
+
+            _allData.length = 0;
+
+            //首先将设备的下拉框赋值
 
             var str = '';
 
-            for(var i=0;i<result.report_list.length;i++){
+            for(var i=0;i<result.master.length;i++){
 
-                str += '<tr>';
+                str += '<option>' + result.master[i].eqname + '</option>';
 
-                //遍历属性，生成td j是属性
-                for(var j in result.report_list[i] ){
-
-                    str += '<td>' + result.report_list[i][j] +'</td>';
-
-                }
-
-                str +='</tr>'
-
+                _allData.push(result.master[i]);
 
             }
 
-            $('.table').find('tbody').empty().append(str);
+            $('#dev').empty().append(str);
+
+            //根据名称，获取表格数据
+            dataByName($('#dev').val());
+
+        }
+
+
+    }
+
+    function dataByName(name){
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].eqname == name){
+
+                //报表名称
+                $('#table-titleH').html(_allData[i].report_Name);
+                //数据时间
+                $('.data-time').html(_allData[i].report_Dt);
+                //导出时间
+                excelTime = moment().format('YYYY/MM/DD');
+                $('.derive-time').html(excelTime);
+                //位置
+                $('#location').html(_allData[i].location);
+                //设备
+                $('#eqName').html(_allData[i].eqname);
+                //循环数据
+                if(_allData[i].report_list.length>0){
+
+                    //将属性重新排列
+
+                    var str = '';
+
+                    for(var j=0;j<_allData[i].report_list.length;j++){
+
+                        str += '<tr>';
+
+                        //遍历属性，生成td j是属性
+                        for(var k in _allData[i].report_list[j] ){
+
+                            str += '<td>' + _allData[i].report_list[j][k] +'</td>';
+
+                        }
+
+                        str +='</tr>'
+
+
+                    }
+
+                    $('.table').find('tbody').empty().append(str);
+
+                }
+
+            }
 
         }
 
     }
 
+    //表格初始化
+    function tableInit(){
 
-}
+        //报表名称
+        $('#table-titleH').html('');
+        //数据时间
+        $('.data-time').html('');
+        //导出时间
+        $('.derive-time').html('');
+        //位置
+        $('#location').html('');
+        $('#eqName').html('');
+        //表格初始化
+        $('.table tbody').empty();
+
+    }
+
+})

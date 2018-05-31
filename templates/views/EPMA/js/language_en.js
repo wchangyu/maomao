@@ -17,7 +17,7 @@ $(function(){
         //冷站散热量
         $('#lzsrlvMisc').html('RT');
         //冷站输入功率
-        $('#lznowp').next().html('RT');
+        //$('#lznowp').next().html('RT');
 
         //分项实时能效
         //右上角说明（单位）
@@ -30,6 +30,9 @@ $(function(){
 
         //能效日历
     }else if( _Lname == 'calendar.html' ){
+
+        //E（运行能效）
+        $('#emisc').html('KWH/RTH');
 
         //冷战能效日历
         $('#cmisc').html('RTH');
@@ -63,10 +66,6 @@ $(function(){
         //无
 
         //计费方案
-    }else if( _Lname == 'epgr.html' ){
-
-        $('.Luntil').html('RTH')
-
     }
 
 })

@@ -147,32 +147,38 @@
             if (selectRpt.length > 0) {
                 var pId = sessionStorage.PointerID;
                 var pNt = encodeURIComponent(sessionStorage.PointerName);
+
                 if (selectRpt === "ztnx") {//整体报表
                     var url = sessionStorage.apiUrlPrefix + "ZTNXReport/ReportFormZTNXs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
+                        + "&misc=" + sessionStorage.misc;
+
                     window.open(url, "_self", true);
                 }
                 else if (selectRpt === "zteb") {//电耗报表
                     var url = sessionStorage.apiUrlPrefix + "ZTEBReport/ReportFormZTEBs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
+                        + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
                 else if (selectRpt === "ztbr") {//负荷报表
                     var url = sessionStorage.apiUrlPrefix + "ZTBRReport/ReportFormZTBRs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
+                        + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
                 else if (selectRpt === "ztic") {//能效报表
                     var url = sessionStorage.apiUrlPrefix + "ZTICReport/ReportFormZTICs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
+                        + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
                 else if (selectRpt === "nxba") {//能效对标分析报表

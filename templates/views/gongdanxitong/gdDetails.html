@@ -176,6 +176,49 @@
                         </div>
                     </form>
                 </validator>
+                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                    <div class="tipe-block">执行人列表</div>
+                    <div class="tableHover" style="padding-top: 20px;">
+                        <div class="bumen">
+                            <div class="labels" style="display: inline-block;vertical-align: middle"><span class="user-defined-group"></span>:</div>
+                            <div class="input-blockeds" style="width: 300px;display: inline-block;vertical-align: middle">
+                                <input id="depart">
+                            </div>
+                        </div>
+                        <table class="table table-hover" id="fzr-list">
+                            <thead>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                    <div class="tipe-block">协助人列表</div>
+                    <div class="tableHover" style="padding-top: 20px;">
+                        <div class="bumen">
+                            <div class="labels" style="display: inline-block;vertical-align: middle"><span class="user-defined-group"></span>:</div>
+                            <div class="input-blockeds" style="width: 300px;display: inline-block;vertical-align: middle">
+                                <input id="departX">
+                            </div>
+                        </div>
+                        <table class="table table-hover" id="fzr-listX">
+                            <thead>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                    <div class="tipe-block change-text">满意度</div>
+                    <div class="tableHover" style="padding-top: 20px;">
+                        <div id="pingjia1">
+                            <input type="radio" class="pjRadio" id="very-satisfied" checked data-attr="5" style="margin-left: 8px;"><label for="very-satisfied">很好</label>
+                        </div>
+                        <div style="width:437px;height:80px;border:1px solid #cccccc">
+                            <textarea id="pingjia" style="width:100%;height: 100%" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                </div>
                 <div style="margin-top: 10px;">
                     <button type="button" class="btn btn-info viewImage">查看图片</button>
                     <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;margin-top: 10px;">
@@ -189,42 +232,10 @@
             </div>
 
         </div>
-
         <div style="float: right;width: 460px">
             <!--表格-->
+
             <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
-                <div class="tipe-block">执行人列表</div>
-                <div class="tableHover" style="padding-top: 20px;">
-                    <div class="bumen">
-                        <div class="labels" style="display: inline-block;vertical-align: middle"><span class="user-defined-group"></span>:</div>
-                        <div class="input-blockeds" style="width: 300px;display: inline-block;vertical-align: middle">
-                            <input id="depart">
-                        </div>
-                    </div>
-                    <table class="table table-hover" id="fzr-list">
-                        <thead>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-            <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
-                <div class="tipe-block">协助人列表</div>
-                <div class="tableHover" style="padding-top: 20px;">
-                    <div class="bumen">
-                        <div class="labels" style="display: inline-block;vertical-align: middle"><span class="user-defined-group"></span>:</div>
-                        <div class="input-blockeds" style="width: 300px;display: inline-block;vertical-align: middle">
-                            <input id="departX">
-                        </div>
-                    </div>
-                    <table class="table table-hover" id="fzr-listX">
-                        <thead>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-            <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
                 <div class="tipe-block">维修材料清单</div>
                 <div class="tableHover" style="padding-top: 20px;">
                     <table class="table table-hover cl-table" id="cl-list">
@@ -232,19 +243,24 @@
                         </thead>
                         <tbody></tbody>
                     </table>
-                    <div style="padding: 10px;"><label>工时费（元）&nbsp;&nbsp;&nbsp;:</label><input type="text" id="hourFee" style="text-indent: 10px;outline: none;margin-left: 20px;"></div>
-                    <div style="padding: 10px;"><label>合计金额（元）:</label><input type="text" id="total" style="text-indent: 10px;outline: none;margin-left: 20px;"></div>
+                    <div style="padding: 10px;"><label>材料小计（元）:</label><input type="text" class="disabled-block" id="total" style="outline: none;margin-left: 20px;text-indent: 10px;line-height: 30px;border: 1px solid #cccccc" readonly="readonly"></div>
+                </div>
+            </div>
+            <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                <div class="tipe-block">维修项目费用</div>
+                <div class="tableHover" style="padding-top: 20px;">
+                    <table class="table table-hover cl-table" id="fee-list">
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div style="padding: 10px;"><label>维修费用小计（元）:</label><input type="text" class="disabled-block" id="totalFee" style="outline: none;margin-left: 20px;text-indent: 10px;line-height: 30px;border: 1px solid #cccccc" readonly="readonly"></div>
                 </div>
             </div>
             <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
-                <div class="tipe-block change-text">满意度</div>
-                <div class="tableHover" style="padding-top: 20px;">
-                    <div id="pingjia1">
-                        <input type="radio" class="pjRadio" id="very-satisfied" checked data-attr="5" style="margin-left: 8px;"><label for="very-satisfied">很好</label>
-                    </div>
-                    <div style="width:437px;height:80px;border:1px solid #cccccc">
-                        <textarea id="pingjia" style="width:100%;height: 100%" cols="30" rows="10"></textarea>
-                    </div>
+                <div class="tipe-block">工单费用总计</div>
+                <div class="tableHover">
+                    <div style="padding: 10px;"><label>工单费用总计:&nbsp;&nbsp;&nbsp;&nbsp;</label><input id="zFee" class="disabled-block" disabled type="text"></div>
                 </div>
             </div>
             <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">

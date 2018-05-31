@@ -143,7 +143,7 @@ $(function(){
                 text: '导出',
                 className:'saveAs',
                 exportOptions:{
-                    columns:[0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17]
+                    columns:[0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18]
 
                 }
             }
@@ -229,7 +229,7 @@ $(function(){
             },
             {
                 title:'系统类型',
-                data:'dcName'
+                data:'wxShiX'
             },
             {
                 title:'设备名称',
@@ -250,6 +250,26 @@ $(function(){
             {
                 title:'最新处理情况',
                 data:'lastUpdateInfo'
+            },
+            {
+                title:'等待原因',
+                data:'dengyy',
+                render:function(data, type, full, meta){
+
+                    if(data == 1){
+
+                        return '等待技术支持'
+
+                    }else if(data == 2){
+
+                        return '等待配件'
+
+                    }else if( data == 3 ){
+
+                        return '等待外委施工'
+
+                    }
+                }
             },
             {
                 title:'备件信息',
@@ -733,7 +753,8 @@ $(function(){
     });
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
-    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
+    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');
+
     /*----------------------------方法-----------------------------------------*/
     function conditionSelect(){
 
@@ -1530,7 +1551,7 @@ $(function(){
 
         }
         //完成图片
-        _imgWGNum = 0;
+        _imgWGNum = result.hasWgImage;
         //按钮显示隐藏
         if( _imgWGNum == 0 ){
 

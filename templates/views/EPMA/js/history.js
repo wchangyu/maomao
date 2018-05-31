@@ -2,6 +2,8 @@
 
     var mycv = null;
 
+    var treeObj = null;
+
     window.onresize = function (ev) {
         if(mycv){
             mycv.resize();
@@ -77,7 +79,7 @@
         },
         check: {
             enable: true,
-            chkboxType: { "Y": "", "N": "" }
+            chkboxType: { "Y": "ps", "N": "ps" }
         },
         data: {
             simpleData: {
@@ -88,8 +90,16 @@
             }
         },
         callback: {
-            onCheck: onCheck
-            //onAsyncSuccess: onAsyncSuccess
+            onClick: function(e,treeId,treeNode){
+
+
+
+                var zTreeObj = $.fn.zTree.getZTreeObj("DCTreeView");;
+
+                //勾选当前选中的节点
+                zTreeObj.checkNode(treeNode, !treeNode.checked, true);
+
+            }
         }
     };
 
@@ -120,10 +130,17 @@
         },function (res) {
             if(res.code === 0){
                 var zNodes = res.dctrVs;
+
                 $.fn.zTree.init($("#DCTreeView"), setting, zNodes).expandAll(true);
+
                 var zTree = $.fn.zTree.init($("#DCTreeView"), setting, zNodes);
-                var nodes = zTree.getNodes();
+
+                //var nodes = zTree.getNodes();
+
+                var nodes = [];
+
                 firstzNode(nodes,zTree);
+
             }else if(res.code === -1){
                 console.log('异常错误(因子树形结构数据):' + res.msg);
                 jQuery('#historyBusy').hideLoading();
@@ -136,6 +153,7 @@
     //默认选中检测因子第一项
     var firstzNode = function (nodes, zTree) {
         var cIds = "";
+
         if (nodes.length === 0) {
             jQuery('#historyBusy').hideLoading();
             return;
@@ -311,7 +329,7 @@
             var zTree = $.fn.zTree.getZTreeObj("DCTreeView");
             var nodes = zTree.getCheckedNodes(true);
             if (nodes.length == 0) {
-                alert("提示(历史数据):请选择一项监测因子查询历史数据");
+                console.log("提示(历史数据):请选择一项监测因子查询历史数据");
                 return;
             }
             else {

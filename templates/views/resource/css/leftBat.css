@@ -328,3 +328,28 @@ a{
 #pNT{
     cursor: pointer;
 }
+
+.paginate_button {
+    background-image: none !important;
+    border: 1px solid #dddddd !important;
+    color: #23527c !important;
+}
+
+.current {
+    background: #eeeeee !important;
+    color: #333 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+
+    color:#333 !important;
+
+    background-color:#eeeeee;
+
+}
+
+.theme-panel{
+
+    display: none;
+
+}

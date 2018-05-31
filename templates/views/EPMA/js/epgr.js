@@ -50,7 +50,6 @@ var EPGR=function () {
         var url = sessionStorage.apiUrlPrefix + "EPGr/GetPriceGrpDs";
         $.get(url,{
             pId:sessionStorage.PointerID,
-            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 //是否编辑,TRUE=是,则是编辑
@@ -289,59 +288,59 @@ var EPGR=function () {
                 var equalpriceEV = $('#equalpriceEV').val();/*平值电价*/
                 var valleypriceEV = $('#valleypriceEV').val();/*谷值电价*/
                 if (pricegroupNT.length === 0) {
-                    alert("系统提示(电价设置):计费方案名称不能为空");
+                    console.log("系统提示(电价设置):计费方案名称不能为空");
                     return;
                 }
                 if (priceSTDT.length === 0) {
-                    alert("系统提示(电价设置):开始时间段不能为空");
+                    console.log("系统提示(电价设置):开始时间段不能为空");
                     return;
                 }
                 if (priceETDT.length === 0) {
-                    alert("系统提示(电价设置):结束时间段不能为空");
+                    console.log("系统提示(电价设置):结束时间段不能为空");
                     return;
                 }
                 if ($('#pricestip').val().length > 0) {
                     if (tippriceEV.length === 0) {
-                        alert("系统提示(电价设置):尖值电价不能为空");
+                        console.log("系统提示(电价设置):尖值电价不能为空");
                         return;
                     }
                     if (parseFloat(tippriceEV) <= 0) {
-                        alert("系统提示(电价设置):尖值电价不能小于等于0");
+                        console.log("系统提示(电价设置):尖值电价不能小于等于0");
                         return;
                     }
                 }
                 if ($('#pricespeak').val().length > 0) {
                     if (peakpriceEV.length === 0) {
-                        alert("系统提示(电价设置):峰值电价不能为空");
+                        console.log("系统提示(电价设置):峰值电价不能为空");
                         return;
                     }
                     if (parseFloat(peakpriceEV) <= 0) {
-                        alert("系统提示(电价设置):峰值电价不能小于等于0");
+                        console.log("系统提示(电价设置):峰值电价不能小于等于0");
                         return;
                     }
                 }
                 if ($('#pricesflat').val().length > 0) {
                     if (equalpriceEV.length === 0) {
-                        alert("系统提示(电价设置):平值电价不能为空");
+                        console.log("系统提示(电价设置):平值电价不能为空");
                         return;
                     }
                     if (parseFloat(equalpriceEV) <= 0) {
-                        alert("系统提示(电价设置):平值电价不能小于等于0");
+                        console.log("系统提示(电价设置):平值电价不能小于等于0");
                         return;
                     }
                 }
                 if ($('#pricesvalley').val().length > 0) {
                     if (valleypriceEV.length === 0) {
-                        alert("系统提示(电价设置):谷值电价不能为空");
+                        console.log("系统提示(电价设置):谷值电价不能为空");
                         return;
                     }
                     if (parseFloat(valleypriceEV) <= 0) {
-                        alert("系统提示(电价设置):谷值电价不能小于等于0");
+                        console.log("系统提示(电价设置):谷值电价不能小于等于0");
                         return;
                     }
                 }
                 if (tipAryts.length === 0 && peakAryts.length === 0 && flatAryts.length === 0 && valleyAryts.length === 0) {
-                    alert("系统提示(电价设置):尖峰谷值时间段不能为空");
+                    console.log("系统提示(电价设置):尖峰谷值时间段不能为空");
                 }
                 else {
                     jQuery('#epgrBusy').showLoading();
@@ -376,24 +375,24 @@ var EPGR=function () {
                     $.post(url,prm,function (res) {
                         if(res.code === 0){
                             jQuery('#epgrBusy').hideLoading();
-                            alert("系统提示(电价设置):设置尖峰平谷电费单价成功");
+                            console.log("系统提示(电价设置):设置尖峰平谷电费单价成功");
                             $('#mypriceSetModal').modal('hide');
                         }else if(res.code === -1){
                             jQuery('#epgrBusy').hideLoading();
                             var msg = res.msg;
-                            alert("系统提示(电价设置):" + msg);
+                            console.log("系统提示(电价设置):" + msg);
                             $('#mypriceSetModal').modal('hide');
                         }else{
                             jQuery('#epgrBusy').hideLoading();
                             var msg = res.msg;
-                            alert("系统提示(电价设置):" + msg);
+                            console.log("系统提示(电价设置):" + msg);
                             $('#mypriceSetModal').modal('hide');
                         }
                     })
                 }
             }
             else {
-                alert("系统提示(电价设置):尖峰谷值时间段从00:00~23:00，共24个时间点");
+                console.log("系统提示(电价设置):尖峰谷值时间段从00:00~23:00，共24个时间点");
             }
         });
     }

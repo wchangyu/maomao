@@ -33,6 +33,13 @@
     <!--SHOWLOADING END-->
     <link href="css/history.css" rel="stylesheet" type="text/css">
     <link href="../favicon.ico" rel="shortcut icon" />
+    <style>
+        .ztree li a{
+
+            padding: 0;
+
+        }
+    </style>
 </head>
 <body class="page-header-fixed page-quick-sidebar-over-content">
     <div class="page-header navbar navbar-fixed-top">
@@ -78,6 +85,14 @@
                             <li></li>
                         </ul>
                     </li>
+                    <li class="dropdown dropdown-extended dropdown-tasks" title="切换单位">
+                        <a id="miscBtn" href="javascript:;" class="dropdown-toggle">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li></li>
+                        </ul>
+                    </li>
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" style="background-color:rgba(0,0,0,0);" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <img alt="" class="img-circle" src="../../../assets/admin/layout/img/user.png" style="width:25px;height:25px;">
@@ -88,7 +103,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default" style="max-width:150px;">
                             <li>
-                                <a id="lgot" href="javascript:;">
+                                <a id="lgot" class="logout-page" href="javascript:;">
                                     <i class="icon-key"></i> 退出登录
                                 </a>
                             </li>

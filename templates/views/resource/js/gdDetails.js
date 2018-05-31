@@ -84,6 +84,42 @@ $(function(){
 
     getMessageToShow();
 
+    //维修工时费表格
+    var feeCol = [
+
+        {
+            title:'项目编码',
+            data:'wxCl'
+        },
+        {
+            title:'项目名称',
+            data:'wxClName'
+        },
+        {
+            title:'项目类别',
+            data:'wxclassname'
+        },
+        {
+            title:'工作费用',
+            data:'wxClPrice',
+            render:function(data, type, full, meta){
+                return data.toFixed(2)
+            }
+
+        },
+        {
+            title:'数量',
+            data:'clShul'
+        },
+        {
+            title:'备注',
+            data:'memo'
+        }
+
+    ]
+
+    tableInit($('#fee-list'),feeCol,'2','','','',true);
+
     //获取数据
     function getMessageToShow(){
         //从地址栏获取需要传递给后台的数据
@@ -161,20 +197,13 @@ $(function(){
                     $('#receiver').val(result.yanShouRenName);
                 }
                 //工时费
-                $('#hourFee').val(result.gongShiFee);
+                //$('#hourFee').val(result.gongShiFee);
                 //合计费用
-                $('#total').val(result.gdFee);
+                //$('#total').val(result.gdFee);
 
                 _imgNum = result.hasImage;
 
                 _imgBJNum = result.hasBjImage;
-
-                //维修材料清单
-                var clListArr = result.wxCls;
-
-                if(clListArr.length > 0){
-                    _datasTable($('#cl-list'),clListArr);
-                }
 
                 //执行人表格
                 var fzrArr = result.wxRens;
@@ -201,6 +230,57 @@ $(function(){
                     $('#pingjia').val(result.pjBz);
                 }
 
+
+                var clArr = result.wxCls;
+
+                //材料arr
+
+                var clListArr = [];
+
+                //费用arr
+                var feeListArr = [];
+
+                for(var i=0;i<clArr.length;i++){
+
+                    if(clArr[i].type == 0){
+
+                        //材料
+                        clListArr.push(clArr[i]);
+
+
+                    }else if( clArr[i].type == 1 ){
+
+                        //费用
+                        feeListArr.push(clArr[i]);
+
+                    }
+
+                }
+
+                if(clListArr.length > 0){
+                    _datasTable($('#cl-list'),clListArr);
+                }
+
+                //材料小计
+
+                var clMoney = 0;
+
+                for(var k=0;k<clListArr.length;k++){
+
+                    clMoney += Number(clListArr[k].wxClAmount);
+                }
+
+                $('#total').val(clMoney.toFixed(2));
+
+                //维修费用
+                var feeMoney = result.gongShiFee;
+
+                $('#totalFee').val(feeMoney.toFixed(2));
+
+                _datasTable($('#fee-list'),feeListArr);
+
+                //总计
+                $('#zFee').val(result.gdFee.toFixed(2));
 
             },
             'error':function(jqXHR, textStatus, errorThrown){
@@ -373,7 +453,7 @@ function assistFun(gdCode){
 
         },
 
-        error:_errorFun
+        error:_errorFun1
 
     })
 

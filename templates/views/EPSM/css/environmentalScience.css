@@ -1,0 +1,224 @@
+#key{
+
+    width: 200px;
+
+    margin: 0 auto;
+
+    margin-top: 10px;
+
+}
+
+.tipe{
+
+    height: 30px;
+
+    text-align: center;
+
+    color: red;
+
+    line-height: 30px;
+
+}
+
+.dev-select{
+
+    width: 80%;
+
+    min-height: 100px;
+
+    border: 1px solid #B4BED0;
+
+    margin: auto;
+
+    margin-bottom: 10px;
+
+    padding: 10px;
+
+}
+
+#emptyAll{
+
+    padding: 2px 8px;
+
+    border: 1px solid #959595;
+
+    background: #ffffff;
+
+    border-radius: 2px !important;
+
+    outline: none;
+}
+
+.empty-block{
+
+    float: right;
+
+}
+
+.selected-block{
+
+    float: left;
+
+}
+
+.remove-selected{
+
+    width: 12px;
+
+    height: 12px;
+
+    border: 1px solid #62A8DB;
+
+    border-radius: 50% !important;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    line-height: 7px;
+
+    text-align: center;
+
+    color: #62A8DB;
+
+    cursor: pointer;
+
+    margin-left: 5px;
+
+}
+
+.main-selected-list{
+
+    display: inline-block;
+
+    min-width: 120px;
+
+    width: 49%;
+
+    line-height: 32px;
+
+    vertical-align: middle;
+
+}
+
+.main-selected-list1{
+
+    width: 100px;
+
+    display: inline-block;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    vertical-align: middle;
+
+}
+
+.main-selected-block{
+
+    padding-top: 10px;
+
+}
+
+.input-blocked{
+
+    border: 1px solid #B5B5B5 !important;
+
+}
+
+.right-title{
+
+    font-size: 20px;
+
+    line-height: 40px;
+
+}
+
+.right-title span{
+
+    color: #757575;
+
+    font-size: 15px;
+
+}
+
+.real-time-list{
+
+    border: 1px solid #DCDCDC;
+
+    background: #ffffff;
+
+    min-width: 260px;
+
+    width: 23%;
+
+    display: inline-block;
+
+    padding: 15px 0;
+
+    margin: 17px 9px;
+
+}
+
+.real-time-list p{
+
+    font-size: 26px;
+
+    color: #4C4C4C;
+
+    text-align: center;
+
+}
+
+.real-time-list span{
+
+    color: #4C4C4C;
+
+    font-size: 16px;
+
+}
+
+.real-time-list div{
+
+    color: #959595;
+
+    font-size: 14px;
+
+    text-align: center;
+
+}
+
+.real-chart-list{
+
+    width: 100%;
+
+    height: 300px;
+
+    background: #ffffff;
+
+    display: inline-block;
+
+    margin-bottom: 20px;
+
+    border: 1px solid #DCDCDC;
+
+}
+
+.content-main{
+
+    background: #ffffff !important;
+
+    border: 1px solid #DCDCDC;
+
+}
+
+.ztree{
+
+    background: #ffffff;
+
+    height: 330px;
+
+}
