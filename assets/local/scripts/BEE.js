@@ -33,8 +33,17 @@ var BEE = (function(){
             async:false,
             success: function (data) {
 
-                loginPath = data["loginPath"] || '';
-                sessionStorage.loginPath = loginPath;
+                if(data["loginPath"]){
+
+                    loginPath = data["loginPath"] || '';
+                    sessionStorage.loginPath = loginPath;
+
+                }else{
+
+                    loginPath =  '';
+                    sessionStorage.loginPath = loginPath;
+
+                }
                 //console.log(sessionStorage.loginPath)
 
             },

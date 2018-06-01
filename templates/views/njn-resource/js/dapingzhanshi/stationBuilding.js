@@ -308,6 +308,7 @@ function getSeAreaHouseLight(){
 
 //绘制页面右侧的table
 function drawDataTableByResult(titleArr,areaDataArr){
+
     //定义title
     var titleHtml = '';
 
@@ -356,6 +357,7 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
         //拼接页面中的字符串
         bodyHtml +=
+
             '<tr>' +
             '<td>' +
             '<span class="green-patch">'+ o.areaInfo.areaName+'</span>' +
@@ -407,6 +409,11 @@ function echartReDraw(realDataArr){
         var referenceData = o.illuminanceRefer;
 
         var realData = o.illuminanceAVG;
+
+        if(realData == -1){
+
+            realData = '--'
+        }
 
         optionBar.series[0].data = [referenceData,realData];
 

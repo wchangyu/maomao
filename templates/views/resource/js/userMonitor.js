@@ -1131,6 +1131,7 @@ var userMonitor = (function(){
             }else{
 
                 $(_oldSpanDefArr).each(function(k,o){
+
                     //如果defID相同 则是页面上同一个元素 开始进行比较
                     if(o.procDefID == _defInsDataResults[i].procDefID){
 
@@ -1347,6 +1348,7 @@ var userMonitor = (function(){
                             $spanDef.css("border-width",curPRR.borderThickness + "px");
                         }
                     }
+
                     $Txt.css("font-family",curPRR.fontName);        //字体设置
                     if(curPRR.fontSize > 0) { $Txt.css("font-size",curPRR.fontSize);}
                     if(curPRR.isFontBold) { $Txt.css("font-weight","bold");}
@@ -1354,14 +1356,13 @@ var userMonitor = (function(){
                     if(curPRR.isFontUnderline) { $Txt.css("text-decoration","underline"); }
                     if((curPRR.showFlag == 2 || curPRR.showFlag == 3) && curPRR.imgID) {
                             //console.log(33);
-
                             //如果有图片，载入图片
                             loadDefImg(curPRR, $Img);
                     }
 
-
                     //设置外层span(spanImg,spanTxt)的内部元素的对齐
                     function setTextAlignment($ele,align){
+
                         var topLeft = 1,topCenter = 2,topRight = 4,middleLeft = 16,middleCenter = 32,middleRight = 64,
                             bottomLeft = 256,bottomCenter = 512,bottomRight = 1024;
                         if(align == topLeft){       //默认就是topleft不用处理

@@ -348,6 +348,7 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
     if(!fun){
 
         zNodes = getZNodes1(EnItdata);
+
     }else{
 
         zNodes = fun();
@@ -357,6 +358,7 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
     if(node){
 
         treeObj = $.fn.zTree.init($(node), setting, zNodes);
+
     }else{
 
         treeObj = $.fn.zTree.init($("#allPointer"), setting, zNodes);
@@ -425,13 +427,16 @@ function getZNodes1(EnItdata){
                 zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false,nocheck :true});
 
             }else{
+
                 zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false});
+
             }
 
 
         }
 
     });
+    console.log(zNodes);
     return zNodes;
 
 };

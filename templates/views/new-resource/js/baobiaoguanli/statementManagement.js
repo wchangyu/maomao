@@ -17,7 +17,6 @@ $(function(){
         window.open(url);
 
     });
-
     getDataByConfig();
 
 });

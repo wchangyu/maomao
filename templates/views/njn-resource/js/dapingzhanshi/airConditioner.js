@@ -505,12 +505,15 @@ var table = $('#equipment-datatables').DataTable({
         },
         {
             title:'累计运行时间（h）',
-            data:'devCtypeDatas',
+            data:'runTime',
             render:function(data, type, row, meta){
 
+                if(data == '0.00'){
 
+                    return "--"
+                }
 
-                return '';
+                return data;
 
             }
         },

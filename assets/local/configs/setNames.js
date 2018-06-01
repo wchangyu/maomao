@@ -40,10 +40,12 @@ __setNames();
 
 //定义系统中的配置信息
 var __systemConfigArr = [
+
     //驾驶舱配置信息
     {
         pageName :"驾驶舱",
         pageUrl :"new-nengyuanzonglan/new-index.html",
+
         //定义驾驶舱中右下角能耗排名的配置项
         indexPageRandingObj : {
 
@@ -67,6 +69,7 @@ var __systemConfigArr = [
 
         }
     },
+
     //报表管理配置信息
     {
         pageName :"报表管理",
@@ -104,5 +107,20 @@ var __systemConfigArr = [
                 isShow:1
             }
         ]
+    },
+    //实时报警配置信息
+    {
+        pageName :"实时报警",
+        pageUrl :"baojingyujing/warningAlarm-3.html",
+        //定义实时报警是否显示查看流程图功能 0为不显示 1为显示
+        ifShowMonitor : 0
+    },
+    //摄像头相关页面配置配置信息
+    {
+        pageName :"摄像头",
+        pageUrl :"new-luxianghuifang/historyMonitor.html",
+        pageId:0,
+        //定义摄像头是否显示需要进行解密操作 0为不需解密 1为解密
+        ifdecode : 1
     }
 ];

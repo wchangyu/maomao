@@ -1105,6 +1105,8 @@ function getSSXS(ew) {
 
 var cc = [[0.23, '#2170F4'], [0.28, '#14E398'], [0.33, '#EAD01E'], [1, '#F8276C']];
 
+var cc1 = [[0.23, '#F8276C'], [0.28, '#EAD01E'], [0.33, '#14E398'], [1, '#2170F4']];
+
 //获取[冷冻侧系统]数据
 var chartViewLDCMain =  echarts.init(document.getElementById('bottom-childwater-chart4'));
 function getLDCAE(ew) {
@@ -1191,7 +1193,7 @@ function getRBJAE(ew) {
             $('#span_RBJ_cVa_text').html(res.cVa);
             $('#span_RBJ_eVa_text').html(res.eVa);
             $('#span_RBJ_nxVa_text').html(res.nxVa);
-            var option = initareaoption(cc,res.minVa,res.maxVa,res.nxVa);
+            var option = initareaoption(cc1,res.minVa,res.maxVa,res.nxVa);
             chartViewRBJMain.setOption( option,true);
         }else if(res.code === -1){
             $('#span_RBJ_cVa_text').html('0');
@@ -1224,7 +1226,7 @@ function getXLJAE(ew) {
             $('#span_XLJ_cVa_text').html(res.cVa);
             $('#span_XLJ_qVa_text').html(res.eVa);
             $('#span_XLJ_nxVa_text').html(res.nxVa);
-            var option = initareaoption(cc,res.minVa,res.maxVa,res.nxVa);
+            var option = initareaoption(cc1,res.minVa,res.maxVa,res.nxVa);
             chartViewXLJMain.setOption( option,true);
         }else if(res.code === -1){
             $('#span_XLJ_cVa_text').html('0');
@@ -1338,6 +1340,7 @@ var initareaoption = function (cc,minVa,maxVa,nxVa){
         ]
     };
 };
+
 
 //初始化系统能效表盘OPTION
 var initareaoption1 = function (cc,minVa,maxVa,nxVa){
@@ -1890,10 +1893,9 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-
-                return '';
-
+                return '夏季';
             }
+
         },
         {
             title:'控制模式',
@@ -1901,7 +1903,7 @@ var table = $('#equipment-datatables').DataTable({
             render:function(data, type, row, meta){
 
 
-                return '';
+                return 'BKS';
 
             }
         },
@@ -1914,7 +1916,7 @@ var table = $('#equipment-datatables').DataTable({
 
                 });
 
-                return '';
+                return '自动';
 
             }
         },
@@ -1949,7 +1951,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '正常';
 
                 $(data).each(function(i,o){
 
@@ -2053,12 +2055,15 @@ var table = $('#equipment-datatables').DataTable({
         },
         {
             title:'累计运行时间（h）',
-            data:'devCtypeDatas',
+            data:'runTime',
             render:function(data, type, row, meta){
 
+                if(data == '0.00'){
 
+                    return "--"
+                }
 
-                return '';
+                return data;
 
             }
         },
@@ -2139,7 +2144,7 @@ var table1 = $('#equipment-datatables1').DataTable({
             render:function(data, type, row, meta){
 
 
-                return '';
+                return '夏季';
 
             }
         },
@@ -2149,7 +2154,7 @@ var table1 = $('#equipment-datatables1').DataTable({
             render:function(data, type, row, meta){
 
 
-                return '';
+                return '停止';
 
             }
         },
@@ -2162,7 +2167,7 @@ var table1 = $('#equipment-datatables1').DataTable({
 
                 });
 
-                return '';
+                return '--';
 
             }
         },
@@ -2207,12 +2212,18 @@ var table1 = $('#equipment-datatables1').DataTable({
 
                             result =  "故障"
                         }else{
+
                             result =  "正常";
                         }
 
 
                     }
                 });
+
+                if(result == ''){
+
+                    result = '正常';
+                }
 
                 return result;
 
@@ -2239,34 +2250,37 @@ var table1 = $('#equipment-datatables1').DataTable({
 
             }
         },
-        //{
-        //    title:'采暖回水温度（℃）',
-        //    data:'devCtypeDatas',
-        //    render:function(data, type, row, meta){
-        //
-        //        var result = '';
-        //
-        //        $(data).each(function(i,o){
-        //
-        //            if(o.cTypeID == '4523'){
-        //
-        //                result =  o.cTypeID
-        //
-        //            }
-        //        });
-        //
-        //        return result;
-        //
-        //    }
-        //},
         {
-            title:'累计运行时间（h）',
+            title:'采暖回水温度（℃）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
 
+                $(data).each(function(i,o){
 
-                return '';
+                    if(o.cTypeID == '4535'){
+
+                        result =  o.cDataValue
+
+                    }
+                });
+
+                return result;
+
+            }
+        },
+        {
+            title:'累计运行时间（h）',
+            data:'runTime',
+            render:function(data, type, row, meta){
+
+                if(data == '0.00'){
+
+                    return "--"
+                }
+
+                return data;
 
             }
         },

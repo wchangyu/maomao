@@ -1,6 +1,14 @@
 $(function(){
+
+    //从配置中读取是否显示流程图
+    var userMonitorClass = getDataByConfig();
+
+    //console.log(userMonitorClass);
+
     var _prm = window.location.search;
+
     if(_prm == ''){
+
         //表格初始化
         table = $('#datatables').DataTable({
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -171,6 +179,7 @@ $(function(){
                     "title": "查看流程图",
                     "orderable": false,
                     "targets": -1,
+                    "class":userMonitorClass,
                     "data": "isHavingProc",
                     "render":function(data,type,row,meta){
 
@@ -212,7 +221,9 @@ $(function(){
             }
 
         });
+
     }else{
+
         //表格初始化
         table = $('#datatables').DataTable({
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -382,6 +393,7 @@ $(function(){
                     "title": "查看流程图",
                     "orderable": false,
                     "targets": -1,
+                    "class":userMonitorClass,
                     "data": "isHavingProc",
                     "render":function(data,type,row,meta){
 
@@ -434,6 +446,7 @@ $(function(){
             $(this).parent($('span')).removeClass('checked');
         }
     } );
+
     $('.logoToRead').click(function(){
         logoToRead();
     });
@@ -544,6 +557,40 @@ $(function(){
 
     });
 });
+
+//从配置项中获取页面中所展示信息
+function getDataByConfig(){
+
+    //获取当前的url
+    var curUrl = window.location.href;
+
+    var thisClass = '';
+
+    //获取当前页面的配置信息
+    $(__systemConfigArr).each(function(i,o){
+
+        //获取当前配置项中的url
+        var thisUrl = o.pageUrl;
+
+        //找到了当前页面对应的配置项
+        if(curUrl.indexOf(thisUrl) > -1){
+
+            //获取到具体的能耗排名配置信息
+            var ifShow = o.ifShowMonitor;
+
+            if(ifShow == 0){
+
+                thisClass = 'theHidden';
+            }
+
+            return false;
+
+        }
+    });
+
+    return thisClass;
+};
+
 
 //指定能耗种类的类型为全部；
 var _ajaxEcType = " ";
@@ -713,6 +760,7 @@ function format ( d ) {
     }
     return theader + tbodyer + str + tbodyers + theaders;
 }
+
 //userId msgTime alaLogId alaMessage
 //用户名  当前时间（获取） alaLogId  input.val()
 var userId,_alaLogId,_texts,_currentArr = [],_currentStr='';

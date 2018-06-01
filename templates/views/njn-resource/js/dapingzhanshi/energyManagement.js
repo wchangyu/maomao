@@ -5,7 +5,6 @@ $(function(){
 
     //判断当前是大屏还是小屏
 
-
     //获取实时数据中上方的能耗种类
     getEcTypeByDeploy();
 
@@ -778,6 +777,7 @@ function getRealTimeData(){
             var xArr = [];
             //数据
             var sArr = [];
+
             $(data.hourMetaDatas).each(function(i,o){
 
 
@@ -825,14 +825,26 @@ function getPointerRankData(){
     //获取能耗分项ID集合
     var energyItemIDArr = '';
 
+    //定义所有一级分项集合
+    var allFirstEnergy = [];
+
     for(var i=0; i < txt.length; i++){
 
-        if(i == txt.length - 1){
-            energyItemIDArr += txt[i].etid + '';
-        }else{
-            energyItemIDArr += txt[i].etid + ',';
+        if(!txt[i].secondEnergy){
+
+            allFirstEnergy.push(txt[i]);
         }
     }
+
+    $(allFirstEnergy).each(function(i,o){
+
+        if(i == (allFirstEnergy.length - 1)){
+
+            energyItemIDArr += o.etid + '';
+        }else{
+            energyItemIDArr += o.etid + ',';
+        }
+    });
 
     //传递给后台的数据
     var ecParams = {
@@ -868,7 +880,6 @@ function getPointerRankData(){
                 return false;
             }
 
-
             //存放图例中数据
             var legendArr = [];
 
@@ -884,8 +895,10 @@ function getPointerRankData(){
             $(result).each(function(i,o){
                 //取前五名展示
                 if(i < 5){
+
                     //重绘Y轴
                     yArr.push(o.returnOBJName);
+
                     //添加数据
                     var obj = {};
 
@@ -905,13 +918,13 @@ function getPointerRankData(){
 
             });
 
-
             //重绘Y轴
             option3.series[0].data = sArr1;
 
             option3.xAxis.data = yArr;
 
             _myChart3.setOption(option3,true);
+
         },
         error:function(jqXHR, textStatus, errorThrown){
             _myChart2.hideLoading();
@@ -1183,7 +1196,6 @@ function getTopPageEnergyData(){
 
 //获取本日能耗费用数据
 function getAllEnergyItemMoney(){
-
 
     //传递给后台的数据
     var ecParams = {

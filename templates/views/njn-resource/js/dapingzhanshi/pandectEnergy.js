@@ -209,6 +209,7 @@ $(function(){
 
     });
 
+
     $('#dev-grade-dateTables tbody').on('click', 'td .details-control', function () {
 
         //获取报警日志id
@@ -302,7 +303,6 @@ $(function(){
         getDevMonitAlarmPopup(devTypeArr,condition);
 
     });
-
 
 
     //-----------------------------消防报警信息弹窗-----------------------------//
@@ -432,6 +432,9 @@ $(function(){
 
     //点击运行信息弹出运行弹窗 并展示数据
     $(".bottom-equipment-chart-show").on('click',function(){
+
+        //select框默认选中第一个
+        $('#run-number-message .equip-states option:first').prop("selected", 'selected');
 
         //显示悬浮窗
         $('#run-number-message').modal('show');
@@ -726,6 +729,7 @@ $(function(){
 
         //获取后台数据
         getEnergyCostData(condition);
+
     });
 
     //点击节能减排信息弹出能耗费用弹窗 并展示数据
@@ -2059,7 +2063,7 @@ function getTPDevMonitor(){
             });
 
             option8.title.text = totalAlarmNum;
-            option8.title.subtext = "故障数";
+            option8.title.subtext = "报警数";
 
             _useelectricityChart.setOption(option8,true);
 
@@ -2170,7 +2174,7 @@ function getTPDevMonitor(){
                 {name:'维修中',data:repairNum}
             ];
 
-            var airCenterData = {name:'站房回数',data:allNum};
+            var airCenterData = {name:'站房回路',data:allNum};
 
             //给echarts赋值
             drawEcharts(airDataArr,'equipment-chart-conditioner',colorArr2,airCenterData, _conditioneroption,'');
@@ -2453,7 +2457,6 @@ function getTPDevMonitor(){
 
             });
 
-
             //总能耗
             _energyOption.title.text = result.energyManagerOBJ.allEnergyData.toFixed(0);
 
@@ -2518,6 +2521,7 @@ function getTPDevMonitor(){
 
 //获取下方能源管理数据
 function getPointerData(){
+
     //定义存放返回数据的数组（本期 X Y）
     var allData = [];
     var allDataX = [];
@@ -2926,12 +2930,13 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
 
         }else{
 
-            $('#'+ echartsID).prev('.bottom-content-data').find('span').eq(i).html('0');
+            $('#'+ echartsID).prev('.bottom-content-data').find('span').eq(i).html('--');
 
         }
 
 
     });
+
     //改变中间显示的文字
     if(unit != ''){
 

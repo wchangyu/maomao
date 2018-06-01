@@ -191,7 +191,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -211,7 +211,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -231,7 +231,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -251,7 +251,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -270,7 +270,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -289,7 +289,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -308,7 +308,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -328,7 +328,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -348,7 +348,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -368,7 +368,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -388,7 +388,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
