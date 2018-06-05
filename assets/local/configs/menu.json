@@ -62,6 +62,14 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "三维": {
+        "type": "0",
+        "content": "三维",
+        "uri": "../njn-dapingzhanshi/openExe.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
 
     }

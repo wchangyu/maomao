@@ -23,6 +23,7 @@ $(function(){
         var flag = $(this).index();
 
         getAlarmData(flag);
+
     });
 
     //点击切换是否处理的选项卡
@@ -137,6 +138,7 @@ table = $('#alarm-datatables').DataTable({
 });
 
 table1 = $('#alarm-datatables1').DataTable({
+
     "autoWidth": false,  //用来启用或禁用自动列的宽度计算
     "paging": true,   //是否分页
     "destroy": true,//还原初始化了的datatable
@@ -188,18 +190,18 @@ table1 = $('#alarm-datatables1').DataTable({
             "data":"dataDate",
             "render":function(data,type,row,meta){
                 if(data && data.length >0){
-                    return [1];
+                    return data.split('T')[1];
                 }
             }
         },
         {
             "title": "报警级别",
             "class":"",
-            "data":"priorityName"
+            "data":"priority"
         },
         {
             "title": "报警名称",
-            "data":"alarmName"
+            "data":"alarmSetName"
         },
         {
             "title": "当前数据",
@@ -207,7 +209,7 @@ table1 = $('#alarm-datatables1').DataTable({
         },
         {
             "title": "报警表达式",
-            "data":"alarmName"
+            "data":"expression"
         }
     ]
 });

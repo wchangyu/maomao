@@ -1260,7 +1260,7 @@ function getLXJAE(ew) {
             $('#span_LXJ_cVa_text').html(res.cVa);
             $('#span_LXJ_eVa_text').html(res.eVa);
             $('#span_LXJ_nxVa_text').html(res.nxVa);
-            var option = initareaoption(cc,res.minVa,res.maxVa,res.nxVa);
+            var option = initareaoption(cc1,res.minVa,res.maxVa,res.nxVa);
             chartViewLXJMain.setOption( option,true);
 
         }else if(res.code === -1) {
@@ -1925,13 +1925,13 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4521'){
 
-                        if(o.cDataValue == 1){
+                        if(o.cDataValue == 3){
 
                             result =  "ON"
                         }else{
@@ -1955,7 +1955,7 @@ var table = $('#equipment-datatables').DataTable({
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '16'){
+                    if(o.cTypeID == '4531'){
 
                         if(o.cDataValue == 1){
 
@@ -1977,7 +1977,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -1998,7 +1998,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -2018,7 +2018,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -2038,7 +2038,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -2069,7 +2069,13 @@ var table = $('#equipment-datatables').DataTable({
         },
         {
             title:'功率（kW）',
-            data:'powerValue'
+            data:'powerValue',
+            //render:function(data, type, row, meta){
+            //
+            //
+            //    return data.toFixed(2);
+            //
+            //}
         }
     ]
 });
@@ -2176,13 +2182,13 @@ var table1 = $('#equipment-datatables1').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4521'){
 
-                        if(o.cDataValue == 1){
+                        if(o.cDataValue == 3){
 
                             result =  "ON"
                         }else{
@@ -2234,7 +2240,7 @@ var table1 = $('#equipment-datatables1').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -2255,7 +2261,7 @@ var table1 = $('#equipment-datatables1').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -2286,10 +2292,18 @@ var table1 = $('#equipment-datatables1').DataTable({
         },
         {
             title:'功率（kW）',
-            data:'powerValue'
+            data:'powerValue',
+            //render:function(data, type, row, meta){
+            //
+            //
+            //    return data.toFixed(2);
+            //
+            //}
         }
     ]
 });
+
+
 
 
 

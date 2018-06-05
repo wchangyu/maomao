@@ -182,6 +182,7 @@ var History = function () {
 
     //根据区域和设备类型获取监测因子数据
     var getDataCCodeDs = function () {
+
         jQuery('#historyBusy').showLoading();
         var area = $('#areaType').val();
         var eqty = $('#eqType').val();
@@ -194,6 +195,7 @@ var History = function () {
             if (res.code === 0) {
                 //页面加载后初始化zTree数据且默认展开所有节点
                 var zNodes = res.dctrVs;
+                console.log(zNodes);
                 $.fn.zTree.init($("#trul"), setting, zNodes).expandAll(true);
                 var zTree = $.fn.zTree.init($("#trul"), setting, zNodes);
                 var nodes = zTree.getNodes();
@@ -359,7 +361,7 @@ var History = function () {
                 var obj = $(this);
                 var ofst = $(this).offset();
                 var ofstLeft = ofst.left - 240;
-                var ofstTop = ofst.top - 90;
+                var ofstTop = ofst.top - 115;
                 $("#treeBox").css({ left: ofstLeft + "px", top: ofstTop + "px" }).slideDown("fast");
                 $("body").bind("mousedown", onBodyDown);
             });

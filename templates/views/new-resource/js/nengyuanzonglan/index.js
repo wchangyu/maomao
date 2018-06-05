@@ -384,8 +384,6 @@ var pointerIdArr = getPointersId();
 var officeIdArr = getOfficesId();
 
 
-
-
 //------------------------------------页面主体方法-----------------------------------//
 
 //从配置项中获取右下角能耗排名所展示信息
@@ -1116,6 +1114,31 @@ function getTopPageKPIData(){
 
     var selectDateType = getShowDateType()[1];
 
+    //console.log(selectDateType);
+
+    if(selectDateType == 'Day'){
+
+        startDate = moment().subtract('1','days').format('YYYY-MM-DD HH:mm:ss');
+
+        endDate = moment().format('YYYY-MM-DD HH:mm:ss');
+
+
+    }else if(selectDateType == 'Month'){
+
+        startDate = moment().subtract('1','months').format('YYYY-MM-DD HH:mm:ss');
+
+        endDate = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    }else if(selectDateType == 'Year'){
+
+        startDate = moment().subtract('1','years').format('YYYY-MM-DD HH:mm:ss');
+
+        endDate = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    }
+
+
+
     //传递给后台的数据
     var ecParams = {
         "startTime": startDate,
@@ -1191,8 +1214,23 @@ function getTopPageKPIData(){
 
             window.onresize();
 
-            //改变上方的title显示信息
-            $('.content-main-bototm-left h3').html('本' + $('.time-options-1').html() +"KPI指标");
+            if(selectDateType == 'Day'){
+
+                //改变上方的title显示信息
+                $('.content-main-bototm-left h3').html('近24小时' +"KPI指标");
+
+
+            }else if(selectDateType == 'Month'){
+
+                //改变上方的title显示信息
+                $('.content-main-bototm-left h3').html('近30天' +"KPI指标");
+
+            }else if(selectDateType == 'Year'){
+
+                //改变上方的title显示信息
+                $('.content-main-bototm-left h3').html('近12月' +"KPI指标");
+
+            }
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -1211,6 +1249,7 @@ function getTopPageKPIData(){
 };
 
 //------------------------------------右下角能耗排名-----------------------------------------//
+
 //获取本日楼宇能耗排名
 function getPointerRankData(){
 

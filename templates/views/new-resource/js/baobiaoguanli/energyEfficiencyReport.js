@@ -2,7 +2,7 @@ $(function(){
 
     /*-------------------------------------------------变量--------------------------------------------------------------*/
 
-    var _url = 'http://192.168.1.113/BEEWebAPI/api/';
+    var _url = 'http://huaqin.vicp.io:25708/BEEWebAPIys/api/';
 
     //默认进来是选择月
     _monthDate($('.datatimeblock'));

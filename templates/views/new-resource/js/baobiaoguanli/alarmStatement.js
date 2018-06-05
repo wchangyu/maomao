@@ -103,7 +103,7 @@ $(function() {
 
         }
 
-        $('#timeType').change();
+       // $('#timeType').change();
     });
 
     //改变报表内容选框

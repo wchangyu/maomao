@@ -194,7 +194,7 @@ var optionBar = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值'],
+        data:['数据'],
         top:'30',
     },
     toolbox: {
@@ -226,7 +226,7 @@ var optionBar = {
     ],
     series : [
         {
-            name:'累计值',
+            name:'数据',
             type:'bar',
             data:[],
             //markPoint : {
@@ -267,7 +267,7 @@ var optionLineBar = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值', '比较斜率'],
+        data:['数据', '比较斜率'],
         top:'30'
     },
     toolbox: {
@@ -297,7 +297,7 @@ var optionLineBar = {
     },
     series : [
         {
-            name:'累计值',
+            name:'数据',
             type:'bar',
             barMaxWidth: '50',
             data:[],
@@ -329,7 +329,7 @@ var optionLine = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值'],
+        data:['数据'],
         top:'30'
     },
     toolbox: {
@@ -364,7 +364,7 @@ var optionLine = {
 
 /*---------------------------------otherFunction------------------------------*/
 
-var echartObj =  {name:'累计值',
+var echartObj =  {name:'数据',
     type:'line',
     smooth:true,
     //markPoint : {
@@ -629,7 +629,7 @@ function getPointerData(url,flag){
 
             //下方表格
             var tableHtml = '';
-            //获取第一项的累计值
+            //获取第一项的数据
             var total = result[0].sumMetaData;
             //获取第一项的峰值
             var max = result[0].maxMetaData;
@@ -652,7 +652,7 @@ function getPointerData(url,flag){
                     '</tr>';
 
                 if(i != 0){
-                    //计算累计值百分比
+                    //计算数据百分比
                     var totalPercent = (((o.sumMetaData -total) / total * 100).toFixed(1)) + '%';
 
                     if( total == 0){

@@ -1,6 +1,6 @@
 $(function(){
 
-    var _url = 'http://192.168.1.110/BEEWebAPI/api/';
+    var _url = 'http://huaqin.vicp.io:25708/BEEWebAPIys/api/';
 
     /*------------------------------------------------------时间插件-------------------------------------------------*/
 
@@ -30,7 +30,7 @@ $(function(){
 
         }
 
-    })
+    });
 
     //当前导出报表的时间
     var excelTime = moment().format('YYYY/MM/DD hh:mm:ss');
@@ -53,7 +53,7 @@ $(function(){
 
         _exportExecl($('#entry-datatables'))
 
-    })
+    });
 
     /*-------------------------------------------------------------其他方法-----------------------------------------------*/
 
@@ -112,6 +112,8 @@ $(function(){
             pointerID = hrefPrm[0].split('=')[1];
 
             areaID = hrefPrm[1].split('=')[1];
+
+            //console.log(pointerID)
 
         }
 
@@ -180,11 +182,7 @@ $(function(){
                     $('tbody').children('tr').eq(i).prepend(strTitle);
 
                 }
-
-
-
             }
-
         }
 
         $.ajax({

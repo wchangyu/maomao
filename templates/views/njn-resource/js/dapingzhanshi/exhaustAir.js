@@ -56,13 +56,16 @@ $(function(){
 
 
 //页面右侧Table的表头集合
-var titleArr = ['','设备数','暂停占比','自动运行占比','故障占比','报警'];
+//var titleArr = ['','设备数','暂停占比','自动运行占比','故障占比','报警'];
+
+var titleArr = ['','设备数','运行占比','故障占比','报警'];
 
 //页面右侧Table的统计位置集合
 var areaArr = ['-9.6m','0.0m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
 
 //绘制页面右侧的table
 function drawDataTable(titleArr,areaArr){
+
     //定义title
     var titleHtml = '';
 
@@ -84,41 +87,42 @@ function drawDataTable(titleArr,areaArr){
     $(areaArr).each(function(i,o){
 
         bodyHtml +=
+
             '<tr>' +
-            '<td>' +
-            '<span class="green-patch">'+ o+'</span>' +
-            '</td>' +
+                '<td>' +
+                    '<span class="green-patch">'+ o+'</span>' +
+                '</td>' +
 
-            '<td>13</td>' +
-            ' <td>' +
+                '<td>13</td>' +
+                '<td>' +
 
-            '<div class="right-bottom-echart" id="right-bottom-echart1">' +
+                    '<div class="right-bottom-echart" id="right-bottom-echart1">' +
 
-            '</div>' +
+                    '</div>' +
 
-            '</td>' +
+                '</td>' +
 
-            '<td>' +
+                '<td>' +
 
-            '<div class="right-bottom-echart" id="right-bottom-echart2">' +
+                    '<div class="right-bottom-echart" id="right-bottom-echart2">' +
 
-            '</div>' +
+                    '</div>' +
 
-            '</td>' +
+                '</td>' +
 
-            '<td>' +
+                '<td>' +
 
-            '<div class="right-bottom-echart" id="right-bottom-echart3">' +
+                    '<div class="right-bottom-echart" id="right-bottom-echart3">' +
 
-            '</div>' +
+                    '</div>' +
 
-            '</td>' +
+                '</td>' +
 
-            '<td>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-1 故障</p>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-2 故障</p>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-3 故障</p>' +
-            '</td>' +
+                '<td>' +
+                    '<p class="right-bottom-alarm">东出站厅回路1-1 故障</p>' +
+                    '<p class="right-bottom-alarm">东出站厅回路1-2 故障</p>' +
+                    '<p class="right-bottom-alarm">东出站厅回路1-3 故障</p>' +
+                '</td>' +
             '</tr>';
     });
 
@@ -174,6 +178,7 @@ var monitorAreaArr = [
         "areaId":"12"
     }
 ];
+
 //把区域信息放入到流程图页面中
 sessionStorage.monitorArea = JSON.stringify(monitorAreaArr);
 
@@ -193,6 +198,7 @@ $('#monitor-menu-container').on('click','span',function(){
 
 /*-------------------------------------------表格初始化--------------------------------------------*/
 var table = $('#equipment-datatables').DataTable({
+
     "bProcessing" : true,
     "autoWidth": false,  //用来启用或禁用自动列的宽度计算
     //是否分页
@@ -229,7 +235,6 @@ var table = $('#equipment-datatables').DataTable({
             data:'areaName',
             render:function(data, type, row, meta){
 
-
                 return meta.row + 1;
 
             }
@@ -260,20 +265,19 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4125'){
+                    if(o.cTypeID == '4125' || o.cTypeID == '4121'){
 
                         if(o.cDataValue == 1){
 
                             result =  "ON"
                         }else{
+
                             result =  "OFF";
                         }
-
 
                     }
                 });
@@ -287,7 +291,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -299,7 +303,6 @@ var table = $('#equipment-datatables').DataTable({
                         }else{
                             result =  "手动";
                         }
-
 
                     }
                 });
@@ -313,11 +316,11 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '16' ||　o.cTypeID　== '19'){
+                    if(o.cTypeID == '4122'){
 
                         if(o.cDataValue == 1){
 
@@ -325,8 +328,6 @@ var table = $('#equipment-datatables').DataTable({
                         }else{
                             result =  "正常";
                         }
-
-
                     }
                 });
 
@@ -335,25 +336,23 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'压差开关',
+            title:'过滤网状态',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4121'){
 
-                        if(o.cDataValue == 1){
+                        if(o.cDataValue == 0){
 
-                            result =  "ON"
+                            result =  "正常"
                         }else{
 
-                            result =  "OFF";
+                            result =  "阻塞";
                         }
-
-
                     }
                 });
 
@@ -366,7 +365,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -392,7 +391,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                return '';
+                return '--';
 
             }
         }
@@ -507,13 +506,13 @@ function drawDataTableByResult(titleArr,areaDataArr){
             '</td>' +
 
             '<td>'+o.devNum+'</td>' +
-            ' <td>' +
-
-            '<div class="right-bottom-echart" id="">' +
-
-            '</div>' +
-
-            '</td>' +
+            //' <td>' +
+            //
+            //'<div class="right-bottom-echart" id="">' +
+            //
+            //'</div>' +
+            //
+            //'</td>' +
 
             '<td>' +
 
@@ -585,13 +584,15 @@ function echartReDraw(realDataArr){
         //暂停占比
         var openStopProp = o.openStopProp;
 
-        //手自动运行占比
-        var handAutoProp = o.handAutoProp;
+        ////手自动运行占比
+        //var handAutoProp = o.handAutoProp;
 
         //故障占比
         var alarmProp = o.alarmProp;
 
-        var dataArr = [openStopProp,handAutoProp,alarmProp];
+        //var dataArr = [openStopProp,handAutoProp,alarmProp];
+
+        var dataArr = [openStopProp,alarmProp];
 
         var tableDom = document.getElementsByClassName('right-bottom-table')[0];
 
@@ -738,7 +739,7 @@ function typeOfAlarm(){
             //把设备类型放入页面中
             $(result).each(function(i,o){
 
-                html += "<option value='"+ o.innerID+"'>"+ o.cDtnName+"</option>"
+                html += "<option value='"+ o.innerID+"'>"+ o.cDtnName+"</option>";
             });
 
             $('.alarm-select').html(html);

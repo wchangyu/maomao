@@ -12,6 +12,7 @@ $(function(){
 
 //柱状图配置项
 var optionBar = {
+
     tooltip : {
         trigger: 'axis'
     },
@@ -129,6 +130,7 @@ $('#monitor-menu-container').on('click','span',function(){
 
 /*-------------------------------------------表格初始化--------------------------------------------*/
 var table = $('#equipment-datatables').DataTable({
+
     "bProcessing" : true,
     "autoWidth": false,  //用来启用或禁用自动列的宽度计算
     //是否分页

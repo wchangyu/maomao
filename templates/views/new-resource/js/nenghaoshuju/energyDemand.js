@@ -181,7 +181,7 @@ var optionLineBar = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值', '比较斜率'],
+        data:['数据', '比较斜率'],
         top:'30'
     },
     toolbox: {
@@ -211,7 +211,7 @@ var optionLineBar = {
     },
     series : [
         {
-            name:'累计值',
+            name:'数据',
             type:'bar',
             barMaxWidth: '50',
             data:[],
@@ -243,7 +243,7 @@ var optionLine = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值'],
+        data:['数据'],
         top:'30'
     },
     toolbox: {
@@ -273,7 +273,7 @@ var optionLine = {
     },
     series : [
         {
-            name:'累计值',
+            name:'数据',
             type:'line',
             smooth:true,
             markPoint : {

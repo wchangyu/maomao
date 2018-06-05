@@ -2865,6 +2865,11 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
 
     $(dataArr).each(function(i,o){
 
+        if(allData == 0){
+
+            allData = 100000;
+        }
+
         var value1;
 
         var value2;
@@ -2904,6 +2909,10 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
 
         //数据赋值
         option.series[i].data = data;
+
+        if(allData == 100000){
+            allData = 0
+        }
 
         //echart图开始处的展示数据
         if(allData != 0){

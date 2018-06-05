@@ -196,7 +196,11 @@ var table = $('#dateTables').DataTable({
         },
         {
             title:'平均值',
-            data:"avgMetaData"
+            data:"avgMetaData",
+            render:function(data, type, full, meta){
+
+                return data.toFixed(1);
+            }
         }
     ]
 });
@@ -206,7 +210,7 @@ var table = $('#dateTables').DataTable({
 //折线图
 var myChartTopLeft = echarts.init(document.getElementById('rheader-content-16'));
 
-var echartObj =  {name:'累计值',
+var echartObj =  {name:'数据',
     type:'line',
     smooth:true,
     //markPoint : {
@@ -243,7 +247,7 @@ var optionLine = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值'],
+        data:['数据'],
         top:'30'
     },
     toolbox: {
@@ -393,7 +397,24 @@ function getDevAreaByType(){
                 return false;
             }
 
-            getEquipmentZtree(result,3,getZNodes2,"#allPointer",areaObj);
+            var dataArr = [];
+
+            $(result).each(function(i,o){
+
+                if(o.returnType == 3){
+
+                    o.returnOBJID = "001" + o.returnOBJID;
+
+                }else  if(o.returnType == 4){
+
+                    o.parentOBJID = "001" + o.parentOBJID;
+                }
+
+                dataArr.push(o);
+
+            });
+
+            getEquipmentZtree(dataArr,3,getZNodes2,"#allPointer",areaObj);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -423,6 +444,8 @@ function getDevInfoCTypes(equipObj){
     //获取父级元素ID
 
     var parentID = equipObj.pId;
+
+    parentID = parentID.slice(3);
 
     var parentNode = equipObj.getParentNode();
 
@@ -911,6 +934,8 @@ function getZNodes1(EnItdata){
             zNodes.push({ id: pointerID, pId:-1, name:o.name,title: o.name,open:ifOpen,checked:false});
 
         }else{
+
+
 
             zNodes.push({ id: pointerID, pId:0, name:o.name,title: o.name,open:ifOpen,checked:false});
         }
