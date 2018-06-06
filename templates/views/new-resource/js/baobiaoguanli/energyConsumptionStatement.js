@@ -129,7 +129,7 @@ $(function() {
 
         }
 
-        $('#timeType').change();
+        //$('#timeType').change();
     });
 
     //改变报表内容选框
@@ -972,8 +972,8 @@ function getEnergyItemWaterReports(){
                 $('#entry-water-datatables .time-type').html('年');
             }
 
-            //电单价
-            var elecEnergyPrice = result.elecEnergyPrice;
+            //水单价
+            var elecEnergyPrice = result.waterEnergyPrice;
 
             $('#entry-water-datatables .electricity-price').html(elecEnergyPrice);
 

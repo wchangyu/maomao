@@ -66,6 +66,29 @@ var alarmCameraDataArr = {};
 //定义回放时间
 var startPlaybackTime;
 
+//从配置项中获取页面中所需信息
+function getDataByConfig(){
+
+
+    var ifdecode = 0;
+
+    //获取当前页面的配置信息
+    $(__systemConfigArr).each(function(i,o){
+
+        //console.log(o);
+
+        //获取当前配置项中的url
+        if(o.pageId == 0){
+
+            ifdecode = o.ifdecode;
+        }
+    });
+
+    return ifdecode;
+
+};
+
+
 //获取当前摄像头报警数据
 function getAlarmCameraData(){
 
@@ -80,6 +103,8 @@ function getAlarmCameraData(){
 
             //定义摄像头信息字符串
             var monitorMessageHtml = '';
+
+            var ifdecode = getDataByConfig();
 
             //页面右侧摄像头信息
             $(result).each(function(i,o){
@@ -100,6 +125,14 @@ function getAlarmCameraData(){
                     var address = result[i].mappVideoRecorder.f_RecIP;
                     //密码
                     var password = result[i].mappVideoRecorder.f_Password;
+
+                    //判断是否需要解密
+                    if( ifdecode== 1){
+
+                        //给密码解密
+                        password = Went.utility.wCoder.wDecode(password,"");
+
+                    }
 
                     //端口
                     var port = result[i].mappVideoRecorder.f_PortNum;

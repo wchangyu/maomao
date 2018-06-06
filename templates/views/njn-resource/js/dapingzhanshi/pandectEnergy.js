@@ -209,6 +209,7 @@ $(function(){
 
     });
 
+
     $('#dev-grade-dateTables tbody').on('click', 'td .details-control', function () {
 
         //获取报警日志id
@@ -302,7 +303,6 @@ $(function(){
         getDevMonitAlarmPopup(devTypeArr,condition);
 
     });
-
 
 
     //-----------------------------消防报警信息弹窗-----------------------------//
@@ -432,6 +432,9 @@ $(function(){
 
     //点击运行信息弹出运行弹窗 并展示数据
     $(".bottom-equipment-chart-show").on('click',function(){
+
+        //select框默认选中第一个
+        $('#run-number-message .equip-states option:first').prop("selected", 'selected');
 
         //显示悬浮窗
         $('#run-number-message').modal('show');
@@ -726,6 +729,7 @@ $(function(){
 
         //获取后台数据
         getEnergyCostData(condition);
+
     });
 
     //点击节能减排信息弹出能耗费用弹窗 并展示数据
@@ -2059,14 +2063,14 @@ function getTPDevMonitor(){
             });
 
             option8.title.text = totalAlarmNum;
-            option8.title.subtext = "故障数";
+            option8.title.subtext = "报警数";
 
             _useelectricityChart.setOption(option8,true);
 
             //-----------------------------暖通系统---------------------------//
 
             //电冷能效
-           var elecColdEffic = result.hvacAirsOBJ.hvacAirData.nxVa + '%';
+           var elecColdEffic = result.hvacAirsOBJ.hvacAirData.nxVa;
 
             //elecColdEffic = "80.8%";
 
@@ -2098,6 +2102,7 @@ function getTPDevMonitor(){
 
                 eleUnit = "KW";
 
+
             }else{
 
                 elecColdDataArr = [
@@ -2110,8 +2115,9 @@ function getTPDevMonitor(){
                 //$('.right-bottom-container .right-bottom-equipment .right-bottom-equipment-container ').eq(0).find('.equipment-title a').html('换热站');
 
                 eleUnit = "KW";
-            }
 
+                elecColdEffic += "%";
+            }
 
             //给echarts赋值
             drawEcharts(elecColdDataArr,'equipment-chart-electricity',colorArr1,elecColdCenterData, _electricityoption, eleUnit);
@@ -2168,7 +2174,7 @@ function getTPDevMonitor(){
                 {name:'维修中',data:repairNum}
             ];
 
-            var airCenterData = {name:'站房回数',data:allNum};
+            var airCenterData = {name:'站房回路',data:allNum};
 
             //给echarts赋值
             drawEcharts(airDataArr,'equipment-chart-conditioner',colorArr2,airCenterData, _conditioneroption,'');
@@ -2360,7 +2366,6 @@ function getTPDevMonitor(){
             //运行中
             var fireControlrunNum = result.fireControlSysOBJ.runNum;
 
-
             //故障中
             var fireControlfaultNum = result.fireControlSysOBJ.faultNum;
 
@@ -2402,7 +2407,6 @@ function getTPDevMonitor(){
             //维修中
             var sendExhaustrepairNum = result.sellCheckTicketOBJ.repairNum;
 
-
             var sendExhaustArr = [
                 {name:'运行中',data:sendExhaustrunNum},
                 {name:'故障中',data:sendExhaustfaultNum},
@@ -2421,7 +2425,6 @@ function getTPDevMonitor(){
             $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.sellCheckTicketOBJ.alarmNum);
 
             $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.sellCheckTicketOBJ.cDataIDNum);
-
 
             //-----------------------------能源管理---------------------------//
 
@@ -2451,8 +2454,8 @@ function getTPDevMonitor(){
 
                     dataArr.push(obj);
                 }
-            });
 
+            });
 
             //总能耗
             _energyOption.title.text = result.energyManagerOBJ.allEnergyData.toFixed(0);
@@ -2471,8 +2474,6 @@ function getTPDevMonitor(){
             $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.energyManagerOBJ.alarmNum);
 
             $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.energyManagerOBJ.cDataIDNum);
-
-
 
             //-----------------设备报警数据------------------//
 
@@ -2520,6 +2521,7 @@ function getTPDevMonitor(){
 
 //获取下方能源管理数据
 function getPointerData(){
+
     //定义存放返回数据的数组（本期 X Y）
     var allData = [];
     var allDataX = [];
@@ -2852,15 +2854,21 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
             allData = dataArr[0].data * 1.5;
 
         }else{
+
             allData = centerData.data;
+
         }
     }
-
 
     //定义图例集合
     var legendArr = [];
 
     $(dataArr).each(function(i,o){
+
+        if(allData == 0){
+
+            allData = 100000;
+        }
 
         var value1;
 
@@ -2902,6 +2910,10 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
         //数据赋值
         option.series[i].data = data;
 
+        if(allData == 100000){
+            allData = 0
+        }
+
         //echart图开始处的展示数据
         if(allData != 0){
 
@@ -2927,12 +2939,13 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
 
         }else{
 
-            $('#'+ echartsID).prev('.bottom-content-data').find('span').eq(i).html('0');
+            $('#'+ echartsID).prev('.bottom-content-data').find('span').eq(i).html('--');
 
         }
 
 
     });
+
     //改变中间显示的文字
     if(unit != ''){
 
@@ -3423,13 +3436,12 @@ function getDevMonitAlarmPopup(devTypeArr,condition){
                 tableHtml += "<td>"+ o.dataDate+"</td>";
 
                 //是否报单
-
                 var isBaoDan = '未报单';
 
                 if(o.isBaoDan == 1){
 
                     isBaoDan = '已报单';
-                }
+                };
 
                 tableHtml += "<td>"+ isBaoDan +"</td>";
 
@@ -3486,8 +3498,11 @@ function getDevMonitPowerData(devTypeArr,condition){
         beforeSend:function(){
 
             setTimeout(function(){
+
                 $('#electric-message .bottom-table-data-container ').showLoading();
+
             },500);
+
         },
         success:function(result){
 
@@ -3655,7 +3670,7 @@ function getEnergyCostData(condition){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
             setTimeout(function(){
 
@@ -3801,7 +3816,7 @@ function getDevAlarmNumPopupData(condition){
 
             setTimeout(function(){
                 $('#alarm-message1 .bottom-table-data-container #dateTables-alarm').hideLoading();
-            },500)
+            },500);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 
@@ -3883,6 +3898,7 @@ function getDevRunParaPopupData(devTypeArr,condition){
                 $('#run-number-message .equip-types').html(selectHtml);
 
             }
+
             //给页面赋值
             var tableHtml = "";
 
@@ -4469,6 +4485,7 @@ function typeOfAlarm(){
         }
     });
 };
+
 
 //获取消防系统中报警分类
 function getAlarmFireType(num){

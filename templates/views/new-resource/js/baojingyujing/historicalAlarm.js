@@ -41,6 +41,7 @@ $(function(){
                 historyArr = totalArr[i].childDevAlarmNumPopupReturns;
             }
         }
+
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
         var row = table.row( tr );
         if ( row.child.isShown() ) {
@@ -149,7 +150,14 @@ table = $('#alarm-datatables').DataTable({
             "data": 'alaLogID',
             "render":function(data,type,row,meta){
 
-                return  "<button class='btn details-control' data-alaLogID="+data+" >显示/隐藏历史</button>"
+                if(row.childDevAlarmNumPopupReturns.length > 0){
+
+                    return  "<button class='btn details-control' data-alaLogID="+data+" >显示/隐藏历史</button>"
+                }else{
+
+                    return  "无"
+                }
+
             }
             //"defaultContent": "<button class='btn details-control' data-alaLogID=''>显示/隐藏历史</button>"
         }

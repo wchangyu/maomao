@@ -54,10 +54,27 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "照明数据": {
+        "type": "0",
+        "content": "照明数据",
+        "uri": "../njn-dapingzhanshi/showLightData.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "三维": {
+        "type": "0",
+        "content": "三维",
+        "uri": "../njn-dapingzhanshi/openExe.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
 
     }
   },
+
   "暖通空调": {
     "type": "1",
     "content": "暖通空调",
@@ -380,6 +397,29 @@
       }
     }
   },
+  "设备控制": {
+    "type": "1",
+    "content": "设备控制",
+    "iconclass": "icon-camcorder",
+    "submenu": {
+      "冷热源-专家策略": {
+        "type": "0",
+        "content": "冷热源-专家策略",
+        "uri": "../equipmentControl/coldHeatSource-ZJCL.html",
+        "uid": "",
+        "arg": "2,4",
+        "iconclass": ""
+      },
+      "冷热源-协同联动": {
+        "type": "0",
+        "content": "冷热源-协同联动",
+        "uri": "../equipmentControl/coldHeatSource-XTLD.html",
+        "uid": "",
+        "arg": "2,4",
+        "iconclass": ""
+      }
+    }
+  },
   "设备监控": {
     "type": "1",
     "content": "设备监控",
@@ -390,7 +430,7 @@
         "content": "监控总览",
         "uri": "../yongnengjiance/energyMonitor.html?a=1",
         "uid": "",
-        "arg": "2,10",
+        "arg": "2,4",
         "iconclass": ""
       },
       "测试一下": {
@@ -811,10 +851,10 @@
       }
     }
   },
-  "预警报警": {
+  "报警预警": {
     "type": "1",
-    "iconclass": "icon-bell",
-    "content": "预警报警",
+    "iconclass": "icon-home",
+    "content": "报警预警",
     "submenu": {
       "用能报警": {
         "type": "0",

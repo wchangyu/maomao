@@ -63,7 +63,9 @@ $(function(){
 
 
 //页面右侧Table的表头集合
-var titleArr = ['','设备数','运行占比','自动运行占比','回风平均温度(℃)','回风CO2浓度(PPM)','故障占比','报警'];
+//var titleArr = ['','设备数','运行占比','自动运行占比','回风平均温度(℃)','回风CO2浓度(PPM)','故障占比','报警'];
+
+var titleArr = ['','设备数','运行占比','回风平均温度(℃)','回风CO2浓度(PPM)','故障占比','报警'];
 
 //页面右侧Table的统计位置集合
 var areaArr = ['-9.6m','0.0m','-9.6m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
@@ -146,6 +148,7 @@ function drawDataTable(titleArr,areaArr){
 
 //配置流程图页面中的区域位置
 var monitorAreaArr = [
+
 
 ];
 
@@ -264,15 +267,26 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var season = "--"
+
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4021'){
 
-                        return o.cDataValue;
+                        if(o.cDataValue == 0){
+
+                            season = '冬季';
+
+                        }else{
+
+                            season = '夏季';
+                        }
+
                     }
                 });
 
-                return '冬季';
+                return season;
 
             }
         },
@@ -282,7 +296,7 @@ var table = $('#equipment-datatables').DataTable({
             render:function(data, type, row, meta){
 
 
-                return '';
+                return '--';
 
             }
         },
@@ -292,7 +306,7 @@ var table = $('#equipment-datatables').DataTable({
             render:function(data, type, row, meta){
 
 
-                return '';
+                return '--';
 
             }
         },
@@ -302,7 +316,7 @@ var table = $('#equipment-datatables').DataTable({
             render:function(data, type, row, meta){
 
 
-                return '';
+                return '--';
 
             }
         },
@@ -311,7 +325,32 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4063' || o.cTypeID == '4064'){
+
+                        if(o.cDataValue == 1){
+
+                            result = "ON";
+                        }else{
+                            result = "OFF";
+                        }
+
+                    }
+                });
+
+                return result;
+
+            }
+        },
+        {
+            title:'送风压差开关',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -371,26 +410,26 @@ var table = $('#equipment-datatables').DataTable({
 
             }
         },
-        {
-            title:'回风温度设定（℃）',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-                var result = '';
-
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4065'){
-
-                        result = o.cDataValue;
-
-                    }
-                });
-
-                return result;
-
-            }
-        },
+        //{
+        //    title:'回风温度设定（℃）',
+        //    data:'devCtypeDatas',
+        //    render:function(data, type, row, meta){
+        //
+        //        var result = '';
+        //
+        //        $(data).each(function(i,o){
+        //
+        //            if(o.cTypeID == '4065'){
+        //
+        //                result = o.cDataValue;
+        //
+        //            }
+        //        });
+        //
+        //        return result;
+        //
+        //    }
+        //},
         {
             title:'回风温度（℃）',
             data:'devCtypeDatas',
@@ -470,9 +509,9 @@ var table = $('#equipment-datatables').DataTable({
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4067'){
+                    if(o.cTypeID == '4066'){
 
-                        result = o.cDataValue;
+                        result = o.cDataValue.toFixed(2);
 
                     }
                 });
@@ -492,7 +531,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4025'){
 
-                        result = o.cDataValue;
+                        result = o.cDataValue.toFixed(2);
 
 
                     }
@@ -504,12 +543,15 @@ var table = $('#equipment-datatables').DataTable({
         },
         {
             title:'累计运行时间（h）',
-            data:'devCtypeDatas',
+            data:'runTime',
             render:function(data, type, row, meta){
 
+                if(data == '0.00'){
 
+                    return "--"
+                }
 
-                return '';
+                return data;
 
             }
         },
@@ -667,13 +709,13 @@ function drawDataTableByResult(titleArr,areaDataArr){
                 '</td>' +
 
                 '<td>'+o.devNum+'</td>' +
-                ' <td>' +
-
-                '<div class="right-bottom-echart" id="">' +
-
-                '</div>' +
-
-                '</td>' +
+                //' <td>' +
+                //
+                //'<div class="right-bottom-echart" id="">' +
+                //
+                //'</div>' +
+                //
+                //'</td>' +
 
                 '<td>' +
 
@@ -765,19 +807,23 @@ function drawDataTableByResult(titleArr,areaDataArr){
 //给右侧流程图循环赋值
 function echartReDraw(realDataArr){
 
+    console.log(realDataArr);
+
     //根据页面中展示的数据给echarts循环赋值
     $(realDataArr).each(function(i,o){
 
         //运行占比
         var runProp = o.runProp;
 
-        //自动运行占比
-        var autoRunProp = o.autoRunProp;
+        ////自动运行占比
+        //var autoRunProp = o.autoRunProp;
 
         //故障占比
         var alarmProp = o.alarmProp;
 
-        var dataArr = [runProp,autoRunProp,alarmProp];
+        //var dataArr = [runProp,autoRunProp,alarmProp];
+
+        var dataArr = [runProp,alarmProp];
 
         var tableDom = document.getElementsByClassName('right-bottom-table')[0];
 

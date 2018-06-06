@@ -182,7 +182,7 @@ var ifShowLoading1 = true;
 //定义送排风 给排水弹出页面的宽高
 var jumpPageSize = "1020,586";
 
-console.log(sessionStorage.PointerID);
+//console.log(sessionStorage.PointerID);
 
 //定义初始的楼宇ID
 if(!sessionStorage.PointerID){
@@ -220,7 +220,7 @@ function drawRightTab(){
         '<span class="right-tab right-tab2"><a href="supDraWater.html">给排水</a></span>' +
         '<span class="right-tab right-tab2" jump-data="2"><a href="automaticCheck.html">售检票</a></span>' +
         //'<span class="right-tab right-tab2"><a href="automaticSale.html">自动售票</a></span>' +
-        '<span class="right-tab right-tab2 "><a href="automaticCheck.html">消防系统</a></span>' +
+        '<span class="right-tab right-tab2 "><a href="rdsp-bs-js:{\'fcfid\':\'2\',\'type\':\'2\'}">消防系统</a></span>' +
         '<span class="right-tab right-tab2 "><a href="operationMaintenance.html">运维联动</a></span>' +
         '<span class="right-tab right-tab3 "><a href="energyManagement.html">能源管理</a></span>';
 
@@ -641,13 +641,19 @@ $('.right-tab-container .right-tab').on('click',function(){
 });
 
 //点击右侧主体内容中的选项卡
-$('.right-bottom-tab-container .right-bottom-tab').on('click',function(){
+$('.right-bottom-tab-container').on('click','.right-bottom-tab',function(){
 
     //删除之前选中的类
     $('.right-bottom-tab-container .right-bottom-tab').removeClass('right-bottom-tab-choose');
 
     //给当前选中元素添加选中类名
     $(this).addClass('right-bottom-tab-choose');
+
+    //console.log(33);
+
+    $('#right-container .close1').click();
+
+    //$('.content-child-show').remove();
 
 });
 
@@ -1097,7 +1103,7 @@ function getPostTime(){
 };
 
 //根据区域ID以及设备类型从后台获取设备列表
-function getSecondColdHotSour(url,devTypeID,areaID){
+function getSecondColdHotSour(url,devTypeID,areaID,dom){
 
     //传递给后台的数据
     var ecParams = {
@@ -1132,9 +1138,15 @@ function getSecondColdHotSour(url,devTypeID,areaID){
 
             }
 
-            //console.log(result);
-            _datasTable($('#equipment-datatables'),result);
+            if(dom){
 
+                _datasTable(dom,result);
+
+            }else{
+
+                //console.log(result);
+                _datasTable($('#equipment-datatables'),result);
+            }
         },
         error:function(jqXHR, textStatus, errorThrown){
 
@@ -1155,6 +1167,7 @@ function getTimeDescribe(dateString){
 
     //获取到报警时间距离现在的分钟数
     var minute = (new Date() - new Date(dateString)) / 1000 / 60;
+
 
     if(minute < 1){
 
@@ -1185,6 +1198,10 @@ function getRightAlarmString(alarmObj,flag){
 
     //获取报警时间
     var dataDate = alarmObj.dataDate.split('T')[0] +' ' + alarmObj.dataDate.split('T')[1];
+
+    //console.log(dataDate);
+
+    dataDate = moment(dataDate).format('YYYY/MM/DD HH:mm:ss');
 
     //展示时间
     var showDate = getTimeDescribe(dataDate);

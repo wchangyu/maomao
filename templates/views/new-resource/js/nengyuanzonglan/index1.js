@@ -934,6 +934,7 @@ function getRealTimeData(){
                     sArr.push('null')
                 }
             }
+
             option.series[0].data = sArr;
             option.xAxis[0].data = xArr;
 
@@ -1672,6 +1673,7 @@ function alarmHistory(){
         'st' : startRealTime,
         'et' : endRealTime,
         'pointerIds' : pointerID,
+        "dealFlag": -1, //0为未处理 -1为全部
         'excTypeInnderId' : '',
         'energyType' : ''
     };
@@ -1698,13 +1700,14 @@ function alarmHistory(){
 
             //已处理条数
             var isDispose = 0;
+
             //未处理条数
             var noDispose = 0;
 
             $(result).each(function(i,o){
 
                 //已处理
-                if(o.flag == 1){
+                if(o.flag == 1 || o.flag == 3){
 
                     isDispose ++;
 

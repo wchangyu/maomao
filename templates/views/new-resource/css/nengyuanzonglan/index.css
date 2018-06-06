@@ -10,6 +10,7 @@
 }
 .carousel-indicators {
     bottom: 68px !important;
+    display: none !important;
 }
 .carousel-caption{
 
@@ -237,6 +238,18 @@
     background: url(../../img/up.png) no-repeat right 2px !important;
     background-size: 8% 106% !important;
 }
+
+.equal{
+    background: url(../../img/tongbi0%25.png) no-repeat right 5px !important;
+    background-size: 8% 28% !important;
+}
+
+.equal1{
+    background: url(../../img/tongbi0%25.png) no-repeat right 11px !important;
+    background-size: 8% 34% !important;
+}
+
+
 /*右侧年的数据*/
 .single-data-year{
     height:80px !important;

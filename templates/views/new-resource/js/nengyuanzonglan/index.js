@@ -90,17 +90,21 @@ $(function(){
 
         var index = $('.cur-on-choose').attr('data-id');
 
+
         //切换显示楼宇或者科室
         if(index == 1){
-            //项目
-            getProjectRankData();
+            //楼宇
+            getPointerRankData()
+
         }else if(index == 2){
+
             //科室能耗排名
             getOfficeRankData();
 
         }else if(index == 0){
-            //科室能耗排名
-            getOfficeRankData();
+
+            //项目
+            getProjectRankData();
         }
 
     });
@@ -317,6 +321,23 @@ var option3 = {
             radius: '83%',
             min: 0,
             max:1,
+            axisLine: {            // 坐标轴线
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    color: [[0.2, '#62A8DB'], [0.8, '#33E3B6'], [1, '#ffa90b']],
+                    width: 10
+                }
+            },
+            splitLine:{
+                length:14
+            },
+            axisLabel: {
+                show:true,
+                padding: [0, 0, 0, -5],
+                formatter: function (value) {
+                    return value.toFixed(2);
+                    //return value;
+                }
+            },
             splitNumber: 5,
             data: [{value:5}]
         }
@@ -361,8 +382,6 @@ var pointerIdArr = getPointersId();
 
 //获取全部分户ID列表
 var officeIdArr = getOfficesId();
-
-
 
 
 //------------------------------------页面主体方法-----------------------------------//
@@ -693,12 +712,24 @@ function getRealTimeData(){
 
             //右侧同比
             $('.real-time-energy .right-total-data .single-data').eq(0).find('.right-ratio .percent-number').eq(0).html((Math.abs(data.dayEnergyData.lastYearEnergyPercent) * 100).toFixed(1) + '%');
-
+            console.log(data);
             if(data.dayEnergyData.lastYearEnergyPercent < 0){
 
                 $('.real-time-energy .right-total-data .single-data').eq(0).find('.top-percent').eq(0).addClass('fall-down')
             }else{
                 $('.real-time-energy .right-total-data .single-data').eq(0).find('.top-percent').eq(0).removeClass('fall-down')
+
+            }
+
+            if(data.dayEnergyData.lastYearEnergyPercent == 0){
+                console.log(33);
+
+                $('.real-time-energy .right-total-data .single-data').eq(0).find('.top-percent').eq(0).addClass('equal')
+
+            }else{
+
+                $('.real-time-energy .right-total-data .single-data').eq(0).find('.top-percent').eq(0).removeClass('equal')
+
             }
 
             //右侧环比
@@ -708,7 +739,14 @@ function getRealTimeData(){
 
                 $('.real-time-energy .right-total-data .single-data').eq(0).find('.top-percent').eq(1).addClass('fall-down')
             }else{
-                $('.real-time-energy .right-total-data .single-data').eq(0).find('.top-percent').eq(0).removeClass('fall-down')
+                $('.real-time-energy .right-total-data .single-data').eq(0).find('.top-percent').eq(1).removeClass('fall-down')
+            }
+
+            if(data.dayEnergyData.chainEnergyPercent == 0) {
+
+                $('.real-time-energy .right-total-data .single-data').eq(0).find('.top-percent').eq(1).addClass('equal')
+            }else{
+                $('.real-time-energy .right-total-data .single-data').eq(0).find('.top-percent').eq(1).removeClass('equal')
             }
 
             //月数据
@@ -719,6 +757,13 @@ function getRealTimeData(){
             $('.real-time-energy .right-total-data .single-data').eq(1).find('.right-ratio .percent-number').eq(0).html((Math.abs(data.monthEnergyData.lastYearEnergyPercent) * 100).toFixed(1) + '%');
 
             if(data.monthEnergyData.lastYearEnergyPercent < 0){
+
+                $('.real-time-energy .right-total-data .single-data').eq(1).find('.top-percent').eq(0).addClass('equal')
+            }else{
+                $('.real-time-energy .right-total-data .single-data').eq(1).find('.top-percent').eq(0).removeClass('equal')
+            }
+
+            if(data.monthEnergyData.lastYearEnergyPercent == 0){
 
                 $('.real-time-energy .right-total-data .single-data').eq(1).find('.top-percent').eq(0).addClass('fall-down')
             }else{
@@ -732,7 +777,14 @@ function getRealTimeData(){
 
                 $('.real-time-energy .right-total-data .single-data').eq(1).find('.top-percent').eq(1).addClass('fall-down')
             }else{
-                $('.real-time-energy .right-total-data .single-data').eq(1).find('.top-percent').eq(0).removeClass('fall-down')
+                $('.real-time-energy .right-total-data .single-data').eq(1).find('.top-percent').eq(1).removeClass('fall-down')
+            }
+
+            if(data.monthEnergyData.chainEnergyPercent == 0) {
+
+                $('.real-time-energy .right-total-data .single-data').eq(1).find('.top-percent').eq(1).addClass('equal')
+            }else{
+                $('.real-time-energy .right-total-data .single-data').eq(1).find('.top-percent').eq(1).removeClass('equal')
             }
 
             //年数据
@@ -747,6 +799,13 @@ function getRealTimeData(){
                 $('.real-time-energy .right-total-data .single-data').eq(2).find('.top-percent').eq(0).addClass('fall-down1')
             }else{
                 $('.real-time-energy .right-total-data .single-data').eq(2).find('.top-percent').eq(0).removeClass('fall-down1')
+            }
+
+            if(data.yearEnergyData.chainEnergyPercent == 0){
+
+                $('.real-time-energy .right-total-data .single-data').eq(2).find('.top-percent').eq(0).addClass('equal1')
+            }else{
+                $('.real-time-energy .right-total-data .single-data').eq(2).find('.top-percent').eq(0).removeClass('equal1')
             }
 
         },
@@ -858,7 +917,7 @@ function getAllEnergyItemData(){
 
     var endDate = getPostTime1()[1];
 
-    console.log(startDate);
+    //console.log(startDate);
 
     //传递给后台的数据
     var ecParams = {
@@ -986,7 +1045,7 @@ function getFirstEnergyItemData(){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
             _myChart1.hideLoading();
 
@@ -1053,10 +1112,38 @@ function getTopPageKPIData(){
 
     var endDate = getPostTime1()[1];
 
+    var selectDateType = getShowDateType()[1];
+
+    //console.log(selectDateType);
+
+    if(selectDateType == 'Day'){
+
+        startDate = moment().subtract('1','days').format('YYYY-MM-DD HH:mm:ss');
+
+        endDate = moment().format('YYYY-MM-DD HH:mm:ss');
+
+
+    }else if(selectDateType == 'Month'){
+
+        startDate = moment().subtract('1','months').format('YYYY-MM-DD HH:mm:ss');
+
+        endDate = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    }else if(selectDateType == 'Year'){
+
+        startDate = moment().subtract('1','years').format('YYYY-MM-DD HH:mm:ss');
+
+        endDate = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    }
+
+
+
     //传递给后台的数据
     var ecParams = {
         "startTime": startDate,
         "endTime": endDate,
+        "selectDateType": selectDateType,
         "pointerIDs":  pointerIdArr
     };
 
@@ -1083,8 +1170,17 @@ function getTopPageKPIData(){
 
                 return false;
             }
+
+
+
             //单位面积能耗
             option3.series[0].data[0].value = result.areaKPIData.energyNormData.toFixed(2);
+
+            option3.series[0].max = result.areaKPIData.kpiConfigBad.toFixed(2);
+
+            option3.series[0].axisLine.lineStyle.color = [
+                [result.areaKPIData.kpiConfigExcellent/result.areaKPIData.kpiConfigBad, '#62A8DB'], [result.areaKPIData.kpiConfigOrdinary/result.areaKPIData.kpiConfigBad, '#33E3B6'], [result.areaKPIData.kpiConfigWorse/result.areaKPIData.kpiConfigBad, '#ffa90b'],[1, '#f8276c']
+            ];
 
 
             if(result.bedKPIData){
@@ -1092,6 +1188,7 @@ function getTopPageKPIData(){
                 option4.series[0].data[0].value = result.bedKPIData.energyNormData.toFixed(2);
 
             }
+
             //页面重绘数据
             _myChart4.setOption(option3,true);
 
@@ -1117,8 +1214,23 @@ function getTopPageKPIData(){
 
             window.onresize();
 
-            //改变上方的title显示信息
-            $('.content-main-bototm-left h3').html('本' + $('.time-options-1').html() +"KPI指标");
+            if(selectDateType == 'Day'){
+
+                //改变上方的title显示信息
+                $('.content-main-bototm-left h3').html('近24小时' +"KPI指标");
+
+
+            }else if(selectDateType == 'Month'){
+
+                //改变上方的title显示信息
+                $('.content-main-bototm-left h3').html('近30天' +"KPI指标");
+
+            }else if(selectDateType == 'Year'){
+
+                //改变上方的title显示信息
+                $('.content-main-bototm-left h3').html('近12月' +"KPI指标");
+
+            }
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -1137,6 +1249,7 @@ function getTopPageKPIData(){
 };
 
 //------------------------------------右下角能耗排名-----------------------------------------//
+
 //获取本日楼宇能耗排名
 function getPointerRankData(){
 
@@ -1500,6 +1613,7 @@ function alarmHistory(){
         'st' : startRealTime,
         'et' : endRealTime,
         'pointerIds' : pointerID,
+        "dealFlag": -1, //0为未处理 -1为全部
         'excTypeInnderId' : '',
         'energyType' : ''
     };
@@ -1510,7 +1624,6 @@ function alarmHistory(){
         beforeSend: function () {
             $('#theLoading').modal('show');
         },
-
         complete: function () {
             $('#theLoading').modal('hide');
         },

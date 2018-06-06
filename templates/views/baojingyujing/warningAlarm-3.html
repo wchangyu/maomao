@@ -66,7 +66,8 @@
             display: none;
         }
         .real-time{
-            font-size:16px;
+            font-size:20px;
+            font-weight: 600;
         }
         .main-contents-header-lists0{
             display: none;
@@ -325,7 +326,7 @@
                             <div class="content-main-contents content-main-right">
                                 <ul class="content-main-contents-header">
                                     <li class="main-contents-header-lists0">用能预警</li>
-                                    <li class="real-time" style="margin:10px 0"></li>
+                                    <li class="real-time" style="margin:10px 0">24小时内未处理报警</li>
                                 </ul>
                                 <ul class="condition-query">
                                     <li><label for="">报警类型：</label>
@@ -336,10 +337,12 @@
                                         </div>
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
+                                    <li><button title="针对未处理报警进行阅读标识" class="btn btn-success logoToRead" style="float: right">标识阅读</button></li>
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
                                 <div class="content-main-contents">
+
                                     <div class="main-contents-table">
 
                                         <table id="datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
@@ -351,7 +354,7 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
-                                <button class="btn btn-success logoToRead" style="float: right">标识阅读</button>
+
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -415,7 +418,7 @@
 <script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
-
+<script src="../../../assets/local/configs/setNames.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -426,6 +429,7 @@
 </script>
 <script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/warningAlarm-3.js"></script>
+
 <!--报警处理框-->
 <div class='modal fade' id='myModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
     <div class='modal-dialog' style='position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px'>

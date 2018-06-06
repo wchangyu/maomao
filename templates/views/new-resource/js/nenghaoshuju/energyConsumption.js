@@ -121,8 +121,6 @@ $(function(){
 
         GetShowEnergyNormItem(energyType);
 
-        //改变右上角单位名称
-        changeUnit();
     });
 
     //改变指标类型 右上角单位跟着改变
@@ -175,12 +173,13 @@ var myChartTopLeft = echarts.init(document.getElementById('rheader-content-16'))
 
 //柱状图配置项
 var optionBar = {
+
     tooltip : {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值'],
-        top:'30',
+        data:['数据'],
+        top:'30'
     },
     toolbox: {
         show : true,
@@ -211,7 +210,7 @@ var optionBar = {
     ],
     series : [
         {
-            name:'累计值',
+            name:'数据',
             type:'bar',
             data:[],
             markPoint : {
@@ -252,7 +251,7 @@ var optionLineBar = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值', '比较斜率'],
+        data:['数据', '比较斜率'],
         top:'30'
     },
     toolbox: {
@@ -282,7 +281,7 @@ var optionLineBar = {
     },
     series : [
         {
-            name:'累计值',
+            name:'数据',
             type:'bar',
             barMaxWidth: '50',
             data:[],
@@ -314,7 +313,7 @@ var optionLine = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值'],
+        data:['数据'],
         top:'30'
     },
     toolbox: {
@@ -344,7 +343,7 @@ var optionLine = {
     },
     series : [
         {
-            name:'累计值',
+            name:'数据',
             type:'line',
             smooth:true,
             markPoint : {
@@ -527,8 +526,6 @@ function getPointerData(url,flag){
 
             myChartTopLeft.setOption( optionBar);
 
-
-
         },
         error:function(jqXHR, textStatus, errorThrown){
             myChartTopLeft.hideLoading();
@@ -582,12 +579,15 @@ function GetShowEnergyNormItem(energyType,flag){
                         html += '<p data-num ="'+ o.normIndex+'">'+ o.energyItemName+'</p>'
                     }
 
-
-
             });
+
             html += '<div class="clearfix"></div>';
+
             //将指标类型嵌入页面
             $('.left-middle-main1').html(html);
+
+            //改变右上角单位名称
+            changeUnit();
 
             if(flag){
                 getPointerData('EnergyQueryV2/GetPointerEnergyNormData',1);
@@ -614,11 +614,22 @@ function changeUnit(){
     //获取当前指标类型
     var normType = $('.left-middle-main1 .curChoose').html();
 
+    //console.log(normType);
+
+    if(!normType){
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'当前能耗无指标类型', '');
+
+        return false
+
+    }
+
     if(normType.indexOf('床位') > 0){
         attr = 'unitName1';
     }
 
     var html = '';
+
     $(dataArr).each(function(i,o){
 
             html += '<option value="'+ o.unitNum+'">'+ o.unitName+'</option>'

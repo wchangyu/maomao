@@ -56,7 +56,7 @@ $(function(){
 
 
 //页面右侧Table的表头集合
-var titleArr = ['','设备数','暂停占比','自动运行占比','故障占比','报警'];
+var titleArr = ['','设备数','运行占比','故障占比','报警'];
 
 //页面右侧Table的统计位置集合
 var areaArr = ['-9.6m','0.0m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
@@ -204,11 +204,11 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '16'){
+                    if(o.cTypeID == '4221'){
 
                         if(o.cDataValue == 1){
 
@@ -229,11 +229,11 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '12'){
+                    if(o.cTypeID == '4223'){
 
                         if(o.cDataValue == 1){
 
@@ -359,13 +359,13 @@ function drawDataTableByResult(titleArr,areaDataArr){
             '</td>' +
 
             '<td>'+o.devNum+'</td>' +
-            ' <td>' +
-
-            '<div class="right-bottom-echart" id="">' +
-
-            '</div>' +
-
-            '</td>' +
+            //' <td>' +
+            //
+            //'<div class="right-bottom-echart" id="">' +
+            //
+            //'</div>' +
+            //
+            //'</td>' +
 
             '<td>' +
 
@@ -436,15 +436,17 @@ function echartReDraw(realDataArr){
     $(realDataArr).each(function(i,o){
 
         //暂停占比
-        var openStopProp = o.openStopProp;
+        //var openStopProp = o.openStopProp;
 
-        //手自动运行占比
-        var handAutoProp = o.handAutoProp;
+        //运行占比
+        var handAutoProp = o.openStopProp;
 
         //故障占比
         var alarmProp = o.alarmProp;
 
-        var dataArr = [openStopProp,handAutoProp,alarmProp];
+        //var dataArr = [openStopProp,handAutoProp,alarmProp];
+
+        var dataArr = [handAutoProp,alarmProp];
 
         var tableDom = document.getElementsByClassName('right-bottom-table')[0];
 

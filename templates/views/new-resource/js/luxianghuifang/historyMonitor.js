@@ -21,6 +21,8 @@ $(function(){
         //获取当前摄像头ID
         var curID = $(this).attr('data-num');
 
+        var ifdecode = getDataByConfig();
+
         //获取当前登录信息
         $(alarmCameraDataArr).each(function(i,o){
 
@@ -32,10 +34,17 @@ $(function(){
                 var address = o.mappVideoRecorder.f_RecIP;
                 //密码
                 var password = o.mappVideoRecorder.f_Password;
-                //给密码解密
-                password = Went.utility.wCoder.wDecode(password,"");
 
-                console.log(password);
+                //判断是否需要解密
+                if( ifdecode== 1){
+
+                    //给密码解密
+                    password = Went.utility.wCoder.wDecode(password,"");
+
+                }
+
+                //console.log(password);
+
                 //端口
                 var port = o.mappVideoRecorder.f_PortNum;
                 //通道号
@@ -66,6 +75,29 @@ $(function(){
     });
 
 });
+
+//从配置项中获取页面中所需信息
+function getDataByConfig(){
+
+
+    var ifdecode = 0;
+
+    //获取当前页面的配置信息
+    $(__systemConfigArr).each(function(i,o){
+
+        //console.log(o);
+
+        //获取当前配置项中的url
+        if(o.pageId == 0){
+
+            ifdecode = o.ifdecode;
+        }
+    });
+
+    return ifdecode;
+
+};
+
 
 //定义从后台获取的摄像头报警数据
 var alarmCameraDataArr = {};

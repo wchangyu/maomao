@@ -92,11 +92,11 @@ $(function(){
 
                     var price = putInGoods.inprice;
 
-                    putInGoods.inprice = formatNumber(Number(price));
+                    putInGoods.inprice = formatNumber(Number(price),2);
 
                     var amount = Number(putInGoods.inprice) * Number(putInGoods.num);
 
-                    putInGoods.amount = formatNumber(Number(amount));
+                    putInGoods.amount = formatNumber(Number(amount),3);
 
                 }else{
 
@@ -133,11 +133,11 @@ $(function(){
                     $('.format-error1').hide();
                 }
                 var amount = Number(putInGoods.inprice) * Number(putInGoods.num);
-                putInGoods.amount = formatNumber(amount);
+                putInGoods.amount = formatNumber(amount,3);
             },
             //输入总金额，自动推单价
             addFun3:function(){
-                var mny = /^([1-9][0-9]*(\.[0-9]{1,2})?|0\.(?!0+$)[0-9]{1,4})$/;
+                var mny = /^([1-9][0-9]*(\.[0-9]{1,3})?|0\.(?!0+$)[0-9]{1,4})$/;
 
                 if(mny.test(putInGoods.amount)){
 
@@ -146,7 +146,7 @@ $(function(){
                     //根据总金额得出单价
                     var danjia =  Number(putInGoods.amount)/Number(putInGoods.num);
 
-                    putInGoods.inprice = formatNumber(danjia);
+                    putInGoods.inprice = formatNumber(danjia,2);
                 }else{
 
                     $('.format-error3').show();
@@ -158,7 +158,24 @@ $(function(){
                 //总金额保留两位小时
                 var amount = putInGoods.amount;
 
-                putInGoods.amount = formatNumber(Number(amount));
+                putInGoods.amount = formatNumber(Number(amount),3);
+
+                //再计算单价
+                var mny = /^([1-9][0-9]*(\.[0-9]{1,3})?|0\.(?!0+$)[0-9]{1,4})$/;
+
+                if(mny.test(putInGoods.amount)){
+
+                    $('.format-error3').hide();
+
+                    //根据总金额得出单价
+                    var danjia =  Number(putInGoods.amount)/Number(putInGoods.num);
+
+                    putInGoods.inprice = formatNumber(danjia,2);
+                }else{
+
+                    $('.format-error3').show();
+
+                }
 
             },
             //单选按钮
@@ -455,7 +472,7 @@ $(function(){
             data:'inPrice',
             className:'right-justify',
             render:function(data, type, full, meta){
-                var data = formatNumber(parseFloat(data));
+                var data = formatNumber(parseFloat(data),2);
                 return data
             }
         },
@@ -464,7 +481,7 @@ $(function(){
             data:'amount',
             className:'right-justify',
             render:function(data, type, full, meta){
-                var data = formatNumber(parseFloat(data));
+                var data = formatNumber(parseFloat(data),3);
                 return data
             }
         },
@@ -590,7 +607,7 @@ $(function(){
             data:'inPrice',
             className:'right-justify',
             render:function(data, type, full, meta){
-                var data = formatNumber(parseFloat(data));
+                var data = formatNumber(parseFloat(data),2);
                 return data
             }
         },
@@ -599,7 +616,7 @@ $(function(){
             data:'amount',
             className:'right-justify',
             render:function(data, type, full, meta){
-                var data = formatNumber(parseFloat(data));
+                var data = formatNumber(parseFloat(data),3);
                 return data
             }
         },
@@ -938,7 +955,7 @@ $(function(){
 
                 $('#personTable1 tfoot').find('.amount').html(num);
 
-                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
 
             }
 
@@ -1013,7 +1030,7 @@ $(function(){
 
                 $('#personTable1 tfoot').find('.amount').html(num);
 
-                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
 
             }
 
@@ -1149,7 +1166,7 @@ $(function(){
 
                 $('#personTable1 tfoot').find('.amount').html(num);
 
-                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
             }
 
             //获取入库产品信息
@@ -1234,7 +1251,7 @@ $(function(){
 
                 $('#personTable1 tfoot').find('.amount').html(num);
 
-                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
             }
 
             detailInfo($thisDanhao,detailTable);
@@ -1334,7 +1351,7 @@ $(function(){
 
             $('#wuPinListTable1 tfoot').find('.amount1').html(num);
 
-            $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
+            $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(3));
 
             //初始化
             newGoodsInit(true);
@@ -1408,9 +1425,9 @@ $(function(){
                         //数量
                         rukuObject.num = data[i].num;
                         //入库单价
-                        rukuObject.inPrice = formatNumber(Number(data[i].inPrice));
+                        rukuObject.inPrice = formatNumber(Number(data[i].inPrice),2);
                         //金额
-                        rukuObject.amount = formatNumber(Number(data[i].amount));
+                        rukuObject.amount = formatNumber(Number(data[i].amount),3);
                         //备注
                         rukuObject.remark = data[i].inMemo;
 
@@ -1797,7 +1814,7 @@ $(function(){
 
                     }else{
 
-                        price = formatNumber(Number(price));
+                        price = formatNumber(Number(price),2);
 
                     }
                     rukuDan.localNum = $('.kuwei').attr('data-num');
@@ -1878,7 +1895,7 @@ $(function(){
 
                     $('#wuPinListTable1 tfoot').find('.amount1').html(num);
 
-                    $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
+                    $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(3));
 
                     //清空
                     newGoodsInit();
@@ -1985,7 +2002,6 @@ $(function(){
 
                 }
 
-
                 //绑定数据
                 //库位名称
                 putInGoods.kuwei = _foldArr[i].localName;
@@ -2062,11 +2078,13 @@ $(function(){
                         _tempRukuArr[i].amount = putInGoods.inprice;
 
                         //备注
-                        _tempRukuArr[i].inMemo == putInGoods.remark;
+                        _tempRukuArr[i].inMemo = putInGoods.remark;
 
                     }
 
                 }
+
+                console.log(_tempRukuArr);
 
                 _foldArr.length = 0;
 
@@ -2074,6 +2092,23 @@ $(function(){
 
                 _datasTable($('#wuPinListTable1'),_foldArr);
 
+                //重新计算总金额和数量
+
+                var goodsNum = 0;
+
+                var goodsAmount = 0;
+
+                for(var i=0;i<_foldArr.length;i++){
+
+                    goodsNum += Number(_foldArr[i].num);
+
+                    goodsAmount += Number(_foldArr[i].amount);
+
+                }
+
+                $('.amount1').html(goodsNum);
+
+                $('.count1').html(goodsAmount.toFixed(3));
 
             }else{
 
@@ -2145,7 +2180,7 @@ $(function(){
 
         $('#personTable1 tfoot').find('.amount').html(num);
 
-        $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+        $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
 
         $('#myModal1').modal('hide');
 
@@ -2417,6 +2452,12 @@ $(function(){
         var numArr = putInGoods.goodsId.split(',');
 
         putInGoods.num = numArr.length;
+
+        //总价清空
+        putInGoods.amount = '';
+
+        //根据数量和单价计算总价
+        putInGoods.amount = formatNumber(putInGoods.num * putInGoods.inprice,3);
 
     })
 
@@ -2969,7 +3010,7 @@ $(function(){
 
                         }else{
 
-                            price = formatNumber(Number(price));
+                            price = formatNumber(Number(price),2);
 
                         }
                         rukuDan.localNum = $('.kuwei').attr('data-num');
@@ -3044,7 +3085,7 @@ $(function(){
 
                             }else{
 
-                                price = formatNumber(Number(price));
+                                price = formatNumber(Number(price),2);
 
                             }
                             rukuDan.localNum = $('.kuwei').attr('data-num');
@@ -3140,7 +3181,7 @@ $(function(){
 
                         $('#wuPinListTable1 tfoot').find('.amount1').html(num);
 
-                        $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
+                        $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(3));
 
                     }
 
@@ -3266,13 +3307,13 @@ $(function(){
 
             tableId.find('tfoot').find('.amount').html(num);
 
-            tableId.find('tfoot').find('.count').html(amount.toFixed(2));
+            tableId.find('tfoot').find('.count').html(amount.toFixed(3));
 
         }else{
 
             tableId.find('tfoot').find('.amount1').html(num);
 
-            tableId.find('tfoot').find('.count1').html(amount.toFixed(2));
+            tableId.find('tfoot').find('.count1').html(amount.toFixed(3));
 
         }
 
@@ -4807,12 +4848,12 @@ $(function(){
     }
 
     //格式化数字，排除infinity NaN 其他格式
-    function formatNumber(num){
+    function formatNumber(num,dig){
         if(num===Infinity){
             return 0.00;
         }
         if(+num===num){
-            return num.toFixed(2);
+            return num.toFixed(dig);
         }
         return 0.00;
     }

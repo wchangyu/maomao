@@ -67,11 +67,15 @@ $(function(){
 
         $('.main-selected-block').empty();
 
+        uniqueArr.length = 0;
+
         var zTree_Menu = $.fn.zTree.getZTreeObj("allPointer");
+
+        console.log(zTree_Menu);
 
         zTree_Menu.checkAllNodes(false);
 
-    })
+    });
 
     //删除每个的小按钮
     $('.main-selected-block').on('click','.remove-selected',function(){
@@ -154,7 +158,7 @@ $(function(){
         var setting = {
             check: {
                 enable: true,
-                chkStyle: "checkbox",
+                chkStyle: "radio",
                 chkboxType: { "Y": "", "N": "" },
                 radioType:'all'
             },
@@ -170,6 +174,8 @@ $(function(){
             callback: {
                 //这个是点击后边的文字选中的事件
                 onClick: function(e,treeId,treeNode){
+
+                    $('#emptyAll').click();
 
                     //勾选当前选中的节点
                     zTreeObj.checkNode(treeNode, !treeNode.checked, true);
@@ -226,6 +232,8 @@ $(function(){
 
                 },
                 onCheck:function(e,treeId,treeNode){
+
+                    $('#emptyAll').click();
 
                     //点击前边的按钮选中事件
                     if(treeNode.returnType == 5){
@@ -453,6 +461,11 @@ $(function(){
             timeout:_theTimes,
 
             success:function(result){
+
+                if(result.mos == null){
+
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'无数据', '');
+                }
 
                 $('.right-top').hideLoading();
 

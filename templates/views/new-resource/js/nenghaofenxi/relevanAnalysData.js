@@ -89,7 +89,7 @@ var optionLineBar = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值', '平均气温','就诊人数'],
+        data:['数据', '平均气温','就诊人数'],
         top:'30'
     },
     toolbox: {
@@ -131,7 +131,7 @@ var optionLineBar = {
     },
     series : [
         {
-            name:'累计值',
+            name:'数据',
             type:'bar',
             yAxisIndex:0,
             barMaxWidth: '50',

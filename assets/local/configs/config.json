@@ -165,15 +165,15 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.108/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.108/BEEWebAPI/api/",
+  "apiUriPrefix":"http://192.168.1.131/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://192.168.1.131/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
   "isShowTitleEprName":"0",
   "isShowTitleEprNameComment":"是否在systemTitle的基础上追加企业名称",
   "pageTitle":"能源管理系统",
-  "themeColor":"darkblue",
+  "themeColor":"blue",
   "themecolors":"blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
   "refreshInterval":"0",
   "refreshIntervalComment":"监控模块的数据刷新间隔,单位秒,0为不刷新,建议最低20秒",
@@ -201,10 +201,14 @@
   "indexWordComment":"首页图片简介",
   "bigScreenSet":"1",
   "bigScreenSetComment":"大屏首页人工配置数据开关",
-  "loginPath":"../logins/Precision_energy_efficiency_CN/login.html",
+  "bigScreenSwitch":"1",
+  "bigScreenSwitchComment":"登陆时是否进行自动识别大屏的判断",
+  "loginPath":"../logins/chcmu/login_4.html",
   "loginPathComment":"登录页面路径",
-  "showstep": "1",
+  "showstep":"1",
   "showstepComment":"是否显示折标能效",
   "steps":"[8817180901,8817180801]",
-  "misc":"1"
+  "misc":"1",
+  "showChooseUnit":"0",
+  "showChooseUnitComment":"是否启用右上角选择单位功能 0为不启用 1为启用"
 }

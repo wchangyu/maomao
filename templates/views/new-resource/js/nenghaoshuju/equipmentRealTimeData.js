@@ -14,7 +14,6 @@ $(function(){
     //时间插件
     _timeYMDComponentsFun($('.datatimeblock'));
 
-
     //默认勾选前两个楼宇
     //var zTree = $.fn.zTree.getZTreeObj("allPointer");
     //var nodes = zTree.getNodes();
@@ -139,10 +138,10 @@ var table = $('#dateTables').DataTable({
         },
         {
             title:'数据',
-            data:"data",
+            data:"showFormatData",
             render:function(data, type, full, meta){
 
-                return data.toFixed(2);
+                return data;
             }
         },
         {
@@ -184,7 +183,24 @@ function getDevAreaByType(){
                 return false;
             }
 
-            getEquipmentZtree(result);
+            var dataArr = [];
+
+            $(result).each(function(i,o){
+
+                if(o.returnType == 3){
+
+                    o.returnOBJID = "001" + o.returnOBJID;
+
+                }else  if(o.returnType == 4){
+
+                    o.parentOBJID = "001" + o.parentOBJID;
+                }
+
+                dataArr.push(o);
+
+            });
+
+            getEquipmentZtree(dataArr);
 
 
         },
@@ -221,7 +237,7 @@ function getPointerData(){
         var devId = $('.select-equipment-container p').eq(i).find("b").attr('class');
 
         //区域ID
-        var areaID =  $('.select-equipment-container p').eq(i).attr('class');
+        var areaID =  $('.select-equipment-container p').eq(i).attr('class').slice(3);
 
         devIDsArr.push({
             "devAreaID": areaID,
@@ -331,6 +347,8 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
                 //获取当前已选中的属性
                 var pts = treeObj.getCheckedNodes(true);
 
+                console.log(pts[0]);
+
                 if(pts.length > 0){
                     drawEquipmentList(pts[0]);
                 }
@@ -348,6 +366,7 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
     if(!fun){
 
         zNodes = getZNodes1(EnItdata);
+
     }else{
 
         zNodes = fun();
@@ -357,9 +376,12 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
     if(node){
 
         treeObj = $.fn.zTree.init($(node), setting, zNodes);
+
     }else{
 
         treeObj = $.fn.zTree.init($("#allPointer"), setting, zNodes);
+
+        //console.log(zNodes)
     }
 
 };
@@ -407,6 +429,8 @@ function getZNodes1(EnItdata){
 
     var zNodes = new Array();
 
+    //console.log(EnItdata);
+
     $(EnItdata).each(function(i,o){
 
         //获取楼宇ID
@@ -414,6 +438,10 @@ function getZNodes1(EnItdata){
         var ifOpen = false;
 
         var parentID = o.parentOBJID;
+
+        //if(parentID == null){
+        //    console.log(o);
+        //}
 
         if(o.returnType < 3){
 
@@ -425,13 +453,16 @@ function getZNodes1(EnItdata){
                 zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false,nocheck :true});
 
             }else{
+
                 zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false});
+
             }
 
 
         }
 
     });
+    //console.log(zNodes);
     return zNodes;
 
 };
@@ -440,9 +471,10 @@ function getZNodes1(EnItdata){
 var lastValue='',nodeList=[],fontCss={};
 
 function searchNode(e,node) {
+
     var zTree = $.fn.zTree.getZTreeObj("allPointer");
     //去掉input中的空格（首尾）
-    var value = $.trim($("#key0").val().trim());
+    var value = $.trim($("#keys").val().trim());
     keyType = "name";
     if (lastValue === value)
         return;
@@ -488,7 +520,7 @@ function getPointersId(){
 
 //搜索框
 var key;
-key = $("#key0");
+key = $("#keys");
 key.bind("focus",focusKey)
     .bind("blur", blurKey)
     .bind("propertychange", searchNode)
@@ -533,8 +565,8 @@ function focusKey(e) {
 }
 function blurKey(e) {
     //内容置为空，并且加empty类
-    if ($('#key0').get(0).value === "") {
+    if ($('#keys').get(0).value === "") {
 
-        $('#key0').addClass("empty");
+        $('#keys').addClass("empty");
     }
 }

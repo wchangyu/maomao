@@ -309,7 +309,7 @@ var optionLineBar = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值', '比较斜率'],
+        data:['数据', '比较斜率'],
         top:'30'
     },
     toolbox: {
@@ -339,7 +339,7 @@ var optionLineBar = {
     },
     series : [
         {
-            name:'累计值',
+            name:'数据',
             type:'bar',
             barMaxWidth: '50',
             data:[],
@@ -371,7 +371,7 @@ var optionLine = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值'],
+        data:['数据'],
         top:'30'
     },
     toolbox: {
@@ -406,7 +406,7 @@ var optionLine = {
 
 /*---------------------------------otherFunction------------------------------*/
 
-var echartObj =  {name:'累计值',
+var echartObj =  {name:'数据',
     type:'line',
     smooth:true,
     markPoint : {
@@ -651,13 +651,13 @@ function getPointerData(url,flag){
 
             //右侧数据统计
             //本期累计
-            $('.rheader-content-rights').eq(0).find('.count1 span').html(result.currentCompardData.sumMetaData.toFixed(1));
+            $('.rheader-content-rights').eq(0).find('.count1 span').html(result.currentCompardData.sumMetaData.toFixed(2));
 
             //上年同期累计
-            $('.rheader-content-rights').eq(0).find('.count2 span').html(result.lastYearCompardData.sumMetaData.toFixed(1));
+            $('.rheader-content-rights').eq(0).find('.count2 span').html(result.lastYearCompardData.sumMetaData.toFixed(2));
 
             //上方百分比
-            $('.rheader-content-rights').eq(0).find('.top-percent').html((Math.abs(result.lastYearEnergyPercent*100)).toFixed(1) + "%");
+            $('.rheader-content-rights').eq(0).find('.top-percent').html((Math.abs(result.lastYearEnergyPercent*100)).toFixed(2) + "%");
             //箭头朝向
             $('.rheader-content-rights').removeClass('rheader-content-rights-down');
 
@@ -677,13 +677,13 @@ function getPointerData(url,flag){
 
             //右侧数据统计
             //本期累计
-            $('.rheader-content-rights').eq(1).find('.count1 span').html(result.currentCompardData.sumMetaData.toFixed(1));
+            $('.rheader-content-rights').eq(1).find('.count1 span').html(result.currentCompardData.sumMetaData.toFixed(2));
 
             //上年同期累计
-            $('.rheader-content-rights').eq(1).find('.count2 span').html(result.chainCompardData.sumMetaData.toFixed(1));
+            $('.rheader-content-rights').eq(1).find('.count2 span').html(result.chainCompardData.sumMetaData.toFixed(2));
 
             //上方百分比
-            $('.rheader-content-rights').eq(1).find('.top-percent').html((Math.abs(result.chainEnergyPercent*100)).toFixed(1) + "%");
+            $('.rheader-content-rights').eq(1).find('.top-percent').html((Math.abs(result.chainEnergyPercent*100)).toFixed(2) + "%");
 
             //箭头朝向
             if(result.chainEnergyPercent < 0){

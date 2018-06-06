@@ -56,7 +56,9 @@ $(function(){
 
 });
 //页面右侧Table的表头集合
-var titleArr = ['','机房数','空开平均温度(℃)','机房平均温度(℃)','机房平均湿度(％)','UPS平均温度(℃)','报警'];
+//var titleArr = ['','机房数','空开平均温度(℃)','机房平均温度(℃)','机房平均湿度(％)','UPS平均温度(℃)','报警'];
+
+var titleArr = ['','机房数','空开平均温度(℃)','机房平均温度(℃)','机房平均湿度(％)','报警'];
 
 //页面右侧Table的统计位置集合
 var areaArr = ['-9.6m','0.0m','-9.6m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
@@ -191,7 +193,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -211,7 +213,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -231,7 +233,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -251,7 +253,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -270,7 +272,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -289,7 +291,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -308,7 +310,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -328,7 +330,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -348,7 +350,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -368,7 +370,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -388,7 +390,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                var result = '';
+                var result = '--';
 
                 $(data).each(function(i,o){
 
@@ -553,17 +555,17 @@ function drawDataTableByResult(titleArr,areaDataArr){
                         '</td>';
                 }
 
-                //USP平均温度
-                if( o.upsTemp == -1){
-                    bodyHtml +=  '<td>' +
-                        ' <span class="table-small-patch table-small-patch-green">'+ '--'+'</span>' +
-                        '</td>';
-                }else{
-
-                    bodyHtml += '<td>' +
-                        '<span class="table-small-patch table-small-patch-green">'+ o.upsTemp.toFixed(1)+'</span>' +
-                        '</td>';
-                }
+                ////USP平均温度
+                //if( o.upsTemp == -1){
+                //    bodyHtml +=  '<td>' +
+                //        ' <span class="table-small-patch table-small-patch-green">'+ '--'+'</span>' +
+                //        '</td>';
+                //}else{
+                //
+                //    bodyHtml += '<td>' +
+                //        '<span class="table-small-patch table-small-patch-green">'+ o.upsTemp.toFixed(1)+'</span>' +
+                //        '</td>';
+                //}
 
         if(o.excData2s != null && o.excData2s.length > 0){
 

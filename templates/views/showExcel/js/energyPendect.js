@@ -37,6 +37,18 @@ $(document).ready(function(){
 
 });
 
+//打开本地文件
+function jsRunExeFile() {
+    var activeObj = new ActiveXObject('WScript.shell');
+    //var para = "C:\\Program Files\\Tencent\\TT\\bin\\TTraveler.exe";
+
+    var para = "C:\\Users\\admin\\AppData\\Local\\youdao\\dict\\Application\\YodaoDict.exe";
+
+    //D:\软件\ps\绿化版ps5\绿化版ps5\Adobe Photoshop CS5 Extended 12.0.3.0\Adobe Photoshop CS5
+    //C:\Users\admin\AppData\Local\youdao\dict\Application
+    activeObj.exec(para);
+}
+
 //报警中的表格
 var table = $('#dateTables').DataTable({
     "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示

@@ -30,10 +30,15 @@ $(function(){
                 //密码
                 var password = o.mappVideoRecorder.f_Password;
 
-                //给密码解密
-                password = Went.utility.wCoder.wDecode(password,"");
+                //判断是否需要解密
+                if(getDataByConfig() == 1){
 
-                console.log(password);
+                    //给密码解密
+                    password = Went.utility.wCoder.wDecode(password,"");
+
+                }
+
+                //console.log(password);
 
                 //端口
                 var port = o.mappVideoRecorder.f_PortNum;
@@ -52,6 +57,28 @@ $(function(){
     });
 
 });
+
+//从配置项中获取页面中所需信息
+function getDataByConfig(){
+
+
+    var ifdecode = 0;
+
+    //获取当前页面的配置信息
+    $(__systemConfigArr).each(function(i,o){
+
+        //console.log(o);
+
+        //获取当前配置项中的url
+        if(o.pageId == 0){
+
+            ifdecode = o.ifdecode;
+        }
+    });
+
+    return ifdecode;
+
+};
 
 //定义从后台获取的摄像头报警数据
 var alarmCameraDataArr = [];
@@ -90,6 +117,9 @@ function getAlarmCameraData(){
             //页面赋值
             $('.monitor-message').html(monitorMessageHtml);
 
+            var ifdecode = getDataByConfig();
+
+
             //登陆当前摄像头
             $(result).each(function(i,o){
 
@@ -100,13 +130,18 @@ function getAlarmCameraData(){
                 //密码
                 var password = result[i].mappVideoRecorder.f_Password;
 
-                //给密码解密
-                password = Went.utility.wCoder.wDecode(password,"");
+                //判断是否需要解密
+                if(ifdecode == 1){
+
+                    //给密码解密
+                    password = Went.utility.wCoder.wDecode(password,"");
+
+                }
 
                 //端口
                 var port = result[i].mappVideoRecorder.f_PortNum;
 
-                console.log(password);
+                //console.log(password);
 
                 //登录当前设备
                 clickLogin1(account,address,password,port);

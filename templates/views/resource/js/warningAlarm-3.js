@@ -1,6 +1,14 @@
 $(function(){
+
+    //从配置中读取是否显示流程图
+    var userMonitorClass = getDataByConfig();
+
+    //console.log(userMonitorClass);
+
     var _prm = window.location.search;
+
     if(_prm == ''){
+
         //表格初始化
         table = $('#datatables').DataTable({
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -105,7 +113,7 @@ $(function(){
                 },
 
                 {
-                    "title": "阅读选择",
+                    "title": "处理状态",
                     "orderable": false,
                     "class":'L-checkbox',
                     "targets": -1,
@@ -113,8 +121,10 @@ $(function(){
                     "render":function(data,type,row,meta){
                         if(data==1){
                             return "<div class='checker'><span class='checked'><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>已阅读</span>";
+                        }else if(data==3){
+                            return "已处理";
                         }else{
-                            return "<div class='checker'><span><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>未阅读</span>";
+                            return "<div class='checker'><span><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>未处理</span>";
                         }
                     }
                 },
@@ -145,7 +155,18 @@ $(function(){
                     "class":'L-button',
                     "targets": -1,
                     "data": null,
-                    "defaultContent": "<button class='btn btn-success details-control' data-alaLogID=''>显示/隐藏历史</button>"
+                    "render":function(data,type,row,meta){
+
+                        if(row.rowDetailsExcDatas.length == 0){
+
+                            return  "无"
+
+                        }else{
+
+                            return  "<button class='btn btn-success details-control' data-alaLogID=''>显示/隐藏历史</button>";
+
+                        }
+                    }
                 },
                 {
                     "title": "处理备注",
@@ -158,6 +179,7 @@ $(function(){
                     "title": "查看流程图",
                     "orderable": false,
                     "targets": -1,
+                    "class":userMonitorClass,
                     "data": "isHavingProc",
                     "render":function(data,type,row,meta){
 
@@ -199,7 +221,9 @@ $(function(){
             }
 
         });
+
     }else{
+
         //表格初始化
         table = $('#datatables').DataTable({
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -298,7 +322,7 @@ $(function(){
                 },
 
                 {
-                    "title": "阅读选择",
+                    "title": "处理状态",
                     "orderable": false,
                     "class":'L-checkbox',
                     "targets": -1,
@@ -306,8 +330,15 @@ $(function(){
                     "render":function(data,type,row,meta){
                         if(data==1){
                             return "<div class='checker'><span class='checked'><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>已阅读</span>";
+
+                        }else if(data==3){
+
+                            return "已处理";
+
                         }else{
-                            return "<div class='checker'><span><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>未阅读</span>";
+
+                            return "<div class='checker'><span><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>未处理</span>";
+
                         }
                     }
                 },
@@ -338,7 +369,18 @@ $(function(){
                     "class":'L-button',
                     "targets": -1,
                     "data": null,
-                    "defaultContent": "<button class='btn btn-success details-control' data-alaLogID=''>显示/隐藏历史</button>"
+                    "render":function(data,type,row,meta){
+
+                        if(row.rowDetailsExcDatas.length == 0){
+
+                            return  "无"
+
+                        }else{
+
+                            return  "<button class='btn btn-success details-control' data-alaLogID=''>显示/隐藏历史</button>";
+
+                        }
+                    }
                 },
                 {
                     "title": "处理备注",
@@ -351,6 +393,7 @@ $(function(){
                     "title": "查看流程图",
                     "orderable": false,
                     "targets": -1,
+                    "class":userMonitorClass,
                     "data": "isHavingProc",
                     "render":function(data,type,row,meta){
 
@@ -383,7 +426,7 @@ $(function(){
     }
 
     //显示时间；
-    $('.real-time').html(showStartRealTime + '到' + showStartRealTime);
+    //$('.real-time').html(showStartRealTime + '到' + showStartRealTime);
 
     //指定楼宇为全部；
     getPointerID();
@@ -403,6 +446,7 @@ $(function(){
             $(this).parent($('span')).removeClass('checked');
         }
     } );
+
     $('.logoToRead').click(function(){
         logoToRead();
     });
@@ -415,9 +459,10 @@ $(function(){
 
         for(var i=0;i<totalArr.length;i++){
             if(totalArr[i].cName == cnames && totalArr[i].pointerID == pointerIDs){
-                historyArr.push(totalArr[i]);
+                historyArr = totalArr[i].rowDetailsExcDatas;
             }
         }
+
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
         var row = table.row( tr );
         if ( row.child.isShown() ) {
@@ -513,6 +558,40 @@ $(function(){
     });
 });
 
+//从配置项中获取页面中所展示信息
+function getDataByConfig(){
+
+    //获取当前的url
+    var curUrl = window.location.href;
+
+    var thisClass = '';
+
+    //获取当前页面的配置信息
+    $(__systemConfigArr).each(function(i,o){
+
+        //获取当前配置项中的url
+        var thisUrl = o.pageUrl;
+
+        //找到了当前页面对应的配置项
+        if(curUrl.indexOf(thisUrl) > -1){
+
+            //获取到具体的能耗排名配置信息
+            var ifShow = o.ifShowMonitor;
+
+            if(ifShow == 0){
+
+                thisClass = 'theHidden';
+            }
+
+            return false;
+
+        }
+    });
+
+    return thisClass;
+};
+
+
 //指定能耗种类的类型为全部；
 var _ajaxEcType = " ";
 //指定全部报警类型为全部；
@@ -544,9 +623,9 @@ function alarmHistory(){
         'pointerIds' : pointerID,
         'excTypeInnderId' : excTypeInnderId,
         'energyType' : _ajaxEcType,
+        "dealFlag": 0, //0为未处理 -1为全部
         "userID" :  _userIdNum
     };
-
     $.ajax({
         type:'post',
         url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
@@ -560,6 +639,7 @@ function alarmHistory(){
         },
         success:function(result){
             _history.length = 0;
+            totalArr.length = 0;
 
             var dataArr = [];
             var pcids = [];
@@ -569,31 +649,11 @@ function alarmHistory(){
 
                 _history.push(result[i]);
 
+                totalArr.push(result[i]);
+
             }
 
-            $(result).each(function(i,o){
-                if(o.flag == 2 || o.flag == 0){
-                    showArr.push(o)
-                }
-            });
-            for(var i=0;i<showArr.length;i++){
-
-                totalArr.push(showArr[i]);
-
-                if(!existItem(pcids,showArr[i])){  //没有存在相同的pointerID&&cdataID；确保pcids数组中所有pointerID和csataID不同
-                    pcids.push({"pointerID":showArr[i].pointerID,"cdataID":showArr[i].cdataID});
-                }
-            }
-
-            for(var i= 0,len=pcids.length,lenD=showArr.length;i<len;i++){ //推荐写法
-                for(var j= 0;j<lenD;j++){ //遍历pcids里的pointerID和cdataID属性
-                    if(pcids[i].pointerID==showArr[j].pointerID && pcids[i].cdataID== showArr[j].cdataID){
-                        dataArr.push(showArr[j]);  //因为后台返回的数据是降序，所以只要有一个就push到dataArr中
-                        break;  //跳处循环；
-                    }
-                }
-            }
-            datasTable($("#datatables"),dataArr);
+            datasTable($("#datatables"),_history);
             //console.log(dataArr);
         }
     });
@@ -680,36 +740,13 @@ function typeOfAlarm(){
 //显示隐藏
 function format ( d ) {
 
-
-
     var theader = '<table class="table">' +
         '<thead><tr><td>时间</td><td>支路</td><td>楼宇名称</td><td>报警事件</td><td>报警类型</td><td>报警条件</td><td>此时数据</td><td>报警等级</td></tr></thead>';
     var theaders = '</table>';
     var tbodyer = '<tbody>'
     var tbodyers = '</tbody>';
     var str = '';
-    if(d.length < 2){
-        str += '<tr><td>'+
-            '</td><td>'  +
-            '</td><td>'  +
-            '</td><td>'  +
-            '</td><td>'  +
-            '</td><td>'  +
-            '</td><td>'  +
-            '</td><td>'  +
-            '</td></tr>';
-        return theader + tbodyer + str + tbodyers + theaders;
-    }
-     str += '<tr><td>' + d[1].dataDate.split('T')[0] + ' ' + d[1].dataDate.split('T')[1] +
-        '</td><td>' + d[1].cName +
-        '</td><td>' + d[1].pointerName +
-         '</td><td>' + d[1].alarmSetName +
-        '</td><td>' + d[1].cDtnName +
-        '</td><td>' + d[1].expression +
-        '</td><td>' + d[1].data +
-        '</td><td>' + d[1].priority +
-        '</td></tr>';
-    for(var i=2;i< d.length;i++){
+    for(var i=0;i< d.length;i++){
         var atime = d[i].dataDate.split('T')[0] + ' ' + d[i].dataDate.split('T')[1];
         str += '<tr><td>' + atime +
             '</td><td>' + d[i].cName +
@@ -719,10 +756,11 @@ function format ( d ) {
             '</td><td>' + d[i].expression +
             '</td><td>' + d[i].data +
             '</td><td>' + d[i].priority +
-            '</td></tr>'
+            '</td></tr>';
     }
     return theader + tbodyer + str + tbodyers + theaders;
 }
+
 //userId msgTime alaLogId alaMessage
 //用户名  当前时间（获取） alaLogId  input.val()
 var userId,_alaLogId,_texts,_currentArr = [],_currentStr='';

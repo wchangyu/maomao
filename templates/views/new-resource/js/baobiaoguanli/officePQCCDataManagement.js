@@ -5,10 +5,11 @@
 $(function() {
 
     //时间插件
-    _monthDate11($('.datatimeblock'));
+    _timeYMDComponentsFun($('.datatimeblock'));
 
     //获取当前年份并赋值
-    $('.min').val(moment().format('YYYY-MM'));
+    $('.min').val(moment().startOf('month').format('YYYY-MM-DD'));
+    $('.max').val(moment().format('YYYY-MM-DD'));
 
     //获取表格中的内容
     getEnergyCollectData();
@@ -37,10 +38,13 @@ function getEnergyCollectData(){
 
     //获取当前月份
     var month = $('.min').val();
+
+    var endDate = $('.max').val();
+
     //开始时间
-    var st = moment(month).startOf('month').format('YYYY-MM-DD');
+    var st = moment(month).format('YYYY-MM-DD');
     //结束时间
-    var et = moment(month).add('1','months').startOf('month').format('YYYY-MM-DD');
+    var et = moment(endDate).add('1','days').format('YYYY-MM-DD');
 
     $.ajax({
         type: 'get',
@@ -58,7 +62,7 @@ function getEnergyCollectData(){
         url: sessionStorage.apiUrlPrefix + 'EnergyReportV2/GetOfficePQCCData',
         success: function (result) {
 
-            console.log(result);
+            //console.log(result);
 
             //拼接table中字符串
             var tableHtml = '';
@@ -77,7 +81,7 @@ function getEnergyCollectData(){
             $('#entry-datatables tbody').html(tableHtml);
 
             //数据时间
-            $('#entry-datatables thead').find('.data-time').html(' (' + month.split('-')[0] + '年' +month.split('-')[1] + '月) ');
+            $('#entry-datatables thead').find('.data-time').html(' (' + month + '--' +endDate+')');
 
             //导出时间
             var nowTime = moment().format('YYYY-MM-DD');
@@ -106,7 +110,6 @@ function getEnergyCollectData(){
 
             }
 
-
             $('#theLoading').modal('hide');
 
         },
@@ -119,6 +122,7 @@ function getEnergyCollectData(){
 }
 //获取table中的字符串
 function getTableHtml(obj){
+
     //console.log(obj)
     var html = '<tr>' +
             //序号
@@ -145,9 +149,9 @@ function getTableHtml(obj){
 
     html +=
         //实际用气
-        '<td style="text-align:center;border:1px solid black">0</td>'+
-            //实际费用
-        '<td style="text-align:center;border:1px solid black">0</td>'+
+        //'<td style="text-align:center;border:1px solid black">0</td>'+
+        //    //实际费用
+        //'<td style="text-align:center;border:1px solid black">0</td>'+
             //支出合计
         '<td style="text-align:center;border:1px solid black">'+obj.sumMoneyData.toFixed(2)+'</td></tr>';
 
@@ -170,5 +174,19 @@ function exportExecl(dom){
         copy_table:true
     });
 };
+
+
+//datapicker时间插件初始化(日月年)
+function _timeYMDComponentsFun(el){
+    el.datepicker('destroy');
+    el.datepicker({
+        language:  'zh-CN',
+        todayBtn: 1,
+        todayHighlight: 1,
+        format: 'yyyy-mm-dd',
+        forceParse: 0,
+        autoclose: 1
+    });
+}
 
 

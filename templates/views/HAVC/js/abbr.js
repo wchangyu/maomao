@@ -10,7 +10,7 @@
 
     var selectAREA = "EC";//选中东冷站区域
 
-    var selectEQTY = "LXJ";//选中离心机系统设备类型
+    var selectEQTY = "";//选中离心机系统设备类型
 
     function convertDate(strDate) {//字符串转时间格式
         var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
@@ -123,8 +123,11 @@
 
     //初始化区域选择控件
     var initAreaSelectCtrl = function () {
+
         $('#areaType').html();
+
         $('#areaType').find('option').remove();
+
         $('#areaType').empty();
 
         var str = '';
@@ -146,8 +149,11 @@
 
 
             }
+
             initEqTypeSelectCtrl(chArAy[0].item);
+
         }
+
     }
 
     //初始化设备类型选择控件
@@ -174,6 +180,10 @@
 
             //自动选择第一个
             $('#eqType').val(eqtys[0].type);
+
+            selectEQTY = $('#eqType').children('option:selected').attr('data-tag');
+
+            getAbbrDs();
 
         }
     }
@@ -461,7 +471,7 @@
                 selectEQTY = $(this).children('option:selected').attr('data-tag');
             })
             //默认调用数据
-            getAbbrDs();
+            //getAbbrDs();
 
             //获取数据
             $('#abbrBtn').on('click', function () {
