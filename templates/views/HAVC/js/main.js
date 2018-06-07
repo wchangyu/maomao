@@ -173,7 +173,7 @@
     //东热chartView
     var init_e_r_p_chartView = function (MIN, MAX, cpV) {
         e_r_p_chartView = echarts.init(document.getElementById('e_r_p_chartView'));
-        var miscstr = "元/KWH";
+        var miscstr = "元/MJ";
         var cc = [[0.246, '#14E398'], [0.254, '#04c4e1'], [0.261, '#0b8ef4'], [1, '#105eee']];
         option = {
             tooltip: {
@@ -235,7 +235,7 @@
     //西热chartView
     var init_w_r_p_chartView = function (MIN, MAX, cpV) {
         w_r_p_chartView = echarts.init(document.getElementById('w_r_p_chartView'));
-        var miscstr = "元/KWH";
+        var miscstr = "元/MJ";
         var cc = [[0.246, '#14E398'], [0.254, '#04c4e1'], [0.261, '#0b8ef4'], [1, '#105eee']];
         option = {
             tooltip: {
