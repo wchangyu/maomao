@@ -555,7 +555,7 @@
     //东冷站_冷冻二次泵
     var init_e_c_sb_v_text = function(){
 
-        var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetTWOFPNOW";
+        var url = sessionStorage.apiUrlPrefix + "MultiAreaMain/GetTWOFPNOW";
 
         $.post(url, {
             pId: sessionStorage.PointerID,
@@ -579,7 +579,7 @@
     //西冷站_冷冻二次泵
     var init_w_c_sb_v_text = function(){
 
-        var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetTWOFPNOW";
+        var url = sessionStorage.apiUrlPrefix + "MultiAreaMain/GetTWOFPNOW";
 
         $.post(url, {
             pId: sessionStorage.PointerID,
