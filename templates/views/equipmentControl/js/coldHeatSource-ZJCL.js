@@ -237,6 +237,13 @@ $(function(){
 
     })
 
+    //下发
+    $('#confirm-button').click(function(){
+
+        sendInstruction();
+
+    })
+
 
     /*-------------------------------调用模板---------------------------------------*/
 
@@ -458,6 +465,77 @@ $(function(){
             _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,meg, '');
 
         }
+
+    }
+
+    //下发指令
+    function sendInstruction(){
+
+        $('#theLoading').modal('show');
+
+        var prm = {
+
+            instanceID:'1528338164'
+
+        }
+
+        $.ajax({
+
+            //发送方式
+            type:'post',
+
+            //url
+            url:sessionStorage.apiUrlPrefix + 'PRTb/PRTbCtrlCOMM',
+
+            //timeout
+            timeout:_theTimes,
+
+            //参数
+            data:prm,
+
+            //成功
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if(result.code == 0){
+
+                    //编辑成功
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'下发成功！', '');
+
+                    setTimeout(function(){
+
+                        //刷新数据
+                        getTemplate();
+
+                    },500);
+
+                }else{
+
+                    var meg = '';
+
+                    if(result.msg == ''|| result.msg == null){
+
+                        meg = '请求失败';
+
+                    }else{
+
+                        meg = result.msg;
+
+                    }
+
+                    //提示错误
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,meg, '');
+
+                }
+
+
+            },
+
+            //失败
+            error: _errorFun
+
+        })
 
     }
 

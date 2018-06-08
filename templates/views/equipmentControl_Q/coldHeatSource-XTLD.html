@@ -276,87 +276,32 @@
                                     <label for="">东西站房设置同步</label>
 
                                 </div>
+                                <div style="margin-top: 30px;">
+                                    <label for="">协同联动是否启用</label>
+                                    <div class="button-control button-on"></div>
+                                </div>
                             </div>
-                            <!--冷热标签-->
+
                             <div>
-                                <div class="CH-area">
-                                    <div class="CH-list">
-                                        <div class="CH-list-icon CH-cold"></div>
-                                        <div class="CH-list-info">夏季供冷 — 平日</div>
-                                    </div>
-                                </div>
-                                <div class="CH-area">
-                                    <div class="CH-list">
-                                        <div class="CH-list-icon CH-cold"></div>
-                                        <div class="CH-list-info">夏季供冷 — 节假日</div>
-                                    </div>
-                                </div>
-                                <div class="CH-area">
-                                    <div class="CH-list">
-                                        <div class="CH-list-icon CH-cold"></div>
-                                        <div class="CH-list-info">过渡季供冷 — 平日</div>
-                                    </div>
-                                </div>
-                                <div class="CH-area">
-                                    <div class="CH-list">
-                                        <div class="CH-list-icon CH-cold"></div>
-                                        <div class="CH-list-info">过渡季供冷 — 节假日</div>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div>
-                                <div class="CH-area">
-                                    <div class="CH-list">
-                                        <div class="CH-list-icon CH-heat"></div>
-                                        <div class="CH-list-info">冬季供暖 — 平日</div>
-                                    </div>
-                                </div>
-                                <div class="CH-area">
-                                    <div class="CH-list">
-                                        <div class="CH-list-icon CH-heat"></div>
-                                        <div class="CH-list-info">冬季供暖 — 节假日</div>
-                                    </div>
-                                </div>
-                                <div class="CH-area">
-                                    <div class="CH-list">
-                                        <div class="CH-list-icon CH-heat"></div>
-                                        <div class="CH-list-info">过渡季供暖 — 平日</div>
-                                    </div>
-                                </div>
-                                <div class="CH-area">
-                                    <div class="CH-list">
-                                        <div class="CH-list-icon CH-heat"></div>
-                                        <div class="CH-list-info">过渡季供暖 — 节假日</div>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div>
-                                <div class="table-area">
+                                <div class="table-area" style="margin-top: 10px">
                                     <!--左边标题-->
-                                    <div class="table-area-title">夏季供冷-节假日</div>
+                                    <div class="table-area-title">协同联动策略</div>
                                     <!--右边按钮-->
                                     <div class="table-area-button">
                                         <!--编辑-->
-                                        <button id="edit-button">保存编辑</button>
+                                        <button id="edit-button">编辑</button>
                                         <!--确认-->
-                                        <button id="confirm-button">下发指令</button>
+                                        <button id="confirm-button">确认</button>
                                         <!--取消-->
-                                        <!--<button id="cancel-button">取消</button>-->
+                                        <button id="cancel-button">取消</button>
                                     </div>
                                     <!--清楚浮动-->
                                     <div class="clearfix"></div>
                                 </div>
                                 <table class="table table-striped table-bordered table-advance table-hover">
                                     <thead>
-
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -407,28 +352,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<!--操作框-->
-<div class="modal fade" id="option-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 250px;">
-        <div class="modal-content" style="height: 250px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="">修改<span id="field-con" style="font-weight: bold"></span>内容</h4>
-            </div>
-            <div class="modal-body option-body" style="height: 127px;display: flex;">
-                <div>
-                    <label for=""></label>
-                    <div class="bodyContr"></div>
-                    <div id="formatTip"></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -469,6 +392,7 @@
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
 <script src="../resource/js/alarm.js"></script>
 <script src="../resource/js/publicFun.js"></script>
+<script src="../EPMA/js/pub.js"></script>
 <script src="../new-resource/js/common.js"></script>
 <script src="../new-resource/src/jquery.table2excel.js"></script>
 <script src="../../../assets/local/configs/setNames.js"></script>
@@ -478,9 +402,10 @@
         Layout.init(); // init current layout
         Demo.init(); // init demo features
         BEE.init();
+        EPMA.init();
     });
 </script>
-<script src="js/coldHeatSource-ZJCL.js"></script>
+<script src="js/coldHeatSource-XTLD.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
