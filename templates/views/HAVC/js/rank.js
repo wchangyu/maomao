@@ -227,7 +227,15 @@
         else{
             jQuery('#rankBusy').showLoading();
             var pIds = [];
-            pIds.push(sessionStorage.PointerID);
+
+            var pts = JSON.parse(sessionStorage.allPointers)
+
+            for(var i = 0; i<pts.length;i++){
+
+                pIds.push(pts[i].pointerID);
+
+            }
+
             //var pNts = [];
             //pNts.push(sessionStorage.PointerName);
             var url = sessionStorage.apiUrlPrefix + "MultiAreaRank/GetRankDs";
@@ -394,6 +402,28 @@
                 yArr.push(obj);
 
             }
+
+            barOption.series[0].barWidth = '60%';
+
+        }else{
+
+            for(var i=0;i<yArrS.length;i++){
+
+                var obj = {};
+
+                obj.value = yArrS[i];
+
+                obj.itemStyle = {
+
+                    color:'#2170f4'
+
+                }
+
+                yArr.push(obj);
+
+            }
+
+            barOption.series[0].barWidth = '10%';
 
         }
 

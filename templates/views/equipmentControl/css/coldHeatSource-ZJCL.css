@@ -321,3 +321,68 @@
     background: #b8e870;
 
 }
+
+.option-body{
+
+    display: flex;
+
+    display: -webkit-flex;
+}
+
+.option-body>div{
+
+    display: inline-block;
+
+    margin: auto;
+
+}
+
+.option-body label{
+
+    margin-right: 10px;
+
+}
+
+.bodyContr{
+
+    width: 280px;
+
+    height: 40px;
+
+    border: 1px solid #DCDCDC;
+
+    outline: none;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+}
+
+#option-Modal select,#option-Modal input{
+
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    text-indent: 10px;
+
+}
+
+#formatTip{
+
+    height: 30px;
+
+    line-height: 30px;
+
+    color: red;
+
+    text-align: center;
+
+    font-size: 12px;
+
+}

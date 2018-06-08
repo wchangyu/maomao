@@ -706,8 +706,24 @@ $(function() {
 
 				}
 
+				//判断工作日和休息日是否有值
+				console.log(workArr);
 
+				console.log(restArr);
 
+				$('.content-rightss-one-11').hide();
+
+				if(workArr.length>0){
+
+					$('.content-rightss-one-11').eq(0).show();
+
+				}
+
+				if(restArr.length>0){
+
+					$('.content-rightss-one-11').eq(1).show();
+
+				}
 
 
 			},
