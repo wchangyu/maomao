@@ -132,14 +132,54 @@ $(function(){
     //条件查询
     function conditionSelect(){
 
+        //车站
+        var pointer = 0;
+
+        if($('#pointer').val() == null || $('#pointer').val() == '' ){
+
+            pointer = 0;
+
+        }else{
+
+            pointer = $('#pointer').val();
+
+        }
+
+        //设备系统
+        var devSys = 0;
+
+        if($('#select-devsystem').val() == null || $('#select-devsystem').val() == '' ){
+
+            devSys = 0;
+
+        }else{
+
+            devSys = $('#select-devsystem').val();
+
+        }
+
+        //设备位置
+        var devLoc = 0;
+
+        if($('#select-location').val() == null || $('#select-location').val() == '' ){
+
+            devLoc = 0;
+
+        }else{
+
+            devLoc = $('#select-location').val();
+
+        }
+
+
         var prm = {
 
             //车站
-            poinerID:$('#pointer').val() == null?0:$('#pointer').val(),
+            poinerID:pointer,
             //设备系统
-            typeID:$('#select-devsystem').val() == null?0:$('#select-devsystem').val(),
+            typeID:devSys,
             //设备位置
-            areaID:$('#select-location').val() == null?0:$('#select-location').val(),
+            areaID:devLoc,
             //设备关键字
             devName:$('#dev-key').val(),
             //用户id

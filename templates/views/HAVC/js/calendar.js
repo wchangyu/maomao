@@ -314,34 +314,34 @@
                     $('#e_w_c_zt_eV_text').html(res.eV);
                     $('#e_w_c_zt_gV_text').html(res.gV);
                     $('#e_w_c_zt_cV_text').html(res.cV);
-                    $('#e_w_c_zt_ePrc_text').html(res.ePrc);
-                    $('#e_w_c_zt_gPrc_text').html(res.gPrc);
-                    $('#e_w_c_zt_cPrc_text').html(res.cPrc);
+                    $('#e_w_c_zt_ePrc_text').html(res.ePRc);
+                    $('#e_w_c_zt_gPrc_text').html(res.gPRc);
+                    $('#e_w_c_zt_cPrc_text').html(res.cPRc);
                 } else if ((selectAREA === 'EC' || selectAREA === 'WC')
                     && selectEQTY === 'XLJ') {//东西冷_溴理机
-                    $('#e_w_c_xl_eV_text').html(res.eV);
-                    $('#e_w_c_xl_gV_text').html(res.gV);
-                    $('#e_w_c_xl_cop_text').html(res.copV);
+                    $('#e_w_c_xl_eV_text').html(res.gV);
+                    $('#e_w_c_xl_gV_text').html(res.copV);
+                    $('#e_w_c_xl_cop_text').html(res.cV);
                 } else if ((selectAREA === 'EC' || selectAREA === 'WC')
                     && selectEQTY === "LXJ") {//东西冷_离心机
                     $('#e_w_c_lx_eV_text').html(res.eV);
                     $('#e_w_c_lx_cV_text').html(res.cV);
-                    $('#e_w_c_lx_ePrc_text').html(res.ePrc);
-                    $('#e_w_c_lx_cPrc_text').html(res.cPrc);
+                    $('#e_w_c_lx_ePrc_text').html(res.ePRc);
+                    $('#e_w_c_lx_cPrc_text').html(res.cPRc);
                 } else if ((selectAREA === 'EC' || selectAREA === 'WC')
                     && selectEQTY === "DYJ") {//东西冷_地源主机
                     $('#e_w_c_rb_eV_text').html(res.eV);
                     $('#e_w_c_rb_cV_text').html(res.cV);
-                    $('#e_w_c_rb_ePrc_text').html(res.ePrc);
-                    $('#e_w_c_rb_cPrc_text').html(res.cPrc);
+                    $('#e_w_c_rb_ePrc_text').html(res.ePRc);
+                    $('#e_w_c_rb_cPrc_text').html(res.cPRc);
                 } else if ((selectAREA === 'EH' || selectAREA === 'WH')
                     && selectEQTY === "ZTH") {//东西热_总体
                     $('#e_w_h_zt_eV_text').html(res.eV);
                     $('#e_w_h_zt_gV_text').html(res.gV);
                     $('#e_w_h_zt_rV_text').html(res.rV);
-                    $('#e_w_h_zt_ePrc_text').html(res.ePrc);
-                    $('#e_w_h_zt_gPrc_text').html(res.gPrc);
-                    $('#e_w_h_zt_rPrc_text').html(res.rPrc);
+                    $('#e_w_h_zt_ePrc_text').html(res.ePRc);
+                    $('#e_w_h_zt_gPrc_text').html(res.gPRc);
+                    $('#e_w_h_zt_rPrc_text').html(res.rPRc);
                 } else {//东西热_换热罐
                     $('#e_w_h_rg_gV_text').html(res.gV);
                     $('#e_w_h_rg_rV_text').html(res.rV);

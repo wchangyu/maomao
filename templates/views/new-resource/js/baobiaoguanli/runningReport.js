@@ -1,6 +1,6 @@
 $(function(){
     //时间插件
-    _timeYMDComponentsFun($('.datatimeblock'));
+    _timeYMDComponentsFun11($('.datatimeblock'));
 
     $('.datatimeblock').val(moment().format('YYYY-MM-DD'));
 
@@ -30,6 +30,13 @@ $(function(){
     $('#dev-type').change(function(){
 
         areaBlock($('#dev-type').children('option:selected').attr('data-value'));
+
+    })
+
+    //点击其他地方设备选择下拉列表消失
+    $(document).click(function(){
+
+
 
     })
 

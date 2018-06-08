@@ -1,0 +1,388 @@
+.local-area{
+
+    margin-top: 24px;
+
+}
+
+.local-tap{
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    width: 124px;
+
+    height: 37px;
+
+    font-size: 20px;
+
+    color: #B4B8BC;
+
+    text-align: center;
+
+    line-height: 37px;
+
+    margin-right: 32px;
+
+    background: url("../img/shebei-weixuanzhong.png")no-repeat;
+
+    background-size: 100% !important;
+
+    cursor: pointer;
+
+}
+
+.local-tap-checked{
+
+    background: url("../img/shebei-xuanzhong.png")no-repeat;
+
+    background-size: 100% !important;
+
+    color: #ffffff;
+
+}
+
+.local-sync{
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    color: #757575;
+
+}
+
+.CH-area{
+
+    margin-top: 42px;
+
+}
+
+.CH-list{
+
+    height: 56px;
+
+    border: 1px solid #DCDCDC;
+
+    border-radius: 4px !important;
+
+    cursor: pointer;
+
+    float: left;
+
+    margin-right: 40px;
+
+}
+
+.CH-list-icon{
+
+    width: 28px;
+
+    height: 32px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    margin-left: 19px;
+
+    margin-right: 19px;
+
+}
+
+.CH-list-info{
+
+    line-height: 56px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    font-size: 18px;
+
+    margin-right: 20px;
+
+}
+
+.CH-cold{
+
+    background: url("../img/dongji.png")no-repeat;
+
+    background-size: contain;
+
+}
+
+.CH-heat{
+
+    background: url("../img/xiaji.png")no-repeat;
+
+    background-size: contain;
+
+}
+
+.table-area{
+
+    margin-top: 50px;
+
+}
+
+.table-area-title{
+
+    font-size: 18px;
+
+    line-height: 40px;
+
+    float: left;
+
+}
+
+.table-area-button{
+
+    float: right;
+
+}
+
+.table-area-button button{
+
+    font-size: 16px;
+
+    padding: 5px 17px;
+
+    border: none;
+
+    color: #ffffff;
+
+    outline: none;
+
+}
+
+#edit-button{
+
+    background: #1FE49D;
+
+}
+
+#confirm-button{
+
+    background: #2170F4;
+
+}
+
+#cancel-button{
+
+    background: #959595;
+
+}
+
+.table thead tr th,.table tbody tr td{
+
+    text-align: center !important;
+
+}
+
+.button-control{
+
+    width: 61px;
+
+    height: 21px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    cursor: pointer;
+
+}
+
+.button-on{
+
+    background: url("../img/kai.png")no-repeat;
+
+    background-size: contain;
+
+}
+
+.button-off{
+
+    background: url("../img/guan.png")no-repeat;
+
+    background-size: contain;
+
+}
+
+.datatimeblock{
+
+    background: url("../../resource/img/clendar.png")no-repeat #ffffff;
+
+    background-size: 28px;
+
+    background-position: 95% center;
+
+    cursor: pointer;
+
+}
+
+.calendar-content{
+
+    margin-right: 320px;
+
+}
+
+.intro-content{
+
+    width: 300px;
+
+    float: right;
+
+    background: #e8e8e8;
+
+    text-align: center;
+
+}
+
+.calendar-content>div{
+
+    margin-bottom: 20px;
+
+}
+
+.intro-content p{
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    line-height: 40px;
+
+    text-align: center;
+
+    border-bottom: 5px solid #dba57c;
+
+}
+
+.intro-content span{
+
+    display: inline-block;
+
+    width: 30px;
+
+    height: 20px;
+
+    vertical-align: middle;
+
+    margin-right: 5px;
+
+}
+
+.intro-content label{
+
+    width: 120px;
+
+    text-align: left;
+
+}
+
+.intro-content>div{
+
+    line-height: 40px;
+
+}
+
+.fc-time{
+
+    display: none;
+
+}
+
+.fc-day-grid-event{
+
+    font-size: 14px;
+
+    text-align: center;
+
+    border: none;
+
+    line-height: 30px;
+
+}
+
+.fc-toolbar{
+
+    background: #78c8d0;
+
+    margin-bottom: 0;
+
+    padding: 5px 0;
+
+}
+
+.fc-widget-header .fc-sun,.fc-widget-header .fc-sat{
+
+    background: #b8e870;
+
+}
+
+.option-body{
+
+    display: flex;
+
+    display: -webkit-flex;
+}
+
+.option-body>div{
+
+    display: inline-block;
+
+    margin: auto;
+
+}
+
+.option-body label{
+
+    margin-right: 10px;
+
+}
+
+.bodyContr{
+
+    width: 280px;
+
+    height: 40px;
+
+    border: 1px solid #DCDCDC;
+
+    outline: none;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+}
+
+#option-Modal select,#option-Modal input{
+
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    text-indent: 10px;
+
+}
+
+#formatTip{
+
+    height: 30px;
+
+    line-height: 30px;
+
+    color: red;
+
+    text-align: center;
+
+    font-size: 12px;
+
+}

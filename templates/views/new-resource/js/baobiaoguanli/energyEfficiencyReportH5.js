@@ -153,7 +153,7 @@ $(function(){
                 //结束时间
                 et = moment($('.datatimeblock').val()).endOf('months').add(1,'d').format('YYYY-MM-DD');
                 //数据时间
-                var time = $('.datatimeblock').val().split('/');
+                var time = $('.datatimeblock').val().split('-');
 
                 getTime = time[0] + '年' + time[1] + '月';
 
@@ -164,7 +164,7 @@ $(function(){
                 //结束时间
                 et = moment($('.datatimeblock').val()).endOf('years').add(1,'d').format('YYYY-MM-DD');
                 //数据时间
-                var time = $('.datatimeblock').val().split('/');
+                var time = $('.datatimeblock').val().split('-');
 
                 getTime = time[0] + '年';
 

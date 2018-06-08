@@ -132,6 +132,8 @@ $(function(){
         $('.month-data').removeAttr('readOnly');
         $('.month-data').removeAttr('unselectable');
 
+        $('.month-data').addClass('month-data-input');
+
         $('.prompt').html('当前可编辑，编辑完成后请点击确定按钮进行提交。');
 
 
@@ -168,6 +170,8 @@ $(function(){
 
         $('.prompt').html(' 当前不可编辑，可点击右侧编辑按钮进行编辑');
 
+        $('.month-data').removeClass('month-data-input');
+
     });
 
     //点击确定按钮时，提交表格中的数据，并使其不可编辑。
@@ -184,6 +188,8 @@ $(function(){
 
         $('.month-data').attr('readOnly','readOnly');
         $('.month-data').attr('unselectable','on');
+
+        $('.month-data').removeClass('month-data-input');
 
         $('.prompt').html('当前不可编辑，可点击右侧编辑按钮进行编辑。');
 
@@ -710,6 +716,7 @@ function postDingEData(flag){
 
 //用户进行编辑操作时，对数据进行保存。
 function changeData(){
+
     $('.month-data').on('blur',function(){
 
         if($(this).parent('td').hasClass(' years')){
@@ -797,7 +804,7 @@ $('#dateTables').on('click','.data-option',function(){
 
     var monthData = (data / 12).toFixed(1);
 
-    console.log(monthData);
+    //console.log(monthData);
 
     //获取本行ID
     var id = $(this).parents('tr').find('.theHidden').html();
@@ -822,6 +829,8 @@ $('#dateTables').on('click','.data-option',function(){
 
     $('.month-data').removeAttr('readOnly');
     $('.month-data').removeAttr('unselectable');
+
+    $('.month-data').addClass('month-data-input');
 
 });
 

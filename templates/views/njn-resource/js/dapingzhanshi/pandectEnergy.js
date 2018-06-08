@@ -66,8 +66,8 @@ $(function(){
             //从后台获取用户配置的数据
             getDeployByUser();
 
-
         },_refresh * 1000 * 60)
+
     };
 
     //-----------------------------主设备 副设备信息弹窗-----------------------------//
@@ -1441,7 +1441,7 @@ var _waterEcharts = echarts.init(document.getElementById('equipment-chart-water'
 var _energyOption = {
     title: {
         text: '2255',
-        subtext: '总能耗',
+        subtext: '今日能耗(kgce)',
         //sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
         left: 'center',
         top: '116',
@@ -1456,7 +1456,7 @@ var _energyOption = {
         },
         subtextStyle:{
             color:'white',
-            fontSize : 16
+            fontSize : 12
         }
     },
     tooltip: {
@@ -2092,8 +2092,8 @@ function getTPDevMonitor(){
             if(result.hvacAirsOBJ.hvacAirData.ty == 1){
 
                 elecColdDataArr = [
-                    {name:'输入电量',data:inputElecData},
-                    {name:'输出冷量',data:elecColdData}
+                    {name:'冷站输入电量',data:inputElecData},
+                    {name:'冷站输出冷量',data:elecColdData}
                 ];
 
                 elecColdCenterData = {name:'电冷能效',data:elecColdEffic};
@@ -2275,6 +2275,7 @@ function getTPDevMonitor(){
 
 
             //-----------------------------动环系统---------------------------//
+
             //机房数
             var rotaryFaceallNum = result.rotaryFaceSysOBJ.machineRoomNum;
 
@@ -2317,8 +2318,8 @@ function getTPDevMonitor(){
             //给echarts赋值
             drawEcharts(TempArr,'equipment-chart-rotating1',colorArr1,indoorTempData, _electricityoption,'℃');
 
-            //电功率
-            $('#equipment-chart-rotating').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data').html(result.rotaryFaceSysOBJ.elecPower.toFixed(1) + '<span>kw</span>');
+            //故障率
+            $('#equipment-chart-rotating').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data').html((result.rotaryFaceSysOBJ.faultRate*100).toFixed(1) + '<span>%</span>');
 
             //检测点
             $('#equipment-chart-rotating1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.rotaryFaceSysOBJ.alarmNum);
@@ -2374,11 +2375,11 @@ function getTPDevMonitor(){
 
             var fireControlArr = [
                 {name:'运行中',data:fireControlrunNum},
-                {name:'故障中',data:fireControlfaultNum},
-                {name:'维修中',data:fireControlrepairNum}
+                {name:'报警中',data:fireControlfaultNum},
+                {name:'屏蔽中',data:fireControlrepairNum}
             ];
 
-            var fireControlData = {name:'总台数',data:fireControlAllTimesNum};
+            var fireControlData = {name:'设备数',data:fireControlAllTimesNum};
 
             //给echarts赋值
             drawEcharts(fireControlArr,'equipment-chart-platform',colorArr2,fireControlData, _conditioneroption,'');
@@ -2467,8 +2468,8 @@ function getTPDevMonitor(){
             //能管重绘数据
             _waterEcharts.setOption(_energyOption,true);
 
-            //总费用
-            $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.energyManagerOBJ.allEnergyCostData.toFixed(1) + '<span>元</span>');
+            //今日碳排放量
+            $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.energyManagerOBJ.CarbonRateData.toFixed(1) + '<span>t</span>');
 
             //检测点
             $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.energyManagerOBJ.alarmNum);
@@ -2840,7 +2841,7 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
         //如果是夏季
         if(getSeason() == 1){
 
-            allData = 5752;
+            allData = 30496;
 
         }else{
 
@@ -3017,18 +3018,26 @@ function getDeployByUser(){
         },
         success:function(result){
 
-            var result1 = JSON.parse(result);
+            var result1;
+
+            var mainSwitch
+
+            if(result != ''){
+
+                result1 = JSON.parse(result);
+
+                //首先判断整体控制开关是否开启
+                mainSwitch  = result1.switch;
+
+            }
 
             //console.log(result1);
-
-            //首先判断整体控制开关是否开启
-            var mainSwitch = result1.switch;
 
             //获取本地配置
             var bigScreenSet = sessionStorage.getItem('bigScreenSet');
 
             //整体控制开关关闭
-            if(mainSwitch == 0 || bigScreenSet == 0){
+            if(result == "" || bigScreenSet == 0 || mainSwitch == 0){
 
                 //获取页面主题部分数据
                 getTPDevMonitor();

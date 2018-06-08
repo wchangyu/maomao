@@ -10,7 +10,7 @@
 
     var selectAREA = "EC";//选中东冷站区域
 
-    var selectEQTY = "LXJ";//选中离心机系统设备类型
+    var selectEQTY = "";//选中离心机系统设备类型
 
     function convertDate(strDate) {//字符串转时间格式
         var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
@@ -123,8 +123,11 @@
 
     //初始化区域选择控件
     var initAreaSelectCtrl = function () {
+
         $('#areaType').html();
+
         $('#areaType').find('option').remove();
+
         $('#areaType').empty();
 
         var str = '';
@@ -146,8 +149,11 @@
 
 
             }
+
             initEqTypeSelectCtrl(chArAy[0].item);
+
         }
+
     }
 
     //初始化设备类型选择控件
@@ -175,6 +181,10 @@
             //自动选择第一个
             $('#eqType').val(eqtys[0].type);
 
+            selectEQTY = $('#eqType').children('option:selected').attr('data-tag');
+
+            getAbbrDs();
+
         }
     }
 
@@ -186,8 +196,6 @@
             data:[]
         },
         grid:{
-
-            //left:'50',
 
             width:'70%'
 
@@ -210,39 +218,12 @@
         ],
         series: [
 
-            //{
-            //    data: [820, 932, 901, 934, 1290, 1330, 1320],
-            //    type: 'line',
-            //    yAxisIndex: 0,
-            //},
-            //
-            //{
-            //
-            //    data: [920, 1132, 1101, 1134, 1490, 1530, 1520],
-            //    type: 'line',
-            //    yAxisIndex: 1
-            //
-            //},
-            //
-            //{
-            //
-            //    data: [720, 932, 901, 934, 1290, 1330, 1320],
-            //    type: 'line',
-            //    yAxisIndex: 2
-            //
-            //},
-            //
-            //{
-            //    data: [120, 132, 101, 134, 190, 1330, 1320],
-            //    type: 'line',
-            //    yAxisIndex: 3
-            //},
 
         ]
     };
 
     //y轴名称
-    function Yname(yarr,namearr){
+    function Yname(yarr,namearr,maxarr){
 
         var marginL = 0;
 
@@ -265,6 +246,15 @@
             obj.type = 'value';
 
             obj.offset = marginL;
+
+            //最大值
+            obj.max = maxarr[i];
+
+            //最小值
+            obj.min = 0;
+
+            //间隔
+            obj.interval = maxarr[i] / 5;
 
             yarr.push(obj);
 
@@ -379,12 +369,46 @@
             //多y轴
             var yZhou = [];
 
+            //计算每一个值对应的最大最小值[0,1,2,2,3,3]
+
+            var yZhouMax = [];
+
+            //第一个
+            yZhouMax.push(res.mxs[0]);
+
+            //第二个
+            yZhouMax.push(res.mxs[1]);
+
+            //比较第二个和第三个的值，谁大，放到数组中
+            if(Number(res.mxs[2])>=Number(res.mxs[3])){
+
+                yZhouMax.push(res.mxs[2])
+
+            }else{
+
+                yZhouMax.push(res.mxs[3])
+
+            }
+
+            //比较第四个和四五个
+            if(Number(res.mxs[4])>=Number(res.mxs[5])){
+
+                yZhouMax.push(res.mxs[4])
+
+            }else{
+
+                yZhouMax.push(res.mxs[5])
+
+            }
+
+            //console.log(yZhouMax);
+
             //东西冷站离心机
             if( selectAREA == 'EC' || selectAREA == 'WC'){
 
                 var arr = ['机组能效','供冷量','温度','流量'];
 
-                Yname(yZhou,arr);
+                Yname(yZhou,arr,yZhouMax);
 
             }else if( selectAREA == 'EH' || selectAREA == 'WH' ){
 
@@ -392,13 +416,13 @@
 
                     var arr = ['换热效率','供热量','压力','温度','流量'];
 
-                    Yname(yZhou,arr);
+                    Yname(yZhou,arr,yZhouMax);
 
                 }else if( selectEQTY == 'CNB' ){
 
                     var arr = ['输送系数','供热量','温度','流量'];
 
-                    Yname(yZhou,arr);
+                    Yname(yZhou,arr,yZhouMax);
 
                 }
 
@@ -433,6 +457,9 @@
         })
     }
 
+    //排序（小到大）
+    //ary.sort(function(a,b){return a-b;});
+
     return {
         init: function () {
             var pos = JSON.parse(sessionStorage.pointers);
@@ -461,7 +488,7 @@
                 selectEQTY = $(this).children('option:selected').attr('data-tag');
             })
             //默认调用数据
-            getAbbrDs();
+            //getAbbrDs();
 
             //获取数据
             $('#abbrBtn').on('click', function () {

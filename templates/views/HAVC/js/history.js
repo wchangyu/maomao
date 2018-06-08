@@ -322,7 +322,7 @@ var History = function () {
                         },
                         series: dvs
                     };
-                    mycv.setOption(option);
+                    mycv.setOption(option,true);
                     jQuery('#historyBusy').hideLoading();
                 } else if (res.code === -1) {
                     alert('异常错误(历史数据):' + res.msg);

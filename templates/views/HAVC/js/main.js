@@ -173,7 +173,7 @@
     //东热chartView
     var init_e_r_p_chartView = function (MIN, MAX, cpV) {
         e_r_p_chartView = echarts.init(document.getElementById('e_r_p_chartView'));
-        var miscstr = "元/KWH";
+        var miscstr = "元/MJ";
         var cc = [[0.246, '#14E398'], [0.254, '#04c4e1'], [0.261, '#0b8ef4'], [1, '#105eee']];
         option = {
             tooltip: {
@@ -235,7 +235,7 @@
     //西热chartView
     var init_w_r_p_chartView = function (MIN, MAX, cpV) {
         w_r_p_chartView = echarts.init(document.getElementById('w_r_p_chartView'));
-        var miscstr = "元/KWH";
+        var miscstr = "元/MJ";
         var cc = [[0.246, '#14E398'], [0.254, '#04c4e1'], [0.261, '#0b8ef4'], [1, '#105eee']];
         option = {
             tooltip: {
@@ -555,7 +555,7 @@
     //东冷站_冷冻二次泵
     var init_e_c_sb_v_text = function(){
 
-        var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWCRBNOW";
+        var url = sessionStorage.apiUrlPrefix + "MultiAreaMain/GetTWOFPNOW";
 
         $.post(url, {
             pId: sessionStorage.PointerID,
@@ -579,7 +579,7 @@
     //西冷站_冷冻二次泵
     var init_w_c_sb_v_text = function(){
 
-        var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWCRBNOW";
+        var url = sessionStorage.apiUrlPrefix + "MultiAreaMain/GetTWOFPNOW";
 
         $.post(url, {
             pId: sessionStorage.PointerID,

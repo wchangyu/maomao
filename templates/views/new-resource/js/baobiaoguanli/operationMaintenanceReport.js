@@ -55,7 +55,7 @@ $(function(){
 
         conditionSelect($('#area').val());
 
-    })
+    });
 
     //打印
     $('#print').click(function(){
@@ -130,7 +130,7 @@ $(function(){
 
             if($('#timeType').val() == 0){
 
-                var dataTime = $('.datatimeblock').val().split('/');
+                var dataTime = $('.datatimeblock').val().split('-');
 
                 $('#entry-datatables').find('.data-time').html(dataTime[0] + '年' + dataTime[1] + '月');
 

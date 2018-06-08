@@ -78,6 +78,18 @@ function _timeYMDComponentsFun(el){
     });
 }
 
+function _timeYMDComponentsFun11(el){
+    el.datepicker('destroy');
+    el.datepicker({
+        language:  'zh-CN',
+        todayBtn: 1,
+        todayHighlight: 1,
+        format: 'yyyy-mm-dd',
+        forceParse: 0,
+        autoclose: 1
+    });
+}
+
 //datapicker时间插件初始化（年）
 function _yearDate(el){
     el.datepicker('destroy');

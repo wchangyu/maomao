@@ -141,6 +141,9 @@ $(function(){
 
         $('#treeCNT').slideToggle();
 
+        //防止向上冒泡
+        return false;
+
     })
 
     //窗口重置
@@ -154,6 +157,22 @@ $(function(){
 
     }
 
+    //点击其他地方，对象选择下拉框消失
+    $(document).click(function(e){
+
+        var targetDom = e.target.classList.value;
+
+        if(targetDom.indexOf('ztree')>=0){
+
+            return false;
+
+        }else{
+
+            $('#treeCNT').slideUp();
+
+        }
+
+    })
 
     /*---------------------------------------其他方法----------------------------------*/
 

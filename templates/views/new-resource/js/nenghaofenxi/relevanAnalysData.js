@@ -38,10 +38,7 @@ $(function(){
         //楼宇搜索功能
         _searchPO($(".tipes"),"allBranch");
 
-
     }
-
-
 
     //显示隐藏左侧时
     $('.showOrHidden').click(function(){
@@ -396,8 +393,10 @@ function getPointerData(url,flag){
                     position: 'right',
                     //offset:50,
                     show:true
-
                 };
+
+                //温度
+                optionLineBar.series[1].data = allDataY1;
 
             }
 
@@ -467,8 +466,6 @@ function getPointerData(url,flag){
             optionLineBar.series[0].data = allDataY;
             optionLineBar.series[0].name = energyName;
 
-            //温度
-            optionLineBar.series[1].data = allDataY1;
 
             optionLineBar.legend.data = legendArr;
 

@@ -405,6 +405,29 @@
       }
     }
   },
+  "设备控制": {
+    "type": "1",
+    "content": "设备控制",
+    "iconclass": "icon-camcorder",
+    "submenu": {
+      "冷热源-专家策略": {
+        "type": "0",
+        "content": "冷热源-专家策略",
+        "uri": "../equipmentControl/coldHeatSource-ZJCL.html",
+        "uid": "",
+        "arg": "2,4",
+        "iconclass": ""
+      },
+      "冷热源-协同联动": {
+        "type": "0",
+        "content": "冷热源-协同联动",
+        "uri": "../equipmentControl/coldHeatSource-XTLD.html",
+        "uid": "",
+        "arg": "2,4",
+        "iconclass": ""
+      }
+    }
+  },
   "设备监控": {
     "type": "1",
     "content": "设备监控",

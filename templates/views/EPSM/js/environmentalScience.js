@@ -71,6 +71,8 @@ $(function(){
 
         var zTree_Menu = $.fn.zTree.getZTreeObj("allPointer");
 
+        console.log(zTree_Menu);
+
         zTree_Menu.checkAllNodes(false);
 
     });

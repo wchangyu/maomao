@@ -104,51 +104,37 @@
         <div class="totalTitle"></div>
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
-                <li style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                    <span id="loginDT">2018年04月19日</span>
-                    <span id="loginWk">星期四</span>
-                </li>
-                <li style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                    <span id="pNT">楼宇</span>
-                </li>
-                <li id="span_temperature" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                        <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/wendu.png')no-repeat;">
-                        </span><span id="temperature">0℃</span>
-                </li>
-                <li id="span_humidity" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                    <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/shidu.png')no-repeat;"></span>
-                    <span id="humidity">0℃</span>
-                </li>
-                <li id="span_wetbuldtemperature" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                    <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/shiqiu.png')no-repeat;"></span>
-                    <span id="wetbuldtemperature">0℃</span>
-                </li>
-                <li class="dropdown dropdown-extended dropdown-inbox" title="切换楼宇">
-                    <a id="openeprBtn" href="javascript:;" class="dropdown-toggle">
-                            <span style="display:inline-block;width:16px;height:19px;
-                                background:url('../../../assets/admin/layout/img/quyuqiehuan.png')no-repeat;
-                                background-size:100%"></span>
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="icon-bell"></i>
+                        <span class="badge" style="display: none;"></span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li></li>
-                    </ul>
+                    <ul class="dropdown-menu"><li class="top-close" style="padding-right: 10px;height:10px;background: #eaedf2;padding-top: 3px;overflow: hidden;box-sizing: content-box"><strong class="close" style="display: inline-block;background: url('../resource/img/close.png') no-repeat center;background-size:100%"></strong></li></ul>
+                    <audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" preload="auto" style="display: none"></audio>
                 </li>
+                <!-- END NOTIFICATION DROPDOWN -->
+
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                 <li class="dropdown dropdown-user">
-                    <a href="javascript:;" class="dropdown-toggle" style="background-color:rgba(0,0,0,0);" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <img alt="" class="img-circle" src="../../../assets/admin/layout/img/user.png" style="width:25px;height:25px;">
-                        <div class="username username-hide-on-mobile" style="display:inline-block !important;">
-                            <span id="sysuserNT" style="color:#ccc;">马超红</span>
-                            <i class="fa fa-angle-down"></i>
-                        </div>
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <span class="username username-hide-on-mobile">马超红</span>
+                        <i class="fa fa-angle-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-default" style="max-width:150px;">
+                    <ul class="dropdown-menu dropdown-menu-default">
+
                         <li>
-                            <a id="lgot" href="javascript:;">
-                                <i class="icon-key"></i> 退出登录
-                            </a>
+                            <a class="logout-page" href="../login_3.html">
+                                <i class="icon-key"></i> 退出 </a>
                         </li>
                     </ul>
                 </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <!-- END QUICK SIDEBAR TOGGLER -->
             </ul>
         </div>
         <!-- END TOP NAVIGATION MENU -->
