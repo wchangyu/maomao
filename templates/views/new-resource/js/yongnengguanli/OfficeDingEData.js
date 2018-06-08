@@ -3,6 +3,9 @@
  */
 $(function(){
 
+    //从配置项中获取页面中所展示信息
+    getDataByConfig();
+
     //时间插件
     _timeYMDComponentsFun($('.datatimeblock'));
 
@@ -30,28 +33,25 @@ $(function(){
 
     ////默认加载数据
     //分户数据
-    getDingEData('EnergyManageV2/GetOfficeDingEData',1);
+    var dingEType = $('.left-middle-main .curChoose').attr('data-id');
+
+    getDingEData('EnergyManageV2/GetDingEQueryData',dingEType);
 
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
     $('.buttons').children('.btn-success').click(function(){
 
 
-        var o = $('.left-middle-main .curChoose').index();
+        var dingEType = $('.left-middle-main .curChoose').attr('data-id');
 
-        if(o == 0){
-            //分户数据
-            getDingEData('EnergyManageV2/GetOfficeDingEData',1);
+        //获取数据
+        getDingEData('EnergyManageV2/GetDingEQueryData',dingEType);
 
-        }else if(o == 1){
-            //KPI数据
-            getDingEData('EnergyManageV2/GetKPIDingEData',2);
-
-        }
     });
 
     //能耗选择
     $('.typee').click(function(){
+
         $('.typee').removeClass('selectedEnergy');
         $(this).addClass('selectedEnergy');
 
@@ -67,7 +67,18 @@ $(function(){
 
         //判断页面中是否存在能耗类型选项
         if(typeof _energyTypeSel!="undefined" ){
-            if($(this).index() == 0){
+
+            if($(this).attr('data-id') == 5){
+
+                //清空上方能耗种类
+                $('.energy-types').html('');
+
+                $('.energy-types').addClass('hasHeight');
+
+                return false;
+
+            }else if($(this).index() == 1){
+
 
                 _energyTypeSel.initPointers($(".energy-types"),undefined,function(){
                     getEcType();
@@ -75,17 +86,11 @@ $(function(){
 
                 $('.energy-types').removeClass('hasHeight');
 
-            }else if($(this).index() == 1){
-
-                //清空上方能耗种类
-               $('.energy-types').html('');
-
-                $('.energy-types').addClass('hasHeight');
-
-                return false;
             }
+
             //改变右上角单位
             var html = '';
+
             $(unitArr3).each(function(i,o){
                 html += '<option value="'+ o.unitNum+'">'+ o.unitName+'</option>'
             });
@@ -94,11 +99,14 @@ $(function(){
 
             //如果当前页面存在支路
             if($('#allBranch').length > 0){
+
                 //获取当前楼宇下的支路
                 GetAllBranches();
             }
+
             //默认选中第一个能耗
             $('.selectedEnergy').addClass('blueImg0');
+
         }else{
 
 
@@ -168,7 +176,7 @@ $(function(){
 
         $('.top-operation .top-btn').removeClass('onClick');
 
-        var flag = $('.left-middle-main .curChoose').index() + 1;
+        var flag = $('.left-middle-main .curChoose').attr('data-id');
 
         postDingEData(flag);
 
@@ -182,6 +190,55 @@ $(function(){
     });
 
 });
+
+
+//从配置项中获取页面中所展示信息
+function getDataByConfig(){
+
+    //获取当前的url
+    var curUrl = window.location.href;
+
+    //获取当前页面的配置信息
+    $(__systemConfigArr).each(function(i,o){
+
+        //获取当前配置项中的url
+        var thisUrl = o.pageUrl;
+
+        //找到了当前页面对应的配置项
+        if(curUrl.indexOf(thisUrl) > -1){
+
+            //获取到具体的能耗排名配置信息
+            var dataArr = o.quotaKind;
+
+            var html = "";
+
+            var thisNum = -1;
+
+            $(dataArr).each(function(i,o){
+
+                if(o.isShow == 1){
+
+                    thisNum ++;
+
+                    if(thisNum == 0){
+
+                        html += '<p class="curChoose" data-id='+ o.quotaTypeID+'>'+ o.quotaName+'</p>';
+
+                    }else{
+
+                        html += '<p data-id='+ o.quotaTypeID+'>'+ o.quotaName+'</p>';
+                    }
+                }
+
+            });
+
+            //赋值到页面中
+            $('.left-middle-main').html(html);
+
+        }
+    });
+};
+
 
 //存放返回的所有数据
 var getArr = [];
@@ -433,8 +490,12 @@ function getDingEData(url,flag){
     //存放要传递的分户集合
     var officeID = [];
 
+    //存放要传的楼宇集合
+    var postPointerIDs = [];
+
     //定义ajax传值类型
     var postType = 'post';
+
     //传递给后台的参数
     var ecParams = {};
 
@@ -445,7 +506,7 @@ function getDingEData(url,flag){
     var yearInt = parseInt($('.min').val());
 
     //分户数据
-    if(flag == 1){
+    if(flag == 2){
         //获取session中存放的楼宇ID
         var officeArr = JSON.parse(sessionStorage.getItem('offices'));
 
@@ -454,25 +515,31 @@ function getDingEData(url,flag){
             officeID.push(o.f_OfficeID);
         });
 
-        ecParams = {
-            "energyItemID":_ajaxEcType,
-            "yearInt": yearInt,
-            "officeIDs": officeID
-        };
+    //楼宇数据
+    }else if(flag == 1){
 
+        //获取session中存放的楼宇ID
+        var pointerArr = JSON.parse(sessionStorage.getItem('pointers'));
 
-        //KPI数据
-    }else if(flag == 2){
+        $(pointerArr).each(function(i,o){
 
-        postType = 'get';
+            postPointerIDs.push(o.pointerID);
 
-        ecParams = {
-            "yearInt": yearInt
-        };
+        });
+
     }
+
+    ecParams = {
+        "energyItemID":_ajaxEcType,
+        "yearInt": yearInt,
+        "pointerIDs": postPointerIDs,
+        "officeIDs": officeID,
+        'dingEType': parseInt(flag)
+    };
 
     //判断是否标煤
     if($('.selectedEnergy p').html() == '标煤'){
+
         _ajaxEcType = -2;
     }
 
@@ -550,13 +617,13 @@ function postDingEData(flag){
     var yearInt = parseInt($('.min').val());
 
     //传递给后台的分类标识
-    var f_Type = 2;
+    var f_Type = flag;
 
     //传递给后台的分项ID
     var f_EnergyItemId = 0;
 
     //分户数据
-    if(flag == 1){
+    if(flag != 5){
 
         //获得选择的能耗类型
         _ajaxEcType =_getEcTypeValue(_ajaxEcType);
@@ -564,10 +631,7 @@ function postDingEData(flag){
         f_EnergyItemId = _ajaxEcType;
 
         //KPI数据
-    }else if(flag == 2){
-
-        //改变分类标识
-        f_Type = 5;
+    }else if(flag == 5){
 
         //改变分项标识
         f_EnergyItemId = -1;
@@ -620,6 +684,8 @@ function postDingEData(flag){
                 _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'过往年数据只能查询', '');
                 return false;
             }
+
+
             //重新获取数据
             $('.buttons').children('.btn-success').click();
 

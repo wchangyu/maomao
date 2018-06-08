@@ -316,7 +316,10 @@ function getAlarmData(flag){
             $('.left-top-alarm .alarm-data1').html(result.u3dAlarmNums[1].alarmNum);
 
             //获取严重报警
-            $('.left-top-alarm .alarm-data0').html(result.u3dAlarmNums[2].alarmNum + result.u3dAlarmNums[3].alarmNum);
+            $('.left-top-alarm .alarm-data0').html(result.u3dAlarmNums[2].alarmNum);
+
+            //获取特急报警
+            $('.left-top-alarm .alarm-data00').html(result.u3dAlarmNums[3].alarmNum);
 
             //获取已处理报警
             var dealDevAlarmDatas = result.dealAlarmDatas;

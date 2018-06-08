@@ -290,6 +290,7 @@ var option2 = {
         {
             name: '总能耗',
             type: 'bar',
+            barMaxWidth:50,//最大宽度
             data: [18203, 23489, 29034, 104970, 131744, 630230]
         }
     ]
@@ -376,13 +377,11 @@ var option4 = {
     ]
 };
 
-
 //获取全部楼宇ID列表
 var pointerIdArr = getPointersId();
 
 //获取全部分户ID列表
 var officeIdArr = getOfficesId();
-
 
 //------------------------------------页面主体方法-----------------------------------//
 
@@ -712,7 +711,7 @@ function getRealTimeData(){
 
             //右侧同比
             $('.real-time-energy .right-total-data .single-data').eq(0).find('.right-ratio .percent-number').eq(0).html((Math.abs(data.dayEnergyData.lastYearEnergyPercent) * 100).toFixed(1) + '%');
-            console.log(data);
+            //console.log(data);
             if(data.dayEnergyData.lastYearEnergyPercent < 0){
 
                 $('.real-time-energy .right-total-data .single-data').eq(0).find('.top-percent').eq(0).addClass('fall-down')
@@ -1176,11 +1175,15 @@ function getTopPageKPIData(){
             //单位面积能耗
             option3.series[0].data[0].value = result.areaKPIData.energyNormData.toFixed(2);
 
-            option3.series[0].max = result.areaKPIData.kpiConfigBad.toFixed(2);
+            if(result.areaKPIData.kpiConfigBad > 0){
 
-            option3.series[0].axisLine.lineStyle.color = [
-                [result.areaKPIData.kpiConfigExcellent/result.areaKPIData.kpiConfigBad, '#62A8DB'], [result.areaKPIData.kpiConfigOrdinary/result.areaKPIData.kpiConfigBad, '#33E3B6'], [result.areaKPIData.kpiConfigWorse/result.areaKPIData.kpiConfigBad, '#ffa90b'],[1, '#f8276c']
-            ];
+                option3.series[0].max = result.areaKPIData.kpiConfigBad.toFixed(2);
+
+                option3.series[0].axisLine.lineStyle.color = [
+                    [result.areaKPIData.kpiConfigExcellent/result.areaKPIData.kpiConfigBad, '#62A8DB'], [result.areaKPIData.kpiConfigOrdinary/result.areaKPIData.kpiConfigBad, '#33E3B6'], [result.areaKPIData.kpiConfigWorse/result.areaKPIData.kpiConfigBad, '#ffa90b'],[1, '#f8276c']
+                ];
+
+            }
 
 
             if(result.bedKPIData){
@@ -1664,6 +1667,7 @@ function alarmHistory(){
 };
 
 //------------------------------------其他方法-----------------------------------------//
+
 //从本地存储中获取楼宇ID列表
 function getPointersId(){
 

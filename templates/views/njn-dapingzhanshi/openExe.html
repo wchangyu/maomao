@@ -64,6 +64,7 @@
         .noprint{display : none }
 
     </style>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -90,10 +91,12 @@
 <!--[if lt IE 9]>
 <script src="../../../assets/global/plugins/respond.min.js"></script>
 <script src="../../../assets/global/plugins/excanvas.min.js"></script>
+
 <![endif]-->
 <script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
 <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+
 <script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
@@ -102,6 +105,7 @@
 <script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+
 <!-- END CORE PLUGINS -->
 <script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
@@ -109,6 +113,7 @@
 <script src="../../../assets/local/scripts/BEE.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+
 <!--tabletool-->
 <script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
 <script src="../resource/TableTools/button/buttons.print.min.js"></script>
@@ -145,15 +150,31 @@
     function jsRunExeFile() {
 
         var activeObj = new ActiveXObject('WScript.shell');
+
+        //var para = "C:\\Users\\admin\\AppData\\Local\\youdao\\dict\\Application\\YodaoDict.exe";
+
+        //var para1 = "C:\\Program Files (x86)\\DingDing\\main\\current\\DingTalk.exe";
+
         //var para = "C:\\Program Files\\Tencent\\TT\\bin\\TTraveler.exe";
 
-        //var para = "C:\\Program Files (x86)\\hbsys\\njnbim\\njn.exe";
+        var para = "C:\\Program Files (x86)\\hbsys\\njnbim\\njn.exe";
 
-        var para = "C:\\Users\\admin\\AppData\\Local\\youdao\\dict\\Application\\YodaoDict.exe";
+        var para1 = "C:\\Program Files (x86)\\hbsys\\dianti\\njn.exe";
 
-        //D:\软件\ps\绿化版ps5\绿化版ps5\Adobe Photoshop CS5 Extended 12.0.3.0\Adobe Photoshop CS5
-        //C:\Users\admin\AppData\Local\youdao\dict\Application
-        activeObj.exec(para);
+        //获取当前的url
+        var curUrl = window.location.href;
+
+        var thisNum = curUrl.split('a=')[1];
+
+        if(thisNum == 1){
+
+            activeObj.exec(para);
+
+        }else if(thisNum == 2){
+
+            activeObj.exec(para1);
+
+        }
 
     }
 

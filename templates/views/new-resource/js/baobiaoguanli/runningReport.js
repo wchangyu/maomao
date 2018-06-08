@@ -2,7 +2,7 @@ $(function(){
     //时间插件
     _timeYMDComponentsFun($('.datatimeblock'));
 
-    $('.datatimeblock').val(moment().format('YYYY/MM/DD'));
+    $('.datatimeblock').val(moment().format('YYYY-MM-DD'));
 
     //楼宇
     pointerData();
@@ -14,7 +14,7 @@ $(function(){
     var _allData = [];
 
     //导出时间（查询时间）
-    var excelTime = moment().format('YYYY/MM/DD');
+    var excelTime = moment().format('YYYY-MM-DD');
 
     //区域
     var area = $('#dev-type').children('option:selected').attr('data-value');
@@ -76,7 +76,7 @@ $(function(){
             $('#alreadySelect').empty();
 
             //导出时间
-            excelTime = moment().format('YYYY/MM/DD');
+            excelTime = moment().format('YYYY-MM-DD');
 
             getCheckedNodeFun();
 

@@ -179,6 +179,7 @@ var Login = function() {
         });
     };
 
+
     //将用户权限转换成01的字符串
     var convertAuthTo01Str = function(hexstr){
         var arr = [];
@@ -360,13 +361,16 @@ var Login = function() {
     var getAllProce = function(userId){
 
         var _isViewAllProcs = false;
+
         if(sessionStorage.userAuth){
+
             var userAuth = sessionStorage.userAuth;
 
             if(userAuth.charAt(52) == "1"){
                 _isViewAllProcs = true;
             }
         }
+
         if(userId) {
             var dataStr = {'userID': userId,'isViewAllProcs':_isViewAllProcs};
             $.ajax({
@@ -374,8 +378,10 @@ var Login = function() {
                     url:sessionStorage.apiUrlPrefix + 'PR/PR_GetAllProcsByUser',
                     data:dataStr,
                     success:function(data){
+                        console.log(sessionStorage.apiUrlPrefix + 'PR/PR_GetAllProcsByUser');
 
                         sessionStorage.allProcs = JSON.stringify(data);
+                        //console.log(JSON.stringify(data))
                         _isProceLoaded = true;
                         directToIndex();
                     },

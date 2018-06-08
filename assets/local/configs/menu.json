@@ -66,12 +66,19 @@
       "三维": {
         "type": "0",
         "content": "三维",
-        "uri": "../njn-dapingzhanshi/openExe.html",
+        "uri": "../njn-dapingzhanshi/openExe.html?a=1",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "二维": {
+        "type": "0",
+        "content": "二维",
+        "uri": "../njn-dapingzhanshi/openExe.html?a=2",
         "uid": "",
         "arg": "",
         "iconclass": ""
       }
-
     }
   },
 
@@ -165,6 +172,7 @@
       }
     }
   },
+
   "高效机房": {
     "type": "1",
     "content": "高效机房",

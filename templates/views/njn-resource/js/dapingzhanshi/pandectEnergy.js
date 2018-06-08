@@ -2222,7 +2222,7 @@ function getTPDevMonitor(){
             var allNum1 = result.elevatorSysOBJ.verticalLadder.allNum;
 
             //运行中
-            var runNum1 = result.elevatorSysOBJ.verticalLadder.allNum;
+            var runNum1 = result.elevatorSysOBJ.verticalLadder.runNum;
 
             //故障中
             var faultNum1 = result.elevatorSysOBJ.verticalLadder.faultNum;
@@ -2245,7 +2245,7 @@ function getTPDevMonitor(){
             var allNum2 = result.elevatorSysOBJ.escalator.allNum;
 
             //运行中
-            var runNum2 = result.elevatorSysOBJ.escalator.allNum;
+            var runNum2 = result.elevatorSysOBJ.escalator.runNum;
 
             //故障中
             var faultNum2 = result.elevatorSysOBJ.escalator.faultNum;

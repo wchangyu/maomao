@@ -501,6 +501,7 @@ function _getPointerZtree(pointerId,flag){
         _objectSel.initPointers(pointerId,false,true);
     }
     return _objectSel;
+
 }
 
 //科室ztree树(flag = 1,单选按钮，flag = 2，复选按钮)

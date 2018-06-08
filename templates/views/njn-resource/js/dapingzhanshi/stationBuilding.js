@@ -406,9 +406,9 @@ function echartReDraw(realDataArr){
         var alarmLoopProp = o.alarmLoopProp;
 
         //参考值
-        var referenceData = o.illuminanceRefer;
+        var referenceData = o.illuminanceRefer.toFixed(2);
 
-        var realData = o.illuminanceAVG;
+        var realData = o.illuminanceAVG.toFixed(2);
 
         if(realData == -1){
 

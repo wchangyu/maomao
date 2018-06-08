@@ -193,6 +193,7 @@ var table = $('#equipment-datatables').DataTable({
                         if(o.cDataValue == 2){
 
                             result =  "上行"
+
                         }else if(o.cDataValue == 1){
                             result =  "下行";
 
@@ -222,6 +223,78 @@ var table = $('#equipment-datatables').DataTable({
                         }else{
                             return "无故障";
                         }
+            }
+        },
+        {
+            title:'开门故障',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                var result = '--';
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4423'){
+
+                        if(o.cDataValue == 0){
+
+                            result =  "正常"
+                        }else{
+                            result =  "故障";
+                        }
+                    }
+                });
+
+                return result;
+
+            }
+        },
+        {
+            title:'地坑故障',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                var result = '--';
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4424'){
+
+                        if(o.cDataValue == 0){
+
+                            result =  "正常"
+                        }else{
+                            result =  "故障";
+                        }
+                    }
+                });
+
+                return result;
+
+            }
+        },
+        {
+            title:'卡门故障',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                var result = '--';
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4425'){
+
+                        if(o.cDataValue == 0){
+
+                            result =  "正常"
+                        }else{
+                            result =  "故障";
+                        }
+                    }
+                });
+
+                return result;
+
             }
         },
         {
