@@ -1336,7 +1336,7 @@ var initareaoption = function (cc,minVa,maxVa,nxVa){
                         fontStyle: 'normal'
                     }
                 },
-                data: [{ value: parseFloat(nxVa)}]//, name: 'KW/KW'
+                data: [{ value: parseFloat(nxVa)}]//, name: 'kW/kW'
             },
         ]
     };
@@ -1399,7 +1399,7 @@ var initareaoption1 = function (cc,minVa,maxVa,nxVa){
                         fontStyle: 'normal'
                     }
                 },
-                data: [{ value: parseFloat(nxVa)}]//, name: 'KW/KW'
+                data: [{ value: parseFloat(nxVa)}]//, name: 'kW/kW'
             },
         ]
     };
@@ -1470,7 +1470,7 @@ var option1 = {
                     width: 5
                 }
             },
-            data: [{value:1.2,name:'KW/RT'}]
+            data: [{value:1.2,name:'kW/RT'}]
         }
     ]
 };

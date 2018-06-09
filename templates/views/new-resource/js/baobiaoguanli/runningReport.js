@@ -941,7 +941,7 @@ $(function(){
                 '<th style="text-align:center;background: #E2E9F2;border:1px solid black">出水压力（MPa）</th>' +
                 '<th style="text-align:center;background: #E2E9F2;border:1px solid black">电压（V）</th>' +
                 '<th style="text-align:center;background: #E2E9F2;border:1px solid black">电流（A）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">准点功率（kw）</th>' +
+                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">准点功率（kW）</th>' +
                 '<th style="text-align:center;background: #E2E9F2;border:1px solid black">上一小时电耗（kWh）</th>' +
                 '<th style="text-align:center;background: #E2E9F2;border:1px solid black">手/自动状态</th>' +
                 '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新增故障报警</th>' +

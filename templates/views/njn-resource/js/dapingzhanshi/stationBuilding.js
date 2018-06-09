@@ -57,7 +57,7 @@ var optionBar = {
 
 
 //页面右侧Table的表头集合
-//var titleArr = ['','回路数','开启回路占比','平均照度(lux)','功率 KW'];
+//var titleArr = ['','回路数','开启回路占比','平均照度(lux)','功率 kW'];
 
 var titleArr = ['','回路数','开启回路占比','平均照度(lux)'];
 
