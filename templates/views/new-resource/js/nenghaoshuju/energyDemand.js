@@ -387,6 +387,7 @@ function getPointerData(url,flag){
 
         //分户数据
     }else if(flag == 2){
+
         //确定分户id
         var ofs = _officeZtree.getSelectedOffices();
 

@@ -13,6 +13,7 @@
     <script src="../resource/js/moment.js"></script>
     <script src="../new-resource/js/showOrHidden.js"></script>
     <script src="../../../assets/local/scripts/underscore-min.js"></script>
+
     <!--loading插件-->
     <link rel="stylesheet" href="../resource/jQuery-showLoading/css/showLoading.css"/>
 
@@ -200,22 +201,25 @@
                             </h3>
                             <p>
                                 南京南站一次热源由华润热电厂提供0.8MPa 的饱和蒸汽，夏季供蒸汽溴化锂吸收式冷水机组制冷，冬季将蒸汽减压至0.4MPa 的饱和蒸汽后，供空调换热机组使用。冷冻机房位于首层（动力中心）内，共设东、西各一个机房。每个机房内均设2 台蒸汽溴化锂吸收式冷水机组、2 台离心式电制冷冷水机组。南北侧的贵宾室分别设有独立的地源热泵系统，地源热泵冷热机房分别设于首层东西两侧的动力中心内，共2 个。室外东西埋管场地靠近机房，就近设置，西广场埋管占地约4000 m2，东广场埋管占地约2000m2。
-
-
                             </p>
+
                         </div>
                     </div>
                     <!--页面右侧数据-->
                     <div class="right-bottom-content-right">
+
                         <!--上方数据统计-->
                         <div class="right-bottom-content-top">
+
                             <!--设备运行-->
                             <div class="bottom-content-top-introduce bottom-content-top-operation quota-data-bottom">
+
                                 <!--头部信息-->
                                 <h3 style="margin-bottom:25px;">
                                     <span class="left-patch"></span>
                                     设备运行
                                 </h3>
+
                                 <div class="top-control">
                                     <span class="top-control-span"></span> <span class="top-control-span">手动模式</span>
                                     <div class="top-control-content">
@@ -223,7 +227,7 @@
                                         <span class="left-span">离心机组</span>
                                     <span class="control-area-span">东</span>
                                         <span class="right-span">
-                                        <font class="onClick">1</font>
+                                        <font class="">1</font>
                                         <font>2</font>
 
                                     </span>
@@ -231,14 +235,14 @@
                                         <span class="left-span">溴锂机组</span>
                                         <span class="control-area-span">东</span>
                                         <span class="right-span">
-                                         <font class="onClick">1</font>
+                                         <font class="">1</font>
                                         <font>2</font>
                                     </span>
                                         <br /><br />
                                         <span class="left-span">热泵机组</span>
                                         <span class="control-area-span">东</span>
                                         <span class="right-span">
-                                         <font class="onClick">1</font>
+                                         <font class="">1</font>
                                         <font>2</font>
                                     </span>
                                     </div>
@@ -256,6 +260,7 @@
                                 <div id="bottom-content-chart1">
                                 </div>
                             </div>
+
                             <!--运行报警-->
                             <div class="bottom-content-top-introduce bottom-content-top-alarm quota-data-bottom">
                                 <!--头部信息-->
@@ -272,6 +277,7 @@
                                 </div>
 
                             </div>
+
                             <!--换热效率-->
                             <div class="bottom-content-top-introduce bottom-content-top-efficiency quota-data-bottom">
                                 <!--头部信息-->
@@ -288,11 +294,12 @@
                                         <div id="bottom-refrigerator-chart" class="bottom-meter-chart"></div>
                                         <!--数据信息-->
                                         <div class="bottom-efficiency-message">
-                                            <p>输出冷量:<span id="span_LXJ_cVa_text">0</span>KW</p>
-                                            <p>输入电量:<span id="span_LXJ_eVa_text">0</span>KW</p>
-                                            <p>离心机COP:<span id="span_LXJ_nxVa_text">0</span>KW/KW</p>
+                                            <p>输出冷量:<span id="span_LXJ_cVa_text">0</span>kW</p>
+                                            <p>输入电量:<span id="span_LXJ_eVa_text">0</span>kW</p>
+                                            <p>离心机COP:<span id="span_LXJ_nxVa_text">0</span>kW/kW</p>
                                         </div>
                                     </div>
+
                                     <!--溴化锂机组系统-->
                                     <div class="bottom-efficiency-container" >
                                         <h2 class="right-bottom-content-title">溴化锂机组系统</h2>
@@ -301,11 +308,12 @@
                                         </div>
                                         <!--数据信息-->
                                         <div class="bottom-efficiency-message">
-                                            <p>输出冷量:<span id="span_XLJ_cVa_text">0</span>KW</p>
-                                            <p>输入汽量:<span id="span_XLJ_qVa_text">0</span>KW</p>
-                                            <p>溴锂机能效:<span id="span_XLJ_nxVa_text">0</span>KW/KW</p>
+                                            <p>输出冷量:<span id="span_XLJ_cVa_text">0</span>kW</p>
+                                            <p>输入汽量:<span id="span_XLJ_qVa_text">0</span>kW</p>
+                                            <p>溴锂机能效:<span id="span_XLJ_nxVa_text">0</span>kW/kW</p>
                                         </div>
                                     </div>
+
                                     <!--热泵机组系统-->
                                     <div class="bottom-efficiency-container" >
                                         <h2 class="right-bottom-content-title">热泵机组系统</h2>
@@ -314,9 +322,9 @@
                                         </div>
                                         <!--数据信息-->
                                         <div class="bottom-efficiency-message">
-                                            <p>输出冷量:<span id="span_RBJ_cVa_text">0</span>KW</p>
-                                            <p>输入电量:<span id="span_RBJ_eVa_text">0</span>KW</p>
-                                            <p>热泵COP:<span id="span_RBJ_nxVa_text">0</span>KW/KW</p>
+                                            <p>输出冷量:<span id="span_RBJ_cVa_text">0</span>kW</p>
+                                            <p>输入电量:<span id="span_RBJ_eVa_text">0</span>kW</p>
+                                            <p>热泵COP:<span id="span_RBJ_nxVa_text">0</span>kW/kW</p>
                                         </div>
                                     </div>
                                     <!--冷却侧系统-->
@@ -327,9 +335,9 @@
                                         </div>
                                         <!--数据信息-->
                                         <div class="bottom-efficiency-message">
-                                            <p>散热量:<span id="span_LQC_rVa_text">0</span>KW</p>
-                                            <p>水泵风机耗电量:<span id="span_LQC_eVa_text">0</span>KW</p>
-                                            <p>冷却输送系数:<span id="span_LQC_nxVa_text">0</span>KW/KW</p>
+                                            <p>散热量:<span id="span_LQC_rVa_text">0</span>kW</p>
+                                            <p>水泵风机耗电量:<span id="span_LQC_eVa_text">0</span>kW</p>
+                                            <p>冷却输送系数:<span id="span_LQC_nxVa_text">0</span>kW/kW</p>
                                         </div>
                                     </div>
                                     <!--冷冻侧系统-->
@@ -340,9 +348,9 @@
                                         </div>
                                         <!--数据信息-->
                                         <div class="bottom-efficiency-message">
-                                            <p>供冷量:<span id="span_LDC_cVa_text">0</span>KW</p>
-                                            <p>一二次泵耗电量:<span id="span_LDC_eVa_text">0</span>KW</p>
-                                            <p>冷冻输送系数:<span id="span_LDC_nxVa_text">0</span>KW/KW</p>
+                                            <p>供冷量:<span id="span_LDC_cVa_text">0</span>kW</p>
+                                            <p>一二次泵耗电量:<span id="span_LDC_eVa_text">0</span>kW</p>
+                                            <p>冷冻输送系数:<span id="span_LDC_nxVa_text">0</span>kW/kW</p>
                                         </div>
                                     </div>
 
@@ -358,7 +366,9 @@
                                 </div>
 
                             </div>
+
                         </div>
+
                         <!--下方折线图-->
                         <div class="right-bottom-content-bottom">
                             <div class="row">
@@ -382,13 +392,17 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="clearfix"></div>
+
                 </div>
 
                 <!--换热机房-->
                 <div class="right-bottom-content right-bottom-content2"  style="display: none">
+
                     <!--页面左侧视频及介绍-->
                     <div class="right-bottom-content-left">
+
                         <video class="content-left-img" alt="" src="../njn-resource/video/xiaji.mp4" controls="controls"></video>
 
                         <!--换热站介绍-->
@@ -398,20 +412,27 @@
                                 <span class="left-patch"></span>
                                 换热站介绍
                             </h3>
+
                             <p>
                                 南京南站采暖采用华润热电厂0.7MPa 的饱和蒸汽，经减压至0.4MPa 供末端使用。热交换站位于首层动力中心内，东西各一个。每个机房内均设6 台换热罐和4台热水泵。
                             </p>
+
                         </div>
                     </div>
+
                     <!--页面右侧数据-->
                     <div class="right-bottom-content-right">
+
                         <!--上方数据统计-->
                         <div class="right-bottom-content-top">
+
                             <!--设备运行-->
                             <div class="bottom-content-top-introduce bottom-content-top-operation quota-data-bottom">
+
                                 <!--头部信息-->
                                 <h3 style="">
                                     <span class="left-patch"></span>
+
                                     设备运行
                                 </h3>
 
@@ -443,6 +464,7 @@
                                     <span class="left-patch"></span>
                                     负荷率<br/>
                                     <span style="font-size:14px;font-weight: 300">负荷率=冷站实时供冷量/冷站总装机冷量</span>
+
                                 </h3>
 
                                 <div id="bottom-content-chart" style="margin-left:50px;">
@@ -450,12 +472,15 @@
                                 </div>
 
                             </div>
+
                             <!--运行报警-->
                             <div class="bottom-content-top-introduce bottom-content-top-alarm quota-data-bottom">
                                 <!--头部信息-->
                                 <h3 style="margin-bottom:20px;">
+
                                     <span class="left-patch"></span>
                                     运行报警
+
                                 </h3>
                                 <div class="alarm-content-container">
                                     <!--<p class="alarm-content">设备故障报警 <font></font> <span>X3</span></p>-->
@@ -474,6 +499,7 @@
                                     <span class="left-patch"></span>
                                     实时能效
                                 </h3>
+
                                 <!--换热效率-->
                                 <div class="bottom-efficiency-container">
                                     <h2 class="right-bottom-content-title">换热效率</h2>
@@ -501,6 +527,7 @@
                                         <p>输送系数:<span id="span_SSXS_nxVa_text">97</span></p>
                                     </div>
                                 </div>
+
                                 <!--图例-->
                                 <div class="bottom-content-legend">
                                     <span class="legend legend1"><font></font>出色</span>
@@ -508,19 +535,24 @@
                                     <span class="legend legend3"><font></font>一般</span>
                                     <span class="legend legend4"><font></font>急需改善</span>
                                 </div>
+
                             </div>
+
                         </div>
 
                         <!--下方折线图-->
                         <div class="right-bottom-content-bottom">
                             <div class="row">
+
                                 <!--能耗曲线-->
                                 <div class="col-lg-6 bottom-content-top-introduce bottom-content-bottom-consumption quota-data-bottom">
+
                                     <!--头部信息-->
                                     <h3 style="margin-bottom:20px;">
                                         <span class="left-patch"></span>
                                         能耗曲线
                                     </h3>
+
                                     <!--选项卡-->
                                     <div class="consumption-container consumption-container1">
                                         <span class="onClick">供热量</span>
@@ -529,7 +561,9 @@
                                     </div>
                                     <div class="right-bottom-content-bottom-echart" id="consumotion-echart">
                                     </div>
+
                                 </div>
+
                                 <!--供热温度曲线-->
                                 <div class="col-lg-6 bottom-content-top-introduce bottom-content-bottom-consumption bottom-content-bottom-temperature quota-data-bottom">
                                     <!--头部信息-->
@@ -549,6 +583,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -700,8 +735,10 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+
 <!--时间插件-->
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+
 <!--loading插件-->
 <script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
 

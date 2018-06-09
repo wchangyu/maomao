@@ -2,11 +2,11 @@ $(function(){
 
     /*-------------------------------------时间插件----------------------------------------*/
 
-    var nowTime = moment().format('YYYY/MM/DD');
+    var nowTime = moment().format('YYYY-MM-DD');
 
     if($('#timeType').val() == 0){
 
-        _monthDate($('.datatimeblock'));
+        _monthDate11($('.datatimeblock'));
 
     }else{
 
@@ -15,16 +15,16 @@ $(function(){
     }
 
     //默认时间
-    $('.datatimeblock').val(moment(nowTime).format('YYYY/MM'));
+    $('.datatimeblock').val(moment(nowTime).format('YYYY-MM'));
 
     $('#timeType').change(function(){
 
         if($(this).val() == 0){
 
-            _monthDate($('.datatimeblock'));
+            _monthDate11($('.datatimeblock'));
 
             //时间设置
-            $('.datatimeblock').val(moment(nowTime).format('YYYY/MM'))
+            $('.datatimeblock').val(moment(nowTime).format('YYYY-MM'))
 
         }else if( $(this).val() == 1 ){
 
@@ -55,7 +55,7 @@ $(function(){
 
         conditionSelect($('#area').val());
 
-    })
+    });
 
     //打印
     $('#print').click(function(){
@@ -105,17 +105,17 @@ $(function(){
         if($('#timeType').val() == 0){
 
             //月报表
-            st = moment($('.datatimeblock').val()).startOf('months').format('YYYY/MM/DD');
+            st = moment($('.datatimeblock').val()).startOf('months').format('YYYY-MM-DD');
 
-            et = moment($('.datatimeblock').val()).endOf('months').add(1,'d').format('YYYY/MM/DD');
+            et = moment($('.datatimeblock').val()).endOf('months').add(1,'d').format('YYYY-MM-DD');
 
 
         }else if($('#timeType').val() == 1){
 
             //年报表
-            st = moment($('.datatimeblock').val()).startOf('years').format('YYYY/MM/DD');
+            st = moment($('.datatimeblock').val()).startOf('years').format('YYYY-MM-DD');
 
-            et = moment($('.datatimeblock').val()).endOf('years').add(1,'d').format('YYYY/MM/DD');
+            et = moment($('.datatimeblock').val()).endOf('years').add(1,'d').format('YYYY-MM-DD');
         }
 
         //首先判断是工单统计还是满意度统计
@@ -130,7 +130,8 @@ $(function(){
 
             if($('#timeType').val() == 0){
 
-                var dataTime = $('.datatimeblock').val().split('/');
+                var dataTime = $('.datatimeblock').val().split('-');
+
 
                 $('#entry-datatables').find('.data-time').html(dataTime[0] + '年' + dataTime[1] + '月');
 
@@ -141,7 +142,7 @@ $(function(){
             }
 
             //导出时间（查询时间）
-            excelTime = moment().format('YYYY/MM/DD hh:mm:ss');
+            excelTime = moment().format('YYYY-MM-DD hh:mm:ss');
 
             $('#entry-datatables').find('.derive-time').html(excelTime);
 
@@ -184,7 +185,7 @@ $(function(){
 
                         '<td style="text-align:center;border:1px solid black">' + result[i].gdFPer + '</td>' +
 
-                        '<td style="text-align:center;border:1px solid black">' + result[i].gdTimeConsume + '</td>' +
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdTimeConsume.toFixed(2) + '</td>' +
 
                         '<td style="text-align:center;border:1px solid black">' + result[i].gdFee + '</td>' +
 
@@ -215,7 +216,7 @@ $(function(){
 
             if($('#timeType').val() == 0){
 
-                var dataTime = $('.datatimeblock').val().split('/');
+                var dataTime = $('.datatimeblock').val().split('-');
 
                 $('#Satisfaction-datatables').find('.data-time').html(dataTime[0] + '年' + dataTime[1] + '月');
 
@@ -226,7 +227,7 @@ $(function(){
             }
 
             //导出时间（查询时间）
-            excelTime = moment().format('YYYY/MM/DD hh:mm:ss');
+            excelTime = moment().format('YYYY-MM-DD hh:mm:ss');
 
             $('#Satisfaction-datatables').find('.derive-time').html(excelTime);
 
@@ -301,17 +302,37 @@ $(function(){
     //获取车站
     function pointerData(){
 
-        var pointer = JSON.parse(sessionStorage.getItem('pointers'));
+        $.ajax({
 
-        var str = '';
+            type:'post',
 
-        for(var i=0;i<pointer.length;i++){
+            url:_urls + 'YWDev/ywDMGetDDs',
 
-            str += '<option value="' + pointer[i].pointerID + '">' + pointer[i].pointerName + '</option>';
+            timeout:_theTimes,
 
-        }
+            data:{
 
-        $('#area').empty().append(str);
+                'userID':_userIdNum,
+
+                'userName':_userIdName
+
+            },
+
+            success:function(result){
+
+                var str = '<option value="">全部</option>'
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].ddNum + '">' + result[i].ddName + '</option>';
+
+                }
+
+                $('#area').empty().append(str);
+
+            }
+
+        })
 
 
     }

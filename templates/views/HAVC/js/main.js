@@ -48,7 +48,7 @@
     //东冷chartView
     var init_e_c_p_chartView = function (MIN, MAX, cpV) {
         e_c_p_chartView = echarts.init(document.getElementById('e_c_p_chartView'));
-        var miscstr = "元/KWH";
+        var miscstr = "元/kWh";
         var cc = [[0.2, '#14E398'], [0.24, '#04c4e1'], [0.28, '#0b8ef4'], [1, '#105eee']];
         option = {
 
@@ -111,7 +111,7 @@
     //西冷chartView
     var init_w_c_p_chartView = function (MIN, MAX, cpV) {
         w_c_p_chartView = echarts.init(document.getElementById('w_c_p_chartView'));
-        var miscstr = "元/KWH";
+        var miscstr = "元/kWh";
         var cc = [[0.2, '#14E398'], [0.24, '#04c4e1'], [0.28, '#0b8ef4'], [1, '#105eee']];
         option = {
             tooltip: {

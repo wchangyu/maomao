@@ -1015,6 +1015,7 @@ var BEE = (function(){
                 _childMenuArr.remove(o);
             }
         });
+
         //判断主菜单下是否存在子菜单
         if(_childMenuArr.length == 0){
             return false;
@@ -1035,6 +1036,7 @@ var BEE = (function(){
         }
         menu.submenu = obj;
         //返回筛选后的菜单
+        //console.log(menu);
         return menu;
     };
 

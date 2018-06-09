@@ -324,7 +324,7 @@ function alarmHistory(){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
             _maintainEchart.hideLoading();
 
@@ -342,7 +342,10 @@ function alarmHistory(){
             $('.survey-data-container2 .data').html(result.u3dAlarmNums[1].alarmNum);
 
             //获取紧急报警
-            $('.survey-data-container1 .data').html(result.u3dAlarmNums[2].alarmNum + result.u3dAlarmNums[3].alarmNum);
+            $('.survey-data-container1 .data').html(result.u3dAlarmNums[2].alarmNum);
+
+            //获取特急报警
+            $('.survey-data-container0 .data').html(result.u3dAlarmNums[2].alarmNum);
 
             //绘制维修概况的数据
             //获取已维修数据

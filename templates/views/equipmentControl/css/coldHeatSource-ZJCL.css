@@ -386,3 +386,31 @@
     font-size: 12px;
 
 }
+
+.table-advance{
+
+    margin-bottom: 0 !important;
+
+}
+
+.dataTables_scrollHead{
+
+    border-bottom: none !important;
+
+}
+
+.CH-summer-hover{
+
+    border: 1px solid #1fe49d;
+
+    color: #1fe49d;
+
+}
+
+.CH-winter-hover{
+
+    border: 1px solid #ead01e;
+
+    color: #ead01e;
+
+}

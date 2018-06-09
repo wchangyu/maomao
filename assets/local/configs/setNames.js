@@ -115,12 +115,54 @@ var __systemConfigArr = [
         //定义实时报警是否显示查看流程图功能 0为不显示 1为显示
         ifShowMonitor : 0
     },
-    //摄像头相关页面配置配置信息
+    //摄像头相关页面配置信息
     {
         pageName :"摄像头",
         pageUrl :"new-luxianghuifang/historyMonitor.html",
         pageId:0,
         //定义摄像头是否显示需要进行解密操作 0为不需解密 1为解密
-        ifdecode : 1
+        ifdecode : 0
+    },
+    //能耗中定额管理相关页面配置信息
+    {
+        pageName :"能耗中定额管理",
+        pageUrl :"new-yongnengguanli/OfficeDingEData.html",
+        pageId:1,
+        //定义定额管理中定额种类
+        quotaKind : [
+            {
+                quotaName:'楼宇',
+                quotaTypeID:'1',
+                isShow:1
+            },
+            {
+                quotaName:'分户',
+                quotaTypeID:'2',
+                isShow:1
+            },
+            {
+                quotaName:'支路',
+                quotaTypeID:'3',
+                isShow:0
+            },
+            {
+                quotaName:'企业',
+                quotaTypeID:'4',
+                isShow:0
+            },
+            {
+                quotaName:'KPI指标',
+                quotaTypeID:'5',
+                isShow:0
+            }
+        ]
+    },
+    //能耗中关联分析页面配置信息
+    {
+        pageName :"能耗中关联分析",
+        pageUrl :"new-nenghaofenxi/relevanAnalysData.html",
+        pageId:2,
+        //定义根据楼宇展示 还是院区展示 0为楼宇 1为院区
+        showDataType : 0
     }
 ];

@@ -171,12 +171,20 @@
 }
 .right-bottom-equipment .bottom-equipment-chart-data .chart-cost {
 
-    background: url(../../img/feiyong.png) no-repeat 45px center !important;
+    background: url(../../img/feiyong.png) no-repeat 30px center !important;
 
 }
 .right-bottom-equipment .bottom-equipment-chart-data .chart-power {
 
     background: url(../../img/electricity.png) no-repeat 50px center;
+    font-size:14px;
+    text-align: center;
+    color:white;
+}
+
+.right-bottom-equipment .bottom-equipment-chart-data .chart-power0 {
+
+    background: url(../../img/small-co2.png) no-repeat 44px center;
     font-size:14px;
     text-align: center;
     color:white;

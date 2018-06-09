@@ -712,7 +712,7 @@ function getTDayCs(ew){
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kw)'
+                    name:'单位:(kW)'
                 },
                 series: serary
             };
@@ -835,7 +835,7 @@ function getTDayEs(ew) {
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kw)'
+                    name:'单位:(kW)'
                 },
                 series: serary
             };
@@ -899,7 +899,7 @@ function getTotalHeatData(ew){
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kw)'
+                    name:'单位:(kW)'
                 },
                 series: serary
             };
@@ -1024,7 +1024,7 @@ function getTotalEnergyData(ew){
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kw)'
+                    name:'单位:(kW)'
                 },
                 series: serary
             };
@@ -1184,7 +1184,7 @@ function getRBJAE(ew) {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(st) ,
         AREA:ew
-    }
+    };
     chartViewRBJMain.showLoading();
     $.post(url,par,function (res) {
         chartViewRBJMain.hideLoading();
@@ -1335,7 +1335,7 @@ var initareaoption = function (cc,minVa,maxVa,nxVa){
                         fontStyle: 'normal'
                     }
                 },
-                data: [{ value: parseFloat(nxVa)}]//, name: 'KW/KW'
+                data: [{ value: parseFloat(nxVa)}]//, name: 'kW/kW'
             },
         ]
     };
@@ -1398,7 +1398,7 @@ var initareaoption1 = function (cc,minVa,maxVa,nxVa){
                         fontStyle: 'normal'
                     }
                 },
-                data: [{ value: parseFloat(nxVa)}]//, name: 'KW/KW'
+                data: [{ value: parseFloat(nxVa)}]//, name: 'kW/kW'
             },
         ]
     };
@@ -1469,7 +1469,7 @@ var option1 = {
                     width: 5
                 }
             },
-            data: [{value:1.2,name:'KW/RT'}]
+            data: [{value:1.2,name:'kW/RT'}]
         }
     ]
 };

@@ -113,7 +113,7 @@ h3 .left-patch {
     display: inline-block;
     border:1px solid #d1d1d1;
     text-align: center;
-    margin-right: -4px;
+    margin-right: 0px;
     cursor: pointer;
 }
 

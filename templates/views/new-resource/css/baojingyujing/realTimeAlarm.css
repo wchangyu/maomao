@@ -53,7 +53,7 @@
 }
 .left-top-alarm .alarm-data-container .alarm-data{
     font-size:28px;
-    color: #F8276C;
+    color: #EAD01E;
     min-width:42px;
     text-align: center;
     margin-right:10px;
@@ -62,11 +62,15 @@
 }
 
 .left-top-alarm .alarm-data-container .alarm-data1{
-    color: #EAD01E;
+    color: #14E398;
 }
 
 .left-top-alarm .alarm-data-container .alarm-data2{
-    color: #14E398;
+    color: blue;
+}
+
+.left-top-alarm .alarm-data-container .alarm-data00{
+    color: #F8276C;
 }
 
 .condition-query{

@@ -66,15 +66,21 @@
       "三维": {
         "type": "0",
         "content": "三维",
-        "uri": "../njn-dapingzhanshi/openExe.html",
+        "uri": "../njn-dapingzhanshi/openExe.html?a=1",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "二维": {
+        "type": "0",
+        "content": "二维",
+        "uri": "../njn-dapingzhanshi/openExe.html?a=2",
         "uid": "",
         "arg": "",
         "iconclass": ""
       }
-
     }
   },
-
   "暖通空调": {
     "type": "1",
     "content": "暖通空调",
@@ -394,29 +400,6 @@
         "uid": "",
         "arg": "",
         "iconclass": "icon-bar-chart"
-      }
-    }
-  },
-  "设备控制": {
-    "type": "1",
-    "content": "设备控制",
-    "iconclass": "icon-camcorder",
-    "submenu": {
-      "冷热源-专家策略": {
-        "type": "0",
-        "content": "冷热源-专家策略",
-        "uri": "../equipmentControl/coldHeatSource-ZJCL.html",
-        "uid": "",
-        "arg": "2,4",
-        "iconclass": ""
-      },
-      "冷热源-协同联动": {
-        "type": "0",
-        "content": "冷热源-协同联动",
-        "uri": "../equipmentControl/coldHeatSource-XTLD.html",
-        "uid": "",
-        "arg": "2,4",
-        "iconclass": ""
       }
     }
   },
@@ -2260,6 +2243,45 @@
         "type": "0",
         "content": "综合管理",
         "uri": "../new-baobiaoguanli/statementManagement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
+  "冷热源": {
+    "type": "1",
+    "iconclass": "icon-speedometer",
+    "content": "冷热源",
+    "submenu": {
+      "专家策略": {
+        "type": "0",
+        "content": "专家策略",
+        "uri": "../equipmentControl/coldHeatSource-ZJCL.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "协同联动": {
+        "type": "0",
+        "content": "协同联动",
+        "uri": "../equipmentControl/coldHeatSource-XTLD.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "节能策略": {
+        "type": "0",
+        "content": "节能策略",
+        "uri": "../equipmentControl/airConditioningTerminal.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "节能策略(照明)": {
+        "type": "0",
+        "content": "节能策略(照明)",
+        "uri": "../equipmentControl/LightingcontrolSetting.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

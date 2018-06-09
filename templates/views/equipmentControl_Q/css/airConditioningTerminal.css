@@ -214,17 +214,3 @@
     height: 16px;
 
 }
-
-.datetime{
-
-    cursor: pointer;
-
-    width: 120px !important;
-    
-    background: url("../../resource/img/canlendar.png") no-repeat;
-
-    background-position: 95% center;
-
-    background-size: 26px;
-
-}

@@ -134,7 +134,11 @@ $(function(){
 
             //dateTime类型
 
-        }else if( $(thisTd).attr('datetype') == 5 ){}
+        }else{
+
+            passFlag = true;
+
+        }
 
         if(passFlag){
 
@@ -258,7 +262,7 @@ $(function(){
 
             data:{
 
-                instanceID:'1528338164'
+                instanceID:'1528517306'
 
             },
 
@@ -287,7 +291,7 @@ $(function(){
 
         var prm = {
 
-            instanceID:'1528338164',
+            instanceID:'1528517306',
 
             modifycells:modifyArr
 
@@ -416,14 +420,17 @@ $(function(){
 
                         //枚举类型
                         //解析字符串
+                        if(tdValue.enums){
 
-                        var jsonEnums = eval('(' + tdValue.enums + ')');
+                            var jsonEnums = eval('(' + tdValue.enums + ')');
 
-                        for(var k=0;k<jsonEnums.length;k++){
+                            for(var k=0;k<jsonEnums.length;k++){
 
-                            if(jsonEnums[k]['key'] == tdValue.value ){
+                                if(jsonEnums[k]['key'] == tdValue.value ){
 
-                                trsDom.html(jsonEnums[k]['value']);
+                                    trsDom.html(jsonEnums[k]['value']);
+
+                                }
 
                             }
 
@@ -475,7 +482,7 @@ $(function(){
 
         var prm = {
 
-            instanceID:'1528338164'
+            instanceID:'1528517306'
 
         }
 
@@ -538,5 +545,36 @@ $(function(){
         })
 
     }
+
+
+    /*-------------------------------静态点击事件-------------------------------------*/
+
+    //夏季模板选择
+    $('.CH-summer').click(function(){
+
+        $('.CH-list').removeClass('CH-summer-hover').removeClass('CH-winter-hover');
+
+        $(this).addClass('CH-summer-hover');
+
+    })
+
+    //冬季模板选择
+    $('.CH-winner').click(function(){
+
+        $('.CH-list').removeClass('CH-summer-hover').removeClass('CH-winter-hover');
+
+        $(this).addClass('CH-winter-hover');
+
+    })
+
+    //东西站房选择
+    $('.local-tap').click(function(){
+
+        $('.local-tap').removeClass('local-tap-checked');
+
+        $(this).addClass('local-tap-checked');
+
+    })
+
 
 })

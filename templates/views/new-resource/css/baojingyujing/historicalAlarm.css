@@ -66,17 +66,19 @@ table.dataTable thead .sorting_desc:after {
     margin-bottom:10px;
 }
 /*背景图片*/
-.survey-data-container1{
+.survey-data-container0{
     background: url(../../img/house-red.png) no-repeat 20px center;
 }
 
-.survey-data-container2{
+.survey-data-container1{
     background: url(../../img/house-yellow.png) no-repeat 20px center;
 }
-.survey-data-container3{
+.survey-data-container2{
     background: url(../../img/house-green.png) no-repeat 20px center;
 }
-
+.survey-data-container3{
+    background: url(../../img/house-blue.png) no-repeat 20px center;
+}
 
 /*框中的数据*/
 .survey .survey-data-container p{

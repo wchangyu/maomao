@@ -25,7 +25,20 @@ $(function(){
 
     _ajaxEcTypeWord = _getEcTypeWord();
 
-    getBranchZtree(0,0,getPointerTree);
+    //根据配置获取左侧展示树状图
+    if(getDataByConfig() == 1){
+
+        getBranchZtree(0,0,getPointerTree);
+
+    }else{
+
+        //楼宇ztree树
+        _pointerZtree = _getPointerZtree($("#allBranch"),1);
+
+        //楼宇搜索功能
+        _searchPO($(".tipes"),"allBranch");
+
+    }
 
     //显示隐藏左侧时
     $('.showOrHidden').click(function(){
@@ -33,39 +46,88 @@ $(function(){
         window.onresize();
     });
 
-    //加载初始数据
-    getPointerData('EnergyAnalyzeV2/GetRelevanAnalysData',1);
 
+    //加载初始数据
+
+    if(getDataByConfig() == 1){
+
+        getPointerData('EnergyAnalyzeV2/GetRelevanAnalysData',1);
+
+    }else{
+
+        getPointerData('EnergyAnalyzeV2/GetPointerRAnalysData',2);
+
+    }
 
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
     $('.buttons').children('.btn-success').click(function(){
+
         //获得选择的能耗类型
         _ajaxEcType =_getEcTypeValue(_ajaxEcType);
 
         //获取能耗类型名称
         var ecTypeName = $('.selectedEnergy').attr('value');
 
-        getPointerData('EnergyAnalyzeV2/GetRelevanAnalysData',1);
+        if(getDataByConfig() == 1){
+
+            getPointerData('EnergyAnalyzeV2/GetRelevanAnalysData',1);
+
+        }else{
+
+            getPointerData('EnergyAnalyzeV2/GetPointerRAnalysData',2);
+
+        }
+
+
 
     });
 
     //能耗选择
     $('.typee').click(function(){
+
         $('.typee').removeClass('selectedEnergy');
         $(this).addClass('selectedEnergy');
 
     });
 
-
     //chart图自适应
     window.onresize = function () {
+
         if(myChartTopLeft){
             myChartTopLeft.resize();
         }
+
     };
 
 });
+
+//从配置项中获取页面中所展示信息
+function getDataByConfig(){
+
+    //获取当前的url
+    var curUrl = window.location.href;
+
+    var  showDataType = 0;
+
+    //获取当前页面的配置信息
+    $(__systemConfigArr).each(function(i,o){
+
+        //获取当前配置项中的url
+        var thisUrl = o.pageUrl;
+
+        //找到了当前页面对应的配置项
+        if(curUrl.indexOf(thisUrl) > -1){
+
+            //获取到具体的关联分析配置
+            showDataType = o.showDataType;
+
+            return false
+        }
+    });
+
+    return showDataType;
+};
 
 //记录能耗种类
 var _ajaxEcType = '';
@@ -114,15 +176,15 @@ var optionLineBar = {
             name:'能耗'
         },
         {
-            type: 'value',
-            name:'平均温度',
-            position: 'right'
+            //type: 'value',
+            //name:'平均温度',
+            //position: 'right'
         },
         {
-            type: 'value',
-            name:'就诊人数',
-            position: 'right',
-            offset:50
+            //type: 'value',
+            //name:'就诊人数',
+            //position: 'right',
+            //offset:50
         }
     ],
     grid: {
@@ -166,28 +228,50 @@ function getPointerData(url,flag){
     //存放要传的企业集合
     var enterpriseIDs = [];
 
+    //存放要传的楼宇集合
+    var postPointerIDs = [];
+
     //获取名称
     var areaName = '';
 
-    //确定支路id
-    var nodes = branchTreeObj.getCheckedNodes(true);
+    //楼宇数据
+    if(flag == 2){
 
-    $( nodes).each(function(i,o){
+        //var treeObj = $.fn.zTree.getZTreeObj('allBranch');
 
-        //如果勾选的是父节点
-        if(o.level == 0){
+        //确定楼宇id
+        var pts = _pointerZtree.getSelectedPointers();
 
-            $(o.children).each(function(i,o){
+        $(pts).each(function(i,o){
+
+            postPointerIDs.push(o.pointerID)
+        });
+
+        areaName = $('.radio_true_full').next().attr('title');
+
+    }else{
+
+        //确定支路id
+        var nodes = branchTreeObj.getCheckedNodes(true);
+
+        $( nodes).each(function(i,o){
+
+            //如果勾选的是父节点
+            if(o.level == 0){
+
+                $(o.children).each(function(i,o){
+                    enterpriseIDs.push(o.id);
+                })
+
+            }else{
                 enterpriseIDs.push(o.id);
-            })
+            }
 
-        }else{
-            enterpriseIDs.push(o.id);
-        }
+            //页面上方展示信息
+            areaName += o.name;
+        });
 
-        //页面上方展示信息
-        areaName += o.name;
-    });
+    }
 
     //判断是否标煤
     if($('.selectedEnergy p').html() == '标煤'){
@@ -212,6 +296,7 @@ function getPointerData(url,flag){
         "selectDateType": selectDateType,
         "energyItemID": _ajaxEcType,
         "enterpriseIDs": enterpriseIDs,
+        "pointerIDs": postPointerIDs,
         "startTime": startTime,
         "endTime": endTime
     };
@@ -232,10 +317,11 @@ function getPointerData(url,flag){
             //console.log(result);
 
             //判断是否返回数据
-            if(result == null || result.length < 2){
+            if(result == null || result.length < 1){
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
                 return false;
             }
+
             //改变头部显示信息
             var energyName = '';
 
@@ -249,7 +335,7 @@ function getPointerData(url,flag){
             //绘制echarts
 
             //图例
-            var legendArr = [energyName,'平均气温','就诊人数'];
+            var legendArr = [energyName];
 
             //首先处理本期的数据
             allData.length = 0;
@@ -282,21 +368,49 @@ function getPointerData(url,flag){
             };
             //console.log(allData);
 
-
-
             //温度数据
             var allDataY1 = [];
 
-            $(result[1].metaDatas).each(function(i,o){
+            if(result.length > 1){
 
-                allDataY1.push(o.data.toFixed(2));
-            });
+                //获取当前曲线名称
+                var showName = getDataName(result[1].showNameFlag);
+
+                legendArr.push(showName);
+
+                optionLineBar.series[1].name = showName;
+
+
+                $(result[1].metaDatas).each(function(i,o){
+
+                    allDataY1.push(o.data.toFixed(2));
+                });
+
+                optionLineBar.yAxis[1] = {
+
+                    type: 'value',
+                    name:showName,
+                    position: 'right',
+                    //offset:50,
+                    show:true
+                };
+
+                //温度
+                optionLineBar.series[1].data = allDataY1;
+
+            }
 
             //就诊人数
             var allDataY2 = [];
 
             if(result.length > 2){
 
+                //获取当前曲线名称
+                var showName = getDataName(result[2].showNameFlag);
+
+                legendArr.push(showName);
+
+                optionLineBar.series[2].name = showName;
 
                 $(result[2].metaDatas).each(function(i,o){
 
@@ -315,7 +429,7 @@ function getPointerData(url,flag){
                     optionLineBar.yAxis[3] = {
 
                         type: 'value',
-                        name:'就诊人数',
+                        name:showName,
                         position: 'right',
                         offset:50,
                         show:true
@@ -329,7 +443,7 @@ function getPointerData(url,flag){
                     optionLineBar.yAxis[3]=  {
 
                         type: 'value',
-                        name:'就诊人数',
+                        name:showName,
                         position: 'right',
                         offset:50,
                         show:false
@@ -339,9 +453,6 @@ function getPointerData(url,flag){
                 }
 
             }
-
-
-
 
             $(allData).each(function(i,o){
 
@@ -354,10 +465,6 @@ function getPointerData(url,flag){
             optionLineBar.xAxis[0].data = allDataX;
             optionLineBar.series[0].data = allDataY;
             optionLineBar.series[0].name = energyName;
-
-            //温度
-            optionLineBar.series[1].data = allDataY1;
-
 
 
             optionLineBar.legend.data = legendArr;
@@ -377,6 +484,25 @@ function getPointerData(url,flag){
 
         }
     })
+};
+
+
+//获取当前数据曲线名称
+function getDataName(showNameFlag){
+
+    if(showNameFlag == 1){
+
+        return '平均温度';
+
+    }else if(showNameFlag == 2){
+
+        return '平均温度';
+
+    }else if(showNameFlag == 2){
+
+        return '客流量';
+    }
+
 };
 
 

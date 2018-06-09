@@ -108,3 +108,11 @@
     background: none !important;
     text-align: center;
 }
+
+.month-data-input {
+
+    width: 60px;
+    border: 1px;
+    background: white !important;
+    text-align: center;
+}

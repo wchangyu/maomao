@@ -18,4 +18,24 @@ $(function(){
 
     })
 
+    //表格初始化
+    var col = [
+
+        {
+            title:'末端负荷率',
+            data:''
+        },
+        {
+            title:'冷机运行策略',
+            data:''
+        },
+        {
+            title:'冷冻水供水设定温度',
+            data:''
+        }
+
+    ]
+
+    _tableInitScroll($('.table'),col,2,false,'','','','','',true,500);
+
 })

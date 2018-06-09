@@ -128,6 +128,7 @@ $(function(){
     $('.right-info-header-logo').on('click',function(){
 
         window.location.href = "../passengerStation/passengerStation.html?sendUrl=new-nengyuanzonglan/new-index.html";
+
     });
 
     //当鼠标放到系统选项卡上时
@@ -150,8 +151,6 @@ $(function(){
 
         $(this).show();
     });
-
-
 
     //当鼠标离开系统选项卡上时
     $('.right-tab-container').on('mouseleave','span',function(){
@@ -600,10 +599,12 @@ $('.right-tab-container .right-tab').on('click',function(){
         if( i>0 && i<tabLength -1 ){
 
             className = 'right-tab-choose1';
+
         //第一个选项卡
         }else if(i == 0){
 
             className = 'right-tab-choose0';
+
         //最后一个选项卡
         }else{
 
@@ -635,8 +636,6 @@ $('.right-tab-container .right-tab').on('click',function(){
 
     //给当前选中元素添加选中类名
     $(this).addClass(onClassName);
-
-
 
 });
 
@@ -707,7 +706,8 @@ function getNowTime(){
 
         getNowTime();
 
-    },1000)
+    },1000);
+
 };
 
 //获取当年气象参数
@@ -774,6 +774,7 @@ function getPointersId(){
     });
 
     return pointerIdArr;
+
 };
 
 //从本地存储中获取分户ID列表
@@ -791,6 +792,7 @@ function getOfficesId(){
     });
 
     return officeIdArr;
+
 };
 
 //------------------------------------页面左侧站点数据-----------------------------------//
@@ -1074,6 +1076,7 @@ function getShowDateType(){
 
 //获取给后台传递的时间
 function getPostTime(){
+
     //获取页面日期类型
     var dateType = $('.right-bottom-container .left-tab-container .right-tab-choose').html();
 
@@ -1571,6 +1574,7 @@ function getPostTime11(){
 
 //展示日期类型 用户选择日期类型以及开始结束时间
 function getShowDateTypeByDom(dom){
+
     //获取页面日期类型
     var dateType = $(dom).html();
 

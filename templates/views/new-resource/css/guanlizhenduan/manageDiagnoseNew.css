@@ -1,0 +1,64 @@
+.content-header{
+
+    min-width: 1380px;
+}
+
+
+.energy-diagnose1{
+
+    width:335px;
+    height:272px;
+    background:url("../../img/diagnose-01.png") no-repeat;
+    background-size: 100% 100%;
+    border-radius:4px !important;
+    padding-top: 140px;
+    box-sizing: border-box;
+    padding-left:10px;
+    padding-right: 10px;
+    float: left;
+    margin-right:10px;
+    cursor: pointer;
+    position: relative;
+}
+.energy-diagnose1 h3{
+
+    font-weight: 600;
+    text-align: center;
+
+}
+.energy-diagnose01{
+    background:url("../../img/diagnose-02.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.energy-diagnose02{
+    background:url("../../img/diagnose-03.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.energy-diagnose03{
+    background:url("../../img/diagnose-04.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.energy-diagnose1 .bottom-choose{
+
+    position: absolute;
+    right:0;
+    bottom:0;
+    width:38px;
+}
+
+.energy-diagnose03{
+    margin-right: 0;
+}
+
+/*按钮*/
+.diagnose-btn button{
+
+    width:124px;
+    height:41px;
+    background:rgba(33,112,244,1);
+    border-radius:4px !important;
+    font-size: 22px;
+}
