@@ -132,6 +132,7 @@ $(function(){
 
                 var dataTime = $('.datatimeblock').val().split('-');
 
+
                 $('#entry-datatables').find('.data-time').html(dataTime[0] + '年' + dataTime[1] + '月');
 
             }else if($('#timeType').val() == 1){
@@ -184,7 +185,7 @@ $(function(){
 
                         '<td style="text-align:center;border:1px solid black">' + result[i].gdFPer + '</td>' +
 
-                        '<td style="text-align:center;border:1px solid black">' + result[i].gdTimeConsume + '</td>' +
+                        '<td style="text-align:center;border:1px solid black">' + result[i].gdTimeConsume.toFixed(2) + '</td>' +
 
                         '<td style="text-align:center;border:1px solid black">' + result[i].gdFee + '</td>' +
 
@@ -215,7 +216,7 @@ $(function(){
 
             if($('#timeType').val() == 0){
 
-                var dataTime = $('.datatimeblock').val().split('/');
+                var dataTime = $('.datatimeblock').val().split('-');
 
                 $('#Satisfaction-datatables').find('.data-time').html(dataTime[0] + '年' + dataTime[1] + '月');
 
@@ -301,17 +302,37 @@ $(function(){
     //获取车站
     function pointerData(){
 
-        var pointer = JSON.parse(sessionStorage.getItem('pointers'));
+        $.ajax({
 
-        var str = '';
+            type:'post',
 
-        for(var i=0;i<pointer.length;i++){
+            url:_urls + 'YWDev/ywDMGetDDs',
 
-            str += '<option value="' + pointer[i].pointerID + '">' + pointer[i].pointerName + '</option>';
+            timeout:_theTimes,
 
-        }
+            data:{
 
-        $('#area').empty().append(str);
+                'userID':_userIdNum,
+
+                'userName':_userIdName
+
+            },
+
+            success:function(result){
+
+                var str = '<option value="">全部</option>'
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].ddNum + '">' + result[i].ddName + '</option>';
+
+                }
+
+                $('#area').empty().append(str);
+
+            }
+
+        })
 
 
     }

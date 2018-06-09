@@ -1,4 +1,4 @@
-﻿﻿var Calendar = function () {
+﻿var Calendar = function () {
 
     var selectAREA = "EC";//选中东冷站区域
 

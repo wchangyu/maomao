@@ -1113,7 +1113,7 @@ var _electricityoption = {
                 },
                 {
                     value:32,
-                    name:'68kw',
+                    name:'68kW',
                     itemStyle : placeHolderStyle
                 }
 
@@ -1138,7 +1138,7 @@ var _electricityoption = {
                 },
                 {
                     value:71,
-                    name:'29kw',
+                    name:'29kW',
                     itemStyle : placeHolderStyle
                 }
 
@@ -1226,7 +1226,7 @@ var _conditioneroption = {
                 },
                 {
                     value:32,
-                    name:'68kw',
+                    name:'68kW',
                     itemStyle : placeHolderStyle
                 }
 
@@ -1251,7 +1251,7 @@ var _conditioneroption = {
                 },
                 {
                     value:71,
-                    name:'29kw',
+                    name:'29kW',
                     itemStyle : placeHolderStyle
                 }
 
@@ -1277,7 +1277,7 @@ var _conditioneroption = {
                 },
                 {
                     value:81,
-                    name:'29kw',
+                    name:'29kW',
                     itemStyle : placeHolderStyle
                 }
 
@@ -1383,7 +1383,7 @@ var _stationoption = {
                 },
                 {
                     value:32,
-                    name:'68kw',
+                    name:'68kW',
                     itemStyle : placeHolderStyle
                 }
 
@@ -1408,7 +1408,7 @@ var _stationoption = {
                 },
                 {
                     value:71,
-                    name:'29kw',
+                    name:'29kW',
                     itemStyle : placeHolderStyle
                 }
 
@@ -2148,7 +2148,7 @@ function getTPDevMonitor(){
             drawEcharts(hvacairDataArr,'equipment-chart-electricity1',colorArr2,hvacairCenterData, _conditioneroption,'');
 
             //电功率
-            $('#equipment-chart-electricity').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data').html(result.hvacAirsOBJ.elecPower.toFixed(1) + '<span>kw</span>');
+            $('#equipment-chart-electricity').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data').html(result.hvacAirsOBJ.elecPower.toFixed(1) + '<span>kW</span>');
 
             //检测点
             $('#equipment-chart-electricity1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.hvacAirsOBJ.alarmNum);
@@ -2209,7 +2209,7 @@ function getTPDevMonitor(){
             drawEcharts(platformArr,'equipment-chart-conditioner1',colorArr2,platformData, _conditioneroption,'');
 
             //电功率
-            $('#equipment-chart-conditioner').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data').html(result.lightSysOBJ.elecPower.toFixed(1) + '<span>kw</span>');
+            $('#equipment-chart-conditioner').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data').html(result.lightSysOBJ.elecPower.toFixed(1) + '<span>kW</span>');
 
             //检测点
             $('#equipment-chart-conditioner1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.lightSysOBJ.alarmNum);
@@ -2266,7 +2266,7 @@ function getTPDevMonitor(){
 
 
             //电功率
-            $('#equipment-chart-elevator').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data').html(result.elevatorSysOBJ.elecPower.toFixed(1) + '<span>kw</span>');
+            $('#equipment-chart-elevator').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data').html(result.elevatorSysOBJ.elecPower.toFixed(1) + '<span>kW</span>');
 
             //检测点
             $('#equipment-chart-elevator1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.elevatorSysOBJ.alarmNum);
@@ -2352,7 +2352,7 @@ function getTPDevMonitor(){
             drawEcharts(statHouseArr,'equipment-chart-station',colorArr2,statHouseData, _conditioneroption,'');
 
             //电功率
-            $('#equipment-chart-station').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.sendDrainWaterOBJ.elecPower.toFixed(1) + '<span>kw</span>');
+            $('#equipment-chart-station').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.sendDrainWaterOBJ.elecPower.toFixed(1) + '<span>kW</span>');
 
             //检测点
             $('#equipment-chart-station').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.sendDrainWaterOBJ.alarmNum);
@@ -2385,7 +2385,7 @@ function getTPDevMonitor(){
             drawEcharts(fireControlArr,'equipment-chart-platform',colorArr2,fireControlData, _conditioneroption,'');
 
             //电功率
-            $('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.fireControlSysOBJ.elecPower.toFixed(1) + '<span>kw</span>');
+            $('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.fireControlSysOBJ.elecPower.toFixed(1) + '<span>kW</span>');
 
             //检测点
             $('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.fireControlSysOBJ.alarmNum);

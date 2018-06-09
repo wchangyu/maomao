@@ -92,11 +92,11 @@ $(function(){
 
                     var price = putInGoods.inprice;
 
-                    putInGoods.inprice = formatNumber(Number(price),2);
+                    putInGoods.inprice = formatNumber(Number(price),3);
 
                     var amount = Number(putInGoods.inprice) * Number(putInGoods.num);
 
-                    putInGoods.amount = formatNumber(Number(amount),3);
+                    putInGoods.amount = formatNumber(Number(amount),2);
 
                 }else{
 
@@ -133,7 +133,7 @@ $(function(){
                     $('.format-error1').hide();
                 }
                 var amount = Number(putInGoods.inprice) * Number(putInGoods.num);
-                putInGoods.amount = formatNumber(amount,3);
+                putInGoods.amount = formatNumber(amount,2);
             },
             //输入总金额，自动推单价
             addFun3:function(){
@@ -146,7 +146,7 @@ $(function(){
                     //根据总金额得出单价
                     var danjia =  Number(putInGoods.amount)/Number(putInGoods.num);
 
-                    putInGoods.inprice = formatNumber(danjia,2);
+                    putInGoods.inprice = formatNumber(danjia,3);
                 }else{
 
                     $('.format-error3').show();
@@ -158,7 +158,7 @@ $(function(){
                 //总金额保留两位小时
                 var amount = putInGoods.amount;
 
-                putInGoods.amount = formatNumber(Number(amount),3);
+                putInGoods.amount = formatNumber(Number(amount),2);
 
                 //再计算单价
                 var mny = /^([1-9][0-9]*(\.[0-9]{1,3})?|0\.(?!0+$)[0-9]{1,4})$/;
@@ -170,7 +170,7 @@ $(function(){
                     //根据总金额得出单价
                     var danjia =  Number(putInGoods.amount)/Number(putInGoods.num);
 
-                    putInGoods.inprice = formatNumber(danjia,2);
+                    putInGoods.inprice = formatNumber(danjia,3);
                 }else{
 
                     $('.format-error3').show();
@@ -472,7 +472,7 @@ $(function(){
             data:'inPrice',
             className:'right-justify',
             render:function(data, type, full, meta){
-                var data = formatNumber(parseFloat(data),2);
+                var data = formatNumber(parseFloat(data),3);
                 return data
             }
         },
@@ -481,7 +481,7 @@ $(function(){
             data:'amount',
             className:'right-justify',
             render:function(data, type, full, meta){
-                var data = formatNumber(parseFloat(data),3);
+                var data = formatNumber(parseFloat(data),2);
                 return data
             }
         },
@@ -607,7 +607,7 @@ $(function(){
             data:'inPrice',
             className:'right-justify',
             render:function(data, type, full, meta){
-                var data = formatNumber(parseFloat(data),2);
+                var data = formatNumber(parseFloat(data),3);
                 return data
             }
         },
@@ -616,7 +616,7 @@ $(function(){
             data:'amount',
             className:'right-justify',
             render:function(data, type, full, meta){
-                var data = formatNumber(parseFloat(data),3);
+                var data = formatNumber(parseFloat(data),2);
                 return data
             }
         },
@@ -654,7 +654,7 @@ $(function(){
 
                 }else if(full.isSpare == 1){
 
-                    return "<span class='data-option option-seeSpare btn default btn-xs green-stripe' data-flag=1>查看</span><span class='data-option option-editSpare btn default btn-xs green-stripe' data-flag=1>编辑</span><span class='data-option option-DelSpare btn default btn-xs green-stripe'>删除</span>"
+                    return "<span class='data-option option-seeSpare btn default btn-xs green-stripe' data-flag=1>查看</span><span class='data-option option-DelSpare btn default btn-xs green-stripe'>删除</span>"
 
                 }else{
 
@@ -1425,9 +1425,9 @@ $(function(){
                         //数量
                         rukuObject.num = data[i].num;
                         //入库单价
-                        rukuObject.inPrice = formatNumber(Number(data[i].inPrice),2);
+                        rukuObject.inPrice = formatNumber(Number(data[i].inPrice),3);
                         //金额
-                        rukuObject.amount = formatNumber(Number(data[i].amount),3);
+                        rukuObject.amount = formatNumber(Number(data[i].amount),2);
                         //备注
                         rukuObject.remark = data[i].inMemo;
 
@@ -1814,7 +1814,7 @@ $(function(){
 
                     }else{
 
-                        price = formatNumber(Number(price),2);
+                        price = formatNumber(Number(price),3);
 
                     }
                     rukuDan.localNum = $('.kuwei').attr('data-num');
@@ -2457,7 +2457,7 @@ $(function(){
         putInGoods.amount = '';
 
         //根据数量和单价计算总价
-        putInGoods.amount = formatNumber(putInGoods.num * putInGoods.inprice,3);
+        putInGoods.amount = formatNumber(putInGoods.num * putInGoods.inprice,2);
 
     })
 
@@ -3010,7 +3010,7 @@ $(function(){
 
                         }else{
 
-                            price = formatNumber(Number(price),2);
+                            price = formatNumber(Number(price),3);
 
                         }
                         rukuDan.localNum = $('.kuwei').attr('data-num');
@@ -3085,7 +3085,7 @@ $(function(){
 
                             }else{
 
-                                price = formatNumber(Number(price),2);
+                                price = formatNumber(Number(price),3);
 
                             }
                             rukuDan.localNum = $('.kuwei').attr('data-num');

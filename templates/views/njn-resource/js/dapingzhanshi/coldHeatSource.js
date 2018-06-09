@@ -713,7 +713,7 @@ function getTDayCs(ew){
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kw)'
+                    name:'单位:(kW)'
                 },
                 series: serary
             };
@@ -836,7 +836,7 @@ function getTDayEs(ew) {
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kw)'
+                    name:'单位:(kW)'
                 },
                 series: serary
             };
@@ -900,7 +900,7 @@ function getTotalHeatData(ew){
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kw)'
+                    name:'单位:(kW)'
                 },
                 series: serary
             };
@@ -1025,7 +1025,7 @@ function getTotalEnergyData(ew){
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kw)'
+                    name:'单位:(kW)'
                 },
                 series: serary
             };

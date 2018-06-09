@@ -65,7 +65,7 @@ function getOfficesId(){
 
 /*---------------------------时间初始化------------------------*/
 
-//datapicker时间插件初始化(日月年)
+//datapicker时间插件初始化(日月年)/
 function _timeYMDComponentsFun(el){
     el.datepicker('destroy');
     el.datepicker({
@@ -91,6 +91,7 @@ function _timeYMDComponentsFun11(el){
 }
 
 //datapicker时间插件初始化（年）
+//datapicker时间插件初始化（年）/
 function _yearDate(el){
     el.datepicker('destroy');
     el.datepicker({
@@ -104,7 +105,7 @@ function _yearDate(el){
     })
 }
 
-//datapicker时间插件初始化（月）
+//datapicker时间插件初始化（月）/
 function _monthDate(el){
     el.datepicker('destroy');
     el.datepicker({
@@ -129,6 +130,21 @@ function _monthDate11(el){
         format: "yyyy-mm",//选择日期后，文本框显示的日期格式
         language: "zh-CN" //汉化
     })
+}
+
+//月日
+function _monthDay(el){
+
+    el.datepicker('destroy');
+    el.datepicker({
+        language:  'zh-CN',
+        todayBtn: 1,
+        todayHighlight: 1,
+        format: 'mm-dd',
+        forceParse: 0,
+        autoclose: 1
+    });
+
 }
 
 //datatimepicker事件插件初始化（日月年时分秒）
@@ -356,6 +372,112 @@ function _tableInitS(tableId,col,buttons,searching,flag,fnRowCallback,drawCallba
     }
 
 }
+
+//不显示翻页，出现滚动条的表格初始化
+function _tableInitScroll(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr,num,isPaging,height){
+
+    var buttonVisible = [
+        {
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs',
+            exportOptions:{
+                columns:arr
+            }
+        }
+    ];
+    var buttonHidden = [
+        {
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs hiddenButton'
+        }
+    ];
+    if(buttons == 1){
+        buttons = buttonVisible;
+    }else{
+        buttons =  buttonHidden;
+    }
+
+    var dom;
+
+    if(domFlag){
+
+        dom = 't<"F">'
+
+    }else{
+
+        dom = 't<"F"lip>';
+
+    }
+
+    var length = 50;
+
+    if(num){
+
+        length = num;
+
+    }else{
+
+        length = 50;
+
+    }
+
+    var isPag = true;
+
+    if(isPaging){
+
+        isPag = false;
+
+    }else{
+
+        isPag = true;
+
+    }
+
+    var _tables = tableId.DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": isPag,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": false,
+        "ordering": false,
+        "bProcessing":true,
+        "iDisplayLength":length,//默认每页显示的条数
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":dom,
+        "bStateSave":true,
+        "sScrollY": height,
+        'buttons':buttons,
+        "columns": col,
+        "fnRowCallback": fnRowCallback,
+        "drawCallback":drawCallback
+    });
+
+    if(flag){
+        _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+    }
+
+    //报错时不弹出弹框
+    $.fn.dataTable.ext.errMode = function(s,h,m){
+        console.log('')
+    }
+
+}
+
 //表格赋值
 function _datasTable(tableId,arr){
     var table = tableId.dataTable();
