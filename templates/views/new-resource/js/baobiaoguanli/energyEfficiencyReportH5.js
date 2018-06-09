@@ -250,7 +250,7 @@ $(function(){
                     $('#total-energy-efficiency-c').html(result.report_cz_nh_Va);
                     //离心机
                     $('#energy-LXJ-c').html(result.report_lx_nh_Va);
-                    //溴理机
+                    //溴锂机
                     $('#energy-XLJ-c').html(result.report_xl_nh_Va);
                     //地源热泵
                     $('#energy-DYRB-c').html(result.report_rb_nh_Va);
@@ -264,7 +264,7 @@ $(function(){
                     $('#unit-energy-price-c').html(result.report_cz_prc_Va);
                     //离心机
                     $('#efficiency-LXJ-c').html(result.report_lx_nx_Va);
-                    //溴理机
+                    //溴锂机
                     $('#efficiency-XLJ-c').html(result.report_xl_nx_Va);
                     //地源热泵
                     $('#efficiency-DYRB-c').html(result.report_rb_nx_Va);
@@ -286,7 +286,7 @@ $(function(){
                             //将表格的数据按照表格排序
                             //['日期','换热罐','采暖泵']；
                             var arr = [];
-                            //date日期 lxVa离心机能效 xlVa溴理机能效 rbVa地源热泵能效 chwVa冷冻泵输送系数 cwVa冷却泵输送系数 ctVa冷却塔输送系数
+                            //date日期 lxVa离心机能效 xlVa溴锂机能效 rbVa地源热泵能效 chwVa冷冻泵输送系数 cwVa冷却泵输送系数 ctVa冷却塔输送系数
 
                             //遍历对象的属性，
                             for(var j in result.report_list[i]){
