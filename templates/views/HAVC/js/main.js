@@ -445,7 +445,7 @@
         })
     }
 
-    //东冷站_溴理机系统
+    //东冷站_溴锂机系统
     var init_e_c_xl_v_text = function () {
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWCXLNOW";
         $.post(url, {
@@ -472,7 +472,7 @@
         })
     }
 
-    //西冷站_溴理机系统
+    //西冷站_溴锂机系统
     var init_w_c_xl_v_text = function () {
         var url = sessionStorage.apiUrlPrefix + "/MultiAreaMain/GetEWCXLNOW";
         $.post(url, {
@@ -676,9 +676,9 @@
             init_e_c_lx_v_text();
             //西冷站_离心机系统
             init_w_c_lx_v_text();
-            //东冷站_溴理机系统
+            //东冷站_溴锂机系统
             init_e_c_xl_v_text();
-            //西冷站_溴理机系统
+            //西冷站_溴锂机系统
             init_w_c_xl_v_text();
             //东冷站_地源热泵系统
             init_e_c_rb_v_text();

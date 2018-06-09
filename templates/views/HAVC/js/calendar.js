@@ -271,7 +271,7 @@
             $('#CZTCBOX').show();
             $('#TOP1').html('冷价对比');
             $('#TOP2').html('分项费用');
-        } else if ((selectAREA === 'EC' || selectAREA === 'WC') && selectEQTY === 'XLJ') {//东西冷_溴理机
+        } else if ((selectAREA === 'EC' || selectAREA === 'WC') && selectEQTY === 'XLJ') {//东西冷_溴锂机
             url += "GetEWCXLExpAnalysisDs";
             $('.BOX').hide();
             $('#CXLJBOX').show();
@@ -318,7 +318,7 @@
                     $('#e_w_c_zt_gPrc_text').html(res.gPRc);
                     $('#e_w_c_zt_cPrc_text').html(res.cPRc);
                 } else if ((selectAREA === 'EC' || selectAREA === 'WC')
-                    && selectEQTY === 'XLJ') {//东西冷_溴理机
+                    && selectEQTY === 'XLJ') {//东西冷_溴锂机
                     $('#e_w_c_xl_eV_text').html(res.gV);
                     $('#e_w_c_xl_gV_text').html(res.copV);
                     $('#e_w_c_xl_cop_text').html(res.cV);
