@@ -327,12 +327,12 @@
         "iconclass": "",
         "arg2": "admin,zb"
       },
-      "节能策略3": {
+      "节能策略33": {
         "type": "0",
         "content": "节能策略",
-        "uri": "../yongnengjiance/energyMonitor.html?a=23",
+        "uri": "../yongnengjiance/energyMonitor.html?a=22333",
         "uid": "",
-        "arg": "0,12",
+        "arg": "0,39",
         "iconclass": "",
         "arg2": "admin,zb"
       },
@@ -576,55 +576,6 @@
       }
     }
   },
-  "运维联动": {
-    "type": "1",
-    "iconclass": "icon-briefcase",
-    "icon-img": "04.png",
-    "icon-hover": "04dian.png",
-    "content": "运维联动",
-    "submenu": {
-      "图纸管理": {
-        "type": "0",
-        "content": "图纸管理",
-        "uri": "../new-guanlizhenduan/manageDiagnose.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "运维资料": {
-        "type": "0",
-        "content": "运维资料",
-        "uri": "../new-guanlizhenduan/manageDiagnose.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "设备管理": {
-        "type": "0",
-        "content": "设备管理",
-        "uri": "../new-guanlizhenduan/manageDiagnose.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "设备预警": {
-        "type": "0",
-        "content": "设备预警",
-        "uri": "../new-guanlizhenduan/manageDiagnose.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "工单派送设置": {
-        "type": "0",
-        "content": "工单派送设置",
-        "uri": "../new-guanlizhenduan/manageDiagnose.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      }
-    }
-  },
   "能源管理": {
     "type": "1",
     "iconclass": "icon-speedometer",
@@ -839,21 +790,20 @@
         "arg": "",
         "iconclass": ""
       },
-      "能效对比": {
+      "能效排名": {
         "type": "0",
-        "content": "能效对比",
-        "uri": "../EPMA/compare.html",
+        "content": "能效排名",
+        "uri": "../HAVC/rank.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
       }
-
     }
   },
-  "运维管理": {
+  "运维联动": {
     "type": "1",
     "iconclass": "icon-briefcase",
-    "content": "运维管理",
+    "content": "运维联动",
     "icon-img": "07.png",
     "icon-hover": "07dian.png",
     "submenu": {
@@ -861,6 +811,14 @@
         "type": "0",
         "content": "运维首页",
         "uri": "../njn-dapingzhanshi/operationMaintenance.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "图纸管理": {
+        "type": "0",
+        "content": "图纸管理",
+        "uri": "../zhishikuguanli/knowledgeBase-1.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -901,7 +859,7 @@
       "一键诊断1": {
         "type": "0",
         "content": "一键诊断",
-        "uri": "../new-guanlizhenduan/manageDiagnose.html",
+        "uri": "../new-guanlizhenduan/manageDiagnoseNew.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -991,65 +949,6 @@
       "运行报表": {
         "type": "2",
         "content": "运行报表"
-      },
-      "换热站节能专家控制运行日报表": {
-        "type": "0",
-        "content": "换热站节能专家控制运行日报表",
-        "uri": "../new-baobiaoguanli/heatExchangeStationDayReport.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "汽水热交换器运行日报表": {
-        "type": "0",
-        "content": "汽水热交换器运行日报表",
-        "uri": "../new-baobiaoguanli/hotWaterExchangerDayReport.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-
-      "离心机运行日报表": {
-        "type": "0",
-        "content": "离心机运行日报表",
-        "uri": "../new-baobiaoguanli/LXJnjnDayReport.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-
-      "溴锂机运行日报表": {
-        "type": "0",
-        "content": "溴锂机运行日报表",
-        "uri": "../new-baobiaoguanli/XLJnjnDayReport.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "地源热泵运行日报表": {
-        "type": "0",
-        "content": "地源热泵运行日报表",
-        "uri": "../new-baobiaoguanli/DYRBnjnDayReport.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-
-      "冷却塔运行日报表": {
-        "type": "0",
-        "content": "冷却塔运行日报表",
-        "uri": "../new-baobiaoguanli/freezingStationWaterTowerDayReport.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "组合式空调箱运行记录报表": {
-        "type": "0",
-        "content": "组合式空调箱运行记录报表",
-        "uri": "../new-baobiaoguanli/airConditioningRunningDayReport.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
       },
       "运行报表1": {
         "type": "0",

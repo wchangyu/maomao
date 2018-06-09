@@ -60,6 +60,8 @@ $(function(){
 
          selectDateType = getShowDateTypeByDom('.left-tab-container .right-tab-choose')[1];
 
+
+
         //获取实时数据中上方的能耗种类
         getEcTypeByDeploy();
 
@@ -1030,6 +1032,32 @@ function getStationRankData(){
 //获取能耗分类数据
 function getTopPageEnergyData(){
 
+    //获取当前年月日
+    var dateType = $('.inner-left-bottom .right-tab-choose').html();
+
+    var startDate;
+
+    var endDate;
+
+    if(dateType == '日'){
+
+        startDate = moment().subtract('1','day').format('YYYY-MM-DD');
+
+        endDate = moment().format('YYYY-MM-DD');
+
+    }else if(dateType == '月'){
+
+        startDate = moment().subtract('1','month').startOf('month').format('YYYY-MM-DD');
+
+        endDate = moment().startOf('month').format('YYYY-MM-DD');
+
+    }else if(dateType == '年'){
+
+        startDate = moment().startOf('year').format('YYYY-MM-DD');
+
+        endDate = moment().add('1','year').startOf('year').format('YYYY-MM-DD');
+
+    }
 
     //传递给后台的数据
     var ecParams = {
