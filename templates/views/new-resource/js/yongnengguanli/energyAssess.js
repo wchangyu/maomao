@@ -49,6 +49,7 @@ $(function(){
         var o = $('.left-middle-main .curChoose').index();
 
         if(o == 0){
+
             //分户数据
             getPointerData('EnergyManageV2/GetOfficeDingEAssess',1);
 
@@ -75,6 +76,7 @@ $(function(){
         $('.left-middle-main p').removeClass('curChoose');
 
         $(this).addClass('curChoose');
+
         //判断页面中是否存在能耗类型选项
         if(typeof _energyTypeSel!="undefined" ){
             if($(this).index() == 0){
@@ -135,6 +137,7 @@ $(function(){
 
         //改变右上角单位名称
         $('.unit').val(unit);
+
     });
 
 
@@ -273,7 +276,6 @@ option = {
 
 
 //获取数据
-//flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
 function getPointerData(url,flag){
 
 
@@ -324,7 +326,7 @@ function getPointerData(url,flag){
         //获取指标ID
         var normItemID = $('.left-middle-main1 .curChoose').attr('data-num');
 
-        console.log(energyNormItemArr);
+        //console.log(energyNormItemArr);
 
         if(normItemID){
             //在指标类型中寻找对应项

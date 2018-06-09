@@ -121,7 +121,7 @@ function ywGetAlarmSetGD(flag){
          typeID:dsNum,
          //设备位置
          areaID:dcNum,
-        "ddNum": ddNum,
+       // "ddNum": ddNum,
         userID:_userIdNum,
         userName:_userIdName,
         "b_UserRole": _userRole,
@@ -138,7 +138,7 @@ function ywGetAlarmSetGD(flag){
             typeID:0,
             //设备位置
             areaID:0,
-            "ddNum": 0,
+            //"ddNum": 0,
             userID:_userIdNum,
             userName:_userIdName,
             "b_UserRole": _userRole,

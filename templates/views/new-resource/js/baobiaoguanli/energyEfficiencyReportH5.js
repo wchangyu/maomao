@@ -2,11 +2,11 @@ $(function(){
 
     /*-----------------------------------------------时间插件------------------------------------------------------*/
 
-        var nowTime = moment().format('YYYY/MM/DD');
+        var nowTime = moment().format('YYYY-MM-DD');
 
         if($('#timeType').val() == 0){
 
-            _monthDate($('.datatimeblock'));
+            _monthDate11($('.datatimeblock'));
 
         }else{
 
@@ -15,16 +15,16 @@ $(function(){
         }
 
         //默认时间
-        $('.datatimeblock').val(moment(nowTime).format('YYYY/MM'));
+        $('.datatimeblock').val(moment(nowTime).format('YYYY-MM'));
 
         $('#timeType').change(function(){
 
             if($(this).val() == 0){
 
-                _monthDate($('.datatimeblock'));
+                _monthDate11($('.datatimeblock'));
 
                 //时间设置
-                $('.datatimeblock').val(moment(nowTime).format('YYYY/MM'))
+                $('.datatimeblock').val(moment(nowTime).format('YYYY-MM'))
 
             }else if( $(this).val() == 1 ){
 
@@ -149,22 +149,22 @@ $(function(){
 
             if($('#timeType').val() == 0){
                 //开始时间
-                st = moment($('.datatimeblock').val()).startOf('months').format('YYYY/MM/DD');
+                st = moment($('.datatimeblock').val()).startOf('months').format('YYYY-MM-DD');
                 //结束时间
-                et = moment($('.datatimeblock').val()).endOf('months').add(1,'d').format('YYYY/MM/DD');
+                et = moment($('.datatimeblock').val()).endOf('months').add(1,'d').format('YYYY-MM-DD');
                 //数据时间
-                var time = $('.datatimeblock').val().split('/');
+                var time = $('.datatimeblock').val().split('-');
 
                 getTime = time[0] + '年' + time[1] + '月';
 
 
             }else if( $('#timeType').val() == 1 ){
                 //开始时间
-                st = moment($('.datatimeblock').val()).startOf('years').format('YYYY/MM/DD');
+                st = moment($('.datatimeblock').val()).startOf('years').format('YYYY-MM-DD');
                 //结束时间
-                et = moment($('.datatimeblock').val()).endOf('years').add(1,'d').format('YYYY/MM/DD');
+                et = moment($('.datatimeblock').val()).endOf('years').add(1,'d').format('YYYY-MM-DD');
                 //数据时间
-                var time = $('.datatimeblock').val().split('/');
+                var time = $('.datatimeblock').val().split('-');
 
                 getTime = time[0] + '年';
 
@@ -205,7 +205,7 @@ $(function(){
                 //时间类型
                 "dateType": $('#timeType').val(),
                 //时间
-                "sp": moment($('.datatimeblock').val()).format('YYYY/MM/DD')
+                "sp": moment($('.datatimeblock').val()).format('YYYY-MM-DD')
             }
 
             if( $('#area').val() == 'EC' || $('#area').val() == 'WC' ){
@@ -243,7 +243,7 @@ $(function(){
                     //数据时间
                     $('.data-time').eq(1).html(result.report_Dt);
                     //导出时间（查询时间）
-                    excelTime = moment().format('YYYY/MM/DD hh:mm:ss');
+                    excelTime = moment().format('YYYY-MM-DD hh:mm:ss');
 
                     $('.derive-time').eq(1).html(excelTime);
                     //冷站年总制冷量
@@ -348,7 +348,7 @@ $(function(){
                     //数据时间
                     $('.data-time').eq(2).html(result.report_Dt);
                     //导出时间（查询时间）
-                    excelTime = moment().format('YYYY/MM/DD hh:mm:ss');
+                    excelTime = moment().format('YYYY-MM-DD hh:mm:ss');
 
                     $('.derive-time').eq(2).html(excelTime);
                     //换热站总供热量
@@ -427,7 +427,7 @@ $(function(){
                 //数据时间
                 $('.data-time').eq(0).html(getTime);
                 //导出时间(查询的时间)；
-                excelTime = moment().format('YYYY/MM/DD hh:mm:ss');
+                excelTime = moment().format('YYYY-MM-DD hh:mm:ss');
 
                 $('.derive-time').eq(0).html(excelTime);
                 //占地面积

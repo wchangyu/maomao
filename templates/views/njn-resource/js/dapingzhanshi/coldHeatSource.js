@@ -1184,7 +1184,7 @@ function getRBJAE(ew) {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(st) ,
         AREA:ew
-    }
+    };
     chartViewRBJMain.showLoading();
     $.post(url,par,function (res) {
         chartViewRBJMain.hideLoading();

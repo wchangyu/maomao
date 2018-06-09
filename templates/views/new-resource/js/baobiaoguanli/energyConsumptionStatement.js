@@ -14,11 +14,11 @@ $(function() {
 
     /*-----------------------------------------------时间插件------------------------------------------------------*/
 
-    var nowTime = moment().format('YYYY/MM/DD');
+    var nowTime = moment().format('YYYY-MM');
 
     if ($('#timeType').val() == 0) {
 
-        _monthDate($('.datatimeblock'));
+        _monthDate11($('.datatimeblock'));
 
     } else {
 
@@ -62,16 +62,16 @@ $(function() {
 
 
     //默认时间
-    $('.datatimeblock').val(moment(nowTime).format('YYYY/MM'));
+    $('.datatimeblock').val(moment(nowTime).format('YYYY-MM'));
 
     $('#timeType').change(function(){
 
         if($(this).val() == 0){
 
-            _monthDate($('.datatimeblock'));
+            _monthDate11($('.datatimeblock'));
 
             //时间设置
-            $('.datatimeblock').val(moment(nowTime).format('YYYY/MM'))
+            $('.datatimeblock').val(moment(nowTime).format('YYYY-MM'))
 
         }else if( $(this).val() == 1 ){
 
@@ -156,10 +156,10 @@ $(function() {
 
             $('#timeType').html(html);
 
-            _monthDate($('.datatimeblock'));
+            _monthDate11($('.datatimeblock'));
 
             //时间设置
-            $('.datatimeblock').val(moment(nowTime).format('YYYY/MM'))
+            $('.datatimeblock').val(moment(nowTime).format('YYYY-MM'))
         }
     });
 
@@ -492,15 +492,19 @@ function getEnergyItemReport(){
 
     if(showDateType == "Day"){
 
+        console.log(moment($('.min').val()).format('YYYY-MM-DD'));
+
         startTime = moment($('.min').val()).startOf('month').format('YYYY-MM-DD');
 
         endTime = moment($('.min').val()).add('1','month').startOf('month').format('YYYY-MM-DD');
+
     }else{
 
         startTime = moment($('.min').val()).startOf('year').format('YYYY-MM-DD');
 
         endTime = moment($('.min').val()).add('1','year').startOf('year').format('YYYY-MM-DD');
     }
+
 
     //定义传递给后台的数据
     var ecParams = {
@@ -533,7 +537,7 @@ function getEnergyItemReport(){
             $('#entry-datatables .data-time').html($('.min').val());
 
             //导出时间
-            $('#entry-datatables .derive-time').html(moment().format('YYYY/MM/DD HH:mm'));
+            $('#entry-datatables .derive-time').html(moment().format('YYYY-MM-DD HH:mm'));
 
             //位置
             var station = $('#alarm-station').find("option:selected").text();
@@ -663,7 +667,7 @@ function getEnergyDataReport(){
             $('#total-entry-datatables .data-time').html($('.min').val());
 
             //导出时间
-            $('#total-entry-datatables .derive-time').html(moment().format('YYYY/MM/DD HH:mm'));
+            $('#total-entry-datatables .derive-time').html(moment().format('YYYY-MM-DD HH:mm'));
 
             //位置
             var station = $('#alarm-station').find("option:selected").text();
@@ -802,7 +806,7 @@ function getEnergyKPIReport(){
             $('#entry-target-datatables .data-time').html($('.min').val());
 
             //导出时间
-            $('#entry-target-datatables .derive-time').html(moment().format('YYYY/MM/DD HH:mm'));
+            $('#entry-target-datatables .derive-time').html(moment().format('YYYY-MM-DD HH:mm'));
 
             //位置
             var station = $('#alarm-station').find("option:selected").text();
@@ -941,7 +945,7 @@ function getEnergyItemWaterReports(){
             $('#entry-water-datatables .data-time').html($('.min').val());
 
             //导出时间
-            $('#entry-water-datatables .derive-time').html(moment().format('YYYY/MM/DD HH:mm'));
+            $('#entry-water-datatables .derive-time').html(moment().format('YYYY-MM-DD HH:mm'));
 
             //位置
             var station = $('#alarm-station').find("option:selected").text();

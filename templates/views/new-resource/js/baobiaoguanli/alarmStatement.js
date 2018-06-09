@@ -14,11 +14,11 @@ $(function() {
 
     /*-----------------------------------------------时间插件------------------------------------------------------*/
 
-    var nowTime = moment().format('YYYY/MM/DD');
+    var nowTime = moment().format('YYYY-MM');
 
     if ($('#timeType').val() == 0) {
 
-        _monthDate($('.datatimeblock'));
+        _monthDate11($('.datatimeblock'));
 
     } else {
 
@@ -61,16 +61,16 @@ $(function() {
     });
 
     //默认时间
-    $('.datatimeblock').val(moment(nowTime).format('YYYY/MM'));
+    $('.datatimeblock').val(moment(nowTime).format('YYYY-MM'));
 
     $('#timeType').change(function(){
 
         if($(this).val() == 0){
 
-            _monthDate($('.datatimeblock'));
+            _monthDate11($('.datatimeblock'));
 
             //时间设置
-            $('.datatimeblock').val(moment(nowTime).format('YYYY/MM'))
+            $('.datatimeblock').val(moment(nowTime).format('YYYY-MM'))
 
         }else if( $(this).val() == 1 ){
 
@@ -130,10 +130,10 @@ $(function() {
 
             $('#timeType').html(html);
 
-            _monthDate($('.datatimeblock'));
+            _monthDate11($('.datatimeblock'));
 
             //时间设置
-            $('.datatimeblock').val(moment(nowTime).format('YYYY/MM'))
+            $('.datatimeblock').val(moment(nowTime).format('YYYY-MM'))
         }
     });
 
@@ -266,7 +266,7 @@ function getPointerAlarmReport(){
             $('#alarm-datatables .data-time').html($('.min').val());
 
             //导出时间
-            $('#alarm-datatables .derive-time').html(moment().format('YYYY/MM/DD HH:mm'));
+            $('#alarm-datatables .derive-time').html(moment().format('YYYY-MM-DD HH:mm'));
 
             //动态绘制表头
             dynamicDrawThead(result.alarmReportTitles,'#alarm-datatables');
