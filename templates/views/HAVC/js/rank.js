@@ -306,11 +306,11 @@
                     //var ctxs = res.ctxs;//冷却塔X轴
                     //var ctys = res.ctys;
                     //var ctcs = res.ctcs;
-                    //drawlzv(lzxs, lzys, lzcs, 'KW/KW');//冷站
-                    //drawcv(cxs, cys, ccs,  'KW/KW');//冷机
-                    //drawchwv(chwxs, chwys, chwcs,  'KW/KW');//冷冻泵
-                    //drawcwv(cwxs, cwys, cwcs,  'KW/KW');//冷却泵
-                    //drawctv(ctxs, ctys, ctcs,  'KW/KW');//冷却塔
+                    //drawlzv(lzxs, lzys, lzcs, 'kW/kW');//冷站
+                    //drawcv(cxs, cys, ccs,  'kW/kW');//冷机
+                    //drawchwv(chwxs, chwys, chwcs,  'kW/kW');//冷冻泵
+                    //drawcwv(cwxs, cwys, cwcs,  'kW/kW');//冷却泵
+                    //drawctv(ctxs, ctys, ctcs,  'kW/kW');//冷却塔
 
                 }else if(res.code === -1){
 
@@ -502,7 +502,7 @@
         option = {
             title: {
                 //text: '冷却塔',
-                //subtext: 'KW/RT'
+                //subtext: 'kW/RT'
                 subtext: misc
             },
             color: ['#63747f'],
@@ -619,7 +619,7 @@
         option = {
             title: {
                 //text: '冷却泵',
-                //subtext: 'KW/RT'
+                //subtext: 'kW/RT'
                 subtext: misc
             },
             color: ['#63747f'],
@@ -737,7 +737,7 @@
         option = {
             title: {
                 //text: '冷冻泵',
-                //subtext: 'KW/RT'
+                //subtext: 'kW/RT'
                 subtext: misc
             },
             color: ['#63747f'],
@@ -854,7 +854,7 @@
         option = {
             title: {
                 //text: '冷机',
-                //subtext: 'KW/RT'
+                //subtext: 'kW/RT'
                 subtext: misc
             },
             color: ['#63747f'],
@@ -970,7 +970,7 @@
         }
         option = {
             title: {
-                //subtext: 'KW/RT'//text: '冷站',
+                //subtext: 'kW/RT'//text: '冷站',
                 subtext: misc
             },
             color: ['#63747f'],
