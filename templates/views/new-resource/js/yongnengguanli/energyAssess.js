@@ -3,6 +3,9 @@
  */
 $(function(){
 
+    //从配置项中获取页面中所展示信息
+    getDataByConfig();
+
     //时间插件
     _timeYMDComponentsFun($('.datatimeblock'));
 
@@ -25,10 +28,26 @@ $(function(){
 
     _ajaxEcTypeWord = _getEcTypeWord();
 
-    //科室ztree树
-    _officeZtree = _getOfficeZtree($("#allOffices"),1);
+    //获取当前选中的是楼宇还是科室
 
-    //科室搜索功能
+    var thisID = $('.left-middle-main .curChoose').attr('data-id');
+
+    //如果是楼宇
+    if(thisID == 1){
+
+        //楼宇ztree树
+        getBranchZtree(0,0,getPointerTree1,$("#allOffices"));
+        //_officeZtree = _getPointerZtree($("#allOffices"),1);
+
+    }else if(thisID == 2){
+
+        //科室ztree树
+        _officeZtree = _getOfficeZtree($("#allOffices"),1);
+
+    }
+
+
+    //科室或楼宇搜索功能
     _searchPO1($(".tipes"),"allOffices");
 
     //加载KPI中数据
@@ -46,16 +65,22 @@ $(function(){
         //获得选择的能耗类型
         _ajaxEcType =_getEcTypeValue(_ajaxEcType);
 
-        var o = $('.left-middle-main .curChoose').index();
+        var o = $('.left-middle-main .curChoose').attr('data-id');
 
-        if(o == 0){
+        if(o == 2){
 
             //分户数据
-            getPointerData('EnergyManageV2/GetOfficeDingEAssess',1);
+            getPointerData('EnergyManageV2/GetOfficeDingEAssess',o);
 
         }else if(o == 1){
+
+            //楼宇数据
+            getPointerData('EnergyManageV2/GetPointerDingEAssess',o);
+
+        }else if(o == 5){
+
             //KPI数据
-            getPointerData('EnergyManageV2/GetKPIDingEAssess',2);
+            getPointerData('EnergyManageV2/GetKPIDingEAssess',o);
 
         }
     });
@@ -79,7 +104,23 @@ $(function(){
 
         //判断页面中是否存在能耗类型选项
         if(typeof _energyTypeSel!="undefined" ){
-            if($(this).index() == 0){
+            if($(this).attr('data-id') == 5){
+
+                //清空上方能耗种类
+                $('.energy-types').html('');
+
+                $('.energy-types').addClass('hasHeight');
+
+                //右上角单位
+                $('.unit').val($('.left-middle-main1 .curChoose').attr('data-unit'));
+
+                //下方对象
+                $('.left-middle-main1').show();
+                $('.tree-2').hide();
+
+                return false;
+
+            }else{
 
                 _energyTypeSel.initOffices($(".energy-types"),undefined,function(){
                     getEcType();
@@ -96,22 +137,20 @@ $(function(){
                 $('.left-middle-main1').hide();
                 $('.tree-2').show();
 
+                //楼宇
+                if($(this).attr('data-id') == 1){
 
-            }else if($(this).index() == 1){
+                    //楼宇ztree树
+                    getBranchZtree(0,0,getPointerTree1,$("#allOffices"));
 
-                //清空上方能耗种类
-                $('.energy-types').html('');
+                //科室
+                }else if($(this).attr('data-id') == 2){
 
-                $('.energy-types').addClass('hasHeight');
+                    //科室ztree树
+                    _officeZtree = _getOfficeZtree($("#allOffices"),1);
 
-                //右上角单位
-                $('.unit').val($('.left-middle-main1 .curChoose').attr('data-unit'));
+                }
 
-                //下方对象
-                $('.left-middle-main1').show();
-                $('.tree-2').hide();
-
-                return false;
             }
 
             //默认选中第一个能耗
@@ -159,6 +198,54 @@ $(function(){
     });
 
 });
+
+//从配置项中获取页面中所展示信息
+function getDataByConfig(){
+
+    //获取当前的url
+    var curUrl = "new-yongnengguanli/OfficeDingEData.html";
+
+    //获取当前页面的配置信息
+    $(__systemConfigArr).each(function(i,o){
+
+        //获取当前配置项中的url
+        var thisUrl = o.pageUrl;
+
+        //找到了当前页面对应的配置项
+        if(curUrl.indexOf(thisUrl) > -1){
+
+            //获取到具体的能耗排名配置信息
+            var dataArr = o.quotaKind;
+
+            var html = "";
+
+            var thisNum = -1;
+
+            $(dataArr).each(function(i,o){
+
+                if(o.isShow == 1){
+
+                    thisNum ++;
+
+                    if(thisNum == 0){
+
+                        html += '<p class="curChoose" data-id='+ o.quotaTypeID+'>'+ o.quotaName+'</p>';
+
+                    }else{
+
+                        html += '<p data-id='+ o.quotaTypeID+'>'+ o.quotaName+'</p>';
+                    }
+                }
+
+            });
+
+            //赋值到页面中
+            $('.left-middle-main').html(html);
+
+        }
+    });
+};
+
 
 //存放获取到的指标类型
 var energyNormItemArr = [];
@@ -274,13 +361,15 @@ option = {
 
 /*---------------------------------otherFunction------------------------------*/
 
-
 //获取数据
 function getPointerData(url,flag){
 
 
     //存放要传递的分户集合
     var officeID = [];
+
+    //存放要传递的楼宇集合
+    var pointerID = [];
 
     //存放要传递的指标类型
     var energyNormItemObj = {};
@@ -302,8 +391,29 @@ function getPointerData(url,flag){
     //获取年份
     var f_Year = $('.min').val();
 
-    // //分户数据
+    //楼宇数据
     if(flag == 1){
+
+        var treeObj = $.fn.zTree.getZTreeObj('allOffices');
+
+        //确定楼宇id
+        var pts = treeObj.getCheckedNodes(true);
+
+        pointerID = pts.id;
+
+        areaName = pts.name;
+
+        ecParams = {
+            "f_EnergyItemId": _ajaxEcType,
+            "f_Year": f_Year,
+            "pointerID": pointerID
+        };
+
+        energyName = $('.selectedEnergy p').html();
+
+        //分户数据
+    }else if(flag == 2){
+
         //确定分户id
         var ofs = _officeZtree.getSelectedOffices();
 
@@ -321,7 +431,7 @@ function getPointerData(url,flag){
         energyName = $('.selectedEnergy p').html();
 
        //KPI数据
-    }else if(flag == 2){
+    }else if(flag == 5){
 
         //获取指标ID
         var normItemID = $('.left-middle-main1 .curChoose').attr('data-num');
@@ -432,7 +542,6 @@ function getPointerData(url,flag){
     })
 };
 
-
 //获取KPI列表 根据用户选择展示项数进行展示
 function getKPIInfos(){
 
@@ -478,7 +587,6 @@ function getKPIInfos(){
         }
     })
 };
-
 
 //根据用户选择展示项数进行展示
 function showDataByNum(data){

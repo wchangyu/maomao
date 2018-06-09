@@ -106,7 +106,7 @@ $(function(){
         }else if(index == 3){
 
             //获取[供冷温度曲线]历史数据
-            getTDayGLWs(ew);
+            getTDayGLWs(ew,'C');
 
         }
     });
@@ -548,13 +548,14 @@ function getLRADs(area){
 }
 
 //获取[供冷温度曲线]历史数据
-function getTDayGLWs(ew) {
+function getTDayGLWs(ew,ch) {
 
     var url = sessionStorage.apiUrlPrefix + "EWCH/GetTDayWDs";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()),
-        AREA:ew
+        AREA:ew,
+        CH:ch
     };
     _consumotionChart.showLoading();
     $.post(url,par,function (result) {

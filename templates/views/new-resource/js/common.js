@@ -415,7 +415,7 @@ key.bind("focus",focusKey)
 //构建支路树状图
 //zTree树
 var branchTreeObj;
-function getBranchZtree(EnItdata,flag,fun){
+function getBranchZtree(EnItdata,flag,fun,dom){
 
     var setting = {
         check: {
@@ -474,7 +474,12 @@ function getBranchZtree(EnItdata,flag,fun){
     }
 
     //console.log(zNodes);
-    branchTreeObj = $.fn.zTree.init($("#allBranch"), setting, zNodes);
+    if(dom){
+        branchTreeObj = $.fn.zTree.init(dom, setting, zNodes);
+    }else{
+        branchTreeObj = $.fn.zTree.init($("#allBranch"), setting, zNodes);
+    }
+
 };
 
 //获取不带楼宇的区域位置zTree树的数据
@@ -490,17 +495,62 @@ function getPointerTree(){
     var treeArr = getCompactArr(tempAllPointers,true);
 
     $(treeArr).each(function(i,o){
+
         if(o.nodeType == 2){
             treeArr.remove(o);
         };
+
         if(i === 0){
             o.checked=true;
         };
+
         o.title = o.name;
     });
 
     return treeArr;
 };
+
+//获取只能选择楼宇的区域位置zTree树的数据
+function getPointerTree1(){
+
+    var strPointers = sessionStorage.pointers;
+    var tempAllPointers = [];
+
+    if(strPointers){
+        tempAllPointers = JSON.parse(strPointers);
+    };
+
+    var treeArr = getCompactArr(tempAllPointers,true);
+
+    var firstNum = -1;
+
+    $(treeArr).each(function(i,o){
+
+        if(i != 2){
+
+            o.nocheck=true;
+
+        };
+
+        if(o.nodeType == 2){
+
+            firstNum ++;
+        }
+
+        if(firstNum == 0 && o.nodeType == 2){
+
+            o.checked = true;
+        }
+
+        o.title = o.name;
+    });
+
+    return treeArr;
+};
+
+
+
+
 
 //获取分项zTree树的数据
 function getZNodes(EnItdata){
@@ -575,6 +625,7 @@ function updateNodes(highlight) {
     }
     zTree.showNodes(nodeList);
 }
+
 //确定父子关系
 function findParent(zTree,node){
     //展开 / 折叠 指定的节点
@@ -591,7 +642,9 @@ function findParent(zTree,node){
     }
 }
 function filter(node) {
+
     return !node.isParent && node.isFirstNode;
+
 }
 
 //搜索框功能

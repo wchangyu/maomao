@@ -128,7 +128,7 @@ var __systemConfigArr = [
         pageName :"能耗中定额管理",
         pageUrl :"new-yongnengguanli/OfficeDingEData.html",
         pageId:1,
-        //定义定额管理中定额种类
+        //定义定额管理中定额种类同时也用于用能考核
         quotaKind : [
             {
                 quotaName:'楼宇',
@@ -163,6 +163,6 @@ var __systemConfigArr = [
         pageUrl :"new-nenghaofenxi/relevanAnalysData.html",
         pageId:2,
         //定义根据楼宇展示 还是院区展示 0为楼宇 1为院区
-        showDataType : 0
+        showDataType : 1
     }
 ];

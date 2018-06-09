@@ -381,9 +381,9 @@ function getPointerData(url,flag){
                 optionLineBar.series[1].name = showName;
 
 
-                $(result[1].metaDatas).each(function(i,o){
+                $(result[1].metaDataStrs).each(function(i,o){
 
-                    allDataY1.push(o.data.toFixed(2));
+                    allDataY1.push(o.data);
                 });
 
                 optionLineBar.yAxis[1] = {

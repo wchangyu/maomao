@@ -1072,7 +1072,7 @@ var _electricityoption = {
     },
     legend: {
         orient : 'vertical',
-        right : 85,
+        left : 5,
         y : 10,
         itemGap:2,
         data:['输入电量','输出冷量'],
@@ -2410,8 +2410,8 @@ function getTPDevMonitor(){
 
             var sendExhaustArr = [
                 {name:'运行中',data:sendExhaustrunNum},
-                {name:'故障中',data:sendExhaustfaultNum},
-                {name:'维修中',data:sendExhaustrepairNum}
+                {name:'报警中',data:sendExhaustfaultNum}
+                //{name:'维修中',data:sendExhaustrepairNum}
             ];
 
             var sendExhaustData = {name:'总台数',data:sendExhaustAllTimesNum};
@@ -2419,13 +2419,38 @@ function getTPDevMonitor(){
             //给echarts赋值
             drawEcharts(sendExhaustArr,'equipment-chart-wind',colorArr2,sendExhaustData, _conditioneroption,'');
 
-            //故障率
-            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.sellCheckTicketOBJ.faultPower.toFixed(1) + '<span>%</span>');
+            //总过票量
+            var totalNum0 = result.sellCheckTicketOBJ.passTicketNum;
+
+            if(totalNum0 == -1){
+
+                totalNum0 = "--";
+            }
+
+            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(totalNum0 + '<span></span>');
 
             //检测点
-            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.sellCheckTicketOBJ.alarmNum);
+            if(result.sellCheckTicketOBJ.alarmNum != -1){
 
-            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.sellCheckTicketOBJ.cDataIDNum);
+                $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.sellCheckTicketOBJ.alarmNum);
+
+            }else{
+
+                $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html("--");
+
+            }
+
+            if(result.sellCheckTicketOBJ.cDataIDNum != -1){
+
+                $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.sellCheckTicketOBJ.cDataIDNum);
+
+            }else{
+
+                $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/--');
+
+            }
+
+
 
             //-----------------------------能源管理---------------------------//
 
@@ -2469,7 +2494,7 @@ function getTPDevMonitor(){
             _waterEcharts.setOption(_energyOption,true);
 
             //今日碳排放量
-            $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.energyManagerOBJ.CarbonRateData.toFixed(1) + '<span>t</span>');
+            $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.energyManagerOBJ.carbonRateData.toFixed(1) + '<span>kg</span>');
 
             //检测点
             $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.energyManagerOBJ.alarmNum);
@@ -2827,6 +2852,11 @@ function getFirstEnergyItemData(){
 //重新绘制echarts方法
 function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
 
+    if(centerData.data == -1){
+
+        centerData.data = 0;
+    }
+
     //定义总数
     var allData = 0;
 
@@ -2983,6 +3013,10 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
             option.title.text =  "0.0%";
         }
 
+        if(totalNum == 0){
+
+            totalNum = "--";
+        }
         option.title.subtext = centerData.name +" "+ totalNum;
     }
 
