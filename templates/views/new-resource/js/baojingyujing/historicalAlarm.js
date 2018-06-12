@@ -7,11 +7,11 @@ $(function(){
     //时间插件初始化
     _timeYMDComponentsFun($('.datatimeblock'));
 
-    //获取报警等级
-    getAlarmLevel();
-
     //获取全部车站
     getAlarmStation();
+
+    //获取报警等级
+    getAlarmLevel();
 
     //获取报警设备类型
     getAlarmDeviceType();
@@ -225,14 +225,30 @@ var _maintainEchart = echarts.init(document.getElementById('maintain-echart'));
 //获取报警等级
 function getAlarmLevel(){
 
-    var levelHtml = "<option value='0'>全部</option>";
 
-    $(alarmLevel).each(function(i,o){
+    $.ajax({
+        type:'get',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllAlarmPriority',
+        success:function(result){
 
-        levelHtml += "<option value='"+ o.id+"'>"+ o.name+"</option>"
+            var levelHtml = "<option value='0'>全部</option>";
+
+            //把设备类型放入页面中
+            $(result).each(function(i,o){
+
+                levelHtml += "<option value='"+ o.priorityID+"'>"+ o.priorityName+"</option>"
+            });
+
+            $('#alarm-level').html(levelHtml);
+
+            //获取报警设备类型
+            getAlarmDeviceType()
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR.responseText);
+        }
     });
 
-    $('#alarm-level').html(levelHtml);
 };
 
 //获取全部车站

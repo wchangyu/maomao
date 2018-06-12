@@ -2,14 +2,19 @@ $(function() {
 
 	/*-------------------------------------------------日期插件-----------------------------------------------------*/
 	//选择日期
-	_dataComponentsFun($('#datetimepicker1'));
+	//_dataComponentsFun($('#datetimepicker1'));
+	_timeYMDComponentsFun($('#datetimepicker1'));
 
 	//选择具体时间
 	_timeComponentsFun($('.datepicker1'));
 
-	$('#st').val('00:00');
+	$('#st').val('05:00');
 
-	$('#et').val(moment().format('hh:mm'));
+	$('#et').val(moment().format('23:59'));
+
+	$('.switch').css({
+		'color':'white'
+	});
 
 	/*-------------------------------------------------能耗种类-----------------------------------------------------*/
 

@@ -220,7 +220,7 @@ function getEnergyPublicityData(){
                                 //数值
                             '<td>'+ totalData+'</td>' +
                                 //单位
-                            '<td>'+etunit+'/平米</td>' +
+                            '<td>'+etunit+'/平米/天</td>' +
                             '</tr>';
 
                         //单位床位能耗
@@ -284,7 +284,7 @@ function getEnergyPublicityData(){
                         //数值
                     '<td>'+ energy2+'</td>' +
                         //单位
-                    '<td>吨标煤/平米</td>' +
+                    '<td>吨标煤/平米/天</td>' +
                 '</tr>';
 
             if( ifShowBed == true){
@@ -422,7 +422,7 @@ var table = $('#dateTables1').DataTable({
             }
         },
         {
-            title:'单位面积用电量<br />(度/平米)',
+            title:'单位面积用电量<br />(度/平米/天)',
             data:"energyItemDatas",
             render:function(data, type, full, meta){
 
@@ -476,7 +476,7 @@ var table = $('#dateTables1').DataTable({
             }
         },
         {
-            title:'单位面积用水量<br />(吨/平米)',
+            title:'单位面积用水量<br />(吨/平米/天)',
             data:"energyItemDatas",
             render:function(data, type, full, meta){
 
@@ -608,7 +608,7 @@ var table1 = $('#dateTables3').DataTable({
             }
         },
         {
-            title:'单位面积用电量<br />(度/平米)',
+            title:'单位面积用电量<br />(度/平米/天)',
             data:"energyItemDatas",
             render:function(data, type, full, meta){
 
@@ -662,7 +662,7 @@ var table1 = $('#dateTables3').DataTable({
             }
         },
         {
-            title:'单位面积用水量<br />(吨/平米)',
+            title:'单位面积用水量<br />(吨/平米/天)',
             data:"energyItemDatas",
             render:function(data, type, full, meta){
 

@@ -1147,6 +1147,7 @@ $('.ceshi').on('click',function(){
             var imgData = canvas.toDataURL('image/jpeg',1.0);
 
             var doc = new jsPDF("p", "mm", "a2");
+
             //                               |
             // |—————————————————————————————|
             // A0 841×1189
@@ -1163,6 +1164,7 @@ $('.ceshi').on('click',function(){
             //     |——|———————————————————————————|
             //                                 |——|——|
             //                                 |     |
+
             doc.addImage(imgData, 'JPEG', 0, 0,420,230);
 
             doc.save('content.pdf');

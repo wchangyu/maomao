@@ -1353,14 +1353,26 @@ function getStationAreaRankData(){
     //获取能耗分项ID集合
     var energyItemIDArr = '';
 
+    //定义所有一级分项集合
+    var allFirstEnergy = [];
+
     for(var i=0; i < txt.length; i++){
 
-        if(i == txt.length - 1){
-            energyItemIDArr += txt[i].etid + '';
-        }else{
-            energyItemIDArr += txt[i].etid + ',';
+        if(!txt[i].secondEnergy){
+
+            allFirstEnergy.push(txt[i]);
         }
     }
+
+    $(allFirstEnergy).each(function(i,o){
+
+        if(i == (allFirstEnergy.length - 1)){
+
+            energyItemIDArr += o.etid + '';
+        }else{
+            energyItemIDArr += o.etid + ',';
+        }
+    });
 
     //传递给后台的数据
     var ecParams = {
@@ -1773,14 +1785,27 @@ function getStataionFootfallRank(){
     //获取能耗分项ID集合
     var energyItemIDArr = '';
 
+    //定义所有一级分项集合
+    var allFirstEnergy = [];
+
     for(var i=0; i < txt.length; i++){
 
-        if(i == txt.length - 1){
-            energyItemIDArr += txt[i].etid + '';
-        }else{
-            energyItemIDArr += txt[i].etid + ',';
+        if(!txt[i].secondEnergy){
+
+            allFirstEnergy.push(txt[i]);
         }
     }
+
+    $(allFirstEnergy).each(function(i,o){
+
+        if(i == (allFirstEnergy.length - 1)){
+
+            energyItemIDArr += o.etid + '';
+        }else{
+            energyItemIDArr += o.etid + ',';
+        }
+    });
+
 
     //传递给后台的数据
     var ecParams = {

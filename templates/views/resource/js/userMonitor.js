@@ -2737,7 +2737,7 @@ var userMonitor = (function(){
         $btn.html(curCtrl.text);
         $btn.attr("id",curCtrl.id);
         $btn.css("height",baseHeight + "px");
-        $btn.css("width",baseWidth + "px");
+        $btn.css("min-width",baseWidth + "px");
         $btn.addClass("btn");
         $btn.addClass("btn-default");
         $btn.css("padding","0 0");

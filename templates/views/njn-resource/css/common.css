@@ -234,7 +234,8 @@
 }
 
 .left-tab-container .left-tab-data-container .left-tab-data1 font{
-    color:#2170F4
+    color:#2170F4;
+    display: none;
 }
 
 .left-tab-container .left-tab-data-container .left-tab-data2 font{

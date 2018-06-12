@@ -243,6 +243,7 @@
             var time = moment($('#spDT').val()).format('YYYY-MM-DD');
 
             $.post(url,{
+
                 //楼宇id列表
                 pIds:pIds,
                 //楼宇id
@@ -256,6 +257,7 @@
                 eType:selectEType,
                 //时间
                 sp:time
+
             },function (res) {
 
                 //初始化echarts
@@ -283,10 +285,11 @@
                     drawEchart(chartLXJ,res,'ewclxXs','ewclxYs','ewclxMs','离心机COP',tipBlock.eq(1));
 
                     //溴锂机
-                    drawEchart(chartXLJ,res,'ewcrbXs','ewcrbYs','ewcrbMs','溴锂机能效',tipBlock.eq(2));
+                    drawEchart(chartXLJ,res,'ewcxlXs','ewcxlYs','ewcxlMs','溴锂机能效',tipBlock.eq(2));
 
                     //地源热泵
-                    drawEchart(chartDYRB,res,'ewcxlXs','ewcxlYs','ewcxlMs','地源热泵COP',tipBlock.eq(3));
+                    drawEchart(chartDYRB,res,'ewcrbXs','ewcrbYs','ewcrbMs','地源热泵COP',tipBlock.eq(3));
+
 
                     jQuery('#rankBusy').hideLoading();
 

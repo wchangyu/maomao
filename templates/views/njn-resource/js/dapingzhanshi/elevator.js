@@ -193,7 +193,6 @@ var table = $('#equipment-datatables').DataTable({
                         if(o.cDataValue == 2){
 
                             result =  "上行"
-
                         }else if(o.cDataValue == 1){
                             result =  "下行";
 
@@ -310,11 +309,11 @@ var table = $('#equipment-datatables').DataTable({
                 return data;
 
             }
-        },
-        {
-            title:'功率（kW）',
-            data:'powerValue'
         }
+        // {
+        //     title:'功率（kW）',
+        //     data:'powerValue'
+        // }
     ]
 });
 

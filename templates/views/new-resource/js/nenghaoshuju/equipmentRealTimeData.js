@@ -137,6 +137,14 @@ var table = $('#dateTables').DataTable({
             }
         },
         {
+            title:'监测因子类型',
+            data:"cTypeName",
+            render:function(data, type, full, meta){
+
+                return data;
+            }
+        },
+        {
             title:'数据',
             data:"showFormatData",
             render:function(data, type, full, meta){
@@ -191,7 +199,7 @@ function getDevAreaByType(){
 
                     o.returnOBJID = "001" + o.returnOBJID;
 
-                }else  if(o.returnType == 4){
+                }else  if(o.returnType == 4 && o.isFirstDevType == 1){
 
                     o.parentOBJID = "001" + o.parentOBJID;
                 }
@@ -201,7 +209,6 @@ function getDevAreaByType(){
             });
 
             getEquipmentZtree(dataArr);
-
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -237,7 +244,7 @@ function getPointerData(){
         var devId = $('.select-equipment-container p').eq(i).find("b").attr('class');
 
         //区域ID
-        var areaID =  $('.select-equipment-container p').eq(i).attr('class').slice(3);
+        var areaID =  $('.select-equipment-container p').eq(i).attr('class');
 
         devIDsArr.push({
             "devAreaID": areaID,
@@ -255,21 +262,22 @@ function getPointerData(){
         timeout:_theTimes,
         beforeSend:function(){
 
+            $('.right-content').showLoading();
         },
         success:function(result){
 
-
-            //console.log(result);
-
-            _datasTable($('#dateTables'),result);
-
-            return false;
+            $('.right-content').hideLoading();
 
             //判断是否返回数据
             if(result == null || result.length == 0){
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
                 return false;
             }
+
+            //console.log(result);
+
+            _datasTable($('#dateTables'),result);
+
 
             //改变头部显示信息
             var energyName = '';
@@ -279,14 +287,15 @@ function getPointerData(){
             }
 
             //改变头部日期
-            var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');
+            var date = moment().format('YYYY-MM-DD');
 
-            $('.right-header-title').html(energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
+            $('.right-header-title').html(energyName + ' &nbsp;' + ' &nbsp;' + date);
 
 
         },
         error:function(jqXHR, textStatus, errorThrown){
-            myChartTopLeft.hideLoading();
+
+            $('.right-content').hideLoading();
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
@@ -326,6 +335,8 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
 
                 //获取当前已选中的属性
                 var pts = treeObj.getCheckedNodes(true);
+
+                console.log(pts);
 
                 if(pts.length > 0){
                     drawEquipmentList(pts[0]);
@@ -389,7 +400,6 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
 //根据参数绘制页面中已选设备列表
 function drawEquipmentList(equipObj){
 
-
     //获取当前选中名称及id
 
     var chooseID = equipObj.id;
@@ -398,11 +408,11 @@ function drawEquipmentList(equipObj){
 
     //获取父级元素ID
 
-    var parentID = equipObj.pId;
+    var parentID = equipObj.devTypeForAreaID;
 
     var parentNode = equipObj.getParentNode();
 
-    var parentName = parentNode.name;
+    var parentName = equipObj.devTypeForAreaName;
 
 
     //定义属性列表的字符串
@@ -450,11 +460,12 @@ function getZNodes1(EnItdata){
         }else{
 
             if(o.returnType < 4){
+
                 zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false,nocheck :true});
 
             }else{
 
-                zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false});
+                zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false,devTypeForAreaID: o.devTypeForAreaID,devTypeForAreaName: o.devTypeForAreaName});
 
             }
 

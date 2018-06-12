@@ -3,14 +3,11 @@
  */
 $(function(){
 
-    //获取报警等级
-    getAlarmLevel();
-
     //获取全部车站
     getAlarmStation();
 
-    //默认获取设备报警
-    getAlarmData(0);
+    //获取报警等级
+    getAlarmLevel();
 
     //点击切换选项卡
     $('.top-tab-control').on('click','.top-tab-container',function(){
@@ -224,14 +221,30 @@ var endTime = moment().add(1,'d').format('YYYY-MM-DD');
 //获取报警等级
 function getAlarmLevel(){
 
-    var levelHtml = "<option value='0'>全部</option>";
+    $.ajax({
+        type:'get',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllAlarmPriority',
+        success:function(result){
 
-    $(alarmLevel).each(function(i,o){
+            var levelHtml = "<option value='0'>全部</option>";
 
-        levelHtml += "<option value='"+ o.id+"'>"+ o.name+"</option>"
+            //把设备类型放入页面中
+            $(result).each(function(i,o){
+
+                levelHtml += "<option value='"+ o.priorityID+"'>"+ o.priorityName+"</option>";
+
+
+            });
+
+            $('#alarm-level').html(levelHtml);
+
+            //默认获取设备报警
+            getAlarmData(0);
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR.responseText);
+        }
     });
-
-    $('#alarm-level').html(levelHtml);
 };
 
 //获取全部车站

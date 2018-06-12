@@ -623,6 +623,8 @@ function getPointerData(url,flag){
 
                     var dataSplit = allData[i].dataDate.split('T')[0];
 
+                        dataSplit = dataSplit.split('-')[1] + "-"+dataSplit.split('-')[2];
+
                         allDataX.push(dataSplit);
 
                 }
@@ -634,6 +636,7 @@ function getPointerData(url,flag){
                 allDataY.push(allData[i].data.toFixed(2));
 
             };
+
             //同比数据
             var yearAllDataY = [];
             $(result.lastYearCompardData.ecMetaDatas).each(function(i,o){

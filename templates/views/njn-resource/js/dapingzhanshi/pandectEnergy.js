@@ -2059,6 +2059,11 @@ function getTPDevMonitor(){
 
             $(alarmNumArr).each(function(i,o){
 
+                if(o.value == -1){
+
+                    o.value = 0;
+                }
+
                 totalAlarmNum += o.value;
             });
 
@@ -2379,7 +2384,7 @@ function getTPDevMonitor(){
                 {name:'屏蔽中',data:fireControlrepairNum}
             ];
 
-            var fireControlData = {name:'设备数',data:fireControlAllTimesNum};
+            var fireControlData = {name:'总点数',data:fireControlAllTimesNum};
 
             //给echarts赋值
             drawEcharts(fireControlArr,'equipment-chart-platform',colorArr2,fireControlData, _conditioneroption,'');
@@ -2450,8 +2455,6 @@ function getTPDevMonitor(){
 
             }
 
-
-
             //-----------------------------能源管理---------------------------//
 
             //获取存放能耗的数组
@@ -2505,6 +2508,7 @@ function getTPDevMonitor(){
 
             //判断是否启用
             if(userEquipObj != {}){
+                //console.log(userEquipObj);
 
                 //页面赋值
                 $('.right-bottom-energyment0 .left-tab-data1 font').html(totalAlarmNum);
@@ -2523,6 +2527,8 @@ function getTPDevMonitor(){
 
             }else{
 
+
+                //console.log(44);
                 //获取页面左侧下方统计数据
                 getStationAlarmNum();
 
@@ -2566,7 +2572,7 @@ function getPointerData(){
     //是否标煤
     var isBiaoMeiEnergy = 0;
 
-    //单位类型 0为kwh t
+    //单位类型 0为kWh t
     var unitType = '0';
 
     //确定楼宇id
@@ -3294,7 +3300,7 @@ function drawLineChart(totalNum,flag){
     if(flag == 0){
 
         //获取当前小时数
-        hourNum = parseInt(moment().format('HH')) - 1;
+        hourNum = parseInt(moment().format('HH'));
 
     //月数据
     }else if(flag == 1){
@@ -3625,7 +3631,9 @@ function getDevFaultAlarmPropData(condition){
             $('#dateTables-trouble tbody').html('');
 
             setTimeout(function(){
+
                 $('#trouble-message .bottom-table-data-container ').showLoading();
+
             },500);
         },
         success:function(result){

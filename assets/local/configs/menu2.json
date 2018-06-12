@@ -327,10 +327,10 @@
         "iconclass": "",
         "arg2": "admin,zb"
       },
-      "节能策略33": {
+      "节能策略3": {
         "type": "0",
         "content": "节能策略",
-        "uri": "../yongnengjiance/energyMonitor.html?a=22333",
+        "uri": "../yongnengjiance/energyMonitor.html?a=202",
         "uid": "",
         "arg": "0,39",
         "iconclass": "",
@@ -1065,6 +1065,45 @@
         "type": "0",
         "content": "新闻管理",
         "uri": "../news/news-3.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
+  "冷热源": {
+    "type": "1",
+    "iconclass": "icon-speedometer",
+    "content": "冷热源",
+    "submenu": {
+      "专家策略": {
+        "type": "0",
+        "content": "专家策略",
+        "uri": "../equipmentControl/coldHeatSource-ZJCL.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "协同联动": {
+        "type": "0",
+        "content": "协同联动",
+        "uri": "../equipmentControl/coldHeatSource-XTLD.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "节能策略": {
+        "type": "0",
+        "content": "节能策略",
+        "uri": "../equipmentControl/airConditioningTerminal.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "节能策略(照明)": {
+        "type": "0",
+        "content": "节能策略(照明)",
+        "uri": "../equipmentControl/LightingcontrolSetting.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

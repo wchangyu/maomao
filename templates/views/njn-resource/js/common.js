@@ -212,14 +212,15 @@ function drawRightTab(){
         //'<span class="right-tab right-tab2"><a href="coldHeatSource.html">冷热源</a></span>' +
         '<span class="right-tab right-tab2 " jump-data="0"><a href="javascript:;">暖通空调</a></span>' +
         '<span class="right-tab right-tab2"><a href="elevator.html">电梯系统</a></span>' +
-        '<span class="right-tab right-tab2"><a href="sealHead.html">动环系统</a></span>' +
+        '<span class="right-tab right-tab2 "><a href="rdsp-bs-js:{\'fcfid\':\'2\',\'type\':\'2\'}">消防系统</a></span>' +
+
         '<span class="right-tab right-tab2" jump-data="1"><a href="javascript:;">照明系统</a></span>' +
         //'<span class="right-tab right-tab2"><a href="platform.html">站台照明</a></span>' +
         //'<span class="right-tab right-tab2 "><a href="exhaustAir.html">送排风</a></span>' +
         '<span class="right-tab right-tab2"><a href="supDraWater.html">给排水</a></span>' +
         '<span class="right-tab right-tab2" jump-data="2"><a href="automaticCheck.html">售检票</a></span>' +
         //'<span class="right-tab right-tab2"><a href="automaticSale.html">自动售票</a></span>' +
-        '<span class="right-tab right-tab2 "><a href="rdsp-bs-js:{\'fcfid\':\'2\',\'type\':\'2\'}">消防系统</a></span>' +
+        '<span class="right-tab right-tab2"><a href="sealHead.html">动环系统</a></span>' +
         '<span class="right-tab right-tab2 "><a href="operationMaintenance.html">运维联动</a></span>' +
         '<span class="right-tab right-tab3 "><a href="energyManagement.html">能源管理</a></span>';
 
@@ -855,6 +856,8 @@ function getStationInfo(){
 //上方统计数据
 function getStationAlarmNum(){
 
+    return false;
+
     //获取开始结束时间
     var startDate = getPostTime()[0];
 
@@ -927,6 +930,8 @@ function getStationAlarmNum(){
 
 //下方echarts图  index参数 1.设别报警 2.能耗报警 3.运维工单
 function getStationAlarmData(index){
+
+    return false;
 
     //获取开始结束时间
     var startDate = getPostTime()[0];
@@ -1609,7 +1614,7 @@ function getShowDateTypeByDom(dom){
         selectDateType = "Custom"
     }
 
-    return [showDateType,selectDateType]
+    return [showDateType,selectDateType];
 };
 
 //获取开始结束时间

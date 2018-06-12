@@ -241,17 +241,17 @@ var table = $('#equipment-datatables').DataTable({
                 return result;
 
             }
-        },
-        {
-            title:'照度',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-
-                return '';
-
-            }
         }
+        // {
+        //     title:'照度',
+        //     data:'devCtypeDatas',
+        //     render:function(data, type, row, meta){
+
+
+        //         return '';
+
+        //     }
+        // }
     ]
 });
 

@@ -39,10 +39,16 @@ $(function(){
         getBranchZtree(0,0,getPointerTree1,$("#allOffices"));
         //_officeZtree = _getPointerZtree($("#allOffices"),1);
 
+        //默认加载数据
+        getPointerData('EnergyManageV2/GetPointerDingEAssess',thisID);
+
     }else if(thisID == 2){
 
         //科室ztree树
         _officeZtree = _getOfficeZtree($("#allOffices"),1);
+
+        //默认加载数据
+        getPointerData('EnergyManageV2/GetOfficeDingEAssess',thisID);
 
     }
 
@@ -56,8 +62,7 @@ $(function(){
     //默认时间
     $('.min').val(moment().format('YYYY'));
 
-    //默认加载数据
-    getPointerData('EnergyManageV2/GetOfficeDingEAssess',1);
+
 
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
@@ -122,9 +127,30 @@ $(function(){
 
             }else{
 
-                _energyTypeSel.initOffices($(".energy-types"),undefined,function(){
-                    getEcType();
-                });
+                //楼宇
+                if($(this).attr('data-id') == 1){
+
+                    _energyTypeSel.initPointers($(".energy-types"),undefined,function(){
+                        getEcType();
+                    });
+
+                    //楼宇ztree树
+                    getBranchZtree(0,0,getPointerTree1,$("#allOffices"));
+
+                    //科室
+                }else if($(this).attr('data-id') == 2){
+
+                    _energyTypeSel.initOffices($(".energy-types"),undefined,function(){
+                        getEcType();
+                    });
+
+
+                    //科室ztree树
+                    _officeZtree = _getOfficeZtree($("#allOffices"),1);
+
+                }
+
+
 
                 $('.energy-types').removeClass('hasHeight');
 
@@ -137,29 +163,14 @@ $(function(){
                 $('.left-middle-main1').hide();
                 $('.tree-2').show();
 
-                //楼宇
-                if($(this).attr('data-id') == 1){
-
-                    //楼宇ztree树
-                    getBranchZtree(0,0,getPointerTree1,$("#allOffices"));
-
-                //科室
-                }else if($(this).attr('data-id') == 2){
-
-                    //科室ztree树
-                    _officeZtree = _getOfficeZtree($("#allOffices"),1);
-
-                }
-
             }
 
             //默认选中第一个能耗
             $('.selectedEnergy').addClass('blueImg0');
         }else{
 
+
         };
-
-
     });
 
     //加载默认能耗种类
@@ -397,7 +408,9 @@ function getPointerData(url,flag){
         var treeObj = $.fn.zTree.getZTreeObj('allOffices');
 
         //确定楼宇id
-        var pts = treeObj.getCheckedNodes(true);
+        var pts = treeObj.getCheckedNodes(true)[0];
+
+        console.log(pts);
 
         pointerID = pts.id;
 
