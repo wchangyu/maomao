@@ -269,11 +269,11 @@ $(function(){
                     //地源热泵
                     $('#efficiency-DYRB-c').html(result.report_rb_nx_Va);
                     //冷冻泵
-                    $('#efficiency-LDB-c').html(result.report_rb_nx_Va);
+                    $('#efficiency-LDB-c').html(result.report_chw_nx_Va);
                     //冷却泵
                     $('#efficiency-LQB-c').html(result.report_cw_nx_Va);
                     //冷却塔
-                    $('#efficiency-LQT-c').html(result.report_cw_nx_Va);
+                    $('#efficiency-LQT-c').html(result.report_ct_nx_Va);
                     //能效日历
                     if(result.report_list){
 

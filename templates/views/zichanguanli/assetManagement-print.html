@@ -57,7 +57,7 @@
     <link rel="stylesheet" href="../resource/station/chooseStation.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-    <link rel="stylesheet" type="text/css" media="print" href="../resource/css/print.css" />
+    <link rel="stylesheet" type="text/css" media="print" href="../resource/css/print_Heng.css" />
     <style>
         .caozuo{
             width:150px !important;
@@ -72,7 +72,6 @@
             border: 1px solid #333333;
             margin: 10px 10px;
         }
-
         td{
             padding: 0 10px;
             height: 26px !important;
@@ -86,7 +85,15 @@
             -moz-transform:scale(1);
 
         }
+        .print-block{
 
+            height: auto !important;
+
+            border: none;
+
+            background: #ffffff;
+
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -401,6 +408,7 @@
                                         </div>
                                     </li>
                                     <li><button class="btn btn-success" id="print">打印</button></li>
+                                    <li><button class="btn btn-success" id="pdfButton">导出pdf</button></li>
                                     <li class="excelButton" style="margin-left: 0px;">
                                     </li>
                                     <div class="clearfix"></div>
@@ -409,7 +417,7 @@
                                 <ul class="content-main-contents-header noprint">
                                     <li class="main-contents-header-lists0">设备浏览</li>
                                 </ul>
-                                <div class="content-main-contents  print-table">
+                                <div class="content-main-contents  print-table" style="background: #ffffff" id="print-table">
 
 
                                 </div>
@@ -719,6 +727,9 @@
         BEE.init();
     });
 </script>
+<!--pdf-->
+<script src="../bank-resource/js/lib/html2canvas.js"></script>
+<script src="../bank-resource/js/lib/jspdf.debug.js"></script>
 <!-- END JAVASCRIPTS -->
 <script src="../resource/js/jQuery.print.js"></script>
 <script src="../bank-resource/js/common.js"></script>

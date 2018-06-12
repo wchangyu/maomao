@@ -201,9 +201,45 @@ $(function(){
                 //合计费用
                 //$('#total').val(result.gdFee);
 
+                //报修图片
                 _imgNum = result.hasImage;
 
+                //按钮显示隐;
+                if(_imgNum == 0){
+
+                    $('.bxpicture').hide();
+
+                }else{
+
+                    $('.bxpicture').show();
+
+                }
+                //备件图片
                 _imgBJNum = result.hasBjImage;
+
+                //按钮显示隐藏
+                if( _imgBJNum == 0 ){
+
+                    $('.bjpicture').hide();
+
+                }else{
+
+                    $('.bjpicture').show();
+
+                }
+                //完工图片
+                _imgWGNum = result.hasWgImage;
+
+                //按钮显示隐藏
+                if( _imgWGNum == 0 ){
+
+                    $('.wgpicture').hide();
+
+                }else{
+
+                    $('.wgpicture').show();
+
+                }
 
                 //执行人表格
                 var fzrArr = result.wxRens;

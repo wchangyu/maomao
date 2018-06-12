@@ -593,6 +593,7 @@ $(function(){
                         detailVue.sections = result.wxKeshi;
                         //报修图片
                         _imgNum = result.hasImage;
+
                         //按钮显示隐;
                         if(_imgNum == 0){
 
@@ -605,6 +606,7 @@ $(function(){
                         }
                         //备件图片
                         _imgBJNum = result.hasBjImage;
+
                         //按钮显示隐藏
                         if( _imgBJNum == 0 ){
 

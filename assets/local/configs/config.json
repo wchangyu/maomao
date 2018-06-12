@@ -165,8 +165,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://222.190.246.50:8080/BEEWebAPIys/api/",
-  "apiUriPrefixYW":"http://222.190.246.50:8080/BEEWebAPIys/api/",
+  "apiUriPrefix":"http://61.235.10.55:8080/BEEWebAPIYW2/api/",
+  "apiUriPrefixYW":"http://61.235.10.55:8080/BEEWebAPIYW2/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
@@ -203,6 +203,8 @@
   "bigScreenSetComment":"大屏首页人工配置数据开关",
   "bigScreenSwitch":"1",
   "bigScreenSwitchComment":"登陆时是否进行自动识别大屏的判断",
+  "dapinInterval":"30",
+  "dapinIntervalComment":"大屏幕是否自动刷新，0为不刷新，单位分钟",
   "loginPath":"../logins/chcmu/login_4.html",
   "loginPathComment":"登录页面路径",
   "showstep":"1",

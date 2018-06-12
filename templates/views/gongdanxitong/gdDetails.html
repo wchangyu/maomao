@@ -219,7 +219,7 @@
                         </div>
                     </div>
                 </div>
-                <div style="margin-top: 10px;">
+                <div style="margin-top: 10px;" class="bxpicture divBlock">
                     <button type="button" class="btn btn-info viewImage">查看图片</button>
                     <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;margin-top: 10px;">
                         <img src="../resource/img/all1.png" alt="" class="viewIMG">
@@ -228,6 +228,14 @@
                 <div class="divBlock bjpicture" style="margin-top: 10px;width: 611px;">
                     <button type="button" class="btn btn-info" id="viewBJImage">备件图片</button>
                     <div class="bjImg" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
+                </div>
+                <div class="divBlock wgpicture" style="margin-top: 10px;width: 611px;">
+                    <button type="button" class="btn btn-info" id="viewWGImage">完工图片</button>
+                    <div class="wgImg" style="display: none;border: 1px solid #cccccc;padding: 10px;">
+
+                        <img class="viewIMG" src="../resource/img/up2.png">
+
+                    </div>
                 </div>
             </div>
 
@@ -283,14 +291,14 @@
     <div class="clearfix"></div>
 </div>
 <!--图片详情显示-->
-<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="img-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content" style="height: auto;">
+        <div class="modal-content" style="height: auto">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="">图片</h4>
+                <h4 class="modal-title">图片</h4>
             </div>
-            <div class="modal-body" style="text-align: center">
+            <div class="modal-body">
                 <img src="" style="max-width: 667px;">
             </div>
             <div class="modal-footer">

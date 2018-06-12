@@ -71,8 +71,6 @@ $(function(){
 
         var zTree_Menu = $.fn.zTree.getZTreeObj("allPointer");
 
-        console.log(zTree_Menu);
-
         zTree_Menu.checkAllNodes(false);
 
     });
@@ -122,231 +120,249 @@ $(function(){
     //ztree树
     function devTree(obj1,arr1){
 
-        //记录第一个子节点
-        var ifFirst = null;
-
         //重新整合数据，将arr1的数据格式和arr一致
         var reFormArr = [];
 
-        for(var i=0;i<obj1.devs.length;i++){
+        if(obj1.code == 0){
 
-            var obj = {};
+            //根据arr1过滤obj1.devs
+            //过滤后的obj1数组
+            var filterObj1 = [];
 
-            //parentOBJID
-            obj.parentOBJID = obj1.devs[i].typeID;
+            for(var i=0;i<obj1.devs.length;i++){
 
-            //returnOBJID
-            obj.returnOBJID = obj1.devs[i].id;
+                for(var j=0;j<arr1.length;j++){
 
-            //returnOBJName
-            obj.returnOBJName = obj1.devs[i].devName;
+                    if(arr1[j].returnOBJID == obj1.devs[i].areaID){
 
-            //returnType
-            obj.returnType = 5;
-
-            reFormArr.push(obj);
-
-        }
-
-        //将区域中的第一个值付给ifFirst
-        ifFirst = reFormArr[0].returnOBJID;
-
-        //将两个数组结合
-
-        var newCompleteArr = arr1.concat(reFormArr);
-
-        var setting = {
-            check: {
-                enable: true,
-                chkStyle: "radio",
-                chkboxType: { "Y": "", "N": "" },
-                radioType:'all'
-            },
-            data: {
-                simpleData: {
-                    enable: true
-                }
-            },
-            view:{
-
-                showIcon:false
-            },
-            callback: {
-                //这个是点击后边的文字选中的事件
-                onClick: function(e,treeId,treeNode){
-
-                    $('#emptyAll').click();
-
-                    //勾选当前选中的节点
-                    zTreeObj.checkNode(treeNode, !treeNode.checked, true);
-
-                    if(treeNode.returnType == 5){
-
-                        //判断是否是选中状态
-                        if(treeNode.checked){
-
-                            //去重
-                            if(uniqueArr.indexOf(treeNode.id)<0){
-
-                                //放到已选择类型中
-                                var str = '<div class="main-selected-list">' +
-                                    '<div class="main-selected-list1" attr-id="' + treeNode.id + '">' + treeNode.name +
-                                    '</div>' +
-                                    '<div class="remove-selected">x</div>' +
-                                    '</div>';
-
-                                $('.main-selected-block').append(str);
-
-                                uniqueArr.push(treeNode.id);
-
-                            }
-
-                        }else{
-
-                            uniqueArr.remove(treeNode.id);
-
-                            //遍历已选中的节点，移除
-                            var list = $('.main-selected-list1');
-
-                            for(var i=0;i<list.length;i++){
-
-                                if(list.eq(i).attr('attr-id') == treeNode.id){
-
-                                    list.eq(i).parent().remove();
-
-                                }
-
-                            }
-
-                        }
-
-
-                    }else{
-
-                        return false;
+                        filterObj1.push(obj1.devs[i]);
 
                     }
+                }
 
+            }
 
+            for(var i=0;i<filterObj1.length;i++){
 
+                var obj = {};
 
+                //parentOBJID
+                obj.parentOBJID = filterObj1[i].areaID;
+
+                //returnOBJID
+                obj.returnOBJID = filterObj1[i].id;
+
+                //returnOBJName
+                obj.returnOBJName = filterObj1[i].devName;
+
+                //returnType
+                obj.returnType = 4;
+
+                reFormArr.push(obj);
+
+            }
+
+            //将区域中的第一个值付给ifFirst
+            var ifFirst = reFormArr[0].returnOBJID;
+
+            //将两个数组结合
+
+            var newCompleteArr = arr1.concat(reFormArr);
+
+            var setting = {
+                check: {
+                    enable: true,
+                    chkStyle: "radio",
+                    chkboxType: { "Y": "", "N": "" },
+                    radioType:'all'
                 },
-                onCheck:function(e,treeId,treeNode){
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                view:{
 
-                    $('#emptyAll').click();
+                    showIcon:false
+                },
+                callback: {
+                    //这个是点击后边的文字选中的事件
+                    onClick: function(e,treeId,treeNode){
 
-                    //点击前边的按钮选中事件
-                    if(treeNode.returnType == 5){
+                        $('#emptyAll').click();
 
-                        //判断是否是选中状态
-                        if(treeNode.checked){
+                        //勾选当前选中的节点
+                        zTreeObj.checkNode(treeNode, !treeNode.checked, true);
 
-                            //去重
-                            if(uniqueArr.indexOf(treeNode.id)<0){
+                        if(treeNode.returnType == 4){
 
-                                //放到已选择类型中
-                                var str = '<div class="main-selected-list">' +
-                                    '<div class="main-selected-list1" attr-id="' + treeNode.id + '">' + treeNode.name +
-                                    '</div>' +
-                                    '<div class="remove-selected">x</div>' +
-                                    '</div>';
+                            //判断是否是选中状态
+                            if(treeNode.checked){
 
-                                $('.main-selected-block').append(str);
+                                //去重
+                                if(uniqueArr.indexOf(treeNode.id)<0){
 
-                                uniqueArr.push(treeNode.id);
+                                    //放到已选择类型中
+                                    var str = '<div class="main-selected-list">' +
+                                        '<div class="main-selected-list1" attr-id="' + treeNode.id + '">' + treeNode.name +
+                                        '</div>' +
+                                        '<div class="remove-selected">x</div>' +
+                                        '</div>';
 
-                            }
+                                    $('.main-selected-block').append(str);
 
-                        }else{
+                                    uniqueArr.push(treeNode.id);
 
-                            uniqueArr.remove(treeNode.id);
+                                }
 
-                            //遍历已选中的节点，移除
-                            var list = $('.main-selected-list1');
+                            }else{
 
-                            for(var i=0;i<list.length;i++){
+                                uniqueArr.remove(treeNode.id);
 
-                                if(list.eq(i).attr('attr-id') == treeNode.id){
+                                //遍历已选中的节点，移除
+                                var list = $('.main-selected-list1');
 
-                                    list.eq(i).parent().remove();
+                                for(var i=0;i<list.length;i++){
+
+                                    if(list.eq(i).attr('attr-id') == treeNode.id){
+
+                                        list.eq(i).parent().remove();
+
+                                    }
 
                                 }
 
                             }
 
+
+                        }else{
+
+                            return false;
+
                         }
 
 
-                    }else{
 
-                        return false;
+
+                    },
+                    onCheck:function(e,treeId,treeNode){
+
+                        $('#emptyAll').click();
+
+                        //点击前边的按钮选中事件
+                        if(treeNode.returnType == 4){
+
+                            //判断是否是选中状态
+                            if(treeNode.checked){
+
+                                //去重
+                                if(uniqueArr.indexOf(treeNode.id)<0){
+
+                                    //放到已选择类型中
+                                    var str = '<div class="main-selected-list">' +
+                                        '<div class="main-selected-list1" attr-id="' + treeNode.id + '">' + treeNode.name +
+                                        '</div>' +
+                                        '<div class="remove-selected">x</div>' +
+                                        '</div>';
+
+                                    $('.main-selected-block').append(str);
+
+                                    uniqueArr.push(treeNode.id);
+
+                                }
+
+                            }else{
+
+                                uniqueArr.remove(treeNode.id);
+
+                                //遍历已选中的节点，移除
+                                var list = $('.main-selected-list1');
+
+                                for(var i=0;i<list.length;i++){
+
+                                    if(list.eq(i).attr('attr-id') == treeNode.id){
+
+                                        list.eq(i).parent().remove();
+
+                                    }
+
+                                }
+
+                            }
+
+
+                        }else{
+
+                            return false;
+
+                        }
 
                     }
+                }
+            };
+
+            var treeArr = [];
+
+            for(var i=0;i<newCompleteArr.length;i++){
+
+                var obj = {};
+
+                obj.id = newCompleteArr[i].returnOBJID;
+
+                obj.name = newCompleteArr[i].returnOBJName;
+
+                obj.pId = newCompleteArr[i].parentOBJID;
+
+                obj.returnType = newCompleteArr[i].returnType;
+
+                if(newCompleteArr[i].returnType > 3){
+
+                    obj.nocheck = false;
+
+                }else{
+
+                    obj.nocheck = true;
 
                 }
-            }
-        };
 
-        var treeArr = [];
-
-        for(var i=0;i<newCompleteArr.length;i++){
-
-            var obj = {};
-
-            obj.id = newCompleteArr[i].returnOBJID;
-
-            obj.name = newCompleteArr[i].returnOBJName;
-
-            obj.pId = newCompleteArr[i].parentOBJID;
-
-            obj.returnType = newCompleteArr[i].returnType;
-
-            if(newCompleteArr[i].returnType > 4){
-
-                obj.nocheck = false;
-
-            }else{
-
-                obj.nocheck = true;
+                treeArr.push(obj);
 
             }
 
-            treeArr.push(obj);
+            var zTreeObj = $.fn.zTree.init($("#allPointer"), setting, treeArr);
+
+            zTreeObj.expandAll(true);
+
+            var node = zTreeObj.getNodeByParam("id",ifFirst);
+
+            zTreeObj.selectNode(node);
+
+            zTreeObj.checkNode(node);
+
+            //已选择类型自动填写
+
+            var selectedArr = getCheckedNodeFun();
+
+            var str = '';
+
+            for(var i=0;i<selectedArr.length;i++){
+
+                str += '<div class="main-selected-list">' +
+                    '<div class="main-selected-list1" attr-id="' + selectedArr[i].id + '">' + selectedArr[i].name +
+                    '</div>' +
+                    '<div class="remove-selected">x</div>' +
+                    '</div>';
+
+                uniqueArr.push(selectedArr[i].id);
+
+            }
+
+            $('.main-selected-block').append(str);
+
+            //条件查询
+            realTimeData();
 
         }
-
-        var zTreeObj = $.fn.zTree.init($("#allPointer"), setting, treeArr);
-
-        zTreeObj.expandAll(true);
-
-        var node = zTreeObj.getNodeByParam("id",ifFirst);
-
-        zTreeObj.selectNode(node);
-
-        zTreeObj.checkNode(node);
-
-        //已选择类型自动填写
-
-        var selectedArr = getCheckedNodeFun();
-
-        var str = '';
-
-        for(var i=0;i<selectedArr.length;i++){
-
-            str += '<div class="main-selected-list">' +
-                '<div class="main-selected-list1" attr-id="' + selectedArr[i].id + '">' + selectedArr[i].name +
-                '</div>' +
-                '<div class="remove-selected">x</div>' +
-                '</div>';
-
-            uniqueArr.push(selectedArr[i].id);
-
-        }
-
-        $('.main-selected-block').append(str);
-
-        //条件查询
-        realTimeData();
     }
 
     //获取ztree数据
@@ -394,7 +410,7 @@ $(function(){
 
                         arr1.push(result[i]);
 
-                        if(result[i].returnType == 4){
+                        if(result[i].returnType == 3){
 
                             areaArr.push(result[i]);
 
@@ -739,9 +755,11 @@ $(function(){
         }
 
         //根据获得的areaArr来获取设备类型
+
         var prm = {
 
-            typeIDs:arr
+            typeIDs:['62']
+
 
         }
 

@@ -1404,7 +1404,9 @@ $(function(){
             //工单号
             "gdCode": $('#filter_global').children().val(),
             //工单状态
-            "gdZht": "2"
+            "gdZht": "2",
+            //所属部门
+            "GetGongdanFZList":_userBM
 
         }
 
