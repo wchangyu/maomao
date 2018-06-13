@@ -545,59 +545,6 @@ $(function(){
 
     })
 
-    //
-    $('#pdfButton111').click(function(){
-
-        var printBlock = $('.print-block');
-
-        for(var i=0;i<printBlock.length;i++){
-
-            console.log($(printBlock).eq(i).attr('id'));
-
-        }
-
-        // 将 id 为 content 的 div 渲染成 canvas
-        html2canvas(document.getElementById("print-block-0"), {
-
-            // 渲染完成时调用，获得 canvas
-            onrendered: function(canvas) {
-
-                var contentWidth = canvas.width;
-
-                var contentHeight = canvas.height;
-
-                console.log( 'contentWidth' + contentWidth);
-
-                console.log( 'contentHeight' + contentHeight);
-
-                // 从 canvas 提取图片数据
-                var imgData = canvas.toDataURL('image/jpeg',1.0);
-
-                var doc = new jsPDF("l", "mm", "a4");
-                //                               |
-                // |—————————————————————————————|
-                // A0 841×1189
-                // A1 594×841
-                // A2 420×594
-                // A3 297×420
-                // A4 210×297
-                // A5 148×210
-                // A6 105×148
-                // A7 74×105
-                // A8 52×74
-                // A9 37×52
-                // A10 26×37
-                //     |——|———————————————————————————|
-                //                                 |——|——|
-                //                                 |     |
-                doc.addImage(imgData, 'JPEG', 40,0,0,0);
-
-                doc.save('content.pdf');
-            }
-        });
-
-    })
-
     /*--------------------------------------------------其他方法-------------------------------------------------*/
     //条件查询
     function conditionSelect(){

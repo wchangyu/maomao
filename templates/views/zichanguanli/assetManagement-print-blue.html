@@ -711,7 +711,13 @@
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         Demo.init(); // init demo features
-        BEE.init();
+        if(!sessionStorage.userName){
+            sessionStorage.userName = "username";
+        }
+        if(!sessionStorage.apiUrlPrefix){
+            sessionStorage.apiUrlPrefix = "local";
+        }
+        BEE.init(true);
     });
 </script>
 <!-- END JAVASCRIPTS -->

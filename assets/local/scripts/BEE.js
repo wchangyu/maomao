@@ -26,7 +26,7 @@ var BEE = (function(){
 
         //获取存放配置文件的地址
         var configSrc =  _Lurls + "assets/local/configs/config.json?"+ Math.random();
-
+        loginPath = '';
         $.ajax({
             url: configSrc,
             type: 'get',
@@ -48,7 +48,7 @@ var BEE = (function(){
 
             },
             error: function (xhr, res, err) {
-                showAlertInfo(err);
+                //showAlertInfo(err);
             }
 
         });
@@ -62,7 +62,8 @@ var BEE = (function(){
     };
 
     //获取当前地址
-    var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
+    if(window.document.location.href.indexOf('templates')>0)
+        var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
 
     if(_LurlLength > 3){
 
@@ -1997,7 +1998,7 @@ var BEE = (function(){
                     }
 
                     //页面右上角选择单位
-                    if(JSON.parse(sessionStorage.allPointers).length > 0){
+                    if(sessionStorage.allPointers && JSON.parse(sessionStorage.allPointers).length > 0){
 
                         drawChangeUnitButton();
                     }

@@ -120,7 +120,7 @@
     }
 
     //查询能效排名
-    var getEERRankDs = function () {
+    var getEERRankDs = function (dt) {
         if(selectDt.length === 0){
             console.log('提示(能效排名):请选择时间');
             return;
@@ -136,7 +136,7 @@
                 pIds:pIds,
                 pNts:pNts,
                 //DT:dtnowstr(),
-                DT:moment($('#spDT').val()).endOf('months').format('YYYY-MM-DD'),
+                DT:dt,
                 eType:selectEType,
                 misc:sessionStorage.misc
             },function (res) {
@@ -766,9 +766,9 @@
             //切换日月年时间类型
             changeEType();
             //(默认)查询能效排名
-            getEERRankDs();
+            getEERRankDs(encodeURIComponent(sessionStorage.sysDt));
             $('#rankBtn').on('click',function () {
-                getEERRankDs();
+                getEERRankDs(moment($('#spDT').val()).format('YYYY-MM-DD'));
             })
         }
     }

@@ -365,7 +365,7 @@ $(function(){
 
                 if(row.inType == 1){
 
-                    return '<a href="godownEntry.html?orderNum=' + row.orderNum +
+                    return '<a class="rukuBM" href="godownEntry.html?orderNum=' + row.orderNum +
                         '" target="_blank">' + row.orderNum + '</a>'
 
                 }else if(row.inType == 3){
@@ -375,7 +375,7 @@ $(function(){
 
                 }else{
 
-                    return row.orderNum
+                    return '<span class="rukuBM">' + row.orderNum + '</span>'
 
                 }
 
@@ -388,13 +388,16 @@ $(function(){
             render:function(data, type, full, meta){
                 if(data == 0){
                     return '出错'
-                }
-                if(data == 1){
+                }else if(data == 1){
                     return '采购入库'
-                }if(data == 2){
+                }else if(data == 2){
                     return '暂估价入库'
-                }if(data == 3){
+                }else if(data == 3){
                     return '调拨入库'
+                }else if(data == 4){
+
+                    return '返修入库'
+
                 }
             },
             className:'inType'
@@ -963,7 +966,7 @@ $(function(){
 
             $this.addClass('tables-hover');
 
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').find('.rukuBM').html();
 
             _ruCode = $thisDanhao;
 
@@ -1046,7 +1049,7 @@ $(function(){
 
             $this.addClass('tables-hover');
 
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').find('.rukuBM').html();
 
             _ruCode = $thisDanhao;
 
@@ -1183,7 +1186,7 @@ $(function(){
 
             $this.addClass('tables-hover');
 
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').find('.rukuBM').html();
 
             _ruCode = $thisDanhao;
 
@@ -1276,7 +1279,7 @@ $(function(){
 
             $this.addClass('tables-hover');
 
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').find('.rukuBM').html();
 
             _ruCode = $thisDanhao;
 
@@ -1480,7 +1483,7 @@ $(function(){
             }
 
             //计算总金额
-            spareAmount += Number(thisSpareArr[i].amount);
+            spareAmount += Number(thisSpareArr[i].inPrice);
 
         }
 
@@ -3577,7 +3580,7 @@ $(function(){
 
                     num += Number(arr1[j].num);
 
-                    amount += Number(arr1[j].amount);
+                    amount += Number(arr1[j].inPrice);
 
                 }
 
@@ -3588,7 +3591,6 @@ $(function(){
             arr[i].amount = amount;
 
         }
-
 
     }
 
