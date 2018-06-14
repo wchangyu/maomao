@@ -68,7 +68,19 @@
     var myEERAreaMain = null;
     var initEERArea=function (eerVa,minVa,maxVa) {
         myEERAreaMain = echarts.init(document.getElementById('eerAreaMain'));
-        var cc = [[0.38, '#ff4500'], [0.46, 'orange'], [0.55, 'skyblue'], [1, 'lightgreen']];
+        //var cc = [[0.38, '#ff4500'], [0.46, 'orange'], [0.55, 'skyblue'], [1, 'lightgreen']];
+
+        var cc = [[0.23, 'lightgreen'], [0.28, 'skyblue'], [0.33, 'orange'], [1, '#ff4500']];
+        //KW/RT
+        if ( sessionStorage.misc === "2") {
+
+            cc = [[0.23, 'lightgreen'], [0.28, 'skyblue'], [0.33, 'orange'], [1, '#ff4500']];
+
+        }else {
+
+            cc = [[0.38, '#ff4500'], [0.46, 'orange'], [0.55, 'skyblue'], [1, 'lightgreen']];
+        }
+
         option = {
             tooltip: {
                 formatter: "{a} <br/>{c} {b}"
@@ -137,7 +149,7 @@
         var url = sessionStorage.apiUrlPrefix+ "Main/GetECPItemizeNowDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:sessionStorage.sysDt,
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
             misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
@@ -188,8 +200,19 @@
                     eerV = 0;
                 }
                 //能效=冷量/电量
-                eerMinV=0;
-                eerMaxV=9;
+
+                ////KW/KW
+                //if( sessionStorage.misc == 1 ){
+                //
+                //    eerMinV=0;
+                //    eerMaxV=9;
+                //
+                //    //KW/RT
+                //}else if( sessionStorage.misc == 2 ){
+                //
+                //}
+
+
                 if(lzpV===0){
                     initEERArea(0.0,eerMinV,eerMaxV);
 
@@ -203,6 +226,11 @@
                     if(sessionStorage.misc == 1){
 
                         //KW/KW
+
+                        eerMinV=0;
+
+                        eerMaxV=9;
+
                         eerV = parseFloat(lzlV / lzpV).toFixed(3);
 
                         if (eerV > 15) {
@@ -212,6 +240,11 @@
                     }else if(sessionStorage.misc == 2){
 
                         //KW/RT
+
+                        eerMinV=0;
+
+                        eerMaxV=3;
+
                         eerV = parseFloat(lzpV / lzlV).toFixed(3);
 
                         if (eerV > 3) {
@@ -774,7 +807,7 @@
         var url = sessionStorage.apiUrlPrefix + "Main/GetEAnMonNowDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:sessionStorage.sysDt,
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
             misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){

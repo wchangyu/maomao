@@ -162,7 +162,7 @@ $(function(){
 
         var targetDom = e.target.classList.value;
 
-        if(targetDom.indexOf('ztree')>=0){
+        if(targetDom.indexOf('ztree')>=0 ||$(e.target).parents('#treeView').length != 0 ){
 
             return false;
 
@@ -593,7 +593,7 @@ $(function(){
 
             type:'post',
 
-            url:_urls + 'AnalysisAro/GetAroItemTVs',
+            url:sessionStorage.apiUrlPrefix + 'AnalysisAro/GetAroItemTVs',
 
             timeout:_theTimes,
 

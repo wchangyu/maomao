@@ -365,7 +365,7 @@ $(function(){
 
                 if(row.inType == 1){
 
-                    return '<a href="godownEntry.html?orderNum=' + row.orderNum +
+                    return '<a class="rukuBM" href="godownEntry.html?orderNum=' + row.orderNum +
                         '" target="_blank">' + row.orderNum + '</a>'
 
                 }else if(row.inType == 3){
@@ -375,7 +375,7 @@ $(function(){
 
                 }else{
 
-                    return row.orderNum
+                    return '<span class="rukuBM">' + row.orderNum + '</span>'
 
                 }
 
@@ -388,13 +388,16 @@ $(function(){
             render:function(data, type, full, meta){
                 if(data == 0){
                     return '出错'
-                }
-                if(data == 1){
+                }else if(data == 1){
                     return '采购入库'
-                }if(data == 2){
+                }else if(data == 2){
                     return '暂估价入库'
-                }if(data == 3){
+                }else if(data == 3){
                     return '调拨入库'
+                }else if(data == 4){
+
+                    return '返修入库'
+
                 }
             },
             className:'inType'
@@ -963,7 +966,7 @@ $(function(){
 
             $this.addClass('tables-hover');
 
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').find('.rukuBM').html();
 
             _ruCode = $thisDanhao;
 
@@ -1011,7 +1014,7 @@ $(function(){
 
                 $('#personTable1 tfoot').find('.amount').html(num);
 
-                $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
 
             }
 
@@ -1046,7 +1049,7 @@ $(function(){
 
             $this.addClass('tables-hover');
 
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').find('.rukuBM').html();
 
             _ruCode = $thisDanhao;
 
@@ -1089,7 +1092,7 @@ $(function(){
 
                 $('#personTable1 tfoot').find('.amount').html(num);
 
-                $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
 
             }
 
@@ -1183,7 +1186,7 @@ $(function(){
 
             $this.addClass('tables-hover');
 
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').find('.rukuBM').html();
 
             _ruCode = $thisDanhao;
 
@@ -1230,7 +1233,7 @@ $(function(){
 
                 $('#personTable1 tfoot').find('.amount').html(num);
 
-                $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
             }
 
             //获取入库产品信息
@@ -1276,7 +1279,7 @@ $(function(){
 
             $this.addClass('tables-hover');
 
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').find('.rukuBM').html();
 
             _ruCode = $thisDanhao;
 
@@ -1326,7 +1329,7 @@ $(function(){
 
                 $('#personTable1 tfoot').find('.amount').html(num);
 
-                $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
             }
 
             detailInfo($thisDanhao,detailTable);
@@ -1480,7 +1483,7 @@ $(function(){
             }
 
             //计算总金额
-            spareAmount += Number(thisSpareArr[i].amount);
+            spareAmount += Number(thisSpareArr[i].inPrice);
 
         }
 
@@ -1639,7 +1642,7 @@ $(function(){
 
             $('#wuPinListTable1 tfoot').find('.amount1').html(num);
 
-            $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(3));
+            $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
 
             //初始化
             newGoodsInit(true);
@@ -2201,7 +2204,7 @@ $(function(){
 
                     $('#wuPinListTable1 tfoot').find('.amount1').html(num);
 
-                    $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(3));
+                    $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
 
                     //清空
                     newGoodsInit();
@@ -2414,7 +2417,7 @@ $(function(){
 
                 $('.amount1').html(goodsNum);
 
-                $('.count1').html(goodsAmount.toFixed(3));
+                $('.count1').html(goodsAmount.toFixed(2));
 
             }else{
 
@@ -2486,7 +2489,7 @@ $(function(){
 
         $('#personTable1 tfoot').find('.amount').html(num);
 
-        $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
+        $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
 
         $('#myModal1').modal('hide');
 
@@ -3522,7 +3525,7 @@ $(function(){
 
                         $('#wuPinListTable1 tfoot').find('.amount1').html(num);
 
-                        $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(3));
+                        $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
 
                     }
 
@@ -3577,7 +3580,7 @@ $(function(){
 
                     num += Number(arr1[j].num);
 
-                    amount += Number(arr1[j].amount);
+                    amount += Number(arr1[j].inPrice);
 
                 }
 
@@ -3588,7 +3591,6 @@ $(function(){
             arr[i].amount = amount;
 
         }
-
 
     }
 
@@ -3648,13 +3650,13 @@ $(function(){
 
             tableId.find('tfoot').find('.amount').html(num);
 
-            tableId.find('tfoot').find('.count').html(amount.toFixed(3));
+            tableId.find('tfoot').find('.count').html(amount.toFixed(2));
 
         }else{
 
             tableId.find('tfoot').find('.amount1').html(num);
 
-            tableId.find('tfoot').find('.count1').html(amount.toFixed(3));
+            tableId.find('tfoot').find('.count1').html(amount.toFixed(2));
 
         }
 

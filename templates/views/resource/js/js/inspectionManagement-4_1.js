@@ -7,11 +7,11 @@ $(function(){
     //设置初始时间
     var now = moment().format('YYYY/MM/DD');
 
-    var st = moment(now).subtract(6,'months').format('YYYY/MM/DD');
+    var et = moment(now).add(7,'days').format('YYYY/MM/DD');
 
-    $('.condition-query').eq(0).find('.min').val(st);
+    $('.condition-query').eq(0).find('.min').val(now);
 
-    $('.condition-query').eq(0).find('.max').val(now);
+    $('.condition-query').eq(0).find('.max').val(et);
 
     /*------------------------------------------------------变量------------------------------------------------*/
     //当前选中的巡检计划编码

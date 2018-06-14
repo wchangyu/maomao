@@ -82,7 +82,6 @@
         "selectImg":"leng3.png",
         "color":"#b1cade",
         "img2":"cold.png",
-        "secondEnergy":1,
         "isShowItem":1,
         "etunitZH":"兆焦"
       },
@@ -166,8 +165,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.102/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.102/BEEWebAPI/api/",
+  "apiUriPrefix":"http://localhost/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://222.190.246.50:8080/BEEWebAPIys/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
