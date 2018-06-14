@@ -204,9 +204,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     }
                 });
-
                 return result;
-
             }
         },
         {
@@ -310,11 +308,11 @@ var table = $('#equipment-datatables').DataTable({
                 return data;
 
             }
-        },
-        {
-            title:'功率（kW）',
-            data:'powerValue'
         }
+        // {
+        //     title:'功率（kW）',
+        //     data:'powerValue'
+        // }
     ]
 });
 
@@ -381,7 +379,8 @@ function drawDataTableByResult(titleArr,areaDataArr){
         titleHtml += '<th>'+o+'</th>';
 
     });
-    console.log(areaDataArr);
+
+    //console.log(areaDataArr);
 
     //把title放入到table中
 

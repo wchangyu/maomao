@@ -26,11 +26,14 @@ $(function(){
 
         //删除之前选中的类
         $(this).parents('.left-tab-container').find('.right-tab').removeClass('right-tab-choose');
+        $(this).parents('.left-tab-container').find('.small-times').removeClass('right-tab-choose-name');
 
         //给当前选中元素添加选中类名
         $(this).addClass('right-tab-choose');
 
-        if(userEquipObj != {}){
+        $(this).prev('.small-times').addClass('right-tab-choose-name');
+
+        if(JSON.stringify(userEquipObj) != '{}'){
 
             //获取当前的索引
             var index = $(this).index();
@@ -49,9 +52,9 @@ $(function(){
         }
 
         //设备报警
-        getStationAlarmData(1);
+        getStationAlarmData(0);
 
-        getStationAlarmNum();
+        getStationAlarmNum(0);
 
     });
 
@@ -1692,7 +1695,7 @@ var option8 = {
         orient: 'vertical',
         x: 'left',
         y:'10px',
-        data:['暖通系统','照明系统','电梯系统','动环系统','给排水','消防系统','自动售检票','能源管理'],
+        data:['暖通空调','照明系统','电梯系统','动环系统','给排水','消防系统','售检票','能源管理'],
         textStyle:{
             color:'white'
         }
@@ -2030,7 +2033,7 @@ function getTPDevMonitor(){
             var alarmNumArr = [];
 
             //暖通系统
-            alarmNumArr.push({name:"暖通系统",value:result.hvacAirsOBJ.alarmNum});
+            alarmNumArr.push({name:"暖通空调",value:result.hvacAirsOBJ.alarmNum});
 
             //照明系统
             alarmNumArr.push({name:"照明系统",value:result.lightSysOBJ.alarmNum});
@@ -2048,7 +2051,7 @@ function getTPDevMonitor(){
             alarmNumArr.push({name:"消防系统",value:result.fireControlSysOBJ.alarmNum});
 
             //售检票系统
-            alarmNumArr.push({name:"自动售检票",value:result.sellCheckTicketOBJ.alarmNum});
+            alarmNumArr.push({name:"售检票",value:result.sellCheckTicketOBJ.alarmNum});
 
             //能管系统
             alarmNumArr.push({name:"能源管理",value:result.energyManagerOBJ.alarmNum});
@@ -2058,6 +2061,11 @@ function getTPDevMonitor(){
             var totalAlarmNum = 0;
 
             $(alarmNumArr).each(function(i,o){
+
+                if(o.value == -1){
+
+                    o.value = 0;
+                }
 
                 totalAlarmNum += o.value;
             });
@@ -2379,7 +2387,7 @@ function getTPDevMonitor(){
                 {name:'屏蔽中',data:fireControlrepairNum}
             ];
 
-            var fireControlData = {name:'设备数',data:fireControlAllTimesNum};
+            var fireControlData = {name:'总点数',data:fireControlAllTimesNum};
 
             //给echarts赋值
             drawEcharts(fireControlArr,'equipment-chart-platform',colorArr2,fireControlData, _conditioneroption,'');
@@ -2450,8 +2458,6 @@ function getTPDevMonitor(){
 
             }
 
-
-
             //-----------------------------能源管理---------------------------//
 
             //获取存放能耗的数组
@@ -2503,8 +2509,11 @@ function getTPDevMonitor(){
 
             //-----------------设备报警数据------------------//
 
+            console.log(userEquipObj)
+
             //判断是否启用
-            if(userEquipObj != {}){
+            if(JSON.stringify(userEquipObj) != '{}'){
+                //console.log(userEquipObj);
 
                 //页面赋值
                 $('.right-bottom-energyment0 .left-tab-data1 font').html(totalAlarmNum);
@@ -2523,11 +2532,13 @@ function getTPDevMonitor(){
 
             }else{
 
+
+                //console.log(44);
                 //获取页面左侧下方统计数据
-                getStationAlarmNum();
+                getStationAlarmNum(0);
 
                 //设备报警
-                getStationAlarmData(1);
+                getStationAlarmData(0);
 
             }
 
@@ -2566,7 +2577,7 @@ function getPointerData(){
     //是否标煤
     var isBiaoMeiEnergy = 0;
 
-    //单位类型 0为kwh t
+    //单位类型 0为kWh t
     var unitType = '0';
 
     //确定楼宇id
@@ -3054,7 +3065,7 @@ function getDeployByUser(){
 
             var result1;
 
-            var mainSwitch
+            var mainSwitch;
 
             if(result != ''){
 
@@ -3076,11 +3087,11 @@ function getDeployByUser(){
                 //获取页面主题部分数据
                 getTPDevMonitor();
 
-                //设备报警
-                getStationAlarmData(1);
-
-                //获取页面左侧下方统计数据
-                getStationAlarmNum();
+                ////设备报警
+                //getStationAlarmData(0);
+                //
+                ////获取页面左侧下方统计数据
+                //getStationAlarmNum(0);
 
                 //获取工单数据
                 getGDRespondInfo();
@@ -3294,7 +3305,7 @@ function drawLineChart(totalNum,flag){
     if(flag == 0){
 
         //获取当前小时数
-        hourNum = parseInt(moment().format('HH')) - 1;
+        hourNum = parseInt(moment().format('HH'));
 
     //月数据
     }else if(flag == 1){
@@ -3625,7 +3636,9 @@ function getDevFaultAlarmPropData(condition){
             $('#dateTables-trouble tbody').html('');
 
             setTimeout(function(){
+
                 $('#trouble-message .bottom-table-data-container ').showLoading();
+
             },500);
         },
         success:function(result){
@@ -3697,6 +3710,7 @@ function getEnergyCostData(condition){
         ecParams = condition;
 
     }
+
     $.ajax({
 
         type:'post',

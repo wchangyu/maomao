@@ -77,12 +77,22 @@ $(function(){
 
                 return false;
 
-            }else if($(this).index() == 1){
+            }else{
 
+                //楼宇
+                if($(this).attr('data-id') == 1){
 
-                _energyTypeSel.initPointers($(".energy-types"),undefined,function(){
-                    getEcType();
-                });
+                    _energyTypeSel.initPointers($(".energy-types"),undefined,function(){
+                        getEcType();
+                    });
+
+                //科室
+                }else if($(this).attr('data-id') == 2){
+
+                    _energyTypeSel.initOffices($(".energy-types"),undefined,function(){
+                        getEcType();
+                    });
+                }
 
                 $('.energy-types').removeClass('hasHeight');
 
@@ -535,6 +545,13 @@ function getDingEData(url,flag){
 
     }
 
+    if(flag != 5){
+
+        //获得选择的能耗类型
+        _ajaxEcType =_getEcTypeValue(_ajaxEcType);
+
+    }
+
     ecParams = {
         "energyItemID":_ajaxEcType,
         "yearInt": yearInt,
@@ -542,6 +559,7 @@ function getDingEData(url,flag){
         "officeIDs": officeID,
         'dingEType': parseInt(flag)
     };
+
 
     //判断是否标煤
     if($('.selectedEnergy p').html() == '标煤'){

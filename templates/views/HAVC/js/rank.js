@@ -243,6 +243,7 @@
             var time = moment($('#spDT').val()).format('YYYY-MM-DD');
 
             $.post(url,{
+
                 //楼宇id列表
                 pIds:pIds,
                 //楼宇id
@@ -256,6 +257,7 @@
                 eType:selectEType,
                 //时间
                 sp:time
+
             },function (res) {
 
                 //初始化echarts
@@ -283,10 +285,11 @@
                     drawEchart(chartLXJ,res,'ewclxXs','ewclxYs','ewclxMs','离心机COP',tipBlock.eq(1));
 
                     //溴锂机
-                    drawEchart(chartXLJ,res,'ewcrbXs','ewcrbYs','ewcrbMs','溴锂机能效',tipBlock.eq(2));
+                    drawEchart(chartXLJ,res,'ewcxlXs','ewcxlYs','ewcxlMs','溴锂机能效',tipBlock.eq(2));
 
                     //地源热泵
-                    drawEchart(chartDYRB,res,'ewcxlXs','ewcxlYs','ewcxlMs','地源热泵COP',tipBlock.eq(3));
+                    drawEchart(chartDYRB,res,'ewcrbXs','ewcrbYs','ewcrbMs','地源热泵COP',tipBlock.eq(3));
+
 
                     jQuery('#rankBusy').hideLoading();
 
@@ -306,11 +309,11 @@
                     //var ctxs = res.ctxs;//冷却塔X轴
                     //var ctys = res.ctys;
                     //var ctcs = res.ctcs;
-                    //drawlzv(lzxs, lzys, lzcs, 'KW/KW');//冷站
-                    //drawcv(cxs, cys, ccs,  'KW/KW');//冷机
-                    //drawchwv(chwxs, chwys, chwcs,  'KW/KW');//冷冻泵
-                    //drawcwv(cwxs, cwys, cwcs,  'KW/KW');//冷却泵
-                    //drawctv(ctxs, ctys, ctcs,  'KW/KW');//冷却塔
+                    //drawlzv(lzxs, lzys, lzcs, 'kW/kW');//冷站
+                    //drawcv(cxs, cys, ccs,  'kW/kW');//冷机
+                    //drawchwv(chwxs, chwys, chwcs,  'kW/kW');//冷冻泵
+                    //drawcwv(cwxs, cwys, cwcs,  'kW/kW');//冷却泵
+                    //drawctv(ctxs, ctys, ctcs,  'kW/kW');//冷却塔
 
                 }else if(res.code === -1){
 
@@ -502,7 +505,7 @@
         option = {
             title: {
                 //text: '冷却塔',
-                //subtext: 'KW/RT'
+                //subtext: 'kW/RT'
                 subtext: misc
             },
             color: ['#63747f'],
@@ -619,7 +622,7 @@
         option = {
             title: {
                 //text: '冷却泵',
-                //subtext: 'KW/RT'
+                //subtext: 'kW/RT'
                 subtext: misc
             },
             color: ['#63747f'],
@@ -737,7 +740,7 @@
         option = {
             title: {
                 //text: '冷冻泵',
-                //subtext: 'KW/RT'
+                //subtext: 'kW/RT'
                 subtext: misc
             },
             color: ['#63747f'],
@@ -854,7 +857,7 @@
         option = {
             title: {
                 //text: '冷机',
-                //subtext: 'KW/RT'
+                //subtext: 'kW/RT'
                 subtext: misc
             },
             color: ['#63747f'],
@@ -970,7 +973,7 @@
         }
         option = {
             title: {
-                //subtext: 'KW/RT'//text: '冷站',
+                //subtext: 'kW/RT'//text: '冷站',
                 subtext: misc
             },
             color: ['#63747f'],

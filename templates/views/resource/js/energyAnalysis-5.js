@@ -2,14 +2,19 @@ $(function() {
 
 	/*-------------------------------------------------日期插件-----------------------------------------------------*/
 	//选择日期
-	_dataComponentsFun($('#datetimepicker1'));
+	//_dataComponentsFun($('#datetimepicker1'));
+	_timeYMDComponentsFun($('#datetimepicker1'));
 
 	//选择具体时间
 	_timeComponentsFun($('.datepicker1'));
 
-	$('#st').val('00:00');
+	$('#st').val('05:00');
 
-	$('#et').val(moment().format('hh:mm'));
+	$('#et').val(moment().format('23:59'));
+
+	$('.switch').css({
+		'color':'white'
+	});
 
 	/*-------------------------------------------------能耗种类-----------------------------------------------------*/
 
@@ -274,7 +279,7 @@ $(function() {
 		legend:{
 			orient:'vertical',
 			left:'left',
-			data:['工作时段用电量','休息时段用电量']
+			data:['开站时段','闭站时段']
 		},
 		toolbox:{
 			show:true,
@@ -296,8 +301,8 @@ $(function() {
 				radius:'55%',
 				center:['50%', '60%'],
 				data:[
-					{value:'', name:'工作时段用电量'},
-					{value:'', name:'休息时段用电量'}
+					{value:'', name:'开站时段'},
+					{value:'', name:'闭站时段'}
 				],
 				itemStyle:{
 					normal:{

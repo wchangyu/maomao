@@ -169,8 +169,8 @@
                 option = {
                     title: {
                         //text: titleText,
-                        //subtext: "KW/RT"
-                        subtext: 'KW/KW'
+                        //subtext: "kW/RT"
+                        subtext: 'kW/kW'
                     },
                     tooltip: {
                         trigger: 'axis'

@@ -283,6 +283,7 @@ var table = $('#equipment-datatables').DataTable({
                             season = '夏季';
                         }
 
+
                     }
                 });
 
@@ -554,11 +555,11 @@ var table = $('#equipment-datatables').DataTable({
                 return data;
 
             }
-        },
-        {
-            title:'功率（kW）',
-            data:'powerValue'
         }
+        // {
+        //     title:'功率（kW）',
+        //     data:'powerValue'
+        // }
     ]
 });
 

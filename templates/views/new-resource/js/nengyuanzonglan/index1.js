@@ -651,7 +651,7 @@ function getLeftEnergyData(){
     })
 };
 
-//获取当年气象参数
+//获取当天气象参数
 function getWeatherParam(){
     //传递给后台的数据
     var ecParams = {

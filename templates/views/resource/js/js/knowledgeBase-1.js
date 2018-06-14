@@ -765,9 +765,11 @@ uploader.on( 'uploadSuccess', function( file,response ) {
 });
 
 uploader.on( 'uploadError', function( file ) {
+
     $( '#'+file.id ).find('p.state').text('上传出错');
     myAlter('上传错误');
     $( '#'+file.id ).remove();
+
 });
 uploader.on( 'uploadComplete', function( file ) {
     $( '#'+file.id ).find('.progress').fadeOut();

@@ -59,7 +59,7 @@ var optionBar = {
 
 
 //页面右侧Table的表头集合
-//var titleArr = ['','回路数','开启回路占比','平均照度','功率 KW'];
+//var titleArr = ['','回路数','开启回路占比','平均照度','功率 kW'];
 
 var titleArr = ['','回路数','开启回路占比','平均照度'];
 
@@ -122,8 +122,8 @@ $('#monitor-menu-container').on('click','span',function(){
     //获取当前的区域ID
     var areaID = $(this).attr('data-district');
 
-    //定义当前的设备类型 站房照明为6
-    var devTypeID = 6;
+    //定义当前的设备类型 站台照明为6
+    var devTypeID = 20;
 
     //获取当前的设备列表
     getSecondColdHotSour('NJNDeviceShow/GetSecondLightWait', devTypeID, areaID);
@@ -424,7 +424,12 @@ function echartReDraw(realDataArr){
         //参考值
         var referenceData = o.illuminanceRefer;
 
-        var realData = o.illuminanceAVG;
+        var realData = o.illuminanceAVG.toFixed(2);
+
+        if(realData == -1){
+
+            realData = '--'
+        }
 
         optionBar.series[0].data = [referenceData,realData];
 

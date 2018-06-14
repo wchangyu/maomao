@@ -234,7 +234,8 @@
 }
 
 .left-tab-container .left-tab-data-container .left-tab-data1 font{
-    color:#2170F4
+    color:#2170F4;
+    display: none;
 }
 
 .left-tab-container .left-tab-data-container .left-tab-data2 font{
@@ -327,6 +328,10 @@
     cursor: pointer;
 }
 .left-tab-container .right-tab-choose{
+    color:#F8276C;
+}
+
+.left-tab-container .right-tab-choose-name{
     color:#F8276C;
 }
 

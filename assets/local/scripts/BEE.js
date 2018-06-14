@@ -351,7 +351,7 @@ var BEE = (function(){
         var st = year + "/" + month + "/" + day + " 00:00:00";
         var et = year + "/" + month + "/" + day + " " + now.getHours() + ":" + now.getMinutes() + ":00";
 
-        st = moment().format('YYYY-MM-DD HH:mm:00');
+        st = moment().subtract('1','days').format('YYYY/MM/DD HH:mm:00');
 
         var prmData = {
             "st" : st,
@@ -360,6 +360,7 @@ var BEE = (function(){
             "energyType":"",
             "pointerIds":ptIds
         };
+
         $.ajax({
             type:'post',
             url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
@@ -1478,6 +1479,17 @@ var BEE = (function(){
             sessionStorage.PointerID = pId;
             sessionStorage.PointerName = pNt;
 
+            //定义初始的楼宇ID
+            if(!sessionStorage.PointerID || sessionStorage.PointerID == 'undefined'){
+
+                if(sessionStorage.pointers){
+                    var pos = JSON.parse(sessionStorage.pointers);
+                    var po = pos[0];
+                    sessionStorage.PointerID = po.pointerID;
+                    sessionStorage.PointerName = po.pointerName;
+                }
+            }
+
             var pointerArr = JSON.parse(sessionStorage.pointers);
 
             $(pointerArr).each(function(i,o){
@@ -1489,6 +1501,8 @@ var BEE = (function(){
                 }
 
             });
+
+
 
         });
 
@@ -1664,6 +1678,17 @@ var BEE = (function(){
 
         sessionStorage.PointerID = pId;
         sessionStorage.PointerName = pNt;
+
+        //定义初始的楼宇ID
+        if(!sessionStorage.PointerID || sessionStorage.PointerID == 'undefined'){
+
+            if(sessionStorage.pointers){
+                var pos = JSON.parse(sessionStorage.pointers);
+                var po = pos[0];
+                sessionStorage.PointerID = po.pointerID;
+                sessionStorage.PointerName = po.pointerName;
+            }
+        }
 
     }
 
@@ -1881,6 +1906,17 @@ var BEE = (function(){
             sessionStorage.PointerName = pNt;
 
             var pointerArr = JSON.parse(sessionStorage.pointers);
+
+            //定义初始的楼宇ID
+            if(!sessionStorage.PointerID || sessionStorage.PointerID == 'undefined'){
+
+                if(sessionStorage.pointers){
+                    var pos = JSON.parse(sessionStorage.pointers);
+                    var po = pos[0];
+                    sessionStorage.PointerID = po.pointerID;
+                    sessionStorage.PointerName = po.pointerName;
+                }
+            }
 
             $(pointerArr).each(function(i,o){
 

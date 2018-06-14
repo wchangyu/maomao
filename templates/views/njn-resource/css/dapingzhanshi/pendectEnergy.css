@@ -192,7 +192,7 @@
 
 .right-bottom-equipment .bottom-equipment-chart-data .chart-power1 {
 
-    background: url(../../img/alarm.png) no-repeat 45px center;
+    background: url(../../img/alarm.png) no-repeat 35px center;
     font-size:14px;
     text-align: right;
     color:white;
@@ -394,9 +394,15 @@
 }
 
 /*能源管理*/
+/*.right-bottom-container .right-bottom-energyment{*/
+    /*float: left;*/
+    /*width:865px;*/
+    /*position: relative;*/
+/*}*/
+
 .right-bottom-container .right-bottom-energyment{
     float: left;
-    width:865px;
+    width:1440px;
     position: relative;
 }
 

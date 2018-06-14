@@ -405,7 +405,7 @@ function getDevAreaByType(){
 
                     o.returnOBJID = "001" + o.returnOBJID;
 
-                }else  if(o.returnType == 4){
+                }else  if(o.returnType == 4 && o.isFirstDevType == 1){
 
                     o.parentOBJID = "001" + o.parentOBJID;
                 }
@@ -443,13 +443,11 @@ function getDevInfoCTypes(equipObj){
 
     //获取父级元素ID
 
-    var parentID = equipObj.pId;
-
-    parentID = parentID.slice(3);
+    var parentID = equipObj.devTypeForAreaID;
 
     var parentNode = equipObj.getParentNode();
 
-    var parentName = parentNode.name;
+    var parentName = equipObj.devTypeForAreaName;
 
     //传递给后台的数据
     var ecParams = {
@@ -470,7 +468,7 @@ function getDevInfoCTypes(equipObj){
         success:function(result){
 
             $('.left-middle-main1').hideLoading();
-            console.log(result);
+           // console.log(result);
 
             //判断是否返回数据
             if(result == null || result.length == 0){
@@ -768,6 +766,8 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
                     //获取当前已选中的属性
                     var pts = treeObj.getCheckedNodes(true);
 
+                    console.log(pts[0]);
+
                     getDevInfoCTypes(pts[0]);
 
                 }
@@ -824,6 +824,7 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
 
 
                 }
+
                 //如果点击设备名称树状图
                 if(flag == 1){
 
@@ -924,6 +925,8 @@ function getZNodes1(EnItdata){
 
     var zNodes = new Array();
 
+   // console.log(EnItdata)
+
     $(EnItdata).each(function(i,o){
 
         //获取楼宇ID
@@ -935,9 +938,9 @@ function getZNodes1(EnItdata){
 
         }else{
 
+                zNodes.push({ id: pointerID, pId:0, name:o.name,title: o.name,open:ifOpen,checked:false});
 
 
-            zNodes.push({ id: pointerID, pId:0, name:o.name,title: o.name,open:ifOpen,checked:false});
         }
 
     });
@@ -968,7 +971,9 @@ function getZNodes2(EnItdata){
                 zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false,nocheck :true});
 
             }else{
-                zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false});
+
+                zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false,devTypeForAreaID: o.devTypeForAreaID,devTypeForAreaName: o.devTypeForAreaName});
+
             }
 
 
@@ -995,7 +1000,8 @@ function getNatureTree(equipID){
     $(equipmentArr).each(function(i,o){
 
         if(o.id == equipID){
-            console.log(o.devCNameTModels);
+
+            //console.log(o.devCNameTModels);
 
             $(o.devCNameTModels).each(function(i,o){
 

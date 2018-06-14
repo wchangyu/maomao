@@ -2737,7 +2737,7 @@ var userMonitor = (function(){
         $btn.html(curCtrl.text);
         $btn.attr("id",curCtrl.id);
         $btn.css("height",baseHeight + "px");
-        $btn.css("width",baseWidth + "px");
+        $btn.css("min-width",baseWidth + "px");
         $btn.addClass("btn");
         $btn.addClass("btn-default");
         $btn.css("padding","0 0");
@@ -2829,6 +2829,15 @@ var userMonitor = (function(){
             }
         }
     };
+
+    //关闭二级弹出后 刷新流程图
+	$('#right-container').on('click','.close1',function(){
+
+		setTimeout(function(){
+			refreshData();
+		},0)
+	});
+
 
     //显示右键菜单
     function setContextMenuVisible(flag,left,top){

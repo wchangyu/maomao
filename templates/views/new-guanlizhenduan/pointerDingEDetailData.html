@@ -7,7 +7,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>驾驶舱</title>
+    <title></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -48,10 +48,8 @@
     <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
 
     <!--自定义样式-->
-    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
     <link rel="stylesheet" href="../new-resource/css/common.css">
-    <link rel="stylesheet" href="../new-resource/css/nengyuanzonglan/index.css">
-    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+    <link rel="stylesheet" href="../new-resource/css/guanlizhenduan/officeDingEDetailData.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -82,7 +80,6 @@
         <!-- BEGIN RESPONSIVE MENU TOGGLER -->
         <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
         </a>
-
         <!-- END RESPONSIVE MENU TOGGLER -->
         <!-- BEGIN TOP NAVIGATION MENU -->
         <div class="totalTitle"></div>
@@ -236,7 +233,7 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
+                <!--<div class="showOrHidden"></div>-->
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -267,329 +264,141 @@
                 <div class="col-md-12">
                     <div class="total-warp">
                         <div class="wrap container">
-                            <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                                <!--<div class="content-main">-->
-                                    <!--<img src="../new-resource/img/CQDX.png" alt="">-->
-                                    <!--<p class="left-top"  style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;line-height: 20px;-->
-<!--overflow: hidden;" title="吉重庆医科大学附属儿童医院于1956年由上海医学院儿科系迁渝创建，是集医教研为一体的国家三级甲等综合性儿童医院。医院现有员工3010名，博士生导师26名、硕士生导师180名，高级职称专家259名、享受政府特殊津贴专家14名。是中华医学会儿科学分会、小儿外科学分会、中华预防医学会儿童保健分会、中国医院协会儿童医院管理分会副主任委员单位。-->
-<!--">-->
-                                        <!--&nbsp;&nbsp;重庆医科大学附属儿童医院于1956年由上海医学院儿科系迁渝创建，是集医教研为一体的国家三级甲等综合性儿童医院...-->
-                                    <!--</p>-->
-                                <!--</div>-->
-
-                                <div class="content-main">
-
-                                    <div id="myCarousel" class="carousel slide" style="width: 100%;height: 300px">
-                                        <!-- 轮播（Carousel）指标 -->
-                                        <ol class="carousel-indicators">
-
-                                        </ol>
-                                        <!-- 轮播（Carousel）项目 -->
-                                        <div class="carousel-inner" style="height: 100%">
-
-                                        </div>
-                                        <!-- 轮播（Carousel）导航 -->
-                                        <a class="carousel-control left" style="display: inline-block;width: 45px;height: 45px;font-size: 50px;line-height: 35px;background: #3d3d3d;top: 118px;" href="#myCarousel"
-                                           data-slide="prev">&lsaquo;</a>
-                                        <a class="carousel-control right" style="display: inline-block;width: 45px;height: 45px;font-size: 50px;line-height: 35px;background: #3d3d3d;top: 118px;" href="#myCarousel"
-                                           data-slide="next">&rsaquo;</a>
-                                    </div>
-
-                                </div>
-
-                                <div class="content-main">
-                                    <div class="main-left-middle1">
-                                        <div class="left-middle-header">统计</div>
-                                        <div class="left-middle-main1">
-
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="content-main">
-                                    <div class="main-left-middle2">
-                                        <div class="left-middle-header">实时报警</div>
-                                        <div class="left-middle-main2">
-                                            <p class="new-alarm1">新增的报警:<span>0</span></p>
-                                            <p class="new-alarm1">未处理报警:<span>0</span></p>
-                                            <p class="new-alarm1">已处理报警:<span class="normal">0</span></p>
-                                            <div class="bottom-link">
-                                                <a target="_blank" href="../baojingyujing/warningAlarm-3.html" style="margin-right:10px;">点击查看详情</a>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content-main">
-                                    <div class="main-left-middle">
-                                        <div class="left-middle-header">气象参数</div>
-                                        <div class="left-middle-main left-middle-main0">
-                                            <p class="curChoose">
-                                                <i class="iconfont icon-wenduji" title="温度" style="font-size: 28px;"></i>
-                                                <span></span>
-                                            </p>
-
-                                            <p class="curChoose">
-                                                <i class=" icon-cloud-upload" title="湿度" style="font-size: 23px; color: #666;"></i>
-                                                <span style="margin-left:34px;"></span>
-                                            </p>
-
-                                            <div style="text-align: center">
-
-                                                <div class="time-options time-options-1">日</div>
-                                                <div class="time-options">月</div>
-                                                <div class="time-options">年</div>
-
-                                                <div style="height:80px;display: none">
-                                                    <div class="start-time-choose choose-time position-center">
-                                                        <label for="">选择时间：</label>
-                                                        <div class="input-blocked">
-                                                            <input type="text" class="datatimeblock min" name="min" id="datetimepicker">
-                                                        </div>
-                                                    </div>
-                                                    <div class="end-time-choose choose-time">
-                                                        <label for="">结束时间：</label>
-                                                        <div class="input-blocked">
-                                                            <input type="text" class="datatimeblock max" name="max" id="datetimepicker1">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
+                            <div class="content-main-right col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="right-content">
-
-                                    <!--左侧实时能耗-->
-                                    <div class="real-time-energy content-main-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12 quota-data-bottom">
-                                        <!--头部数据信息-->
-                                        <h3 style="">实时能耗
-                                    <span style="float:right;font-weight: 500;font-size: 16px;">单位：
-                                        <b></b>
-                                    </span>
-                                        </h3>
-
-                                        <ul class="top-cut">
-
-
-                                        </ul>
-
-                                       <div class="row" style="margin-left:0px;margin-right:0px;">
-                                           <!--左侧chart图-->
-                                           <div class="main-data col-lg-9 col-md-8 col-sm-12 col-xs-12" style="" id="energy-demand" >
-
-                                           </div>
-
-                                           <!--右侧数据-->
-                                           <div class="right-total-data col-lg-3 col-md-4 col-sm-12 col-xs-12" style="">
-
-                                               <!--本日数据-->
-                                               <div class="single-data">
-                                                   <h4 style="padding-left:10px"> 本日累计
-                                                       <span></span>
-                                                   </h4>
-                                                   <div class="left-data">
-                                                       <p></p>
-                                                   </div>
-                                                   <div class="right-ratio ">
-                                                       <div class="top-percent">
-                                                           <p class="percent-number"> </p>
-                                                           <p> 同比</p>
-                                                       </div>
-
-                                                       <div class="top-percent0">
-                                                           <p class="total">1000</p>
-                                                       </div>
-
-                                                       <div class="top-percent">
-                                                           <p class="percent-number"> </p>
-                                                           <p> 环比</p>
-                                                       </div>
-                                                   </div>
-
-                                               </div>
-
-                                               <!--本月数据-->
-                                               <div class="single-data">
-                                                   <h4 style="padding-left:10px"> 本月累计
-                                                       <span></span>
-                                                   </h4>
-                                                   <div class="left-data">
-                                                       <p></p>
-                                                   </div>
-                                                   <div class="right-ratio">
-                                                       <div class="top-percent">
-                                                           <p class="percent-number"> </p>
-                                                           <p> 同比</p>
-                                                       </div>
-
-                                                       <div class="top-percent0">
-                                                           <p class="total">1000</p>
-                                                       </div>
-
-                                                       <div class="top-percent">
-                                                           <p class="percent-number"> </p>
-                                                           <p> 环比</p>
-                                                       </div>
-                                                   </div>
-
-                                               </div>
-
-                                               <!--本年数据-->
-                                               <div class="single-data single-data-year">
-                                                   <h4 style="padding-left:10px"> 本年累计
-                                                       <span></span>
-                                                   </h4>
-
-                                                   <div class="left-data">
-                                                       <p></p>
-                                                   </div>
-
-                                                   <div class="right-ratio">
-                                                       <div class="top-percent top-percent1" style="padding-top:5px;">
-                                                           <p class="percent-number"> </p>
-                                                           <p> 环比</p>
-                                                       </div>
-
-                                                       <div class="top-percent0">
-                                                           <p class="total">1000</p>
-                                                       </div>
-
-                                                   </div>
-
-                                               </div>
-
-                                               <!--&lt;!&ndash;本年定额&ndash;&gt;-->
-                                               <!--<p class="dingE-data">本年定额<font></font>-->
-                                                   <!--<br/><b>1000</b>-->
-                                               <!--</p>-->
-
-                                           </div>
-
-                                           <div class="clearfix"></div>
-                                       </div>
-
-
-                                    </div>
-
-                                    <!--右侧实时报警-->
-                                    <div class="content-main-top-right col-lg-3 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="padding-left: 0px;display: none">
-                                        <!--头部数据信息-->
-                                        <h3 style="">
-                                            实时报警
-                                        </h3>
-
-                                        <div class="show-content-data">
-                                            <div style="height: 30px;"></div>
-                                            <p class="new-alarm"><span></span>条新增报警</p>
-                                            <p class="new-alarm"><span></span>条未处理报警</p>
-                                            <p class="new-alarm"><span class="normal"></span>条已处理报警</p>
-
+                                    <!--<div class="left-middle-header">-->
+                                    <!--<div class="header-one"></div>-->
+                                    <!--<div class="header-two"></div>-->
+                                    <!--<div class="header-three"></div>-->
+                                    <!--</div>-->
+                                    <div class="right-top">
+                                        <div class="right-header">
+                                            <!-- 标题 -->
+                                            <span class="right-header-title"></span>
+                                            <!-- 标题右边 -->
+                                            <ul class="right-header-right">
+                                                <!-- 单位 -->
+                                                <li class="header-right-lists">
+                                                    <label for="">单位：</label>
+                                                    <!--<input name="" class="unit" disabled="disabled" readonly="readonly" />-->
+                                                    <span class="unit"></span>
+                                                </li>
+                                            </ul>
                                         </div>
 
-                                        <div class="bottom-link">
-                                            <a target="_blank" href="../baojingyujing/warningAlarm-3.html">点击查看详情</a>
-                                        </div>
-
-                                    </div>
-
-                                    <!--本月能耗-->
-                                    <div class="content-main-middle-left col-lg-6 col-md-12 col-sm-12 col-xs-12 main-right-oness main-right-oness-2 quota-data-bottom">
-                                        <h3 style="">
-                                            本日能耗
-                                        </h3>
-
-                                        <div class="">
-
-                                            <div class="fenleinenghao energy-typess">
-
-                                            </div>
-                                            <div id="loaddings">
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--本月用能分项-->
-                                    <div class="content-main-middle-center col-lg-6 col-md-12 col-sm-12 col-xs-12 main-right-oness main-right-oness-2 quota-data-bottom" style="padding-left: 0px;">
-
-                                        <h3 style="">
-                                            本日用能分项
-                                        </h3>
-
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                                <!-- 上月分项电耗饼图 -->
-                                                <div id="main-right-two"></div>
+                                        <!--eChart图-->
+                                        <div class="rheader-content-left col-lg-7 col-md-7 col-sm-12 col-xs-12" id="" style="">
+                                            <div class="" id="rheader-content-16">
 
                                             </div>
 
-                                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                                <!-- 上月分项电耗饼图 -->
-                                                <div id="main-right-three"></div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <!--本月KPI指标-->
-                                    <div class="content-main-bototm-left col-lg-6 col-md-12 col-sm-12 col-xs-12 main-right-oness main-right-oness-2 quota-data-bottom">
-                                        <h3 style="">
-                                            本日KPI指标
-                                        </h3>
-
-                                        <div class="row">
-                                          <!--单位面积能耗-->
-                                            <div class="energy1 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                                <div id="bottom-left-one">
+                                            <!--下方左侧数据-->
+                                            <div class="left-pillar col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="" id="rheader-content-17">
 
                                                 </div>
-                                            </div>
-                                            <!--单位床位能耗-->
-                                            <div class="energy2 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                                <div id="bottom-left-two">
 
+                                                <span class="percent"></span>
+
+                                            </div>
+
+                                            <!--右侧诊断信息-->
+                                            <div class="right-diagnose col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <h3>
+                                                    诊断：异常
+                                                </h3>
+                                                <span class="diagnose-content">
+                                                    超额值=能耗指标-定额值，判断能耗是否超过额定给定值，以便监控能耗用量。
+
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                        <!--右侧统计信息-->
+                                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 rheader-content-right1">
+
+                                            <!--诊断建议-->
+                                            <div class="statistics-message">
+                                                <h3>
+                                                    <span>诊断建议</span>
+                                                </h3>
+                                                <div class="statistics-message-content">
+                                                    <ul>
+                                                        <li>
+                                                            <span>1</span>检查检查各用能分项情况
+                                                        </li>
+                                                        <li>
+                                                            <span>2</span>查看下属支路用电情况
+
+                                                        </li>
+                                                        <li>
+                                                            <span>3</span>检查下辖重点耗能设备用电情况
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!--分项排名-->
+                                            <div class="statistics-message" style="display: none">
+                                                <h3>
+                                                    <span>分项排名</span>
+                                                </h3>
+                                                <div class="statistics-message-content">
+                                                    <ul>
+                                                        <li>
+                                                            <span>1</span>室内照明插座
+                                                        </li>
+                                                        <li>
+                                                            <span>2</span>其他
+
+                                                        </li>
+                                                        <li>
+                                                            <span>3</span>暖通空调
+                                                        </li>
+                                                    </ul>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!--下辖支路电耗排名-->
+                                            <div class="statistics-message" style="display: block">
+                                                <h3>
+                                                    <span>下辖支路电耗排名</span>
+                                                </h3>
+                                                <div class="statistics-message-content">
+                                                    <ul class="access-road">
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!--下辖重点耗能设备情况-->
+                                            <div class="statistics-message" style="display:none">
+                                                <h3>
+                                                    <span>下辖重点耗能设备情况</span>
+                                                </h3>
+                                                <div class="statistics-message-content">
+                                                    <ul>
+                                                        <li>
+                                                            <span>1</span>X光机<span>300kWh</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>2</span>CT机<span>200kWh</span>
+
+                                                        </li>
+                                                        <li>
+                                                            <span>3</span>B超机<span>400kWh</span>
+
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
 
                                         </div>
-                                    </div>
 
-                                    <!--本月能耗排名-->
-                                    <div class="content-main-bottom-center col-lg-6 col-md-12 col-sm-12 col-xs-12 main-right-oness main-right-oness-2 quota-data-bottom" style="padding-left: 0px;">
-
-                                         <span style="float:right;font-weight: 500;font-size: 16px;">单位：
-                                        <b>kgce</b>
-                                    </span>
-
-                                        <h3 style="">
-                                            本日能耗排名
-
-                                        </h3>
-
-                                        <div class="header-right-btn" style="margin-right:28px;">
-
-                                            <span class="cur-on-choose">楼宇</span>
-
-                                            <span class="">单位</span>
-
-                                        </div>
-
-                                        <div class="row">
-
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 echarts-content1">
-                                                <!-- 上月分能耗排名楼宇 -->
-                                                <div id="bottom-right-two"></div>
-
-                                            </div>
-
-                                        </div>
-
+                                        <div class="clearfix"></div>
                                     </div>
                                 </div>
                             </div>
@@ -601,7 +410,6 @@
         <!-- END PAGE CONTENT-->
     </div>
 </div>
-
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
 <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
@@ -610,15 +418,12 @@
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
-
     <div class="page-footer-inner">
         2016 &copy; Huaqin.
     </div>
-
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>
     </div>
-
 </div>
 
 <!--所有提示框-->
@@ -637,7 +442,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -677,17 +481,17 @@
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
 <script src="../resource/js/alarm.js"></script>
 <script src="../resource/js/publicFun.js"></script>
-<script src="../../../assets/local/configs/setNames.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         Demo.init(); // init demo features
-        BEE.init();
+        BEE.init(true);
     });
 </script>
 <script src="../new-resource/js/common.js"></script>
-<script src="../new-resource/js/nengyuanzonglan/index.js"></script>
+<script src="../new-resource/js/guanlizhenduan/diagnoseCommon.js"></script>
+<script src="../new-resource/js/guanlizhenduan/pointerDingEDetailData.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

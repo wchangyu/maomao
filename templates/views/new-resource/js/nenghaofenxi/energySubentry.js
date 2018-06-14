@@ -151,14 +151,19 @@ var option = {
             type:'pie',
             radius: ['50%', '75%'],
             center:['60%','50%'],
+            label: {
+                normal: {
+                    position: 'inner'
+                }
+            },
             data:[
 
             ],
             itemStyle:{
                 normal:{
                     label:{
-                        show: false,
-                        formatter: '{b} : {c} ({d}%)'
+        
+                        formatter: '{b}'
                     },
                     labelLine :{show:true}
                 }

@@ -713,7 +713,7 @@ function getTDayCs(ew){
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kW)'
+                    name:'单位:(kw)'
                 },
                 series: serary
             };
@@ -836,7 +836,7 @@ function getTDayEs(ew) {
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kW)'
+                    name:'单位:(kw)'
                 },
                 series: serary
             };
@@ -900,7 +900,7 @@ function getTotalHeatData(ew){
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kW)'
+                    name:'单位:(kw)'
                 },
                 series: serary
             };
@@ -1025,7 +1025,7 @@ function getTotalEnergyData(ew){
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kW)'
+                    name:'单位:(kw)'
                 },
                 series: serary
             };
@@ -1984,7 +1984,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4522'){
 
-                        result =  o.cDataValue
+                        result =  o.cDataValue.toFixed(1);
 
                     }
                 });
@@ -2005,7 +2005,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4523'){
 
-                        result =  o.cDataValue
+                        result =  o.cDataValue.toFixed(1)
 
                     }
                 });
@@ -2025,7 +2025,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4524'){
 
-                        result =  o.cDataValue
+                        result =  o.cDataValue.toFixed(1)
 
                     }
                 });
@@ -2045,7 +2045,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4525'){
 
-                        result =  o.cDataValue
+                        result =  o.cDataValue.toFixed(1)
 
                     }
                 });
@@ -2247,7 +2247,7 @@ var table1 = $('#equipment-datatables1').DataTable({
 
                     if(o.cTypeID == '4535'){
 
-                        result =  o.cDataValue
+                        result =  o.cDataValue.toFixed(1)
 
                     }
                 });
@@ -2268,7 +2268,7 @@ var table1 = $('#equipment-datatables1').DataTable({
 
                     if(o.cTypeID == '4535'){
 
-                        result =  o.cDataValue
+                        result =  o.cDataValue.toFixed(1)
 
                     }
                 });

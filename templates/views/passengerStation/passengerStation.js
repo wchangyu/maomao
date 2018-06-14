@@ -142,9 +142,9 @@ $(function(){
         ]
     };
 
-    ringChartL.setOption(optionRing);
+    //ringChartL.setOption(optionRing);
 
-    ringChartR.setOption(optionRing1);
+    //ringChartR.setOption(optionRing1);
 
     //定义计算安全运行天数的开始日期
     var startSafeDate = new Date('2017/01/01 12:00');
@@ -516,10 +516,10 @@ $(function(){
 
     $.ajax({
 
-        type:'get',
+        type:'post',
         url:_urls + 'EnergyTopPageV2/GetWeatherByPointer',
         data:{
-            'pointerID':pointerID[0].pointerID
+            '':pointerID[0].pointerID
         },
         success:function(result){
 
@@ -544,12 +544,15 @@ $(function(){
 
         }
 
-    })
+    });
 
     getDeployByUser();
 
     //获取运维工单中的工单响应数据
     function getGDRespondInfo(){
+
+        return false;
+
 
         //传递给后台的参数
         var  ecParams = {
@@ -772,12 +775,19 @@ $(function(){
             },
             success:function(result){
 
-                var result1 = JSON.parse(result);
+                var result1;
 
-                //console.log(result1);
+                var mainSwitch =0;
 
-                //首先判断整体控制开关是否开启
-                var mainSwitch = result1.switch;
+                if(result != ''){
+
+                    result1 = JSON.parse(result);
+
+                    //首先判断整体控制开关是否开启
+                    mainSwitch  = result1.switch;
+
+                }
+
 
                 //获取本地配置
                 var bigScreenSet = sessionStorage.getItem('bigScreenSet');
@@ -956,6 +966,220 @@ $(function(){
             error: function (XMLHttpRequest, textStatus, errorThrown) {
 
                 $('#theLoading').modal('hide');
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+                }
+
+            }
+
+        })
+    };
+
+
+    // 指定图表的配置项和数据 用于本日用能分项
+    var option8 = {
+        title: {
+            text: '225',
+            subtext: '工单量',
+            //sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
+            left: '242',
+            top: '88',
+            itemGap: -5,
+            textBaseline:'middle',
+            textStyle : {
+                color : 'white',
+                fontFamily : '微软雅黑',
+                fontSize : 26,
+                fontWeight : 'bolder',
+                lineHeight:26
+            },
+            subtextStyle:{
+                color:'white',
+                fontSize : 16
+            }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            y:'10px',
+            data:['暖通空调','照明系统','电梯系统','动环系统','给排水','消防系统','售检票','能源管理'],
+            textStyle:{
+                color:'white'
+            }
+
+        },
+        series: [
+            {
+                name:'',
+                type:'pie',
+                radius: ['50%', '65%'],
+                center:['65%', '56%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: false,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                itemStyle : {
+                    normal : {
+                        color:function(params){
+                            var colorList = [
+                                '#0d9dcb', '#0cd34c','#cfcf14', '#d36e12', '#dc2612','#b70723', '#7c05cb', '#1c39d9','#f8276c'
+                            ];
+                            return colorList[params.dataIndex]
+
+                        },
+                        label : {
+                            show : false
+                        },
+                        labelLine : {
+                            show : false
+                        }
+                    },
+                    emphasis : {
+                        label : {
+                            show : false,
+                            position : 'center',
+                            textStyle : {
+                                fontSize : '30',
+                                fontWeight : 'bold'
+                            }
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {
+                        name:'暖通系统',
+                        value:50
+                    },
+                    {
+                        name:'照明系统',
+                        value:45
+                    },
+                    {
+                        name:'电梯系统',
+                        value:35
+                    },
+                    {
+                        name:'动环系统',
+                        value:30
+                    },
+                    {
+                        name:'给排水',
+                        value:25
+                    },
+                    {
+                        name:'消防系统',
+                        value:20
+                    },
+                    {
+                        name:'自动售检票',
+                        value:10
+                    },
+                    {
+                        name:'能源管理',
+                        value:10
+                    }
+                ]
+            }
+        ]
+    };
+
+    getDevFaultAlarmPropData();
+
+    //设备故障信息
+    function getDevFaultAlarmPropData(){
+
+        //传递给后台的参数
+        var  ecParams = {
+            "pointerID":curPointerIDArr[0],
+            "startTime": startDate,
+            "endTime": endDate
+        };
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'NJNDeviceShow/GetDevFaultAlarmPropData',
+            data:ecParams,
+            timeout:_theTimes,
+            beforeSend:function(){
+
+                ringChartL.showLoading({
+                    maskColor: 'rgba(33,43,55,0.8)'
+                });
+            },
+            success:function(result){
+
+                ringChartL.hideLoading();
+
+                //console.log(result);
+
+                var totalAlarmNum = 0;
+
+                var alarmNumArr = [];
+
+                //给页面赋值
+                $(result).each(function(i,o){
+
+                    if(o.faultNum == -1){
+
+                        o.faultNum = 0;
+                    }
+
+                    var obj = {
+
+                        name: o.devName,
+                        value: o.faultNum
+
+                    };
+
+                    alarmNumArr.push(obj);
+
+                    totalAlarmNum += o.faultNum;
+
+                });
+
+                //页面赋值
+                option8.title.text = totalAlarmNum;
+                option8.title.subtext = "报警数";
+                option8.series[0].data = alarmNumArr;
+
+
+                ringChartL.setOption(option8,true);
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                setTimeout(function(){
+
+                    $('#trouble-message .bottom-table-data-container ').hideLoading();
+
+                },500);
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 

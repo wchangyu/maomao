@@ -78,9 +78,18 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "打开本地": {
+        "type": "0",
+        "content": "打开本地",
+        "uri": "javascript:window.opener=null;window.open('Webshell://','_self');",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   },
+
   "暖通空调": {
     "type": "1",
     "content": "暖通空调",
@@ -171,6 +180,7 @@
       }
     }
   },
+
   "高效机房": {
     "type": "1",
     "content": "高效机房",
@@ -400,6 +410,29 @@
         "uid": "",
         "arg": "",
         "iconclass": "icon-bar-chart"
+      }
+    }
+  },
+  "设备控制": {
+    "type": "1",
+    "content": "设备控制",
+    "iconclass": "icon-camcorder",
+    "submenu": {
+      "冷热源-专家策略": {
+        "type": "0",
+        "content": "冷热源-专家策略",
+        "uri": "../equipmentControl/coldHeatSource-ZJCL.html",
+        "uid": "",
+        "arg": "2,4",
+        "iconclass": ""
+      },
+      "冷热源-协同联动": {
+        "type": "0",
+        "content": "冷热源-协同联动",
+        "uri": "../equipmentControl/coldHeatSource-XTLD.html",
+        "uid": "",
+        "arg": "2,4",
+        "iconclass": ""
       }
     }
   },
@@ -2261,45 +2294,6 @@
         "type": "0",
         "content": "冷站日志",
         "uri": "../new-baobiaoguanli/systemReport.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      }
-    }
-  },
-  "冷热源": {
-    "type": "1",
-    "iconclass": "icon-speedometer",
-    "content": "冷热源",
-    "submenu": {
-      "专家策略": {
-        "type": "0",
-        "content": "专家策略",
-        "uri": "../equipmentControl/coldHeatSource-ZJCL.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "协同联动": {
-        "type": "0",
-        "content": "协同联动",
-        "uri": "../equipmentControl/coldHeatSource-XTLD.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "节能策略": {
-        "type": "0",
-        "content": "节能策略",
-        "uri": "../equipmentControl/airConditioningTerminal.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "节能策略(照明)": {
-        "type": "0",
-        "content": "节能策略(照明)",
-        "uri": "../equipmentControl/LightingcontrolSetting.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

@@ -60,7 +60,7 @@ var Rate=function () {
             ep:ep
         },function (res) {
             if(res.code===0){
-                var miscstr = 'KW/KW';
+                var miscstr = 'kW/kW';
                 var maxeerVa = 9;
                 var maxRateVa = res.rateMaxVa;
                 var ys = [];

@@ -129,7 +129,7 @@
                         <span class="right-tab ">年</span>
                         <font class="month  small-times"></font>
                         <span class="right-tab ">月</span>
-                        <font class="day  small-times"></font>
+                        <font class="day  small-times right-tab-choose-name"></font>
                         <span class="right-tab right-tab-choose">日</span>
                     </div>
 
@@ -251,7 +251,7 @@
                             <div class="bottom-equipment-chart-data alarm-data-container" data-devtype="1,2,3">
 
                                 <p class="chart-data"><font class="cur-data">0</font><span class="total-data">/1000</span></p>
-                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                                <p class="chart-power1">紧急报警<span class="total-data">/监测点</span></p>
                             </div>
                         </div>
 
@@ -314,7 +314,7 @@
 
                                 <p class="chart-data"><font class="cur-data">0</font><span class="total-data">/1000</span>
                                 </p>
-                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                                <p class="chart-power1">紧急报警<span class="total-data">/监测点</span></p>
                             </div>
                         </div>
 
@@ -383,7 +383,7 @@
 
                                 <p class="chart-data"><font class="cur-data">0</font><span class="total-data">/1000</span>
                                 </p>
-                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                                <p class="chart-power1">紧急报警<span class="total-data">/监测点</span></p>
                             </div>
                         </div>
 
@@ -447,7 +447,7 @@
                                     <span class="total-data">/1000</span>
                                 </p>
 
-                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                                <p class="chart-power1">紧急报警<span class="total-data">/监测点</span></p>
 
                             </div>
 
@@ -501,7 +501,7 @@
 
                                 <p class="chart-data"><font class="cur-data">0</font><span class="total-data">/1000</span>
                                 </p>
-                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                                <p class="chart-power1">紧急报警<span class="total-data">/监测点</span></p>
                             </div>
                         </div>
 
@@ -554,7 +554,7 @@
 
                                 <p class="chart-data"><font class="cur-data">0</font><span class="total-data">/1000</span>
                                 </p>
-                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                                <p class="chart-power1">紧急报警<span class="total-data">/监测点</span></p>
                             </div>
                         </div>
 
@@ -590,8 +590,8 @@
                             </div>
 
 
-                            <!--echart容器-->
-                            <div class="bottom-equipment-chart bottom-equipment-chart-show" id="equipment-chart-wind">
+                            <!--echart bottom-equipment-chart-show容器-->
+                            <div class="bottom-equipment-chart " id="equipment-chart-wind">
 
                             </div>
 
@@ -608,13 +608,13 @@
                                 <p class="chart-power chart-fault" style="background: none !important;">总过票量</p>
                             </div>
 
-                            <!--下方统计数据-->
-                            <div class="bottom-equipment-chart-data alarm-data-container" data-devtype="56,57">
+                            <!--下方统计数据 alarm-data-container-->
+                            <div class="bottom-equipment-chart-data " data-devtype="56,57">
 
 
                                 <p class="chart-data"><font class="cur-data">0</font><span class="total-data">/1000</span>
                                 </p>
-                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                                <p class="chart-power1">紧急报警<span class="total-data">/监测点</span></p>
                             </div>
                         </div>
 
@@ -667,7 +667,7 @@
                                 <p class="chart-data"><font class="cur-data">0</font><span class="total-data">/1000</span>
                                 </p>
 
-                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                                <p class="chart-power1">紧急报警<span class="total-data">/监测点</span></p>
 
                             </div>
 
@@ -736,16 +736,16 @@
 
                     <!--左侧展示内容-->
                     <div style="float:left" class="left-tab-data-container total-equip-alarm">
-                        <span class="left-tab-data left-tab-data1">设备报警 <font>2</font></span>
+                        <span class="left-tab-data left-tab-data1">设备报警 <font></font></span>
 
                     </div>
 
-                    <div style="float:right">
+                    <div style="float:right;display: none ">
                         <font class="year small-times"></font>
                         <span class="right-tab ">年</span>
                         <font class="month  small-times"></font>
                         <span class="right-tab ">月</span>
-                        <font class="day  small-times"></font>
+                        <font class="day  small-times right-tab-choose-name"></font>
                         <span class="right-tab right-tab-choose">日</span>
 
                     </div>
@@ -763,11 +763,11 @@
 
                 <h2 class="right-bottom-centent-title">
 
-                    <a href="operationMaintenance.html"> 运维联动 </a>
+                    <a href="operationMaintenance.html">  </a>
                 </h2>
 
                 <!--下方环形图-->
-                <div class="right-bottom-content-chart" style="border-radius: 15px 0 0 15px !important;">
+                <div class="right-bottom-content-chart" style="border-radius: 15px 0 0 15px !important;display: none">
 
                     <div id="operation-chart-response" class="right-bottom-content-chart-content">
 
@@ -782,7 +782,7 @@
 
                 </div>
 
-                <div class="right-bottom-content-chart" style="border-radius:0  0px  0px 0!important;">
+                <div class="right-bottom-content-chart" style="border-radius:0  0px  0px 0!important;display: none">
 
                     <div id="operation-chart-response1" class="right-bottom-content-chart-content">
 
@@ -818,7 +818,7 @@
     </div>
 </div>
 
-<!--报警点弹出信息弹窗-->
+<!--紧急报警弹出信息弹窗-->
 <div class='modal fade big-screen-message' id='alarm-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
     <div class='modal-dialog' style='margin:15% auto;'>
         <div class='modal-content'>
