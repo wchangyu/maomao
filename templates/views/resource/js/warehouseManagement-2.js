@@ -1014,7 +1014,7 @@ $(function(){
 
                 $('#personTable1 tfoot').find('.amount').html(num);
 
-                $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
 
             }
 
@@ -1092,7 +1092,7 @@ $(function(){
 
                 $('#personTable1 tfoot').find('.amount').html(num);
 
-                $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
 
             }
 
@@ -1233,7 +1233,7 @@ $(function(){
 
                 $('#personTable1 tfoot').find('.amount').html(num);
 
-                $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
             }
 
             //获取入库产品信息
@@ -1329,7 +1329,7 @@ $(function(){
 
                 $('#personTable1 tfoot').find('.amount').html(num);
 
-                $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
             }
 
             detailInfo($thisDanhao,detailTable);
@@ -1642,7 +1642,7 @@ $(function(){
 
             $('#wuPinListTable1 tfoot').find('.amount1').html(num);
 
-            $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(3));
+            $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
 
             //初始化
             newGoodsInit(true);
@@ -2204,7 +2204,7 @@ $(function(){
 
                     $('#wuPinListTable1 tfoot').find('.amount1').html(num);
 
-                    $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(3));
+                    $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
 
                     //清空
                     newGoodsInit();
@@ -2417,7 +2417,7 @@ $(function(){
 
                 $('.amount1').html(goodsNum);
 
-                $('.count1').html(goodsAmount.toFixed(3));
+                $('.count1').html(goodsAmount.toFixed(2));
 
             }else{
 
@@ -2489,7 +2489,7 @@ $(function(){
 
         $('#personTable1 tfoot').find('.amount').html(num);
 
-        $('#personTable1 tfoot').find('.count').html(amount.toFixed(3));
+        $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
 
         $('#myModal1').modal('hide');
 
@@ -3525,7 +3525,7 @@ $(function(){
 
                         $('#wuPinListTable1 tfoot').find('.amount1').html(num);
 
-                        $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(3));
+                        $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
 
                     }
 
@@ -3650,13 +3650,13 @@ $(function(){
 
             tableId.find('tfoot').find('.amount').html(num);
 
-            tableId.find('tfoot').find('.count').html(amount.toFixed(3));
+            tableId.find('tfoot').find('.count').html(amount.toFixed(2));
 
         }else{
 
             tableId.find('tfoot').find('.amount1').html(num);
 
-            tableId.find('tfoot').find('.count1').html(amount.toFixed(3));
+            tableId.find('tfoot').find('.count1').html(amount.toFixed(2));
 
         }
 

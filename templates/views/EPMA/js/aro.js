@@ -593,7 +593,7 @@ $(function(){
 
             type:'post',
 
-            url:_urls + 'AnalysisAro/GetAroItemTVs',
+            url:sessionStorage.apiUrlPrefix + 'AnalysisAro/GetAroItemTVs',
 
             timeout:_theTimes,
 

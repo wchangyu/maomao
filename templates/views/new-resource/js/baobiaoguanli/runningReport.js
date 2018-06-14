@@ -336,7 +336,6 @@ $(function(){
                     //提示错误
                     _moTaiKuang($('#tip-Modal'),'提示', true, 'istap' ,result.msg, '');
 
-
                 }
 
             },
