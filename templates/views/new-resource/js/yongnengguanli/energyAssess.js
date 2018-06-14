@@ -295,6 +295,12 @@ option = {
             saveAsImage : {show: true}
         }
     },
+    grid: {
+        left:'0%',
+        right:'0%',
+        containLabel: true
+        //show:true
+    },
     calculable : true,
     xAxis : [
         {
@@ -510,19 +516,61 @@ function getPointerData(url,flag){
                 allData.push(o);
 
             });
-            //给右侧展示eCharts数据赋值
-            showDataByNum(allData);
-
             //右侧数据统计
 
             //总量
-            $('.total-power-consumption-value #consumption-value-number').html(result.sumEnergyData.toFixed(1));
-            //单位
-            var unit = $('.unit').val();
-            $('.the-cumulative-power-unit').html(unit);
+            var sumEnergyData = result.sumEnergyData.toFixed(1);
 
             //累计定额
-            $('.compared-with-last-time label').html(result.sumDingEData.toFixed(1));
+            var sumDingEData = result.sumDingEData.toFixed(1);
+
+            //年定额
+            var yearDingE = result.yearDingE.toFixed(1);
+
+            //预计年使用量
+            var yearEnergyData = result.yearEnergyData.toFixed(1);
+
+            //单位
+            var unit = $('.unit').val();
+
+            //判断当前数据是否过大
+            if(result.sumEnergyData > 10000 && _ajaxEcType == '01'){
+
+                unit = 'MWh';
+
+                 sumEnergyData = (sumEnergyData / 1000).toFixed(1);
+
+                //累计定额
+                 sumDingEData = (sumDingEData / 1000).toFixed(1);
+
+                //年定额
+                 yearDingE = (yearDingE / 1000).toFixed(1);
+
+                //预计年使用量
+                 yearEnergyData = (yearEnergyData / 1000).toFixed(1);
+
+                $('.unit').val(unit);
+
+                //给右侧展示eCharts数据赋值
+                showDataByNum(allData,1);
+
+            }else{
+
+                $('.unit').val(unit);
+
+                //给右侧展示eCharts数据赋值
+                showDataByNum(allData);
+
+            }
+
+
+            $('.the-cumulative-power-unit').html(unit);
+
+            //总量
+            $('.total-power-consumption-value #consumption-value-number').html(sumEnergyData);
+
+            //累计定额
+            $('.compared-with-last-time label').html(sumDingEData);
 
             //比例
             var precent = Math.abs((result.energyDingeScale* 100).toFixed(1));
@@ -532,14 +580,14 @@ function getPointerData(url,flag){
             //中间上升箭头
             if(result.energyDingeScale > 0){
 
-                $('.rights-up').addClass('rights-up1')
+                $('.rights-up').addClass('rights-up1');
             }
 
             //年定额
-            $('.quota-year b').html(result.yearDingE.toFixed(1) + unit);
+            $('.quota-year b').html(yearDingE + unit);
 
             //预计年使用量
-            $('.quota-year1 b').html(result.yearEnergyData.toFixed(1) + unit);
+            $('.quota-year1 b').html(yearEnergyData + unit);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -601,8 +649,8 @@ function getKPIInfos(){
     })
 };
 
-//根据用户选择展示项数进行展示
-function showDataByNum(data){
+//根据用户选择展示项数进行展示 flag = 1 kWh单位变为MWh
+function showDataByNum(data,flag){
 
     //首先处理实时数据
     var allDataX = [];
@@ -614,6 +662,15 @@ function showDataByNum(data){
     var allDataY3 = [];
 
     $(data).each(function(i,o){
+
+        if(flag == 1){
+
+            o.dingEData =  o.dingEData / 1000;
+
+            o.energyData =  o.energyData / 1000;
+
+        }
+
         //X轴数据
         allDataX.push(o.f_Month + '月');
 

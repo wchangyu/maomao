@@ -2830,6 +2830,15 @@ var userMonitor = (function(){
         }
     };
 
+    //关闭二级弹出后 刷新流程图
+	$('#right-container').on('click','.close1',function(){
+
+		setTimeout(function(){
+			refreshData();
+		},0)
+	});
+
+
     //显示右键菜单
     function setContextMenuVisible(flag,left,top){
         var $contextMenu = $("#content-menu");

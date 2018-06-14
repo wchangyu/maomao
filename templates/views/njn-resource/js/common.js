@@ -38,13 +38,18 @@ $(function(){
     });
 
     //点击左侧日月年切换
+    $('.inner-left-container .left-tab-container .small-times').eq(2).addClass('right-tab-choose-name');
     $('.inner-left-container .left-tab-container .right-tab').on('click',function(){
 
         //删除之前选中的类
         $(this).parents('.left-tab-container').find('.right-tab').removeClass('right-tab-choose');
 
+        $(this).parents('.left-tab-container').find('.small-times').removeClass('right-tab-choose-name');
+
         //给当前选中元素添加选中类名
         $(this).addClass('right-tab-choose');
+
+        $(this).prev('.small-times').addClass('right-tab-choose-name');
 
         //获取下方能源管理数据
         getPointerData();
@@ -176,6 +181,8 @@ $(function(){
 
 });
 
+
+
 var ifShowLoading1 = true;
 
 //定义送排风 给排水弹出页面的宽高
@@ -184,7 +191,7 @@ var jumpPageSize = "1020,586";
 //console.log(sessionStorage.PointerID);
 
 //定义初始的楼宇ID
-if(!sessionStorage.PointerID){
+if(!sessionStorage.PointerID || sessionStorage.PointerID == 'undefined'){
 
     if(sessionStorage.pointers){
         var pos = JSON.parse(sessionStorage.pointers);
@@ -716,11 +723,12 @@ function getWeatherParam(){
 
     //传递给后台的数据
     var ecParams = {
-        pointerID : pointerIdArr[0]
+        '' : pointerIdArr[0]
     };
+
     //发送请求
     $.ajax({
-        type:'get',
+        type:'post',
         url:sessionStorage.apiUrlPrefix+'EnergyTopPageV2/GetWeatherByPointer',
         data:ecParams,
         timeout:_theTimes,
@@ -740,6 +748,7 @@ function getWeatherParam(){
 
                 return false;
             }
+
             //给页面中赋值
             //温度
             $('.right-top-message .top-message').eq(1).html(result.temperatureData + '℃');
@@ -853,10 +862,10 @@ function getStationInfo(){
 
 //------------------------------------页面左侧下方echarts图-----------------------------------//
 
-//上方统计数据
-function getStationAlarmNum(){
+//上方统计数据 index参数 0.全部 1.设别报警 2.能耗报警
+function getStationAlarmNum(index){
 
-    return false;
+    //return false;
 
     //获取开始结束时间
     var startDate = getPostTime()[0];
@@ -875,6 +884,7 @@ function getStationAlarmNum(){
         "endTime": endDate,
         "showDateType":showDateType,
         "selectDateType": selectDateType,
+        "stationAlarmType":index,
         "pointerIDs":  curPointerIDArr
     };
 
@@ -892,7 +902,7 @@ function getStationAlarmNum(){
 
             //console.log(result);
             //无数据
-            if(result == null || result.length == 0){
+            if(!result){
 
                 //设备报警
                 $('.left-tab-data-container .left-tab-data1 font').html(0);
@@ -907,7 +917,7 @@ function getStationAlarmNum(){
             }
 
             //设备报警
-            $('.left-tab-data-container .left-tab-data1 font').html(result.facilityAlarmNum);
+            $('.left-tab-data-container .left-tab-data1 font').html(result);
 
             ////能耗报警
             //$('.left-tab-data-container .left-tab-data2 font').html(result.energyAlarmNum);
@@ -928,10 +938,10 @@ function getStationAlarmNum(){
 
 };
 
-//下方echarts图  index参数 1.设别报警 2.能耗报警 3.运维工单
+//下方echarts图  index参数 0.全部 1.设别报警 2.能耗报警
 function getStationAlarmData(index){
 
-    return false;
+    //return false;
 
     //获取开始结束时间
     var startDate = getPostTime()[0];
@@ -1018,7 +1028,7 @@ function getStationAlarmData(index){
             //console.log(leftBottomOption);
 
             //数据赋值
-            leftBottomOption.series[index-1].data = dataArr;
+            leftBottomOption.series[index].data = dataArr;
             leftBottomOption.xAxis[0].data = xArr;
 
             //页面重绘数据
@@ -1533,6 +1543,7 @@ function getShowDateType1(){
 
 //获取开始结束时间
 function getPostTime11(){
+
     //获取页面日期类型
     var dateType = $('.right-bottom-energyment-control .right-tab-choose').html();
 

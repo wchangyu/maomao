@@ -13,7 +13,7 @@ $(function(){
     getTopPageData();
 
     //获取当年气象参数
-    getWeatherParam();
+    getWeatherParam1();
 
     //获取实时能耗
     getRealTimeData();
@@ -124,6 +124,23 @@ $(function(){
     };
 
 });
+
+//定义初始的楼宇ID
+if(!sessionStorage.PointerID || sessionStorage.PointerID == 'undefined'){
+
+
+    if(sessionStorage.pointers){
+
+        var pos = JSON.parse(sessionStorage.pointers);
+        var po = pos[0];
+        sessionStorage.PointerID = po.pointerID;
+        sessionStorage.PointerName = po.pointerName;
+
+        console.log(sessionStorage.PointerID)
+    }
+}
+
+
 //------------------------------------定义变量-----------------------------------//
 
 //实时能耗
@@ -1622,7 +1639,7 @@ function alarmHistory(){
     };
     $.ajax({
         type:'post',
-        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAlarmStatisticsNum',
         data:prm,
         beforeSend: function () {
             $('#theLoading').modal('show');
@@ -1635,27 +1652,14 @@ function alarmHistory(){
             //console.log(result);
 
             //新增报警条数
-            var countAlarm = result.length;
+            var countAlarm = result.alarmNewNum;
             //页面赋值
             $('.new-alarm1').eq(0).find('span').html(countAlarm);
 
             //已处理条数
-            var isDispose = 0;
+            var isDispose = result.alarmDealNum;
             //未处理条数
-            var noDispose = 0;
-
-            $(result).each(function(i,o){
-
-                //已处理
-                if(o.flag == 1){
-
-                    isDispose ++;
-
-                }else if(o.flag == 0){
-
-                    noDispose ++;
-                }
-            });
+            var noDispose = result.alarmNoDealNum;
 
             //页面赋值
             //未处理
@@ -1861,6 +1865,62 @@ function cityWeatherInit(){
             $('.left-middle-main0 p span').eq(1).html(weatherData.wind);
 
             $('.left-middle-main0 p').eq(1).find('i').attr('title','风力');
+
+        }
+    })
+};
+
+//获取当天气象参数
+function getWeatherParam1(){
+
+    var pointerIDArr = [sessionStorage.PointerID];
+    console.log(pointerIDArr);
+
+    //传递给后台的数据
+    var ecParams = {
+        "" : pointerIDArr
+    };
+
+    //发送请求
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'EnergyTopPageV2/GetWeatherByPointer',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+        },
+        success:function(result){
+
+            console.log(result);
+            //无数据
+            if(result == null || result.length == 0){
+
+                //温度
+                $('.left-middle-main0 p span').eq(0).html('32' + '℃');
+
+                //湿度
+                $('.left-middle-main0 p span').eq(1).html('41' + "%");
+
+                return false;
+            }
+
+            //给页面中赋值
+            //温度
+            $('.left-middle-main0 p span').eq(0).html(result.temperatureData + '℃');
+
+            //湿度
+            $('.left-middle-main0 p span').eq(1).html(result.humidityData + "%");
+
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            //错误提示信息
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请求失败', '');
+            }
 
         }
     })

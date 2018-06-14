@@ -164,5 +164,13 @@ var __systemConfigArr = [
         pageId:2,
         //定义根据楼宇展示 还是院区展示 0为楼宇 1为院区
         showDataType : 1
+    },
+    //运维中大屏展示页面配置信息
+    {
+        pageName :"运维中大屏展示",
+        pageUrl :"gongdanxitong/gdShowData.html",
+        pageId:3,
+        //定义当前页面显示名称
+        showTitleName : "重庆医科大学附属儿童医院"
     }
 ];

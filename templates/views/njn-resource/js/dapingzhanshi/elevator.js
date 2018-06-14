@@ -193,6 +193,7 @@ var table = $('#equipment-datatables').DataTable({
                         if(o.cDataValue == 2){
 
                             result =  "上行"
+
                         }else if(o.cDataValue == 1){
                             result =  "下行";
 
@@ -203,9 +204,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     }
                 });
-
                 return result;
-
             }
         },
         {
@@ -380,7 +379,8 @@ function drawDataTableByResult(titleArr,areaDataArr){
         titleHtml += '<th>'+o+'</th>';
 
     });
-    console.log(areaDataArr);
+
+    //console.log(areaDataArr);
 
     //把title放入到table中
 

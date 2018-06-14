@@ -279,7 +279,7 @@ $(function() {
 		legend:{
 			orient:'vertical',
 			left:'left',
-			data:['工作时段用电量','休息时段用电量']
+			data:['开站时段','闭站时段']
 		},
 		toolbox:{
 			show:true,
@@ -301,8 +301,8 @@ $(function() {
 				radius:'55%',
 				center:['50%', '60%'],
 				data:[
-					{value:'', name:'工作时段用电量'},
-					{value:'', name:'休息时段用电量'}
+					{value:'', name:'开站时段'},
+					{value:'', name:'闭站时段'}
 				],
 				itemStyle:{
 					normal:{

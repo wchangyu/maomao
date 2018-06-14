@@ -546,57 +546,152 @@ $(function(){
     })
 
     //
-    $('#pdfButton111').click(function(){
+    //$('#pdfButton').click(function(){
+    //
+    //    var printBlock = $('.print-block');
+    //
+    //    for(var i=0;i<printBlock.length;i++){
+    //
+    //        console.log($(printBlock).eq(i).attr('id'));
+    //
+    //    }
+    //
+    //    var content = $('#print-block-0');
+    //
+    //    var pdfProportion = pdfFormat[format][0] / pdfFormat[format][1];
+    //
+    //    var contentHeight = content.offsetHeight;
+    //    var contentWidth = content.offsetWidth;
+    //
+    //    var pageHeight = contentWidth / pdfProportion;
+    //    var pageWidth = contentWidth;
+    //
+    //    if(contentHeight < pageHeight){
+    //
+    //        pdf.addImage(imgData, 'JPEG', 0, 0,pdfFormat[format][0],pdfFormat[format][1]/pageHeight*contentHeight);
+    //
+    //        pdf.save(pdfName);
+    //
+    //    }
+    //
+    //    //// 将 id 为 content 的 div 渲染成 canvas
+    //    //html2canvas(document.getElementById("print-block-0"), {
+    //    //
+    //    //    // 渲染完成时调用，获得 canvas
+    //    //    onrendered: function(canvas) {
+    //    //
+    //    //         var contentWidth = canvas.width;
+    //
+    //                // var contentHeight = canvas.height;
+    //    //        console.log( 'contentWidth' + contentWidth);
+    //    //
+    //    //        console.log( 'contentHeight' + contentHeight);
+    //    //
+    //    //        // 从 canvas 提取图片数据
+    //    //        var imgData = canvas.toDataURL('image/jpeg',1.0);
+    //    //
+    //    //        var doc = new jsPDF("l", "mm", "a4");
+    //    //        //                               |
+    //    //        // |—————————————————————————————|
+    //    //        // A0 841×1189
+    //    //        // A1 594×841
+    //    //        // A2 420×594
+    //    //        // A3 297×420
+    //    //        // A4 210×297
+    //    //        // A5 148×210
+    //    //        // A6 105×148
+    //    //        // A7 74×105
+    //    //        // A8 52×74
+    //    //        // A9 37×52
+    //    //        // A10 26×37
+    //    //        //     |——|———————————————————————————|
+    //    //        //                                 |——|——|
+    //    //        //                                 |     |
+    //    //        doc.addImage(imgData, 'JPEG', 40,0,0,0);
+    //    //
+    //    //        doc.save('content.pdf');
+    //    //    }
+    //    //});
+    //
+    //
+    //    var index = 0;
+    //    var count = parseInt(contentHeight / pageHeight);
+    //
+    //    var page = document.createElement("div");
+    //
+    //    page.style.position = "absolute";
+    //    page.style.width = contentWidth + "px";
+    //    page.style.height = pageHeight + "px";
+    //    page.style.backgroundImage = "url(" + imgData + ")";
+    //    page.style.backgroundRepeat = "norepeat";
+    //
+    //    document.body.appendChild(page);
+    //
+    //    function addPage(i, onFinished){
+    //
+    //        page.style.backgroundPositionY = -pageHeight * i + "px";
+    //
+    //        html2canvas(page, {
+    //
+    //            onrendered: function(canvas) {
+    //
+    //                var pageData = canvas.toDataURL('image/jpeg');
+    //
+    //                pdf.addImage(pageData, 'JPEG', 0, 0,pdfFormat[format][0],pdfFormat[format][1]);
+    //
+    //                if(i + 1 < count){
+    //                    pdf = pdf.addPage();
+    //                    addPage(i + 1, onFinished);
+    //                }
+    //                else{
+    //                    onFinished()
+    //                }
+    //
+    //            }
+    //        });
+    //
+    //    }
+    //
+    //    addPage(index, function(){
+    //
+    //        page.style.backgroundPositionY = -pageHeight * count + "px";
+    //
+    //        var lastPageHeight = contentHeight % pageHeight;
+    //        page.style.height = lastPageHeight + "px";
+    //
+    //        html2canvas(page, {
+    //
+    //            onrendered: function(canvas) {
+    //
+    //                var pageData = canvas.toDataURL('image/jpeg');
+    //
+    //                pdf = pdf.addPage();
+    //                pdf.addImage(pageData, 'JPEG', 0, 0,pdfFormat[format][0], pdfFormat[format][1]/pageHeight*lastPageHeight);
+    //
+    //                document.body.removeChild(page);
+    //
+    //                onSuccess && onSuccess();
+    //
+    //                pdf.save(pdfName);
+    //
+    //            }
+    //        });
+    //
+    //
+    //    });
+    //
+    //});
 
-        var printBlock = $('.print-block');
+    $('#pdfButton').click(function(){
 
-        for(var i=0;i<printBlock.length;i++){
+        //var tips = document.getElementsByClassName("tips")[0];
+        //tips.id = "active";
 
-            console.log($(printBlock).eq(i).attr('id'));
-
-        }
-
-        // 将 id 为 content 的 div 渲染成 canvas
-        html2canvas(document.getElementById("print-block-0"), {
-
-            // 渲染完成时调用，获得 canvas
-            onrendered: function(canvas) {
-
-                var contentWidth = canvas.width;
-
-                var contentHeight = canvas.height;
-
-                console.log( 'contentWidth' + contentWidth);
-
-                console.log( 'contentHeight' + contentHeight);
-
-                // 从 canvas 提取图片数据
-                var imgData = canvas.toDataURL('image/jpeg',1.0);
-
-                var doc = new jsPDF("l", "mm", "a4");
-                //                               |
-                // |—————————————————————————————|
-                // A0 841×1189
-                // A1 594×841
-                // A2 420×594
-                // A3 297×420
-                // A4 210×297
-                // A5 148×210
-                // A6 105×148
-                // A7 74×105
-                // A8 52×74
-                // A9 37×52
-                // A10 26×37
-                //     |——|———————————————————————————|
-                //                                 |——|——|
-                //                                 |     |
-                doc.addImage(imgData, 'JPEG', 40,0,0,0);
-
-                doc.save('content.pdf');
-            }
+        renderPDF(document.getElementById("print-block-0"),"print-block-0","a4", function(){
+            //tips.id = "";
         });
 
-    })
+    });
 
     /*--------------------------------------------------其他方法-------------------------------------------------*/
     //条件查询

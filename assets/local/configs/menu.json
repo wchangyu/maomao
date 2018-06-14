@@ -78,6 +78,14 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "打开本地": {
+        "type": "0",
+        "content": "打开本地",
+        "uri": "javascript:window.opener=null;window.open('Webshell://','_self');",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   },

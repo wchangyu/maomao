@@ -1,4 +1,8 @@
 $(function(){
+
+    //从配置项中获取展示信息
+     getRankingDataByConfig();
+
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
     var _userIdNum = sessionStorage.getItem('userName');
@@ -19,7 +23,9 @@ $(function(){
         _refresh = 1;
     }
 
+
     $('#department').html(_wxBan);
+
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -885,5 +891,34 @@ $(function(){
         })
 
     }
+
+    //从配置项中获取展示信息
+    function getRankingDataByConfig(){
+
+        //获取当前的url
+        var curUrl = window.location.href;
+
+        //获取当前页面的配置信息
+        $(__systemConfigArr).each(function(i,o){
+
+            //获取当前配置项中的url
+            var thisUrl = o.pageUrl;
+
+            //找到了当前页面对应的配置项
+            if(curUrl.indexOf(thisUrl) > -1){
+
+                //获取到页面标题名称
+                var showTitleName = o.showTitleName;
+
+                 showTitleName += ' <span class="header-date"></span>';
+
+
+                $('.header-message h3').html(showTitleName);
+
+            }
+        });
+
+    };
+
 
 });

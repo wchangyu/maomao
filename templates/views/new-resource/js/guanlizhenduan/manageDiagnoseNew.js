@@ -141,7 +141,7 @@ function getOneKeyDiagItemType(){
 
     $.ajax({
         type: 'get',
-        url: sessionStorage.apiUrlPrefix + 'OneKeyDiag/GetOneKeyDiagItemType',
+        url: sessionStorage.apiUrlPrefix + 'OneKeyDiag/GetStationOneKeyDiagItemType',
         success: function (result) {
 
             //console.log(result);
@@ -188,9 +188,28 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
     //如果是能耗诊断
     if(diagTypeNum == 'EnergyDiag'){
 
-        postHtml= "officeDingEDetailData.html?id=";
+        //楼宇定额诊断
+        if(diagObj.diagItemNum == 'PointerDingE'){
 
-        //如果是环境品质诊断
+            postHtml= "pointerDingEDetailData.html?id=";
+
+            //支路能耗增长变快诊断
+        }else if(diagObj.diagItemNum == 'BranchEnergyRise'){
+
+            postHtml= "branchEnergyRise.html?id=";
+
+            //支路能耗突变诊断
+        }else if(diagObj.diagItemNum == 'BranchEnergyMutation'){
+
+            postHtml= "pointerDingEDetailData.html?id=";
+
+        }else{
+
+            postHtml= "officeDingEDetailData.html?id=";
+
+        }
+
+    //如果是环境品质诊断
     }else  if(diagTypeNum == 'EnvironDiag'){
 
         postHtml= "getEnvironDetailData.html?id=";
@@ -209,6 +228,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
             '<div class="bottom-problem">';
 
     };
+
     //给页面中添加诊断信息
     $('#content-container').html(diagHtml);
 
