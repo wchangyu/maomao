@@ -53,6 +53,8 @@ $(function(){
 
         $('#pointer').val(sessionStorage.PointerID);
 
+        conditionSelect();
+
 
     }
 
