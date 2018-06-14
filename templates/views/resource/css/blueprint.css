@@ -32,18 +32,19 @@
 .img-block{
 
     float: left;
-    width: 135px;
-    height: 135px;
+    width: 145px;
+    height: 95px;
     border-bottom: 1px solid #333333;
     border-left: 1px solid #333333;
+    background: #26c1d7;
 
 }
 .img-block img{
-    width: 120px;
-    height: 120px;
-    display: inline-block;
+    width: 80px;
+    height: 80px;
+    display: block;
+    margin: auto;
     margin-top: 6px;
-    margin-left: -3px;
 }
 .print-block{
     width: 846px;
@@ -51,16 +52,17 @@
     margin: auto;
 }
 .content-block{
-
-    width:381px;font-size: 12px;line-height: 26px;border: 1px solid #333333;margin: 10px;text-indent: 10px;font-weight: bold;background: #26c1d7;
+    /*width:381px;*/
+    width:391px;font-size: 12px;line-height: 19px;border: 1px solid #333333;margin: 10px;text-indent: 10px;font-weight: bold;
 
 }
 .row-list{
 
     width: 100%;
-    height: 27px;
+    height: 19px;
     border-bottom: 1px solid #333333;
     overflow: hidden;
+    background: #26c1d7;
 
 }
 .row-two-left{
@@ -99,11 +101,43 @@
     display: inline-block;
     border:1px solid #333333;
     float: left;
-    margin: 40px 5px;
+    margin: 60px 5px 0 5px;
     overflow: hidden;
     vertical-align: middle;
-    background:#004179 !important;
-    /*background: url("../img/bgcolorblue.png");*/
+    padding-top: 8px;
+    background: #004179;
+}
+.table-title1{
+    line-height: 40px;font-size: 20px;text-align: center;font-weight: bold;overflow: hidden;
+}
+.table-img1{
+    display: inline-block;height: 35px;width: 160px;margin-left: 25px;overflow: hidden;
+}
+.table-img1 span{
+    font-weight: bold;font-size: 16px;display: inline-block;vertical-align: bottom;overflow: hidden;
+}
+.title-word1{
+    float: right;margin-right: 35px;font-size: 16px;line-height: 40px;font-weight: bold;overflow: hidden;
+}
+.table-img1 img{
+    height: 30px;overflow: hidden;
+}
+.print-block{
+
+    height:auto !important;
+
+}
+
+.nextPage{
+
+    page-break-after:always;
+
+}
+
+.clearfix{
+
+    clear:both;
+
 }
 .table-title1{
     line-height: 40px;font-size: 20px;text-align: center;font-weight: bold;overflow: hidden;color: #ffffff;

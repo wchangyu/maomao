@@ -774,7 +774,9 @@ $(function(){
             //工单号
             gdCode:'',
             //状态
-            gdZht: 2
+            gdZht: 2,
+            //所属部门
+            wxKeshiNum:sessionStorage.getItem("userDepartNum")
 
         }
 

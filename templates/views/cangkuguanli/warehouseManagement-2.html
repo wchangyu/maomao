@@ -737,11 +737,11 @@
                             <li class="gdList">
                                 <div class="labels colorTip">入库单价 *：<span class="colorTip format-error1" style="display: none;">请输入格式正确的数</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="inprice" @keyup="addFun2()"@blur="addFun1()" class="inputType" placeholder="0.00">
+                                    <input type="text" v-model="inprice" @keyup="addFun2()"@blur="addFun1()" class="inputType inprice" placeholder="0.00">
                                 </div>
                             </li>
                             <li class="gdList">
-                                <div class="labels">总金额：<span class="colorTip format-error3" style="display: none;">输入整数或保留三位小数</span></div>
+                                <div class="labels">总金额：<span class="colorTip format-error3" style="display: none;">输入整数或保留两位小数</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="amount" class="inputType" placeholder="0.00" @keyup="addFun3()" @blur="addFun5()">
                                 </div>
@@ -783,7 +783,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary dengji">保存物品和入库单</button>
+                <button type="button" class="btn btn-primary mergeBtn">保存物品和入库单</button>
                 <button type="button" class="btn btn-primary ruku">保存入库物品</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>

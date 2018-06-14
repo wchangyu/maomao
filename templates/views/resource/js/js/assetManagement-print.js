@@ -545,6 +545,59 @@ $(function(){
 
     })
 
+    //
+    $('#pdfButton111').click(function(){
+
+        var printBlock = $('.print-block');
+
+        for(var i=0;i<printBlock.length;i++){
+
+            console.log($(printBlock).eq(i).attr('id'));
+
+        }
+
+        // 将 id 为 content 的 div 渲染成 canvas
+        html2canvas(document.getElementById("print-block-0"), {
+
+            // 渲染完成时调用，获得 canvas
+            onrendered: function(canvas) {
+
+                var contentWidth = canvas.width;
+
+                var contentHeight = canvas.height;
+
+                console.log( 'contentWidth' + contentWidth);
+
+                console.log( 'contentHeight' + contentHeight);
+
+                // 从 canvas 提取图片数据
+                var imgData = canvas.toDataURL('image/jpeg',1.0);
+
+                var doc = new jsPDF("l", "mm", "a4");
+                //                               |
+                // |—————————————————————————————|
+                // A0 841×1189
+                // A1 594×841
+                // A2 420×594
+                // A3 297×420
+                // A4 210×297
+                // A5 148×210
+                // A6 105×148
+                // A7 74×105
+                // A8 52×74
+                // A9 37×52
+                // A10 26×37
+                //     |——|———————————————————————————|
+                //                                 |——|——|
+                //                                 |     |
+                doc.addImage(imgData, 'JPEG', 40,0,0,0);
+
+                doc.save('content.pdf');
+            }
+        });
+
+    })
+
     /*--------------------------------------------------其他方法-------------------------------------------------*/
     //条件查询
     function conditionSelect(){
@@ -628,6 +681,9 @@ $(function(){
 
                 var str = '';
 
+                //横向
+
+                //纵向
                 for(var i=0;i<result.length;i++){
 
                     var  valueStr = '<div class="print-block-cel suo"> <div class="table-title1">设备（设施）标识牌</div> <div class="table-img1"> <img src="../resource/img/jt-logo.png" alt=""> <span>江铁实业</span> </div> <div class="title-word1">' + result[i].ddName +
@@ -643,15 +699,16 @@ $(function(){
                     //开始的标签
                     if(i == 0){
 
-                        str += '<div class="print-block">' +  valueStr
+                        str += '<div class="print-block nextPage" id="print-block-' + i +'">' +  valueStr
 
                     }else if(i == result.length - 1){
 
                         str += valueStr;
 
-                    }else if(i % 6 == 0 ){
+                    }else if(i % 4 == 0 ){
 
-                        str += '<div class="clearfix noprint"></div></div><div class="PageNext"></div><div class="print-block">' + valueStr
+                        str += '<div class="clearfix noprint"></div></div><div class="PageNext"></div><div class="print-block nextPage" id="print-block-' + i +
+                            '">' + valueStr
 
                     }else{
 
