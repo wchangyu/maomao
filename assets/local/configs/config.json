@@ -165,8 +165,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://61.235.10.55:8080/BEEWebAPIYW2/api/",
-  "apiUriPrefixYW":"http://61.235.10.55:8080/BEEWebAPIYW2/api/",
+  "apiUriPrefix":"http://211.100.28.180/EMPWAPI/api/",
+  "apiUriPrefixYW":"http://211.100.28.180/EMPWAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
@@ -207,7 +207,7 @@
   "loginPathComment":"登录页面路径",
   "showstep":"1",
   "showstepComment":"是否显示折标能效",
-  "steps":"[8817180901,8817180801]",
+  "steps":"[8817180901,8817180401]",
   "misc":"1",
   "showChooseUnit":"0",
   "showChooseUnitComment":"是否启用右上角选择单位功能 0为不启用 1为启用"

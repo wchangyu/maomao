@@ -2011,6 +2011,16 @@
         "iconclass": "",
         "target": "",
         "arg2": "admin,WXBZ01"
+      },
+      "登录日志": {
+        "type": "0",
+        "content": "登录日志",
+        "uri": "../gongdanxitong/landdingLog.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
       }
     }
   },
@@ -2243,6 +2253,14 @@
         "type": "0",
         "content": "综合管理",
         "uri": "../new-baobiaoguanli/statementManagement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "冷站日志": {
+        "type": "0",
+        "content": "冷站日志",
+        "uri": "../new-baobiaoguanli/systemReport.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

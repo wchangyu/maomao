@@ -1175,11 +1175,15 @@
 
         if(sessionStorage.misc == 1){
 
-            col[9].title = '实测COP（KW/KW）'
+            col[9].title = '实测COP（KW/KW）';
+
+            col[8].title = '制冷量（KW）';
 
         }else if(sessionStorage.misc == 2){
 
-            col[9].title = '实测COP（KW/RT）'
+            col[9].title = '实测COP（KW/RT）';
+
+            col[8].title = '制冷量（RT）'
 
         }
 
@@ -1191,7 +1195,7 @@
 
             type:'post',
 
-            url:_urls + 'Main/GetNowCTypeIDs',
+            url:sessionStorage.apiUrlPrefix + 'Main/GetNowCTypeIDs',
 
             timeout:_theTimes,
 
@@ -1354,7 +1358,6 @@
 
             //十分钟自动刷新
             setInterval(function(){
-
                 var eerVa=0.0;
                 //切换实时数据曲线
                 changeTab();
@@ -1385,7 +1388,7 @@
 
                 }
 
-            },1000*60*10);
+            },1000*30);
 
 
         }

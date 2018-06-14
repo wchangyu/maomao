@@ -1,0 +1,35 @@
+.ladding-area{
+
+    padding: 20px;
+
+}
+
+.ladding-list div{
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    margin-right: 5px;
+
+    line-height: 30px;
+
+}
+
+.ladding-do{
+
+    font-style:italic;
+
+}
+
+.line-odd{
+
+    background: #f9f9f9;
+
+}
+
+.line-even{
+
+    background: #ffffff;
+
+}
