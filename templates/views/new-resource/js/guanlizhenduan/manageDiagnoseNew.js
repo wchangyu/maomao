@@ -205,6 +205,12 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
 
         }else{
 
+            //支路能耗夜间用量偏高
+            if(diagObj.diagItemNum == 'DayNightRise'){
+
+                postHtml= "energyDetailData.html?flag=1&&id=";
+            }
+
             postHtml= "officeDingEDetailData.html?id=";
 
         }

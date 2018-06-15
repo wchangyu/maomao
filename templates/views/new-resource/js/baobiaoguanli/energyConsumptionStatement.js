@@ -165,6 +165,11 @@ $(function() {
 
 });
 
+var nameArr = ['建筑面积','空调面积','占地面积','空调采暖面积 '];
+
+//隐藏table中带建筑面积 空调面积的项
+hiddenAreaTh(nameArr);
+
 //定义能耗报表的映射表
 var energyStatementArr = [
 

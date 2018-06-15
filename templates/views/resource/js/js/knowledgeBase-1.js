@@ -742,6 +742,7 @@ uploader.on( 'uploadProgress', function( file, percentage ) {
 
     $percent.css( 'width', percentage * 100 + '%' );
 });
+
 //文件成功，失败处理
 uploader.on( 'uploadSuccess', function( file,response ) {
     _currentPath = response;
@@ -771,6 +772,7 @@ uploader.on( 'uploadError', function( file ) {
     $( '#'+file.id ).remove();
 
 });
+
 uploader.on( 'uploadComplete', function( file ) {
     $( '#'+file.id ).find('.progress').fadeOut();
 });

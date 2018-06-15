@@ -1253,3 +1253,44 @@ function _getEcUnit(etid){
     }
 };
 
+//隐藏table中带建筑面积 空调面积的项
+function hiddenAreaTh(nameArr){
+
+    //获取当前页面中th长度
+    var thLength = $('table').find('th').length;
+//console.log(thLength);
+
+    for(var i=0; i<thLength; i++){
+
+        var dom = $('th').eq(i);
+
+        //获取当前内容
+        var name = dom.html();
+
+        $(nameArr).each(function(k,o){
+
+            if(name.indexOf(o) > -1){
+
+                dom.addClass('hidden-it');
+
+                dom.next().addClass('hidden-it1');
+
+                return false;
+            }
+
+        })
+
+    }
+
+    $('.hidden-it').css({
+
+        'color':'#E2E9F2 !important'
+    });
+
+    $('.hidden-it1').css({
+
+        'color':'#ffffff !important'
+    });
+
+}
+

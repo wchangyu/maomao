@@ -1055,28 +1055,29 @@
 }
 
 /*屏蔽室外温湿度*/
-.right-top-message p:nth-child(3){
- display: none;
-}
+/*.right-top-message p:nth-child(3){*/
+ /*display: none;*/
+/*}*/
 
-.right-top-message p:nth-child(4){
-    display: none;
-}
+/*.right-top-message p:nth-child(4){*/
+    /*display: none;*/
+/*}*/
 
-.right-top-message .right-top-message-container:nth-child(2){
-    display: none;
-}
+/*.right-top-message .right-top-message-container:nth-child(2){*/
+    /*display: none;*/
+/*}*/
 
-.right-top-message .right-top-message-container:nth-child(3){
-    display: none;
-}
+/*.right-top-message .right-top-message-container:nth-child(3){*/
+    /*display: none;*/
+/*}*/
 
 .right-top-message-container{
     text-align: center;
 }
 
 .inner-right-container .right-top-message {
-    width: 261px;
+    /*width: 261px;*/
+    width: 364px;
     height: 69px;
     background: url(../img/rightTop.png) no-repeat center center;
     background-size:100% 100%;

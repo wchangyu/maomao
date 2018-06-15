@@ -272,7 +272,12 @@
 .inner-right-container .right-top-message{
     position: absolute;
     top:3px !important;
-    right:50px !important;
+    right:30px !important;
+}
+
+.inner-right-container .right-top-message{
+
+    width:390px !important;
 }
 
 

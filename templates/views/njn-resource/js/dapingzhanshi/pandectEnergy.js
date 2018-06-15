@@ -1010,7 +1010,7 @@ var ifShowLoading = true;
 var ifShowLoading2 = true;
 
 //定义计算安全运行天数的开始日期
-var startSafeDate = new Date('2017/01/01 12:00');
+var startSafeDate = new Date('2017/07/20 12:00');
 
 var date2 = new Date();
 
@@ -1036,6 +1036,7 @@ var dataStyle = {
         labelLine: {show:false}
     }
 };
+
 var placeHolderStyle = {
     normal : {
         color: 'rgba(0,0,0,0)',
@@ -3979,7 +3980,7 @@ function getDevRunParaPopupData(devTypeArr,condition){
                 tableHtml += "<td>"+ o.devStateName+"</td>";
 
                 //累计运行时间
-                tableHtml += "<td>"+ o.devRunHour+"</td>";
+                tableHtml += "<td>"+ o.devRunHour.toFixed(1)+"</td>";
 
                 tableHtml += "</tr>"
             });
@@ -4542,7 +4543,6 @@ function typeOfAlarm(){
         }
     });
 };
-
 
 //获取消防系统中报警分类
 function getAlarmFireType(num){

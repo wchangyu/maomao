@@ -98,8 +98,9 @@ var BEE = (function(){
             var str = sessionStorage.menuStr;
             var $sidebar = $(".page-sidebar-menu");
             if (sessionStorage.changeMenuByProcs == 1) {
-                getHTMLFromMenu(changeMenuByProcs(JSON.parse(str)), $sidebar);
-                sessionStorage.curMenuStr = JSON.stringify(changeMenuByProcs(JSON.parse(str)));
+                var string1 = changeMenuByProcs(JSON.parse(str));
+                getHTMLFromMenu(string1, $sidebar);
+                sessionStorage.curMenuStr = JSON.stringify(string1);
             }else{
                 getHTMLFromMenu(JSON.parse(str), $sidebar);
                 sessionStorage.curMenuStr = str;
@@ -590,7 +591,7 @@ var BEE = (function(){
 
                         //获取待闭环备件
                         var num3 = 0;
-                        $(data.clstatus).each(function(i,o){
+                        $(data.zhts).each(function(i,o){
                             if(o == 6){
                                 num3 ++;
                             }
@@ -599,7 +600,7 @@ var BEE = (function(){
                         //加入待闭环备件信息
                         if(num3 != 0){
 
-                            infoHtml += addInfoMessage(num3,'待闭环备件','productionOrder-8.html','../gongdangunali/');
+                            infoHtml += addInfoMessage(num3,'待闭环','productionOrder-8.html','../gongdangunali/');
                         }
 
 
