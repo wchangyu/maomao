@@ -113,6 +113,9 @@ $(function(){
     //获取条件查询数据
     function conditionSelect(pointerId){
 
+        //初始化表格
+        initData();
+
         //首先修改表头名称
 
         if($('#timeType').val() == 0){
@@ -412,6 +415,16 @@ $(function(){
 
                     $('#c-datatablesX').hide();
                 }
+            }else{
+
+                setTimeout(function(){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'无数据','');
+
+                },500);
+
+
+
             }
 
         }
@@ -420,7 +433,7 @@ $(function(){
         function successFunH(result){
 
             //处理数据
-            if(result){
+            if(result != null){
 
                 //报表名称
                 $('#table-titleH').html(result.pointerName);
@@ -469,6 +482,14 @@ $(function(){
 
 
 
+            }else if(result == null){
+
+                setTimeout(function(){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'无数据','');
+
+                },500);
+
             }
 
         }
@@ -492,5 +513,15 @@ $(function(){
 
     }
 
+    //报表管理
+    function initData(){
+
+        //所有表头内容清除
+        $('.table-content').html('');
+
+        //tbody清除
+        $('.table').find('tbody').empty();
+
+    }
 
 })

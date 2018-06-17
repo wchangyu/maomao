@@ -98,6 +98,10 @@ $(function(){
     //查询
     $('#btn').click(function(){
 
+        //初始化
+        $('.real-time-block').empty();
+
+        //获取数据
         realTimeData();
 
     })
@@ -125,19 +129,36 @@ $(function(){
 
         if(obj1.code == 0){
 
+            var typeArr = [];
+
+            //将最后一层数据的returnType找出来
+
+            var typeMaxNum = arr1[arr1.length-1].returnType;
+
+            for(var i=0;i<arr1.length;i++){
+
+                if(arr1[i].returnType == typeMaxNum){
+
+                    typeArr.push(arr1[i]);
+
+                }
+
+            }
+
             //根据arr1过滤obj1.devs
             //过滤后的obj1数组
             var filterObj1 = [];
 
             for(var i=0;i<obj1.devs.length;i++){
 
-                for(var j=0;j<arr1.length;j++){
+                for(var j=0;j<typeArr.length;j++){
 
-                    if(arr1[j].returnOBJID == obj1.devs[i].areaID){
+                    if(typeArr[j].auxiliaryOBJID == obj1.devs[i].typeID && typeArr[j].devTypeForAreaID == obj1.devs[i].areaID){
 
                         filterObj1.push(obj1.devs[i]);
 
                     }
+
                 }
 
             }
@@ -146,8 +167,17 @@ $(function(){
 
                 var obj = {};
 
-                //parentOBJID
-                obj.parentOBJID = filterObj1[i].areaID;
+
+                for(var j=0;j<typeArr.length;j++){
+
+                    if(typeArr[j].auxiliaryOBJID == filterObj1[i].typeID && typeArr[j].devTypeForAreaID == filterObj1[i].areaID ){
+
+                        //parentOBJID
+                        obj.parentOBJID = typeArr[j].returnOBJID;
+
+                    }
+
+                }
 
                 //returnOBJID
                 obj.returnOBJID = filterObj1[i].id;
@@ -156,7 +186,7 @@ $(function(){
                 obj.returnOBJName = filterObj1[i].devName;
 
                 //returnType
-                obj.returnType = 4;
+                obj.returnType = typeMaxNum + 1;
 
                 reFormArr.push(obj);
 
@@ -194,7 +224,7 @@ $(function(){
                         //勾选当前选中的节点
                         zTreeObj.checkNode(treeNode, !treeNode.checked, true);
 
-                        if(treeNode.returnType == 4){
+                        if(treeNode.returnType == typeMaxNum +1){
 
                             //判断是否是选中状态
                             if(treeNode.checked){
@@ -250,7 +280,7 @@ $(function(){
                         $('#emptyAll').click();
 
                         //点击前边的按钮选中事件
-                        if(treeNode.returnType == 4){
+                        if(treeNode.returnType == typeMaxNum +1){
 
                             //判断是否是选中状态
                             if(treeNode.checked){
@@ -315,7 +345,7 @@ $(function(){
 
                 obj.returnType = newCompleteArr[i].returnType;
 
-                if(newCompleteArr[i].returnType > 3){
+                if(newCompleteArr[i].returnType > 4){
 
                     obj.nocheck = false;
 
@@ -456,6 +486,8 @@ $(function(){
 
         }
 
+        var pId = getCheckedNodeFun()[0].pId;
+
         var prm = {
 
             //检测因子
@@ -493,37 +525,124 @@ $(function(){
 
                     if(result.mos != null){
 
-                        for(var i=0;i<result.mos.length;i++){
+                        //除了12.4m下边的显示光照，其他不显示
+                        if(pId == 'ar4ty62'){
 
-                            var misc = (result.mos[i].misc == null)?'':result.mos[i].misc;
+                            for(var i=0;i<result.mos.length;i++){
 
-                            str += '<div class="real-time-list">' +
-                                '<p>' + result.mos[i].data +
-                                '<span>' + misc + '</span></p>' +
-                                '<div>' + result.mos[i].nt + '</div>' +
-                                '</div>';
+                                var misc = (result.mos[i].misc == null)?'':result.mos[i].misc;
 
+                                str += '<div class="real-time-list">' +
+                                    '<p>' + result.mos[i].data +
+                                    '<span>' + misc + '</span></p>' +
+                                    '<div>' + result.mos[i].nt + '</div>' +
+                                    '</div>';
+
+
+                            }
+
+                        }else{
+
+                            for(var i=0;i<result.mos.length;i++){
+
+                                if(result.mos[i].ctype != '459'){
+
+                                    var misc = (result.mos[i].misc == null)?'':result.mos[i].misc;
+
+                                    str += '<div class="real-time-list">' +
+                                        '<p>' + result.mos[i].data +
+                                        '<span>' + misc + '</span></p>' +
+                                        '<div>' + result.mos[i].nt + '</div>' +
+                                        '</div>';
+
+                                }
+
+
+                            }
 
                         }
 
                     }
 
-
-
                     $('.real-time-block').eq(0).empty().append(str);
 
-                    //生成chart图
+                    //生成chart图(除了12.4m下边的显示光照，其他不显示)
 
                     var strChart = '';
 
-                    for(var i=0;i<result.ys.length;i++){
+                    if( pId == 'ar4ty62' ){
 
-                        strChart += '<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">' +
+                        for(var i=0;i<result.ys.length;i++){
 
-                            '  <div class="real-chart-list" id="' + 'chart-list' + i +
-                            '" ></div>' +
+                            if(result.ys.length == 1){
 
-                            '</div>';
+                                strChart += '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">' +
+
+                                    '  <div class="real-chart-list" id="' + 'chart-list' + i +
+                                    '" ></div>' +
+
+                                    '</div>';
+
+                            }else if(result.ys.length == 2){
+
+                                strChart += '<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">' +
+
+                                    '  <div class="real-chart-list" id="' + 'chart-list' + i +
+                                    '" ></div>' +
+
+                                    '</div>';
+
+                            }else{
+
+                                strChart += '<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">' +
+
+                                    '  <div class="real-chart-list" id="' + 'chart-list' + i +
+                                    '" ></div>' +
+
+                                    '</div>';
+
+                            }
+
+                        }
+
+                    }else{
+
+                        for(var i=0;i<result.ys.length;i++){
+
+                            if(result.ys[i].cTypeId != '459'){
+
+                                if(result.ys.length == 1){
+
+                                    strChart += '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">' +
+
+                                        '  <div class="real-chart-list" id="' + 'chart-list' + i +
+                                        '" ></div>' +
+
+                                        '</div>';
+
+                                }else if(result.ys.length == 2){
+
+                                    strChart += '<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">' +
+
+                                        '  <div class="real-chart-list" id="' + 'chart-list' + i +
+                                        '" ></div>' +
+
+                                        '</div>';
+
+                                }else{
+
+                                    strChart += '<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">' +
+
+                                        '  <div class="real-chart-list" id="' + 'chart-list' + i +
+                                        '" ></div>' +
+
+                                        '</div>';
+
+                                }
+
+                            }
+
+                        }
 
                     }
 

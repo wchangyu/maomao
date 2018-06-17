@@ -358,11 +358,7 @@ var History = function () {
             })
             //打开监测因子选择器
             $("#openTrvBoxBtn").on('click', function () {
-                var obj = $(this);
-                var ofst = $(this).offset();
-                var ofstLeft = ofst.left - 240;
-                var ofstTop = ofst.top - 115;
-                $("#treeBox").css({ left: ofstLeft + "px", top: ofstTop + "px" }).slideDown("fast");
+                $("#treeBox").slideDown("fast");
                 $("body").bind("mousedown", onBodyDown);
             });
             //查询历史数据
