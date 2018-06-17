@@ -1167,7 +1167,8 @@ function _errorFun1(XMLHttpRequest, textStatus, errorThrown){
 //ajaxerror方法
 function _mainAjaxFun(type,url,prm,successFun){
 
-    $.ajax({
+    $.ajax(
+        {
 
         //发送方式
         type:type,

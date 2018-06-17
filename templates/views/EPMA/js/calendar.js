@@ -211,19 +211,54 @@
         },function (res) {
             if(res.code === 0){
                 //标杆值
-                var benchMarkV = parseFloat(res.benchMarkVa);
+                var benchMarkV = 0;
+
+                if(res.benchMarkVa != null){
+
+                    benchMarkV = parseFloat(res.benchMarkVa);
+
+                }
                 //能耗电值
-                var EV = parseFloat(res.eVa).toFixed(2);
+                var EV = 0;
+
+                if(res.eVa != null){
+
+                    EV = parseFloat(res.eVa).toFixed(2);
+
+                }
                 $('#eer_com_eV').html(EV);
+
                 //能耗冷值
-                var CV = parseFloat(res.cVa).toFixed(2);
+                var CV = 0;
+
+                if( res.cVa != null ){
+
+                    CV = parseFloat(res.cVa).toFixed(2);
+
+                }
+
                 $('#eer_com_cV').html(CV);
+
                 //电价(元)
-                var epriceV = parseFloat(res.eupVa).toFixed(2);
+                var epriceV = 0;
+
+                if(res.eupVa != null){
+
+                    epriceV = parseFloat(res.eupVa).toFixed(2);
+
+                }
                 $('#eer_com_priceV').html(epriceV);
+
                 //冷量单价
-                var ecpv = parseFloat(res.ecupVa).toFixed(4);
+                var ecpv = 0;
+
+                if(res.ecupVa != null){
+
+                    ecpv = parseFloat(res.ecupVa).toFixed(4);
+
+                }
                 $('#eer_com_cpirceV').html(ecpv);
+
                 //能效值
                 var lzeerV = 0;
                 if (typeof (res.lzeerVa) == "undefined") {
@@ -255,8 +290,6 @@
                     //-- KW/RT 潜力=(实际值-目标值)/目标值*100% --/
                     var pocV = 0.0;
 
-                    console.log(sessionStorage.misc);
-
                     if(sessionStorage.misc == 1){
 
                         //KW/KW
@@ -271,8 +304,6 @@
                         pocV = Math.abs(((lzeerV - benchMarkV) * -1 / benchMarkV * 100));
 
                     }
-
-                    console.log(pocV);
 
                     $('#latentV').html(pocV.toFixed(2).toString());
                     //$('#latentV').html(Math.abs(((benchMarkV - lzeerV) / benchMarkV * 100)).toFixed(2).toString());
