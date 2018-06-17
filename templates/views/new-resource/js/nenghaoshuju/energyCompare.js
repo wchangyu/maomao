@@ -360,7 +360,7 @@ var optionLineBar = {
         {
             name:'比较斜率',
             type:'line',
-            data:[],
+            data:[]
         }
     ]
 };
@@ -617,7 +617,9 @@ function getPointerData(url,flag){
                         allDataX.push(dataJoin);
                     }
                 }
+
             }else{
+
                 //确定x轴
                 for(var i=0;i<allData.length;i++){
 
@@ -661,14 +663,27 @@ function getPointerData(url,flag){
 
             //上方百分比
             $('.rheader-content-rights').eq(0).find('.top-percent').html((Math.abs(result.lastYearEnergyPercent*100)).toFixed(2) + "%");
+
             //箭头朝向
             $('.rheader-content-rights').removeClass('rheader-content-rights-down');
 
             if(result.lastYearEnergyPercent < 0){
 
                 $('.rheader-content-rights').eq(0).addClass('rheader-content-rights-down');
-            }
 
+            }else if(result.lastYearEnergyPercent == 0){
+
+                $('.rheader-content-rights').eq(0).addClass('rheader-content-rights-equal');
+
+            }else{
+
+                $('.rheader-content-rights').eq(0).removeClass('rheader-content-rights-down');
+
+                $('.rheader-content-rights').eq(0).removeClass('rheader-content-rights-equal');
+
+
+
+            }
 
             //环比数据
             var chainAllDataY = [];
@@ -692,6 +707,38 @@ function getPointerData(url,flag){
             if(result.chainEnergyPercent < 0){
 
                 $('.rheader-content-rights').eq(1).addClass('rheader-content-rights-down');
+
+            }else if(result.chainEnergyPercent == 0){
+
+                $('.rheader-content-rights').eq(1).addClass('rheader-content-rights-equal');
+
+            }else{
+
+                $('.rheader-content-rights').eq(1).removeClass('rheader-content-rights-down');
+
+                $('.rheader-content-rights').eq(1).removeClass('rheader-content-rights-equal');
+
+            }
+
+            //如果没有数据 改变展示方式
+            if(result.lastYearCompardData.sumMetaData == 0){
+
+                //上年同期累计
+                $('.rheader-content-rights').eq(0).find('.count2 span').html('--');
+
+                //上方百分比
+                $('.rheader-content-rights').eq(0).find('.top-percent').html('--');
+
+            }
+
+            if(result.currentCompardData.sumMetaData == 0){
+
+                //上年同期累计
+                $('.rheader-content-rights').eq(1).find('.count2 span').html('--');
+
+                //上方百分比
+                $('.rheader-content-rights').eq(1).find('.top-percent').html('--');
+
             }
 
             //echart柱状图
@@ -751,12 +798,14 @@ function GetShowEnergyNormItem(energyType,flag){
             var dataArr = [];
 
             $(result).each(function(i,o){
+
                 //指标类型重新赋值
                 energyNormItemArr.push(o);
                 //获取对应能耗类型下的指标
                 if(o.energyType == energyType){
                     dataArr.push(o);
                 }
+
             });
 
             $(dataArr).each(function(i,o){

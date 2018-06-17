@@ -25,7 +25,7 @@ $(function(){
 
             $('.diagnose-course .right-content b').html('发现0条问题.....');
 
-            $('.diagnose-course .right-content font').html('正在诊断能效问题');
+            $('.diagnose-course .right-content font').html('正在诊断能耗问题');
 
             //清空诊断信息
             diagHtml = "";

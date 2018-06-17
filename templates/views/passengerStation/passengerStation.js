@@ -202,6 +202,9 @@ $(function(){
 
         var secIndex = -1;
 
+        //路径赋值
+        var srcPath = '';
+
         for(var i in result ){
 
             if(typeof result[i]  == 'object'){
@@ -221,8 +224,6 @@ $(function(){
         //判断跳转项？配置项？默认项？
         //跳转项
         if(postUrl){
-
-            //?sendUrl=EPMA/main.html
 
             var srcParhs = postUrl.split('=')[1];
 
@@ -269,10 +270,10 @@ $(function(){
                                                 secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
                                             }
 
-                                            var srcPath = '../' + srcParhs;
+                                            srcPath = '../' + srcParhs;
 
                                             //跳转到指定页面
-                                            $('iframe').attr('src',srcPath);
+                                            //$('iframe').attr('src',srcPath);
 
 
                                         }
@@ -296,16 +297,14 @@ $(function(){
 
             }
 
-
-
-        //配置项
+            //配置项
         }else if(configureUrl){
 
-           if(configureUrl.indexOf("njn-dapingzhanshi") > -1){
+            if(configureUrl.indexOf("njn-dapingzhanshi") > -1){
 
-               window.location.href = configureUrl;
+                window.location.href = configureUrl;
 
-           }
+            }
 
             for(var i in result){
 
@@ -350,10 +349,10 @@ $(function(){
                                                 secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
                                             }
 
-                                            var srcPath = configureUrl;
+                                            srcPath = configureUrl;
 
                                             //跳转到指定页面
-                                            $('iframe').attr('src',srcPath);
+                                            //$('iframe').attr('src',srcPath);
 
 
                                         }
@@ -377,7 +376,7 @@ $(function(){
 
             }
 
-        //默认项
+            //默认项
         }else{
 
             for(var i in result){
@@ -411,9 +410,9 @@ $(function(){
 
                                     secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
 
-                                    var secPath = result[i]['submenu'][x]['uri'];
+                                    srcPath = result[i]['submenu'][x]['uri'];
 
-                                    $('iframe').attr('src',secPath);
+                                    //$('iframe').attr('src',secPath);
 
                                 }else{
 
@@ -435,6 +434,9 @@ $(function(){
             }
 
         }
+
+        $('iframe').attr('src',srcPath);
+
     }
 
     /*----------------------------------------菜单点击事件---------------------------------------*/

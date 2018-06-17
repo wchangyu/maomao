@@ -90,7 +90,6 @@ $(function(){
 
         var index = $('.cur-on-choose').attr('data-id');
 
-
         //切换显示楼宇或者科室
         if(index == 1){
             //楼宇
@@ -894,6 +893,7 @@ function getTopPageEnergyData(){
                 obj.dataDoD = (o.chainEnergyPercent * 100).toFixed(1) + '%';
                 //同比
                 obj.dataYoY = (o.lastYearEnergyPercent * 100).toFixed(1) + '%';
+
                 //能耗类型
                 obj.energyItemID = o.f_EnergyItemID;
 
@@ -1793,6 +1793,7 @@ function setEnergyBlock(et,ec){
     var $spanT = $("<span class='huanbizhi'></span>");
     $spanT.html(ec.dataYoY);
     if(ec.dataYoY.length > 1){
+        console.log(ec.dataYoY);
         if(ec.dataYoY.startWith("-")){
             $pT.css("background","url(../resource/img/declineArrow.png)no-repeat 40px 17px");
             $pT.css("background-size","16px");

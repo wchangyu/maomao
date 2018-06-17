@@ -55,7 +55,6 @@ var optionBar = {
     ]
 };
 
-
 //页面右侧Table的表头集合
 //var titleArr = ['','回路数','开启回路占比','平均照度(lux)','功率 kW'];
 
@@ -434,7 +433,6 @@ function echartReDraw(realDataArr){
         var rightTableChart1 = echarts.init(echartDom1);
 
         rightTableChart1.setOption(optionBar,true);
-
 
         $(dataArr).each(function(k,o){
 

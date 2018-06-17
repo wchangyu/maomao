@@ -972,9 +972,13 @@ function getStationAlarmData(index){
         timeout:_theTimes,
         beforeSend:function(){
 
-            leftBottomChart.showLoading({
-                maskColor: 'rgba(33,43,55,0.8)'
-            });
+            if(ifShowLoading1){
+                leftBottomChart.showLoading({
+                    maskColor: 'rgba(33,43,55,0.8)'
+                });
+
+                ifShowLoading1 = false;
+            }
 
         },
         success:function(result){

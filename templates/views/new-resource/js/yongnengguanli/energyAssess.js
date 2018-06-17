@@ -581,6 +581,15 @@ function getPointerData(url,flag){
             if(result.energyDingeScale > 0){
 
                 $('.rights-up').addClass('rights-up1');
+
+            }else if(result.energyDingeScale == 0){
+
+                $('.rights-up').addClass('rights-equal1');
+            }else{
+
+                $('.rights-up').removeClass('rights-up1');
+
+                $('.rights-up').removeClass('rights-equal1');
             }
 
             //年定额
