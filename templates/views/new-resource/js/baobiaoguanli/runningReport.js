@@ -300,12 +300,6 @@ $(function(){
 
             timeout:_theTimes,
 
-            //发送数据之前
-            //beforeSend:_beforeSendFun,
-
-            //发送数据完成之后
-            //complete:_completeFun,
-
             //成功
             success:function(result){
 
@@ -545,422 +539,489 @@ $(function(){
     //绘制空调箱表格(传入数组，来确定要生成几个)
     function airConditioningFun(arr){
 
-        var str = '';
+        if(arr.length){
 
-        for(var i=0;i<arr.length;i++){
+            var str = '';
 
-            str += '<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
-                '<thead style="text-align:center">' +
-                '<tr style="text-align:center">' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
-                '<th colspan="20" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="20" class="data-time"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="20" class="derive-time"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th colspan="21" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
-                '<tr>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">配电箱手自动状态</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">子系统运行模式</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">节能联控模式启闭</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">节能联控对象</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">安全联动模式启闭</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">安全联动对象</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">启停状态</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">报警状态</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">送风温度设定（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回风温度设定（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">CO2设定（PPM）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">准点送风温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回风温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回风湿度（%）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回风CO2浓度</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新风温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新风湿度（%）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">水阀开度（%）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新风阀开度（%）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回风阀开度（%）</th>' +
-                '</tr>' +
-                '</thead>' +
-                '<tbody>' +
-                '</tbody>' +
-                '<tfoot>' +
-                '</tfoot>' +
-                '</table>';
+            for(var i=0;i<arr.length;i++){
 
+                str += '<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
+                    '<thead style="text-align:center">' +
+                    '<tr style="text-align:center">' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
+                    '<th colspan="20" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="20" class="data-time"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="20" class="derive-time"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th colspan="21" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
+                    '<tr>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">配电箱手自动状态</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">子系统运行模式</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">节能联控模式启闭</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">节能联控对象</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">安全联动模式启闭</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">安全联动对象</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">启停状态</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">报警状态</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">送风温度设定（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回风温度设定（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">CO2设定（PPM）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">准点送风温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回风温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回风湿度（%）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回风CO2浓度</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新风温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新风湿度（%）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">水阀开度（%）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新风阀开度（%）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回风阀开度（%）</th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody>' +
+                    '</tbody>' +
+                    '<tfoot>' +
+                    '</tfoot>' +
+                    '</table>';
+
+
+            }
+
+            $('.table-area').empty().append(str);
+
+            //赋值
+            assignValue(arr);
+
+        }else{
+
+            _moTaiKuang($('#tip-Modal'),'提示', true, 'istap' ,'无数据', '');
 
         }
 
-        $('.table-area').empty().append(str);
 
-        //赋值
-        assignValue(arr);
 
     }
 
     //绘制换热站表格
     function heatChangeFun(arr){
 
-        var str = '';
+        if(arr.length){
 
-        for(var i=0;i<arr.length;i++){
+            var str = '';
 
-            str += '<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
-                '<thead style="text-align:center">' +
-                '<tr style="text-align:center">' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
-                '<th colspan="14" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="14" class="data-time"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="14" class="derive-time"></th>' +
-                '</tr>' +
-                '<tr><th colspan="16" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
-                '<tr>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">子系统控制模式</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">节能联控模式启停</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">节能联控对象</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">安全联动模式启停</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">安全联动对象</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽流量（t）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽压力（MPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">供水温度设定（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">供水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">供水压力（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回水压力（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">热水泵运行台数</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">热水泵频率（Hz）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">未处理报警</th>' +
-                '</tr>' +
+            for(var i=0;i<arr.length;i++){
+
+                str += '<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
+                    '<thead style="text-align:center">' +
+                    '<tr style="text-align:center">' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
+                    '<th colspan="14" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="14" class="data-time"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="14" class="derive-time"></th>' +
+                    '</tr>' +
+                    '<tr><th colspan="16" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
+                    '<tr>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">子系统控制模式</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">节能联控模式启停</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">节能联控对象</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">安全联动模式启停</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">安全联动对象</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽流量（t）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽压力（MPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">供水温度设定（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">供水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">供水压力（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">回水压力（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">热水泵运行台数</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">热水泵频率（Hz）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">未处理报警</th>' +
+                    '</tr>' +
 
 
-                '</thead>' +
-                '<tbody>' +
-                '</tbody>' +
-                '<tfoot>' +
+                    '</thead>' +
+                    '<tbody>' +
+                    '</tbody>' +
+                    '<tfoot>' +
 
-                '</tfoot>' +
-                '</table>';
+                    '</tfoot>' +
+                    '</table>';
 
+
+            }
+
+            $('.table-area').empty().append(str);
+
+            //赋值
+            assignValue(arr);
+
+
+        }else{
+
+            _moTaiKuang($('#tip-Modal'),'提示', true, 'istap' ,'无数据', '');
 
         }
 
-        $('.table-area').empty().append(str);
 
-        //赋值
-        assignValue(arr);
 
     }
 
     //绘制热水交换器表格
     function hotWaterFun(arr){
 
-        var str = '';
+        if(arr.length){
 
-        for(var i=0;i<arr.length;i++){
+            var str = '';
 
-            str += 	'<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
-                '<thead style="text-align:center">' +
-                '<tr style="text-align:center">' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
-                '<th colspan="6" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="6" class="data-time"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="6" class="derive-time"></th>' +
-                '</tr>' +
-                '<tr><th colspan="7" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
-                '<tr>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽压力（MPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽侧阀门开度（%）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">热水供水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">热水回水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">热水阀开度（%）</th>' +
-                '</tr>' +
-                '</thead>' +
-                '<tbody>' +
-                '</tbody>' +
-                '<tfoot>' +
-                '</tfoot>' +
-                '</table>'
+            for(var i=0;i<arr.length;i++){
+
+                str += 	'<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
+                    '<thead style="text-align:center">' +
+                    '<tr style="text-align:center">' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
+                    '<th colspan="6" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="6" class="data-time"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="6" class="derive-time"></th>' +
+                    '</tr>' +
+                    '<tr><th colspan="7" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
+                    '<tr>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽压力（MPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽侧阀门开度（%）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">热水供水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">热水回水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">热水阀开度（%）</th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody>' +
+                    '</tbody>' +
+                    '<tfoot>' +
+                    '</tfoot>' +
+                    '</table>'
+
+            }
+
+            $('.table-area').empty().append(str);
+
+            //赋值
+            assignValue(arr);
+
+        }else{
+
+            _moTaiKuang($('#tip-Modal'),'提示', true, 'istap' ,'无数据', '');
 
         }
 
-        $('.table-area').empty().append(str);
 
-        //赋值
-        assignValue(arr);
 
     }
 
     //绘制离心机表格
     function LXJFun(arr){
 
-        var str = '';
+        if(arr.length){
 
-        for(var i=0;i<arr.length;i++){
+            var str = '';
 
-            str += '<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
-                '<thead style="text-align:center">' +
-                '<tr style="text-align:center">' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
-                '<th colspan="23" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="23" class="data-time"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="23" class="derive-time"></th>' +
-                '</tr>' +
-                '<tr><th colspan="24" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
-                '<tr>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">运行状态</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度设定（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻回水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷却出水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷却回水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸发压力（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸发器温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷凝压力（kPa））</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷凝器温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">主机电流（%）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">轴承温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">油槽温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">供油压力（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">油槽压力（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">供油压差（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">导叶开度（%）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">运行电功率（kW）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">累计运行时间（h）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">上一小时电耗（kWh）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">手/自动状态</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新增故障报警</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">故障停机</th>' +
-                '</tr>' +
+            for(var i=0;i<arr.length;i++){
+
+                str += '<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
+                    '<thead style="text-align:center">' +
+                    '<tr style="text-align:center">' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
+                    '<th colspan="23" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="23" class="data-time"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="23" class="derive-time"></th>' +
+                    '</tr>' +
+                    '<tr><th colspan="24" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
+                    '<tr>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">运行状态</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度设定（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻回水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷却出水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷却回水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸发压力（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸发器温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷凝压力（kPa））</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷凝器温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">主机电流（%）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">轴承温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">油槽温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">供油压力（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">油槽压力（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">供油压差（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">导叶开度（%）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">运行电功率（kW）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">累计运行时间（h）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">上一小时电耗（kWh）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">手/自动状态</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新增故障报警</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">故障停机</th>' +
+                    '</tr>' +
 
 
-                '</thead>' +
-                '<tbody>' +
-                '</tbody>' +
-                '<tfoot>' +
+                    '</thead>' +
+                    '<tbody>' +
+                    '</tbody>' +
+                    '<tfoot>' +
 
-                '</tfoot>' +
-                '</table>';
+                    '</tfoot>' +
+                    '</table>';
+
+            }
+
+            $('.table-area').empty().append(str);
+
+            //赋值
+            assignValue(arr);
+
+
+        }else{
+
+            _moTaiKuang($('#tip-Modal'),'提示', true, 'istap' ,'无数据', '');
 
         }
 
-        $('.table-area').empty().append(str);
 
-        //赋值
-        assignValue(arr);
 
     }
 
     //绘制捏修理及表格
     function XLJFun(arr){
 
-        var str = '';
+        if(arr.length){
 
-        for(var i=0;i<arr.length;i++){
+            var str = '';
 
-            str += '<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
-                '<thead style="text-align:center">' +
-                '<tr style="text-align:center">' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
-                '<th colspan="24" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="24" class="data-time"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="24" class="derive-time"></th>' +
-                '</tr>' +
-                '<tr><th colspan="25" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
-                '<tr>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">运行状态</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽压力（MPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度设定（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻回水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷却出水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷却回水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷剂蒸发温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷剂冷凝温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">溶液出口温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">低温再生器入口温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">浓低温再生器入口温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽调节阀开度（%）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">高温再生器露点（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">高温再生器入口（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">高温再生器出口（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽凝水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">凝水热交出口温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">抽气箱压力（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">运行功率（kW）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">累计运行时间（h）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">手/自动状态</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新增故障报警</th>' +
-                '</tr>' +
+            for(var i=0;i<arr.length;i++){
+
+                str += '<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
+                    '<thead style="text-align:center">' +
+                    '<tr style="text-align:center">' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
+                    '<th colspan="24" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="24" class="data-time"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="24" class="derive-time"></th>' +
+                    '</tr>' +
+                    '<tr><th colspan="25" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
+                    '<tr>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">运行状态</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽压力（MPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度设定（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻回水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷却出水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷却回水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷剂蒸发温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷剂冷凝温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">溶液出口温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">低温再生器入口温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">浓低温再生器入口温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽调节阀开度（%）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">高温再生器露点（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">高温再生器入口（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">高温再生器出口（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸汽凝水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">凝水热交出口温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">抽气箱压力（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">运行功率（kW）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">累计运行时间（h）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">手/自动状态</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新增故障报警</th>' +
+                    '</tr>' +
 
 
-                '</thead>' +
-                '<tbody>' +
-                '</tbody>' +
-                '<tfoot>' +
+                    '</thead>' +
+                    '<tbody>' +
+                    '</tbody>' +
+                    '<tfoot>' +
 
-                '</tfoot>' +
-                '</table>';
+                    '</tfoot>' +
+                    '</table>';
+
+            }
+
+            $('.table-area').empty().append(str);
+
+            //赋值
+            assignValue(arr);
+
+        }else{
+
+            _moTaiKuang($('#tip-Modal'),'提示', true, 'istap' ,'无数据', '');
 
         }
-
-        $('.table-area').empty().append(str);
-
-        //赋值
-        assignValue(arr);
 
     }
 
     //地源热泵
     function DYRBFun(arr){
 
-        var str = '';
+        if(arr.length){
 
-        for(var i=0;i<arr.length;i++){
+            var str = '';
 
-            str += '<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
-                '<thead style="text-align:center">' +
-                '<tr style="text-align:center">' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
-                '<th colspan="19" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="19" class="data-time"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="19" class="derive-time"></th>' +
-                '</tr>' +
-                '<tr><th colspan="20" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
-                '<tr>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">运行状态</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度设定（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻回水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">地源出水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">地源回水温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸发器压力（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸发饱和温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷凝器压力（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷凝饱和温度（℃）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻水进口压力（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻水出口压力（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">地源出水压力（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">地源回水压力（kPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">运行功率（kW）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">累计运行时间（h）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">上一小时电耗（kWh）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">手/自动状态</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新增故障报警</th>' +
-                '</tr>' +
+            for(var i=0;i<arr.length;i++){
+
+                str += '<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
+                    '<thead style="text-align:center">' +
+                    '<tr style="text-align:center">' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
+                    '<th colspan="19" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="19" class="data-time"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="19" class="derive-time"></th>' +
+                    '</tr>' +
+                    '<tr><th colspan="20" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
+                    '<tr>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">运行状态</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度设定（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻供水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻回水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">地源出水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">地源回水温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸发器压力（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">蒸发饱和温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷凝器压力（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷凝饱和温度（℃）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻水进口压力（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">冷冻水出口压力（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">地源出水压力（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">地源回水压力（kPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">运行功率（kW）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">累计运行时间（h）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">上一小时电耗（kWh）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">手/自动状态</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新增故障报警</th>' +
+                    '</tr>' +
 
 
-                '</thead>' +
-                '<tbody>' +
-                '</tbody>' +
-                '<tfoot>' +
+                    '</thead>' +
+                    '<tbody>' +
+                    '</tbody>' +
+                    '<tfoot>' +
 
-                '</tfoot>' +
-                '</table>';
+                    '</tfoot>' +
+                    '</table>';
+
+            }
+
+            $('.table-area').empty().append(str);
+
+            //赋值
+            assignValue(arr);
+
+
+        }else{
+
+            _moTaiKuang($('#tip-Modal'),'提示', true, 'istap' ,'无数据', '');
 
         }
-
-        $('.table-area').empty().append(str);
-
-        //赋值
-        assignValue(arr);
 
     }
 
     //冷却塔
     function LQTFun(arr){
 
-        var str = '';
+        if(arr.length){
 
-        for(var i=0;i<arr.length;i++){
+            var str = '';
 
-            str += '<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
-                '<thead style="text-align:center">' +
-                '<tr style="text-align:center">' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
-                '<th colspan="10" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="10" class="data-time"></th>' +
-                '</tr>' +
-                '<tr>' +
-                '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
-                '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="10" class="derive-time"></th>' +
-                '</tr>' +
-                '<tr><th colspan="11" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
-                '<tr>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">启停状态</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">变频器反馈频率（Hz）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">进水压力（MPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">出水压力（MPa）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">电压（V）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">电流（A）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">准点功率（kW）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">上一小时电耗（kWh）</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">手/自动状态</th>' +
-                '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新增故障报警</th>' +
-                '</tr>' +
+            for(var i=0;i<arr.length;i++){
+
+                str += '<table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">' +
+                    '<thead style="text-align:center">' +
+                    '<tr style="text-align:center">' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">报表名称</th>' +
+                    '<th colspan="10" class="table-titleH" style="text-align:center;background: #ffffff;border:1px solid black"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">数据时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="10" class="data-time"></th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">导出时间</th>' +
+                    '<th style="text-align:center;background: #ffffff;border:1px solid black" colspan="10" class="derive-time"></th>' +
+                    '</tr>' +
+                    '<tr><th colspan="11" style="text-indent: 35px;text-align: left;border: 1px solid black">位置:<span class="location"></span><span class="eqName"></span></th></tr>' +
+                    '<tr>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">记录时间</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">启停状态</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">变频器反馈频率（Hz）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">进水压力（MPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">出水压力（MPa）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">电压（V）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">电流（A）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">准点功率（kW）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">上一小时电耗（kWh）</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">手/自动状态</th>' +
+                    '<th style="text-align:center;background: #E2E9F2;border:1px solid black">新增故障报警</th>' +
+                    '</tr>' +
 
 
-                '</thead>' +
-                '<tbody>' +
-                '</tbody>' +
-                '<tfoot>' +
+                    '</thead>' +
+                    '<tbody>' +
+                    '</tbody>' +
+                    '<tfoot>' +
 
-                '</tfoot>' +
-                '</table>';
+                    '</tfoot>' +
+                    '</table>';
+
+            }
+
+            $('.table-area').empty().append(str);
+
+            //赋值
+            assignValue(arr);
+
+        }else{
+
+            _moTaiKuang($('#tip-Modal'),'提示', true, 'istap' ,'无数据', '');
 
         }
-
-        $('.table-area').empty().append(str);
-
-        //赋值
-        assignValue(arr);
 
     }
 
@@ -1010,7 +1071,6 @@ $(function(){
 
     }
 
-    //获取楼宇
     //获取楼宇
     function pointerData(){
 

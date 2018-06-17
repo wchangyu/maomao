@@ -6,18 +6,19 @@
     //选择日期
     var selectDt;
 
-    //所有楼的ChartView图
-    var mylzp;
-    //冷站的ChartView图
-    var mylzv;
-    //冷机的ChartView图
-    var mycv;
-    //冷冻泵的ChartView图
-    var mychwv;
-    //冷却泵的ChartView图
-    var mycwv;
-    //冷却塔的ChartView图
-    var myctv;
+    ////所有楼的ChartView图
+    //var mylzp;
+    ////冷站的ChartView图
+    //var mylzv;
+    ////冷机的ChartView图
+    //var mycv;
+    ////冷冻泵的ChartView图
+    //var mychwv;
+    ////冷却泵的ChartView图
+    //var mycwv;
+    ////冷却塔的ChartView图
+    //var myctv;
+
 
     //冷量冷价
     var chartLLLJ = null;
@@ -32,12 +33,11 @@
     var chartDYRB = null;
 
     window.onresize = function () {
-        if (mylzv && mycv && mychwv && mycwv && myctv) {
-            mylzv.resize();
-            mycv.resize();
-            mychwv.resize();
-            mycwv.resize();
-            myctv.resize();
+        if (chartLLLJ && chartLXJ && chartXLJ && chartDYRB) {
+            chartLLLJ.resize();
+            chartLXJ.resize();
+            chartXLJ.resize();
+            chartDYRB.resize();
         }
     };
 
@@ -181,7 +181,20 @@
 
     //echarts
     var barOption = {
-        //color: ['#2170F4'],
+        title:{
+
+            text:'',
+            textStyle:{
+
+                fontWeight:'normal',
+
+                align:'center',
+
+            },
+            left:'center',
+            top:20
+
+        },
         tooltip : {
             trigger: 'axis',
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -212,7 +225,7 @@
             {
                 name:'',
                 type:'bar',
-                barWidth: '60%',
+                barWidth: '30',
                 data:[]
             }
         ]
@@ -262,16 +275,16 @@
 
                 //初始化echarts
                 //冷量冷价
-                var chartLLLJ = echarts.init(document.getElementById('lzpMain'));
+                chartLLLJ = echarts.init(document.getElementById('lzpMain'));
 
                 //离心机
-                var chartLXJ = echarts.init(document.getElementById('lzMain'));
+                chartLXJ = echarts.init(document.getElementById('lzMain'));
 
                 //溴锂机
-                var chartXLJ = echarts.init(document.getElementById('cMain'));
+                chartXLJ = echarts.init(document.getElementById('cMain'));
 
                 //地源热泵
-                var chartDYRB = echarts.init(document.getElementById('chwMain'));
+                chartDYRB = echarts.init(document.getElementById('chwMain'));
 
                 //标识
                 var tipBlock = $('.chartTip');
@@ -406,7 +419,7 @@
 
             }
 
-            barOption.series[0].barWidth = '60%';
+            barOption.series[0].barWidth = '30';
 
         }else{
 
@@ -426,7 +439,7 @@
 
             }
 
-            barOption.series[0].barWidth = '10%';
+            barOption.series[0].barWidth = '30';
 
         }
 
@@ -437,6 +450,9 @@
         barOption.series[0].data = yArr;
 
         barOption.series[0].name = str;
+
+        //title
+        barOption.title.text = str;
 
         el.setOption(barOption);
 

@@ -220,7 +220,7 @@
                                             <label>设备类型</label>
                                             <select id="eqType" class="table-group-action-input form-control"></select>
                                         </div>
-                                        <div>
+                                        <div style="position: relative">
                                             <label>选择因子</label>
                                             <div style="display: inline-block;vertical-align: middle">
                                                 <a id="openTrvBoxBtn" style="width: 190px;" data-toggle="dropdown" aria-expanded="true" class="btn form-control">
@@ -228,7 +228,9 @@
                                                     <i class="fa fa-angle-down pull-right" style="line-height:21px;"></i>
                                                 </a>
                                             </div>
-
+                                            <div id="treeBox" style="display:none;position:absolute;max-height:600px !important;overflow-y:auto !important;left: 60px;top: 24px" class="dropdown-menu">
+                                                <ul id="trul" class="ztree" style="margin-top:0;" />
+                                            </div>
                                         </div>
                                         <div>
                                             <label>开始时间</label>
@@ -263,9 +265,6 @@
                                                 <div id="historyChartView" style="height:600px;"></div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div id="treeBox" style="display:none;position:absolute;max-height:600px !important;overflow-y:auto !important;" class="dropdown-menu">
-                                        <ul id="trul" class="ztree" style="margin-top:0;" />
                                     </div>
                                 </div>
                             </div>

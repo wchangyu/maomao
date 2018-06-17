@@ -406,7 +406,7 @@
             //东西冷站离心机
             if( selectAREA == 'EC' || selectAREA == 'WC'){
 
-                var arr = ['机组能效','供冷量','温度','流量'];
+                var arr = ['机组能效（kWh/kWh）','供冷量','温度（℃）','流量（m³）'];
 
                 Yname(yZhou,arr,yZhouMax);
 
