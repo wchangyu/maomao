@@ -195,18 +195,11 @@ function getDevAreaByType(){
 
             $(result).each(function(i,o){
 
-                if(o.returnType == 3){
-
-                    o.returnOBJID = "001" + o.returnOBJID;
-
-                }else  if(o.returnType == 4 && o.isFirstDevType == 1){
-
-                    o.parentOBJID = "001" + o.parentOBJID;
-                }
-
                 dataArr.push(o);
 
             });
+
+            //console.log(dataArr);
 
             getEquipmentZtree(dataArr);
 
@@ -358,7 +351,7 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
                 //获取当前已选中的属性
                 var pts = treeObj.getCheckedNodes(true);
 
-                console.log(pts[0]);
+                //console.log(pts[0]);
 
                 if(pts.length > 0){
                     drawEquipmentList(pts[0]);
@@ -402,7 +395,7 @@ function drawEquipmentList(equipObj){
 
     //获取当前选中名称及id
 
-    var chooseID = equipObj.id;
+    var chooseID = equipObj.auxiliaryOBJID;
 
     var chooseName = equipObj.name;
 
@@ -455,20 +448,19 @@ function getZNodes1(EnItdata){
 
         if(o.returnType < 3){
 
-            zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:true,checked:false,nocheck :true});
+            zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:true,checked:false,nocheck :true,auxiliaryOBJID: o.auxiliaryOBJID});
 
         }else{
 
             if(o.returnType < 4){
 
-                zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false,nocheck :true});
+                zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false,nocheck :true,auxiliaryOBJID: o.auxiliaryOBJID});
 
             }else{
 
-                zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false,devTypeForAreaID: o.devTypeForAreaID,devTypeForAreaName: o.devTypeForAreaName});
+                zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false,devTypeForAreaID: o.devTypeForAreaID,devTypeForAreaName: o.devTypeForAreaName,auxiliaryOBJID: o.auxiliaryOBJID});
 
             }
-
 
         }
 

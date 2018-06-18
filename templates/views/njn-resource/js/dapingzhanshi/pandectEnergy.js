@@ -137,7 +137,7 @@ $(function(){
                 "data": 'id',
                 "render":function(data,type,row,meta){
 
-                    if(row.childDevgradeTypeInfos.length == -1){
+                    if(row.childDevgradeTypeInfos.length == 0){
 
                         return  "无子设备"
 
@@ -1010,7 +1010,7 @@ var ifShowLoading = true;
 var ifShowLoading2 = true;
 
 //定义计算安全运行天数的开始日期
-var startSafeDate = new Date('2017/01/01 12:00');
+var startSafeDate = new Date('2017/07/20 12:00');
 
 var date2 = new Date();
 
@@ -1036,6 +1036,7 @@ var dataStyle = {
         labelLine: {show:false}
     }
 };
+
 var placeHolderStyle = {
     normal : {
         color: 'rgba(0,0,0,0)',
@@ -2509,7 +2510,7 @@ function getTPDevMonitor(){
 
             //-----------------设备报警数据------------------//
 
-            console.log(userEquipObj)
+            //console.log(userEquipObj);
 
             //判断是否启用
             if(JSON.stringify(userEquipObj) != '{}'){
@@ -2631,6 +2632,7 @@ function getPointerData(){
 
         },
         success:function(result){
+
             leftBottomChart1.hideLoading();
             //console.log(result);
 
@@ -3056,9 +3058,13 @@ function getDeployByUser(){
         timeout:_theTimes,
         beforeSend:function(){
 
-            leftBottomChart.showLoading({
-                maskColor: 'rgba(33,43,55,0.8)'
-            });
+            if(ifShowLoading){
+
+                leftBottomChart.showLoading({
+                    maskColor: 'rgba(33,43,55,0.8)'
+                });
+
+            }
 
         },
         success:function(result){
@@ -3909,6 +3915,16 @@ function getDevRunParaPopupData(devTypeArr,condition){
 
     }
 
+    //动环隐藏累计运行时间
+    if(devTypeArr[0] != 7){
+
+        $('#dateTables1 thead th').eq(5).show();
+
+    }else{
+
+        $('#dateTables1 thead th').eq(5).hide();
+    }
+
     $.ajax({
 
         type:'post',
@@ -3978,14 +3994,21 @@ function getDevRunParaPopupData(devTypeArr,condition){
                 //运行状态
                 tableHtml += "<td>"+ o.devStateName+"</td>";
 
-                //累计运行时间
-                tableHtml += "<td>"+ o.devRunHour+"</td>";
+                //动环隐藏累计运行时间
+                if(devTypeArr[0] != 7){
+
+                    //累计运行时间
+                    tableHtml += "<td>"+ o.devRunHour.toFixed(1)+"</td>";
+
+                }
 
                 tableHtml += "</tr>"
             });
 
             //页面赋值
             $('#dateTables1 tbody').html(tableHtml);
+
+
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -4542,7 +4565,6 @@ function typeOfAlarm(){
         }
     });
 };
-
 
 //获取消防系统中报警分类
 function getAlarmFireType(num){

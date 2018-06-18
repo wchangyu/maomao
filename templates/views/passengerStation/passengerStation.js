@@ -147,7 +147,7 @@ $(function(){
     //ringChartR.setOption(optionRing1);
 
     //定义计算安全运行天数的开始日期
-    var startSafeDate = new Date('2017/01/01 12:00');
+    var startSafeDate = new Date('2017/07/20 12:00');
 
     var date2 = new Date();
 
@@ -156,6 +156,8 @@ $(function(){
     var total = (s2 - s1)/1000;
 
     var safeDays = parseInt(total / (24*60*60));//计算整数天数
+
+    //console.log(safeDays);
 
     //给页面中赋值
     $('.two-bottom-block  p span').html(safeDays);
@@ -177,7 +179,6 @@ $(function(){
 
     //配置项是否配置
     var configureUrl = "../" + sessionStorage.getItem("indexUrl");
-
 
     /*-----------------------------------------获取菜单-----------------------------------------*/
 
@@ -296,14 +297,14 @@ $(function(){
 
             }
 
-        //配置项
+            //配置项
         }else if(configureUrl){
 
-           if(configureUrl.indexOf("njn-dapingzhanshi") > -1){
+            if(configureUrl.indexOf("njn-dapingzhanshi") > -1){
 
-               window.location.href = configureUrl;
+                window.location.href = configureUrl;
 
-           }
+            }
 
             for(var i in result){
 
@@ -375,7 +376,7 @@ $(function(){
 
             }
 
-        //默认项
+            //默认项
         }else{
 
             for(var i in result){

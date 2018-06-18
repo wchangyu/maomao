@@ -499,6 +499,7 @@ function getPointerData(url,flag){
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
                 return false;
             }
+
             //改变头部显示信息
             var energyName = $('.selectedEnergy p').html() + '耗';
 
@@ -579,7 +580,8 @@ function getPointerData(url,flag){
             $('.the-cumulative-power-unit').html(unit);
 
             //同比数据
-            $('.compared-with-last-time').eq(0).find('label').html((result.lastYearEnergyData).toFixed(2))
+            $('.compared-with-last-time').eq(0).find('label').html((result.lastYearEnergyData).toFixed(2));
+
             //同比百分比
             var percentYear = (result.lastYearEnergyPercent *100).toFixed(1);
 
@@ -589,12 +591,20 @@ function getPointerData(url,flag){
             if(result.lastYearEnergyPercent  < 0){
 
                 $('.rights-up').eq(0).addClass('decline');
+
+            }else if(result.lastYearEnergyPercent  == 0){
+
+                $('.rights-up').eq(0).addClass('data-equal');
+
             }else{
+
                 $('.rights-up').eq(0).removeClass('decline');
+
+                $('.rights-up').eq(0).removeClass('data-equal');
             }
 
             //环比数据
-            $('.compared-with-last-time').eq(1).find('label').html((result.chainEnergyData).toFixed(2))
+            $('.compared-with-last-time').eq(1).find('label').html((result.chainEnergyData).toFixed(2));
             //环比百分比
             var percentChain = (result.chainEnergyPercent *100).toFixed(1);
 
@@ -604,10 +614,34 @@ function getPointerData(url,flag){
             if(result.chainEnergyPercent  < 0){
 
                 $('.rights-up').eq(1).addClass('decline');
+
+            }else if(result.chainEnergyPercent  == 0){
+
+                $('.rights-up').eq(1).addClass('data-equal');
+
             }else{
+
                 $('.rights-up').eq(1).removeClass('decline');
+
+                $('.rights-up').eq(1).removeClass('data-equal');
             }
 
+            //未获取到的数据 改变展示方式
+            if(result.lastYearEnergyData == 0){
+
+                $('.compared-with-last-time').eq(0).find('label').html('--');
+
+                $('.rights-up-value').eq(0).html('--');
+
+            }
+
+            if(result.chainEnergyData == 0){
+
+                $('.compared-with-last-time').eq(1).find('label').html('--');
+
+                $('.rights-up-value').eq(1).html('--');
+
+            }
         },
         error:function(jqXHR, textStatus, errorThrown){
             myChartTopLeft.hideLoading();

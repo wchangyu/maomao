@@ -558,6 +558,7 @@ function getTDayGLWs(ew,ch) {
         CH:ch
     };
     _consumotionChart.showLoading();
+
     $.post(url,par,function (result) {
         console.log(result);
         _consumotionChart.hideLoading();
@@ -1127,7 +1128,15 @@ function getLDCAE(ew) {
             $('#span_LDC_cVa_text').html(res.cVa);
             $('#span_LDC_eVa_text').html(res.eVa);
             $('#span_LDC_nxVa_text').html(res.nxVa);
-            var option = initareaoption(cc,res.minVa,res.maxVa,res.nxVa);
+            var minVa = 0;
+            var maxVa = 50;
+
+            var cc = [[0.44, '#F8276C'], [0.60, '#EAD01E'], [0.76, '#14E398'], [1, '#2170F4']];
+
+            var cc = [[0.44, '#F8276C'], [0.60, '#EAD01E'], [0.76, '#14E398'], [1, '#2170F4']];
+
+            var option = initareaoption(cc,minVa,maxVa,res.nxVa);
+
             chartViewLDCMain.setOption( option,true);
         }else if(res.code === -1){
             $('#span_LDC_cVa_text').html('0');
@@ -1160,7 +1169,12 @@ function getLQCAE(ew) {
             $('#span_LQC_rVa_text').html(res.cVa);
             $('#span_LQC_eVa_text').html(res.eVa);
             $('#span_LQC_nxVa_text').html(res.nxVa);
-            var option = initareaoption(cc,res.minVa,res.maxVa,res.nxVa);
+            var minVa = 0;
+            var maxVa = 50;
+
+            var cc = [[0.44, '#F8276C'], [0.60, '#EAD01E'], [0.76, '#14E398'], [1, '#2170F4']];
+
+            var option = initareaoption(cc,minVa,maxVa,res.nxVa);
             chartViewLQCMain.setOption( option,true);
         }else if(res.code === -1){
             $('#span_LQC_rVa_text').html('0');
@@ -1194,7 +1208,13 @@ function getRBJAE(ew) {
             $('#span_RBJ_cVa_text').html(res.cVa);
             $('#span_RBJ_eVa_text').html(res.eVa);
             $('#span_RBJ_nxVa_text').html(res.nxVa);
-            var option = initareaoption(cc1,res.minVa,res.maxVa,res.nxVa);
+            var minVa = 0;
+            var maxVa = 7.0;
+
+            var cc1 = [[0.55, '#F8276C'], [0.67, '#EAD01E'], [0.80, '#14E398'], [1, '#2170F4']];
+
+            var option = initareaoption(cc1,minVa,maxVa,res.nxVa);
+
             chartViewRBJMain.setOption( option,true);
         }else if(res.code === -1){
             $('#span_RBJ_cVa_text').html('0');
@@ -1227,7 +1247,12 @@ function getXLJAE(ew) {
             $('#span_XLJ_cVa_text').html(res.cVa);
             $('#span_XLJ_qVa_text').html(res.eVa);
             $('#span_XLJ_nxVa_text').html(res.nxVa);
-            var option = initareaoption(cc1,res.minVa,res.maxVa,res.nxVa);
+            var minVa = 0;
+            var maxVa = 1.35;
+
+            var cc1 = [[0.74, '#F8276C'], [0.81, '#EAD01E'], [0.90, '#14E398'], [1, '#2170F4']];
+
+            var option = initareaoption(cc1,minVa,maxVa,res.nxVa);
             chartViewXLJMain.setOption( option,true);
         }else if(res.code === -1){
             $('#span_XLJ_cVa_text').html('0');
@@ -1261,7 +1286,12 @@ function getLXJAE(ew) {
             $('#span_LXJ_cVa_text').html(res.cVa);
             $('#span_LXJ_eVa_text').html(res.eVa);
             $('#span_LXJ_nxVa_text').html(res.nxVa);
-            var option = initareaoption(cc1,res.minVa,res.maxVa,res.nxVa);
+            var minVa = 0;
+            var maxVa = 7.0;
+
+            var cc1 = [[0.55, '#F8276C'], [0.67, '#EAD01E'], [0.80, '#14E398'], [1, '#2170F4']];
+
+            var option = initareaoption(cc1,minVa,maxVa,res.nxVa);
             chartViewLXJMain.setOption( option,true);
 
         }else if(res.code === -1) {
@@ -1308,7 +1338,7 @@ var initareaoption = function (cc,minVa,maxVa,nxVa){
                 z: 3,
                 min: parseFloat(minVa),
                 max: parseFloat(maxVa),
-                splitNumber: 9,
+                splitNumber: 5,
                 radius: '80%',
                 axisTick: {            // 坐标轴小标记
                     length: 15,        // 属性length控制线长
@@ -1317,7 +1347,7 @@ var initareaoption = function (cc,minVa,maxVa,nxVa){
                     }
                 },
                 splitLine: {           // 分隔线
-                    length: 20,         // 属性length控制线长
+                    length: 18,         // 属性length控制线长
                     lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
                         color: 'auto'
                     }
@@ -1329,15 +1359,29 @@ var initareaoption = function (cc,minVa,maxVa,nxVa){
                         fontStyle: 'normal'
                     }
                 },
+                axisLabel: {
+                    //show:true,
+                    padding: [0, 0, 0, -5],
+                    formatter: function (value) {
+                        if(value > 9){
+
+                            return value;
+                        }else{
+                            return value.toFixed(1);
+                        }
+                        //return value;
+                    }
+                },
                 detail: {
                     textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                         fontWeight: 'bolder',
                         fontSize: 20,
-                        fontStyle: 'normal'
+                        fontStyle: 'normal',
+                        padding: [20, 0, 0,0]
                     }
                 },
                 data: [{ value: parseFloat(nxVa)}]//, name: 'kW/kW'
-            },
+            }
         ]
     };
 };

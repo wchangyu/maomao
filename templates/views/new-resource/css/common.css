@@ -358,10 +358,29 @@
     position: absolute;
     top: 140px;
     left: 117px;
-    background: url(../../resource/img/up.png)no-repeat;
+    background: url(../../resource/img/up.png) no-repeat;
     background-size: 23px;
     margin-left: 5px;
 }
+
+/*数据相等时的箭头*/
+.data-equal {
+    background:url(../img/tongbi0%25.png) no-repeat right 12px !important;
+    background-size: 100% 18% !important;
+}
+
+.rheader-content-rights-equal{
+
+    background: url(../img/tongbi0%25.png) no-repeat  #deebf7 !important;
+    background-size: 50px 10px !important;
+    background-position: 44px 78px !important;
+}
+
+.rights-equal1{
+    background:url(../img/tongbi0%25.png) no-repeat right 12px !important;
+    background-size: 100% 18% !important;
+}
+
 /*右侧百分比*/
 .rights-up-value {
     color: #019cdf;

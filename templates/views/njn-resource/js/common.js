@@ -228,7 +228,7 @@ function drawRightTab(){
         '<span class="right-tab right-tab2" jump-data="2"><a href="automaticCheck.html">售检票</a></span>' +
         //'<span class="right-tab right-tab2"><a href="automaticSale.html">自动售票</a></span>' +
         '<span class="right-tab right-tab2"><a href="sealHead.html">动环系统</a></span>' +
-        '<span class="right-tab right-tab2 "><a href="operationMaintenance.html">运维联动</a></span>' +
+        //'<span class="right-tab right-tab2 "><a href="operationMaintenance.html">运维联动</a></span>' +
         '<span class="right-tab right-tab3 "><a href="energyManagement.html">能源管理</a></span>';
 
     //插入页面中
@@ -972,9 +972,13 @@ function getStationAlarmData(index){
         timeout:_theTimes,
         beforeSend:function(){
 
-            leftBottomChart.showLoading({
-                maskColor: 'rgba(33,43,55,0.8)'
-            });
+            if(ifShowLoading1){
+                leftBottomChart.showLoading({
+                    maskColor: 'rgba(33,43,55,0.8)'
+                });
+
+                ifShowLoading1 = false;
+            }
 
         },
         success:function(result){

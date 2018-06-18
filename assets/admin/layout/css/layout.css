@@ -1,3 +1,21 @@
+/*2018/06/05 修改的重要样式*/
+
+.page-content-wrapper .page-content-nest {
+  margin-left: 0px !important;
+  margin-top: 0px;
+  min-height: 600px;
+  padding: 25px 20px 10px 20px;
+}
+
+/*.page-content-wrapper .page-content {*/
+  /*margin-left: 0px;*/
+  /*margin-top: 0px;*/
+  /*min-height: 600px;*/
+  /*padding: 25px 20px 10px 20px;*/
+/*}*/
+
+/*---------------------完------------------*/
+
 @media print {
   body {
     background-color: #fff !important;
@@ -2239,14 +2257,6 @@ Page content
 .page-full-width .page-content {
   margin-left: 0px !important;
 }
-
-
-  .page-content-wrapper .page-content-nest {
-    margin-left: 0px !important;
-    margin-top: 0px;
-    min-height: 600px;
-    padding: 25px 20px 10px 20px;
-  }
 
 
 @media (min-width: 992px) {

@@ -734,6 +734,7 @@ uploader.on( 'uploadProgress', function( file, percentage ) {
 
     $percent.css( 'width', percentage * 100 + '%' );
 });
+
 //文件成功，失败处理
 uploader.on( 'uploadSuccess', function( file,response ) {
     _currentPath = response;

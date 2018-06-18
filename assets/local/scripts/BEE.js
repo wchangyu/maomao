@@ -10,6 +10,10 @@ var BEE = (function(){
     var _localConfigsPath = 'local/configs/';
     var _isAlarmShow = false;
     var _alarmCount = 0;
+    // 存放全部流程图
+    var allProcsArr ;
+    //存放全部楼宇
+    var pointersArr;
 
     //登陆页面地址
     var _loginHtml = "../login_3.html";
@@ -27,6 +31,7 @@ var BEE = (function(){
         //获取存放配置文件的地址
         var configSrc =  _Lurls + "assets/local/configs/config.json?"+ Math.random();
         loginPath = '';
+
         $.ajax({
             url: configSrc,
             type: 'get',
@@ -98,8 +103,9 @@ var BEE = (function(){
             var str = sessionStorage.menuStr;
             var $sidebar = $(".page-sidebar-menu");
             if (sessionStorage.changeMenuByProcs == 1) {
-                getHTMLFromMenu(changeMenuByProcs(JSON.parse(str)), $sidebar);
-                sessionStorage.curMenuStr = JSON.stringify(changeMenuByProcs(JSON.parse(str)));
+                var string1 = changeMenuByProcs(JSON.parse(str));
+                getHTMLFromMenu(string1, $sidebar);
+                sessionStorage.curMenuStr = JSON.stringify(string1);
             }else{
                 getHTMLFromMenu(JSON.parse(str), $sidebar);
                 sessionStorage.curMenuStr = str;
@@ -590,7 +596,7 @@ var BEE = (function(){
 
                         //获取待闭环备件
                         var num3 = 0;
-                        $(data.clstatus).each(function(i,o){
+                        $(data.zhts).each(function(i,o){
                             if(o == 6){
                                 num3 ++;
                             }
@@ -599,7 +605,7 @@ var BEE = (function(){
                         //加入待闭环备件信息
                         if(num3 != 0){
 
-                            infoHtml += addInfoMessage(num3,'待闭环备件','productionOrder-8.html','../gongdangunali/');
+                            infoHtml += addInfoMessage(num3,'待闭环','productionOrder-8.html','../gongdangunali/');
                         }
 
 
@@ -987,6 +993,12 @@ var BEE = (function(){
 
     //根据流程图动态绘制菜单
     var changeMenuByProcs = function(menu){
+
+
+         allProcsArr = JSON.parse(sessionStorage.allProcs);
+
+         pointersArr = JSON.parse(sessionStorage.pointers);
+
         //将对象转化为数组，方便处理
         var _menuArr = transform(menu);
         //删除对象中第一个元素
@@ -1049,32 +1061,36 @@ var BEE = (function(){
         if(!uri){
             return true;
         }
+
         //非流程图界面
         if(uri.indexOf('energyMonitor.html') == -1){
+
             //非流程图界面判断角色权限；
             return retainChildMenu1(childMenu);
 
         }else{
 
-            // 获取全部流程图
-            var allProcsArr = JSON.parse(sessionStorage.allProcs);
             //获取到当前的arg参数
             var arg = childMenu.arg;
+
             //判断是否需要根据楼宇获取对应流程图
             var pointer = childMenu.usepointer;
+
             //需要根据楼宇判断
             if(pointer){
+
                 // 获取页面中存储的楼宇列表
                 var curPointer = sessionStorage.curPointerId;
                 if(!curPointer){
                     //获取楼宇列表
                     var pointerID;
-                    if(JSON.parse(sessionStorage.pointers).length != 0){
-                        pointerID = JSON.parse(sessionStorage.pointers)[0].pointerID;
+                    if(pointersArr.length != 0){
+                        pointerID = pointersArr[0].pointerID;
                     }
                     sessionStorage.curPointerId = pointerID;
                     curPointer = pointerID;
                 }
+
                 //对流程图根据楼宇进行筛选
                 $(allProcsArr).each(function(i,o){
                     if(o.bindType != 2 || o.bindKeyId != curPointer){

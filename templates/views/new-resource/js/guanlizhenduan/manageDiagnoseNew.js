@@ -25,7 +25,7 @@ $(function(){
 
             $('.diagnose-course .right-content b').html('发现0条问题.....');
 
-            $('.diagnose-course .right-content font').html('正在诊断能效问题');
+            $('.diagnose-course .right-content font').html('正在诊断能耗问题');
 
             //清空诊断信息
             diagHtml = "";
@@ -204,6 +204,12 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
             postHtml= "pointerDingEDetailData.html?id=";
 
         }else{
+
+            //支路能耗夜间用量偏高
+            if(diagObj.diagItemNum == 'DayNightRise'){
+
+                postHtml= "energyDetailData.html?flag=1&&id=";
+            }
 
             postHtml= "officeDingEDetailData.html?id=";
 
