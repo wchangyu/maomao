@@ -594,10 +594,19 @@ $(function(){
         //获取当前系统名称
         var title = $(this).parents(".right-bottom-equipment-container").find(".equipment-title a").html();
 
-        //获取当前的设备类型
-        var devTypeArr = $(this).parents('.right-bottom-equipment-content').find('.alarm-data-container').attr('data-devtype').split(',');
+        var devTypeArr;
 
-        $('#electric-message .systematic-name').attr('data-devtype',$(this).parents('.right-bottom-equipment-content').find('.alarm-data-container').attr('data-devtype'));
+        var dom = $(this).parents('.right-bottom-equipment-content').find('.alarm-data-container');
+        //获取当前的设备类型
+        if(dom.length == 0){
+
+            dom = $(this).parents('.right-bottom-equipment-content').find('.alarm-data-container1');
+
+        }
+
+        devTypeArr = dom.attr('data-devtype').split(',');
+
+        $('#electric-message .systematic-name').attr('data-devtype',dom.attr('data-devtype'));
 
         //放入到弹窗标题中
         $('#electric-message .systematic-name').html(title);
@@ -1445,7 +1454,7 @@ var _waterEcharts = echarts.init(document.getElementById('equipment-chart-water'
 var _energyOption = {
     title: {
         text: '2255',
-        subtext: '今日能耗(Kgce)',
+        subtext: '今日能耗(kgce)',
         //sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
         left: 'center',
         top: '116',
@@ -3562,6 +3571,8 @@ function getDevMonitPowerData(devTypeArr,condition){
         data:ecParams,
         timeout:_theTimes,
         beforeSend:function(){
+
+            $('#dateTables-electric tbody').html('');
 
             setTimeout(function(){
 

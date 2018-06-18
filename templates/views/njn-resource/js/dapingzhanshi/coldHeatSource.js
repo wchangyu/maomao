@@ -149,6 +149,9 @@ $(function(){
             getTotalEnergyData(ew);
 
         }
+
+        //总供热温度
+        getTotalZGWD(ew);
     });
 
     //切换冷热站
@@ -1060,6 +1063,71 @@ function getTotalEnergyData(ew){
     });
 };
 
+//总供热温度
+function getTotalZGWD(ew){
+
+    var url = sessionStorage.apiUrlPrefix + "EWCH/GetTDayZGWDs";
+    var par = {
+        pId:sessionStorage.PointerID,
+        dt:encodeURIComponent(sysrealdt()) ,
+        AREA:ew,
+        CH:'H'
+    };
+    _myChart5.showLoading();
+    $.post(url,par,function (res) {
+
+        _myChart5.hideLoading();
+        if(res.code === 0){
+            var serary = [];
+            for (var i = 0; i< res.ys.length; i++){
+                var objser = {};
+                objser.name = res.lgs[i];
+                objser.type = 'line';
+                objser.data = [];
+                for (var j =0; j< res.ys[i].length; j++){
+                    objser.data.push(res.ys[i][j]);
+                }
+                serary.push(objser);
+            }
+            option = {
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: res.lgs
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: res.xs
+                },
+                yAxis: {
+                    type: 'value',
+                    name:'单位:(℃)'
+                },
+                series: serary
+            };
+            _myChart5.setOption( option,true);
+
+        }else if(res.code === -1){
+
+        }else{
+
+        }
+    });
+};
+
 //获取换热效率
 var chartViewHRXL = echarts.init(document.getElementById('bottom-efficiency-chart'));
 function getHRXL(ew) {
@@ -1750,6 +1818,9 @@ $('#monitor-menu-container').on('click','span',function(){
 
         //获取总供热量
         getTotalHeatData(ew);
+
+        //总供热温度
+        getTotalZGWD(ew);
 
         //换热效率
         getHRXL(ew);

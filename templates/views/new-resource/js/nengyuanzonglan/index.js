@@ -1813,7 +1813,7 @@ function setEnergyBlock(et,ec){
     var $spanH = $("<span class='huanbizhi'></span>");
     $spanH.html(ec.dataDoD);
     if(ec.dataDoD.length > 1){
-        console.log(ec.dataDoD)
+        //console.log(ec.dataDoD)
         if(ec.dataDoD == '0.0%'){
             $pH.css("background","url(../new-resource/img/tongbi0%25.png)no-repeat 46px 11px");
             $pH.css("background-size","18px");

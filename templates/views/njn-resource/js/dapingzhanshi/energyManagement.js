@@ -486,7 +486,7 @@ var option6 = {
             fontWeight:'normal'
         },
         textBaseline:'middle',
-        subtext:'Kgce/m2',
+        subtext:'kgce/m2',
         subtextStyle:{
             color:'#333'
         },
@@ -536,7 +536,7 @@ var option7 = {
             fontWeight:'normal'
         },
         textBaseline:'middle',
-        subtext:'Kgce/床',
+        subtext:'kgce/床',
         subtextStyle:{
             color:'#333'
         },
@@ -1505,7 +1505,7 @@ function getTopPageKPIData(){
 
             option6.title.text = '单位面积总标煤';
 
-            option6.title.subtext = 'Kgce/㎡';
+            option6.title.subtext = 'kgce/㎡';
 
 
             option6.series[0].max = result.areaKPIData.kpiConfigBad;

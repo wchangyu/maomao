@@ -974,6 +974,7 @@ function getStationAlarmData(index){
         beforeSend:function(){
 
             if(ifShowLoading1){
+
                 leftBottomChart.showLoading({
                     maskColor: 'rgba(33,43,55,0.8)'
                 });
