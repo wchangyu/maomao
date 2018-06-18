@@ -455,6 +455,7 @@ function getUnitByEtid(num){
             return txt[i].etunit;
         }
     }
+
 };
 
 //获取能耗种类名称方法

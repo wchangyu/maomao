@@ -23,10 +23,6 @@ $(function(){
             //显示诊断进程
             $('.diagnose-course').show();
 
-            $('.diagnose-course .right-content b').html('发现0条问题.....');
-
-            $('.diagnose-course .right-content font').html('正在诊断能耗问题');
-
             //清空诊断信息
             diagHtml = "";
 
@@ -50,8 +46,10 @@ $(function(){
 
                 var dom = $('.energy-diagnose1').eq(i).find('.bottom-choose');
 
+                var dom1 = $('.energy-diagnose1').eq(i);
+
                 //判断当前是否显示
-                if(!dom.is(":hidden")){
+                if(!dom.is(":hidden") && !dom1.is(":hidden")){
 
                     //获取到当前的分类编码
                     var diagTypeNum = $('.energy-diagnose1').eq(i).attr('data-id');
@@ -65,6 +63,12 @@ $(function(){
                     })
                 }
             }
+            //获取第一次的诊断内容
+            var firstName = diagnoseArr[0].diagTypeName.split('诊断')[0];
+
+            $('.diagnose-course .right-content b').html('发现0条问题.....');
+
+            $('.diagnose-course .right-content font').html('正在诊断'+firstName+'问题');
 
             //console.log(diagnoseArr);
 
@@ -113,6 +117,7 @@ $(function(){
     });
 
 });
+
 //存放一键诊断信息
 var diagnoseArr = [];
 
@@ -139,6 +144,9 @@ var ifContinueDiag = true;
 //获取一键诊断包含的分类及其具体的操作项
 function getOneKeyDiagItemType(){
 
+
+    $('.energy-diagnose1').hide();
+
     $.ajax({
         type: 'get',
         url: sessionStorage.apiUrlPrefix + 'OneKeyDiag/GetStationOneKeyDiagItemType',
@@ -157,8 +165,12 @@ function getOneKeyDiagItemType(){
                 //获取到上方对应的dom
                 var dom = $('.energy-diagnose1').eq(i);
 
+                dom.show();
+
                 dom.attr('data-id',diagTypeNum);
             });
+
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
 
@@ -194,24 +206,31 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
             postHtml= "pointerDingEDetailData.html?id=";
 
             //支路能耗增长变快诊断
-        }else if(diagObj.diagItemNum == 'BranchEnergyRise'){
+        }else if(diagObj.diagItemNum == 'BranchEnergyRise') {
 
-            postHtml= "branchEnergyRise.html?id=";
-
-            //支路能耗突变诊断
-        }else if(diagObj.diagItemNum == 'BranchEnergyMutation'){
-
-            postHtml= "pointerDingEDetailData.html?id=";
+            postHtml = "branchEnergyRise.html?id=";
 
         }else{
+
+            //判断是曲线图还是柱状图
+            var echartType = diagObj.showChartStyle;
+
+            var postHtml = 'energyDetailData.html?type='+echartType;
 
             //支路能耗夜间用量偏高
             if(diagObj.diagItemNum == 'DayNightRise'){
 
-                postHtml= "energyDetailData.html?flag=1&&id=";
-            }
+                postHtml= postHtml+"flag=1&&id=";
 
-            postHtml= "officeDingEDetailData.html?id=";
+            //支路能耗突变诊断
+            }else if(diagObj.diagItemNum == 'BranchEnergyMutation'){
+
+                postHtml= postHtml+"flag=2&&id=";
+
+            }else{
+
+                postHtml= "officeDingEDetailData.html?id=";
+            }
 
         }
 

@@ -300,10 +300,10 @@ function getPointerData(url){
             myChartTopLeft1.setOption(option1,true);
 
             //比例
-            var percent = (Math.abs(result.energyDingeScale * 100)).toFixed(1) + '%';
+            var percent = (Math.abs(result.energyCompareScale * 100)).toFixed(1) + '%';
             $('.left-pillar .percent').html(percent);
 
-            if(result.energyDingeScale > 0){
+            if(result.energyCompareScale > 0){
                 //向上的图标
                 $('.left-pillar').addClass('up');
             }else{

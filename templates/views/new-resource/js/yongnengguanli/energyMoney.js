@@ -77,6 +77,19 @@ $(function(){
 
 });
 
+
+//从配置项获取各项标题名称
+var showTitleArr = getRankingDataByConfig();
+
+//获取分类组成名称
+var echartTitle1 =  showTitleArr[0];
+
+//获取分区域组成名称
+var echartTitle2 =  showTitleArr[1];
+
+//获取分单位组成名称
+var echartTitle3 =  showTitleArr[2];
+
 //记录能耗种类
 var _ajaxEcType = '';
 
@@ -101,7 +114,7 @@ var myChartTopLeft2 = echarts.init(document.getElementById('rheader-content-18')
 // 指定图表的配置项和数据
 var option = {
     title:{
-      text:'分类组成'
+      text:echartTitle1
     },
     tooltip: {
         trigger: 'item',
@@ -130,7 +143,7 @@ var option = {
     },
     series: [
         {
-            name:'分类组成',
+            name:echartTitle1,
             type:'pie',
             radius: ['50%', '75%'],
             center:['50%','75%'],
@@ -335,7 +348,7 @@ function getPointerData(url){
                 });
             });
 
-                option.title.text = '分类组成';
+                option.title.text = echartTitle1;
 
                 option.series[0].data = sArr1;
 
@@ -356,7 +369,7 @@ function getPointerData(url){
 
             });
 
-            option.title.text = '分区域组成';
+            option.title.text = echartTitle2;
 
             option.series[0].data = sArr2;
 
@@ -377,7 +390,7 @@ function getPointerData(url){
 
             });
 
-            option1.title.text = '分单位组成';
+            option1.title.text = echartTitle3;
 
             option1.series[0].data = sArr3;
 
@@ -430,7 +443,36 @@ function getPointerData(url){
 
         }
     })
-}
+};
+
+//从配置项中获取右下角能耗排名所展示信息
+function getRankingDataByConfig(){
+
+    //获取当前的url
+    var curUrl = window.location.href;
+
+    var showTitleNameArr = [];
+
+    //获取当前页面的配置信息
+    $(__systemConfigArr).each(function(i,o){
+
+        //获取当前配置项中的url
+        var thisUrl = o.pageUrl;
+
+        //找到了当前页面对应的配置项
+        if(curUrl.indexOf(thisUrl) > -1){
+
+            //获取到具体的能耗费用名称配置信息
+            showTitleNameArr = o.showTitleNameArr;
+
+            return false;
+        }
+    });
+
+    return showTitleNameArr;
+
+};
+
 
 
 

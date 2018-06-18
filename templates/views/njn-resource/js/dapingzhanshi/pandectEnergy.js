@@ -1445,7 +1445,7 @@ var _waterEcharts = echarts.init(document.getElementById('equipment-chart-water'
 var _energyOption = {
     title: {
         text: '2255',
-        subtext: '今日能耗(kgce)',
+        subtext: '今日能耗(Kgce)',
         //sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
         left: 'center',
         top: '116',
@@ -2635,6 +2635,12 @@ function getPointerData(){
 
             leftBottomChart1.hideLoading();
             //console.log(result);
+
+
+            //获取当前单位
+            var unit = _getEcUnit(_ajaxEcType);
+
+            option00.yAxis[0].name = '单位:('+unit+')';
 
             //判断是否返回数据
             if(result == null){
@@ -4506,7 +4512,7 @@ function  getEnergyAlarmPopupData(condition){
                 tableHtml += "<td>"+ o.priority+"</td>";
 
                 //当前数据
-                tableHtml += "<td>"+ o.data+"</td>";
+                tableHtml += "<td>"+ o.data.toFixed(1)+"</td>";
 
                 //报警表达式
                 tableHtml += "<td>"+ o.expression+"</td>";

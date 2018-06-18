@@ -139,7 +139,6 @@ if(!sessionStorage.PointerID || sessionStorage.PointerID == 'undefined'){
     }
 }
 
-
 //------------------------------------定义变量-----------------------------------//
 
 //实时能耗
@@ -884,8 +883,9 @@ function getTopPageEnergyData(){
                 obj.ecClassName = o.f_EnergyItemName;
                 //单位
                 obj.ecUnit = getUnitById(o.f_EnergyItemID);
+
                 if(!getUnitById(o.f_EnergyItemID)){
-                    obj.ecUnit = 'kgce'
+                    obj.ecUnit = 'Kgce'
                 }
                 //用量
                 obj.ecData = o.currentEnergyData;
@@ -1774,7 +1774,7 @@ function setEnergyBlock(et,ec){
         et.etname = ec.ecClassName;
         et.img = "totalEneragery.png";
         et.color = "#fee8af";
-        et.etunit = "kgce";
+        et.etunit = "Kgce";
     }else{
         et.etname = "总用" + et.etname + "量";
     }
@@ -1792,9 +1792,13 @@ function setEnergyBlock(et,ec){
     var $pT = $("<p class='tongbi1'><span>同比:</span><br></p>");
     var $spanT = $("<span class='huanbizhi'></span>");
     $spanT.html(ec.dataYoY);
+
     if(ec.dataYoY.length > 1){
-        console.log(ec.dataYoY);
-        if(ec.dataYoY.startWith("-")){
+
+        if(ec.dataYoY == '0.0%'){
+            $pT.css("background","url(../new-resource/img/tongbi0%25.png)no-repeat 46px 11px");
+            $pT.css("background-size","18px");
+        }else if(ec.dataYoY.startWith("-")){
             $pT.css("background","url(../resource/img/declineArrow.png)no-repeat 40px 17px");
             $pT.css("background-size","16px");
         }else {
@@ -1802,13 +1806,18 @@ function setEnergyBlock(et,ec){
             $pT.css("background-size","16px");
         }
     }
+
     $pT.append($spanT);
     $divComp.append($pT);
     var $pH = $("<p class='huanbi'><span>环比:</span><br></p>");
     var $spanH = $("<span class='huanbizhi'></span>");
     $spanH.html(ec.dataDoD);
     if(ec.dataDoD.length > 1){
-        if(ec.dataDoD.startWith("-")) {
+        console.log(ec.dataDoD)
+        if(ec.dataDoD == '0.0%'){
+            $pH.css("background","url(../new-resource/img/tongbi0%25.png)no-repeat 46px 11px");
+            $pH.css("background-size","18px");
+        }else if(ec.dataDoD.startWith("-")) {
             $pH.css("background","url(../resource/img/declineArrow.png)no-repeat 40px 17px");
             $pH.css("background-size","16px");
         }else{

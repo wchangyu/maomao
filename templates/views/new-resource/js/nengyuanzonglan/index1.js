@@ -1026,7 +1026,7 @@ function getTopPageEnergyData(){
                 var energyName = o.f_EnergyItemName;
 
                 //获取当前单位
-                var energyUnit = 'kgce';
+                var energyUnit = 'Kgce';
 
                 if(energyID != -2){
 
@@ -1829,7 +1829,7 @@ function setEnergyBlock(et,ec){
         et.etname = ec.ecClassName;
         et.img = "totalEneragery.png";
         et.color = "#fee8af";
-        et.etunit = "kgce";
+        et.etunit = "Kgce";
     }else{
         et.etname = "总用" + et.etname + "量";
     }

@@ -1428,7 +1428,7 @@ function getStationAreaRankData(){
                     if(o.currentEnergyData == 0){
                         sArr.push(2000)
                     }else{
-                        sArr.push(o.currentEnergyData.toFixed(1));
+                        sArr.push(o.currentEnergyData.toFixed(2));
                     }
 
                 }

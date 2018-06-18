@@ -312,7 +312,7 @@ var option00 = {
         left: '2%',
         right: '2%',
         bottom: '12%',
-        top:'8%',
+        top:'10%',
         containLabel: true,
         borderColor:'#A8A8A8',
         borderWidth:2
@@ -340,6 +340,7 @@ var option00 = {
             nameTextStyle:{
                 color:'#DCF1FF'
             },
+            name:'单位:(kWh)',
             axisLine:{
                 lineStyle:{
                     color:'#DCF1FF'
@@ -1439,6 +1440,13 @@ function getPointerData(){
             leftBottomChart1.hideLoading();
             //console.log(result);
 
+            //console.log( _ajaxEcType);
+
+            //获取当前单位
+            var unit = _getEcUnit(_ajaxEcType);
+
+            option00.yAxis[0].name = '单位:('+unit+')';
+
             //判断是否返回数据
             if(result == null){
 
@@ -1449,7 +1457,6 @@ function getPointerData(){
 
                 return false;
             }
-
 
             //首先处理本期的数据
             allData.length = 0;
@@ -1464,6 +1471,7 @@ function getPointerData(){
 
             //绘制echarts
             if(showDateType == 'Hour' ){
+
                 //确定x轴
                 for(var i=0;i<allData.length;i++){
                     var dataSplit = allData[i].dataDate.split('T')[1].split(':');
@@ -1472,7 +1480,9 @@ function getPointerData(){
                         allDataX.push(dataJoin);
                     }
                 }
+
             }else{
+
                 //确定x轴
                 for(var i=0;i<allData.length;i++){
                     var dataSplit = allData[i].dataDate.split('T')[0];
@@ -1485,6 +1495,7 @@ function getPointerData(){
 
             //确定本期y轴
             for(var i=0;i<allData.length;i++){
+
                 allDataY.push(allData[i].data.toFixed(1));
             }
 

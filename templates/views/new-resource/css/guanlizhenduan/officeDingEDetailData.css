@@ -38,6 +38,13 @@
     background-size: 45px 60px;
     position: relative;
 }
+.equal{
+
+    background: url(../../img/tongbi0%25.png) no-repeat 244px 96px !important;
+    background-size: 9% 5% !important;
+    position: relative;
+}
+
 .left-pillar .percent{
     position: absolute;
     font-weight: 600;

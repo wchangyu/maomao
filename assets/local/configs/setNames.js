@@ -172,5 +172,13 @@ var __systemConfigArr = [
         pageId:3,
         //定义当前页面显示名称
         showTitleName : "重庆医科大学附属儿童医院"
+    },
+    //能耗中能耗费用页面配置信息
+    {
+        pageName :"运维中大屏展示",
+        pageUrl :"new-yongnengguanli/energyMoney.html",
+        pageId:4,
+        //定义当前页面显示名称
+        showTitleNameArr : ["分类组成",'分区域组成','分单位组成']
     }
 ];

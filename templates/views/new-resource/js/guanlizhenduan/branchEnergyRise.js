@@ -233,10 +233,15 @@ function getPointerData(url){
             //$('.unit').val(unit);
             $('.unit').html(unit);
 
+            if(result.showDiagUnit != null){
+
+                $('.unit').html(result.showDiagUnit);
+            }
+
             //首先处理本期的数据
             allData.length = 0;
 
-            $(result.diagDingEDatas).each(function(i,o){
+            $(result.opEnergyItems).each(function(i,o){
                 allData.push(o);
             });
 
@@ -268,10 +273,12 @@ function getPointerData(url){
 
             //确定本期y轴
             for(var i=0;i<allData.length;i++){
+
                 //当前数据
-                allDataY.push(allData[i].dingEData.toFixed(2));
+                allDataY.push(allData[i].energyData.toFixed(2));
+
                 //同比数据
-                allDataY1.push(allData[i].energyData.toFixed(2));
+                allDataY1.push(allData[i].compareData.toFixed(2));
             }
 
             //echart折现图
@@ -280,8 +287,8 @@ function getPointerData(url){
             optionLine.series[1].data = allDataY1;
 
             //echart柱状图
-            allDataY2.push(result.sumDingEData.toFixed(2));
             allDataY2.push(result.sumEnergyData.toFixed(2));
+            allDataY2.push(result.compareEnergyData.toFixed(2));
 
             optionBar.series[0].data = allDataY2;
             //上方echarts
@@ -290,13 +297,22 @@ function getPointerData(url){
             myChartTopLeft1.setOption(optionBar,true);
 
             //比例
-            var percent = (Math.abs(result.energyDingeScale * 100)).toFixed(1) + '%';
+            var percent = (Math.abs(result.energyCompareScale * 100)).toFixed(1) + '%';
             $('.left-pillar .percent').html(percent);
 
-            if(result.energyDingeScale > 0){
+            if(result.energyCompareScale > 0){
                 //向上的图标
                 $('.left-pillar').addClass('up');
+
+            }else if(result.energyCompareScale == 0){
+
+                //平的图标
+                $('.left-pillar').addClass('equal');
+
             }else{
+                //平的图标
+                $('.left-pillar').removeClass('equal');
+
                 //向下的图标
                 $('.left-pillar').removeClass('up');
             }

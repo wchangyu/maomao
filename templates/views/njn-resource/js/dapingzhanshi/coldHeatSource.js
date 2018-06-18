@@ -157,6 +157,12 @@ $(function(){
         //获取当前点击的元素的index
         var index = $(this).index();
 
+        if($('#glwd-container').length > 0){
+
+            $('#glwd-container').remove();
+
+        }
+
         //冷站
         if(index < 2){
             $('.right-bottom-container1 .right-bottom-content').eq(0).show();
@@ -590,33 +596,47 @@ function getTDayGLWs(ew,ch) {
                     $('#consumotion-echart0').append(html);
 
                 }
+
+                var res = result.master[0];
+
+                $('#glwd-container span').off('click');
+
+                $('#glwd-container span').on('click',function(){
+
+                    //清除选中
+                    $('#glwd-container span').removeClass('onClick');
+
+                    $(this).addClass('onClick');
+
+                    var index = $(this).index();
+
+                    res = result.master[index];
+
+                    drawTDayGLWs(res);
+
+                });
+
+                drawTDayGLWs(res);
+
+
+            }else{
+
+                var res = {
+                    dayWs:[],
+                    lgs:[],
+                    xs:[],
+                    typeNt:''
+                };
+
+                drawTDayGLWs(res);
             };
-            var res = result.master[0];
-
-            $('#glwd-container span').off('click');
-
-            $('#glwd-container span').on('click',function(){
-
-                //清除选中
-                $('#glwd-container span').removeClass('onClick');
-
-                $(this).addClass('onClick');
-
-                var index = $(this).index();
-
-                res = result.master[index];
-
-                drawTDayGLWs(res);
-
-            });
-
-                drawTDayGLWs(res);
 
         }else if(res.code === -1){
 
         }else{
 
         }
+
     })
 }
 

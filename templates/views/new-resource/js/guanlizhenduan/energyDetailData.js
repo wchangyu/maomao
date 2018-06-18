@@ -4,6 +4,7 @@
 
 $(function(){
 
+
     //默认加载数据
     getPointerData(_thisUrl);
 
@@ -17,9 +18,6 @@ $(function(){
     };
 });
 
-//获取页面展示所需数据
-getShowDataByFlag();
-
 //定义页面中配置
 var showDataArr = [
 
@@ -29,6 +27,13 @@ var showDataArr = [
         url :'OneKeyDiag/GetBranchDayNightRiseDiagDetail',
         echartName1:'开站时段',
         echartName2:'闭站时段'
+    },
+    {
+        id:'2',
+        name:'支路能耗突变',
+        url :'OneKeyDiag/GetBranchMutationDetail',
+        echartName1:'当前数据',
+        echartName2:'对比数据'
     }
 ];
 
@@ -39,6 +44,9 @@ var echartName2 = '';
 
 //定义页面获取后台数据的接口地址
 var _thisUrl = '';
+
+//获取页面展示所需数据
+getShowDataByFlag();
 
 //记录能耗种类
 var _ajaxEcType = '';
@@ -165,6 +173,9 @@ function getShowDataByFlag(){
     //获取当前flag
     var flag = window.location.search.split('flag=')[1].split('&&')[0];
 
+    //console.log(flag);
+    //console.log(showDataArr);
+
     //从配置中获取信息
     $(showDataArr).each(function(i,o){
 
@@ -175,9 +186,13 @@ function getShowDataByFlag(){
             echartName2 = o.echartName2;
 
             _thisUrl = o.url;
+
+            return false;
         }
 
     });
+
+    //console.log(echartName1);
 
 }
 
@@ -211,6 +226,7 @@ function getPointerData(url){
 
     //获取传递给后台的数据
     $(diagSpecificArrs).each(function(i,o){
+
         //如果ID相等
         if(o.indexId == id){
 
@@ -241,7 +257,7 @@ function getPointerData(url){
 
             myChartTopLeft.hideLoading();
 
-            console.log(result);
+            //console.log(result);
 
             //return false;
 
@@ -253,6 +269,7 @@ function getPointerData(url){
 
             //改变头部日期
             var date = '';
+
             //判断日期类型
             //如果是按小时
             if(dateFlag == 1){
@@ -279,10 +296,15 @@ function getPointerData(url){
             //$('.unit').val(unit);
             $('.unit').html(unit);
 
+            if(result.showDiagUnit != null){
+
+                $('.unit').html(result.showDiagUnit);
+            }
+
             //首先处理本期的数据
             allData.length = 0;
 
-            $(result.diagDingEDatas).each(function(i,o){
+            $(result.opEnergyItems).each(function(i,o){
                 allData.push(o);
             });
 
@@ -315,9 +337,9 @@ function getPointerData(url){
             //确定本期y轴
             for(var i=0;i<allData.length;i++){
                 //定额量
-                allDataY.push(allData[i].dingEData.toFixed(2));
+                allDataY.push(allData[i].energyData.toFixed(2));
                 //使用量
-                allDataY1.push(allData[i].energyData.toFixed(2));
+                allDataY1.push(allData[i].compareData.toFixed(2));
             }
 
             //echart折现图
@@ -326,8 +348,8 @@ function getPointerData(url){
             optionLine.series[1].data = allDataY1;
 
             //echart柱状图
-            allDataY2.push(result.sumDingEData.toFixed(2));
             allDataY2.push(result.sumEnergyData.toFixed(2));
+            allDataY2.push(result.compareEnergyData.toFixed(2));
 
             optionBar.series[0].data = allDataY2;
             //上方echarts
@@ -336,13 +358,22 @@ function getPointerData(url){
             myChartTopLeft1.setOption(optionBar,true);
 
             //比例
-            var percent = (Math.abs(result.energyDingeScale * 100)).toFixed(1) + '%';
+            var percent = (Math.abs(result.energyCompareScale * 100)).toFixed(1) + '%';
             $('.left-pillar .percent').html(percent);
 
-            if(result.energyDingeScale > 0){
+            if(result.energyCompareScale > 0){
                 //向上的图标
                 $('.left-pillar').addClass('up');
+
+            }else if(result.energyCompareScale == 0){
+
+                //平的图标
+                $('.left-pillar').addClass('equal');
+
             }else{
+                //平的图标
+                $('.left-pillar').removeClass('equal');
+
                 //向下的图标
                 $('.left-pillar').removeClass('up');
             }
@@ -354,8 +385,9 @@ function getPointerData(url){
 
             }else{
 
-                $('.right-diagnose').hide();
+                $('.right-diagnose  .diagnose-content').html(result.showDiagDesc);
 
+                $('.right-diagnose').show();
             }
 
             var rightHtml = '';

@@ -68,7 +68,20 @@ var BEE = (function(){
 
     //获取当前地址
     if(window.document.location.href.indexOf('templates')>0)
-        var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
+
+        var _LurlLength;
+
+        var url = window.document.location.href;
+
+            if(url.indexOf("?") != -1){
+
+                url = url.split("?")[0];
+
+
+
+            }
+
+    _LurlLength= url.split('templates')[1].split('/').length-1;
 
     if(_LurlLength > 3){
 
