@@ -218,7 +218,9 @@
         ],
         yAxis : [
             {
-                type : 'value'
+                type : 'value',
+
+                name:''
             }
         ],
         series : [
@@ -292,16 +294,16 @@
                 if(res.code === 0){
 
                     //冷量冷价
-                    drawEchart(chartLLLJ,res,'ewcPrcXs','ewcPrcYs',false,'单位冷量冷价',tipBlock.eq(0));
+                    drawEchart(chartLLLJ,res,'ewcPrcXs','ewcPrcYs','ewcPrcMs','单位冷量冷价',tipBlock.eq(0),'单位：元/kWh');
 
                     //离心机
-                    drawEchart(chartLXJ,res,'ewclxXs','ewclxYs','ewclxMs','离心机COP',tipBlock.eq(1));
+                    drawEchart(chartLXJ,res,'ewclxXs','ewclxYs','ewclxMs','离心机COP',tipBlock.eq(1),'单位：kW/kW');
 
                     //溴锂机
-                    drawEchart(chartXLJ,res,'ewcxlXs','ewcxlYs','ewcxlMs','溴锂机能效',tipBlock.eq(2));
+                    drawEchart(chartXLJ,res,'ewcxlXs','ewcxlYs','ewcxlMs','溴锂机能效',tipBlock.eq(2),'单位：kW/kW');
 
                     //地源热泵
-                    drawEchart(chartDYRB,res,'ewcrbXs','ewcrbYs','ewcrbMs','地源热泵COP',tipBlock.eq(3));
+                    drawEchart(chartDYRB,res,'ewcrbXs','ewcrbYs','ewcrbMs','地源热泵COP',tipBlock.eq(3),'单位：kW/kW');
 
 
                     jQuery('#rankBusy').hideLoading();
@@ -353,7 +355,7 @@
     }
 
     //冷量冷家parA横坐标数据，parB纵坐标数据，parC控制颜色数组
-    function drawEchart(el,res,parA,parB,parC,str,tip){
+    function drawEchart(el,res,parA,parB,parC,str,tip,unit){
 
         //确定x轴
         var xArr = [];
@@ -453,6 +455,9 @@
 
         //title
         barOption.title.text = str;
+
+        //单位
+        barOption.yAxis[0].name = unit;
 
         el.setOption(barOption);
 

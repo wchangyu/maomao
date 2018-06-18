@@ -176,7 +176,7 @@ $(function(){
                 },
                 success: function (data) {
                     $('#theLoading').modal('hide');
-                    console.log(data);
+
                     if(data == 2){
                         myAlter('名称重复');
                     }else if(data == 3){
@@ -196,7 +196,7 @@ $(function(){
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     $('#theLoading').modal('hide');
-                    //console.log(textStatus);
+
 
                     if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                         myAlter("超时");
@@ -254,8 +254,6 @@ $(function(){
                 }
                 $(data.knowLedgeFiles).each(function(i,o){
 
-                    console.log(fileName);
-
                     var fileName = o.f_FileAllPath.split("/").pop();
 
                     var string1 = "bmp,jpg, png ,tiff,gif,pcx,tga,exif,fpx,svg,psd";
@@ -282,7 +280,6 @@ $(function(){
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $('#theLoading').modal('hide');
-                //console.log(textStatus);
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                     myAlter("超时");
@@ -317,8 +314,6 @@ $(function(){
                 $('#theLoading').modal('hide');
             },
             success: function (data) {
-
-                console.log(data);
 
                 $('#theLoading').modal('hide');
                 $('#myModal').modal('show');
@@ -372,7 +367,6 @@ $(function(){
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $('#theLoading').modal('hide');
-                //console.log(textStatus);
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                     myAlter("超时");
@@ -471,7 +465,6 @@ $(function(){
                 },
                 success: function (data) {
                     $('#theLoading').modal('hide');
-                    console.log(data);
                     if(data == 2){
                         myAlter('名称重复');
                     }else if(data == 3){
@@ -491,7 +484,6 @@ $(function(){
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     $('#theLoading').modal('hide');
-                    //console.log(textStatus);
 
                     if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                         myAlter("超时");
@@ -544,7 +536,6 @@ $(function(){
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     $('#theLoading').modal('hide');
-                    //console.log(textStatus);
 
                     if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                         myAlter("超时");
@@ -601,7 +592,6 @@ function getShowKnowledgeData(knowTitle,flag){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            //console.log(data);
             _knowledgeDataArr = data;
             if(data.length > 0){
                 _knowledgeDataArr.reverse();
@@ -616,7 +606,6 @@ function getShowKnowledgeData(knowTitle,flag){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -672,7 +661,7 @@ var uploader = WebUploader.create({
     //允许传入的类型
     accept: {
         title: '',
-        extensions: 'gif,jpg,jpeg,png,bmp,pdf,doc,docx,ppt,pptx,pps,xls,xlsx,pot,pps,vsd,rtf,wps,et,dps,pdf,txt,rar,zip,7Z',
+        extensions: 'pdf,gif,jpg,jpeg,png,bmp,doc,docx,ppt,pptx,pps,xls,xlsx,pot,pps,vsd,rtf,wps,et,dps,txt,rar,zip,7Z,dwg',
         mimeTypes: ''
     },
     // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
@@ -693,6 +682,9 @@ var uploader = WebUploader.create({
 //    }
 //} );
 uploader.on("error",function (type){
+
+    console.log(type);
+
     if (type=="Q_TYPE_DENIED"){
         myAlter("上传文件格式不支持");
     }else if(type=="F_EXCEED_SIZE"){
@@ -776,6 +768,7 @@ uploader.on( 'uploadError', function( file ) {
 uploader.on( 'uploadComplete', function( file ) {
     $( '#'+file.id ).find('.progress').fadeOut();
 });
+
 $btn.click(function(){
     uploader.upload();
 });
@@ -984,8 +977,8 @@ function classFun(){
         url:_urls + 'YWDev/ywDMGetDSs',
         data:{
 
-            "userID": _userIdNum,
-            "userName": _userIdName,
+            "userID": sessionStorage.getItem('userName'),
+            "userName": sessionStorage.getItem('realUserName'),
 
         },
         timeout:_theTimes,
