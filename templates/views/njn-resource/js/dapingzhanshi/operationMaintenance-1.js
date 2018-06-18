@@ -589,7 +589,7 @@ $(function(){
 
                 {value:0,name:'系统'},
 
-                {value:0,name:'江苏运联'}
+                {value:0,name:'平台推送'}
 
             ]
 
@@ -618,7 +618,7 @@ $(function(){
                     }else if(result.gdSrcs[i].gdSrc == 4){
 
                         option.series[0].data[1].value = result.gdSrcs[i].gdCnt;
-                        //江苏运联
+                        //平台推送
                     }else if(result.gdSrcs[i].gdSrc == 10){
 
                         option.series[0].data[4].value = result.gdSrcs[i].gdCnt;

@@ -223,7 +223,7 @@
     };
 
     //y轴名称
-    function Yname(yarr,namearr,maxarr){
+    function Yname(yarr,namearr,maxarr,colorArr){
 
         var marginL = 0;
 
@@ -256,7 +256,20 @@
             //间隔
             obj.interval = maxarr[i] / 5;
 
+            //坐标轴样式
+            obj.axisLine = {
+
+                lineStyle:{
+
+                    color:colorArr[i]
+
+                }
+
+            };
+
             yarr.push(obj);
+
+            console.log(yarr);
 
         }
     }
@@ -331,14 +344,14 @@
 
                                 formatter:function(params){
 
-                                    return '时间：' + params.name + '\n' + '值：' + params.value
+                                    return '时间：' + params.name + '\n' + params.seriesName + ':' + params.value
 
 
                                 },
 
                                 fontSize:14,
 
-                                lineHeight:70
+                                align:'left'
 
                             }
 
@@ -401,28 +414,32 @@
 
             }
 
-            //console.log(yZhouMax);
-
             //东西冷站离心机
             if( selectAREA == 'EC' || selectAREA == 'WC'){
 
-                var arr = ['机组能效（kWh/kWh）','供冷量','温度（℃）','流量（m³）'];
+                var arr = ['机组能效（kWh/kWh）','供冷量（kWh）','温度（℃）','流量（m³/h）'];
 
-                Yname(yZhou,arr,yZhouMax);
+                var colorArr = ['#355a9a','#ed7e33','#ffc40f','#274278'];
+
+                Yname(yZhou,arr,yZhouMax,colorArr);
 
             }else if( selectAREA == 'EH' || selectAREA == 'WH' ){
 
                 if( selectEQTY == 'HRB' ){
 
-                    var arr = ['换热效率','供热量','压力','温度','流量'];
+                    var arr = ['换热效率','供热量（kWh）','压力（mbar）','温度（℃）','流量（m³/h）'];
 
-                    Yname(yZhou,arr,yZhouMax);
+                    var colorArr = ['#355a9a','#ed7e33','#ffc40f','#274278'];
+
+                    Yname(yZhou,arr,yZhouMax,colorArr);
 
                 }else if( selectEQTY == 'CNB' ){
 
-                    var arr = ['输送系数','供热量','温度','流量'];
+                    var arr = ['输送系数','供热量（kWh）','温度（℃）','流量（m³/h）'];
 
-                    Yname(yZhou,arr,yZhouMax);
+                    var colorArr = ['#355a9a','#ed7e33','#ffc40f','#274278'];
+
+                    Yname(yZhou,arr,yZhouMax,colorArr);
 
                 }
 
