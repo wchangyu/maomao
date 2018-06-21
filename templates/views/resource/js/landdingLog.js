@@ -1,15 +1,47 @@
 $(function(){
 
+    //时间插件
+    _timeYMDComponentsFun11($('.datatimeblock'));
+
+    //默认今天
+    $('.datatimeblock').val(moment().format('YYYY-MM-DD'));
+
+    //条件查询
     conditionSelect();
 
+    //查询方法
     function conditionSelect(){
 
         //初始化
-        $('.ladding-area').empty();
+        contentInit();
+
+        //起止时间
+        var st = moment($('.datatimeblock').eq(0).val()).format('YYYY-MM-DD');
+
+        var et = moment($('.datatimeblock').eq(0).val()).format('YYYY-MM-DD');
 
         var prm = {
 
-            'reportID':'1'
+            'reportID':'1',
+
+            'requesparameters':[
+
+                //开始时间
+                {
+                    name:'st',
+
+                    value:st
+                },
+                //结束时间
+                {
+
+                    name:'et',
+
+                    value:et
+
+                }
+
+            ]
 
         };
 
@@ -17,9 +49,11 @@ $(function(){
 
             if(result != null){
 
+                var dataArr = _packagingTableData(result[1]);
+
                 var listStr = '';
 
-                for(var i=0;i<result.length;i++){
+                for(var i=0;i<dataArr.length;i++){
 
                     if(i%2 == 0){
 
@@ -31,7 +65,7 @@ $(function(){
 
                     }
 
-                    var str = result.logdate;
+                    var str = dataArr[i].logdate;
 
                     //日期
                     var date = chineseDate(str);
@@ -40,13 +74,13 @@ $(function(){
                     var time =timeFormat(str);
 
                     //部门
-                    var dep = result[i].departname;
+                    var dep = dataArr[i].departname;
 
                     //人
-                    var person = result[i].username;
+                    var person = dataArr[i].username;
 
                     //做什么
-                    var doing = result[i].memo;
+                    var doing = dataArr[i].memo;
 
                         //日期
                     listStr += '<div class="ladding-day">' + date + '</div>' +
@@ -57,7 +91,7 @@ $(function(){
                             //人
                         '<div class="ladding-person">' + person + '</div>' +
                             //做什么
-                        '<div class="ladding-doing">' + doing + '</div>'
+                        '<div class="ladding-doing"><i>' + doing + '</i></div>'
 
                     listStr += '</div>'
 
@@ -93,6 +127,13 @@ $(function(){
         var splitDate = newDate.split(' ')[1];
 
         return splitDate
+
+    }
+
+    //初始化
+    function contentInit(){
+
+        $('.ladding-area').empty();
 
     }
 
