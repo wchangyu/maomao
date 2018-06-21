@@ -317,6 +317,16 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "登录日志": {
+        "type": "0",
+        "content": "登录日志",
+        "uri": "../gongdanxitong/landdingLog.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
       }
     }
   },
@@ -2039,16 +2049,6 @@
         "type": "0",
         "content": "污水站录入",
         "uri": "../gongdanxitong/managementOfSewage.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "",
-        "target": "",
-        "arg2": "admin,WXBZ01"
-      },
-      "登录日志": {
-        "type": "0",
-        "content": "登录日志",
-        "uri": "../gongdanxitong/landdingLog.html",
         "uid": "",
         "arg": "",
         "iconclass": "",

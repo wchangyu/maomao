@@ -512,8 +512,6 @@ $(function(){
 
                 var dataArr = _packagingTableData(result[1]);
 
-                console.log(dataArr);
-
                 _jumpNow($('#all-reporting'),dataArr);
 
             }

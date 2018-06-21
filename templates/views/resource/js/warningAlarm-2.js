@@ -433,6 +433,34 @@ $(function(){
                         return '<a href="javascript:;" class="examine">查看备注</a>'
                     }
                 }
+            },
+            {
+
+                "title": "创建工单",
+                "data":'dNum',
+                "render":function(data,type,row,meta){
+
+                    console.log(row.flag);
+
+                    if(row.flag == 3 ){
+
+                        return '无法创建'
+
+                    }else{
+
+                        if(data == null || data == ''){
+
+                            return '无法创建'
+
+                        }else{
+
+                            return  "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
+
+                        }
+
+                    }
+                }
+
             }
         ],
         createdRow: function(row,data,index){

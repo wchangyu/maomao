@@ -57,7 +57,34 @@ $(function(){
     //存放巡检步骤的数组
     var _allXJSelect = [];
 
+    //记录当前选中的任务的编码
+    var _thisBM = '';
+
+    //记录当前任务下的执行人数组
+    var _oldPersonArr = [];
+
+    //记录当前任务下的执行人数组
+    var _newPersonArr = [];
+
+    //存放所有执行人数组
+    var _allPersonArr = [];
+
+    //添加执行人按钮
+    var addStr = '<li class="addButton" style="width: 70px;">' +
+        '                        <div class="cont-col1" style="cursor: pointer">' +
+        '                            <div class="label label-sm label-warning selectPersonButton" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">' +
+        '                                <i class="fa fa-plus" style="margin-right: 2px;"></i>选择执行人' +
+        '                            </div>' +
+        '                        </div>' +
+        '                    </li>';
+
     divType();
+
+    //添加执行人的部门下拉内容
+    getDepart();
+
+    //获取所有执行人
+    getExecutor(true);
 
     /*------------------------------------------------表格初始化------------------------------------------*/
 
@@ -101,10 +128,14 @@ $(function(){
             render:function(data, type, full, meta){
                 if(data == 0){
                     return '未接单'
-                }if(data == 1){
+                }else if(data == 1){
                     return '执行中'
-                }if(data == 2){
+                }else if(data == 2){
                     return '完成'
+                }else if(data == 3){
+
+                    return '取消下发'
+
                 }
             }
         },
@@ -124,12 +155,23 @@ $(function(){
             title:'操作',
             "data": 'status',
             "render":function(data, type, full, meta){
+
                 if(data == 0){
-                    return "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span>"
-                }if(data ==1){
+
+                    return "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-cancel btn default btn-xs green-stripe'>取消</span>"
+
+                }else if(data ==1){
+
                     return "<span class='data-option option-see2 btn default btn-xs green-stripe'>查看</span>"
-                }if(data ==2){
+
+                }else if(data ==2){
+
                     return "<span class='data-option option-see3 btn default btn-xs green-stripe'>查看</span>"
+
+                }else if(data == 3){
+
+                    return "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-xiafa btn default btn-xs green-stripe'>重新下发</span>"
+
                 }
             }
         }
@@ -166,26 +208,6 @@ $(function(){
     ];
 
     _tableInit($('#personTable1'),XJBZCol,2,'flag','','');
-
-    //未接单状态下的执行人
-    var ZXRCol = [
-
-        {
-            title:'执行人员',
-            data:'itkRen'
-        },
-        {
-            title:'工号',
-            data:'itkRenNum'
-        },
-        {
-            title:'联系电话',
-            data:'ITKDH'
-        }
-
-    ];
-
-    _tableInit($('#personTable2,#personTable2s'),ZXRCol,2,'flag','','');
 
     //执行中状态下的巡检步骤
     var XJBZingCol = [
@@ -257,6 +279,84 @@ $(function(){
 
     _tableInit($('#personTable1s'),XJBZingCol,2,'flag','','');
 
+    //执行人列表
+    var choiceWorkCol = [
+        {
+            class:'checkeds',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
+        },
+        {
+            title:'工号',
+            data:'userNum',
+            className:'dipRenNum',
+        },
+        {
+            title:'执行人员',
+            data:'userName',
+            className:'dipRen'
+        },
+        {
+            title:'联系电话',
+            data:'mobile',
+            className:'dipDh'
+        },
+
+    ];
+
+    _tableInit($('#zhixingRenTable'),choiceWorkCol,2,'','','');
+
+    //不可编辑的执行人表格
+    var ZXRColno = [
+
+        {
+            title:'执行人员',
+            data:'itkRen'
+        },
+        {
+            title:'工号',
+            data:'itkRenNum'
+        },
+        {
+            title:'联系电话',
+            data:'itkdh'
+        },
+        {
+            title:'',
+            "targets": -1,
+            "data": null,
+            "defaultContent": ''
+
+        }
+
+    ];
+
+    //可编辑的执行人表格
+    var ZXRCol = [
+
+        {
+            title:'执行人员',
+            data:'itkRen'
+        },
+        {
+            title:'工号',
+            data:'itkRenNum'
+        },
+        {
+            title:'联系电话',
+            data:'itkdh'
+        },
+        {
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": '<span class="data-option option-del btn default btn-xs green-stripe">删除</span>'
+
+        }
+
+    ];
+
     //数据加载
     conditionSelect();
 
@@ -264,8 +364,11 @@ $(function(){
     //未接单状态【查看】
     $('#scrap-datatables tbody').on('click','.option-see1',function(){
 
+        //执行人表格初始化
+        _tableInit($('#personTable2,#personTable2s'),ZXRColno,2,'flag','','');
+
         //初始化
-        detailInit(unAnsweredState,$('#myModal'),$('#personTable1'),$('#personTable2'))
+        detailInit(unAnsweredState,$('#myModal'),$('#personTable1'),$('#personTable2'));
 
         //模态框
         _moTaiKuang($('#myModal'),'基本情况','flag','','','');
@@ -284,6 +387,9 @@ $(function(){
 
     //执行中【查看】
     $('#scrap-datatables tbody').on('click','.option-see2',function(){
+
+        //执行人表格初始化
+        _tableInit($('#personTable2,#personTable2s'),ZXRColno,2,'flag','','');
 
         //初始化
         detailInit(implementingState,$('#myModal1'),$('#personTable1s'),$('#personTable2s'));
@@ -329,6 +435,9 @@ $(function(){
 
     //完成【查看】
     $('#scrap-datatables tbody').on('click','.option-see3',function(){
+
+        //执行人表格初始化
+        _tableInit($('#personTable2,#personTable2s'),ZXRColno,2,'flag','','');
 
         //初始化
         detailInit(implementingState,$('#myModal1'),$('#personTable1s'),$('#personTable2s'));
@@ -422,6 +531,338 @@ $(function(){
 
     })
 
+    //【取消】
+    $('#scrap-datatables tbody').on('click','.option-cancel',function(){
+
+        _thisBM = $(this).parents('tr').find('.bianma').html();
+
+        //执行人表格初始化
+        _tableInit($('#personTable2,#personTable2s'),ZXRColno,2,'flag','','');
+
+        //初始化
+        detailInit(unAnsweredState,$('#myModal'),$('#personTable1'),$('#personTable2'));
+
+        //模态框
+        _moTaiKuang($('#myModal'),'确定要取消下发的任务吗?',false,'','','取消任务');
+
+        var callback = function(result){
+
+            _datasTable($('#personTable1'),result.dipItems);
+
+            _datasTable($('#personTable2'),result.itkMembers);
+
+        }
+
+        bindData(unAnsweredState,$(this),callback);
+
+        //绑定类名
+        $('#myModal').find('.btn-primary').removeClass('reSend').addClass('cancel');
+
+    })
+
+    //【取消确定按钮】
+    $('#myModal').on('click','.cancel',function(){
+
+        //loadding
+        $('#theLoading').modal('show');
+
+        var prm = {
+
+            //任务编码
+            itkNum:_thisBM,
+            //用户id
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWDevIns/QuXiaoDITask',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if(result == 99){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'取消任务成功！', '');
+
+                    $('#myModal').modal('hide');
+
+                    //刷新
+                    conditionSelect();
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'取消任务失败！', '');
+
+                }
+
+            },
+
+            error:_errorFun1
+
+        })
+
+    })
+
+    //【重新下发】
+    $('#scrap-datatables tbody').on('click','.option-xiafa',function(){
+
+        _thisBM = $(this).parents('tr').find('.bianma').html();
+
+        //插入添加执行人表格
+        $('.condition-query1').append(addStr);
+
+        //执行人表格初始化
+        _tableInit($('#personTable2,#personTable2s'),ZXRCol,2,'flag','','');
+
+        //初始化
+        detailInit(unAnsweredState,$('#myModal'),$('#personTable1'),$('#personTable2'));
+
+        //模态框
+        _moTaiKuang($('#myModal'),'重新下发',false,'','','重新下发');
+
+        var callback = function(result){
+
+            _datasTable($('#personTable1'),result.dipItems);
+
+            _datasTable($('#personTable2'),result.itkMembers);
+
+            _oldPersonArr.length = 0;
+
+            for(var i=0;i<result.itkMembers.length;i++){
+
+                _oldPersonArr.push(result.itkMembers[i]);
+
+            }
+
+        }
+
+        bindData(unAnsweredState,$(this),callback);
+
+        //绑定类名
+        $('#myModal').find('.btn-primary').removeClass('cancel').addClass('reSend');
+
+    })
+
+    //删除添加执行人按钮
+    $('#myModal').on('hide.bs.modal',function(){
+
+        $('.condition-query1').empty();
+
+    })
+
+    //【重新下发确定按钮】
+    $('#myModal').on('click','.reSend',function(){
+
+        //loadding
+        $('#theLoading').modal('show');
+
+        var prm = {
+
+            //任务编码
+            itkNum:_thisBM,
+            //执行人列表
+            memberModelList:_oldPersonArr,
+            //用户id
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWDevIns/CXXFDITask',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if(result == 99){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'重新下发成功！', '');
+
+                    $('#myModal').modal('hide');
+
+                    //刷新
+                    conditionSelect();
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'重新下发失败！', '');
+
+                }
+
+            },
+
+            error:_errorFun1
+
+        })
+
+    })
+
+    //【删除执行人】
+    $('#personTable2 tbody').on('click','.option-del',function(){
+
+        //删除选中的执行人
+        var thisWorker = $(this).parents('tr').children().eq(1).html();
+
+        //根据工号删除相应的执行人
+        _oldPersonArr.removeByValue(thisWorker,'itkRenNum');
+
+        //给表格赋值
+        _datasTable($(this).parents('.table'),_oldPersonArr);
+
+    })
+
+    //【添加执行人】按钮
+    $('.condition-query1').on('click','.addButton',function(){
+
+        //模态框
+        _moTaiKuang($('#Person-Modal'),'添加执行人',false, '' ,'', '添加');
+
+        //初始化
+        personInit();
+
+        //将就数组的执行人放进新数组中
+
+        var _canFlag = true;
+
+        _newPersonArr.length = 0;
+
+        for(var i=0;i<_oldPersonArr.length;i++){
+
+            for(var j=0;j<_newPersonArr.length;j++){
+
+                if(_oldPersonArr[i].itkRenNum == _newPersonArr[j].itkRenNum){
+
+                    _canFlag = false;
+
+                    break;
+
+                }
+
+            }
+
+            if(_canFlag){
+
+                _newPersonArr.push(_oldPersonArr[i]);
+
+            }
+
+        }
+
+    })
+
+    //条件查询执行人
+    $('.zhixingButton').click(function(){
+
+        getExecutor();
+
+    })
+
+    //获取选择的新的执行人
+    $('.addZXR').click(function(){
+
+        //获得执行人
+        var personList = $('#zhixingRenTable tbody').children('.tables-hover');
+
+        for(var i=0;i<personList.length;i++){
+
+            var obj = {};
+
+            //工号
+            obj.itkRenNum = personList.eq(i).children('.dipRenNum').html();
+
+            //执行人
+            obj.itkRen = personList.eq(i).children('.dipRen').html();
+
+            //电话
+            obj.itkdh = personList.eq(i).children('.dipDh').html();
+
+            _canFlag = true;
+
+            if(_newPersonArr.length == 0){
+
+                _canFlag = true;
+
+            }else{
+
+                for(var j=0;j<_newPersonArr.length;j++){
+
+                    if(_newPersonArr[j].itkRenNum == obj.itkRenNum){
+
+                        _canFlag = false;
+
+                        break;
+
+                    }
+
+                }
+
+            }
+
+            if(_canFlag){
+
+                _newPersonArr.push(obj);
+
+            }
+
+        }
+
+        //将新数组存入到旧数组中
+
+        _oldPersonArr.length = 0;
+
+        for(var i=0;i<_newPersonArr.length;i++){
+
+            _oldPersonArr.push(_newPersonArr[i]);
+
+        }
+
+        //第一个表格赋值
+        _datasTable($('#personTable2'),_oldPersonArr);
+
+        //模态框消失
+        $('#Person-Modal').modal('hide');
+
+    })
+
+    //选择执行人的复选框
+    $('#zhixingRenTable tbody').on('click','tr',function(){
+
+        if($(this).hasClass('tables-hover')){
+
+            $(this).removeClass('tables-hover');
+
+            $(this).find('input').parent('span').removeClass('checked');
+
+        }else{
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent('span').addClass('checked');
+
+        }
+
+    })
+
     //选项卡
     $('.table-title span').click(function(){
         var $this = $(this);
@@ -444,7 +885,6 @@ $(function(){
         conditionSelect();
 
     })
-
 
     /*-------------------------------------------------其他方法-------------------------------------------*/
 
@@ -638,6 +1078,112 @@ $(function(){
 
 
 
+
+    }
+
+    //执行人的部门
+    function getDepart(){
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'RBAC/rbacGetDeparts',
+            data:{
+
+                userID:_userIdNum,
+                userName:_userIdName,
+                departName:$('.sbmc1').val(),
+                isWx:1
+            },
+            timeout:_theTimes,
+            success:function(result){
+
+                //根据筛选部门
+
+                var str = '<option value="">请选择</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].departNum +
+                        '">' + result[i].departName + '</option>'
+
+
+                }
+
+                $('#bm').empty().append(str);
+
+                _datasTable($('#department-table'),result);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(JSON.parse(jqXHR.responseText).message);
+                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                }
+            }
+        })
+
+    }
+
+    //执行人列表初始化
+    function personInit(){
+
+        $('#Person-Modal').find('input').val('');
+
+        $('#Person-Modal').find('select').val('');
+
+        _datasTable($('#zhixingRenTable'),_allPersonArr);
+
+    }
+
+    //获取所有执行人,true的时候，获取所有执行人
+    function getExecutor(flag){
+
+        var prm = {
+
+            userName2:$('#zxName').val(),
+            userNum:$('#zxNum').val(),
+            zxPhone:$('#zxPhone').val(),
+            departNum:$('#bm').val(),
+            userID:_userIdNum,
+            userName:_userIdName
+
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'RBAC/rbacGetUsers',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                if(flag){
+
+                    _allPersonArr.length = 0;
+
+                    for(var i=0;i<result.length;i++){
+
+                        _allPersonArr.push(result[i]);
+
+                    }
+
+                }else{
+
+                    _datasTable($('#zhixingRenTable'),result);
+
+                }
+
+
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(JSON.parse(jqXHR.responseText).message);
+                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                }
+            }
+
+
+        })
 
     }
 

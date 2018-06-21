@@ -2189,85 +2189,109 @@ $(function(){
 
                     }
 
-                    var prm={
-                        //计划名称
-                        dipName:workDone.xjnrmc,
-                        //巡检部门名称
-                        dipKeshi:workDone.xjbm,
-                        //巡检部门编码
-                        dipKeshiNum:$('.xjDep').attr('data-num'),
-                        //负责人
-                        manager:workDone.fzr,
-                        //设备
-                        devInfoitems:devArr,
-                        //巡检条目
-                        dipItems:tableArr,
-                        //开始时间
-                        activeDate:$('#sxsj').val(),
-                        //结束时间
-                        finishDate:$('#jssj').val(),
-                        //计划周期
-                        stCircle:workDone.jhzq,
-                        //周期单位
-                        circleUnit:workDone.zqdw,
-                        //生效时间
-                        dateRange :workDone.sxsj,
-                        //备注
-                        remark:$('#beizhu').val(),
-                        //执行人
-                        dipMembers:personArr,
-                        //登录用户
-                        userID:_userIdNum,
-                        //是否启用
-                        isActive:workDone.sfqy
+                    //设备、执行人、必填
 
-                    };
+                    var isRun = true;
 
-                    if(flag){
+                    if( devArr.length == 0 ){
 
-                        prm.dipNum=workDone.jhbm;
+                        isRun = false;
 
-                    };
+                        _moTaiKuang($('#myModal5'),'提示','flag','istap','设备不能为空！','提示');
 
-                    $.ajax({
-                        type:'post',
-                        url:_urls + url,
-                        data:prm,
-                        beforeSend: function () {
-                            $('#theLoading').modal('hide');
+                    }
 
-                            $('#theLoading').modal('show');
-                        },
+                    if( personArr.length == 0 ){
 
-                        complete: function () {
+                        isRun = false;
 
-                            $('#theLoading').modal('hide');
+                        _moTaiKuang($('#myModal5'),'提示','flag','istap','执行人不能为空！','提示');
 
-                        },
-                        success:function(result){
+                    }
 
-                            if(result == 99){
+                    if(isRun){
 
-                                _moTaiKuang($('#myModal5'), '提示', 'flag', 'istap' ,successMeg, '');
+                        var prm={
+                            //计划名称
+                            dipName:workDone.xjnrmc,
+                            //巡检部门名称
+                            dipKeshi:workDone.xjbm,
+                            //巡检部门编码
+                            dipKeshiNum:$('.xjDep').attr('data-num'),
+                            //负责人
+                            manager:workDone.fzr,
+                            //设备
+                            devInfoitems:devArr,
+                            //巡检条目
+                            dipItems:tableArr,
+                            //开始时间
+                            activeDate:$('#sxsj').val(),
+                            //结束时间
+                            finishDate:$('#jssj').val(),
+                            //计划周期
+                            stCircle:workDone.jhzq,
+                            //周期单位
+                            circleUnit:workDone.zqdw,
+                            //生效时间
+                            dateRange :workDone.sxsj,
+                            //备注
+                            remark:$('#beizhu').val(),
+                            //执行人
+                            dipMembers:personArr,
+                            //登录用户
+                            userID:_userIdNum,
+                            //是否启用
+                            isActive:workDone.sfqy
 
-                                $('#myModal').modal('hide');
+                        };
 
-                                conditionSelect(stationsFlag,wxBanzusFlag);
+                        if(flag){
 
-                            }else{
+                            prm.dipNum=workDone.jhbm;
 
-                                _moTaiKuang($('#myModal5'), '提示', 'flag', 'istap' ,errorMeg, '');
+                        };
 
+                        $.ajax({
+                            type:'post',
+                            url:_urls + url,
+                            data:prm,
+                            beforeSend: function () {
+                                $('#theLoading').modal('hide');
+
+                                $('#theLoading').modal('show');
+                            },
+
+                            complete: function () {
+
+                                $('#theLoading').modal('hide');
+
+                            },
+                            success:function(result){
+
+                                if(result == 99){
+
+                                    _moTaiKuang($('#myModal5'), '提示', 'flag', 'istap' ,successMeg, '');
+
+                                    $('#myModal').modal('hide');
+
+                                    conditionSelect(stationsFlag,wxBanzusFlag);
+
+                                }else{
+
+                                    _moTaiKuang($('#myModal5'), '提示', 'flag', 'istap' ,errorMeg, '');
+
+                                }
+
+                            },
+                            error:function(jqXHR, textStatus, errorThrown){
+                                console.log(JSON.parse(jqXHR.responseText).message);
+                                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+
+                                }
                             }
+                        })
 
-                        },
-                        error:function(jqXHR, textStatus, errorThrown){
-                            console.log(JSON.parse(jqXHR.responseText).message);
-                            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-
-                            }
-                        }
-                    })
+                    }
 
                 }
 
