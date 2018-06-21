@@ -363,7 +363,7 @@ var option3 = {
             fontWeight:'normal'
         },
         textBaseline:'middle',
-        subtext:'Kgce/m2',
+        subtext:'kgce/m2',
         subtextStyle:{
             color:'#333'
         },
@@ -401,7 +401,7 @@ var option4 = {
             fontWeight:'normal'
         },
         textBaseline:'middle',
-        subtext:'Kgce/床',
+        subtext:'kgce/床',
         subtextStyle:{
             color:'#333'
         },
@@ -1026,7 +1026,7 @@ function getTopPageEnergyData(){
                 var energyName = o.f_EnergyItemName;
 
                 //获取当前单位
-                var energyUnit = 'Kgce';
+                var energyUnit = 'kgce';
 
                 if(energyID != -2){
 
@@ -1829,7 +1829,7 @@ function setEnergyBlock(et,ec){
         et.etname = ec.ecClassName;
         et.img = "totalEneragery.png";
         et.color = "#fee8af";
-        et.etunit = "Kgce";
+        et.etunit = "kgce";
     }else{
         et.etname = "总用" + et.etname + "量";
     }

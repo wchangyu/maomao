@@ -3,7 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <script src="../resource/js/jquery-1.11.2.js"></script>
+    <script src="../../../assets/local/scripts/underscore-min.js"></script>
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+
+    <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="../favicon.ico"/>
+
+
 </head>
+
 <body>
 
     <div style="display: inline-block;padding: 0 20px;">
@@ -14,5 +42,227 @@
 
     </div>
 
+    <div style="width:800px;height:500px;" id="echart1"> </div>
+
+    <script src="../../../assets/global/plugins/respond.min.js"></script>
+    <script src="../../../assets/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+    <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+    <script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+    <script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+    <script src="../../../assets/local/scripts/BEE.js"></script>
+    <script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+    <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+    <script src="../bank-branch-resource/js/lib/bootstrap-datepicker.js"></script>
+    <script src="../bank-branch-resource/js/lib/moment.min.js"></script>
+    <script rel="stylesheet" src="../bank-branch-resource/js/lib/echarts.common.min.js"></script>
+    <script rel="stylesheet" src="../bank-branch-resource/js/lib/jquery.dataTables.min.js"></script>
+    <!--时间插件-->
+    <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+    <script src="../resource/js/alarm.js"></script>
+    <script src="../resource/js/publicFun.js"></script>
+
+    <script>
+        //折线图
+        var myChartTopLeft = echarts.init(document.getElementById('echart1'));
+
+        //柱状图配置项
+        var optionBar = {
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['本期用电','上期用电'],
+                top:'30',
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    show:'true',
+                    type : 'category',
+                    data:[]
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'本期用电',
+                    type:'bar',
+                    data:[],
+                    barMaxWidth: '60',
+                },
+                {
+                    name:'上期用电',
+                    type:'bar',
+                    data:[],
+                    barMaxWidth: '60',
+                }
+            ]
+        };
+
+        //柱折图配置项
+        var optionLineBar = {
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['数据', '比较斜率'],
+                top:'30'
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['bar', 'line']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    data : ['本期','上期']
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            grid: {
+                left: '20%',
+                right: '10%'
+            },
+            series : [
+                {
+                    name:'数据',
+                    type:'bar',
+                    barMaxWidth: '50',
+                    data:[],
+                    itemStyle:{
+                        normal:{
+                            color: function(params) {
+                                // build a color map as your need.
+                                var colorList = [
+                                    '#d53a35','#2f4554','#FCCE10','#E87C25','#27727B',
+                                    '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                                    '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                                ];
+                                return colorList[params.dataIndex]
+                            },
+                        }
+                    }
+                },
+                {
+                    name:'比较斜率',
+                    type:'line',
+                    data:[],
+                }
+            ]
+        };
+
+        var dateArr=['2017/01/01 00:00','2017/01/01 02:00','2017/01/01 06:00','2017/01/01 18:00','2017/01/01 22:00'];
+
+        var times=[[1529474219000, 12], [1522306919000, 21], [1522307019000, 13], [1522307119000, 18], [1522307120000, 16],[1522307230000, 8], [1522302230000, 14], [1522307430000, 15], [1522407230000, 26]];
+
+        //折线图配置项
+        var optionLine = {
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['数据'],
+                top:'30'
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['bar', 'line']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'time'
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            grid: {
+                left: '10%',
+                right: '8%'
+            },
+            series : [
+                {
+                    name:'数据',
+                    type:'line',
+                    smooth:true,
+                    markPoint : {
+                        data : [
+                            {type : 'max', name: '最大值'},
+                            {type : 'min', name: '最小值'}
+                        ],
+                        itemStyle : {
+                            normal:{
+                                color:'#019cdf'
+                            }
+                        },
+                        label:{
+                            normal:{
+                                textStyle:{
+                                    color:'#d02268'
+                                }
+                            }
+                        }
+                    },
+                    markLine : {
+                        data : [
+                            {type : 'average', name: '平均值'}
+
+
+                        ]
+
+                    },
+                    data:times
+                }
+            ]
+        };
+
+        myChartTopLeft.setOption(optionLine);
+
+    </script>
 </body>
+
 </html>

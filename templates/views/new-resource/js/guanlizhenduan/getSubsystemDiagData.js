@@ -1,5 +1,5 @@
 /**
- * Created by admin on 2018/6/14.
+ * Created by admin on 2018/6/20.
  */
 
 $(function(){
@@ -18,31 +18,8 @@ $(function(){
     };
 });
 
-//定义页面中配置
-var showDataArr = [
-
-    {
-        id:'1',
-        name:'支路能耗夜间用量偏高',
-        url :'OneKeyDiag/GetBranchDayNightRiseDiagDetail',
-        echartName1:'开站时段',
-        echartName2:'闭站时段'
-    },
-    {
-        id:'2',
-        name:'支路能耗突变',
-        url :'OneKeyDiag/GetBranchMutationDetail',
-        echartName1:'当前数据',
-        echartName2:'对比数据'
-    },
-    {
-        id:'3',
-        name:'变压器损耗偏高诊断',
-        url :'OneKeyDiag/GetSysWastageDetail',
-        echartName1:'低压变压器',
-        echartName2:'高压变压器'
-    }
-];
+//判断页面中是否显示图例
+var iflegend = 0;
 
 //定义页面中echart中展示名称
 var echartName1 = '';
@@ -140,12 +117,6 @@ var optionLine = {
             name:echartName1,
             type:'line',
             smooth:true,
-            data:[]
-        },
-        {
-            name:echartName2,
-            type:'line',
-            smooth:true,
             markPoint : {
                 data : [
                     {type : 'max', name: '最大值'},
@@ -173,6 +144,63 @@ var optionLine = {
 
             },
             data:[]
+        },
+        {
+            name:echartName2,
+            type:'line',
+            smooth:true,
+            data:[]
+        }
+    ]
+};
+
+//环形图配置项
+var option1 = {
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        x: 'left',
+        type: 'scroll',
+        top: 10,
+        bottom: 10,
+        data:['正常','异常'],
+        show : false
+    },
+    grid:{
+        left:'right'
+    },
+    toolbox: {
+        show : false,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    series: [
+        {
+            name:'整体统计',
+            type:'pie',
+            radius: ['50%', '75%'],
+            data:[
+                {name:'正常',value:600},
+                {name:'异常',value:400}
+            ],
+            center:['50%','50%'],
+            itemStyle:{
+                normal:{
+                    label:{
+                        show: true,
+                        //formatter: '{b} : {c} ({d}%)'
+                        formatter: '{b} : {c}'
+                    },
+                    labelLine :{show:true}
+                }
+            }
         }
     ]
 };
@@ -189,7 +217,7 @@ function getShowDataByFlag(){
     //console.log(showDataArr);
 
     //从配置中获取信息
-    $(showDataArr).each(function(i,o){
+    $(showSubsystemDataArr).each(function(i,o){
 
         if(flag == o.id){
 
@@ -198,6 +226,11 @@ function getShowDataByFlag(){
             echartName2 = o.echartName2;
 
             _thisUrl = o.url;
+
+            if(o.iflegend){
+
+                iflegend = o.iflegend;
+            }
 
             return false;
         }
@@ -244,14 +277,15 @@ function getPointerData(url){
 
             //获取当前的诊断问题对象
             ecParams = o;
+
             //获取当前错误描述
             energyName = o.oneKeyDiagDesc;
+
             //按小时展示
             if(o.diagDaTeFlag == 4){
 
                 dateFlag = 1;
             }
-
         }
 
     });
@@ -316,7 +350,7 @@ function getPointerData(url){
             //首先处理本期的数据
             allData.length = 0;
 
-            $(result.opEnergyItems).each(function(i,o){
+            $(result.importBranchDatas).each(function(i,o){
                 allData.push(o);
             });
 
@@ -348,10 +382,12 @@ function getPointerData(url){
 
             //确定本期y轴
             for(var i=0;i<allData.length;i++){
-                //定额量
-                allDataY.push(allData[i].energyData.toFixed(2));
-                //使用量
-                allDataY1.push(allData[i].compareData.toFixed(2));
+
+                //当前量
+                allDataY.push(allData[i].environData.toFixed(2));
+
+                //指标量
+                allDataY1.push(allData[i].indicatorData.toFixed(2));
             }
 
             //echart折现图
@@ -360,37 +396,20 @@ function getPointerData(url){
             optionLine.series[1].data = allDataY1;
 
             //echart柱状图
-            allDataY2.push(result.sumEnergyData.toFixed(2));
-            allDataY2.push(result.compareEnergyData.toFixed(2));
 
-            optionBar.series[0].data = allDataY2;
+            allDataY2.push({name:'正常',value:result.normalDataCount});
+            allDataY2.push({name:'异常',value:result.exceptDataCount});
+
+            option1.series[0].data = allDataY2;
+
             //上方echarts
             myChartTopLeft.setOption(optionLine,true);
-            //下方柱状图
-            myChartTopLeft1.setOption(optionBar,true);
+
+            //下方环形图
+            myChartTopLeft1.setOption(option1,true);
 
             //比例
-            var percent = (Math.abs(result.energyCompareScale * 100)).toFixed(1) + '%';
-            $('.left-pillar .percent').html(percent);
-
-            if(result.energyCompareScale > 0){
-                //向上的图标
-                $('.left-pillar').addClass('up');
-
-            }else if(result.energyCompareScale == 0){
-
-                //平的图标
-                $('.left-pillar').addClass('equal');
-
-            }else{
-                //平的图标
-                $('.left-pillar').removeClass('equal');
-
-                //向下的图标
-                $('.left-pillar').removeClass('up');
-
-                $('.left-pillar').removeClass('no-background');
-            }
+            $('.left-pillar').addClass('no-background');
 
             //不要向上 向下的图标 变压器突变诊断时
             if(url == 'OneKeyDiag/GetSysWastageDetail'){

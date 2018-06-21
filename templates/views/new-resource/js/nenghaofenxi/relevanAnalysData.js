@@ -79,8 +79,6 @@ $(function(){
 
         }
 
-
-
     });
 
     //能耗选择
@@ -101,6 +99,9 @@ $(function(){
     };
 
 });
+
+//存放当前传递给后台的数据
+var curPostObj = {};
 
 //从配置项中获取页面中所展示信息
 function getDataByConfig(){
@@ -290,6 +291,12 @@ function getPointerData(url,flag){
     //获取用户选择日期类型
     var selectDateType = getShowDateType()[1];
 
+    if(startTime == '' || endTime == ''){
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请输入时间', '');
+        return false;
+    }
+
     //定义获得数据的参数
     var ecParams = {
         "showDateType": showDateType,
@@ -300,6 +307,8 @@ function getPointerData(url,flag){
         "startTime": startTime,
         "endTime": endTime
     };
+
+    curPostObj = ecParams;
 
     //发送请求
     $.ajax({
@@ -313,6 +322,12 @@ function getPointerData(url,flag){
         success:function(result){
 
             myChartTopLeft.hideLoading();
+
+            //判断当前返回的数据是否是用户最后一次点击查询的数据
+            if(curPostObj != ecParams){
+
+                return false;
+            }
 
             //console.log(result);
 
@@ -345,6 +360,10 @@ function getPointerData(url,flag){
             //首先处理实时数据
             allDataX.length = 0;
             allDataY.length = 0;
+
+            optionLineBar.series[1].data = [];
+
+            optionLineBar.series[2].data = [];
 
             //绘制echarts
             if(showDateType == 'Hour' ){
@@ -397,7 +416,6 @@ function getPointerData(url,flag){
 
                 //温度
                 optionLineBar.series[1].data = allDataY1;
-
             }
 
             //就诊人数
@@ -470,7 +488,6 @@ function getPointerData(url,flag){
             optionLineBar.legend.data = legendArr;
 
             myChartTopLeft.setOption(optionLineBar,true);
-
 
         },
         error:function(jqXHR, textStatus, errorThrown){

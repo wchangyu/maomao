@@ -188,6 +188,31 @@ var diagHtml = "";
 //indexItem用于获取诊断类型(如能耗诊断，能效诊断) indexDiag用于获取当前类型下的具体诊断内容
 function getExecuteOneKeyDiagItem(indexItem,indexDiag){
 
+    //当前大项下无诊断项
+    if(diagnoseArr[indexItem].oneKeyDiagItems.length == 0){
+
+        indexItem ++;
+
+        if(diagnoseArr.length > indexItem){
+
+            //继续获取诊断信息
+            getExecuteOneKeyDiagItem(indexItem,indexDiag);
+
+            return false;
+
+        }else{
+
+            //改变上方按钮
+                    $('.diagnose-btn').hide();
+
+                    //改变诊断进程中的显示
+                    $('.diagnose-course .right-content b').html('共诊断出'+curDiagProblemAccount+'个问题');
+                    $('.diagnose-course .right-content font').html('诊断完毕');
+
+                    return false;
+        }
+    }
+
     //当前要传递给后台需诊断的项目
     var　diagObj = diagnoseArr[indexItem].oneKeyDiagItems[indexDiag];
 
@@ -227,6 +252,11 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
 
                 postHtml= postHtml+"flag=2&&id=";
 
+            //变压器损耗偏高诊断
+            }else if(diagObj.diagItemNum == 'SysWastageElec'){
+
+                postHtml= postHtml+"flag=3&&id=";
+
             }else{
 
                 postHtml= "officeDingEDetailData.html?id=";
@@ -238,6 +268,23 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
     }else  if(diagTypeNum == 'EnvironDiag'){
 
         postHtml= "getEnvironDetailData.html?id=";
+
+    //如果是子系统诊断
+    }else  if(diagTypeNum == 'SubsystemDiag'){
+
+        //判断是曲线图还是柱状图
+        var echartType = diagObj.showChartStyle;
+
+        var postHtml = 'getSubsystemDiagData.html?type='+echartType;
+
+        //获取当前具体诊断内容
+        var diagItemNum = diagObj.diagItemNum;
+
+        //获取配置项中的本项id
+        var flag = getConfigId(showSubsystemDataArr,diagItemNum);
+
+        postHtml= postHtml+"flag="+flag+"&&id=";
+
     }
 
     //如果是第一项，需添加头部信息
@@ -258,61 +305,61 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
     $('#content-container').html(diagHtml);
 
 
-    //如果是子系统诊断
-    if(diagTypeNum == 'SubsystemDiag'){
-
-        diagHtml += '</div></div>';
-
-        //给页面中添加诊断信息
-        $('#content-container').html(diagHtml);
-
-        //找到存放问题个数的元素位置并赋值
-        $('#content-container .specific-problem').eq(indexItem ).find('h3 span').html('发现'+0 +'个' + diagnoseArr[indexItem].diagTypeName + "问题");
-
-        //对此分类下的问题进行折叠
-        $('#content-container .specific-problem').eq(indexItem ).find('h3 .right-arrow').addClass('up-arrow');
-
-        $('#content-container .specific-problem').eq(indexItem ).find('.bottom-problem').toggle();
-
-        //如果不是最后一个诊断类型
-        if(indexItem < diagnoseArr.length - 1) {
-
-            //改变诊断进程中的显示
-            $('.diagnose-course .right-content font').html('正在诊断' + diagnoseArr[indexItem+1].diagTypeName + '问题');
-
-        }
-
-        //获取到页面中的字符串
-        diagHtml = $('#content-container').html();
-
-        indexItem ++ ;
-
-        //全部分类都已诊断完毕，退出函数
-        if(indexItem > diagnoseArr.length - 1){
-
-            //console.log('已完成');
-            //改变上方按钮
-            $('.diagnose-btn').hide();
-
-            //改变诊断进程中的显示
-            $('.diagnose-course .right-content b').html('共诊断出'+curDiagProblemAccount+'个问题');
-            $('.diagnose-course .right-content font').html('诊断完毕');
-
-            return false;
-        }
-
-        //继续获取诊断信息
-        getExecuteOneKeyDiagItem(indexItem,0);
-
-        return false;
-
-    }
+    ////如果是子系统诊断
+    //if(diagTypeNum == 'SubsystemDiag'){
+    //
+    //    diagHtml += '</div></div>';
+    //
+    //    //给页面中添加诊断信息
+    //    $('#content-container').html(diagHtml);
+    //
+    //    //找到存放问题个数的元素位置并赋值
+    //    $('#content-container .specific-problem').eq(indexItem ).find('h3 span').html('发现'+0 +'个' + diagnoseArr[indexItem].diagTypeName + "问题");
+    //
+    //    //对此分类下的问题进行折叠
+    //    $('#content-container .specific-problem').eq(indexItem ).find('h3 .right-arrow').addClass('up-arrow');
+    //
+    //    $('#content-container .specific-problem').eq(indexItem ).find('.bottom-problem').toggle();
+    //
+    //    //如果不是最后一个诊断类型
+    //    if(indexItem < diagnoseArr.length - 1) {
+    //
+    //        //改变诊断进程中的显示
+    //        $('.diagnose-course .right-content font').html('正在诊断' + diagnoseArr[indexItem+1].diagTypeName + '问题');
+    //
+    //    }
+    //
+    //    //获取到页面中的字符串
+    //    diagHtml = $('#content-container').html();
+    //
+    //    indexItem ++ ;
+    //
+    //    //全部分类都已诊断完毕，退出函数
+    //    if(indexItem > diagnoseArr.length - 1){
+    //
+    //        //console.log('已完成');
+    //        //改变上方按钮
+    //        $('.diagnose-btn').hide();
+    //
+    //        //改变诊断进程中的显示
+    //        $('.diagnose-course .right-content b').html('共诊断出'+curDiagProblemAccount+'个问题');
+    //        $('.diagnose-course .right-content font').html('诊断完毕');
+    //
+    //        return false;
+    //    }
+    //
+    //    //继续获取诊断信息
+    //    getExecuteOneKeyDiagItem(indexItem,0);
+    //
+    //    return false;
+    //
+    //}
 
     //传递数据
     $.ajax({
         type: 'post',
         url: sessionStorage.apiUrlPrefix + 'OneKeyDiag/ExecuteOneKeyDiagItem',
-        timeout:_theTimes,
+        //timeout:_theTimes,
         data:diagObj,
         success: function (result) {
             count ++ ;
@@ -399,6 +446,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
                 //给存放所有诊断结果的数组中添加数据
 
                 var obj = o;
+
                 //给诊断结果添加唯一标识
                 obj.indexId = curDiagProblemAccount;
                 //加入数组

@@ -44,6 +44,11 @@
     background-size: 9% 5% !important;
     position: relative;
 }
+.no-background{
+
+    background: none !important;
+
+}
 
 .left-pillar .percent{
     position: absolute;

@@ -163,7 +163,7 @@ var __systemConfigArr = [
         pageUrl :"new-nenghaofenxi/relevanAnalysData.html",
         pageId:2,
         //定义根据楼宇展示 还是院区展示 0为楼宇 1为院区
-        showDataType : 1
+        showDataType : 0
     },
     //运维中大屏展示页面配置信息
     {

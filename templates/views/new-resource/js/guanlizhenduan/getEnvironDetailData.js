@@ -229,13 +229,15 @@ function getPointerData(url){
         data:ecParams,
         timeout:_theTimes,
         beforeSend:function(){
+
             myChartTopLeft.showLoading();
+
         },
         success:function(result){
 
             myChartTopLeft.hideLoading();
 
-            console.log(result);
+            //console.log(result);
 
             //return false;
 
@@ -290,7 +292,7 @@ function getPointerData(url){
                 {name:'正常',value:600},
                 {name:'异常',value:400}
             ],
-            allDataY2.push({name:'正常',value:result.normalDataCount});
+                allDataY2.push({name:'正常',value:result.normalDataCount});
             allDataY2.push({name:'异常',value:result.exceptDataCount});
 
             option1.series[0].data = allDataY2;
@@ -300,10 +302,10 @@ function getPointerData(url){
             myChartTopLeft1.setOption(option1,true);
 
             //比例
-            var percent = (Math.abs(result.energyCompareScale * 100)).toFixed(1) + '%';
+            var percent = (Math.abs(result.energyDingeScale * 100)).toFixed(1) + '%';
             $('.left-pillar .percent').html(percent);
 
-            if(result.energyCompareScale > 0){
+            if(result.energyDingeScale > 0){
                 //向上的图标
                 $('.left-pillar').addClass('up');
             }else{
