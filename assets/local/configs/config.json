@@ -1,7 +1,7 @@
 {
   "allEnergyType": {
     "comment": "注释属性:全部能耗类型,三项分别为分项ID，分项名，分项单位,img:首页显示的类型小图片,color:首页显示的颜色,img2:各个功能页面用到的类型小图片,secondEnergy:标识二次能源，1为二次能源，0为非二次能源，isShowItem:是否启用该能源，1为启用，0为未启用",
-    "alltypes": [
+    "alltypes":[
       {
         "etid": "01",
         "ettype" : "100",

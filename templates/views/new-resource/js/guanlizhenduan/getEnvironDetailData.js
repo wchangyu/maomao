@@ -174,7 +174,7 @@ var option1 = {
                 normal:{
                     label:{
                         show: true,
-                        formatter: '{b} : \n {c} ({d}%)'
+                        formatter: '{b} : {c}'
                     },
                     labelLine :{show:true}
                 }
@@ -314,15 +314,9 @@ function getPointerData(url){
             }
 
             //下方诊断信息
-            if(ecParams.diagItemTypeFlag == '455'){
+            $('.right-diagnose').show();
 
-                $('.right-diagnose').show();
-
-            }else{
-
-                $('.right-diagnose').hide();
-
-            }
+            $('.right-diagnose .diagnose-content').html(result.showDiagDesc);
 
             //右侧展示信息
 

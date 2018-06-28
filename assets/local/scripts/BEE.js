@@ -1192,7 +1192,9 @@ var BEE = (function(){
         for(var item in obj){
             arr.push(obj[item]);
         }
+
         return arr;
+
     };
 
     //判断已登陆用户是否有访问页面的权限

@@ -63,6 +63,7 @@ $(function(){
                     })
                 }
             }
+
             //获取第一次的诊断内容
             var firstName = diagnoseArr[0].diagTypeName.split('诊断')[0];
 
@@ -162,14 +163,20 @@ function getOneKeyDiagItemType(){
                 //获取到当前的分类编码
                 var diagTypeNum = o.diagTypeNum;
 
-                //获取到上方对应的dom
-                var dom = $('.energy-diagnose1').eq(i);
+                for(var i=0; i<$('.energy-diagnose1').length; i++){
 
-                dom.show();
+                    //获取到上方对应的dom
+                    var dom = $('.energy-diagnose1').eq(i);
 
-                dom.attr('data-id',diagTypeNum);
+                    var thisDiagTypeNum = dom.attr('data-id');
+
+                    if(thisDiagTypeNum == diagTypeNum){
+
+                        dom.show();
+                    }
+                }
+
             });
-
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -188,12 +195,48 @@ var diagHtml = "";
 //indexItem用于获取诊断类型(如能耗诊断，能效诊断) indexDiag用于获取当前类型下的具体诊断内容
 function getExecuteOneKeyDiagItem(indexItem,indexDiag){
 
+    //如果是第一项，需添加头部信息
+    if(indexDiag == 0){
+
+        diagHtml += ' <div class="specific-problem energy-problem">' +
+
+            '<h3>'+diagnoseArr[indexItem].diagTypeName+'' +
+            '<span>正在诊断中......</span>' +
+            '<font class="right-arrow"></font>'+
+            '</h3>' +
+
+            '<div class="bottom-problem">';
+
+    };
+
+    //给页面中添加诊断信息
+    $('#content-container').html(diagHtml);
+
     //当前大项下无诊断项
     if(diagnoseArr[indexItem].oneKeyDiagItems.length == 0){
 
         indexItem ++;
 
         if(diagnoseArr.length > indexItem){
+
+            diagHtml += '</div></div>';
+
+            //给页面中添加诊断信息
+            $('#content-container').html(diagHtml);
+
+            //找到存放问题个数的元素位置并赋值
+            $('#content-container .specific-problem').eq(indexItem-1 ).find('h3 span').html('发现'+0 +'个' + diagnoseArr[indexItem-1].diagTypeName + "问题");
+
+            //对此分类下的问题进行折叠
+            $('#content-container .specific-problem').eq(indexItem-1 ).find('h3 .right-arrow').addClass('up-arrow');
+
+            $('#content-container .specific-problem').eq(indexItem-1 ).find('.bottom-problem').toggle();
+
+            //改变诊断进程中的显示
+            $('.diagnose-course .right-content font').html('正在诊断' + diagnoseArr[indexItem].diagTypeName + '问题');
+
+            //获取到页面中的字符串
+            diagHtml = $('#content-container').html();
 
             //继续获取诊断信息
             getExecuteOneKeyDiagItem(indexItem,indexDiag);
@@ -203,18 +246,23 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
         }else{
 
             //改变上方按钮
-                    $('.diagnose-btn').hide();
+            $('.diagnose-btn').hide();
 
-                    //改变诊断进程中的显示
-                    $('.diagnose-course .right-content b').html('共诊断出'+curDiagProblemAccount+'个问题');
-                    $('.diagnose-course .right-content font').html('诊断完毕');
+            //改变诊断进程中的显示
+            $('.diagnose-course .right-content b').html('共诊断出'+curDiagProblemAccount+'个问题');
+            $('.diagnose-course .right-content font').html('诊断完毕');
 
-                    return false;
+            //获取到页面中的字符串
+            diagHtml = $('#content-container').html();
+
+            return false;
         }
     }
 
     //当前要传递给后台需诊断的项目
     var　diagObj = diagnoseArr[indexItem].oneKeyDiagItems[indexDiag];
+
+   // console.log(diagObj);
 
     //获取当前的一键诊断分类编码
     var diagTypeNum = diagnoseArr[indexItem].diagTypeNum;
@@ -287,23 +335,6 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
 
     }
 
-    //如果是第一项，需添加头部信息
-    if(indexDiag == 0){
-
-        diagHtml += '  <div class="specific-problem energy-problem">' +
-
-            '<h3>'+diagnoseArr[indexItem].diagTypeName+'' +
-            '<span>正在诊断中......</span>' +
-            '<font class="right-arrow"></font>'+
-            '</h3>' +
-
-            '<div class="bottom-problem">';
-
-    };
-
-    //给页面中添加诊断信息
-    $('#content-container').html(diagHtml);
-
 
     ////如果是子系统诊断
     //if(diagTypeNum == 'SubsystemDiag'){
@@ -358,7 +389,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
     //传递数据
     $.ajax({
         type: 'post',
-        url: sessionStorage.apiUrlPrefix + 'OneKeyDiag/ExecuteOneKeyDiagItem',
+        url: sessionStorage.apiUrlPrefix + 'OneKeyDiag/ExecuteOneKeyDiagItemNew',
         //timeout:_theTimes,
         data:diagObj,
         success: function (result) {
@@ -459,8 +490,8 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
             //获取到当前分类下需诊断项目个数
             var diagItemLength = diagnoseArr[indexItem].oneKeyDiagItems.length;
 
-            //如果当前项目不是该分类下最后一个 且不是设备安全诊断
-            if(indexDiag < diagItemLength - 1 && indexItem != 2){
+            //如果当前项目不是该分类下最后一个
+            if(indexDiag < diagItemLength - 1){
 
                 //诊断项目加一
                 indexDiag ++;
@@ -492,6 +523,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
                 $('#content-container .specific-problem').eq(indexItem - 1).find('h3 .right-arrow').addClass('up-arrow');
 
                 $('#content-container .specific-problem').eq(indexItem - 1).find('.bottom-problem').toggle();
+
                 //如果不是最后一个诊断类型
                 if(indexItem <= diagnoseArr.length - 1){
 

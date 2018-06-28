@@ -436,6 +436,7 @@ function getPointerData(url){
             }
 
             var rightHtml = '';
+
             //右侧展示信息
             $(result.diagDetailBranchs).each(function(i,o){
 
