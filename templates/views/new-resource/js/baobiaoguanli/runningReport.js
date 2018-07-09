@@ -1,11 +1,22 @@
 $(function(){
+
+    //页面调用方式
+    mediaFun();
+
+    window.onresize=function(){
+
+        if(searchL){
+
+            location.reload();
+
+        }
+
+    }
+
     //时间插件
     _timeYMDComponentsFun11($('.datatimeblock'));
 
     $('.datatimeblock').val(moment().format('YYYY-MM-DD'));
-
-    //楼宇
-    pointerData();
 
     //所有设备
     var _allDevArr = [];
@@ -19,7 +30,17 @@ $(function(){
     //区域
     var area = $('#dev-type').children('option:selected').attr('data-value');
 
-    areaBlock(area,true);
+    //楼宇
+
+    if(searchL == ''){
+
+        pointerData();
+
+    }else{
+
+        unLoginPointer();
+
+    }
 
     //ztree搜索功能
     var key = $("#key");
@@ -290,11 +311,22 @@ $(function(){
 
         var url = urlArr[$('#dev-type').val()-1];
 
+        if(searchL == ''){
+
+            url1 = _urls + url;
+
+        }else{
+
+            url1 = Lurl + url;
+
+        }
+
+
         $.ajax({
 
             type:'post',
 
-            url:_urls + url,
+            url:url1,
 
             data:prm,
 
@@ -1088,6 +1120,46 @@ $(function(){
 
         $('#pointer').val(sessionStorage.PointerID);
 
+        //掉数据
+        areaBlock(area,true);
+
+
+    }
+
+    //未登录获取楼宇
+    function unLoginPointer(){
+
+        //获取userid
+        var userId = searchL.split('=')[1];
+
+        var LdataStr = {'': userId};
+
+        $.ajax({
+                type:'post',
+                url:Lurl + 'pointer/GetAllPointersByUserId',
+                data:LdataStr,
+                dataType:'json',
+                success:function(pointer){
+
+                    var str = '';
+
+                    for(var i=0;i<pointer.length;i++){
+
+                        str += '<option value="' + pointer[i].pointerID + '">' + pointer[i].pointerName + '</option>';
+
+                    }
+
+                    $('#pointer').empty().append(str);
+
+                    //掉数据
+                    areaBlock(area,true);
+
+                },
+                error:function(xhr,res,errText){
+
+                }
+            }
+        );
 
     }
 
@@ -1100,11 +1172,24 @@ $(function(){
 
         }
 
+        var url = ''
+
+        if(searchL == ''){
+
+            url = _urls + 'MultiReportRLgs/GetDevTypeAreaDs';
+
+        }else{
+
+            url = Lurl + 'MultiReportRLgs/GetDevTypeAreaDs';
+
+        }
+
+
         $.ajax({
 
             type:'post',
 
-            url:_urls + 'MultiReportRLgs/GetDevTypeAreaDs',
+            url:url,
 
             data:prm,
 
@@ -1133,7 +1218,16 @@ $(function(){
                         //条件查询
                         if(flag){
 
-                            conditionSelect(sessionStorage.PointerID);
+                            if(sessionStorage.PointerID){
+
+                                conditionSelect(sessionStorage.PointerID);
+
+                            }else{
+
+                                conditionSelect($('#pointer').val());
+
+                            }
+
 
                         }
 
@@ -1152,6 +1246,51 @@ $(function(){
             error:_errorFun1
 
         })
+
+    }
+
+    //确定是3D调用还是h5自用
+    function mediaFun(){
+
+        var screen = window.matchMedia('(min-width: 992px)');
+
+        if(searchL == ''){
+
+            //隐藏部分div
+            //header
+            $('.page-header').show();
+            //menu
+            $('.page-sidebar-menu').show();
+            //content
+            $('.page-container').css('marginTop','46px');
+            $('.page-bar').show();
+            //背景颜色
+            $('.page-header-fixed').css('background','rgb(21, 59, 96)');
+            //footer
+            $('.page-footer').show();
+        }else{
+
+            //隐藏部分div
+            //header
+            $('.page-header').hide();
+            //menu
+            $('.page-sidebar-menu').hide();
+            //content
+            $('.page-container').css('marginTop',0);
+            $('.page-bar').hide();
+
+            if(screen){
+
+                $('.page-content-wrapper .page-content').css('margin-left',0);
+
+            }
+
+            //背景颜色
+            $('.page-header-fixed').css('background','#ffffff');
+
+            //footer
+            $('.page-footer').hide();
+        }
 
     }
 

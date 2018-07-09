@@ -46,6 +46,7 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
+    <link rel="stylesheet" href="../resource/css/productionOrder.css">
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style>
         .theHidden{
@@ -54,7 +55,19 @@
         .main-contents-header-lists0{
             display: none;
         }
+        .detailGD{
 
+            line-height: 26px;
+
+            width: 100%;
+
+        }
+
+        .gdListInfo li{
+
+            margin-bottom: 20px;
+
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -425,6 +438,114 @@
     </div>
 </div>
 
+<!--添加工单-->
+<div class="modal fade" id="Creat-myModa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 572px;width: 1000px !important;">
+        <div class="modal-content" style="height: 572px;width: 1000px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">创建工单</h4>
+            </div>
+            <div class="modal-body" style="height: 450px;overflow-y: auto">
+                <!--主体部分-->
+                <ul class="gongdanList" style="width: 630px !important;float: left;">
+                    <li class="floatLi" class="gdcodehide" style="display: none;">
+                        <div class="labels">工单号：</div>
+                        <div class="input-blockeds">
+                            <input class="disabled-block auto-fill" id="gdCode" type="text" placeholder="自动生成" disabled="disabled">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">设备名称 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text"id="devMC">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">设备编码 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="devBM">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">报修电话 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="bxTel" id="bxTel">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">报修人信息 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="bxRen">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">报修部门：</div>
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" id="bxSec">
+                        </div>
+                    </li>
+                    <li class="floatLi" style="display: none">
+                        <div class="labels">设备系统 ：</div>
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" id="devSys">
+                        </div><!--v-model="matter"-->
+                    </li>
+                    <li class="floatLi" style="display: none">
+                        <div class="labels">设备分类 ：</div>
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" id="devMatter">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels colorTip">维修地点 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="wxAdd">
+                        </div>
+                    </li>
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="labels">报修备注：</div>
+                        <div class="input-blockeds" style="height:185px;">
+                            <textarea id="bxRem" style="width: 100%;height: 183px;outline: none"></textarea>
+                        </div>
+                    </div>
+                </ul>
+                <!--已创建工单部分-->
+                <div style="width: 300px;float: right;">
+
+                    <div style="font-size: 16px;line-height: 40px;">当前设备未完成工单:<span id="GdNum" style="font-size: 20px;margin-left: 10px;">0</span></div>
+
+                    <ul class="gdListInfo">
+                        <li>
+                            <label for="">工单号：</label>
+                            <a href="">DE18062110590430</a>
+                            <div></div>
+                            <label for="">详情：</label>
+                            <div class="detailGD">
+                                时间：2018-06-21 11:00:00↵支路：F19.1D.LWP49提升泵故障状态↵楼宇名称：南京南高铁站↵报警事件：提升泵故障报警↵报警类型：设备故障↵此时数据：1.00↵报警等级：2
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">工单号：</label>
+                            <a href="">DE18062110590430</a>
+                            <div></div>
+                            <label for="">详情：</label>
+                            <div class="detailGD">
+                                时间：2018-06-21 11:00:00↵支路：F19.1D.LWP49提升泵故障状态↵楼宇名称：南京南高铁站↵报警事件：提升泵故障报警↵报警类型：设备故障↵此时数据：1.00↵报警等级：2
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary dengji">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -432,15 +553,22 @@
         <div class="modal-content" style="height: 168px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                <h4 class="modal-title" id="myModalLabel2">警告</h4>
             </div>
             <div class="modal-body">请填写红色必填项</div>
             <div class="modal-footer">
-                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-primary confirm1">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog' style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
 </div>
 
 

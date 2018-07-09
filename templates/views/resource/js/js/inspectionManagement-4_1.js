@@ -815,9 +815,9 @@ $(function(){
 
         var prm = {
             //巡检任务编号
-            itkNum:$('.condition-query').eq(0).find('input').eq(1).val(),
+            DIPNum:$('.condition-query').eq(0).find('input').eq(1).val(),
             //巡检任务名称
-            itkName:$('.condition-query').eq(0).find('input').eq(0).val(),
+            DIPName:$('.condition-query').eq(0).find('input').eq(0).val(),
             //开始时间
             ditST:$('.condition-query').eq(0).find('input').eq(2).val(),
             //结束时间

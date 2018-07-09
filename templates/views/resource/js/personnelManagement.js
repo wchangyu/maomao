@@ -526,7 +526,7 @@ $(function(){
     function buttonOption(url,flag,successMeg,errorMeg){
 
         //首先验证非空
-        if( user.username == '' || user.jobnumber == '' ){
+        if( user.username == '' || user.jobnumber == '' || user.department == '' ){
 
             _moTaiKuang($('#myModal2'), '提示', false, 'istap' ,'请填写红色必填项!', '');
 

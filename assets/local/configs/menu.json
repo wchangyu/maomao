@@ -272,6 +272,18 @@
         "arg": "",
         "iconclass": "icon-anchor"
       },
+      "设备台账": {
+        "type": "2",
+        "content": "设备台账"
+      },
+      "设备信息": {
+        "type": "0",
+        "content": "设备信息",
+        "uri": "../EPMA/equip.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-screen-tablet"
+      },
       "报表": {
         "type": "2",
         "content": "报表"

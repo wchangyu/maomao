@@ -386,33 +386,6 @@
         <i class="icon-arrow-up"></i>
     </div>
 </div>
-<div id="eprBox" class="" style="padding-bottom: 10px;
-            background: url('../../../assets/admin/layout/img/beijingkuang.png')no-repeat 0 0;
-            background-size:300px; z-index: 100000000; top: 40px !important; width: 300px;
-            height: auto; position: fixed; right: 107px; display: none;">
-    <div style="padding:15px 15px;color:#FFFFFF;margin-top:0px;">
-        <div class="row">
-            <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333;padding-right: 0;margin-right: 0;">单位选择</label>
-            <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
-                <select name="epr_type" id="epr_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
-            </div>
-        </div>
-        <div class="row">
-            <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333;margin-right: 0;">楼宇选择</label>
-            <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
-                <select name="p_type" id="p_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
-            </div>
-        </div>
-        <div class="row">
-            <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="margin-bottom:10px;line-height:34px;margin-right: 0"></label>
-            <div class="col-md-8 col-xs-8 col-xs-8">
-                <button id="goEprBtn" type="submit" class="btn blue pull-left">
-                    切换
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 <!--所有提示框-->
 <!--loading图-->
 <div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
@@ -480,13 +453,29 @@
 <script src="../new-resource/js/common.js"></script>
 <script src="../new-resource/src/jquery.table2excel.js"></script>
 <script>
-    jQuery(document).ready(function() {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        Demo.init(); // init demo features
-        BEE.init();
-        EPMA.init();
-    });
+
+    var searchL = window.location.search;
+
+    //searchL = '?userID=mch';
+
+    if(searchL == ''){
+
+        jQuery(document).ready(function() {
+            Metronic.init(); // init metronic core components
+            Layout.init(); // init current layout
+            Demo.init(); // init demo features
+            BEE.init(true);
+        });
+
+    }else{
+
+        var Lurl = 'http://222.190.246.50:8080/BEEWebAPIys/api/';
+
+        //设置url
+        sessionStorage.apiUrlPrefixYW = Lurl;
+
+    }
+
 </script>
 <script src="../new-resource/js/baobiaoguanli/runningReport.js"></script>
 <!-- END JAVASCRIPTS -->

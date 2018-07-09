@@ -205,47 +205,75 @@
                         <div id="historyBusy">
                             <div class="total-warp">
                                 <div class="row margin-top-20">
-                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
-                                        <div class="clear row pull-left" style="margin-left:0px;">
-                                            <div class="btn-group" style="margin-left:0px;float:left;">
-                                                <button id="btnSel" type="button" data-toggle="dropdown"
-                                                        aria-expanded="true" aria-haspopup="true"
-                                                        class="btn btn-default dropdown-toggle">
-                                                    对象选择
-                                                    <i class="fa fa-angle-down"></i>
-                                                </button>
-                                            </div>
-                                            <div style="float:left;line-height:35px;margin-left:20px;">时间选择:</div>
-                                            <div style="float:left;width:150px;margin-left:5px;">
-                                                <div class="input-group date form_date HSYDT">
-                                                    <input id="spDT" class="form-control" size="16" type="text" value="" />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div style="float:left;line-height:34px;height:34px;width:35px;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5;background-color:#eeeeee;text-align:center;">
-                                                <i class="fa fa-arrow-circle-o-right"></i>
-                                            </div>
-                                            <div style="float:left;width:150px;margin-left:0px;">
-                                                <div class="input-group date form_date HSYDT">
-                                                    <input id="epDT" class="form-control" size="16" type="text" value="" />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <a id="hsyBtn" class="btn btn-default yellow pull-left" style="margin-left:20px;">查询数据</a>
-                                            <a id="excBtn" class="btn btn-default yellow pull-left hide" style="margin-left:15px;">导出EXCEL</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" style="margin-top:20px;">
-                                    <div class="col-md-12 col-sm-12">
+                                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
                                         <div class="portlet blue-hoki box yellow">
                                             <div class="portlet-title">
                                                 <div class="caption">
-                                                    <i class="fa fa-line-chart"></i><span id="spanTitle">监测点历史数据</span>
+                                                    <i class="fa"></i> 历史数据查询条件
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="row">
+                                                    <div class="col-xs-12" style="position: relative">
+                                                        <div class="btn-group" style="margin-left:0px;float:left;">
+                                                            <button id="btnSel" type="button" data-toggle="dropdown"
+                                                                    aria-expanded="true" aria-haspopup="true"
+                                                                    class="btn btn-default dropdown-toggle">
+                                                                对象选择
+                                                                <i class="fa fa-angle-down"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div id="treeCNT" style="display:none;position:absolute;top: 34px;left: 15px;margin-top: 0;" class="dropdown-menu">
+                                                            <ul id="DCTreeView" class="ztree" style="margin-top:0;"></ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        <h5>开始时间</h5>
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        <div class="input-group date form_date HSYDT">
+                                                            <input id="spDT" class="form-control" size="16" type="text" value="">
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        <h5>结束时间</h5>
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        <div class="input-group date form_date HSYDT">
+                                                            <input id="epDT" class="form-control" size="16" type="text" value="">
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        <h5>时间间隔</h5>
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        <select id="eType" class="table-group-action-input form-control">
+                                                            <option value="1" selected="">十分钟</option>
+                                                            <option value="2">小时</option>
+                                                            <option value="3">日</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        <a id="hsyBtn" class="btn btn-default yellow pull-left" style="margin-top: 10px;">查询数据</a>
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        <a id="excBtn" class="btn btn-default yellow pull-left" style="margin-top: 10px;">导出EXCEL</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
+                                        <div class="portlet blue-hoki box yellow">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-line-chart"></i><span id="">监测点历史数据</span>
                                                 </div>
                                             </div>
                                             <div class="portlet-body">
@@ -253,12 +281,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div id="treeCNT" style="display:none;position:absolute;" class="dropdown-menu">
-                                    <!--<div class="form-group" style="margin-bottom:0px !important;padding-left:10px;padding-right:10px;padding-top:5px;">
-                                        <input type="text" class="form-control" placeholder="关键字搜索" />
-                                    </div>-->
-                                    <ul id="DCTreeView" class="ztree" style="margin-top:0;"></ul>
                                 </div>
                             </div>
                         </div>

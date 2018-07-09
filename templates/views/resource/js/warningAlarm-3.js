@@ -1,3 +1,4 @@
+
 $(function(){
 
     //从配置中读取是否显示流程图
@@ -192,15 +193,17 @@ $(function(){
                     "data":'dNum',
                     "render":function(data,type,row,meta){
 
-                        if(data == null || data == ''){
+                        return  "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
 
-                            return '无法创建'
-
-                        }else{
-
-                            return  "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
-
-                        }
+                        //if(data == null || data == ''){
+                        //
+                        //    return '无法创建'
+                        //
+                        //}else{
+                        //
+                        //    return  "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
+                        //
+                        //}
                     }
 
                 }
@@ -419,15 +422,17 @@ $(function(){
                     "data":'dNum',
                     "render":function(data,type,row,meta){
 
-                        if(data == null || data == ''){
+                        return  "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
 
-                            return '无法创建'
-
-                        }else{
-
-                            return  "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
-
-                        }
+                        //if(data == null || data == ''){
+                        //
+                        //    return '无法创建'
+                        //
+                        //}else{
+                        //
+                        //    return  "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
+                        //
+                        //}
                     }
 
                 }
@@ -607,6 +612,20 @@ $(function(){
 
         var _this = $(this);
 
+        var thisTr = _this.parents('tr');
+
+        //报修备注
+        var bxStr = '1、时间：' + thisTr.children().eq(0).html() + '；'
+
+            + '2、支路：' +  thisTr.children().eq(1).html() + '；'
+
+            + '3、报警事件：' +  thisTr.children().eq(3).html() + '；'
+
+            + '4、此时数据：' +  thisTr.children().eq(6).html() + '；'
+
+            + '5、报警等级：' +  thisTr.children().eq(7).html() + '；'
+
+
         //获取设备信息
         $.ajax({
 
@@ -651,19 +670,15 @@ $(function(){
                     var thisTr = _this.parents('tr');
 
                     //报修备注
-                    var str = '时间：' + thisTr.children().eq(0).html() + '\n'
+                    var str = '1、时间：' + thisTr.children().eq(0).html() + '；'
 
-                            //+ '支路：' +  thisTr.children().eq(1).html() + '\n'
+                            + '2、支路：' +  thisTr.children().eq(1).html() + '；'
 
-                            //+ '楼宇名称：' +  thisTr.children().eq(2).html() + '\n'
+                            + '3、报警事件：' +  thisTr.children().eq(3).html() + '；'
 
-                            + '报警事件：' +  thisTr.children().eq(3).html() + '\n'
+                            + '4、此时数据：' +  thisTr.children().eq(6).html() + '；'
 
-                            //+ '报警类型：' +  thisTr.children().eq(4).html() + '\n'
-
-                            + '此时数据：' +  thisTr.children().eq(6).html() + '\n'
-
-                            + '报警等级：' +  thisTr.children().eq(7).html() + '\n'
+                            + '5、报警等级：' +  thisTr.children().eq(7).html() + '；'
 
                     //报修备注
                     $('#bxRem').val(str);
@@ -692,6 +707,13 @@ $(function(){
             userName:_userIdName
 
         }
+
+        if(_this.attr('data-devnum') == ''){
+
+            prmGD.bxBeizhu = bxStr
+
+        }
+
 
         $.ajax({
 
@@ -753,105 +775,114 @@ $(function(){
         //模态框显示
         $('#theLoading').modal('show');
 
-        var wxShix = "null";
+        if($('#wxAdd').val() == ''){
 
-        //如果设备分类由值，那么就传设备分类的值，如果没有就传null，维修事项也一样
-        var dcname = $('#devMatter').val();
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
 
-        if(dcname!=''){
+        }else{
 
-            wxShix = dcname;
+            var wxShix = "null";
 
-        }
+            //如果设备分类由值，那么就传设备分类的值，如果没有就传null，维修事项也一样
+            var dcname = $('#devMatter').val();
 
-        var prm = {
+            if(dcname!=''){
 
-            //是否紧急
-            'gdJJ':0,
-            //设备名称
-            'dName':$('#devMC').val(),
-            //设备编码
-            'dNum':$('#devBM').val(),
-            //报修电话
-            'bxDianhua':$('#bxTel').val() == ''?'123456':$('#bxTel').val(),
-            //报修人信息
-            'bxRen':$('#bxRen').val(),
-            //维修地点
-            'wxDidian':$('#wxAdd').val(),
-            //报修部门
-            'bxKeshi':$('#bxSec').val(),
-            //报修部门编码
-            'wxKeshiNum':userInfo.departNum,
-            //设备分类
-            'dcName':dcname,
-            //设备分类编码***
-            'dcNum':'',
-            //报修备注
-            'bxBeizhu':$('#bxRem').val(),
-            //设备系统
-            'wxShiX':wxShix,
-            //设备系统编码***
-            'wxShiXNum':'',
-            //当前用户id
-            'userID':_userIdNum,
-            //工单来源*
-            'gdSrc':3,
-            //巡检任务编码
-            'itkNum':'',
-            //维修设备
-            'wxShebei':$('#devBM').val()
-
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:_urls + 'YWGD/ywGDCreDJDI',
-
-            data:prm,
-
-            timeout:_theTimes,
-
-            success:function(result){
-
-                $('#theLoading').modal('hide');
-
-                if(result == 3){
-
-                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'工单创建失败！', '');
-
-                }else{
-
-                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'工单创建成功！', '');
-
-                    $('#Creat-myModa').modal('hide');
-
-                    //刷新数据
-                    alarmHistory();
-
-                }
-
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-                $('#theLoading').modal('hide');
-
-                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-
-                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'超时！', '');
-
-                }else{
-
-                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求失败！', '');
-
-                }
+                wxShix = dcname;
 
             }
 
-        })
+            var prm = {
+
+                //是否紧急
+                'gdJJ':0,
+                //设备名称
+                'dName':$('#devMC').val(),
+                //设备编码
+                'dNum':$('#devBM').val(),
+                //报修电话
+                'bxDianhua':$('#bxTel').val() == ''?'123456':$('#bxTel').val(),
+                //报修人信息
+                'bxRen':$('#bxRen').val(),
+                //维修地点
+                'wxDidian':$('#wxAdd').val(),
+                //报修部门
+                'bxKeshi':$('#bxSec').val(),
+                //报修部门编码
+                'wxKeshiNum':userInfo.departNum,
+                //设备分类
+                'dcName':dcname,
+                //设备分类编码***
+                'dcNum':'',
+                //报修备注
+                'bxBeizhu':$('#bxRem').val(),
+                //设备系统
+                'wxShiX':wxShix,
+                //设备系统编码***
+                'wxShiXNum':'',
+                //当前用户id
+                'userID':_userIdNum,
+                //工单来源*
+                'gdSrc':3,
+                //巡检任务编码
+                'itkNum':'',
+                //维修设备
+                'wxShebei':$('#devBM').val()
+
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:_urls + 'YWGD/ywGDCreDJDI',
+
+                data:prm,
+
+                timeout:_theTimes,
+
+                success:function(result){
+
+                    $('#theLoading').modal('hide');
+
+                    if(result == 3){
+
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'工单创建失败！', '');
+
+                    }else{
+
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'工单创建成功！', '');
+
+                        $('#Creat-myModa').modal('hide');
+
+                        //刷新数据
+                        alarmHistory();
+
+                    }
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    $('#theLoading').modal('hide');
+
+                    if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'超时！', '');
+
+                    }else{
+
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求失败！', '');
+
+                    }
+
+                }
+
+            })
+
+        }
 
     })
+
 
 });
 
@@ -960,6 +991,7 @@ function alarmHistory(){
 
             datasTable($("#datatables"),_history);
             //console.log(dataArr);
+
         }
     });
 }
