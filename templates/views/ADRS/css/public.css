@@ -1,0 +1,120 @@
+*{
+
+	margin: 0;
+
+	padding: 0;
+
+}
+
+.colorTop{
+
+	color: red;
+
+}
+
+.tables-hover {
+	background: #FBEC88 !important;
+}
+
+.error:nth-child(3){
+
+	color: red;
+
+	width: 100% !important;
+
+	text-align: center;
+
+	line-height: 30px;
+
+	margin: 0;
+
+	margin-top: 10px;
+
+}
+
+/*条件选择样式*/
+
+.ADRS-condition li{
+
+	display: inline-block;
+
+	margin:10px;
+
+	color: #757575;
+
+}
+
+.ADRS-condition li .form-control{
+
+	display: inline-block !important;
+
+}
+
+.ADRS-condition select{
+
+	width: 150px;
+
+}
+
+.condition-button{
+
+	font-size: 16px;
+
+	background: #2170F4;
+
+	padding: 7px 17px;
+
+	color: #ffffff;
+
+	cursor: pointer;
+
+}
+
+/*表格样式*/
+
+th,td{
+
+	text-align: center;
+
+}
+
+th{
+
+	background: #e7eef7 !important;
+
+}
+
+/*模态框*/
+.modal-block li{
+
+	display: inline-block;
+
+	margin: 0 10px 10px 10px;
+
+}
+
+.modal-block label{
+
+	width: 85px;
+
+}
+
+.modal-block input,.modal-block select{
+
+	width: 250px;
+
+	display: inline-block;
+
+}
+
+.modal-block textarea{
+
+	vertical-align: top;
+
+	display: inline-block;
+
+	width: 250px;
+	
+}
+
+
