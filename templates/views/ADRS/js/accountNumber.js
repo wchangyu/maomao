@@ -19,33 +19,45 @@ var Account = function(){
             "data": null,
             render:function(data, type, full, meta){
 
-                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.userId + "'>编辑</span>" +
+                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>编辑</span>" +
 
-                    "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.userId + "'>删除</span>" +
+                    "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>删除</span>" +
 
-                    "<span class='data-option option-qiye btn default btn-xs green-stripe' data-userId='" + full.userId + "'>绑定企业</span>"
+                    "<span class='data-option option-qiye btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>绑定企业</span>"
 
             }
         },
         {
             title:'户号',
-            className:'accountCode'
+            data:'accountCode'
         },
         {
             title:'户号名称',
             data:'accountName'
         },
         {
-            title:'所属用户',
+            title:'所属企业',
             data:''
         },
         {
-            title:'所属用户名称',
+            title:'所属企业名称',
             data:''
         },
         {
             title:'所属区域',
             data:'districtName'
+        },
+        {
+            title:'是否有效',
+            data:'isDelName'
+        },
+        {
+            title:'创建时间',
+            data:'createDate'
+        },
+        {
+            title:'备注',
+            data:'memo'
         }
 
     ]
@@ -191,8 +203,8 @@ var Account = function(){
 
         $('#create-Modal').find('textarea').attr('disabled',false);
 
-        //密码显示
-        $('.password-block').show();
+        //选择区域显示
+        $('.select-district').show();
 
 
     })
@@ -209,6 +221,158 @@ var Account = function(){
         })
     })
 
+    //【编辑】
+    $('#table tbody').on('click','.option-edit',function(){
+
+        $('#theLoading').modal('show');
+
+        //样式
+        changeCss($(this));
+
+        //初始化
+        createInit();
+
+        //获取当前的用户id
+        _thisID = $(this).attr('data-userid');
+
+        //模态框
+        _moTaiKuang($('#create-Modal'), '提示', false, '' ,'', '保存');
+
+        //绑定数据
+        bind(_thisID);
+
+        //类
+        $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
+
+        //是否可操作
+        //用户登陆名不能操作
+        $('#create-Modal').find('input').attr('disabled',false);
+
+        $('#create-Modal').find('select').attr('disabled',false);
+
+        $('#create-Modal').find('textarea').attr('disabled',false);
+
+        //选择区域显示
+        $('.select-district').show();
+
+    })
+
+    //编辑【确定】
+    $('#create-Modal').on('click','.bianji',function(){
+
+        $('#theLoading').modal('show');
+
+        formatValidate(function(){
+
+            sendOption('DRAccount/ModifyDRAcctInfo','编辑成功！',true);
+
+        })
+
+    })
+
+    //【删除】
+    $('#table tbody').on('click','.option-shanchu',function(){
+
+        $('#theLoading').modal('show');
+
+        //样式
+        changeCss($(this));
+
+        //初始化
+        createInit();
+
+        //获取当前的用户id
+        _thisID = $(this).attr('data-userid');
+
+        //模态框
+        _moTaiKuang($('#create-Modal'), '确定要删除吗？', false, '' ,'', '删除');
+
+        //绑定数据
+        bind(_thisID);
+
+        //类
+        $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
+
+        //是否可操作
+        //用户登陆名不能操作
+        $('#create-Modal').find('input').attr('disabled',true);
+
+        $('#create-Modal').find('select').attr('disabled',true);
+
+        $('#create-Modal').find('textarea').attr('disabled',true);
+
+        //选择区域消失
+        $('.select-district').hide();
+
+    })
+
+    //删除【确定】
+    $('#create-Modal').on('click','.shanchu',function(){
+
+        $('#theLoading').modal('show');
+
+        formatValidate(function(){
+
+            var prm = {
+
+                acctId:_thisID
+
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:_urls + 'DRAccount/LogicDelDRAcct',
+
+                data:prm,
+
+                timeout:_theTimes,
+
+                success:function(result){
+
+                    $('#theLoading').modal('hide');
+
+                    //重载数据标识
+                    _isReloadData = true;
+
+                    if(result.code == 0){
+
+                        //创建成功
+                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'删除成功！','');
+
+                        //模态框消失
+                        $('#create-Modal').modal('hide');
+
+
+                    }else if(result.code == -2){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                    }else if(result.code == -1){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                    }else if(result.code == -3){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                    }else if(result.code == -4){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                    }
+
+                },
+
+                error:_errorFun
+
+            })
+
+
+        })
+
+    })
     //【选择区域】
     $('.select-district').click(function(){
 
@@ -466,10 +630,6 @@ var Account = function(){
 
         var prm = {
 
-            //户号编码
-            accountCode:$('#account-num').val(),
-            //用户名称
-            accountName:$('#account-name').val(),
             //所属区域
             districtId:_thisDistrict,
             //备注
@@ -479,7 +639,18 @@ var Account = function(){
 
         if(flag){
 
-            prm.id = _thisID;
+            prm.acctId = _thisID;
+            //户号编码
+            prm.acctCode = $('#account-num').val();
+            //用户名称
+            prm.acctName = $('#account-name').val();
+
+        }else{
+
+            //户号编码
+            prm.accountCode = $('#account-num').val();
+            //用户名称
+            prm.accountName = $('#account-name').val();
 
         }
 
@@ -532,6 +703,75 @@ var Account = function(){
 
 
         })
+
+    }
+
+    //绑定数据
+    function bind(id){
+
+        var prm = {
+
+            acctId:id
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'DRAccount/GetDRAcctById',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if(result.code == 0){
+
+                    //绑定数据
+                    //编码
+                    $('#account-num').val(result.acct.accountCode);
+                    //名称
+                    $('#account-name').val(result.acct.accountName);
+                    //区域
+                    $('#account-district').val(result.acct.districtName);
+                    //区域id
+                    _thisDistrict = result.acct.districtId;
+                    //描述
+                    $('#create-remark').val(result.acct.memo);
+
+                }else if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                }
+
+            }
+
+        })
+
+    }
+
+    function changeCss(el){
+
+        $('.table tbody').find('tr').removeClass('tables-hover');
+
+        el.parents('tr').addClass('tables-hover');
 
     }
 

@@ -226,6 +226,22 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "资源管理": {
+        "type": "0",
+        "content": "资源管理",
+        "uri": "../ADRS/resource.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "基线管理": {
+        "type": "0",
+        "content": "基线管理",
+        "uri": "../ADRS/baseline.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   },
