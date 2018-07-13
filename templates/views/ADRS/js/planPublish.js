@@ -39,23 +39,12 @@
 
                     //如果户号数为0，不显示
 
-                    if(full.takeInAcctNbers == 0){
+                    return  "<span class='data-option option-edit btn default btn-xs green-stripe'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
+                        "'>编辑</a></span>" +
 
-                        return  "<span class='data-option option-edit btn default btn-xs green-stripe'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
-                            "'>编辑</a></span>" +
+                        "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>" +
 
-                            "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>"
-
-                    }else{
-
-                        return  "<span class='data-option option-edit btn default btn-xs green-stripe'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
-                            "'>编辑</a></span>" +
-
-                            "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>" +
-
-                            "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>"
-
-                    }
+                        "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>"
 
                 }
 
@@ -264,7 +253,7 @@
 
         if(_thisHnum == 0){
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'参与户号数为0，不能发布！','发布');
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'没有绑定户号不能发布！','发布');
 
         }else{
 
