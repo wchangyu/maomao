@@ -9,6 +9,27 @@
     //创建大用户的时候，记录聚合商id
     var _JHID = '';
 
+    //存放用户所有数据
+    var YHArr = [];
+
+    //获取用户数据
+    YHData(true);
+
+    //存放户号所有数据
+    var HHArr = [];
+
+    //获取户号数据
+    HHData(true);
+
+    //记录当前选中的用户id
+    var _thisYHID = '';
+
+    //记录当前选中的户号
+    var _thisHHArr = [];
+
+    //当前选中的企业类型
+    var _thisType = '';
+
     /*-----------------------------------表格初始化-------------------------------------*/
 
     //主表格
@@ -25,7 +46,7 @@
 
                     "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>" +
 
-                    "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定户号</span>"
+                    "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>绑定户号</span>"
 
             }
         },
@@ -44,6 +65,18 @@
         {
             title:'签署容量（kW）',
             data:'signatureVolume'
+        },
+        {
+            title:'类型',
+            data:'eprTypeName'
+        },
+        {
+            title:'所属用户',
+            data:''
+        },
+        {
+            title:'绑定户号',
+            data:''
         },
         {
             title:'地址',
@@ -148,6 +181,91 @@
     ]
 
     _tableInit($('#JH-table'),JHCol,2,true,'','','','',10);
+
+    //用户表格
+    var YHCol = [
+
+        {
+            title:'选择',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                return  '<div class="checker" data-id="' + full.userId +'"><span><input type="checkbox" value=""></span></div>'
+
+            }
+        },
+        {
+            title:'用户ID',
+            data:'sysuserId',
+            className:'sysuserId'
+        },
+        {
+            title:'登陆用户名',
+            data:'userName'
+        },
+        {
+            title:'用户角色',
+            data:'roleName'
+        },
+        {
+            title:'是否有效',
+            data:'isDelName'
+        },
+        {
+            title:'创建时间',
+            data:'createDate'
+        },
+        {
+            title:'描述',
+            data:'memo'
+        }
+
+    ]
+
+    _tableInit($('#YH-table'),YHCol,2,true,'','','','',10);
+
+    //户号表格
+    var HHCol = [
+
+        {
+            title:'选择',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                return  '<div class="checker" data-id="' + full.accountId +'"><span><input type="checkbox" value=""></span></div>'
+
+            }
+        },
+        {
+            title:'户号',
+            data:'accountCode'
+        },
+        {
+            title:'户号名称',
+            data:'accountName'
+        },
+        {
+            title:'所属区域',
+            data:'districtName'
+        },
+        {
+            title:'是否有效',
+            data:'isDelName'
+        },
+        {
+            title:'创建时间',
+            data:'createDate'
+        },
+        {
+            title:'备注',
+            data:'memo'
+        }
+
+    ]
+
+    _tableInit($('#HH-table'),HHCol,2,true,'','','','',10);
 
     /*-----------------------------------创建表单验证-------------------------------------*/
 
@@ -427,6 +545,244 @@
 
     })
 
+    //【绑定用户】
+    $('#table tbody').on('click','.option-yonghu',function(){
+
+        //初始化
+        $('#keyWord-YH').val('');
+
+        //赋值
+        _thisID = $(this).attr('data-userid');
+
+        //模态框
+        _moTaiKuang($('#select-YH-Modal'),'用户','','','','选择');
+
+        //数据
+        _datasTable($('#YH-table'),YHArr);
+
+    })
+
+    //用户选择【tr】
+    $('#YH-table tbody').on('click','tr',function(){
+
+        if($(this).hasClass('tables-hover')){
+
+            $('#YH-table tbody').find('tr').removeClass('tables-hover');
+
+            $('#YH-table tbody').find('input').parent('span').removeClass('checked');
+
+            $(this).removeClass('tables-hover');
+
+            $(this).find('input').parent('span').removeClass('checked');
+
+        }else{
+
+            $('#YH-table tbody').find('tr').removeClass('tables-hover');
+
+            $('#YH-table tbody').find('input').parent('span').removeClass('checked');
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent('span').addClass('checked');
+
+        }
+
+    })
+
+    //确定选中的用户id
+    $('#select-YH-Modal').on('click','.btn-primary',function(){
+
+        $('#theLoading').modal('show');
+
+        var selectedTr = $('#YH-table tbody').find('.tables-hover');
+
+        //给id赋值
+        _thisYHID = selectedTr.find('.checker').attr('data-id');
+
+        //模态框
+        $('#select-YH-Modal').modal('hide');
+
+        //发送请求
+        var prm = {
+
+            //企业及居民id
+            eprId:_thisID,
+            //用户登录账户Id
+            userId:_thisYHID
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DREpr/CreateEprBindUserBySelect',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                _isReloadData = true;
+
+                if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                }else if(result.code == 0){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'绑定用户成功！', '');
+
+                }
+
+            },
+
+            error:_errorFun
+
+        })
+
+
+    })
+
+    //条件选择-用户【查询】
+    $('#selected-user-modal').click(function(){
+
+        //数据
+        YHData();
+
+    })
+
+    //【绑定户号】
+    $('#table tbody').on('click','.option-huhao',function(){
+
+        //初始化
+        $('#keyWord-HH').val('');
+
+        //赋值
+        _thisID = $(this).attr('data-userid');
+
+        //企业类型
+        _thisType = $(this).attr('data-type');
+
+        //模态框
+        _moTaiKuang($('#select-HH-Modal'),'用户','','','','选择');
+
+        //数据
+        _datasTable($('#HH-table'),HHArr);
+
+    })
+
+    //户号选择【tr】
+    $('#HH-table tbody').on('click','tr',function(){
+
+        if($(this).hasClass('tables-hover')){
+
+            $(this).removeClass('tables-hover');
+
+            $(this).find('input').parent('span').removeClass('checked');
+
+        }else{
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent('span').addClass('checked');
+
+        }
+
+    })
+
+    //确定选中的户号id
+    $('#select-HH-Modal').on('click','.btn-primary',function(){
+
+        var selectedTr = $('#HH-table tbody').find('.tables-hover');
+
+        _thisHHArr.length = 0;
+
+        //给id赋值
+
+        for(var i=0;i<selectedTr.length;i++){
+
+            _thisHHArr.push(selectedTr.eq(i).find('.checker').attr('data-id'))
+
+        }
+
+        //模态框
+        $('#select-HH-Modal').modal('hide');
+
+        //发送请求
+        var prm = {
+
+            //企业及居民id
+            eprId:_thisID,
+            //用户登录账户Id
+            acctIds:_thisHHArr,
+            //企业及居民类型
+            eprType:_thisType
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DREpr/CreateEprBindUserBySelect',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                _isReloadData = true;
+
+                if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                }else if(result.code == 0){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'绑定用户成功！', '');
+
+                }
+
+            },
+
+            error:_errorFun
+
+        })
+
+
+
+    })
 
     //提示关闭之后，再刷新数据
     $('#tip-Modal').on('hidden.bs.modal',function(){
@@ -500,17 +856,6 @@
 
         //模态框消失
         $('#select-JH-Modal').modal('hide');
-
-    })
-
-    //【绑定用户】
-    $('#table tbody').on('click','.option-yonghu',function(){
-
-        //初始化
-
-        //模态框
-
-        //
 
     })
 
@@ -597,6 +942,12 @@
         _thisID = '';
 
         _JHID = '';
+
+        //选中的用户id
+        _thisYHID = '';
+
+        //选中的户号数组
+        _thisHHArr = [];
 
     }
 
@@ -820,6 +1171,176 @@
         $('.table tbody').find('tr').removeClass('tables-hover');
 
         el.parents('tr').addClass('tables-hover');
+
+    }
+
+    //获取用户数据
+    function YHData(flag){
+
+        var prm = {
+
+            keyword:$('#keyWord-YH').val()
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url: sessionStorage.apiUrlPrefix + 'DREpr/GetEprBindUserSelectDs',
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            success:function(result){
+
+                var arr = [];
+
+                if(result.code == -2){
+
+                    if(flag){
+
+                        console.log('获取用户数据结果：暂无数据！');
+
+                    }else{
+
+                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'暂无数据！','');
+
+                    }
+
+                }else if(result.code == -1){
+
+                    if(flag){
+
+                        console.log('获取用户数据结果：异常错误！');
+
+                    }else{
+
+                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'异常错误！','');
+
+                    }
+
+                }else if(result.code == -3){
+
+                    if(flag){
+
+                        console.log('获取用户数据结果：参数错误！');
+
+                    }else{
+
+                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'参数错误！','');
+
+                    }
+
+                }else if(result.code == -4){
+
+                    if(flag){
+
+                        console.log('获取用户数据结果：内容已存在！');
+
+                    }else{
+
+                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'内容已存在！','');
+
+                    }
+
+                }else if(result.code == 0){
+
+                    arr = result.users;
+
+                }
+
+                if(flag){
+
+                    YHArr.length = 0;
+
+                    for(var i=0;i<arr.length;i++){
+
+                        YHArr.push(arr[i]);
+
+                    }
+
+                }else{
+
+                    _datasTable($('#YH-table'),arr);
+
+                }
+
+            },
+
+            error:_errorFun1
+
+        })
+
+    }
+
+    //获取户号数据
+    function HHData(flag){
+
+        var prm = {
+
+            keyword:$('#keyWord-HH').val()
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url: sessionStorage.apiUrlPrefix + 'DREpr/GetEprBindAcctSelectDs',
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            success:function(result){
+
+                var arr = [];
+
+                if(result.code == -2){
+
+                    console.log('获取户号数据结果：暂无数据！');
+
+                }else if(result.code == -1){
+
+                    console.log('获取户号数据结果：异常错误！');
+
+                }else if(result.code == -3){
+
+                    console.log('获取户号数据结果：参数错误！');
+
+                }else if(result.code == -4){
+
+                    console.log('获取户号数据结果：内容已存在！');
+
+                }else if(result.code == 0){
+
+                    arr = result.accts;
+
+                }
+
+                if(flag){
+
+                    HHArr.length = 0;
+
+                    for(var i=0;i<arr.length;i++){
+
+                        HHArr.push(arr[i]);
+
+                    }
+
+                }else{
+
+                    _datasTable($('#HH-table'),arr);
+
+                }
+
+            },
+
+            error:_errorFun1
+
+        })
 
     }
 

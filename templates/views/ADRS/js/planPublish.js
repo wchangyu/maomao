@@ -6,12 +6,6 @@
     //记录当前选中的userId
     var _thisID = '';
 
-    //当前选中的区域
-    var _thisDistrict = '';
-
-    //当前选中的套餐
-    var _thisMealArr = [];
-
     //已创建列表
     planData();
 
@@ -20,6 +14,12 @@
 
     //基线下拉列表
     baseData();
+
+    //事件插件
+    _timeHMSComponentsFun($('.datatimeblock'),2);
+
+    //记录当前参与户号数
+    _thisHnum = '';
 
     /*-----------------------------------表格初始化-------------------------------------*/
 
@@ -36,7 +36,7 @@
 
                     "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>" +
 
-                    "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "'>发布</span>"
+                    "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>"
 
             }
         },
@@ -63,6 +63,10 @@
         {
             title:'区域',
             data:'districtName'
+        },
+        {
+            title:'参与户号数',
+            data:'takeInAcctNbers'
         },
         {
             title:'套餐（多个）',
@@ -150,6 +154,143 @@
 
         //密码不显示
         $('.password-block').hide();
+
+    })
+
+    //发布
+    $('#table tbody').on('click','.option-publish',function(){
+
+        $('#theLoading').modal('show');
+
+        _thisID = $(this).attr('data-userid');
+
+        _thisHnum = $(this).attr('data-public');
+
+        //初始化
+        $('#publish-Modal').find('input').val('');
+
+        //模态框
+        _moTaiKuang($('#publish-Modal'),'发布','','','','发布');
+
+        //数据
+        var prm = {
+
+            planId:_thisID
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlan/GetDRPlanById',
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if(result.code == 0){
+
+                    //赋值
+                    //事件名称
+                    $('#plan-name-publish').val(result.plan.planName);
+                    //消减负荷
+                    $('#reduce-load-publish').val(result.plan.reduceLoad);
+                    //参与区域
+                    $('#district-publish').val(result.plan.districtName);
+                    //参与户号数
+                    $('#num-publish').val(_thisHnum);
+                    //默认截至日期
+                    var byTime = moment(result.plan.createDate).add(2,'days').format('YYYY-MM-DD HH:mm:ss');
+                    //赋值
+                    $('#plan-by-time').val(byTime);
+
+
+                }
+
+            },
+
+            error:_errorFun
+
+        })
+
+    })
+
+    //发布【确定按钮】
+    $('#publish-Modal').on('click','.btn-primary',function(){
+
+        $('#theLoading').modal('show');
+
+        var prm = {
+
+            //事件id
+            planId:_thisID,
+            //反馈截止时间
+            abortDate:$('#plan-by-time').val()
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlanPublish/DRPlanPublish',
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                _isReloadData = true;
+
+                if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                }else if(result.code == 0){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'发布成功！', '');
+
+                }
+
+            },
+
+            error:_errorFun
+
+        })
+
+    })
+
+    //提示关闭之后，再刷新数据
+    $('#tip-Modal').on('hidden.bs.modal',function(){
+
+        if(_isReloadData){
+
+            conditionSelect();
+
+        }
+
+        //标识重置
+        _isReloadData = false;
 
     })
 
@@ -266,8 +407,6 @@
                 var str = '';
 
                 if(result.code == 0 || result.code == -2){
-
-                    console.log(111);
 
                     for(var i=0;i<result.planIdns.length;i++){
 
