@@ -233,11 +233,11 @@
         //样式
         changeCss($(this));
 
-        //获取当前的用户id
-        _thisID = $(this).attr('data-userid');
-
         //初始化
         createInit();
+
+        //获取当前的用户id
+        _thisID = $(this).attr('data-userid');
 
         //模态框
         _moTaiKuang($('#create-Modal'), '提示', false, '' ,'', '保存');
@@ -284,11 +284,11 @@
         //样式
         changeCss($(this));
 
-        //获取当前的用户id
-        _thisID = $(this).attr('data-userid');
-
         //初始化
         createInit();
+
+        //获取当前的用户id
+        _thisID = $(this).attr('data-userid');
 
         //模态框
         _moTaiKuang($('#create-Modal'), '确定要删除吗？', false, '' ,'', '删除');
@@ -326,7 +326,7 @@
 
                 type:'post',
 
-                url:_urls + 'DRLibrary/LogicDRLibrary',
+                url:sessionStorage.apiUrlPrefix + 'DRLibrary/LogicDRLibrary',
 
                 data:prm,
 
@@ -389,6 +389,9 @@
 
         $('#create-Modal').find('textarea').val('');
 
+        //记录当前选中的userId
+        _thisID = '';
+
     }
 
     //获取所有产品
@@ -409,7 +412,7 @@
 
             type:'post',
 
-            url:_urls + 'DRLibrary/GetDRLibraryDs',
+            url:sessionStorage.apiUrlPrefix + 'DRLibrary/GetDRLibraryDs',
 
             data:prm,
 
@@ -419,12 +422,7 @@
 
                 $('#theLoading').modal('hide');
 
-                if($('.modal-backdrop').length > 0){
-
-                    $('div').remove('.modal-backdrop');
-
-                    $('#theLoading').hide();
-                }
+                var arr = [];
 
                 if(result.code == -2){
 
@@ -444,9 +442,11 @@
 
                 }else if(result.code == 0){
 
-                    _jumpNow($('#table'),result.libs);
+                    arr = result.libs;
 
                 }
+
+                _jumpNow($('#table'),arr);
 
             },
 
@@ -532,7 +532,7 @@
 
             type:'post',
 
-            url:_urls + url,
+            url:sessionStorage.apiUrlPrefix + url,
 
             timeout:_theTimes,
 
@@ -616,7 +616,7 @@
 
             type:'post',
 
-            url:_urls + 'DRLibrary/GetDRLibraryById',
+            url:sessionStorage.apiUrlPrefix + 'DRLibrary/GetDRLibraryById',
 
             data:prm,
 

@@ -242,6 +242,22 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "事件登记": {
+        "type": "0",
+        "content": "事件登记",
+        "uri": "../ADRS/planMade.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "事件发布": {
+        "type": "0",
+        "content": "事件发布",
+        "uri": "../ADRS/planPublish.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   },

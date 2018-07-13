@@ -460,7 +460,7 @@
 
             type:'post',
 
-            url:_urls + 'DRResource/GetDRResourceDs',
+            url:sessionStorage.apiUrlPrefix + 'DRResource/GetDRResourceDs',
 
             data:prm,
 
@@ -470,12 +470,7 @@
 
                 $('#theLoading').modal('hide');
 
-                if($('.modal-backdrop').length > 0){
-
-                    $('div').remove('.modal-backdrop');
-
-                    $('#theLoading').hide();
-                }
+                var arr = [];
 
                 if(result.code == -2){
 
@@ -495,9 +490,11 @@
 
                 }else if(result.code == 0){
 
-                    _jumpNow($('#table'),result.rces);
+                    arr = result.rces
 
                 }
+
+                _jumpNow($('#table'),arr);
 
             },
 
@@ -622,7 +619,7 @@
 
             type:'post',
 
-            url:_urls + url,
+            url:sessionStorage.apiUrlPrefix + url,
 
             timeout:_theTimes,
 
@@ -686,7 +683,7 @@
 
             type:'post',
 
-            url:_urls + 'DRAccount/GetDRAcctDs',
+            url:sessionStorage.apiUrlPrefix + 'DRAccount/GetDRAcctDs',
 
             data:prm,
 
@@ -739,7 +736,7 @@
 
             type:'post',
 
-            url:_urls + 'DRResource/GetDRResourceById',
+            url:sessionStorage.apiUrlPrefix + 'DRResource/GetDRResourceById',
 
             data:prm,
 

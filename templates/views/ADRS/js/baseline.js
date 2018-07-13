@@ -251,9 +251,6 @@
     //【删除】
     $('#table tbody').on('click','.option-shanchu',function(){
 
-
-        console.log(111);
-
         $('#theLoading').modal('show');
 
         //样式
@@ -304,7 +301,7 @@
 
                 type:'post',
 
-                url:_urls + 'DRAccount/LogicDelDRAcct',
+                url:sessionStorage.apiUrlPrefix + 'DRAccount/LogicDelDRAcct',
 
                 data:prm,
 
@@ -407,7 +404,7 @@
 
             type:'post',
 
-            url:_urls + 'DRBaseline/GetDRBaselineDs',
+            url:sessionStorage.apiUrlPrefix + 'DRBaseline/GetDRBaselineDs',
 
             data:prm,
 
@@ -417,12 +414,7 @@
 
                 $('#theLoading').modal('hide');
 
-                if($('.modal-backdrop').length > 0){
-
-                    $('div').remove('.modal-backdrop');
-
-                    $('#theLoading').hide();
-                }
+                var arr = [];
 
                 if(result.code == -2){
 
@@ -442,11 +434,11 @@
 
                 }else if(result.code == 0){
 
-                    var arr = result.drbls.reverse()
-
-                    _jumpNow($('#table'),arr);
+                    arr = result.drbls.reverse();
 
                 }
+
+                _jumpNow($('#table'),arr);
 
             },
 
@@ -571,7 +563,7 @@
 
             type:'post',
 
-            url:_urls + url,
+            url:sessionStorage.apiUrlPrefix + url,
 
             timeout:_theTimes,
 
@@ -641,7 +633,7 @@
 
             type:'post',
 
-            url:_urls + 'DRBaseline/GetDRBaselineById',
+            url:sessionStorage.apiUrlPrefix + 'DRBaseline/GetDRBaselineById',
 
             data:prm,
 

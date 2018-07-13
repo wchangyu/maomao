@@ -382,7 +382,7 @@
 
             type:'post',
 
-            url:_urls + 'DREpr/LogicDelDREprInfo',
+            url:sessionStorage.apiUrlPrefix + 'DREpr/LogicDelDREprInfo',
 
             data:prm,
 
@@ -536,7 +536,7 @@
 
             type:'post',
 
-            url:_urls + 'DREpr/GetDREprDs',
+            url:sessionStorage.apiUrlPrefix + 'DREpr/GetDREprDs',
 
             data:prm,
 
@@ -546,12 +546,7 @@
 
                 $('#theLoading').modal('hide');
 
-                if($('.modal-backdrop').length > 0){
-
-                    $('div').remove('.modal-backdrop');
-
-                    $('#theLoading').hide();
-                }
+                var arr = [];
 
                 if(result.code == -2){
 
@@ -571,9 +566,11 @@
 
                 }else if(result.code == 0){
 
-                    _jumpNow($('#table'),result.eprs);
+                    arr = result.eprs
 
                 }
+
+                _jumpNow($('#table'),arr);
 
             },
 
@@ -700,7 +697,7 @@
 
             type:'post',
 
-            url:_urls + url,
+            url:sessionStorage.apiUrlPrefix + url,
 
             timeout:_theTimes,
 
@@ -768,7 +765,7 @@
 
             type:'post',
 
-            url:_urls + 'DREpr/GetDREprDs',
+            url:sessionStorage.apiUrlPrefix + 'DREpr/GetDREprDs',
 
             data:prm,
 

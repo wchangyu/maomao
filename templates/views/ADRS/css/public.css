@@ -117,4 +117,12 @@ th{
 	
 }
 
+/*时间*/
+.datatimeblock{
+	background: url("../img/clendar.png") no-repeat #ffffff !important;
+	background-size: 25px !important;
+	background-position: 98% center !important;
+	cursor: pointer !important;
+}
+
 
