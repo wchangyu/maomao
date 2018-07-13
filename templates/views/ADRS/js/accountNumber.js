@@ -36,14 +36,6 @@ var Account = function(){
             data:'accountName'
         },
         {
-            title:'所属企业',
-            data:''
-        },
-        {
-            title:'所属企业名称',
-            data:''
-        },
-        {
             title:'所属区域',
             data:'districtName'
         },

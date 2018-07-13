@@ -70,7 +70,7 @@
         },
         {
             title:'所属户号',
-            data:'acctId'
+            data:'acctNt'
         },
         {
             title:'绑定设备个数',

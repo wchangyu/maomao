@@ -1,13 +1,39 @@
 ﻿var PlanMade = function () {
 
-    //条件刷新标识
-    var _isReloadData = false;
+    //首先要区分是登记页面还是编辑页面
 
-    //记录当前选中的userId
-    var _thisID = '';
+    var hrefFlag = window.location.search;
 
-    //当前选择的基线
-    var _thisBaseline = '';
+    if(hrefFlag){
+
+        //编辑
+
+        var flagSplit = hrefFlag.split('&');
+
+        var id = flagSplit[0].split('=')[1];
+
+        var state = flagSplit[1].split('=')[1];
+
+        //绑定数据
+        bind(id);
+
+        //加类名
+        $('#creatUser').removeClass('dengji').addClass('bianji').html('保存');
+
+        //是否跳回事件发布页面标识
+        var _isReloadData = true;
+
+    }else{
+
+        //是否跳回事件发布页面标识
+        var _isReloadData = false;
+
+        //登记
+
+        //加类名
+        $('#creatUser').removeClass('bianji').addClass('dengji').html('创建');
+
+    }
 
     //当前选中的区域
     var _thisDistrict = '';
@@ -17,6 +43,9 @@
 
     //时间插件
     _timeYMDComponentsFun11($('.datatimeblock'));
+
+    //基线数据加载
+    baselineData();
 
     /*-----------------------------------表格初始化-------------------------------------*/
 
@@ -379,39 +408,8 @@
 
     })
 
-    //【创建用户】
-    $('#creatUser').click(function(){
-
-        //loadding
-        $('#theLoading').modal('show');
-
-        //初始化
-        createInit();
-
-        //模态框
-        _moTaiKuang($('#create-Modal'), '提示', false, '' ,'', '创建');
-
-        //loadding
-        $('#theLoading').modal('hide');
-
-        //类
-        $('#create-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
-
-        //是否可编辑（都可编辑）
-        $('#create-Modal').find('input').attr('disabled',false);
-
-        $('#create-Modal').find('select').attr('disabled',false);
-
-        $('#create-Modal').find('textarea').attr('disabled',false);
-
-        //选择区域显示
-        $('.select-button').show();
-
-
-    })
-
     //创建用户【确定按钮】
-    $('#create-Modal').on('click','.dengji',function(){
+    $('.cmxform').on('click','.dengji',function(){
 
         $('#theLoading').modal('show');
 
@@ -422,68 +420,16 @@
         })
     })
 
-    //【选择基线】
-    $('.select-baseline').click(function(){
+    //编辑
+    $('.cmxform').on('click','.bianji',function(){
 
-        //初始化
-        $('#product-type').val(0);
+        $('#theLoading').modal('show');
 
-        $('#valuation-method').val(0);
+        formatValidate(function(){
 
-        //模态框
-        _moTaiKuang($('#baseline-Modal'),'基线','','','','选择');
+            sendOption('DRPlanMade/DRPlanModify','编辑成功！',true);
 
-        //数据
-        baselineData()
-
-    })
-
-    //基线条件选择【查询】
-    $('#selected-baseline-modal').click(function(){
-
-        baselineData();
-
-    })
-
-    //选择基线【tr】
-    $('#baseline-table tbody').on('click','tr',function(){
-
-        if($(this).hasClass('tables-hover')){
-
-            $('#baseline-table tbody').find('tr').removeClass('tables-hover');
-
-            $('#baseline-table tbody').find('input').parent('span').removeClass('checked');
-
-            $(this).removeClass('tables-hover');
-
-            $(this).find('input').parent('span').removeClass('checked');
-
-        }else{
-
-            $('#baseline-table tbody').find('tr').removeClass('tables-hover');
-
-            $('#baseline-table tbody').find('input').parent('span').removeClass('checked');
-
-            $(this).addClass('tables-hover');
-
-            $(this).find('input').parent('span').addClass('checked');
-
-        }
-
-    })
-
-    //选择基线【选择】
-    $('#baseline-Modal').on('click','.btn-primary',function(){
-
-        var nowSelected = $('#baseline-table tbody').find('.tables-hover');
-
-        _thisBaseline = nowSelected.children().eq(1).html();
-
-        var name = nowSelected.children().eq(2).html();
-
-        $('#baseline').val(name);
-
-        $('#baseline-Modal').modal('hide');
+        })
 
     })
 
@@ -627,27 +573,6 @@
 
     /*-----------------------------------其他方法-----------------------------------------*/
 
-    //模态框初始化
-    function createInit(){
-
-        //清空
-        $('#create-Modal').find('input').val('');
-
-        $('#create-Modal').find('select').val(1);
-
-        $('#create-Modal').find('textarea').val('');
-
-        //当前选中数据的id
-        _thisID = '';
-
-        //当前选中的基线
-        _thisBaseline = '';
-
-        //当前选中的套餐
-        _thisMealArr = [];
-
-    }
-
     //基线数据
     function baselineData(){
 
@@ -676,6 +601,8 @@
 
                 var arr = [];
 
+                var str = '';
+
                 if(result.code == -2){
 
                     _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
@@ -694,11 +621,18 @@
 
                 }else if(result.code == 0){
 
-                    arr = result.drbls.reverse();
+                    arr = result.drbls;
 
                 }
 
-                _jumpNow($('#baseline-table'),arr);
+                for(var i=0;i<arr.length;i++){
+
+                    str += '<option value="' + arr[i].id + '">' + arr[i].name + '</option>'
+
+                }
+
+                $('#baseline').empty().append(str);
+
 
             },
 
@@ -869,6 +803,96 @@
 
     }
 
+    //根据id获取详情（编辑时候用）
+    function bind(id){
+
+        var prm = {
+
+            planId:id
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlan/GetDRPlanById',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if(result.code == 0){
+
+                    //绑定数据
+                    //事件名称
+                    $('#plan-name').val(result.plan.planName);
+                    //开始时间
+                    $('#plan-st').val(result.plan.startDate);
+                    //结束时间
+                    $('#plan-et').val(result.plan.closeDate);
+                    //消减负荷
+                    $('#reduce-load').val(result.plan.reduceLoad);
+                    //描述
+                    $('#create-remark').val(result.plan.memo);
+                    //基线
+                    $('#baseline').val(result.plan.baselineId);
+                    //区域选择(文本)
+                    $('#district').val(result.plan.districtName);
+                    //区域选择（值）
+                    _thisDistrict = result.plan.districtId;
+                    //选择产品库（文本）
+                    var str = '';
+                    //选择产品库（值）
+                    _thisMealArr = [];
+
+                    for(var i=0;i<result.plan.librarys.length;i++){
+
+                        if(i==result.plan.librarys.length-1){
+
+                            str += result.plan.librarys[i].name;
+
+                        }else{
+
+                            str += result.plan.librarys[i].name + '、'
+
+                        }
+
+                        _thisMealArr.push(result.plan.librarys[i].id)
+
+                    }
+
+                    //赋值
+                    $('#set-meal').val(str);
+
+                }else if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                }
+
+            }
+
+        })
+
+    }
+
     //创建用户(flag代表是否传id)
     function sendOption(url,seccessMeg,flag){
 
@@ -885,7 +909,7 @@
             //创建人
             userId:sessionStorage.ADRS_UserId,
             //基线Id
-            baselineId:_thisBaseline,
+            baselineId:$('#baseline').val(),
             //区域Id
             districtId:_thisDistrict,
             //描述
@@ -897,7 +921,10 @@
 
         if(flag){
 
-
+            //id
+            prm.planId = id;
+            //状态
+            prm.planState = state;
         }
 
         $.ajax({
@@ -913,9 +940,6 @@
             success:function(result){
 
                 $('#theLoading').modal('hide');
-
-                //重载数据标识
-                _isReloadData = true;
 
                 if(result.code == 0){
 
@@ -951,6 +975,36 @@
         })
 
     }
+
+    //编辑成功之后，跳回发布界面
+    //提示关闭之后，再刷新数据
+    $('#tip-Modal').on('hidden.bs.modal',function(){
+
+        if(_isReloadData){
+
+            window.location.href = 'planPublish.html'
+
+        }else{
+
+            //初始化
+
+            $('.cmxform').find('input').val('');
+
+            $('.cmxform').find('select').val(1);
+
+            $('.cmxform').find('textarea').val('');
+
+            //当前选中的区域
+            var _thisDistrict = '';
+
+            //当前选中的套餐
+            var _thisMealArr = [];
+        }
+
+        //标识重置
+        _isReloadData = false;
+
+    })
 
     return {
         init: function () {

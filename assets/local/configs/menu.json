@@ -1951,6 +1951,45 @@
       }
     }
   },
+  "新闻": {
+    "type": "1",
+    "iconclass": "icon-note",
+    "content": "新闻",
+    "submenu": {
+      "新闻首页": {
+        "type": "0",
+        "content": "新闻首页",
+        "uri": "../news/news.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "添加新闻": {
+        "type": "0",
+        "content": "添加新闻",
+        "uri": "../news/news-1.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "栏目管理": {
+        "type": "0",
+        "content": "栏目管理",
+        "uri": "../news/news-2.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "新闻管理": {
+        "type": "0",
+        "content": "新闻管理",
+        "uri": "../news/news-3.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
   "统计分析": {
     "type": "1",
     "iconclass": "icon-note",

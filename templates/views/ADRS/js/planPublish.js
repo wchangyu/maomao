@@ -6,6 +6,12 @@
     //记录当前选中的userId
     var _thisID = '';
 
+    //当前选中的区域
+    var _thisDistrict = '';
+
+    //当前选中的套餐
+    var _thisMealArr = [];
+
     //已创建列表
     planData();
 
@@ -25,11 +31,12 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>编辑</span>" +
+                return  "<span class='data-option option-edit btn default btn-xs green-stripe'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
+                    "'>编辑</a></span>" +
 
-                    "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>删除</span>" +
+                    "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>" +
 
-                    "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>发布</span>"
+                    "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "'>发布</span>"
 
             }
         },
@@ -84,7 +91,7 @@
         },
         {
             title:'状态',
-            data:''
+            data:'planStateName'
         },
         {
             title:'登记时间',
@@ -106,6 +113,46 @@
     ]
 
     _tableInit($('#table'),col,2,true,'','','','');
+
+    /*-----------------------------------按钮事件-----------------------------------------*/
+
+    //删除
+    //【删除】
+    $('#table tbody').on('click','.option-shanchu',function(){
+
+        $('#theLoading').modal('show');
+
+        //样式
+        changeCss($(this));
+
+        //初始化
+        createInit();
+
+        //获取当前的用户id
+        _thisID = $(this).attr('data-userid');
+
+        //模态框
+        _moTaiKuang($('#create-Modal'), '确定要删除吗？', false, '' ,'', '删除');
+
+        //绑定数据
+        //bind(_thisID);
+
+        //类
+        $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
+
+        //是否可操作
+        //用户登陆名不能操作
+        $('#create-Modal').find('input').attr('disabled',true);
+
+        $('#create-Modal').find('select').attr('disabled',true);
+
+        $('#create-Modal').find('textarea').attr('disabled',true);
+
+        //密码不显示
+        $('.password-block').hide();
+
+    })
+
 
     /*-----------------------------------其他方法-----------------------------------------*/
 
@@ -336,6 +383,30 @@
             error:_errorFun
 
         })
+
+    }
+
+    //样式
+    function changeCss(el){
+
+        $('.table tbody').find('tr').removeClass('tables-hover');
+
+        el.parents('tr').addClass('tables-hover');
+
+    }
+
+    //创建用户初始化
+    function createInit(){
+
+        //清空
+        $('#create-Modal').find('input').val('');
+
+        $('#create-Modal').find('select').val(1);
+
+        $('#create-Modal').find('textarea').val('');
+
+        //记录当前选中的userId
+        _thisID = '';
 
     }
 

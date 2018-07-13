@@ -99,14 +99,6 @@
         {
             title:'产品描述',
             data:'memo'
-        },
-        {
-            title:'创建时间',
-            data:'createDate'
-        },
-        {
-            title:'更新时间',
-            data:'createDate'
         }
 
     ]
