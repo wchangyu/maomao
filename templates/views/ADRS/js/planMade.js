@@ -21,7 +21,7 @@
         $('#creatUser').removeClass('dengji').addClass('bianji').html('保存');
 
         //是否跳回事件发布页面标识
-        var _isReloadData = true;
+        var _isReloadData = false;
 
     }else{
 
@@ -41,8 +41,36 @@
     //当前选中的套餐
     var _thisMealArr = [];
 
+    var now = moment().format('YYYY-MM-DD HH:mm:ss');
+
     //时间插件
-    _timeYMDComponentsFun11($('.datatimeblock'));
+    //_timeHMSComponentsFun($('.datatimeblock'),2);
+
+    $('.datatimeblock').eq(0).datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,  //1时间  2日期  3月份 4年份
+        forceParse: 0,
+        startDate:now
+    });
+
+    $('.datatimeblock').eq(1).datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,  //1时间  2日期  3月份 4年份
+        forceParse: 0,
+        startDate:now,
+        maxView:1
+    });
+
+    //样式
+    $('.datetimepicker').eq(1).find('.next').css({'fontSize':0});
 
     //基线数据加载
     baselineData();
@@ -915,7 +943,9 @@
             //描述
             memo:$('#create-remark').val(),
             //产品库(套餐)列表
-            librarys:_thisMealArr
+            librarys:_thisMealArr,
+            //角色
+            userRole:sessionStorage.ADRS_UserRole
 
         };
 
@@ -945,6 +975,30 @@
 
                     //创建成功
                     _moTaiKuang($('#tip-Modal'),'提示',true,true,seccessMeg,'');
+
+                    if(flag){
+
+                        _isReloadData = true;
+
+                    }else{
+
+                        //初始化
+
+                        $('.cmxform').find('input').val('');
+
+                        $('.cmxform').find('select').val(1);
+
+                        $('.cmxform').find('textarea').val('');
+
+                        //当前选中的区域
+                        var _thisDistrict = '';
+
+                        //当前选中的套餐
+                        var _thisMealArr = [];
+
+                    }
+
+
 
                     //模态框消失
                     $('#create-Modal').modal('hide');
@@ -984,21 +1038,6 @@
 
             window.location.href = 'planPublish.html'
 
-        }else{
-
-            //初始化
-
-            $('.cmxform').find('input').val('');
-
-            $('.cmxform').find('select').val(1);
-
-            $('.cmxform').find('textarea').val('');
-
-            //当前选中的区域
-            var _thisDistrict = '';
-
-            //当前选中的套餐
-            var _thisMealArr = [];
         }
 
         //标识重置

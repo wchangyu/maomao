@@ -250,6 +250,8 @@
 
                 _isReloadData = true;
 
+                console.log(result.code);
+
                 if(result.code == -2){
 
                     _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
@@ -267,6 +269,8 @@
                     _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
 
                 }else if(result.code == 0){
+
+                    $('#publish-Modal').modal('hide');
 
                     _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'发布成功！', '');
 
