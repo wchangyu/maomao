@@ -120,22 +120,12 @@ var Login = function(){
 
                                 var url = ''
 
-                                if(sessionStorage.redirectFromPage){
-
-                                    url = sessionStorage.redirectFromPage;
-
-                                }else{
-
-                                    url = sessionStorage.indexUrl;
-
-                                }
-
                                 sessionStorage.userName = 'mch';
 
                                 getMenu();
 
                                 //跳转
-                                window.location.href = url;
+                                //window.location.href = url;
 
                             }
                         },
@@ -233,7 +223,6 @@ var Login = function(){
 
     var directToIndex = function(){
 
-
         if(_isMenuLoaded){
 
             if(sessionStorage.indexUrl){
@@ -247,7 +236,9 @@ var Login = function(){
                 sessionStorage.removeItem('redirectFromPage');
             }else{
 
-                window.location.href = _indexUrl;
+                console.log('跳转')
+
+                //window.location.href = _indexUrl;
             }
         }
 
