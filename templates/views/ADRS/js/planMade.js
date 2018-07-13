@@ -65,6 +65,7 @@
         startView: 1,  //1时间  2日期  3月份 4年份
         forceParse: 0,
         startDate:now,
+        endDate:now,
         maxView:1
     });
 

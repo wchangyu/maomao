@@ -218,6 +218,8 @@ var Login = function(){
 
                     sessionStorage.menuStr = JSON.stringify(str);
 
+                    sessionStorage.curMenuStr = JSON.stringify(str);
+
                     _isMenuLoaded = true;
 
                     directToIndex();
