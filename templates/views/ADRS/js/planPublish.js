@@ -16,7 +16,7 @@
     baseData();
 
     //事件插件
-    _timeHMSComponentsFun($('.datatimeblock'),2);
+    //_timeHMSComponentsFun($('.datatimeblock'),2);
 
     //记录当前参与户号数
     _thisHnum = '';
@@ -31,12 +31,33 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return  "<span class='data-option option-edit btn default btn-xs green-stripe'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
-                    "'>编辑</a></span>" +
+                if(full.planState == 2){
 
-                    "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>" +
+                    return ''
 
-                    "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>"
+                }else{
+
+                    //如果户号数为0，不显示
+
+                    if(full.takeInAcctNbers == 0){
+
+                        return  "<span class='data-option option-edit btn default btn-xs green-stripe'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
+                            "'>编辑</a></span>" +
+
+                            "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>"
+
+                    }else{
+
+                        return  "<span class='data-option option-edit btn default btn-xs green-stripe'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
+                            "'>编辑</a></span>" +
+
+                            "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>" +
+
+                            "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>"
+
+                    }
+
+                }
 
             }
         },
@@ -206,6 +227,22 @@
                     $('#num-publish').val(_thisHnum);
                     //默认截至日期
                     var byTime = moment(result.plan.createDate).add(2,'days').format('YYYY-MM-DD HH:mm:ss');
+
+                    var start = moment(result.plan.createDate).format('YYYY-MM-DD HH:mm:ss');
+
+                    $('#plan-by-time').datetimepicker({
+                        language:  'zh-CN',//此处修改
+                        weekStart: 1,
+                        todayBtn:  1,
+                        autoclose: 1,
+                        todayHighlight: 1,
+                        startView: 2,  //1时间  2日期  3月份 4年份
+                        forceParse: 0,
+                        startDate:start
+                    });
+
+                    //样式
+
                     //赋值
                     $('#plan-by-time').val(byTime);
 
@@ -225,62 +262,68 @@
 
         $('#theLoading').modal('show');
 
-        var prm = {
+        if(_thisHnum == 0){
 
-            //事件id
-            planId:_thisID,
-            //反馈截止时间
-            abortDate:$('#plan-by-time').val()
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'参与户号数为0，不能发布！','发布');
+
+        }else{
+
+            var prm = {
+
+                //事件id
+                planId:_thisID,
+                //反馈截止时间
+                abortDate:$('#plan-by-time').val()
+
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:sessionStorage.apiUrlPrefix + 'DRPlanPublish/DRPlanPublish',
+
+                timeout:_theTimes,
+
+                data:prm,
+
+                success:function(result){
+
+                    $('#theLoading').modal('hide');
+
+                    _isReloadData = true;
+
+                    if(result.code == -2){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                    }else if(result.code == -1){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                    }else if(result.code == -3){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                    }else if(result.code == -4){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                    }else if(result.code == 0){
+
+                        $('#publish-Modal').modal('hide');
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'发布成功！', '');
+
+                    }
+
+                },
+
+                error:_errorFun
+
+            })
 
         }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'DRPlanPublish/DRPlanPublish',
-
-            timeout:_theTimes,
-
-            data:prm,
-
-            success:function(result){
-
-                $('#theLoading').modal('hide');
-
-                _isReloadData = true;
-
-                console.log(result.code);
-
-                if(result.code == -2){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                }else if(result.code == -1){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                }else if(result.code == -3){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                }else if(result.code == -4){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                }else if(result.code == 0){
-
-                    $('#publish-Modal').modal('hide');
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'发布成功！', '');
-
-                }
-
-            },
-
-            error:_errorFun
-
-        })
 
     })
 

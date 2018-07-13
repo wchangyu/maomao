@@ -44,7 +44,6 @@
     var now = moment().format('YYYY-MM-DD HH:mm:ss');
 
     //时间插件
-    //_timeHMSComponentsFun($('.datatimeblock'),2);
 
     $('.datatimeblock').eq(0).datetimepicker({
         language:  'zh-CN',//此处修改
@@ -68,9 +67,6 @@
         startDate:now,
         maxView:1
     });
-
-    //样式
-    $('.datetimepicker').eq(1).find('.next').css({'fontSize':0});
 
     //基线数据加载
     baselineData();
