@@ -2185,6 +2185,16 @@
         "iconclass": "",
         "target": "",
         "arg2": "admin,WXBZ01"
+      },
+      "液氧用量统计表": {
+        "type": "0",
+        "content": "液氧用量统计表",
+        "uri": "../gongdanxitong/liquidOxygen.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
       }
     }
   },

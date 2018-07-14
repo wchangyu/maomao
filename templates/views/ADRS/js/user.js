@@ -16,9 +16,9 @@
             "data": null,
             render:function(data, type, full, meta){
 
-               return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.userId + "'>编辑</span>" +
+               return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.userId + "'>编辑</span>"
 
-                   "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.userId + "'>删除</span>"
+                   //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.userId + "'>删除</span>"
 
             }
         },

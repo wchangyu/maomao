@@ -65,9 +65,10 @@
         startView: 1,  //1时间  2日期  3月份 4年份
         forceParse: 0,
         startDate:now,
-        endDate:now,
         maxView:1
     });
+
+    $('.datetimepicker').eq(1).find('.next').css({'visibility':'hidden'});
 
     //基线数据加载
     baselineData();
@@ -987,16 +988,10 @@
 
                         $('.cmxform').find('textarea').val('');
 
-                        //当前选中的区域
-                        var _thisDistrict = '';
-
-                        //当前选中的套餐
-                        var _thisMealArr = [];
+                        _isReloadData = true;
 
                     }
-
-
-
+                    
                     //模态框消失
                     $('#create-Modal').modal('hide');
 

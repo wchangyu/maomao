@@ -30,6 +30,9 @@
     //当前选中的企业类型
     var _thisType = '';
 
+    //存放当前所有数据的列表
+    var _allMainArr = [];
+
     /*-----------------------------------表格初始化-------------------------------------*/
 
     //主表格
@@ -40,19 +43,27 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
+                if(full.eprType == 1){
 
-                    "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
+                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
 
-                    "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>" +
+                        //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
 
-                    "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>绑定户号</span>"
+                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>"
+
+                }else{
+
+                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
+
+                        //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
+
+                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>" +
+
+                        "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>绑定户号</span>"
+
+                }
 
             }
-        },
-        {
-            title:'标识',
-            data:'eprId'
         },
         {
             title:'编码',
@@ -71,49 +82,84 @@
             data:'eprTypeName'
         },
         {
-            title:'所属用户',
-            data:''
+            title: '所属用户',
+            data: 'user',
+            render: function (data, type, full, meta) {
+
+                var arr = [];
+
+                if(data){
+
+                    arr.push(data);
+
+                }
+
+                var str = '';
+
+                for(var i=0;i<arr.length;i++){
+
+                    str = arr[0].userName;
+
+                }
+
+                return str
+            }
         },
         {
-            title:'绑定户号',
-            data:''
+            title:'绑定户号数',
+            data:'accts',
+            className:'details-HH',
+            render: function (data, type, full, meta) {
+
+                return '<span data-id="' + full.eprId + '"> '+ data.length + '</span>';
+
+            }
         },
         {
-            title:'地址',
-            data:'address'
+            title:'其他',
+            "targets": -1,
+            "data": null,
+            "className":'table-detail',
+            render:function(data, type, full, meta){
+
+                return '<span data-id="' + full.eprId + '">查看</span>'
+
+            }
         },
-        {
-            title:'联系人',
-            data:'linkMan'
-        },
-        {
-            title:'联系方式',
-            data:'phone'
-        },
-        {
-            title:'邮箱',
-            data:'eMail'
-        },
-        {
-            title:'行业机构',
-            data:'agencyTypeName'
-        },
-        {
-            title:'是否有效',
-            data:'isDelName'
-        },
-        {
-            title:'创建时间',
-            data:'createDate'
-        },
-        {
-            title:'描述',
-            data:'memo'
-        }
 
     ]
 
-    _tableInit($('#table'),col,2,true,'','','','');
+    var _table = $('#table').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": true,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": false,
+        "ordering": false,
+        "bProcessing":true,
+        "iDisplayLength":50,//默认每页显示的条数
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":'t<"F"lip>',
+        'buttons':{
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs hiddenButton'
+        },
+        "columns": col
+    });
 
     //选择聚合商表格
     var JHCol = [
@@ -859,6 +905,85 @@
 
     })
 
+    //绑定户号
+    $('#table tbody').on('click', '.details-HH', function () {
+
+        //存放当前企业所绑定户号的数组
+        var thisEprHHArr = [];
+
+        var thisEprId = $(this).children().attr('data-id');
+
+        for(var i=0;i<_allMainArr.length;i++){
+
+            if(_allMainArr[i].eprId == thisEprId){
+
+                for(var j=0;j<_allMainArr[i].accts.length;j++){
+
+                    thisEprHHArr.push(_allMainArr[i].accts[j]);
+
+                }
+
+            }
+
+        }
+
+        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+
+        var row = _table.row( tr );
+
+        if ( row.child.isShown() ) {
+
+            row.child.hide();
+
+            tr.removeClass('shown');
+
+        }
+        else {
+
+            row.child( formatHH(thisEprHHArr) ).show();
+
+            tr.addClass('shown');
+        }
+    } );
+
+    //查看表格其他详情
+    $('#table tbody').on('click','.table-detail',function(){
+
+        //存放当前企业信息的数组
+        var thisEprArr = [];
+
+        var thisEprId = $(this).children().attr('data-id');
+
+        for(var i=0;i<_allMainArr.length;i++){
+
+            if(_allMainArr[i].eprId == thisEprId){
+
+                thisEprArr.push(_allMainArr[i]);
+
+            }
+
+        }
+
+        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+
+        var row = _table.row( tr );
+
+        if ( row.child.isShown() ) {
+
+            row.child.hide();
+
+            tr.removeClass('shown');
+
+        }
+        else {
+
+            row.child( formatDetail(thisEprArr) ).show();
+
+            tr.addClass('shown');
+        }
+
+    })
+
     /*-------------------------------------其他方法-----------------------------------------*/
 
     //获取所有产品
@@ -910,6 +1035,14 @@
                     _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
 
                 }else if(result.code == 0){
+
+                    _allMainArr.length = 0;
+
+                    for(var i=0;i<result.eprs.length;i++){
+
+                        _allMainArr.push(result.eprs[i]);
+
+                    }
 
                     arr = result.eprs
 
@@ -1341,6 +1474,80 @@
             error:_errorFun1
 
         })
+
+    }
+
+    //显示隐藏
+    function formatHH ( d ) {
+
+        var theader = '<table class="table table-bordered table-advance table-hover">' + '<thead><tr><td>户号</td><td>户号名称</td><td>所属区域</td><td>是否有效</td><td>创建时间</td><td>描述</td></tr></thead>';
+
+        var theaders = '</table>';
+
+        var tbodyer = '<tbody>'
+
+        var tbodyers = '</tbody>';
+
+        var str = '';
+
+        for(var i=0;i< d.length;i++){
+
+            str += '<tr>';
+                    //户号
+            str += '<td>'+ d[i].accountId +'</td>' +
+                    //户号名称
+                   '<td>'+ d[i].accountName +'</td>' +
+                    //所属区域
+                   '<td>'+ d[i].districtName +'</td>' +
+                    //是否有效
+                   '<td>'+ d[i].isDelName +'</td>' +
+                    //创建时间
+                   '<td>'+ d[i].createDate +'</td>' +
+                    //描述
+                   '<td>'+ d[i].memo +'</td>';
+
+            str += '</tr>';
+        }
+        return theader + tbodyer + str + tbodyers + theaders;
+    }
+
+    //显示详情
+    function formatDetail(d){
+
+        var theader = '<table class="table table-bordered table-advance table-hover">' + '<thead><tr><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td><td>行业机构</td><td>是否有效</td><td>创建时间</td><td>描述</td></tr></thead>';
+
+        var theaders = '</table>';
+
+        var tbodyer = '<tbody>'
+
+        var tbodyers = '</tbody>';
+
+        var str = '';
+
+        for(var i=0;i< d.length;i++){
+
+            str += '<tr>';
+            //地址
+            str += '<td>'+ d[i].address +'</td>' +
+                    //联系人
+                '<td>'+ d[i].linkMan +'</td>' +
+                    //联系方式
+                '<td>'+ d[i].phone +'</td>' +
+                    //邮箱
+                '<td>'+ d[i].eMail +'</td>' +
+                    //行业机构
+                '<td>'+ d[i].agencyTypeName +'</td>' +
+                    //是否有效
+                '<td>'+ d[i].isDelName +'</td>'+
+                    //创建时间
+                '<td>'+ d[i].createDate +'</td>'+
+                    //描述
+                '<td>'+ d[i].memo +'</td>';
+
+            str += '</tr>';
+        }
+
+        return theader + tbodyer + str + tbodyers + theaders;
 
     }
 
