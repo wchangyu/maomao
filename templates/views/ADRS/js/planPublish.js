@@ -42,7 +42,7 @@
                     return  "<span class='data-option option-edit btn default btn-xs green-stripe'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
                         "'>编辑</a></span>" +
 
-                        "<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>" +
+                        //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>" +
 
                         "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>"
 
