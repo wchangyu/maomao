@@ -125,4 +125,16 @@ th{
 	cursor: pointer !important;
 }
 
+.subTableTitle{
+
+	background: rgb(226, 233, 242);
+
+}
+
+.subTable>tbody>tr>td, .subTable>tbody>tr>th, .subTable>tfoot>tr>td, .subTable>tfoot>tr>th, .subTable>thead>tr>td, .subTable>thead>tr>th{
+
+	border: 2px solid #cccccc !important;
+
+}
+
 

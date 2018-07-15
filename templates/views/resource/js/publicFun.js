@@ -208,7 +208,7 @@ function _timeComponentsFun(el){
 /*-----------------------dataTable---------------------------*/
 
 //基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页,导出列,每页显示列数,最后一个是否分页)；
-function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr,num,isPaging){
+function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr,num,isPaging,headerCallback){
 
     var buttonVisible = [
         {
@@ -296,7 +296,8 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
         'buttons':buttons,
         "columns": col,
         "fnRowCallback": fnRowCallback,
-        "drawCallback":drawCallback
+        "drawCallback":drawCallback,
+        "headerCallback":headerCallback
     });
 
     if(flag){

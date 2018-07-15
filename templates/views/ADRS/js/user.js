@@ -35,10 +35,10 @@
             title:'用户角色',
             data:'roleName'
         },
-        {
-            title:'是否有效',
-            data:'isDelName'
-        },
+        //{
+        //    title:'是否有效',
+        //    data:'isDelName'
+        //},
         {
             title:'创建时间',
             data:'createDate'
@@ -332,7 +332,8 @@
             role:$('#role').val(),
 
             //是否有效
-            isdel:$('#effective').val()
+            isdel:0
+            //isdel:$('#effective').val()
 
         }
 

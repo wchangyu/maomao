@@ -82,6 +82,10 @@
             data:'eprTypeName'
         },
         {
+            title:'行业机构',
+            data:'agencyTypeName'
+        },
+        {
             title: '所属用户',
             data: 'user',
             render: function (data, type, full, meta) {
@@ -111,7 +115,7 @@
             className:'details-HH',
             render: function (data, type, full, meta) {
 
-                return '<span data-id="' + full.eprId + '"> '+ data.length + '</span>';
+                return '（<span data-id="' + full.eprId + '" style="font-weight: bold;text-decoration: underline;color: #2170f4;text-align: center;line-height: 30px;"> '+  data.length + '  ' + '</span>）';
 
             }
         },
@@ -122,7 +126,7 @@
             "className":'table-detail',
             render:function(data, type, full, meta){
 
-                return '<span data-id="' + full.eprId + '">查看</span>'
+                return '<span data-id="' + full.eprId + '" style="color:#2170f4;text-decoration: underline ">详情</span>'
 
             }
         },
@@ -211,10 +215,10 @@
             title:'行业机构',
             data:'agencyTypeName'
         },
-        {
-            title:'是否有效',
-            data:'isDelName'
-        },
+        //{
+        //    title:'是否有效',
+        //    data:'isDelName'
+        //},
         {
             title:'创建时间',
             data:'createDate'
@@ -254,10 +258,10 @@
             title:'用户角色',
             data:'roleName'
         },
-        {
-            title:'是否有效',
-            data:'isDelName'
-        },
+        //{
+        //    title:'是否有效',
+        //    data:'isDelName'
+        //},
         {
             title:'创建时间',
             data:'createDate'
@@ -296,10 +300,10 @@
             title:'所属区域',
             data:'districtName'
         },
-        {
-            title:'是否有效',
-            data:'isDelName'
-        },
+        //{
+        //    title:'是否有效',
+        //    data:'isDelName'
+        //},
         {
             title:'创建时间',
             data:'createDate'
@@ -998,7 +1002,8 @@
             //企业及居民类型
             eprtype:$('#people-type').val(),
             //是否有效
-            isdel:$('#valuation-method').val()
+            //isdel:$('#valuation-method').val()
+            isdel:0
 
         }
 
@@ -1241,7 +1246,8 @@
             //企业及居民类型
             eprtype:1,
             //是否有效
-            isdel:$('#valuation-method-modal').val()
+            //isdel:$('#valuation-method-modal').val()
+            isdel:0
 
         }
 
@@ -1480,7 +1486,7 @@
     //显示隐藏
     function formatHH ( d ) {
 
-        var theader = '<table class="table table-bordered table-advance table-hover">' + '<thead><tr><td>户号</td><td>户号名称</td><td>所属区域</td><td>是否有效</td><td>创建时间</td><td>描述</td></tr></thead>';
+        var theader = '<table class="table table-bordered table-advance table-hover">' + '<thead><tr><td>户号</td><td>户号名称</td><td>所属区域</td><td>创建时间</td><td>描述</td></tr></thead>';
 
         var theaders = '</table>';
 
@@ -1499,8 +1505,6 @@
                    '<td>'+ d[i].accountName +'</td>' +
                     //所属区域
                    '<td>'+ d[i].districtName +'</td>' +
-                    //是否有效
-                   '<td>'+ d[i].isDelName +'</td>' +
                     //创建时间
                    '<td>'+ d[i].createDate +'</td>' +
                     //描述
@@ -1514,7 +1518,7 @@
     //显示详情
     function formatDetail(d){
 
-        var theader = '<table class="table table-bordered table-advance table-hover">' + '<thead><tr><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td><td>行业机构</td><td>是否有效</td><td>创建时间</td><td>描述</td></tr></thead>';
+        var theader = '<table class="table table-bordered table-advance table-hover">' + '<thead><tr><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td><td>创建时间</td><td>描述</td></tr></thead>';
 
         var theaders = '</table>';
 
@@ -1535,10 +1539,6 @@
                 '<td>'+ d[i].phone +'</td>' +
                     //邮箱
                 '<td>'+ d[i].eMail +'</td>' +
-                    //行业机构
-                '<td>'+ d[i].agencyTypeName +'</td>' +
-                    //是否有效
-                '<td>'+ d[i].isDelName +'</td>'+
                     //创建时间
                 '<td>'+ d[i].createDate +'</td>'+
                     //描述
