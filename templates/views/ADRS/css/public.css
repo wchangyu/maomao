@@ -137,4 +137,16 @@ th{
 
 }
 
+.table-error{
+
+	border: 2px solid red;
+
+}
+
+.error-tip{
+
+	color: red;
+
+}
+
 

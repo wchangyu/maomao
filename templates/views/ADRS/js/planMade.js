@@ -242,11 +242,11 @@
                 }
 
             }
-        },
-        {
-            title:'是否有效',
-            data:'isDelName'
         }
+        //{
+        //    title:'是否有效',
+        //    data:'isDelName'
+        //}
 
     ]
 

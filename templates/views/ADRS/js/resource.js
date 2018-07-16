@@ -127,10 +127,10 @@
             title:'所属区域',
             data:'districtName'
         },
-        {
-            title:'是否有效',
-            data:'isDelName'
-        },
+        //{
+        //    title:'是否有效',
+        //    data:'isDelName'
+        //},
         {
             title:'创建时间',
             data:'createDate'

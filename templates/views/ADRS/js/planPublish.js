@@ -115,10 +115,10 @@
             title:'创建人',
             data:'createPlanUserName'
         },
-        {
-            title:'是否有效',
-            data:'isDelName'
-        },
+        //{
+        //    title:'是否有效',
+        //    data:'isDelName'
+        //},
         {
             title:'备注',
             data:'memo'

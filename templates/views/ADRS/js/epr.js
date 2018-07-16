@@ -1003,7 +1003,7 @@
             eprtype:$('#people-type').val(),
             //是否有效
             //isdel:$('#valuation-method').val()
-            isdel:0
+            isdel:2
 
         }
 
@@ -1247,7 +1247,7 @@
             eprtype:1,
             //是否有效
             //isdel:$('#valuation-method-modal').val()
-            isdel:0
+            isdel:2
 
         }
 

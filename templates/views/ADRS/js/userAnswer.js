@@ -182,7 +182,7 @@
             data:'CYSC',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="input-required table-group-action-input form-control" name="input-required">'
+                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
 
             }
         },
@@ -191,7 +191,7 @@
             data:'CCXJFHL',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="table-group-action-input form-control">'
+                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
 
             }
         },
@@ -200,7 +200,7 @@
             data:'SDXYL',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="table-group-action-input form-control">'
+                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
 
             }
         },
@@ -209,7 +209,7 @@
             data:'ZDXYL',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="table-group-action-input form-control">'
+                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
 
             }
         },
@@ -371,6 +371,41 @@
         //暂时先不考虑
         var inputs = $(this).parents('tr').find('input');
 
+        //格式验证
+        //首先验证非空
+        for(var i=0;i<inputs.length;i++){
+
+            if(inputs.eq(i).val() == ''){
+
+                //指出哪个是不符合的
+                inputs.eq(i).addClass('table-error');
+
+                inputs.eq(i).next('.error-tip').html('该项为必填字段').show();
+
+            }else{
+
+                //非空验证通过之后，验证正则
+                var reg = /^\d+(\.\d+)?$/;
+
+                if(reg.test(inputs.eq(i).val())){
+
+                    inputs.eq(i).next('.error-tip').html('').hide();
+
+
+
+                }else{
+
+                    $(this).next('.error-tip').html('请输入大于0的数字').show();
+
+                }
+
+            }
+
+        }
+
+
+        return false;
+
         //暂存当前的值
         var valueArr = [];
 
@@ -420,6 +455,35 @@
     $('#table-D tbody').on('click','.option-del',function(){
 
         $(this).parents('tr').remove();
+    })
+
+    //【大用户回应验证】
+    $('#table-D tbody').on('keyup','.input-required',function(){
+
+        //验证非空
+        if($(this).val() == ''){
+
+            $(this).next('.error-tip').html('该项为必填字段').show();
+
+        }else{
+
+            $(this).next('.error-tip').html('').hide();
+
+            //验证格式
+            var reg = /^\d+(\.\d+)?$/;
+
+            if(reg.test($(this).val())){
+
+                $(this).next('.error-tip').html('').hide();
+
+            }else{
+
+                $(this).next('.error-tip').html('请输入大于0的数字').show();
+
+            }
+
+        }
+
     })
 
     /*-------------------------------------其他方法-----------------------------------------*/

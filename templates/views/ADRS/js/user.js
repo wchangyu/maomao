@@ -332,7 +332,7 @@
             role:$('#role').val(),
 
             //是否有效
-            isdel:0
+            isdel:2
             //isdel:$('#effective').val()
 
         }
