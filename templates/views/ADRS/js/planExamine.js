@@ -32,50 +32,6 @@
 
     ];
 
-    //大用户响应数据
-    var _DYHArr = [
-
-        {
-
-            CYSC:'0.6',
-            CCXJFHL:'300',
-            SDXYL:'0',
-            ZDXYL:'300'
-
-        },
-        {
-
-            CYSC:'0.5',
-            CCXJFHL:'200',
-            SDXYL:'0',
-            ZDXYL:'200'
-
-        }
-
-    ]
-
-    //聚合商响应数据
-    var _JHSArr = [
-
-        {
-
-            HH:'0.6',
-            CCXJFHL:'300',
-            SDXYL:'0',
-            ZDXYL:'300'
-
-        },
-        {
-
-            HH:'0.5',
-            CCXJFHL:'200',
-            SDXYL:'0',
-            ZDXYL:'200'
-
-        }
-
-    ]
-
     //当前是聚合商还是大用户
     var _eprType = 1;
 
@@ -299,13 +255,34 @@
     //登陆者获取事件
     conditionSelect();
 
+    //echarts参数
+    var option = {
+
+        xAxis: {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line'
+        }]
+
+    }
+
     /*-------------------------------------按钮事件-----------------------------------------*/
+
+    var indexE = 0;
 
     //点击【详情】
     $('#table tbody').on('click', '.detail-button', function () {
 
         //存放当前企业所绑定户号的数组
         var thisEprHHArr = [];
+
+        indexE ++;
 
         //var thisEprId = $(this).children().attr('data-id');
         //
@@ -336,7 +313,7 @@
         }
         else {
 
-            row.child( formatDetail(thisEprHHArr) ).show();
+            row.child( formatDetail(thisEprHHArr,indexE) ).show();
 
             //初始化表格(搞清楚当前是聚合商0还是大用户1);
             var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
@@ -350,6 +327,13 @@
                 _tableInit(innerTable,JCol,2,true,'','',true,'',10);
 
             }
+
+            //基线表格初始化
+            var echartId = $(this).parents('tr').next('tr').find('.baseline-echart').attr('id');
+
+            var echarts = echarts.init(document.getElementById(echartId));
+
+            echarts.setOption(option,true);
 
             tr.addClass('shown');
         }
@@ -592,13 +576,13 @@
     }
 
     //显示详情
-    function formatDetail(d){
+    function formatDetail(d,num){
 
         var theader = '<table class="table table-bordered table-advance table-hover subTable">';
 
         var theaders = '</table>';
 
-        var tbodyer = '<tbody>'
+        var tbodyer = '<tbody>';
 
         var tbodyers = '</tbody>';
 
@@ -616,17 +600,19 @@
         str += '<tr>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>产品名称Con</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>548</td>' + '<td class="subTableTitle">提前通知时间</td>' + '<td></td>'  + '<td class="subTableTitle">产品描述</td>' + '<td></td>'  + '</tr>';
 
         //用户响应的table
+        //echarts图
+        var block = '<div class="row">';
 
-        //button【增加一行】
-        var button = '<div style="text-align: left !important;margin-bottom: 5px;">' + '<button class="btn green add-button">' + '增加行 <i class="fa fa-plus"></i>' + '</button>' + '</div>';
+        var echart = '<div class="col-lg-6 col-md-6 col-sm-12"><div class="baseline-echart" id="echart' + num +'" style="height: 300px;background: red"></div></div>'
 
-        //首先判断是大用户还是聚合商
-        var answerTable = '<table class="table innerTable table-bordered table-advance table-hover"><thead></thead><tbody></tbody></table>';
+        var moeo = '<div class="col-lg-6 col-md-6 col-sm-12"><textarea id="remark" style="height: 300px;"class="table-group-action-input form-control"></textarea></div></div>'
 
-        //button【保存】
-        var answerButton = '<div style="text-align: left !important;margin-bottom: 5px;">' + '<button class="btn green answer-button">' + '确定回应' + '</button>' + '</div>';
+        var blocks = '</div>';
 
-        return theader + tbodyer + str + tbodyers + theaders + button + answerTable + answerButton;
+        //审核按钮
+        var examineButton = '<div style="text-align: left !important;margin: 5px 0;"><button class="btn green add-button">审核</button></div>';
+
+        return theader + tbodyer + str + tbodyers + theaders + block + echart + moeo + blocks + examineButton;
 
     }
 

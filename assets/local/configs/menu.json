@@ -258,7 +258,32 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "用户响应": {
+        "type": "0",
+        "content": "用户响应",
+        "uri": "../ADRS/userAnswer.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "用户筛选": {
+        "type": "0",
+        "content": "用户筛选",
+        "uri": "../ADRS/userChoose.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "事件审核": {
+        "type": "0",
+        "content": "事件审核",
+        "uri": "../ADRS/planExamine.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
+
     }
   },
   "高效机房": {

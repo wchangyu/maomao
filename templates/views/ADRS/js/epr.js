@@ -38,48 +38,26 @@
     //主表格
     var col=[
         {
-            title:'编辑操作',
-            "targets": -1,
-            "data": null,
+            title:'类型',
+            data:'eprTypeName',
+            className:'eprType',
             render:function(data, type, full, meta){
 
-                if(full.eprType == 1){
-
-                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
-
-                        //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
-
-                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>"
-
-                }else{
-
-                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
-
-                        //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
-
-                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>" +
-
-                        "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>绑定户号</span>"
-
-                }
+                return '<span data-id="' + full.eprId + '" style="color:#2170f4;text-decoration: underline ">' + data + '</span>'
 
             }
-        },
-        {
-            title:'编码',
-            data:'eprCode'
         },
         {
             title:'名称',
             data:'eprName'
         },
         {
-            title:'签署容量（kW）',
-            data:'signatureVolume'
+            title:'编码',
+            data:'eprCode'
         },
         {
-            title:'类型',
-            data:'eprTypeName'
+            title:'签署容量（kW）',
+            data:'signatureVolume'
         },
         {
             title:'行业机构',
@@ -115,7 +93,15 @@
             className:'details-HH',
             render: function (data, type, full, meta) {
 
-                return '（<span data-id="' + full.eprId + '" style="font-weight: bold;text-decoration: underline;color: #2170f4;text-align: center;line-height: 30px;"> '+  data.length + '  ' + '</span>）';
+                if(full.eprType == 1){
+
+                    return ''
+
+                }else{
+
+                    return '（<span data-id="' + full.eprId + '" style="font-weight: bold;text-decoration: underline;color: #2170f4;text-align: center;line-height: 30px;"> '+  data.length + '  ' + '</span>）';
+
+                }
 
             }
         },
@@ -127,6 +113,139 @@
             render:function(data, type, full, meta){
 
                 return '<span data-id="' + full.eprId + '" style="color:#2170f4;text-decoration: underline ">详情</span>'
+
+            }
+        },
+        {
+            title:'编辑操作',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                if(full.eprType == 1){
+
+                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
+
+                            //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
+
+                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>"
+
+                }else{
+
+                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
+
+                            //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
+
+                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>" +
+
+                        "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>绑定户号</span>"
+
+                }
+
+            }
+        },
+    ]
+
+    var colT=[
+
+        {
+            title:'类型',
+            data:'eprTypeName'
+        },
+        {
+            title:'名称',
+            data:'eprName'
+        },
+        {
+            title:'编码',
+            data:'eprCode'
+        },
+        {
+            title:'签署容量（kW）',
+            data:'signatureVolume'
+        },
+        {
+            title:'行业机构',
+            data:'agencyTypeName'
+        },
+        {
+            title: '所属用户',
+            data: 'user',
+            render: function (data, type, full, meta) {
+
+                var arr = [];
+
+                if(data){
+
+                    arr.push(data);
+
+                }
+
+                var str = '';
+
+                for(var i=0;i<arr.length;i++){
+
+                    str = arr[0].userName;
+
+                }
+
+                return str
+            }
+        },
+        {
+            title:'绑定户号数',
+            data:'accts',
+            className:'details-HHT',
+            render: function (data, type, full, meta) {
+
+                if(full.eprType == 1){
+
+                    return ''
+
+                }else{
+
+                    return '（<span data-id="' + full.eprId + '" style="font-weight: bold;text-decoration: underline;color: #2170f4;text-align: center;line-height: 30px;"> '+  data.length + '  ' + '</span>）';
+
+                }
+
+            }
+        },
+        {
+            title:'其他',
+            "targets": -1,
+            "data": null,
+            "className":'table-detailT',
+            render:function(data, type, full, meta){
+
+                return '<span data-id="' + full.eprId + '" style="color:#2170f4;text-decoration: underline ">详情</span>'
+
+            }
+        },
+        {
+            title:'编辑操作',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                if(full.eprType == 1){
+
+                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
+
+                            //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
+
+                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>"
+
+                }else{
+
+                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
+
+                            //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
+
+                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>" +
+
+                        "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>绑定户号</span>"
+
+                }
 
             }
         },
@@ -163,6 +282,27 @@
             className:'saveAs hiddenButton'
         },
         "columns": col
+        //rowCallback:function(row, data){
+        //
+        //    var table = $(this).DataTable();
+        //
+        //    var rows = table.row(row);
+        //
+        //    if(data.childs == null){
+        //
+        //
+        //
+        //    }else{
+        //
+        //        //行回调，插入表格
+        //        rows.child( JHdownDYH(data.childs) ).show();
+        //
+        //        //对插入的表格初始化
+        //        //_tableInit($(this).find('.table'),col,2,true,'','',true,'',10);
+        //
+        //    }
+        //
+        //}
     });
 
     //选择聚合商表格
@@ -986,8 +1126,145 @@
             tr.addClass('shown');
         }
 
+    });
+
+    //点击类型，查看下边子用户
+    $('#table tbody').on('click','.eprType',function(){
+
+        //获取子用户
+        //存放当前企业信息的数组
+        var thisEprArr = [];
+
+        var thisEprId = $(this).children().attr('data-id');
+
+        for(var i=0;i<_allMainArr.length;i++){
+
+            if(_allMainArr[i].eprId == thisEprId){
+
+                if(_allMainArr[i].childs != null){
+
+                    for(var j=0;j<_allMainArr[i].childs.length;j++){
+
+                        thisEprArr.push(_allMainArr[i].childs[j]);
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+
+        var row = _table.row( tr );
+
+        if ( row.child.isShown() ) {
+
+            row.child.hide();
+
+            tr.removeClass('shown');
+
+        }
+        else {
+
+            row.child( JHdownDYH() ).show();
+
+            var innerTable = $(this).parents('tr').next('tr').find('.tableDlist');
+
+            //初始化表格
+            _tableInit(innerTable,colT,2,true,'','',true,'',10);
+
+            _datasTable(innerTable,thisEprArr);
+
+            tr.addClass('shown');
+        }
+
     })
 
+    //子用户查看绑定户号
+    $('#table').on('click','.tableDlist .details-HHT',function(e){
+
+        //存放当前企业所绑定户号的数组
+        var thisEprHHArr = [];
+
+        var thisEprId = $(this).children().attr('data-id');
+
+        for(var i=0;i<_allMainArr.length;i++){
+
+            if(_allMainArr[i].eprId == thisEprId){
+
+                for(var j=0;j<_allMainArr[i].accts.length;j++){
+
+                    thisEprHHArr.push(_allMainArr[i].accts[j]);
+
+                }
+
+            }
+
+        }
+
+        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+
+        var table = $(this).parents('.tableDlist').DataTable();
+
+        var row = table.row( tr );
+
+        if ( row.child.isShown() ) {
+
+            row.child.hide();
+
+            tr.removeClass('shown');
+
+        }
+        else {
+
+            row.child( formatHH(thisEprHHArr) ).show();
+
+            tr.addClass('shown');
+        }
+
+    })
+
+    //自用户查看详情
+    $('#table').on('click','.tableDlist .table-detailT',function(e){
+
+        //存放当前企业信息的数组
+        var thisEprArr = [];
+
+        var thisEprId = $(this).children().attr('data-id');
+
+        for(var i=0;i<_allMainArr.length;i++){
+
+            if(_allMainArr[i].eprId == thisEprId){
+
+                thisEprArr.push(_allMainArr[i]);
+
+            }
+
+        }
+
+        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+
+        var table = $(this).parents('.tableDlist').DataTable();
+
+        var row = table.row( tr );
+
+        if ( row.child.isShown() ) {
+
+            row.child.hide();
+
+            tr.removeClass('shown');
+
+        }
+        else {
+
+            row.child( formatDetail(thisEprArr) ).show();
+
+            tr.addClass('shown');
+        }
+
+    })
     /*-------------------------------------其他方法-----------------------------------------*/
 
     //获取所有产品
@@ -1548,6 +1825,84 @@
         }
 
         return theader + tbodyer + str + tbodyers + theaders;
+
+    }
+
+    //聚合商下的大用户列表显示
+    function JHdownDYH(d){
+
+        var table = '<table class="table tableDlist table-bordered table-advance table-hover"><thead></thead><tbody></tbody></table>'
+
+        return  table
+
+        //var table = '<table class="table tableDlist table-bordered table-advance table-hover">';
+        //
+        //var header = '<thead><tr><th>编辑操作</th><th>编码</th><th>名称</th><th>签署容量（kW）</th><th>类型</th><th>行业机构</th><th>所属用户</th><th class="details-HH">绑定户号数</th><th class="table-detail">其他</th></tr></thead>'
+        //
+        //var tbody = '<tbody>'
+        //
+        //var str = '';
+        //
+        //for(var i=0;i< d.length;i++){
+        //
+        //    str += '<tr>'
+        //
+        //    //记录当前企业id
+        //    var id = d[i].eprId;
+        //
+        //    //记录当前用户名
+        //    var userName = '';
+        //
+        //    if(d[i].user != null){
+        //
+        //        for(var j=0;j<d[i].user.length;j++){
+        //
+        //            userName = d[i].user[j].userName
+        //
+        //        }
+        //
+        //    }
+        //
+        //    //记录当前户号数
+        //    var HNum = d[i].accts.length;
+        //
+        //    //编辑操作
+        //    str += '<td><span class="data-option option-edit btn default btn-xs green-stripe" data-userid="' + id + '">编辑</span><span class="data-option option-yonghu btn default btn-xs green-stripe" data-userid="' + id + '">绑定用户</span><span class="data-option option-huhao btn default btn-xs green-stripe" data-userid="' + id + '">绑定户号</span></td>';
+        //
+        //    //编码
+        //    str +='<td>'+ d[i].eprCode +'</td>'
+        //
+        //    //名称
+        //    str += '<td>' + d[i].eprName + '</td>'
+        //
+        //    //签署容量（kW）
+        //    str += '<td>'+ d[i].signatureVolume +'</td>'
+        //
+        //    //类型
+        //    str += '<td>'+ d[i].eprTypeName +'</td>'
+        //
+        //    //行业机构
+        //    str += '<td>'+ d[i].agencyTypeName +'</td>'
+        //
+        //    //所属用户
+        //    str += '<td>'+ userName +'</td>'
+        //
+        //    //绑定户号数
+        //    str += '<td class="details-HH">'+ '(' + '<span data-id="' + id + '" style="font-weight: bold;text-decoration: underline;color: #2170f4;text-align: center;line-height: 30px;">' + HNum +  '</span>' + ')' + '</td>'
+        //
+        //    //其他
+        //    str += '<td class="table-detail">' + '<span data-id="' + id + '" style="color:#2170f4;text-decoration: underline ">详情</span>' + '</td>'
+        //
+        //    str +='</tr>'
+        //
+        //
+        //}
+        //
+        //var tbodys = '</tbody>'
+        //
+        //var tables = '</table>'
+        //
+        //return table + header + tbody + str +  tbodys + tables;
 
     }
 
