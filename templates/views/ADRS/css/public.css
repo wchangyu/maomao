@@ -149,4 +149,10 @@ th{
 
 }
 
+.page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:last-child{
+
+	padding-right:10px;
+
+}
+
 

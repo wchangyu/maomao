@@ -12,9 +12,6 @@
     //存放账户所有数据
     var YHArr = [];
 
-    //获取账户数据
-    YHData(true);
-
     //存放户号所有数据
     var HHArr = [];
 
@@ -38,6 +35,9 @@
 
     //记录当前选中的行
     var thisRow = '';
+
+    //选择账户的时候，绑定当前企业的企业类型
+    var _thisEprType = '';
 
     /*-----------------------------------表格初始化-------------------------------------*/
 
@@ -118,19 +118,15 @@
 
                 if(full.eprType == 1){
 
-                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
+                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>编辑</span>" +
 
-                            //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
-
-                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>设置账户</span>"
+                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>设置账户</span>"
 
                 }else{
 
-                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
+                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>编辑</span>" +
 
-                            //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
-
-                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>设置账户</span>" +
+                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>设置账户</span>" +
 
                         "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>管理户号</span>"
 
@@ -730,6 +726,13 @@
         //赋值
         _thisID = $(this).attr('data-userid');
 
+        var eprType = $(this).attr('data-type');
+
+        _thisEprType = eprType;
+
+        //获取用户数据
+        YHData(eprType);
+
         //模态框
         _moTaiKuang($('#select-YH-Modal'),'账户','','','','选择');
 
@@ -772,65 +775,75 @@
 
         var selectedTr = $('#YH-table tbody').find('.tables-hover');
 
-        //给id赋值
-        _thisYHID = selectedTr.find('.checker').attr('data-id');
+        if(selectedTr.length == 0){
 
-        //模态框
-        $('#select-YH-Modal').modal('hide');
+            $('#theLoading').modal('hide');
 
-        //发送请求
-        var prm = {
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择账户！','');
 
-            //企业及居民id
-            eprId:_thisID,
-            //账户登录账户Id
-            userId:_thisYHID
+        }else{
+
+            //给id赋值
+            _thisYHID = selectedTr.find('.checker').attr('data-id');
+
+            //模态框
+            $('#select-YH-Modal').modal('hide');
+
+            //发送请求
+            var prm = {
+
+                //企业及居民id
+                eprId:_thisID,
+                //账户登录账户Id
+                userId:_thisYHID
+
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:sessionStorage.apiUrlPrefix + 'DREpr/CreateEprBindUserBySelect',
+
+                data:prm,
+
+                timeout:_theTimes,
+
+                success:function(result){
+
+                    $('#theLoading').modal('hide');
+
+                    _isReloadData = true;
+
+                    if(result.code == -2){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                    }else if(result.code == -1){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                    }else if(result.code == -3){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                    }else if(result.code == -4){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                    }else if(result.code == 0){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'设置账户成功！', '');
+
+                    }
+
+                },
+
+                error:_errorFun
+
+            })
 
         }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'DREpr/CreateEprBindUserBySelect',
-
-            data:prm,
-
-            timeout:_theTimes,
-
-            success:function(result){
-
-                $('#theLoading').modal('hide');
-
-                _isReloadData = true;
-
-                if(result.code == -2){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                }else if(result.code == -1){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                }else if(result.code == -3){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                }else if(result.code == -4){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                }else if(result.code == 0){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'设置账户成功！', '');
-
-                }
-
-            },
-
-            error:_errorFun
-
-        })
 
 
     })
@@ -839,7 +852,7 @@
     $('#selected-user-modal').click(function(){
 
         //数据
-        YHData();
+        YHData(_thisEprType);
 
     })
 
@@ -889,72 +902,82 @@
 
         _thisHHArr.length = 0;
 
-        //给id赋值
+        if(selectedTr.length == 0){
 
-        for(var i=0;i<selectedTr.length;i++){
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择户号！','');
 
-            _thisHHArr.push(selectedTr.eq(i).find('.checker').attr('data-id'))
+        }else{
+
+            $('#theLoading').modal('show');
+
+            //给id赋值
+
+            for(var i=0;i<selectedTr.length;i++){
+
+                _thisHHArr.push(selectedTr.eq(i).find('.checker').attr('data-id'))
+
+            }
+
+            //模态框
+            $('#select-HH-Modal').modal('hide');
+
+            //发送请求
+            var prm = {
+
+                //企业及居民id
+                eprId:_thisID,
+                //账户登录账户Id
+                acctIds:_thisHHArr,
+                //企业及居民类型
+                eprType:_thisType
+
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:sessionStorage.apiUrlPrefix + 'DREpr/CreateEprBindAcctsBySelect',
+
+                data:prm,
+
+                timeout:_theTimes,
+
+                success:function(result){
+
+                    $('#theLoading').modal('hide');
+
+                    _isReloadData = true;
+
+                    if(result.code == -2){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                    }else if(result.code == -1){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                    }else if(result.code == -3){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                    }else if(result.code == -4){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                    }else if(result.code == 0){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'设置账户成功！', '');
+
+                    }
+
+                },
+
+                error:_errorFun
+
+            })
 
         }
-
-        //模态框
-        $('#select-HH-Modal').modal('hide');
-
-        //发送请求
-        var prm = {
-
-            //企业及居民id
-            eprId:_thisID,
-            //账户登录账户Id
-            acctIds:_thisHHArr,
-            //企业及居民类型
-            eprType:_thisType
-
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'DREpr/CreateEprBindAcctsBySelect',
-
-            data:prm,
-
-            timeout:_theTimes,
-
-            success:function(result){
-
-                $('#theLoading').modal('hide');
-
-                _isReloadData = true;
-
-                if(result.code == -2){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                }else if(result.code == -1){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                }else if(result.code == -3){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                }else if(result.code == -4){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                }else if(result.code == 0){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'设置账户成功！', '');
-
-                }
-
-            },
-
-            error:_errorFun
-
-        })
 
 
 
@@ -1759,11 +1782,15 @@
     }
 
     //获取账户数据
-    function YHData(flag){
+    function YHData(eprType){
+
+        $('#theLoading').modal('show');
 
         var prm = {
 
-            keyword:$('#keyWord-YH').val()
+            keyword:$('#keyWord-YH').val(),
+
+            eprType:eprType
 
         }
 
@@ -1779,55 +1806,25 @@
 
             success:function(result){
 
+                $('#theLoading').modal('hide');
+
                 var arr = [];
 
                 if(result.code == -2){
 
-                    if(flag){
-
-                        console.log('获取账户数据结果：暂无数据！');
-
-                    }else{
-
-                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'暂无数据！','');
-
-                    }
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'暂无数据！','');
 
                 }else if(result.code == -1){
 
-                    if(flag){
-
-                        console.log('获取账户数据结果：异常错误！');
-
-                    }else{
-
-                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'异常错误！','');
-
-                    }
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'异常错误！','');
 
                 }else if(result.code == -3){
 
-                    if(flag){
-
-                        console.log('获取账户数据结果：参数错误！');
-
-                    }else{
-
-                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'参数错误！','');
-
-                    }
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'参数错误！','');
 
                 }else if(result.code == -4){
 
-                    if(flag){
-
-                        console.log('获取账户数据结果：内容已存在！');
-
-                    }else{
-
-                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'内容已存在！','');
-
-                    }
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'内容已存在！','');
 
                 }else if(result.code == 0){
 
@@ -1835,21 +1832,7 @@
 
                 }
 
-                if(flag){
-
-                    YHArr.length = 0;
-
-                    for(var i=0;i<arr.length;i++){
-
-                        YHArr.push(arr[i]);
-
-                    }
-
-                }else{
-
-                    _datasTable($('#YH-table'),arr);
-
-                }
+                _datasTable($('#YH-table'),arr);
 
             },
 

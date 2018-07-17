@@ -232,7 +232,7 @@ var Login = function(){
 
             if(sessionStorage.redirectFromPage){
                 window.location.href = sessionStorage.redirectFromPage;
-                sessionStorage.removeItem('redirectFromPage');
+
             }else{
 
                 window.location.href = _indexUrl;
