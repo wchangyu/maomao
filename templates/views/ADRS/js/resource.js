@@ -271,7 +271,7 @@
 
     })
 
-    //【创建用户】
+    //【创建账户】
     $('#creatUser').click(function(){
 
         //loadding
@@ -302,7 +302,7 @@
 
     })
 
-    //创建用户【确定按钮】
+    //创建账户【确定按钮】
     $('#create-Modal').on('click','.dengji',function(){
 
         $('#theLoading').modal('show');
@@ -325,7 +325,7 @@
         //初始化
         createInit();
 
-        //获取当前的用户id
+        //获取当前的账户id
         _thisID = $(this).attr('data-userid');
 
         //模态框
@@ -338,7 +338,7 @@
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
 
         //是否可操作
-        //用户登陆名不能操作
+        //账户登陆名不能操作
         $('#create-Modal').find('input').attr('disabled',false);
 
         $('#create-Modal').find('select').attr('disabled',false);
@@ -566,7 +566,7 @@
 
     }
 
-    //创建用户(flag代表是否传id)
+    //创建账户(flag代表是否传id)
     function sendOption(url,seccessMeg,flag){
 
         var iscomm = ''

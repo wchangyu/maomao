@@ -6,13 +6,13 @@
     //记录当前选中的userId
     var _thisID = '';
 
-    //创建大用户的时候，记录聚合商id
+    //创建大账户的时候，记录聚合商id
     var _JHID = '';
 
-    //存放用户所有数据
+    //存放账户所有数据
     var YHArr = [];
 
-    //获取用户数据
+    //获取账户数据
     YHData(true);
 
     //存放户号所有数据
@@ -21,7 +21,7 @@
     //获取户号数据
     HHData(true);
 
-    //记录当前选中的用户id
+    //记录当前选中的账户id
     var _thisYHID = '';
 
     //记录当前选中的户号
@@ -33,6 +33,12 @@
     //存放当前所有数据的列表
     var _allMainArr = [];
 
+    //当前选中聚合商下的用户列表数组
+    var _currentJHArr = [];
+
+    //记录当前选中的行
+    var thisRow = '';
+
     /*-----------------------------------表格初始化-------------------------------------*/
 
     //主表格
@@ -43,7 +49,15 @@
             className:'eprType',
             render:function(data, type, full, meta){
 
-                return '<span data-id="' + full.eprId + '" style="color:#2170f4;text-decoration: underline ">' + data + '</span>'
+                if(full.eprType == 1){
+
+                    return '<span data-id="' + full.eprId + '" style="color:#2170f4;text-decoration: underline " data-type="' + full.eprType +'">' + data + '</span>'
+
+                }else{
+
+                    return '<span style="color: #333333">' + data + '</span>'
+
+                }
 
             }
         },
@@ -64,42 +78,22 @@
             data:'agencyTypeName'
         },
         {
-            title: '所属用户',
-            data: 'user',
-            render: function (data, type, full, meta) {
-
-                var arr = [];
-
-                if(data){
-
-                    arr.push(data);
-
-                }
-
-                var str = '';
-
-                for(var i=0;i<arr.length;i++){
-
-                    str = arr[0].userName;
-
-                }
-
-                return str
-            }
+            title: '登录账户',
+            data: 'userName'
         },
         {
-            title:'绑定户号数',
-            data:'accts',
+            title:'管理户号数',
+            data:'takeInPlanAcctNumber',
             className:'details-HH',
-            render: function (data, type, full, meta) {
+            render:function(data, type, full, meta){
 
                 if(full.eprType == 1){
 
-                    return ''
+
 
                 }else{
 
-                    return '（<span data-id="' + full.eprId + '" style="font-weight: bold;text-decoration: underline;color: #2170f4;text-align: center;line-height: 30px;"> '+  data.length + '  ' + '</span>）';
+                    return '（<span style="text-decoration: underline;" data-id="' + full.eprId +'" data-type="' + full.eprType +'">' + data + '</span>）'
 
                 }
 
@@ -128,7 +122,7 @@
 
                             //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
 
-                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>"
+                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>设置账户</span>"
 
                 }else{
 
@@ -136,9 +130,9 @@
 
                             //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
 
-                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>" +
+                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>设置账户</span>" +
 
-                        "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>绑定户号</span>"
+                        "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>管理户号</span>"
 
                 }
 
@@ -147,10 +141,23 @@
     ]
 
     var colT=[
-
         {
             title:'类型',
-            data:'eprTypeName'
+            data:'eprTypeName',
+            className:'eprType',
+            render:function(data, type, full, meta){
+
+                if(full.eprType == 1){
+
+                    return '<span data-id="' + full.eprId + '" style="color:#2170f4;text-decoration: underline " data-type="' + full.eprType +'">' + data + '</span>'
+
+                }else{
+
+                    return '<span style="color: #333333">' + data + '</span>'
+
+                }
+
+            }
         },
         {
             title:'名称',
@@ -169,42 +176,22 @@
             data:'agencyTypeName'
         },
         {
-            title: '所属用户',
-            data: 'user',
-            render: function (data, type, full, meta) {
-
-                var arr = [];
-
-                if(data){
-
-                    arr.push(data);
-
-                }
-
-                var str = '';
-
-                for(var i=0;i<arr.length;i++){
-
-                    str = arr[0].userName;
-
-                }
-
-                return str
-            }
+            title: '登录账户',
+            data: 'userName'
         },
         {
-            title:'绑定户号数',
-            data:'accts',
+            title:'管理户号数',
+            data:'takeInPlanAcctNumber',
             className:'details-HHT',
-            render: function (data, type, full, meta) {
+            render:function(data, type, full, meta){
 
                 if(full.eprType == 1){
 
-                    return ''
+
 
                 }else{
 
-                    return '（<span data-id="' + full.eprId + '" style="font-weight: bold;text-decoration: underline;color: #2170f4;text-align: center;line-height: 30px;"> '+  data.length + '  ' + '</span>）';
+                    return '（<span style="text-decoration: underline;" data-id="' + full.eprId +'" data-type="' + full.eprType +'">' + data + '</span>）'
 
                 }
 
@@ -229,11 +216,11 @@
 
                 if(full.eprType == 1){
 
-                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
+                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>"
 
                             //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
 
-                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>"
+                        //"<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>设置账户</span>"
 
                 }else{
 
@@ -241,15 +228,14 @@
 
                             //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
 
-                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>绑定用户</span>" +
+                        //"<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>设置账户</span>" +
 
-                        "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>绑定户号</span>"
+                        "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>管理户号</span>"
 
                 }
 
             }
         },
-
     ]
 
     var _table = $('#table').DataTable({
@@ -372,7 +358,7 @@
 
     _tableInit($('#JH-table'),JHCol,2,true,'','','','',10);
 
-    //用户表格
+    //账户表格
     var YHCol = [
 
         {
@@ -386,16 +372,16 @@
             }
         },
         {
-            title:'用户ID',
+            title:'账户ID',
             data:'sysuserId',
             className:'sysuserId'
         },
         {
-            title:'登陆用户名',
+            title:'登陆账户名',
             data:'userName'
         },
         {
-            title:'用户角色',
+            title:'账户角色',
             data:'roleName'
         },
         //{
@@ -603,7 +589,7 @@
 
     })
 
-    //【创建大用户】
+    //【创建大账户】
     $('#creatUserD').click(function(){
 
         //loadding
@@ -645,14 +631,14 @@
         })
     })
 
-    //创建大用户【确定按钮】
+    //创建大账户【确定按钮】
     $('#create-Modal-J').on('click','.dengjiD',function(){
 
         $('#theLoading').modal('show');
 
         formatValidate(function(){
 
-            sendOption('DREpr/CreateDREprInfoByConsumer','创建大用户成功！',false,true);
+            sendOption('DREpr/CreateDREprInfoByConsumer','创建大账户成功！',false,true);
 
         })
     })
@@ -665,7 +651,7 @@
         //样式
         changeCss($(this));
 
-        //获取当前的用户id
+        //获取当前的账户id
         _thisID = $(this).attr('data-userid');
 
         //模态框
@@ -735,7 +721,7 @@
 
     })
 
-    //【绑定用户】
+    //【设置账户】
     $('#table tbody').on('click','.option-yonghu',function(){
 
         //初始化
@@ -745,14 +731,14 @@
         _thisID = $(this).attr('data-userid');
 
         //模态框
-        _moTaiKuang($('#select-YH-Modal'),'用户','','','','选择');
+        _moTaiKuang($('#select-YH-Modal'),'账户','','','','选择');
 
         //数据
         _datasTable($('#YH-table'),YHArr);
 
     })
 
-    //用户选择【tr】
+    //账户选择【tr】
     $('#YH-table tbody').on('click','tr',function(){
 
         if($(this).hasClass('tables-hover')){
@@ -779,7 +765,7 @@
 
     })
 
-    //确定选中的用户id
+    //确定选中的账户id
     $('#select-YH-Modal').on('click','.btn-primary',function(){
 
         $('#theLoading').modal('show');
@@ -797,7 +783,7 @@
 
             //企业及居民id
             eprId:_thisID,
-            //用户登录账户Id
+            //账户登录账户Id
             userId:_thisYHID
 
         }
@@ -836,7 +822,7 @@
 
                 }else if(result.code == 0){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'绑定用户成功！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'设置账户成功！', '');
 
                 }
 
@@ -849,7 +835,7 @@
 
     })
 
-    //条件选择-用户【查询】
+    //条件选择-账户【查询】
     $('#selected-user-modal').click(function(){
 
         //数据
@@ -857,7 +843,7 @@
 
     })
 
-    //【绑定户号】
+    //【管理户号】
     $('#table tbody').on('click','.option-huhao',function(){
 
         //初始化
@@ -870,7 +856,7 @@
         _thisType = $(this).attr('data-type');
 
         //模态框
-        _moTaiKuang($('#select-HH-Modal'),'用户','','','','选择');
+        _moTaiKuang($('#select-HH-Modal'),'账户','','','','选择');
 
         //数据
         _datasTable($('#HH-table'),HHArr);
@@ -919,7 +905,7 @@
 
             //企业及居民id
             eprId:_thisID,
-            //用户登录账户Id
+            //账户登录账户Id
             acctIds:_thisHHArr,
             //企业及居民类型
             eprType:_thisType
@@ -930,7 +916,7 @@
 
             type:'post',
 
-            url:sessionStorage.apiUrlPrefix + 'DREpr/CreateEprBindUserBySelect',
+            url:sessionStorage.apiUrlPrefix + 'DREpr/CreateEprBindAcctsBySelect',
 
             data:prm,
 
@@ -960,7 +946,7 @@
 
                 }else if(result.code == 0){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'绑定用户成功！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'设置账户成功！', '');
 
                 }
 
@@ -1049,31 +1035,28 @@
 
     })
 
-    //绑定户号
+    //管理户号
     $('#table tbody').on('click', '.details-HH', function () {
 
-        //存放当前企业所绑定户号的数组
+        //存放当前企业所管理户号的数组
         var thisEprHHArr = [];
 
-        var thisEprId = $(this).children().attr('data-id');
+        var length = $(this).children('span').length;
 
-        for(var i=0;i<_allMainArr.length;i++){
+        if(length == 0){
 
-            if(_allMainArr[i].eprId == thisEprId){
-
-                for(var j=0;j<_allMainArr[i].accts.length;j++){
-
-                    thisEprHHArr.push(_allMainArr[i].accts[j]);
-
-                }
-
-            }
+            return
 
         }
 
-        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+        thisRow = $(this);
+
+        //首先判断是否需要获取数据
+
+        var tr = thisRow.closest('tr');  //找到距离按钮最近的行tr;
 
         var row = _table.row( tr );
+
 
         if ( row.child.isShown() ) {
 
@@ -1084,10 +1067,76 @@
         }
         else {
 
-            row.child( formatHH(thisEprHHArr) ).show();
+            $('#theLoading').modal('show');
 
-            tr.addClass('shown');
+            //获取绑定的户号信息
+
+            var eprId = $(this).children('span').attr('data-id');
+
+            var eprType = $(this).children('span').attr('data-type');
+
+            var prm = {
+
+                // 企业及居民Id
+                eprId:eprId,
+                //企业类型
+                eprType:eprType
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:sessionStorage.apiUrlPrefix + 'DREpr/GetDRAcctsByKAEpr',
+
+                data:prm,
+
+                timeout:_theTimes,
+
+                success:function(result){
+
+                    $('#theLoading').modal('hide');
+
+                    if(result.code == -2){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                    }else if(result.code == -1){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                    }else if(result.code == -3){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                    }else if(result.code == -4){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                    }else if(result.code == 0){
+
+                        for(var i=0;i<result.accts.length;i++){
+
+                            thisEprHHArr.push(result.accts[i]);
+
+                        }
+
+                    }
+
+                    row.child( formatHH(thisEprHHArr) ).show();
+
+                    tr.addClass('shown');
+
+                    //初始化变量
+                    thisRow = '';
+
+                },
+
+                error:_errorFun
+
+            })
         }
+
     } );
 
     //查看表格其他详情
@@ -1128,36 +1177,28 @@
 
     });
 
-    //点击类型，查看下边子用户
+    //点击类型，查看下边子账户
     $('#table tbody').on('click','.eprType',function(){
 
-        //获取子用户
+        thisRow = $(this);
+
         //存放当前企业信息的数组
         var thisEprArr = [];
 
-        var thisEprId = $(this).children().attr('data-id');
-
-        for(var i=0;i<_allMainArr.length;i++){
-
-            if(_allMainArr[i].eprId == thisEprId){
-
-                if(_allMainArr[i].childs != null){
-
-                    for(var j=0;j<_allMainArr[i].childs.length;j++){
-
-                        thisEprArr.push(_allMainArr[i].childs[j]);
-
-                    }
-
-                }
-
-            }
-
-        }
-
-        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+        var tr = thisRow.closest('tr');  //找到距离按钮最近的行tr;
 
         var row = _table.row( tr );
+
+        //首先判断是不是聚合商
+        var eprId = $(this).children('span').attr('data-id');
+
+        var eprType = $(this).children('span').attr('data-type');
+
+        if(eprType != 1){
+
+            return
+
+        }
 
         if ( row.child.isShown() ) {
 
@@ -1168,48 +1209,110 @@
         }
         else {
 
-            row.child( JHdownDYH() ).show();
+            $('#theLoading').modal('show');
 
-            var innerTable = $(this).parents('tr').next('tr').find('.tableDlist');
+            _currentJHArr.length = 0;
 
-            //初始化表格
-            _tableInit(innerTable,colT,2,true,'','',true,'',10);
+            //获取数据
+            var prm = {
 
-            _datasTable(innerTable,thisEprArr);
-
-            tr.addClass('shown');
-        }
-
-    })
-
-    //子用户查看绑定户号
-    $('#table').on('click','.tableDlist .details-HHT',function(e){
-
-        //存放当前企业所绑定户号的数组
-        var thisEprHHArr = [];
-
-        var thisEprId = $(this).children().attr('data-id');
-
-        for(var i=0;i<_allMainArr.length;i++){
-
-            if(_allMainArr[i].eprId == thisEprId){
-
-                for(var j=0;j<_allMainArr[i].accts.length;j++){
-
-                    thisEprHHArr.push(_allMainArr[i].accts[j]);
-
-                }
+                //聚合商
+                eprId:eprId,
+                //类型
+                eprType:eprType
 
             }
 
+            $.ajax({
+
+                type:'post',
+
+                url:sessionStorage.apiUrlPrefix + 'DREpr/GetDRSMAEprsByAgr',
+
+                data:prm,
+
+                timeout:_theTimes,
+
+                success:function(result){
+
+                    $('#theLoading').modal('hide');
+
+                    if(result.code == -2){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                    }else if(result.code == -1){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                    }else if(result.code == -3){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                    }else if(result.code == -4){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                    }else if(result.code == 0){
+
+                        for(var i=0;i<result.smaeprs.length;i++){
+
+                            thisEprArr.push(result.smaeprs[i]);
+
+                            _currentJHArr.push(result.smaeprs[i]);
+
+                        }
+
+                    }
+
+                    row.child( JHdownDYH() ).show();
+
+                    var innerTable = thisRow.parents('tr').next('tr').find('.tableDlist');
+
+                    //初始化表格
+                    _tableInit(innerTable,colT,2,true,'','',true,'',10);
+
+                    _datasTable(innerTable,thisEprArr);
+
+                    tr.addClass('shown');
+
+                },
+
+                error:_errorFun
+
+            })
         }
 
-        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+
+
+
+    })
+
+    //子账户查看管理户号
+    $('#table').on('click','.tableDlist .details-HHT',function(e){
+
+        //存放当前企业所管理户号的数组
+        var thisEprHHArr = [];
+
+        var length = $(this).children('span').length;
+
+        if(length == 0){
+
+            return
+
+        }
+
+        thisRow = $(this);
+
+        //首先判断是否需要获取数据
+
+        var tr = thisRow.closest('tr');  //找到距离按钮最近的行tr;
 
         var table = $(this).parents('.tableDlist').DataTable();
 
         var row = table.row( tr );
 
+
         if ( row.child.isShown() ) {
 
             row.child.hide();
@@ -1219,26 +1322,91 @@
         }
         else {
 
-            row.child( formatHH(thisEprHHArr) ).show();
+            $('#theLoading').modal('show');
 
-            tr.addClass('shown');
+            //获取绑定的户号信息
+
+            var eprId = $(this).children('span').attr('data-id');
+
+            var eprType = $(this).children('span').attr('data-type');
+
+            var prm = {
+
+                // 企业及居民Id
+                eprId:eprId,
+                //企业类型
+                eprType:eprType
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:sessionStorage.apiUrlPrefix + 'DREpr/GetDRAcctsByKAEpr',
+
+                data:prm,
+
+                timeout:_theTimes,
+
+                success:function(result){
+
+                    $('#theLoading').modal('hide');
+
+                    if(result.code == -2){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                    }else if(result.code == -1){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                    }else if(result.code == -3){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                    }else if(result.code == -4){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                    }else if(result.code == 0){
+
+                        for(var i=0;i<result.accts.length;i++){
+
+                            thisEprHHArr.push(result.accts[i]);
+
+                        }
+
+                    }
+
+                    row.child( formatHH(thisEprHHArr) ).show();
+
+                    tr.addClass('shown');
+
+                    //初始化变量
+                    thisRow = '';
+
+                },
+
+                error:_errorFun
+
+            })
         }
 
     })
 
-    //自用户查看详情
+    //自账户查看详情
     $('#table').on('click','.tableDlist .table-detailT',function(e){
 
         //存放当前企业信息的数组
         var thisEprArr = [];
 
-        var thisEprId = $(this).children().attr('data-id');
+        var thisId = $(this).children('span').attr('data-id');
 
-        for(var i=0;i<_allMainArr.length;i++){
+        for(var i=0;i<_currentJHArr.length;i++){
 
-            if(_allMainArr[i].eprId == thisEprId){
+            if(_currentJHArr[i].eprId == thisId){
 
-                thisEprArr.push(_allMainArr[i]);
+                thisEprArr.push(_currentJHArr[i]);
 
             }
 
@@ -1288,7 +1456,7 @@
 
             type:'post',
 
-            url:sessionStorage.apiUrlPrefix + 'DREpr/GetDREprDs',
+            url:sessionStorage.apiUrlPrefix + 'DREpr/GetDRAgrAndKAEprs',
 
             data:prm,
 
@@ -1358,7 +1526,7 @@
 
         _JHID = '';
 
-        //选中的用户id
+        //选中的账户id
         _thisYHID = '';
 
         //选中的户号数组
@@ -1406,7 +1574,7 @@
 
     }
 
-    //创建用户(flag代表是否传id,JD代表当前是创建的大用户还是聚合商，true的时候是创建的大用户)
+    //创建账户(flag代表是否传id,JD代表当前是创建的大账户还是聚合商，true的时候是创建的大账户)
     function sendOption(url,seccessMeg,flag,JD){
 
         var prm = {
@@ -1590,7 +1758,7 @@
 
     }
 
-    //获取用户数据
+    //获取账户数据
     function YHData(flag){
 
         var prm = {
@@ -1617,7 +1785,7 @@
 
                     if(flag){
 
-                        console.log('获取用户数据结果：暂无数据！');
+                        console.log('获取账户数据结果：暂无数据！');
 
                     }else{
 
@@ -1629,7 +1797,7 @@
 
                     if(flag){
 
-                        console.log('获取用户数据结果：异常错误！');
+                        console.log('获取账户数据结果：异常错误！');
 
                     }else{
 
@@ -1641,7 +1809,7 @@
 
                     if(flag){
 
-                        console.log('获取用户数据结果：参数错误！');
+                        console.log('获取账户数据结果：参数错误！');
 
                     }else{
 
@@ -1653,7 +1821,7 @@
 
                     if(flag){
 
-                        console.log('获取用户数据结果：内容已存在！');
+                        console.log('获取账户数据结果：内容已存在！');
 
                     }else{
 
@@ -1763,7 +1931,7 @@
     //显示隐藏
     function formatHH ( d ) {
 
-        var theader = '<table class="table table-bordered table-advance table-hover">' + '<thead><tr><td>户号</td><td>户号名称</td><td>所属区域</td><td>创建时间</td><td>描述</td></tr></thead>';
+        var theader = '<table class="table HHtable table-bordered table-advance table-hover">' + '<thead><tr><td>户号</td><td>户号名称</td><td>所属区域</td><td>创建时间</td><td>描述</td></tr></thead>';
 
         var theaders = '</table>';
 
@@ -1828,81 +1996,12 @@
 
     }
 
-    //聚合商下的大用户列表显示
+    //聚合商下的大账户列表显示
     function JHdownDYH(d){
 
         var table = '<table class="table tableDlist table-bordered table-advance table-hover"><thead></thead><tbody></tbody></table>'
 
         return  table
-
-        //var table = '<table class="table tableDlist table-bordered table-advance table-hover">';
-        //
-        //var header = '<thead><tr><th>编辑操作</th><th>编码</th><th>名称</th><th>签署容量（kW）</th><th>类型</th><th>行业机构</th><th>所属用户</th><th class="details-HH">绑定户号数</th><th class="table-detail">其他</th></tr></thead>'
-        //
-        //var tbody = '<tbody>'
-        //
-        //var str = '';
-        //
-        //for(var i=0;i< d.length;i++){
-        //
-        //    str += '<tr>'
-        //
-        //    //记录当前企业id
-        //    var id = d[i].eprId;
-        //
-        //    //记录当前用户名
-        //    var userName = '';
-        //
-        //    if(d[i].user != null){
-        //
-        //        for(var j=0;j<d[i].user.length;j++){
-        //
-        //            userName = d[i].user[j].userName
-        //
-        //        }
-        //
-        //    }
-        //
-        //    //记录当前户号数
-        //    var HNum = d[i].accts.length;
-        //
-        //    //编辑操作
-        //    str += '<td><span class="data-option option-edit btn default btn-xs green-stripe" data-userid="' + id + '">编辑</span><span class="data-option option-yonghu btn default btn-xs green-stripe" data-userid="' + id + '">绑定用户</span><span class="data-option option-huhao btn default btn-xs green-stripe" data-userid="' + id + '">绑定户号</span></td>';
-        //
-        //    //编码
-        //    str +='<td>'+ d[i].eprCode +'</td>'
-        //
-        //    //名称
-        //    str += '<td>' + d[i].eprName + '</td>'
-        //
-        //    //签署容量（kW）
-        //    str += '<td>'+ d[i].signatureVolume +'</td>'
-        //
-        //    //类型
-        //    str += '<td>'+ d[i].eprTypeName +'</td>'
-        //
-        //    //行业机构
-        //    str += '<td>'+ d[i].agencyTypeName +'</td>'
-        //
-        //    //所属用户
-        //    str += '<td>'+ userName +'</td>'
-        //
-        //    //绑定户号数
-        //    str += '<td class="details-HH">'+ '(' + '<span data-id="' + id + '" style="font-weight: bold;text-decoration: underline;color: #2170f4;text-align: center;line-height: 30px;">' + HNum +  '</span>' + ')' + '</td>'
-        //
-        //    //其他
-        //    str += '<td class="table-detail">' + '<span data-id="' + id + '" style="color:#2170f4;text-decoration: underline ">详情</span>' + '</td>'
-        //
-        //    str +='</tr>'
-        //
-        //
-        //}
-        //
-        //var tbodys = '</tbody>'
-        //
-        //var tables = '</table>'
-        //
-        //return table + header + tbody + str +  tbodys + tables;
 
     }
 

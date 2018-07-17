@@ -23,16 +23,16 @@
             }
         },
         {
-            title:'用户ID',
+            title:'账户ID',
             data:'sysuserId',
             className:'sysuserId'
         },
         {
-            title:'登陆用户名',
+            title:'登陆账户名',
             data:'userName'
         },
         {
-            title:'用户角色',
+            title:'账户角色',
             data:'roleName'
         },
         //{
@@ -58,7 +58,7 @@
 
         rules:{
 
-            //登陆用户名(不能是中文)
+            //登陆账户名(不能是中文)
             'create-user-name':{
 
                 required: true,
@@ -74,16 +74,16 @@
                 minlength: 6
 
             },
-            //用户名称
+            //账户名称
             'create-user-login-name':'required'
 
         },
         messages:{
 
-            //登陆用户名
+            //登陆账户名
             'create-user-name':{
 
-                required: '请输入登陆用户名'
+                required: '请输入登陆账户名'
 
             },
             //登陆密码
@@ -94,14 +94,14 @@
                 minlength: '密码长度不能小于 6 位'
 
             },
-            //用户名称
-            'create-user-login-name':'请输入用户名'
+            //账户名称
+            'create-user-login-name':'请输入账户名'
 
         }
 
     })
 
-    //正则表达式（用户名不能是中文）
+    //正则表达式（账户名不能是中文）
     $.validator.addMethod("NonChinese",function(value,element,params){
 
         var doubles= /([a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9]*)/;
@@ -120,7 +120,7 @@
 
     })
 
-    //【创建用户】
+    //【创建账户】
     $('#creatUser').click(function(){
 
         //loadding
@@ -151,7 +151,7 @@
 
     })
 
-    //创建用户【确定按钮】
+    //创建账户【确定按钮】
     $('#create-Modal').on('click','.dengji',function(){
 
         $('#theLoading').modal('show');
@@ -174,7 +174,7 @@
         //初始化
         createInit();
 
-        //获取当前的用户id
+        //获取当前的账户id
         _thisID = $(this).attr('data-userid');
 
         //模态框
@@ -187,7 +187,7 @@
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
 
         //是否可操作
-        //用户登陆名不能操作
+        //账户登陆名不能操作
         $('#create-Modal').find('input').attr('disabled',false);
 
         $('#create-Modal').find('select').attr('disabled',false);
@@ -225,7 +225,7 @@
         //初始化
         createInit();
 
-        //获取当前的用户id
+        //获取当前的账户id
         _thisID = $(this).attr('data-userid');
 
         //模态框
@@ -238,7 +238,7 @@
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
 
         //是否可操作
-        //用户登陆名不能操作
+        //账户登陆名不能操作
         $('#create-Modal').find('input').attr('disabled',true);
 
         $('#create-Modal').find('select').attr('disabled',true);
@@ -321,7 +321,7 @@
     /*----------------------------------其他方法-----------------------------------------*/
 
 
-    //获取用户列表
+    //获取账户列表
     function conditionSelect(){
 
         $('#theLoading').modal('show');
@@ -387,7 +387,7 @@
 
     }
 
-    //创建用户初始化
+    //创建账户初始化
     function createInit(){
 
         //清空
@@ -442,14 +442,14 @@
 
     }
 
-    //创建用户(flag代表是否传id)
+    //创建账户(flag代表是否传id)
     function sendOption(url,seccessMeg,flag){
 
         var prm = {
 
-            //用户名称
+            //账户名称
             userName:$('#create-user-login-name').val(),
-            //用户角色
+            //账户角色
             userRole:$('#create-user-role').val(),
             //备注
             memo:$('#create-remark').val()
@@ -462,9 +462,9 @@
 
         }else{
 
-            //用户登录名 ,
+            //账户登录名 ,
             prm.sysuserId = $('#create-user-name').val();
-            //用户密码
+            //账户密码
             prm.sysuserPass = $('#create-user-passW').val();
 
         }
@@ -557,9 +557,9 @@
                 if(result.code == 0){
 
                     //绑定数据
-                    //登陆用户名
+                    //登陆账户名
                     $("#create-user-login-name").val(result.user.userName);
-                    //用户名
+                    //账户名
                     $('#create-user-name').val(result.user.sysuserId);
                     //密码
                     $('#create-user-passW').val('123456');
@@ -609,7 +609,7 @@
     return {
         init: function () {
 
-            //获取用户列表
+            //获取账户列表
             conditionSelect();
 
         }

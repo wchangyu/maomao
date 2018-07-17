@@ -32,7 +32,7 @@
 
     ];
 
-    //大用户响应数据
+    //大账户响应数据
     var _DYHArr = [
 
         {
@@ -76,7 +76,7 @@
 
     ]
 
-    //当前是聚合商还是大用户
+    //当前是聚合商还是大账户
     var _eprType = 1;
 
     /*--------------------------------------表格初始化-------------------------------------*/
@@ -168,7 +168,7 @@
         "columns": col
     });
 
-    //大用户响应表格
+    //大账户响应表格
     var DCol = [
 
         {
@@ -236,11 +236,11 @@
     var JCol = [
 
         {
-            title:'用户',
+            title:'账户',
             data:'',
             render:function(data, type, full, meta){
 
-                return '<span class="select-user" style="cursor: pointer;display: inline-block;padding: 3px 5px;border:1px solid #cccccc;border-radius: 3px !important;">选择用户</span>'
+                return '<span class="select-user" style="cursor: pointer;display: inline-block;padding: 3px 5px;border:1px solid #cccccc;border-radius: 3px !important;">选择账户</span>'
 
             }
         },
@@ -338,7 +338,7 @@
 
             row.child( formatDetail(thisEprHHArr) ).show();
 
-            //初始化表格(搞清楚当前是聚合商0还是大用户1);
+            //初始化表格(搞清楚当前是聚合商0还是大账户1);
             var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
 
             if(_eprType == 0){
@@ -458,7 +458,7 @@
     //【编辑】
     $('#table tbody').on('click','.option-edit',function(){
 
-        var tds = $(this).parents('tr').find('.input-value').parent('td');
+        var tds = $(this).parent().parent('tr').find('.input-value').parent('td');
 
         var valueArr = [];
 
@@ -527,9 +527,9 @@
 
         //var prm = {
         //
-        //    //登录用户
+        //    //登录账户
         //    sysuserId:sessionStorage.ADRS_SysuserId,
-        //    //用户角色
+        //    //账户角色
         //    userRole:sessionStorage.ADRS_UserRole
         //
         //}
@@ -615,12 +615,12 @@
         //补贴方式、补贴价格、提前通知时间、产品描述
         str += '<tr>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>产品名称Con</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>548</td>' + '<td class="subTableTitle">提前通知时间</td>' + '<td></td>'  + '<td class="subTableTitle">产品描述</td>' + '<td></td>'  + '</tr>';
 
-        //用户响应的table
+        //账户响应的table
 
         //button【增加一行】
         var button = '<div style="text-align: left !important;margin-bottom: 5px;">' + '<button class="btn green add-button">' + '增加行 <i class="fa fa-plus"></i>' + '</button>' + '</div>';
 
-        //首先判断是大用户还是聚合商
+        //首先判断是大账户还是聚合商
         var answerTable = '<table class="table innerTable table-bordered table-advance table-hover"><thead></thead><tbody></tbody></table>';
 
         //button【保存】
@@ -630,7 +630,7 @@
 
     }
 
-    //用户响应
+    //账户响应
 
     return {
         init: function(){

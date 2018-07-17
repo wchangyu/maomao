@@ -170,7 +170,7 @@ var Account = function(){
 
     })
 
-    //【创建用户】
+    //【创建账户】
     $('#creatUser').click(function(){
 
         //loadding
@@ -201,7 +201,7 @@ var Account = function(){
 
     })
 
-    //创建用户【确定按钮】
+    //创建账户【确定按钮】
     $('#create-Modal').on('click','.dengji',function(){
 
         $('#theLoading').modal('show');
@@ -224,7 +224,7 @@ var Account = function(){
         //初始化
         createInit();
 
-        //获取当前的用户id
+        //获取当前的账户id
         _thisID = $(this).attr('data-userid');
 
         //模态框
@@ -237,7 +237,7 @@ var Account = function(){
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
 
         //是否可操作
-        //用户登陆名不能操作
+        //账户登陆名不能操作
         $('#create-Modal').find('input').attr('disabled',false);
 
         $('#create-Modal').find('select').attr('disabled',false);
@@ -273,7 +273,7 @@ var Account = function(){
         //初始化
         createInit();
 
-        //获取当前的用户id
+        //获取当前的账户id
         _thisID = $(this).attr('data-userid');
 
         //模态框
@@ -286,7 +286,7 @@ var Account = function(){
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
 
         //是否可操作
-        //用户登陆名不能操作
+        //账户登陆名不能操作
         $('#create-Modal').find('input').attr('disabled',true);
 
         $('#create-Modal').find('select').attr('disabled',true);
@@ -441,7 +441,7 @@ var Account = function(){
 
     /*----------------------------------其他方法-----------------------------------------*/
 
-    //获取用户列表
+    //获取账户列表
     function conditionSelect(){
 
         $('#theLoading').modal('show');
@@ -614,7 +614,7 @@ var Account = function(){
 
     }
 
-    //创建用户(flag代表是否传id)
+    //创建账户(flag代表是否传id)
     function sendOption(url,seccessMeg,flag){
 
         var prm = {
@@ -631,14 +631,14 @@ var Account = function(){
             prm.acctId = _thisID;
             //户号编码
             prm.acctCode = $('#account-num').val();
-            //用户名称
+            //账户名称
             prm.acctName = $('#account-name').val();
 
         }else{
 
             //户号编码
             prm.accountCode = $('#account-num').val();
-            //用户名称
+            //账户名称
             prm.accountName = $('#account-name').val();
 
         }
@@ -767,7 +767,7 @@ var Account = function(){
     return {
         init: function () {
 
-            //获取用户列表
+            //获取账户列表
             conditionSelect();
 
         }
