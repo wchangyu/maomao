@@ -1,83 +1,10 @@
 ﻿var UserAnswer = function () {
 
-    //存放所有列表的数据
-    var _allDataArr = [
-
-        {
-            id:'1',
-            ZT:'已发布',
-            SJMC:'事件A',
-            KSSJ:'事件B',
-            JSSJ:'2018-07-14',
-            XJFU:'2018-07-31',
-            JX:'基线A',
-            QY:'区域A',
-            TC:'套餐A',
-            DJSJ:'2017-07-15',
-            CJR:'mch'
-        },
-        {
-            id:'2',
-            ZT:'已审核',
-            SJMC:'事件A',
-            KSSJ:'事件B',
-            JSSJ:'2018-07-14',
-            XJFU:'2018-07-31',
-            JX:'基线A',
-            QY:'区域A',
-            TC:'套餐A',
-            DJSJ:'2017-07-15',
-            CJR:'mch'
-        }
-
-    ];
-
-    //大账户响应数据
-    var _DYHArr = [
-
-        {
-
-            CYSC:'0.6',
-            CCXJFHL:'300',
-            SDXYL:'0',
-            ZDXYL:'300'
-
-        },
-        {
-
-            CYSC:'0.5',
-            CCXJFHL:'200',
-            SDXYL:'0',
-            ZDXYL:'200'
-
-        }
-
-    ]
-
-    //聚合商响应数据
-    var _JHSArr = [
-
-        {
-
-            HH:'0.6',
-            CCXJFHL:'300',
-            SDXYL:'0',
-            ZDXYL:'300'
-
-        },
-        {
-
-            HH:'0.5',
-            CCXJFHL:'200',
-            SDXYL:'0',
-            ZDXYL:'200'
-
-        }
-
-    ]
-
     //当前是聚合商还是大账户
     var _eprType = 1;
+
+    //存放当前所有值
+    var _allData = [];
 
     /*--------------------------------------表格初始化-------------------------------------*/
 
@@ -85,51 +12,58 @@
 
         {
             title:'状态',
-            data:'ZT'
+            data:'planStateName'
         },
         {
             title:'事件名称',
-            data:'SJMC'
+            data:'planName'
         },
         {
             title:'开始时间',
-            data:'KSSJ'
+            data:'startDate'
         },
         {
             title:'结束时间',
-            data:'JSSJ'
+            data:'closeDate'
         },
         {
             title:'消减负荷（kWh）',
-            data:'XJFU'
+            data:'reduceLoad'
         },
         {
             title:'基线',
-            data:'JX'
+            data:'baselineName'
         },
         {
             title:'区域',
-            data:'QY'
+            data:'districtName'
         },
         {
             title:'套餐（多个）',
-            data:'TC'
+            data:'librarys',
+            render:function(data, type, full, meta){
+
+                return data.length
+
+
+
+            }
         },
         {
             title:'登记时间',
-            data:'DJSJ'
+            data:'createDate'
         },
         {
             title:'创建人',
-            data:'CJR'
+            data:'createPlanUserName'
         },
         {
             title:'操作',
             data:'',
             className:'detail-button',
-            render:function(){
+            render:function(data, type, full, meta){
 
-                return '<span data-id="6" style="color:#2170f4;text-decoration: underline ">详情</span>'
+                return '<span data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline ">详情</span>'
 
             }
         }
@@ -305,23 +239,19 @@
     $('#table tbody').on('click', '.detail-button', function () {
 
         //存放当前企业所绑定户号的数组
-        var thisEprHHArr = [];
+        var thisOBJ = {};
 
-        //var thisEprId = $(this).children().attr('data-id');
-        //
-        //for(var i=0;i<_allMainArr.length;i++){
-        //
-        //    if(_allMainArr[i].eprId == thisEprId){
-        //
-        //        for(var j=0;j<_allMainArr[i].accts.length;j++){
-        //
-        //            thisEprHHArr.push(_allMainArr[i].accts[j]);
-        //
-        //        }
-        //
-        //    }
-        //
-        //}
+        var thisEprId = $(this).children().attr('data-id');
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].planId == thisEprId){
+
+                thisOBJ = _allData[i];
+
+            }
+
+        }
 
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
 
@@ -336,7 +266,7 @@
         }
         else {
 
-            row.child( formatDetail(thisEprHHArr) ).show();
+            row.child( formatDetail(thisOBJ) ).show();
 
             //初始化表格(搞清楚当前是聚合商0还是大账户1);
             var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
@@ -523,70 +453,85 @@
 
         $('#theLoading').modal('show');
 
-        _datasTable($('#table'),_allDataArr);
+        //_datasTable($('#table'),_allDataArr);
 
-        //var prm = {
-        //
-        //    //登录账户
-        //    sysuserId:sessionStorage.ADRS_SysuserId,
-        //    //账户角色
-        //    userRole:sessionStorage.ADRS_UserRole
-        //
-        //}
-        //
-        //$.ajax({
-        //
-        //    type:'post',
-        //
-        //    url:sessionStorage.apiUrlPrefix + 'DRUserAnswer/ReceiveAnswerDRPlan',
-        //
-        //    data:prm,
-        //
-        //    timeout:_theTimes,
-        //
-        //    success:function(result){
-        //
-        //        $('#theLoading').modal('hide');
-        //
-        //        var arr = [];
-        //
-        //        if(result.code == -2){
-        //
-        //            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-        //
-        //        }else if(result.code == -1){
-        //
-        //            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-        //
-        //        }else if(result.code == -3){
-        //
-        //            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-        //
-        //        }else if(result.code == -4){
-        //
-        //            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-        //
-        //        }else if(result.code == 0){
-        //
-        //            _allMainArr.length = 0;
-        //
-        //            for(var i=0;i<result.eprs.length;i++){
-        //
-        //                _allMainArr.push(result.eprs[i]);
-        //
-        //            }
-        //
-        //            arr = result.eprs
-        //
-        //        }
-        //
-        //        //_jumpNow($('#table'),arr);
-        //
-        //    },
-        //
-        //    error:_errorFun
-        //
-        //})
+        //首先判断登陆者是聚合商还是大用户
+        var role = sessionStorage.ADRS_UserRole;
+
+        var prm = {
+
+            ////登录账户
+            //sysuserId:sessionStorage.ADRS_SysuserId,
+            //账户角色
+            userRole:sessionStorage.ADRS_UserRole
+
+        }
+
+        if(role == 3){
+
+            //聚合商
+            prm.userId = sessionStorage.ADRS_UserId;
+
+
+        }else if(role == 4){
+
+            //大用户
+            prm.acctId = sessionStorage.currentAcct;
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRUserAnswer/ReceiveAnswerDRPlan',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                _allData.length = 0;
+
+                $('#theLoading').modal('hide');
+
+                var arr = [];
+
+                if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                }else if(result.code == 0){
+
+                    arr = result.plans;
+
+                    for(var i=0;i<result.plans.length;i++){
+
+                        _allData.push(result.plans[i]);
+
+                    }
+
+                }
+
+                _jumpNow($('#table'),arr);
+
+            },
+
+            error:_errorFun
+
+        })
 
 
     }
@@ -605,15 +550,15 @@
         var str = '';
 
         //计划名称、区域、开始时间、结束时间
-        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>计划名称Con</td>' + '<td class="subTableTitle">区域</td>' + '<td>区域Con</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>2018-07-01</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>2018-07-30</td>'  + '</tr>';
+        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>'  + '</tr>';
         //计划消减负荷量、计划消减差额、备用消减负荷量、备用消减差额量
-        str += '<tr>' + '<td class="subTableTitle" ">计划消减负荷量</td>' + '<td>2100</td>' + '<td class="subTableTitle">计划消减差额</td>' + '<td>548</td>' + '<td class="subTableTitle">备用消减负荷量</td>' + '<td>3578</td>'  + '<td class="subTableTitle">备用消减差额量</td>' + '<td>8974</td>'  + '</tr>';
+        str += '<tr>' + '<td class="subTableTitle" ">计划消减负荷量</td>' + '<td>' + d.reduceLoad + '</td>' + '<td class="subTableTitle">计划消减差额</td>' + '<td></td>' + '<td class="subTableTitle">备用消减负荷量</td>' + '<td></td>'  + '<td class="subTableTitle">备用消减差额量</td>' + '<td></td>'  + '</tr>';
         //参与户数、可消减负荷、基线
-        str += '<tr>' + '<td class="subTableTitle" ">参与户数</td>' + '<td>3</td>' + '<td class="subTableTitle">可消减负荷</td>' + '<td>548</td>' + '<td class="subTableTitle">基线</td>' + '<td></td>'  + '<td class="subTableTitle"></td>' + '<td></td>'  + '</tr>';
+        str += '<tr>' + '<td class="subTableTitle" ">参与户数</td>' + '<td></td>' + '<td class="subTableTitle">可消减负荷</td>' + '<td></td>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>'  + '<td class="subTableTitle"></td>' + '<td></td>'  + '</tr>';
         //产品名称、产品（1、2）类型、响应时间比、响应量占比
-        str += '<tr>' + '<td class="subTableTitle" ">产品名称</td>' + '<td>产品名称Con</td>' + '<td class="subTableTitle">产品（1、2）类型</td>' + '<td>548</td>' + '<td class="subTableTitle">响应时间比</td>' + '<td></td>'  + '<td class="subTableTitle">响应量占比</td>' + '<td></td>'  + '</tr>';
+        str += '<tr>' + '<td class="subTableTitle" ">产品名称</td>' + '<td></td>' + '<td class="subTableTitle">产品（1、2）类型</td>' + '<td></td>' + '<td class="subTableTitle">响应时间比</td>' + '<td></td>'  + '<td class="subTableTitle">响应量占比</td>' + '<td></td>'  + '</tr>';
         //补贴方式、补贴价格、提前通知时间、产品描述
-        str += '<tr>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>产品名称Con</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>548</td>' + '<td class="subTableTitle">提前通知时间</td>' + '<td></td>'  + '<td class="subTableTitle">产品描述</td>' + '<td></td>'  + '</tr>';
+        str += '<tr>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td></td>' + '<td class="subTableTitle">补贴价格</td>' + '<td></td>' + '<td class="subTableTitle">提前通知时间</td>' + '<td></td>'  + '<td class="subTableTitle">产品描述</td>' + '<td></td>'  + '</tr>';
 
         //账户响应的table
 

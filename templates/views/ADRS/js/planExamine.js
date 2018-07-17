@@ -33,7 +33,7 @@
     ];
 
     //当前是聚合商还是大账户
-    var _eprType = 1;
+    var _eprType = sessionStorage.ADRS_UserRole;
 
     /*--------------------------------------表格初始化-------------------------------------*/
 
@@ -284,22 +284,6 @@
 
         indexE ++;
 
-        //var thisEprId = $(this).children().attr('data-id');
-        //
-        //for(var i=0;i<_allMainArr.length;i++){
-        //
-        //    if(_allMainArr[i].eprId == thisEprId){
-        //
-        //        for(var j=0;j<_allMainArr[i].accts.length;j++){
-        //
-        //            thisEprHHArr.push(_allMainArr[i].accts[j]);
-        //
-        //        }
-        //
-        //    }
-        //
-        //}
-
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
 
         var row = _table.row( tr );
@@ -318,11 +302,11 @@
             //初始化表格(搞清楚当前是聚合商0还是大账户1);
             var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
 
-            if(_eprType == 0){
+            if(_eprType == 4){
 
                 _tableInit(innerTable,DCol,2,true,'','',true,'',10);
 
-            }else{
+            }else if(_eprType == 3){
 
                 _tableInit(innerTable,JCol,2,true,'','',true,'',10);
 
@@ -331,15 +315,9 @@
             //基线表格初始化
             var echartId = $(this).parents('tr').next('tr').find('.baseline-echart').attr('id');
 
-            setTimeout(function(){
+            var echarts = echarts.init(document.getElementById(echartId));
 
-                console.log(echartId);
-
-                var echarts = echarts.init(document.getElementById(echartId));
-
-                echarts.setOption(option,true);
-
-            },1000)
+            echarts.setOption(option,true);
 
             tr.addClass('shown');
         }
@@ -503,6 +481,18 @@
             }
 
         }
+
+    })
+
+    $('#creatEcharts').click(function(){
+
+        var str = '<div id="echartl" class="echartl" style="height: 300px;background: yellowgreen"></div>';
+
+        $(this).after(str);
+
+        var echarts = echarts.init(document.getElementById('echartl'));
+
+        echarts.setOption(option,true);
 
     })
 
