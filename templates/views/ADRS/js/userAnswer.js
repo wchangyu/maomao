@@ -595,6 +595,8 @@
             //给id赋值
             _thisHH = selectedTr.find('.checker').attr('data-id');
 
+            $('#theLoading').modal('hide');
+
             //模态框
             $('#select-HH-Modal').modal('hide');
 
