@@ -118,14 +118,13 @@ var Login = function(){
                                 //登陆角色
                                 sessionStorage.ADRS_UserRole = res.userRole;
 
-                                var url = ''
+                                //account
+                                sessionStorage.account = JSON.stringify(res.accts);
+
 
                                 sessionStorage.userName = 'mch';
 
                                 getMenu();
-
-                                //跳转
-                                //window.location.href = url;
 
                             }
                         },
@@ -236,9 +235,7 @@ var Login = function(){
                 sessionStorage.removeItem('redirectFromPage');
             }else{
 
-                console.log('跳转')
-
-                //window.location.href = _indexUrl;
+                window.location.href = _indexUrl;
             }
         }
 

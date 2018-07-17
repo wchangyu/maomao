@@ -434,7 +434,7 @@
 
     })
 
-    //创建用户【确定按钮】
+    //创建账户【确定按钮】
     $('.cmxform').on('click','.dengji',function(){
 
         $('#theLoading').modal('show');
@@ -919,7 +919,7 @@
 
     }
 
-    //创建用户(flag代表是否传id)
+    //创建账户(flag代表是否传id)
     function sendOption(url,seccessMeg,flag){
 
         var prm = {

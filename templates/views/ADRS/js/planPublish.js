@@ -75,7 +75,7 @@
             data:'districtName'
         },
         {
-            title:'参与户号数',
+            title:'潜在户号数',
             data:'takeInAcctNbers'
         },
         {
@@ -142,7 +142,7 @@
         //初始化
         createInit();
 
-        //获取当前的用户id
+        //获取当前的账户id
         _thisID = $(this).attr('data-userid');
 
         //模态框
@@ -155,7 +155,7 @@
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
 
         //是否可操作
-        //用户登陆名不能操作
+        //账户登陆名不能操作
         $('#create-Modal').find('input').attr('disabled',true);
 
         $('#create-Modal').find('select').attr('disabled',true);
@@ -570,7 +570,7 @@
 
     }
 
-    //创建用户初始化
+    //创建账户初始化
     function createInit(){
 
         //清空
