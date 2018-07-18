@@ -1,6 +1,6 @@
 ﻿var UserAnswer = function () {
 
-    //当前是聚合商还是大账户
+    //当前是聚合商还是大用户
     var _eprType = sessionStorage.ADRS_UserRole;
 
     //存放当前所有值
@@ -117,7 +117,7 @@
         "columns": col
     });
 
-    //大账户响应表格
+    //大用户响应表格
     var DCol = [
 
         {
@@ -328,7 +328,7 @@
 
             row.child( formatDetail(thisOBJ) ).show();
 
-            //初始化表格(搞清楚当前是聚合商0还是大账户1);
+            //初始化表格(搞清楚当前是聚合商0还是大用户1);
             var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
 
             if(_eprType == 4){
@@ -461,6 +461,9 @@
 
             }
 
+            var switchButton = $(this).parent().parent('tr').find('.switchButton');
+
+            switchButton.bootstrapSwitch('disabled',true);
 
             $(this).html('编辑').removeClass('option-save').addClass('option-edit');
 
@@ -495,6 +498,11 @@
         }
 
         $(this).html('保存').removeClass('option-edit').addClass('option-save');
+
+        var switchButton = $(this).parent().parent('tr').find('.switchButton');
+
+        switchButton.bootstrapSwitch('disabled',false);
+
 
     })
 
@@ -843,7 +851,7 @@
         //button【增加一行】
         var button = '<div style="text-align: left !important;margin-bottom: 5px;">' + '<button class="btn green add-button">' + '增加行 <i class="fa fa-plus"></i>' + '</button>' + '</div>';
 
-        //首先判断是大账户还是聚合商
+        //首先判断是大用户还是聚合商
         var answerTable = '<table class="table innerTable table-bordered table-advance table-hover"><thead></thead><tbody></tbody></table>';
 
         //button【保存】

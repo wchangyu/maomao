@@ -12,20 +12,10 @@ var Account = function(){
     /*-----------------------------------表格初始化-------------------------------------*/
 
     var col=[
-
         {
-            title:'编辑操作',
-            "targets": -1,
-            "data": null,
-            render:function(data, type, full, meta){
-
-                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>编辑</span>" +
-
-                    //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>删除</span>" +
-
-                    "<span class='data-option option-qiye btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>绑定企业</span>"
-
-            }
+            title:'所属区域',
+            data:'districtName',
+            name:'districtName'
         },
         {
             title:'户号',
@@ -34,10 +24,6 @@ var Account = function(){
         {
             title:'户号名称',
             data:'accountName'
-        },
-        {
-            title:'所属区域',
-            data:'districtName'
         },
         //{
         //    title:'是否有效',
@@ -50,11 +36,64 @@ var Account = function(){
         {
             title:'备注',
             data:'memo'
-        }
+        },
+        {
+            title:'编辑操作',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>编辑</span>" +
+
+                        //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>删除</span>" +
+
+                    "<span class='data-option option-qiye btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>绑定企业</span>"
+
+            }
+        },
 
     ]
 
-    _tableInit($('#table'),col,2,true,'','','','');
+    $('#table').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": true,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": false,
+        "ordering": true,
+        "bProcessing":true,
+        "iDisplayLength":50,//默认每页显示的条数
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":'t<"F"lip>',
+        'buttons':{
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs hiddenButton'
+        },
+        "columns": col,
+
+        "rowsGroup": [
+            'districtName:name',
+            0,
+            1
+        ],
+        "aoColumnDefs": [ { "orderable": false, "targets": [ 1,2,3,4,5] }]
+    });
+
+    //_tableInit($('#table'),col,2,true,'','','','');
 
     var districtCol = [
 
@@ -490,6 +529,7 @@ var Account = function(){
                     arr = result.accts;
 
                 }
+
 
                 _jumpNow($('#table'),arr);
 

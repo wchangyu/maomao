@@ -253,6 +253,8 @@
 
         if(_thisHnum == 0){
 
+            $('#theLoading').modal('hide');
+
             _moTaiKuang($('#tip-Modal'),'提示',true,true,'没有绑定户号不能发布！','发布');
 
         }else{
@@ -262,8 +264,11 @@
                 //事件id
                 planId:_thisID,
                 //反馈截止时间
-                abortDate:$('#plan-by-time').val()
-
+                abortDate:$('#plan-by-time').val(),
+                //用户角色
+                userRole:sessionStorage.ADRS_UserRole,
+                //参与户数
+                takeInAcctNbers:_thisHnum
             }
 
             $.ajax({
