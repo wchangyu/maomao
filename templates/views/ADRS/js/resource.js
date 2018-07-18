@@ -1,8 +1,5 @@
 ﻿var Resource = function () {
 
-    //条件刷新标识
-    var _isReloadData = false;
-
     //记录当前选中的userId
     var _thisID = '';
 
@@ -13,20 +10,6 @@
 
     var col=[
 
-        {
-            title:'编辑操作',
-            "targets": -1,
-            "data": null,
-            render:function(data, type, full, meta){
-
-                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.id + "'>编辑</span>" +
-
-                    //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.id + "'>删除</span>" +
-
-                    "<span class='data-option option-qiye btn default btn-xs green-stripe' data-userId='" + full.id + "'>绑定设备</span>"
-
-            }
-        },
         {
             title:'资源名称',
             data:'name'
@@ -83,6 +66,20 @@
         {
             title:'备注',
             data:'memo'
+        },
+        {
+            title:'编辑操作',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.id + "'>编辑</span>" +
+
+                        //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.id + "'>删除</span>" +
+
+                    "<span class='data-option option-qiye btn default btn-xs green-stripe' data-userId='" + full.id + "'>绑定设备</span>"
+
+            }
         }
 
 
@@ -357,7 +354,7 @@
 
         formatValidate(function(){
 
-            sendOption('DRAccount/ModifyDRAcctInfo','编辑成功！',true);
+            sendOption('','编辑成功！',true);
 
         })
 
@@ -426,20 +423,6 @@
 
     })
 
-    //提示关闭之后，再刷新数据
-    $('#tip-Modal').on('hidden.bs.modal',function(){
-
-        if(_isReloadData){
-
-            conditionSelect();
-
-        }
-
-        //标识重置
-        _isReloadData = false;
-
-    })
-
     /*----------------------------------其他方法-----------------------------------------*/
 
     //获取列表
@@ -469,6 +452,13 @@
             success:function(result){
 
                 $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
 
                 var arr = [];
 
@@ -629,9 +619,6 @@
 
                 $('#theLoading').modal('hide');
 
-                //重载数据标识
-                _isReloadData = true;
-
                 if(result.code == 0){
 
                     //创建成功
@@ -639,6 +626,12 @@
 
                     //模态框消失
                     $('#create-Modal').modal('hide');
+
+                    $('#create-Modal').one('hidden.bs.modal',function(){
+
+                        conditionSelect();
+
+                    })
 
                 }else if(result.code == -2){
 

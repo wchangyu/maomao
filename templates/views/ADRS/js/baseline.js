@@ -1,38 +1,15 @@
 ﻿var BaseLine = function () {
 
-    //条件刷新标识
-    var _isReloadData = false;
-
     //记录当前选中的userId
     var _thisID = '';
 
     /*-----------------------------------表格初始化-------------------------------------*/
 
     var col=[
-
-        {
-            title:'编辑操作',
-            "targets": -1,
-            "data": null,
-            render:function(data, type, full, meta){
-
-                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.id + "'>编辑</span>"
-
-                    //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.id + "'>删除</span>"
-
-            }
-        },
-        {
-            title:'基线id',
-            data:'id'
-        },
-        {
-            title:'基线名称',
-            data:'name'
-        },
         {
             title:'基线类型',
             data:'type',
+            name:'type',
             render:function(data, type, full, meta){
 
                 if(data == 1){
@@ -47,6 +24,10 @@
             }
         },
         {
+            title:'基线名称',
+            data:'name'
+        },
+        {
             title:'计算方式',
             data:'typical',
             render:function(data, type, full, meta){
@@ -58,6 +39,10 @@
                 }else if(data == 2){
 
                     return '不限工作日'
+
+                }else{
+
+                    return ''
 
                 }
 
@@ -74,13 +59,59 @@
         {
             title:'描述',
             data:'memo'
+        },
+        {
+            title:'编辑操作',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.id + "'>编辑</span>"
+
+                //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.id + "'>删除</span>"
+
+            }
         }
-
-
-
     ]
 
-    _tableInit($('#table'),col,2,true,'','','','');
+    $('#table').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": true,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": false,
+        "ordering": true,
+        "bProcessing":true,
+        "iDisplayLength":50,//默认每页显示的条数
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":'t<"F"lip>',
+        'buttons':{
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs hiddenButton'
+        },
+        "columns": col,
+        "rowsGroup": [
+            'type:name',
+            0
+        ],
+        "aoColumnDefs": [ { "orderable": false, "targets": [ 1,2,3,4,5,6] }]
+    });
+
+    //_tableInit($('#table'),col,2,true,'','','','');
 
     /*-----------------------------------创建表单验证-------------------------------------*/
 
@@ -248,110 +279,6 @@
 
     })
 
-    //【删除】
-    $('#table tbody').on('click','.option-shanchu',function(){
-
-        $('#theLoading').modal('show');
-
-        //样式
-        changeCss($(this));
-
-        //初始化
-        createInit();
-
-        //获取当前的账户id
-        _thisID = $(this).attr('data-userid');
-
-        //模态框
-        _moTaiKuang($('#create-Modal'), '确定要删除吗？', false, '' ,'', '删除');
-
-        //绑定数据
-        bind(_thisID);
-
-        //类
-        $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
-
-        //是否可操作
-        //账户登录名不能操作
-        $('#create-Modal').find('input').attr('disabled',true);
-
-        $('#create-Modal').find('select').attr('disabled',true);
-
-        $('#create-Modal').find('textarea').attr('disabled',true);
-
-        //选择区域消失
-        $('.select-district').hide();
-
-    })
-
-    //删除【确定】
-    $('#create-Modal').on('click','.shanchu',function(){
-
-        $('#theLoading').modal('show');
-
-        formatValidate(function(){
-
-            var prm = {
-
-                acctId:_thisID
-
-            }
-
-            $.ajax({
-
-                type:'post',
-
-                url:sessionStorage.apiUrlPrefix + 'DRAccount/LogicDelDRAcct',
-
-                data:prm,
-
-                timeout:_theTimes,
-
-                success:function(result){
-
-                    $('#theLoading').modal('hide');
-
-                    //重载数据标识
-                    _isReloadData = true;
-
-                    if(result.code == 0){
-
-                        //创建成功
-                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'删除成功！','');
-
-                        //模态框消失
-                        $('#create-Modal').modal('hide');
-
-
-                    }else if(result.code == -2){
-
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                    }else if(result.code == -1){
-
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                    }else if(result.code == -3){
-
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                    }else if(result.code == -4){
-
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                    }
-
-                },
-
-                error:_errorFun
-
-            })
-
-
-        })
-
-    })
-
     //累计类型选择
     $('#baseline-type-modal').change(function(){
 
@@ -370,20 +297,6 @@
             $('.type-schedule').show();
 
         }
-
-    })
-
-    //提示关闭之后，再刷新数据
-    $('#tip-Modal').on('hidden.bs.modal',function(){
-
-        if(_isReloadData){
-
-            conditionSelect();
-
-        }
-
-        //标识重置
-        _isReloadData = false;
 
     })
     /*----------------------------------其他方法-----------------------------------------*/
@@ -413,6 +326,13 @@
             success:function(result){
 
                 $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
 
                 var arr = [];
 
@@ -573,16 +493,17 @@
 
                 $('#theLoading').modal('hide');
 
-                //重载数据标识
-                _isReloadData = true;
-
                 if(result.code == 0){
-
-                    //创建成功
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,seccessMeg,'');
 
                     //模态框消失
                     $('#create-Modal').modal('hide');
+
+                    $('#create-Modal').one('hidden.bs.modal',function(){
+
+                        conditionSelect();
+
+                    })
+
 
                 }else if(result.code == -2){
 

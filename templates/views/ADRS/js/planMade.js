@@ -20,13 +20,7 @@
         //加类名
         $('#creatUser').removeClass('dengji').addClass('bianji').html('保存');
 
-        //是否跳回事件发布页面标识
-        var _isReloadData = false;
-
     }else{
-
-        //是否跳回事件发布页面标识
-        var _isReloadData = false;
 
         //登记
 
@@ -971,12 +965,9 @@
 
                 if(result.code == 0){
 
-                    //创建成功
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,seccessMeg,'');
-
                     if(flag){
 
-                        _isReloadData = true;
+                        window.location.href = 'planPublish.html'
 
                     }else{
 
@@ -988,7 +979,7 @@
 
                         $('.cmxform').find('textarea').val('');
 
-                        _isReloadData = true;
+                        window.location.href = 'planPublish.html'
 
                     }
                     
@@ -1021,21 +1012,6 @@
         })
 
     }
-
-    //编辑成功之后，跳回发布界面
-    //提示关闭之后，再刷新数据
-    $('#tip-Modal').on('hidden.bs.modal',function(){
-
-        if(_isReloadData){
-
-            window.location.href = 'planPublish.html'
-
-        }
-
-        //标识重置
-        _isReloadData = false;
-
-    })
 
     return {
         init: function () {

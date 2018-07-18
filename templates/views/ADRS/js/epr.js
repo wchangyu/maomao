@@ -1,8 +1,5 @@
 ﻿var Epr = function () {
 
-    //条件刷新标识
-    var _isReloadData = false;
-
     //记录当前选中的userId
     var _thisID = '';
 
@@ -210,17 +207,9 @@
 
                     return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>"
 
-                            //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
-
-                        //"<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>设置账户</span>"
-
                 }else{
 
                     return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
-
-                            //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>删除</span>" +
-
-                        //"<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>设置账户</span>" +
 
                         "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>管理户号</span>"
 
@@ -635,84 +624,6 @@
         })
     })
 
-    //【删除】
-    $('#table tbody').on('click','.option-shanchu',function(){
-
-        $('#theLoading').modal('show');
-
-        //样式
-        changeCss($(this));
-
-        //获取当前的账户id
-        _thisID = $(this).attr('data-userid');
-
-        //模态框
-        _moTaiKuang($('#del-Modal'), '提示', false, true ,'确定要删除吗？', '删除');
-
-        $('#theLoading').modal('hide');
-
-    })
-
-    //删除【确定】按钮
-    $('#del-Modal').on('click','.btn-primary',function(){
-
-        $('#theLoading').modal('show');
-
-        var prm = {
-
-            eprId:_thisID
-
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'DREpr/LogicDelDREprInfo',
-
-            data:prm,
-
-            timeout:_theTimes,
-
-            success:function(result){
-
-                $('#theLoading').modal('hide');
-
-                //重载数据标识
-                _isReloadData = true;
-
-                if(result.code == 0){
-
-                    //创建成功
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'删除成功！','');
-
-                    //模态框消失
-                    $('#del-Modal').modal('hide');
-
-                }else if(result.code == -2){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                }else if(result.code == -1){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                }else if(result.code == -3){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                }else if(result.code == -4){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                }
-
-            }
-
-        })
-
-    })
-
     //【设置账户】
     $('#table tbody').on('click','.option-yonghu',function(){
 
@@ -782,9 +693,6 @@
             //给id赋值
             _thisYHID = selectedTr.find('.checker').attr('data-id');
 
-            //模态框
-            $('#select-YH-Modal').modal('hide');
-
             //发送请求
             var prm = {
 
@@ -809,8 +717,6 @@
 
                     $('#theLoading').modal('hide');
 
-                    _isReloadData = true;
-
                     if(result.code == -2){
 
                         _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
@@ -829,7 +735,15 @@
 
                     }else if(result.code == 0){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'设置账户成功！', '');
+                        //模态框
+                        $('#select-YH-Modal').modal('hide');
+
+                        $('#select-YH-Modal').one('hidden.bs.modal',function(){
+
+                            conditionSelect();
+
+                        })
+
 
                     }
 
@@ -914,9 +828,6 @@
 
             }
 
-            //模态框
-            $('#select-HH-Modal').modal('hide');
-
             //发送请求
             var prm = {
 
@@ -943,8 +854,6 @@
 
                     $('#theLoading').modal('hide');
 
-                    _isReloadData = true;
-
                     if(result.code == -2){
 
                         _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
@@ -965,6 +874,16 @@
 
                         _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'设置账户成功！', '');
 
+                        //模态框
+                        $('#select-HH-Modal').modal('hide');
+
+                        $('#select-HH-Modal').one('hidden.bs.modal',function(){
+
+                            conditionSelect();
+
+                        })
+
+
                     }
 
                 },
@@ -976,20 +895,6 @@
         }
 
 
-
-    })
-
-    //提示关闭之后，再刷新数据
-    $('#tip-Modal').on('hidden.bs.modal',function(){
-
-        if(_isReloadData){
-
-            conditionSelect();
-
-        }
-
-        //标识重置
-        _isReloadData = false;
 
     })
 
@@ -1485,6 +1390,13 @@
 
                 $('#theLoading').modal('hide');
 
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
+
                 var arr = [];
 
                 if(result.code == -2){
@@ -1660,16 +1572,17 @@
 
                 $('#theLoading').modal('hide');
 
-                //重载数据标识
-                _isReloadData = true;
-
                 if(result.code == 0){
-
-                    //创建成功
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,seccessMeg,'');
 
                     //模态框消失
                     $('#create-Modal-J').modal('hide');
+
+                    $('#create-Modal-J').one('hidden.bs.modal',function(){
+
+                        conditionSelect();
+
+                    })
+
 
                 }else if(result.code == -2){
 

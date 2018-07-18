@@ -155,4 +155,16 @@ th{
 
 }
 
+table.dataTable thead .sorting_asc:after{
+
+	opacity: 0 !important;
+
+}
+
+table.dataTable thead .sorting_desc:after{
+
+	opacity: 0 !important;
+
+}
+
 

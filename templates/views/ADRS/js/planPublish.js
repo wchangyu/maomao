@@ -1,8 +1,5 @@
 ﻿var PlanPublish = function () {
 
-    //条件刷新标识
-    var _isReloadData = false;
-
     //记录当前选中的userId
     var _thisID = '';
 
@@ -25,31 +22,7 @@
 
     var col=[
 
-        {
-            title:'编辑操作',
-            "targets": -1,
-            "data": null,
-            render:function(data, type, full, meta){
 
-                if(full.planState == 2){
-
-                    return ''
-
-                }else{
-
-                    //如果户号数为0，不显示
-
-                    return  "<span class='data-option option-edit btn default btn-xs green-stripe'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
-                        "'>编辑</a></span>" +
-
-                        //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>" +
-
-                        "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>"
-
-                }
-
-            }
-        },
         {
             title:'事件名称',
             data:'planName'
@@ -122,6 +95,31 @@
         {
             title:'备注',
             data:'memo'
+        },
+        {
+            title:'编辑操作',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                if(full.planState == 2){
+
+                    return ''
+
+                }else{
+
+                    //如果户号数为0，不显示
+
+                    return  "<span class='data-option option-edit btn default btn-xs green-stripe'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
+                        "'>编辑</a></span>" +
+
+                            //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>" +
+
+                        "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>"
+
+                }
+
+            }
         }
 
     ]
@@ -285,8 +283,6 @@
 
                     $('#theLoading').modal('hide');
 
-                    _isReloadData = true;
-
                     if(result.code == -2){
 
                         _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
@@ -307,7 +303,11 @@
 
                         $('#publish-Modal').modal('hide');
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'发布成功！', '');
+                        $('#publish-Modal').one('hidden.bs.modal',function(){
+
+                            conditionSelect();
+
+                        })
 
                     }
 
@@ -318,20 +318,6 @@
             })
 
         }
-
-    })
-
-    //提示关闭之后，再刷新数据
-    $('#tip-Modal').on('hidden.bs.modal',function(){
-
-        if(_isReloadData){
-
-            conditionSelect();
-
-        }
-
-        //标识重置
-        _isReloadData = false;
 
     })
 
@@ -388,6 +374,13 @@
             success:function(result){
 
                 $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
 
                 var arr = []
 

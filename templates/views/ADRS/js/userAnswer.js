@@ -57,13 +57,11 @@
 
                 return data.length
 
-
-
             }
         },
         {
-            title:'登记时间',
-            data:'createDate'
+            title:'发布时间',
+            data:'publishDate'
         },
         {
             title:'创建人',
@@ -116,31 +114,52 @@
 
     //大用户响应表格
     var DCol = [
-
         {
-            title:'参与资源',
+            title:'选择户号',
             data:'',
             render:function(data, type, full, meta){
 
-                return '<span class="select-dev" style="cursor: pointer;display: inline-block;padding: 3px 5px;border:1px solid #cccccc;border-radius: 3px !important;">选择设备</span>'
+                return '<span class="select-dev" style="cursor: pointer;display: inline-block;padding: 3px 5px;border:1px solid #cccccc;border-radius: 3px !important;">选择户号</span>'
+
+            }
+        },
+        {
+            title:'户号',
+            data:'HH',
+            className:'inputValue',
+            render:function(data, type, full, meta){
+
+                return '<input type="text" class="input-value input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
+
+            }
+        },
+        {
+            title:'户号',
+            data:'HHMC',
+            className:'inputValue',
+            render:function(data, type, full, meta){
+
+                return '<input type="text" class="input-chinese input-value input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
 
             }
         },
         {
             title:'参与时长（小时）',
             data:'CYSC',
+            className:'inputValue',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
+                return '<input type="text" class="input-required input-value table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
 
             }
         },
         {
             title:'此次消减负荷量',
             data:'CCXJFHL',
+            className:'inputValue',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
+                return '<input type="text" class="input-required input-value table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
 
             }
         },
@@ -148,16 +167,17 @@
             title:'是否自动响应',
             render:function(data, type, full, meta){
 
-                return '<div class="switch switch-small">' + '<input type="checkbox" value="0"/>' + '</div>';
+                return '<div class="switch">' + '<input class="switchButton" type="checkbox" value="0" />' + '</div>';
 
             }
         },
         {
             title:'描述',
             data:'MS',
+            className:'inputValue',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="table-group-action-input form-control">'
+                return '<input type="text" class="input-value table-group-action-input form-control">'
 
             }
         },
@@ -166,9 +186,9 @@
             data:'',
             render:function(data, type, full, meta){
 
-                return '<span class="data-option option-save btn default btn-xs green-stripe">保存</span>' +
+                return '<span class="data-option option-save-1 btn default btn-xs green-stripe">保存</span>' +
 
-                        '<span class="data-option option-del btn default btn-xs green-stripe">删除</span>'
+                        '<span class="data-option option-del-1 btn default btn-xs green-stripe">删除</span>'
 
             }
         }
@@ -295,6 +315,8 @@
 
     _tableInit($('#HH-table'),HHCol,2,true,'','','','',10);
 
+    _tableInit($('#SB-table'),HHCol,2,true,'','','','',10);
+
     //登录者获取事件
     conditionSelect();
 
@@ -381,7 +403,7 @@
 
     })
 
-    //【保存】
+    //【保存】聚合商
     $('#table tbody').on('click','.option-save',function(){
 
         //暂时先不考虑
@@ -486,7 +508,7 @@
 
     })
 
-    //【编辑】
+    //【编辑】聚合商
     $('#table tbody').on('click','.option-edit',function(){
 
         var tds = $(this).parent().parent('tr').find('.input-value').parent('td');
@@ -525,7 +547,7 @@
 
     })
 
-    //【删除】
+    //【删除】聚合商
     $('#table tbody').on('click','.option-del',function(){
 
         //获取表格对象
@@ -535,7 +557,7 @@
 
     })
 
-    //【回应验证】
+    //【回应验证】聚合商
     $('#table tbody').on('keyup','.input-required',function(){
 
         //验证非空
@@ -571,7 +593,7 @@
 
     })
 
-    //【选择户号】
+    //【选择户号】聚合商
     $('#table').on('click','.select-user',function(){
 
         _thisRowButton = $(this);
@@ -586,7 +608,7 @@
             //初始化
 
             //模态框
-            _moTaiKuang($('#select-HH-Modal'),'账户','','','','选择');
+            _moTaiKuang($('#select-SB-Modal'),'账户','','','','选择');
 
             //获取数据
             HHData();
@@ -599,7 +621,7 @@
 
     })
 
-    //户号选择【tr】
+    //户号选择【tr】聚合商
     $('#HH-table tbody').on('click','tr',function(){
 
         if($(this).hasClass('tables-hover')){
@@ -626,7 +648,7 @@
 
     })
 
-    //确定选中的户号id
+    //确定选中的户号id聚合商
     $('#select-HH-Modal').on('click','.btn-primary',function(){
 
         var selectedTr = $('#HH-table tbody').find('.tables-hover');
@@ -664,103 +686,414 @@
 
     })
 
-    //【聚合商确定回应】
+    //【聚合商确定回应】聚合商
     $('#table').on('click','.answer-button',function(){
 
-        $('#theLoading').modal('show');
+        //判断当前日期和反馈截止日期的大小，超过的话，提示不能通过
+        var EndTime = $(this).parents('#table').find('.endTime').html();
 
-        //户号、消减负荷、是否手动、描述
-        var trs = $(this).parent().prev().find('table').children('tbody').children('tr')
+        var NowTime = moment().format('YYYY/MM/DD HH:mm:ss');
 
-        var arr = [];
+        if(NowTime>EndTime){
 
-        for(var i=0;i<trs.length;i++){
-
-            var p = trs[i];
-
-            var obj = {};
-
-            //户号
-            obj.acctId = $(p).children().eq(1).find('.input-value').html();
-            //此次消减负荷量 ,
-            obj.reduceLoad = $(p).children().eq(3).find('.input-value').html();
-            //isAuto
-            obj.isAuto = $(p).children().eq(4).find('input').val()
-            //memo
-            obj.memo = $(p).children().eq(5).find('.input-value').html();
-
-            arr.push(obj);
-
-
-        }
-
-
-        //发送数据
-        var prm = {
-
-            //响应事件Id
-            planId:_thisPlanId,
-            //聚合商响应数据
-            aggres:arr
-        }
-
-        var url = '';
-
-        if(_eprType == 3){
-
-            //聚合商
-            url = 'DRUserAnswer/AggrUserRespondDRPlan'
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'已超过反馈截止日期！','');
 
         }else{
 
-            //大用户
+            //户号、消减负荷、是否手动、描述
+            var trs = $(this).parent().prev().find('table').children('tbody').children('tr')
 
-        }
+            var arr = [];
 
-        $.ajax({
+            var url = '';
 
-            type:'post',
+            if(_eprType == 3){
 
-            url:sessionStorage.apiUrlPrefix + url,
+                for(var i=0;i<trs.length;i++){
 
-            data:prm,
+                    var p = trs[i];
 
-            timeout:_theTimes,
+                    var obj = {};
 
-            success:function(result){
+                    //户号
+                    obj.acctId = $(p).children().eq(1).find('.input-value').html();
+                    //此次消减负荷量 ,
+                    obj.reduceLoad = $(p).children().eq(3).find('.input-value').html();
+                    //isAuto
+                    obj.isAuto = $(p).children().eq(4).find('input').val()
+                    //memo
+                    obj.memo = $(p).children().eq(5).find('.input-value').html();
 
-                $('#theLoading').modal('hide');
+                    arr.push(obj);
 
-                if(result.code == -2){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                }else if(result.code == -1){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                }else if(result.code == -3){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                }else if(result.code == -4){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                }else if(result.code == 0){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'操作成功！', '');
 
                 }
 
-            },
+                //发送数据
+                var prm = {
 
-            error:_errorFun
+                    //响应事件Id
+                    planId:_thisPlanId,
+                    //聚合商响应数据
+                    aggres:arr
+                }
 
-        })
+                //聚合商
+                url = 'DRUserAnswer/AggrUserRespondDRPlan'
+
+            }else if(_eprType == 4){
+
+                //大用户
+                for(var i=0;i<trs.length;i++){
+
+                    var p = trs[i];
+
+                    var obj = {};
+
+                    //户号
+                    obj.acctId = $(p).children().eq(1).find('.input-value').html();
+                    //此次消减负荷量 ,
+                    obj.reduceLoad = $(p).children().eq(4).find('.input-value').html();
+                    //参与时长
+                    obj.partakeHourlength = $(p).children().eq(3).find('.input-value').html();
+                    //isAuto
+                    obj.isAuto = $(p).children().eq(5).find('input').val()
+                    //memo
+                    obj.memo = $(p).children().eq(6).find('.input-value').html();
+                    //设备
+                    obj.respbabms = [];
+
+                    arr.push(obj);
+
+
+                }
+
+                //发送数据
+                var prm = {
+
+                    //响应事件Id
+                    planId:_thisPlanId,
+                    //聚合商响应数据
+                    kares:arr
+                }
+
+                //大用户
+                url = 'DRUserAnswer/KAUserRespondDRPlan'
+
+            }
+
+            if(arr.length == 0){
+
+                _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择户号','');
+
+            }else{
+
+                $('#theLoading').modal('show');
+
+                $.ajax({
+
+                    type:'post',
+
+                    url:sessionStorage.apiUrlPrefix + url,
+
+                    data:prm,
+
+                    timeout:_theTimes,
+
+                    success:function(result){
+
+                        $('#theLoading').modal('hide');
+
+                        if(result.code == -2){
+
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                        }else if(result.code == -1){
+
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                        }else if(result.code == -3){
+
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                        }else if(result.code == -4){
+
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                        }else if(result.code == 0){
+
+                            conditionSelect();
+
+                        }
+
+                    },
+
+                    error:_errorFun
+
+                })
+
+            }
+
+        }
 
 
     })
+
+    //【保存】大用户
+    $('#table tbody').on('click','.option-save-1',function(){
+
+        //暂时先不考虑
+        var inputs = $(this).parent().parent('tr').find('.input-required');
+
+        //所有input的值
+        var inputValue = $(this).parent().parent('tr').find('.input-value');
+
+        //是否符合验证
+        var isAccord = true;
+
+        //格式验证
+        //首先验证非空
+        for(var i=0;i<inputs.length;i++){
+
+            if(inputs.eq(i).val() == ''){
+
+                //指出哪个是不符合的
+                inputs.eq(i).addClass('table-error');
+
+                inputs.eq(i).next('.error-tip').html('该项为必填字段').show();
+
+            }else{
+
+                if(inputs.eq(i).attr('class').indexOf('input-chinese')<0){
+
+                    //非空验证通过之后，验证正则
+                    var reg = /^\d+(\.\d+)?$/;
+
+                    if(reg.test(inputs.eq(i).val())){
+
+                        inputs.eq(i).next('.error-tip').html('').hide();
+
+                        inputs.eq(i).removeClass('table-error');
+
+                    }else{
+
+                        inputs.eq(i).addClass('table-error');
+
+                        inputs.eq(i).next('.error-tip').html('请输入大于0的数字').show();
+
+
+                    }
+
+                }else{
+
+                    $('.input-chinese').removeClass('table-error');
+
+                    $('.input-chinese').next('.error-tip').hide();
+
+                }
+
+            }
+
+        }
+
+        //查看是否都是非空
+        for(var i=0;i<inputs.length;i++){
+
+            var o = inputs.eq(i).next('.error-tip').css('display');
+
+            if( o != 'none'){
+
+                isAccord = false
+
+                break;
+
+            }else{
+
+                isAccord = true;
+
+            }
+
+        }
+
+        if(isAccord){
+
+            //暂存当前的值
+            var valueArr = [];
+
+            for(var i = 0;i<inputValue.length;i++){
+
+                valueArr.push(inputValue.eq(i).val());
+
+            }
+
+            var tds = $(this).parent().parent('tr').find('.inputValue');
+
+            for(var i=0;i<tds.length;i++){
+
+                var str = '<span class="input-value">' + valueArr[i] +'</span>';
+
+                tds.eq(i).empty().append(str);
+
+            }
+
+            var switchButton = $(this).parent().parent('tr').find('.switchButton');
+
+            switchButton.bootstrapSwitch('disabled',true);
+
+            $(this).html('编辑').removeClass('option-save-1').addClass('option-edit-1');
+
+        }
+
+    })
+
+    //【编辑】大用户
+    $('#table tbody').on('click','.option-edit-1',function(){
+
+        var tds = $(this).parent().parent('tr').find('.input-value').parent('td');
+
+        var valueArr = [];
+
+        //插入input中
+        for(var i=0;i<tds.length;i++){
+
+            valueArr.push(tds.eq(i).children('.input-value').html());
+
+            if(i == tds.length-1){
+
+                var str = '<input class="input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
+
+            }else if( i == 1 ){
+
+                var str = '<input class="input-required input-chinese input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
+
+            }else{
+
+                var str = '<input class="input-required input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
+
+            }
+
+            $(tds).eq(i).empty().append(str);
+
+        }
+
+        $(this).html('保存').removeClass('option-edit-1').addClass('option-save-1');
+
+        var switchButton = $(this).parent().parent('tr').find('.switchButton');
+
+        switchButton.bootstrapSwitch('disabled',false);
+
+    })
+
+    //【回应验证】大用户
+    $('#table tbody').on('click','.input-required',function(){
+
+
+
+    })
+
+    //【选择户号】大用户
+    $('#table').on('click','.select-dev',function(){
+
+        _thisRowButton = $(this);
+
+        //首先判断当前是编辑状态还是保存状态
+
+        var state = $(this).parent().parent('tr').find('.option-edit-1').length
+
+        //state == 1表示当前是不可操作状态,==0表示可操作
+        if(state == 0){
+
+            //初始化
+
+            //模态框
+            _moTaiKuang($('#select-SB-Modal'),'账户','','','','选择');
+
+            //获取数据
+            DHHData()
+
+        }else{
+
+            return false;
+
+        }
+
+    })
+
+    //【删除】大用户
+    $('#table tbody').on('click','.option-del-1',function(){
+
+        //获取表格对象
+        var T = $(this).parents('td').find('.innerTable').DataTable();
+
+        T.row($(this).parents('tr')).remove().draw( false );
+
+    })
+
+    //户号选择【tr】大用户
+    $('#SB-table tbody').on('click','tr',function(){
+
+        if($(this).hasClass('tables-hover')){
+
+            $('#SB-table tbody').find('tr').removeClass('tables-hover');
+
+            $('#SB-table tbody').find('input').parent('span').removeClass('checked');
+
+            $(this).removeClass('tables-hover');
+
+            $(this).find('input').parent('span').removeClass('checked');
+
+        }else{
+
+            $('#SB-table tbody').find('tr').removeClass('tables-hover');
+
+            $('#SB-table tbody').find('input').parent('span').removeClass('checked');
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent('span').addClass('checked');
+
+        }
+
+    })
+
+    //确定选中的户号id聚合商
+    $('#select-SB-Modal').on('click','.btn-primary',function(){
+
+        var selectedTr = $('#SB-table tbody').find('.tables-hover');
+
+        if(selectedTr.length == 0){
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择户号！','');
+
+        }else{
+
+            $('#theLoading').modal('show');
+
+            //给id赋值
+            _thisHH = selectedTr.find('.checker').attr('data-id');
+
+            _thisHHM = selectedTr.children().eq(2).html();
+
+            $('#theLoading').modal('hide');
+
+            //模态框
+            $('#select-SB-Modal').modal('hide');
+
+            _thisRowButton.parent().next().children('input').val(_thisHH);
+
+            _thisRowButton.parent().next().next().children('input').val(_thisHHM);
+
+            //隐藏验证消息
+            _thisRowButton.parent().next().children('.error-tip').html('').hide();
+
+            _thisRowButton.parent().next().next().children('.error-tip').html('').hide();
+
+        }
+
+
+
+    })
+
 
     /*-------------------------------------其他方法-----------------------------------------*/
 
@@ -810,6 +1143,13 @@
                 _allData.length = 0;
 
                 $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
 
                 var arr = [];
 
@@ -865,8 +1205,12 @@
 
         var str = '';
 
-        //计划名称、区域、开始时间、结束时间、计划消减负荷量、基线
-        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kWh）</td>'+ '<td>' + d.reduceLoad + '</td>' +'<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '</tr>';
+        //计划名称、区域、开始时间、结束时间、计划消减负荷量
+        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kWh）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
+
+        //基线、发布时间、反馈截止时间、
+
+        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle" style="font-weight: bold">反馈截止时间</td>' + '<td style="font-weight: bold" class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
 
         if(d.librarys){
 
@@ -879,12 +1223,12 @@
                 if(lengths == 1){
 
                     //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
-                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>'  + '<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>';
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>'  + '</tr>';
 
                 }else{
 
                     //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
-                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称' + (i+1) + '</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>'  + '<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>';
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称' + (i+1) + '</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>' + '</tr>';
 
                 }
 
@@ -892,8 +1236,6 @@
             }
 
         }
-
-
 
 
         //账户响应的table
@@ -968,8 +1310,6 @@
 
             }
 
-
-
             if(hh != ''){
 
                 arr.push(hh);
@@ -1026,6 +1366,93 @@
                 }
 
                 _datasTable($('#HH-table'),arr);
+
+            },
+
+            error:_errorFun1
+
+        })
+
+    }
+
+    //获取户号数据（大用户）
+    function DHHData(){
+
+        $('#theLoading').modal('show');
+
+        //首先获取当前选中的tr的
+        var trs = _thisRowButton.parent().parent('tr').parent('tbody').children();
+        //存放已选中的id
+        var arr = [];
+
+        for(var i=0;i<trs.length;i++){
+
+            if(trs.eq(i).children().eq(1).children('input').length ==1){
+
+                var hh = trs.eq(i).children().eq(1).children().val();
+
+            }else{
+
+                var hh = trs.eq(i).children().eq(1).children().html();
+
+            }
+
+            if(hh != ''){
+
+                arr.push(hh);
+
+            }
+
+        }
+
+        var prm = {
+
+            //登录用户id
+            userId :sessionStorage.ADRS_UserId,
+            //已选择的户号id
+            selectactIds:arr
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url: sessionStorage.apiUrlPrefix + 'DRUserAnswer/GetAcctsByKA',
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                var arr = [];
+
+                if(result.code == -2){
+
+                    console.log('获取户号数据结果：暂无数据！');
+
+                }else if(result.code == -1){
+
+                    console.log('获取户号数据结果：异常错误！');
+
+                }else if(result.code == -3){
+
+                    console.log('获取户号数据结果：参数错误！');
+
+                }else if(result.code == -4){
+
+                    console.log('获取户号数据结果：内容已存在！');
+
+                }else if(result.code == 0){
+
+                    arr = result.accts;
+
+                }
+
+                _datasTable($('#SB-table'),arr);
 
             },
 

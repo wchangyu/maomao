@@ -1,8 +1,5 @@
 var Account = function(){
 
-    //条件刷新标识
-    var _isReloadData = false;
-
     //记录当前选中的userId
     var _thisID = '';
 
@@ -92,8 +89,6 @@ var Account = function(){
         ],
         "aoColumnDefs": [ { "orderable": false, "targets": [ 1,2,3,4,5] }]
     });
-
-    //_tableInit($('#table'),col,2,true,'','','','');
 
     var districtCol = [
 
@@ -364,9 +359,6 @@ var Account = function(){
 
                     $('#theLoading').modal('hide');
 
-                    //重载数据标识
-                    _isReloadData = true;
-
                     if(result.code == 0){
 
                         //创建成功
@@ -464,20 +456,6 @@ var Account = function(){
 
     })
 
-    //提示关闭之后，再刷新数据
-    $('#tip-Modal').on('hidden.bs.modal',function(){
-
-        if(_isReloadData){
-
-            conditionSelect();
-
-        }
-
-        //标识重置
-        _isReloadData = false;
-
-    })
-
     /*----------------------------------其他方法-----------------------------------------*/
 
     //获取账户列表
@@ -505,6 +483,13 @@ var Account = function(){
             success:function(result){
 
                 $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
 
                 var arr = []
 
@@ -697,16 +682,16 @@ var Account = function(){
 
                 $('#theLoading').modal('hide');
 
-                //重载数据标识
-                _isReloadData = true;
-
                 if(result.code == 0){
-
-                    //创建成功
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,seccessMeg,'');
 
                     //模态框消失
                     $('#create-Modal').modal('hide');
+
+                    $('#create-Modal').one('hidden.bs.modal',function(){
+
+                        conditionSelect();
+
+                    })
 
                 }else if(result.code == -2){
 

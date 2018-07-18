@@ -1,82 +1,10 @@
 ﻿var UserChoose = function () {
-    //存放所有列表的数据
-    var _allDataArr = [
 
-        {
-            id:'1',
-            ZT:'已发布',
-            SJMC:'事件A',
-            KSSJ:'事件B',
-            JSSJ:'2018-07-14',
-            XJFU:'2018-07-31',
-            JX:'基线A',
-            QY:'区域A',
-            TC:'套餐A',
-            DJSJ:'2017-07-15',
-            CJR:'mch'
-        },
-        {
-            id:'2',
-            ZT:'已审核',
-            SJMC:'事件A',
-            KSSJ:'事件B',
-            JSSJ:'2018-07-14',
-            XJFU:'2018-07-31',
-            JX:'基线A',
-            QY:'区域A',
-            TC:'套餐A',
-            DJSJ:'2017-07-15',
-            CJR:'mch'
-        }
+    //存放当前所有值
+    var _allData = [];
 
-    ];
-
-    //大用户响应数据
-    var _DYHArr = [
-
-        {
-
-            CYSC:'0.6',
-            CCXJFHL:'300',
-            SDXYL:'0',
-            ZDXYL:'300'
-
-        },
-        {
-
-            CYSC:'0.5',
-            CCXJFHL:'200',
-            SDXYL:'0',
-            ZDXYL:'200'
-
-        }
-
-    ]
-
-    //聚合商响应数据
-    var _JHSArr = [
-
-        {
-
-            HH:'0.6',
-            CCXJFHL:'300',
-            SDXYL:'0',
-            ZDXYL:'300'
-
-        },
-        {
-
-            HH:'0.5',
-            CCXJFHL:'200',
-            SDXYL:'0',
-            ZDXYL:'200'
-
-        }
-
-    ]
-
-    //当前是聚合商还是大用户
-    var _eprType = 1;
+    //操作当前事件的id
+    var _thisPlanId = '';
 
     /*--------------------------------------表格初始化-------------------------------------*/
 
@@ -84,51 +12,58 @@
 
         {
             title:'状态',
-            data:'ZT'
+            data:'planStateName'
         },
         {
             title:'事件名称',
-            data:'SJMC'
+            data:'planName'
         },
         {
             title:'开始时间',
-            data:'KSSJ'
+            data:'startDate'
         },
         {
             title:'结束时间',
-            data:'JSSJ'
+            data:'closeDate'
         },
         {
             title:'消减负荷（kWh）',
-            data:'XJFU'
+            data:'reduceLoad'
         },
         {
             title:'基线',
-            data:'JX'
+            data:'baselineName'
         },
         {
             title:'区域',
-            data:'QY'
+            data:'districtName'
         },
         {
             title:'套餐（多个）',
-            data:'TC'
+            data:'librarys',
+            render:function(data, type, full, meta){
+
+                return data.length
+
+
+
+            }
         },
         {
             title:'登记时间',
-            data:'DJSJ'
+            data:'createDate'
         },
         {
             title:'创建人',
-            data:'CJR'
+            data:'createPlanUserName'
         },
         {
             title:'操作',
             data:'',
             className:'detail-button',
-            render:function(){
+            render:function(data, type, full, meta){
 
-                return '<span data-id="6" style="color:#2170f4;text-decoration: underline ">详情</span>'
+                return '<span data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline ">详情</span>'
 
             }
         }
@@ -167,136 +102,8 @@
         "columns": col
     });
 
-    //大用户响应表格
-    var DCol = [
-
-        {
-            title:'参与资源',
-            data:'',
-            render:function(data, type, full, meta){
-
-                return '<span class="select-dev" style="cursor: pointer;display: inline-block;padding: 3px 5px;border:1px solid #cccccc;border-radius: 3px !important;">选择设备</span>'
-
-            }
-        },
-        {
-            title:'参与时长（小时）',
-            data:'CYSC',
-            render:function(data, type, full, meta){
-
-                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
-
-            }
-        },
-        {
-            title:'此次消减负荷量',
-            data:'CCXJFHL',
-            render:function(data, type, full, meta){
-
-                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
-
-            }
-        },
-        {
-            title:'手动响应量',
-            data:'SDXYL',
-            render:function(data, type, full, meta){
-
-                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
-
-            }
-        },
-        {
-            title:'自动响应量',
-            data:'ZDXYL',
-            render:function(data, type, full, meta){
-
-                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
-
-            }
-        },
-        {
-            title:'操作',
-            data:'',
-            render:function(data, type, full, meta){
-
-                return '<span class="data-option option-save btn default btn-xs green-stripe">保存</span>' +
-
-                    '<span class="data-option option-del btn default btn-xs green-stripe">删除</span>'
-
-            }
-        }
-
-    ];
-
-    _tableInit($('#table-D'),DCol,2,true,'','',true,'',10);
-
-    //聚合商响应表格
-    var JCol = [
-
-        {
-            title:'账户',
-            data:'',
-            render:function(data, type, full, meta){
-
-                return '<span class="select-user" style="cursor: pointer;display: inline-block;padding: 3px 5px;border:1px solid #cccccc;border-radius: 3px !important;">选择账户</span>'
-
-            }
-        },
-        {
-            title:'户号',
-            data:'HH',
-            render:function(data, type, full, meta){
-
-                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
-
-            }
-        },
-        {
-            title:'此次消减负荷量',
-            data:'CCXJFHL',
-            render:function(data, type, full, meta){
-
-                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
-
-            }
-        },
-        {
-            title:'手动响应量',
-            data:'SDXYL',
-            render:function(data, type, full, meta){
-
-                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
-
-            }
-        },
-        {
-            title:'自动响应量',
-            data:'ZDXYL',
-            render:function(data, type, full, meta){
-
-                return '<input type="text" class="input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
-
-            }
-        },
-        {
-            title:'操作',
-            data:'',
-            render:function(data, type, full, meta){
-
-                return '<span class="data-option option-save btn default btn-xs green-stripe">保存</span>' +
-
-                    '<span class="data-option option-del btn default btn-xs green-stripe">删除</span>'
-
-            }
-        }
-
-    ];
-
-    _tableInit($('#table-J'),JCol,2,true,'','',true,'',10);
-
-    //账户列表
-    var userCol = [
+    //聚合商用户表格初始化
+    var colJ = [
 
         {
             title:'选择',
@@ -304,39 +111,40 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return  '<div class="checker"><span><input type="checkbox" value=""></span></div>'
+                return  '<div class="checker" data-id="' + full.accountId +'"><span><input type="checkbox" value=""></span></div>'
 
             }
+        },
+        {
+            title:'用户角色',
+            data:'eprTyNt',
+            class:'type',
+            render:function(data, type, full, meta){
 
+                return '<span data-num="' + full.eprTy + '">'+ data +'</span>'
+
+            }
         },
         {
-            title:'账户角色',
-            data:''
+            title:'企业名称',
+            data:'eprName',
+            class:'epr',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.eprId + '">'+ data +'</span>'
+
+            }
         },
         {
-            title:'账户名称',
-            data:''
+            title:'户数|户号',
+            data:'acct'
         },
         {
-            title:'此次消减负荷量',
-            data:''
-        },
-        {
-            title:'手动响应量',
-            data:''
-        },
-        {
-            title:'自动响应量',
-            data:''
-        },
-        {
-            title:'响应时间',
-            data:''
+            title:'此次消减负荷量(kW)',
+            data:'reduceLoad'
         }
 
     ]
-
-
 
     //登录者获取事件
     conditionSelect();
@@ -347,23 +155,21 @@
     $('#table tbody').on('click', '.detail-button', function () {
 
         //存放当前企业所绑定户号的数组
-        var thisEprHHArr = [];
+        var thisOBJ = {};
 
-        //var thisEprId = $(this).children().attr('data-id');
-        //
-        //for(var i=0;i<_allMainArr.length;i++){
-        //
-        //    if(_allMainArr[i].eprId == thisEprId){
-        //
-        //        for(var j=0;j<_allMainArr[i].accts.length;j++){
-        //
-        //            thisEprHHArr.push(_allMainArr[i].accts[j]);
-        //
-        //        }
-        //
-        //    }
-        //
-        //}
+        var thisEprId = $(this).children().attr('data-id');
+
+        _thisPlanId = thisEprId;
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].planId == thisEprId){
+
+                thisOBJ = _allData[i];
+
+            }
+
+        }
 
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
 
@@ -378,188 +184,141 @@
         }
         else {
 
-            row.child( formatDetail(thisEprHHArr) ).show();
+            row.child( formatDetail(thisOBJ) ).show();
 
             //初始化表格(搞清楚当前是聚合商0还是大用户1);
-            var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
+            var innerTable = $(this).parents('tr').next('tr').find('.userTable');
 
-            if(_eprType == 0){
+            _tableInit(innerTable,colJ,2,true,'','',true,'','',true);
 
-                _tableInit(innerTable,DCol,2,true,'','',true,'',10);
+            var el = $(this).parents('#table');
 
-            }else{
-
-                _tableInit(innerTable,JCol,2,true,'','',true,'',10);
-
-            }
-
-            var userTable = $(this).parents('tr').next('tr').find('.userTable');
-
-            _tableInit(userTable,userCol,2,true,'','',true,'',10);
-
+            //获取数据
+            getUserList(el,innerTable);
 
             tr.addClass('shown');
         }
     } );
 
-    //增加一行数据
-    $('#table tbody').on('click','.add-button',function(){
+    //筛选用户【tr】
+    $('#table').on('click','.userTable tr',function(){
 
-        //获取表格对象
-        var T = $(this).parents('td').find('.innerTable').DataTable();
+        if($(this).hasClass('tables-hover')){
 
-        T.row.add(['','','','']).draw();
+            $(this).removeClass('tables-hover');
 
-    })
-
-    //【保存】
-    $('#table tbody').on('click','.option-save',function(){
-
-        //暂时先不考虑
-        var inputs = $(this).parents('tr').find('input');
-
-        //是否符合验证
-        var isAccord = true;
-
-        //格式验证
-        //首先验证非空
-        for(var i=0;i<inputs.length;i++){
-
-            if(inputs.eq(i).val() == ''){
-
-                //指出哪个是不符合的
-                inputs.eq(i).addClass('table-error');
-
-                inputs.eq(i).next('.error-tip').html('该项为必填字段').show();
-
-            }else{
-
-                //非空验证通过之后，验证正则
-                var reg = /^\d+(\.\d+)?$/;
-
-                if(reg.test(inputs.eq(i).val())){
-
-                    inputs.eq(i).next('.error-tip').html('').hide();
-
-                    inputs.eq(i).removeClass('table-error');
-
-                }else{
-
-                    inputs.eq(i).addClass('table-error');
-
-                    inputs.eq(i).next('.error-tip').html('请输入大于0的数字').show();
-
-
-                }
-
-            }
-
-        }
-
-        //查看是否都是非空
-        for(var i=0;i<inputs.length;i++){
-
-            var o = inputs.eq(i).next('.error-tip').css('display');
-
-            if( o != 'none'){
-
-                isAccord = false
-
-                break;
-
-            }else{
-
-                isAccord = true;
-
-            }
-
-        }
-
-        if(isAccord){
-
-            //暂存当前的值
-            var valueArr = [];
-
-            for(var i = 0;i<inputs.length;i++){
-
-                valueArr.push(inputs.eq(i).val());
-
-            }
-
-            var tds = $(this).parents('tr').find('input').parent('td');
-
-            for(var i=0;i<tds.length;i++){
-
-                var str = '<span class="input-value">' + valueArr[i] +'</span>'
-
-                tds.eq(i).empty().append(str);
-
-            }
-
-            $(this).html('编辑').removeClass('option-save').addClass('option-edit');
-
-        }
-
-    })
-
-    //【编辑】
-    $('#table tbody').on('click','.option-edit',function(){
-
-        var tds = $(this).parents('tr').find('.input-value').parent('td');
-
-        var valueArr = [];
-
-        //插入input中
-        for(var i=0;i<tds.length;i++){
-
-            valueArr.push(tds.eq(i).children('.input-value').html());
-
-            var str = '<input class="input-required table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
-
-            $(tds).eq(i).empty().append(str);
-
-        }
-
-        $(this).html('保存').removeClass('option-edit').addClass('option-save');
-
-    })
-
-    //【删除】
-    $('#table tbody').on('click','.option-del',function(){
-
-        //获取表格对象
-        var T = $(this).parents('td').find('.innerTable').DataTable();
-
-        T.row($(this).parents('tr')).remove().draw( false );
-
-    })
-
-    //【回应验证】
-    $('#table tbody').on('keyup','.input-required',function(){
-
-        //验证非空
-        if($(this).val() == ''){
-
-            $(this).next('.error-tip').html('该项为必填字段').show();
+            $(this).find('input').parent('span').removeClass('checked');
 
         }else{
 
-            $(this).next('.error-tip').html('').hide();
+            $(this).addClass('tables-hover');
 
-            //验证格式
-            var reg = /^\d+(\.\d+)?$/;
+            $(this).find('input').parent('span').addClass('checked');
 
-            if(reg.test($(this).val())){
+        }
 
-                $(this).next('.error-tip').html('').hide();
+    })
 
-            }else{
+    //筛选确定按钮
+    $('#table').on('click','.answer-button',function(){
 
-                $(this).next('.error-tip').html('请输入大于0的数字').show();
+        var table = $(this).parent().prev();
+
+        var trs = table.find('tbody').children('.tables-hover');
+
+        if(trs.length == 0){
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择用户','');
+
+        }else{
+
+            var arr = [];
+
+            for(var i=0;i<trs.length;i++){
+
+                var obj = {}
+
+                //用户角色
+                obj.eprTy = trs.eq(i).children().eq(1).children().attr('data-num');
+                //用户角色名称
+                obj.eprTyNt = trs.eq(i).children().eq(1).children().html();
+                // 此次消减负荷量
+                obj.reduceLoad = trs.eq(i).children().eq(4).html();
+                //户号|数量
+                obj.acct = trs.eq(i).children().eq(3).html();
+                //企业及居民Id
+                obj.eprId = trs.eq(i).children().eq(2).children().attr('data-num');
+                //企业及居民名称
+                obj.eprName = trs.eq(i).children().eq(2).children().html();
+
+                arr.push(obj);
 
             }
 
+            var prm = {
+
+                //用户角色
+                userRole:sessionStorage.ADRS_UserRole,
+                //事件id
+                planId:_thisPlanId,
+                //选中的户号列表
+                selectAccts:arr
+
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:sessionStorage.apiUrlPrefix + 'DRUserChoose/ReplyUserResponse',
+
+                data:prm,
+
+                timeout:_theTimes,
+
+                success:function(result){
+
+                    $('#theLoading').modal('hide');
+
+                    if($('.modal-backdrop').length > 0){
+
+                        $('div').remove('.modal-backdrop');
+
+                        $('#theLoading').hide();
+                    }
+
+                    if(result.code == -2){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                    }else if(result.code == -1){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                    }else if(result.code == -3){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                    }else if(result.code == -4){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                    }else if(result.code == 0){
+
+                        conditionSelect();
+
+                    }
+
+                },
+
+                error:_errorFun
+
+            })
+
         }
+
+
+
 
     })
 
@@ -570,70 +329,79 @@
 
         $('#theLoading').modal('show');
 
-        _datasTable($('#table'),_allDataArr);
+        var  prm = {
 
-        //var prm = {
-        //
-        //    //登录账户
-        //    sysuserId:sessionStorage.ADRS_SysuserId,
-        //    //账户角色
-        //    userRole:sessionStorage.ADRS_UserRole
-        //
-        //}
-        //
-        //$.ajax({
-        //
-        //    type:'post',
-        //
-        //    url:sessionStorage.apiUrlPrefix + 'DRUserAnswer/ReceiveAnswerDRPlan',
-        //
-        //    data:prm,
-        //
-        //    timeout:_theTimes,
-        //
-        //    success:function(result){
-        //
-        //        $('#theLoading').modal('hide');
-        //
-        //        var arr = [];
-        //
-        //        if(result.code == -2){
-        //
-        //            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-        //
-        //        }else if(result.code == -1){
-        //
-        //            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-        //
-        //        }else if(result.code == -3){
-        //
-        //            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-        //
-        //        }else if(result.code == -4){
-        //
-        //            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-        //
-        //        }else if(result.code == 0){
-        //
-        //            _allMainArr.length = 0;
-        //
-        //            for(var i=0;i<result.eprs.length;i++){
-        //
-        //                _allMainArr.push(result.eprs[i]);
-        //
-        //            }
-        //
-        //            arr = result.eprs
-        //
-        //        }
-        //
-        //        //_jumpNow($('#table'),arr);
-        //
-        //    },
-        //
-        //    error:_errorFun
-        //
-        //})
+            //事件
+            planId:0,
+            //区域
+            districtId:0,
+            //基线
+            baselineId:0,
+            //状态
+            state:2
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlan/GetDRPlanDs',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                _allData.length = 0;
+
+                $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
+
+                var arr = [];
+
+                if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                }else if(result.code == 0){
+
+                    arr = result.plans;
+
+                    for(var i=0;i<result.plans.length;i++){
+
+                        _allData.push(result.plans[i]);
+
+                    }
+
+                }
+
+                _jumpNow($('#table'),arr);
+
+            },
+
+            error:_errorFun
+
+        })
 
 
     }
@@ -649,30 +417,195 @@
 
         var tbodyers = '</tbody>';
 
+        var ontherTable = '<table class="table userTable table-bordered table-advance table-hover subTable"></table>';
+
         var str = '';
 
-        //计划名称、区域、开始时间、结束时间
-        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>计划名称Con</td>' + '<td class="subTableTitle">区域</td>' + '<td>区域Con</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>2018-07-01</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>2018-07-30</td>'  + '</tr>';
-        //计划消减负荷量、计划消减差额、备用消减负荷量、备用消减差额量
-        str += '<tr>' + '<td class="subTableTitle" ">计划消减负荷量</td>' + '<td>2100</td>' + '<td class="subTableTitle">计划消减差额</td>' + '<td>548</td>' + '<td class="subTableTitle">备用消减负荷量</td>' + '<td>3578</td>'  + '<td class="subTableTitle">备用消减差额量</td>' + '<td>8974</td>'  + '</tr>';
-        //参与户数、可消减负荷、基线
-        str += '<tr>' + '<td class="subTableTitle" ">参与户数</td>' + '<td>3</td>' + '<td class="subTableTitle">可消减负荷</td>' + '<td>548</td>' + '<td class="subTableTitle">基线</td>' + '<td></td>'  + '<td class="subTableTitle"></td>' + '<td></td>'  + '</tr>';
-        //产品名称、产品（1、2）类型、响应时间比、响应量占比
-        str += '<tr>' + '<td class="subTableTitle" ">产品名称</td>' + '<td>产品名称Con</td>' + '<td class="subTableTitle">产品（1、2）类型</td>' + '<td>548</td>' + '<td class="subTableTitle">响应时间比</td>' + '<td></td>'  + '<td class="subTableTitle">响应量占比</td>' + '<td></td>'  + '</tr>';
-        //补贴方式、补贴价格、提前通知时间、产品描述
-        str += '<tr>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>产品名称Con</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>548</td>' + '<td class="subTableTitle">提前通知时间</td>' + '<td></td>'  + '<td class="subTableTitle">产品描述</td>' + '<td></td>'  + '</tr>';
+        //计划名称、区域、开始时间、结束时间、计划消减负荷量
+        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kWh）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
 
-        //账户筛选表格
-        var userTable = '<table class="table table-bordered table-advance table-hover userTable" ><thead></thead><tbody></tbody></table>'
+        //基线、发布时间、反馈截止时间、
 
-        return theader + tbodyer + str + tbodyers + theaders + userTable ;
+        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle" style="font-weight: bold">反馈截止时间</td>' + '<td style="font-weight: bold" class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
+
+        if(d.librarys){
+
+            for(var i=0;i< d.librarys.length;i++){
+
+                var lengths = d.librarys.length;
+
+                var tc = d.librarys[i];
+
+                if(lengths == 1){
+
+                    //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>' + '</tr>';
+
+                }else{
+
+                    //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称' + (i+1) + '</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>'  + '</tr>';
+
+                }
+
+
+            }
+
+        }
+
+        var chooseButton = '<div style="text-align: left !important;margin-bottom: 5px;"><button class="btn green answer-button">回复用户</button></div>';
+
+        var statistics = '<div style="text-align: left"><label for="">统计：</label><div style="text-align: left;display: inline-block;vertical-align: middle">聚合商数：<span class="JHSNum" style="font-weight: bold;margin-right: 5px;"></span>,聚合商下户号数：<span class="JYHS" style="font-weight: bold;margin-right: 5px;"></span>,可消减负荷量（kW）：<span class="JFH" style="font-weight: bold;margin-right: 5px;"></span><br>大用户数：<span class="DYHNum" style="font-weight: bold;margin-right: 5px;"></span>,大用户下户号数：<span class="DYHH" style="font-weight: bold;margin-right: 5px;"></span>,可消减负荷量（kW）：<span class="DFH" style="font-weight: bold;margin-right: 5px;"></span>，总消减负荷（kW）：<span class="TOTalFH" style="font-weight: bold"></span></div></div>'
+
+        return theader + tbodyer + str + tbodyers + theaders + statistics + ontherTable + chooseButton;
 
     }
 
-    //账户响应
+    //套餐类型对应
+    function libType(num){
+
+        if(num == 1){
+
+            return '价格型';
+
+        }else if(num == 2){
+
+            return '鼓励型';
+
+        }
+
+    }
+
+    //补贴方式对应
+    function priceMode(data){
+
+        if(data == 1){
+
+            return '电费抵扣'
+
+        }else if(data == 2){
+
+            return '现金支付'
+
+        }else if(data == 3){
+
+            return '预付补贴'
+
+        }
+
+    }
+
+    //获取用户列表
+    function getUserList(el,innerTable){
+
+        $('#theLoading').modal('show');
+
+        var prm = {
+
+            //用户角色
+            userRole:sessionStorage.ADRS_UserRole,
+            //事件id
+            planId:_thisPlanId
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRUserChoose/GetResponseDRPlanAccts',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                var arr = [];
+
+                //聚合商数
+                aggrNber = 0;
+                //聚合商下用户数
+                aggrAccts = 0;
+                //可消减负荷量
+                aggrReduceLoad = 0;
+                //大用户数
+                kANber = 0;
+                //大用户下户号数
+                kAAccts = 0;
+                //可消减负荷量
+                kAReduceLoad = 0;
+                //总消减负荷
+                totalReduceLoad = 0;
+
+                if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                }else if(result.code == 0){
+
+                    //赋值
+                    //聚合商数
+                    aggrNber = result.aggrNber;
+                    //聚合商下用户数
+                    aggrAccts = result.aggrAccts;
+                    //可消减负荷量
+                    aggrReduceLoad = result.aggrReduceLoad;
+                    //大用户数
+                    kANber = result.kANber;
+                    //大用户下户号数
+                    kAAccts = result.kAAccts;
+                    //可消减负荷量
+                    kAReduceLoad = result.kAReduceLoad
+                    //总消减负荷
+                    totalReduceLoad = result.totalReduceLoad;
+                    //列表
+                    arr = result.mergeAccts;
+
+                }
+
+                //赋值
+                //聚合商数
+                el.find('.JHSNum').html(aggrNber);
+                //聚合商下用户数
+                el.find('.JYHS').html(aggrAccts);
+                //可消减负荷量
+                el.find('.JFH').html(aggrReduceLoad);
+                //大用户数
+                el.find('.DYHNum').html(kANber);
+                //大用户下户号数
+                el.find('.DYHH').html(kAAccts);
+                //可消减负荷量
+                el.find('.DFH').html(kAReduceLoad);
+                //总消减负荷
+                el.find('.TOTalFH').html(totalReduceLoad);
+                //列表
+                _datasTable(innerTable,arr);
+
+            },
+
+            error:_errorFun
+
+        })
+
+    }
 
     return {
-        init: function () {
+        init: function(){
 
         }
     }
