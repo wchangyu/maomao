@@ -32,7 +32,7 @@
 
     ];
 
-    //当前是聚合商还是大账户
+    //当前是聚合商还是大用户
     var _eprType = sessionStorage.ADRS_UserRole;
 
     /*--------------------------------------表格初始化-------------------------------------*/
@@ -124,7 +124,7 @@
         "columns": col
     });
 
-    //大账户响应表格
+    //大用户响应表格
     var DCol = [
 
         {
@@ -299,7 +299,7 @@
 
             row.child( formatDetail(thisEprHHArr,indexE) ).show();
 
-            //初始化表格(搞清楚当前是聚合商0还是大账户1);
+            //初始化表格(搞清楚当前是聚合商0还是大用户1);
             var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
 
             if(_eprType == 4){

@@ -6,7 +6,7 @@
     //记录当前选中的userId
     var _thisID = '';
 
-    //创建大账户的时候，记录聚合商id
+    //创建大用户的时候，记录聚合商id
     var _JHID = '';
 
     //存放账户所有数据
@@ -170,10 +170,6 @@
         {
             title:'行业机构',
             data:'agencyTypeName'
-        },
-        {
-            title: '登录账户',
-            data: 'userName'
         },
         {
             title:'管理户号数',
@@ -585,7 +581,7 @@
 
     })
 
-    //【创建大账户】
+    //【创建大用户】
     $('#creatUserD').click(function(){
 
         //loadding
@@ -627,14 +623,14 @@
         })
     })
 
-    //创建大账户【确定按钮】
+    //创建大用户【确定按钮】
     $('#create-Modal-J').on('click','.dengjiD',function(){
 
         $('#theLoading').modal('show');
 
         formatValidate(function(){
 
-            sendOption('DREpr/CreateDREprInfoByConsumer','创建大账户成功！',false,true);
+            sendOption('DREpr/CreateDREprInfoByConsumer','创建大用户成功！',false,true);
 
         })
     })
@@ -1597,7 +1593,7 @@
 
     }
 
-    //创建账户(flag代表是否传id,JD代表当前是创建的大账户还是聚合商，true的时候是创建的大账户)
+    //创建账户(flag代表是否传id,JD代表当前是创建的大用户还是聚合商，true的时候是创建的大用户)
     function sendOption(url,seccessMeg,flag,JD){
 
         var prm = {
@@ -1914,7 +1910,7 @@
 
             str += '<tr>';
                     //户号
-            str += '<td>'+ d[i].accountId +'</td>' +
+            str += '<td>'+ d[i].accountCode +'</td>' +
                     //户号名称
                    '<td>'+ d[i].accountName +'</td>' +
                     //所属区域
@@ -1965,7 +1961,7 @@
 
     }
 
-    //聚合商下的大账户列表显示
+    //聚合商下的大用户列表显示
     function JHdownDYH(d){
 
         var table = '<table class="table tableDlist table-bordered table-advance table-hover"><thead></thead><tbody></tbody></table>'

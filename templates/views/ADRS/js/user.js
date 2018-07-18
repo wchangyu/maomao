@@ -485,15 +485,22 @@
                 $('#theLoading').modal('hide');
 
                 //重载数据标识
-                _isReloadData = true;
+                //_isReloadData = true;
 
                 if(result.code == 0){
 
-                    //创建成功
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,seccessMeg,'');
-
                     //模态框消失
                     $('#create-Modal').modal('hide');
+
+                    $('#create-Modal').off();
+
+                    $('#create-Modal').on('hidden.bs.modal',function(){
+
+                        //直接刷新数据
+                        conditionSelect();
+
+                    })
+
 
                 }else if(result.code == -2){
 
@@ -593,18 +600,18 @@
     }
 
     //提示关闭之后，再刷新数据
-    $('#tip-Modal').on('hidden.bs.modal',function(){
-
-        if(_isReloadData){
-
-            conditionSelect();
-
-        }
-
-        //标识重置
-        _isReloadData = false;
-
-    })
+    //$('#tip-Modal').on('hidden.bs.modal',function(){
+    //
+    //    if(_isReloadData){
+    //
+    //        conditionSelect();
+    //
+    //    }
+    //
+    //    //标识重置
+    //    _isReloadData = false;
+    //
+    //})
 
     return {
         init: function () {
