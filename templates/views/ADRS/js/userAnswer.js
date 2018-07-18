@@ -9,6 +9,9 @@
     //当前选中的户号
     var _thisHH = '';
 
+    //当前选中的户号名称
+    var _thisHHM = '';
+
     //点击选择户号，记录当前选中的是哪一行
     var _thisRowButton = '';
 
@@ -189,10 +192,20 @@
         {
             title:'户号',
             data:'HH',
+            className:'inputValue hiddenButton',
+            render:function(data, type, full, meta){
+
+                return '<input type="text" class="input-value input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
+
+            }
+        },
+        {
+            title:'户号',
+            data:'HHMC',
             className:'inputValue',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="input-required input-value table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
+                return '<input type="text" class="input-chinese input-value input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
 
             }
         },
@@ -393,21 +406,29 @@
 
             }else{
 
-                //非空验证通过之后，验证正则
-                var reg = /^\d+(\.\d+)?$/;
+                if(inputs.eq(i).attr('class').indexOf('input-chinese')<0){
 
-                if(reg.test(inputs.eq(i).val())){
+                    //非空验证通过之后，验证正则
+                    var reg = /^\d+(\.\d+)?$/;
 
-                    inputs.eq(i).next('.error-tip').html('').hide();
+                    if(reg.test(inputs.eq(i).val())){
 
-                    inputs.eq(i).removeClass('table-error');
+                        inputs.eq(i).next('.error-tip').html('').hide();
+
+                        inputs.eq(i).removeClass('table-error');
+
+                    }else{
+
+                        inputs.eq(i).addClass('table-error');
+
+                        inputs.eq(i).next('.error-tip').html('请输入大于0的数字').show();
+
+
+                    }
 
                 }else{
 
-                    inputs.eq(i).addClass('table-error');
-
-                    inputs.eq(i).next('.error-tip').html('请输入大于0的数字').show();
-
+                    $('.input-chinese').next('.error-tip').hide();
 
                 }
 
@@ -481,6 +502,10 @@
 
                 var str = '<input class="input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
 
+            }else if( i == 1 ){
+
+                var str = '<input class="input-required input-chinese input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
+
             }else{
 
                 var str = '<input class="input-required input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
@@ -520,18 +545,25 @@
 
         }else{
 
+            //区分数字和文本的必填项
+
             $(this).next('.error-tip').html('').hide();
 
             //验证格式
-            var reg = /^\d+(\.\d+)?$/;
 
-            if(reg.test($(this).val())){
+            if($(this).attr('class').indexOf('input-chinese')<0){
 
-                $(this).next('.error-tip').html('').hide();
+                var reg = /^\d+(\.\d+)?$/;
 
-            }else{
+                if(reg.test($(this).val())){
 
-                $(this).next('.error-tip').html('请输入大于0的数字').show();
+                    $(this).next('.error-tip').html('').hide();
+
+                }else{
+
+                    $(this).next('.error-tip').html('请输入大于0的数字').show();
+
+                }
 
             }
 
@@ -544,16 +576,26 @@
 
         _thisRowButton = $(this);
 
-        //初始化
+        //首先判断当前是编辑状态还是保存状态
 
-        //模态框
-        _moTaiKuang($('#select-HH-Modal'),'账户','','','','选择');
+        var state = $(this).parent().parent('tr').find('.option-edit').length
 
-        //获取数据
-        HHData();
+        //state == 1表示当前是不可操作状态,==0表示可操作
+        if(state == 0){
 
-        //获取用户数据
-        //_datasTable($('#HH-table'),HHArr);
+            //初始化
+
+            //模态框
+            _moTaiKuang($('#select-HH-Modal'),'账户','','','','选择');
+
+            //获取数据
+            HHData();
+
+        }else{
+
+            return false;
+
+        }
 
     })
 
@@ -600,12 +642,21 @@
             //给id赋值
             _thisHH = selectedTr.find('.checker').attr('data-id');
 
+            _thisHHM = selectedTr.children().eq(2).html();
+
             $('#theLoading').modal('hide');
 
             //模态框
             $('#select-HH-Modal').modal('hide');
 
             _thisRowButton.parent().next().children('input').val(_thisHH);
+
+            _thisRowButton.parent().next().next().children('input').val(_thisHHM);
+
+            //隐藏验证消息
+            _thisRowButton.parent().next().children('.error-tip').html('').hide();
+
+            _thisRowButton.parent().next().next().children('.error-tip').html('').hide();
 
         }
 
@@ -632,15 +683,17 @@
             //户号
             obj.acctId = $(p).children().eq(1).find('.input-value').html();
             //此次消减负荷量 ,
-            obj.reduceLoad = $(p).children().eq(2).find('.input-value').html();
+            obj.reduceLoad = $(p).children().eq(3).find('.input-value').html();
             //isAuto
-            obj.isAuto = $(p).children().eq(3).find('input').val()
+            obj.isAuto = $(p).children().eq(4).find('input').val()
             //memo
-            obj.memo = $(p).children().eq(4).find('.input-value').html();
+            obj.memo = $(p).children().eq(5).find('.input-value').html();
 
             arr.push(obj);
 
+
         }
+
 
         //发送数据
         var prm = {
@@ -896,9 +949,31 @@
     //获取户号数据
     function HHData(){
 
+        $('#theLoading').modal('show');
+
+        //首先获取当前选中的tr的
+        var trs = _thisRowButton.parent().parent('tr').parent('tbody').children();
+        //存放已选中的id
+        var arr = [];
+
+        for(var i=0;i<trs.length;i++){
+
+            var hh = trs.eq(i).children().eq(1).children().html()
+
+            if(hh != ''){
+
+                arr.push(hh);
+
+            }
+
+        }
+
         var prm = {
 
-            userId :sessionStorage.ADRS_UserId
+            //登录用户id
+            userId :sessionStorage.ADRS_UserId,
+            //已选择的户号id
+            selectactIds:arr
 
         }
 
@@ -913,6 +988,8 @@
             data:prm,
 
             success:function(result){
+
+                $('#theLoading').modal('hide');
 
                 var arr = [];
 
