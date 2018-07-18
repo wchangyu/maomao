@@ -733,7 +733,7 @@
         _moTaiKuang($('#select-YH-Modal'),'账户','','','','选择');
 
         //数据
-        _datasTable($('#YH-table'),YHArr);
+        //_datasTable($('#YH-table'),YHArr);
 
     })
 
