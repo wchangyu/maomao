@@ -345,6 +345,13 @@
 
                 $('#theLoading').modal('hide');
 
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
+
                 var arr = [];
 
                 if(result.code == -2){
