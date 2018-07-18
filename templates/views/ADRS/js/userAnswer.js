@@ -958,7 +958,17 @@
 
         for(var i=0;i<trs.length;i++){
 
-            var hh = trs.eq(i).children().eq(1).children().html()
+            if(trs.eq(i).children().eq(1).children('input').length ==1){
+
+                var hh = trs.eq(i).children().eq(1).children().val();
+
+            }else{
+
+                var hh = trs.eq(i).children().eq(1).children().html();
+
+            }
+
+
 
             if(hh != ''){
 
