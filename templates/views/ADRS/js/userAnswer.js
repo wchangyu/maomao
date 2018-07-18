@@ -6,14 +6,8 @@
     //存放当前所有值
     var _allData = [];
 
-    //存放户号所有数据
-    var HHArr = [];
-
     //当前选中的户号
     var _thisHH = '';
-
-    //获取户号
-    HHData(true);
 
     //点击选择户号，记录当前选中的是哪一行
     var _thisRowButton = '';
@@ -184,7 +178,7 @@
     var JCol = [
 
         {
-            title:'账户',
+            title:'选择户号',
             data:'',
             render:function(data, type, full, meta){
 
@@ -250,7 +244,7 @@
     var HHCol = [
 
         {
-            title:'选择',
+            title:'选择户号',
             "targets": -1,
             "data": null,
             render:function(data, type, full, meta){
@@ -555,8 +549,11 @@
         //模态框
         _moTaiKuang($('#select-HH-Modal'),'账户','','','','选择');
 
+        //获取数据
+        HHData();
+
         //获取用户数据
-        _datasTable($('#HH-table'),HHArr);
+        //_datasTable($('#HH-table'),HHArr);
 
     })
 
@@ -897,7 +894,7 @@
 
     //获取用户
     //获取户号数据
-    function HHData(flag){
+    function HHData(){
 
         var prm = {
 
@@ -941,21 +938,7 @@
 
                 }
 
-                if(flag){
-
-                    HHArr.length = 0;
-
-                    for(var i=0;i<arr.length;i++){
-
-                        HHArr.push(arr[i]);
-
-                    }
-
-                }else{
-
-                    _datasTable($('#HH-table'),arr);
-
-                }
+                _datasTable($('#HH-table'),arr);
 
             },
 
