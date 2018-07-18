@@ -3,7 +3,7 @@ var Login = function(){
     //首先获取url根目录
     var _Lurls = window.document.location.href.split('templates')[0];
 
-    //利用validate登陆
+    //利用validate登录
     var handleLogin = function() {
 
         var showAlertInfo = function(msg){
@@ -109,13 +109,13 @@ var Login = function(){
                                 //将信息写入到session中
                                 sessionStorage.ADRS_SysuserId = name;
 
-                                //登陆id
+                                //登录id
                                 sessionStorage.ADRS_UserId = res.userId;
 
-                                //登陆名
+                                //登录名
                                 sessionStorage.ADRS_UserName = res.userName;
 
-                                //登陆角色
+                                //登录角色
                                 sessionStorage.ADRS_UserRole = res.userRole;
 
                                 //account

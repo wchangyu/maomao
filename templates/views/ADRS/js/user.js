@@ -28,7 +28,7 @@
             className:'sysuserId'
         },
         {
-            title:'登陆账户名',
+            title:'登录账户名',
             data:'userName'
         },
         {
@@ -58,7 +58,7 @@
 
         rules:{
 
-            //登陆账户名(不能是中文)
+            //登录账户名(不能是中文)
             'create-user-name':{
 
                 required: true,
@@ -66,7 +66,7 @@
                 NonChinese:true
 
             },
-            //登陆密码
+            //登录密码
             'create-user-passW':{
 
                 required: true,
@@ -80,16 +80,16 @@
         },
         messages:{
 
-            //登陆账户名
+            //登录账户名
             'create-user-name':{
 
-                required: '请输入登陆账户名'
+                required: '请输入登录账户名'
 
             },
-            //登陆密码
+            //登录密码
             'create-user-passW':{
 
-                required: '请输入登陆密码',
+                required: '请输入登录密码',
 
                 minlength: '密码长度不能小于 6 位'
 
@@ -187,7 +187,7 @@
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
 
         //是否可操作
-        //账户登陆名不能操作
+        //账户登录名不能操作
         $('#create-Modal').find('input').attr('disabled',false);
 
         $('#create-Modal').find('select').attr('disabled',false);
@@ -238,7 +238,7 @@
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
 
         //是否可操作
-        //账户登陆名不能操作
+        //账户登录名不能操作
         $('#create-Modal').find('input').attr('disabled',true);
 
         $('#create-Modal').find('select').attr('disabled',true);
@@ -557,7 +557,7 @@
                 if(result.code == 0){
 
                     //绑定数据
-                    //登陆账户名
+                    //登录账户名
                     $("#create-user-login-name").val(result.user.userName);
                     //账户名
                     $('#create-user-name').val(result.user.sysuserId);

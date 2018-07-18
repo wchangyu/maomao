@@ -373,7 +373,7 @@
             className:'sysuserId'
         },
         {
-            title:'登陆账户名',
+            title:'登录账户名',
             data:'userName'
         },
         {
@@ -1707,25 +1707,11 @@
 
         $('#theLoading').modal('show');
 
-        var prm = {
-
-            //行业选择
-            agency:$('#industry-type-modal').val(),
-            //企业及居民类型
-            eprtype:1,
-            //是否有效
-            //isdel:$('#valuation-method-modal').val()
-            isdel:2
-
-        }
-
         $.ajax({
 
             type:'post',
 
-            url:sessionStorage.apiUrlPrefix + 'DREpr/GetDREprDs',
-
-            data:prm,
+            url:sessionStorage.apiUrlPrefix + 'DREpr/GetDREprByAggregatorDs',
 
             timeout:_theTimes,
 

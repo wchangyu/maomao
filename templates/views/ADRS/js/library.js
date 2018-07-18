@@ -135,7 +135,7 @@
         },
         messages:{
 
-            //登陆账户名
+            //登录账户名
             'product-name':{
 
                 required: '请输入产品名称'
@@ -241,7 +241,7 @@
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
 
         //是否可操作
-        //账户登陆名不能操作
+        //账户登录名不能操作
         $('#create-Modal').find('input').attr('disabled',false);
 
         $('#create-Modal').find('select').attr('disabled',false);
@@ -292,7 +292,7 @@
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
 
         //是否可操作
-        //账户登陆名不能操作
+        //账户登录名不能操作
         $('#create-Modal').find('input').attr('disabled',true);
 
         $('#create-Modal').find('select').attr('disabled',true);

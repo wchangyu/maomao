@@ -288,7 +288,7 @@
 
     _tableInit($('#HH-table'),HHCol,2,true,'','','','',10);
 
-    //登陆者获取事件
+    //登录者获取事件
     conditionSelect();
 
     /*-------------------------------------按钮事件-----------------------------------------*/
@@ -713,7 +713,7 @@
 
         //_datasTable($('#table'),_allDataArr);
 
-        //首先判断登陆者是聚合商还是大用户
+        //首先判断登录者是聚合商还是大用户
         var role = sessionStorage.ADRS_UserRole;
 
         var prm = {

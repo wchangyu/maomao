@@ -252,7 +252,7 @@
 
     _tableInit($('#table-J'),JCol,2,true,'','',true,'',10);
 
-    //登陆者获取事件
+    //登录者获取事件
     conditionSelect();
 
     //echarts参数
