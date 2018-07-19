@@ -278,7 +278,7 @@
       "事件审核": {
         "type": "0",
         "content": "事件审核",
-        "uri": "../ADRS/planExamine.html",
+        "uri": "../ADRS/planAppr.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
