@@ -1749,7 +1749,7 @@
     //显示隐藏
     function formatHH ( d ) {
 
-        var theader = '<table class="table HHtable table-bordered table-advance table-hover">' + '<thead><tr><td>户号</td><td>户号名称</td><td>所属区域</td><td>创建时间</td><td>描述</td></tr></thead>';
+        var theader = '<table class="table HHtable table-bordered table-advance table-hover">' + '<thead><tr><th>户号</th><th>户号名称</th><th>所属区域</th><th>创建时间</th><th>描述</th></tr></thead>';
 
         var theaders = '</table>';
 
@@ -1782,7 +1782,7 @@
     //显示详情
     function formatDetail(d){
 
-        var theader = '<table class="table table-bordered table-advance table-hover">' + '<thead><tr><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td></tr></thead>';
+        var theader = '<table class="table tableDetail table-bordered table-advance table-hover">' + '<thead><tr style="background: #c5d7f1"><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td></tr></thead>';
 
         var theaders = '</table>';
 

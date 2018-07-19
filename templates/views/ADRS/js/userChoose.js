@@ -148,7 +148,7 @@
                 }else if(full.eprTy == 2){
 
                     //大用户
-                    return full.acctName
+                    return '<span data-acctId="' + full.acctId + '">' + full.acctName + '</span>'
 
                 }else{
 
@@ -264,11 +264,28 @@
                 // 此次消减负荷量
                 obj.reduceLoad = trs.eq(i).children().eq(4).html();
                 //户号|数量
-                obj.acct = trs.eq(i).children().eq(3).html();
+                //obj.acct = trs.eq(i).children().eq(3).html();
                 //企业及居民Id
                 obj.eprId = trs.eq(i).children().eq(2).children().attr('data-num');
                 //企业及居民名称
                 obj.eprName = trs.eq(i).children().eq(2).children().html();
+
+                //判断用户角色，如果是用于聚合商
+                if(obj.eprTy == 1){
+
+                    //聚合商
+                    obj.acctNbers = trs.eq(i).children().eq(3).html();
+
+                }else if(obj.eprTy == 2){
+
+                    //大用户
+                    //户号
+                    obj.acctId = trs.eq(i).children().eq(3).children().attr('data-acctid');
+                    //户号名称
+                    obj.acctName = trs.eq(i).children().eq(3).children().html();
+
+                }
+
 
                 arr.push(obj);
 
