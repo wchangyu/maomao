@@ -6,6 +6,8 @@
     //操作当前事件的id
     var _thisPlanId = '';
 
+    var chartAry = [];
+
     /*--------------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -168,6 +170,7 @@
 
             echartObj.setOption(option);
 
+            chartAry.push(echartObj);
             tr.addClass('shown');
 
             chartNum ++;
@@ -242,6 +245,19 @@
         })
 
     })
+
+    window.onresize = function(){
+
+        for (var i = 0;i<chartAry.length;i++){
+
+            if(chartAry[i]){
+
+                chartAry[i].resize();
+
+            }
+        }
+
+    }
 
     /*-------------------------------------其他方法-----------------------------------------*/
 
@@ -338,12 +354,14 @@
 
         var str = '';
 
-        //计划名称、区域、开始时间、结束时间、计划消减负荷量
-        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kWh）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
+        //计划名称、区域、开始时间
+        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '</tr>';
 
-        //基线、发布时间、反馈截止时间、
+        //结束时间、计划消减负荷量、基线
+        str += '<tr>'+ '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kWh）</td>'+ '<td>' + d.reduceLoad + '</td>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' +'</tr>';
 
-        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle" style="font-weight: bold">反馈截止时间</td>' + '<td style="font-weight: bold" class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
+        //发布时间、反馈截止时间
+        str += '<tr>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle" style="font-weight: bold">反馈截止时间</td>' + '<td style="font-weight: bold" class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' + '</tr>';
 
         if(d.librarys){
 
@@ -355,13 +373,17 @@
 
                 if(lengths == 1){
 
-                    //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
-                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>' + '</tr>';
+                    //产品名称、产品类型、补贴方式、补贴价格、
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>'+ '</tr>';
+                    //提前通知时间、产品描述
+                    str += '<tr>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' + '</tr>'
 
                 }else{
 
-                    //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
-                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称' + (i+1) + '</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>'  + '</tr>';
+                    //产品名称、产品类型、补贴方式、补贴价格、
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称' + (i+1) + '</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>'+ '</tr>';
+                    //提前通知时间、产品描述
+                    str += '<tr>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' + '</tr>'
 
                 }
 
@@ -371,18 +393,17 @@
         }
         //账户响应的table
         //echarts图
-        var block = '<div class="row">';
+        var echart = '<div><div class="baseline-echart" id="echart' + num +'" style="height: 300px;background: #ffffff;border: 1px solid #e5e5e5;"></div></div>'
 
-        var echart = '<div class="col-lg-6 col-md-6 col-sm-12"><div class="baseline-echart" id="echart' + num +'" style="height: 300px;background: #ffffff"></div></div>'
+        var moeo = '<div style="position: relative;margin: 10px 0;"><div style="margin-right: 70px;"><textarea id="remark" placeholder="请输入备注" style="height: 35px;"class="table-group-action-input form-control"></textarea></div><button class="btn green examine-button" style="position: absolute;bottom: 0;right: 0;">审核</button></div></div>'
 
-        var moeo = '<div class="col-lg-6 col-md-6 col-sm-12"><textarea id="remark" style="height: 300px;"class="table-group-action-input form-control"></textarea></div></div>'
+        var left = '<div class="col-lg-6 col-md-12 col-sm-12">';
 
-        var blocks = '</div>';
+        var lefts = '</div>';
 
-        //审核按钮
-        var examineButton = '<div style="text-align: left !important;margin: 5px 0;"><button class="btn green examine-button">审核</button></div>';
+        return left + theader + tbodyer + str + tbodyers + theaders + moeo + lefts + left + echart +lefts;
 
-        return theader + tbodyer + str + tbodyers + theaders + block + echart + moeo + blocks + examineButton;
+        //return left + theader + tbodyer + str + tbodyers + theaders + block + echart + moeo + blocks + examineButton;
 
     }
 

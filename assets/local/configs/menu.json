@@ -282,6 +282,14 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "下发指令": {
+        "type": "0",
+        "content": "下发指令",
+        "uri": "../ADRS/pushInstruct.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
 
     }
