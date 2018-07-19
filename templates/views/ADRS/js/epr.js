@@ -281,14 +281,13 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return  '<div class="checker"><span><input type="checkbox" value=""></span></div>'
+                return  '<div class="checker" data-id="' + full.eprId + '"><span><input type="checkbox" value=""></span></div>'
 
             }
         },
         {
-            title:'标识',
-            data:'eprId',
-            className:'modal-eprId'
+            title:'企业类型',
+            data:'eprTypeName'
         },
         {
             title:'编码',
@@ -299,40 +298,8 @@
             data:'eprName'
         },
         {
-            title:'签署容量（kW）',
-            data:'signatureVolume'
-        },
-        {
-            title:'地址',
-            data:'address'
-        },
-        {
-            title:'联系人',
-            data:'linkMan'
-        },
-        {
-            title:'联系方式',
-            data:'phone'
-        },
-        {
-            title:'邮箱',
-            data:'eMail'
-        },
-        {
             title:'行业机构',
             data:'agencyTypeName'
-        },
-        //{
-        //    title:'是否有效',
-        //    data:'isDelName'
-        //},
-        {
-            title:'创建时间',
-            data:'createDate'
-        },
-        {
-            title:'描述',
-            data:'memo'
         }
 
     ]
@@ -353,7 +320,7 @@
             }
         },
         {
-            title:'账户ID',
+            title:'账户',
             data:'sysuserId',
             className:'sysuserId'
         },
@@ -364,18 +331,6 @@
         {
             title:'账户角色',
             data:'roleName'
-        },
-        //{
-        //    title:'是否有效',
-        //    data:'isDelName'
-        //},
-        {
-            title:'创建时间',
-            data:'createDate'
-        },
-        {
-            title:'描述',
-            data:'memo'
         }
 
     ]
@@ -406,18 +361,6 @@
         {
             title:'所属区域',
             data:'districtName'
-        },
-        //{
-        //    title:'是否有效',
-        //    data:'isDelName'
-        //},
-        {
-            title:'创建时间',
-            data:'createDate'
-        },
-        {
-            title:'备注',
-            data:'memo'
         }
 
     ]
@@ -641,10 +584,7 @@
         YHData(eprType);
 
         //模态框
-        _moTaiKuang($('#select-YH-Modal'),'账户','','','','选择');
-
-        //数据
-        //_datasTable($('#YH-table'),YHArr);
+        _moTaiKuang($('#select-YH-Modal'),'设置账户','','','','选择');
 
     })
 
@@ -952,7 +892,7 @@
     //确定选择的聚合商id
     $('#select-JH-Modal').on('click','.btn-primary',function(){
 
-        _JHID = $('.tables-hover').find('.modal-eprId').html();
+        _JHID = $('.tables-hover').find('.checker').attr('data-id');
 
         //模态框消失
         $('#select-JH-Modal').modal('hide');
@@ -1835,13 +1775,14 @@
 
             str += '</tr>';
         }
+
         return theader + tbodyer + str + tbodyers + theaders;
     }
 
     //显示详情
     function formatDetail(d){
 
-        var theader = '<table class="table table-bordered table-advance table-hover">' + '<thead><tr><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td><td>创建时间</td><td>描述</td></tr></thead>';
+        var theader = '<table class="table table-bordered table-advance table-hover">' + '<thead><tr><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td></tr></thead>';
 
         var theaders = '</table>';
 
@@ -1861,11 +1802,7 @@
                     //联系方式
                 '<td>'+ d[i].phone +'</td>' +
                     //邮箱
-                '<td>'+ d[i].eMail +'</td>' +
-                    //创建时间
-                '<td>'+ d[i].createDate +'</td>'+
-                    //描述
-                '<td>'+ d[i].memo +'</td>';
+                '<td>'+ d[i].eMail +'</td>'
 
             str += '</tr>';
         }

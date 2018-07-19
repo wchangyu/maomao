@@ -1107,6 +1107,18 @@
         //首先判断登录者是聚合商还是大用户
         var role = sessionStorage.ADRS_UserRole;
 
+        if( role != 3 && role != 4){
+
+            $('#theLoading').modal('hide');
+
+            $('#tip').find('i').after('<span style="margin-left: 20px;">无权限</span>');
+
+            $('#tip').show();
+
+            return false;
+
+        }
+
         var prm = {
 
             ////登录账户

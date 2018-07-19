@@ -791,7 +791,10 @@
 
             $('#theLoading').modal('hide');
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项!','');
+            $('#tip').find('i').after('<span style="margin-left: 20px;">请填写必填项!</span>');
+
+            $('#tip').show();
+
 
         }else{
 

@@ -233,6 +233,7 @@
                     <div class="col-md-12">
                         <div id="historyBusy">
                             <div class="total-warp">
+                                <div id="tip" style="display: none" class="Metronic-alerts alert alert-danger fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button><i class="fa-lg fa fa-warning"></i>  </div>
                                 <div class="row" style="position: relative;">
                                     <form class="cmxform" id="commentForm" method="post" action="">
                                         <ul class="modal-block">
@@ -241,27 +242,27 @@
 
                                                 <div style="padding: 10px;">
                                                     <li>
-                                                        <label for="">事件名称：</label>
+                                                        <label>事件名称：</label>
                                                         <input type="text" class="table-group-action-input form-control" id="plan-name" name="plan-name" placeholder="必填字段">
                                                     </li>
                                                     <br>
                                                     <li>
-                                                        <label for="">开始时间：</label>
+                                                        <label>开始时间：</label>
                                                         <input type="text" class="table-group-action-input form-control datatimeblock" id="plan-st" name="plan-st" placeholder="必填字段">
                                                     </li>
                                                     <br>
                                                     <li>
-                                                        <label for="">结束时间：</label>
+                                                        <label>结束时间：</label>
                                                         <input type="text" class="table-group-action-input form-control datatimeblock" id="plan-et" name="plan-et" placeholder="必填字段">
                                                     </li>
                                                     <br>
                                                     <li>
-                                                        <label for="">消减负荷（kWh）：</label>
+                                                        <label>消减负荷（kWh）：</label>
                                                         <input type="text" class="table-group-action-input form-control" id="reduce-load" name="reduce-load" placeholder="必填字段">
                                                     </li>
                                                     <br>
                                                     <li>
-                                                        <label for="">描述：</label>
+                                                        <label>描述：</label>
                                                         <textarea class="table-group-action-input form-control" id="create-remark" rows="10"></textarea>
                                                     </li>
                                                 </div>
@@ -321,7 +322,7 @@
 
                     <ul class="ADRS-condition">
                         <li>
-                            <label for="">基线类型</label>
+                            <label>基线类型</label>
                             <select class="table-group-action-input form-control" id="keyWord-baseline-modal">
                                 <option value="0">全部</option>
                                 <option value="1">累计（典型）</option>
@@ -361,7 +362,7 @@
 
                     <ul class="ADRS-condition">
                         <li>
-                            <label for="">关键字</label>
+                            <label>关键字</label>
                             <input type="text" class="table-group-action-input form-control" id="keyWord-district-modal" style="width: 150px !important;" >
                         </li>
                         <li>
@@ -397,7 +398,7 @@
 
                     <ul class="ADRS-condition">
                         <li>
-                            <label for="">产品类型</label>
+                            <label>产品类型</label>
                             <select class="table-group-action-input form-control" id="product-type">
                                 <option value="0">全部</option>
                                 <option value="1">价格型</option>
@@ -405,7 +406,7 @@
                             </select>
                         </li>
                         <li>
-                            <label for="">计价方式</label>
+                            <label>计价方式</label>
                             <select class="table-group-action-input form-control" id="valuation-method">
                                 <option value="0">全部</option>
                                 <option value="1">按次每kW</option>

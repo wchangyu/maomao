@@ -15,6 +15,10 @@ var Account = function(){
             name:'districtName'
         },
         {
+            title:'所属企业',
+            data:'eprName'
+        },
+        {
             title:'户号',
             data:'accountCode'
         },
@@ -22,10 +26,6 @@ var Account = function(){
             title:'户号名称',
             data:'accountName'
         },
-        //{
-        //    title:'是否有效',
-        //    data:'isDelName'
-        //},
         {
             title:'创建时间',
             data:'createDate'
