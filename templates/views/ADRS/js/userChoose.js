@@ -137,7 +137,26 @@
         },
         {
             title:'户数|户号',
-            data:'acct'
+            render:function(data, type, full, meta){
+
+                if(full.eprTy == 1){
+
+                    //聚合商
+                    return full.acctNbers
+
+
+                }else if(full.eprTy == 2){
+
+                    //大用户
+                    return full.acctName
+
+                }else{
+
+                    return '';
+
+                }
+
+            }
         },
         {
             title:'此次消减负荷量(kW)',
@@ -455,7 +474,7 @@
 
         var chooseButton = '<div style="text-align: left !important;margin-bottom: 5px;"><button class="btn green answer-button">回复用户</button></div>';
 
-        var statistics = '<div style="text-align: left"><label for="">统计：</label><div style="text-align: left;display: inline-block;vertical-align: middle">聚合商数：<span class="JHSNum" style="font-weight: bold;margin-right: 5px;"></span>,聚合商下户号数：<span class="JYHS" style="font-weight: bold;margin-right: 5px;"></span>,可消减负荷量（kW）：<span class="JFH" style="font-weight: bold;margin-right: 5px;"></span><br>大用户数：<span class="DYHNum" style="font-weight: bold;margin-right: 5px;"></span>,大用户下户号数：<span class="DYHH" style="font-weight: bold;margin-right: 5px;"></span>,可消减负荷量（kW）：<span class="DFH" style="font-weight: bold;margin-right: 5px;"></span>，总消减负荷（kW）：<span class="TOTalFH" style="font-weight: bold"></span></div></div>'
+        var statistics = '<div style="text-align: left"><label for="">统计：</label><div style="text-align: left;display: inline-block;vertical-align: middle">聚合商数：<span class="JHSNum" style="font-weight: bold;margin-right: 5px;"></span>,聚合商下户号数：<span class="JYHS" style="font-weight: bold;margin-right: 5px;"></span>,可消减负荷量（kW）：<span class="JFH" style="font-weight: bold;margin-right: 5px;"></span><br>大用户数：<span class="DYHNum" style="font-weight: bold;margin-right: 5px;"></span>,大用户下户号数：<span class="DYHH" style="font-weight: bold;margin-right: 5px;"></span>,可消减负荷量（kW）：<span class="DFH" style="font-weight: bold;margin-right: 5px;"></span><br>总消减负荷（kW）：<span class="TOTalFH" style="font-weight: bold"></span></div></div>'
 
         return theader + tbodyer + str + tbodyers + theaders + statistics + ontherTable + chooseButton;
 

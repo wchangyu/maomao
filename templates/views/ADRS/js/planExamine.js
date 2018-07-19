@@ -486,11 +486,12 @@
 
     $('#creatEcharts').click(function(){
 
-        var str = '<div id="echartl" class="echartl" style="height: 300px;background: yellowgreen"></div>';
-
-        $(this).after(str);
+        //var str = '<div id="echartl" class="echartl" style="height: 300px;background: yellowgreen"></div>';
+        //
+        //$(this).after(str);
 
         var echarts = echarts.init(document.getElementById('echartl'));
+
 
         echarts.setOption(option,true);
 
@@ -621,3 +622,8 @@
     }
 
 }()
+
+
+//var echarts = echarts.init(document.getElementById('echartl'));
+//
+//echarts.setOption(option,true);
