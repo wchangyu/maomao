@@ -18,6 +18,9 @@
     //操作当前事件的id
     var _thisPlanId = '';
 
+    //标签接口arr[待投标、已投标、已中标]
+    var urlArr = ['DRUserAnswer/GetWaitBidDRPlanDs','DRUserAnswer/GetAlreadyBidDRPlanDs','DRUserAnswer/GetWinBidDRPlanDs']
+
     /*--------------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -318,9 +321,21 @@
     _tableInit($('#SB-table'),HHCol,2,true,'','','','',10);
 
     //登录者获取事件
-    conditionSelect();
+    //conditionSelect();
+
+    //待投标列表(默认)
+    tenderData(urlArr[0],0);
 
     /*-------------------------------------按钮事件-----------------------------------------*/
+
+    //点击标签，加载数据
+    $('.nav-tabs').on('click','li',function(){
+
+        var indexUrl = $(this).index();
+
+        tenderData(urlArr[indexUrl],indexUrl);
+
+    })
 
     //点击【详情】
     $('#table tbody').on('click', '.detail-button', function () {
@@ -731,7 +746,8 @@
 
                 //发送数据
                 var prm = {
-
+                    //角色
+                    userRole:_eprType,
                     //响应事件Id
                     planId:_thisPlanId,
                     //聚合商响应数据
@@ -771,6 +787,8 @@
                 //发送数据
                 var prm = {
 
+                    //用户角色
+                    userRole:_eprType,
                     //响应事件Id
                     planId:_thisPlanId,
                     //聚合商响应数据
@@ -820,9 +838,16 @@
 
                             _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
 
+                        }else if(result.code == -6){
+
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
+
                         }else if(result.code == 0){
 
-                            conditionSelect();
+                            //获取当前的index值
+                            var index = $('.nav-tabs').children('.active').index();
+
+                            tenderData(urlArr[index],index);
 
                         }
 
@@ -1471,6 +1496,105 @@
             error:_errorFun1
 
         })
+
+    }
+
+    //获取待投标事件列表
+    function tenderData(url,index){
+
+        $('#theLoading').modal('show');
+
+        var role = sessionStorage.ADRS_UserRole;
+
+        var prm = {
+
+            //用户角色
+            userRole:role
+
+        }
+
+        //判断是大用户还是聚合商
+        if(role == 3){
+
+            //聚合商
+            prm.userId = sessionStorage.ADRS_UserId;
+
+
+        }else if(role == 4){
+
+            //大用户
+            prm.acctId = sessionStorage.currentAcct
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + url,
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                _allData.length = 0;
+
+                $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
+
+                var arr = [];
+
+                if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                }else if(result.code == -6){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
+
+                }else if(result.code == 0){
+
+                    var name = ['waitBidplans','alreadyBidplans','winBidplans','',''];
+
+                    arr = result[name[index]];
+
+                    for(var i=0;i<arr.length;i++ ){
+
+                        _allData.push(arr[i])
+
+                    }
+
+                }
+
+                _jumpNow($('#table'),arr);
+
+            },
+
+            error:_errorFun
+
+        })
+
+
 
     }
 
