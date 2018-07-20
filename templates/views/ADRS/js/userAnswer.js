@@ -19,7 +19,16 @@
     var _thisPlanId = '';
 
     //标签接口arr[待投标、已投标、已中标]
-    var urlArr = ['DRUserAnswer/GetWaitBidDRPlanDs','DRUserAnswer/GetAlreadyBidDRPlanDs','DRUserAnswer/GetWinBidDRPlanDs']
+    var _urlArr = ['DRUserAnswer/GetWaitBidDRPlanDs','DRUserAnswer/GetAlreadyBidDRPlanDs','DRUserAnswer/GetWinBidDRPlanDs']
+
+    //获取详情接口arr[]
+    var _detailsArr = ['','DRUserAnswer/GetAlreadyReplyDRPlanDsByPlanId','DRUserAnswer/GetConfirmAcctsDRPlanDsByPlanId','','']
+
+    //返回接口属性名称
+    var _attrArr = ['waitBidplans','alreadyBidplans','winBidplans','',''];
+
+    //详情返回的属性名称
+    var _detailAttrArr = ['','replyPBAs','chooseAccts','',''];
 
     /*--------------------------------------表格初始化-------------------------------------*/
 
@@ -320,11 +329,61 @@
 
     _tableInit($('#SB-table'),HHCol,2,true,'','','','',10);
 
-    //登录者获取事件
-    //conditionSelect();
+    //只读表格
+    var ReadCol = [
+
+        {
+            title:'用户角色',
+            data:'eprTyNt',
+            class:'type',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.eprTy + '">'+ data +'</span>'
+
+            }
+        },
+        {
+            title:'企业名称',
+            data:'eprName',
+            class:'epr',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.eprId + '">'+ data +'</span>'
+
+            }
+        },
+        {
+            title:'户数|户号',
+            render:function(data, type, full, meta){
+
+                if(full.eprTy == 1){
+
+                    //聚合商
+                    return full.acctNbers
+
+
+                }else if(full.eprTy == 2){
+
+                    //大用户
+                    return '<span data-acctId="' + full.acctId + '">' + full.acctName + '</span>'
+
+                }else{
+
+                    return '';
+
+                }
+
+            }
+        },
+        {
+            title:'此次消减负荷量(kW)',
+            data:'reduceLoad'
+        }
+
+    ]
 
     //待投标列表(默认)
-    tenderData(urlArr[0],0);
+    tenderData(_urlArr[0],0);
 
     /*-------------------------------------按钮事件-----------------------------------------*/
 
@@ -333,7 +392,7 @@
 
         var indexUrl = $(this).index();
 
-        tenderData(urlArr[indexUrl],indexUrl);
+        tenderData(_urlArr[indexUrl],indexUrl);
 
     })
 
@@ -370,20 +429,48 @@
         }
         else {
 
-            row.child( formatDetail(thisOBJ) ).show();
+            //首先判断当前的标签是否是可操作的，只有待投标的是可操作的，其他的只读
 
-            //初始化表格(搞清楚当前是聚合商0还是大用户1);
-            var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
+            var index = $('.nav-tabs').children('.active').index();
 
-            if(_eprType == 4){
+            if(index == 0){
 
-                _tableInit(innerTable,DCol,2,true,'','',true,'',10);
+                row.child( formatDetail(thisOBJ) ).show();
 
-            }else if(_eprType == 3){
+                //初始化表格(搞清楚当前是聚合商0还是大用户1);
+                var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
 
-                _tableInit(innerTable,JCol,2,true,'','',true,'',10);
+                if(_eprType == 4){
+
+                    _tableInit(innerTable,DCol,2,true,'','',true,'',10);
+
+                }else if(_eprType == 3){
+
+                    _tableInit(innerTable,JCol,2,true,'','',true,'',10);
+
+                }
+
+            }else{
+
+                //调用获取详情的接口
+                row.child( getFormatDetail(thisOBJ) ).show();
+
+                //表格初始化
+
+                var innerTable = $(this).parents('tr').next('tr').find('.getInnerTable');
+
+                _tableInit(innerTable,ReadCol,2,true,'','',true,'','',true);
+
+                //获取url
+                var index = $('.nav-tabs').children('.active').index();
+
+                var url = _detailsArr[index];
+
+                //给表格赋值
+                getDetail(url,index,innerTable);
 
             }
+
 
             tr.addClass('shown');
         }
@@ -847,7 +934,7 @@
                             //获取当前的index值
                             var index = $('.nav-tabs').children('.active').index();
 
-                            tenderData(urlArr[index],index);
+                            tenderData(_urlArr[index],index);
 
                         }
 
@@ -1229,7 +1316,7 @@
 
     }
 
-    //显示详情
+    //显示详情(可操作的详情)
     function formatDetail(d){
 
         var theader = '<table class="table table-bordered table-advance table-hover subTable">';
@@ -1287,6 +1374,58 @@
         var answerButton = '<div style="text-align: left !important;margin-bottom: 5px;">' + '<button class="btn green answer-button">' + '确定回应' + '</button>' + '</div>';
 
         return theader + tbodyer + str + tbodyers + theaders + button + answerTable + answerButton;
+
+    }
+
+    //显示详情（不可操作的详情）
+    function getFormatDetail(d){
+
+        var theader = '<table class="table table-bordered table-advance table-hover subTable">';
+
+        var theaders = '</table>';
+
+        var tbodyer = '<tbody>'
+
+        var tbodyers = '</tbody>';
+
+        var str = '';
+
+        //计划名称、区域、开始时间、结束时间、计划消减负荷量
+        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kWh）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
+
+        //基线、发布时间、反馈截止时间、
+
+        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle" style="font-weight: bold">反馈截止时间</td>' + '<td style="font-weight: bold" class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
+
+        if(d.librarys){
+
+            for(var i=0;i< d.librarys.length;i++){
+
+                var lengths = d.librarys.length;
+
+                var tc = d.librarys[i];
+
+                if(lengths == 1){
+
+                    //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>'  + '</tr>';
+
+                }else{
+
+                    //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称' + (i+1) + '</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>' + '</tr>';
+
+                }
+
+
+            }
+
+        }
+
+        //获取详情的接口
+        var table = '<table class="table getInnerTable table-bordered table-advance table-hover"><thead></thead><tbody></tbody></table>'
+
+        return theader + tbodyer + str + tbodyers + theaders + table;
 
     }
 
@@ -1574,9 +1713,7 @@
 
                 }else if(result.code == 0){
 
-                    var name = ['waitBidplans','alreadyBidplans','winBidplans','',''];
-
-                    arr = result[name[index]];
+                    arr = result[_attrArr[index]];
 
                     for(var i=0;i<arr.length;i++ ){
 
@@ -1594,6 +1731,76 @@
 
         })
 
+
+
+    }
+
+    //获取详情
+    function getDetail(url,index,table){
+
+        $('#theLoading').modal('show');
+
+        var prm = {
+
+            //用户角色
+            userRole:sessionStorage.ADRS_UserRole,
+            //事件Id
+            planId:_thisPlanId
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + url,
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
+
+                var arr = [];
+
+                if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                }else if(result.code == 0){
+
+                    arr = result[_detailAttrArr[index]];
+
+                }
+
+                _jumpNow(table,arr);
+
+            },
+
+            error:_errorFun
+
+        })
 
 
     }

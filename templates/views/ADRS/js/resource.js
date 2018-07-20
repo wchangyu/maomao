@@ -114,27 +114,11 @@
         },
         {
             title:'所属企业',
-            data:''
-        },
-        {
-            title:'所属企业名称',
-            data:''
+            data:'eprName'
         },
         {
             title:'所属区域',
             data:'districtName'
-        },
-        //{
-        //    title:'是否有效',
-        //    data:'isDelName'
-        //},
-        {
-            title:'创建时间',
-            data:'createDate'
-        },
-        {
-            title:'备注',
-            data:'memo'
         }
 
     ];

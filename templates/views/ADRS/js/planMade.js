@@ -38,8 +38,7 @@
     var now = moment().format('YYYY-MM-DD HH:mm:ss');
 
     //时间插件
-
-    $('.datatimeblock').eq(0).datetimepicker({
+    $('.datatimeblock').datetimepicker({
         language:  'zh-CN',//此处修改
         weekStart: 1,
         todayBtn:  1,
@@ -50,17 +49,56 @@
         startDate:now
     });
 
-    $('.datatimeblock').eq(1).datetimepicker({
-        language:  'zh-CN',//此处修改
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 1,  //1时间  2日期  3月份 4年份
-        forceParse: 0,
-        startDate:now,
-        maxView:1
-    });
+    //如果先选择结束时间，那么就要重新初始化开始时间
+    $('#plan-et').change(function(){
+
+        //获取结束时间，如果结束时间不为空的话，开始时间只能是结束时间的同一天，并且小于结束时间
+        var et = moment($('#plan-et').val()).format('YYYY-MM-DD HH:mm:ss');
+
+        //首先要销毁
+        $('#plan-st').datetimepicker('remove');
+
+        $('#plan-st').datetimepicker({
+            language:  'zh-EN',//此处修改
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 1,  //1时间  2日期  3月份 4年份
+            forceParse: 0,
+            maxView:1,
+            startDate:moment(et).format('YYYY-MM-DD'),
+            endDate:moment(et).format('YYYY-MM-DD HH:mm:ss')
+        });
+
+
+    })
+
+    //如果先选择开始时间，那么就要重新初始化结束时间
+    $('#plan-st').change(function(){
+
+        //获取开始时间，如果开始时间不为空的话，结束时间只能是和开始时间同一天，并且大于结束时间
+        var st = moment($('#plan-st').val()).format('YYYY-MM-DD HH:mm:ss');
+
+        var et = moment($('#plan-st').val()).format('YYYY-MM-DD') + ' 23:55';
+
+        //首先要销毁
+        $('#plan-et').datetimepicker('remove');
+
+        $('#plan-et').datetimepicker({
+            language:  'zh-EN',//此处修改
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 1,  //1时间  2日期  3月份 4年份
+            forceParse: 0,
+            maxView:1,
+            startDate:moment(st).format('YYYY-MM-DD HH:mm:ss'),
+            endDate:moment(et).format('YYYY-MM-DD HH:mm:ss')
+        });
+
+    })
 
     $('.datetimepicker').eq(1).find('.next').css({'visibility':'hidden'});
 
@@ -204,21 +242,13 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return '<div class="checker"><span><input type="checkbox" value=""></span></div>'
+                return '<div class="checker" data-id="' + full.id + '"><span><input type="checkbox" value=""></span></div>'
 
             }
         },
         {
-            title:'区域id',
-            data:'id'
-        },
-        {
             title:'区域名称',
             data:'name'
-        },
-        {
-            title:'父级id',
-            data:'pId'
         },
         {
             title:'区域等级',
@@ -237,10 +267,6 @@
 
             }
         }
-        //{
-        //    title:'是否有效',
-        //    data:'isDelName'
-        //}
 
     ]
 
@@ -254,13 +280,9 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return '<div class="checker"><span><input type="checkbox" value=""></span></div>'
+                return '<div class="checker" data-id="' + full.id + '"><span><input type="checkbox" value=""></span></div>'
 
             }
-        },
-        {
-            title:'产品ID',
-            data:'id'
         },
         {
             title:'产品名称',
@@ -336,14 +358,6 @@
         {
             title:'产品描述',
             data:'memo'
-        },
-        {
-            title:'创建时间',
-            data:'createDate'
-        },
-        {
-            title:'更新时间',
-            data:'createDate'
         }
 
     ]
@@ -380,7 +394,9 @@
             //消减负荷
             'reduce-load':{
 
-                required: true
+                required: true,
+
+                numberFormat:true
 
             }
 
@@ -418,6 +434,15 @@
         }
 
     })
+
+    //消减负荷必须是数字
+    $.validator.addMethod("numberFormat",function(value,element,params){
+
+        var doubles= /^\d+(\.\d+)?$/;
+
+        return this.optional(element)||(doubles.test(value));
+
+    },"请输入数字格式");
 
     /*-----------------------------------按钮事件----------------------------------------*/
 
@@ -506,9 +531,9 @@
 
         var nowSelected = $('#district-table tbody').find('.tables-hover');
 
-        _thisDistrict = nowSelected.children().eq(1).html();
+        _thisDistrict = nowSelected.children().eq(0).children('.checker').attr('data-id');
 
-        var name = nowSelected.children().eq(2).html();
+        var name = nowSelected.children().eq(1).html();
 
         $('#district').val(name);
 
@@ -567,9 +592,9 @@
 
         for(var i=0;i<nowSelected.length;i++){
 
-            var id = nowSelected.eq(i).children().eq(1).html();
+            var id = nowSelected.eq(i).children().eq(0).children('.checker').attr('data-id');
 
-            var name = nowSelected.eq(i).children().eq(2).html();
+            var name = nowSelected.eq(i).children().eq(1).html();
 
             _thisMealArr.push(id);
 
@@ -639,6 +664,10 @@
 
                     _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
 
+                }else if(result.code == -6){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
+
                 }else if(result.code == 0){
 
                     arr = result.drbls;
@@ -705,6 +734,10 @@
 
                     _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
 
+                }else if(result.code == -6) {
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap', '没有权限！', '');
+
                 }else if(result.code == 0){
 
                     arr = result.dists.reverse();
@@ -767,6 +800,10 @@
 
                     _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
 
+                }else if(result.code == -6){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
+
                 }else if(result.code == 0){
 
                     arr = result.libs.reverse();
@@ -791,33 +828,83 @@
 
             $('#theLoading').modal('hide');
 
-            $('#tip').find('i').after('<span style="margin-left: 20px;">请填写必填项!</span>');
-
-            $('#tip').show();
+            topTipBar('请填写必填项!')
 
 
         }else{
 
             //验证错误
-            var error = $('#create-Modal').find('.error');
+            var error = $('#commentForm').find('.error');
 
             if(error.length != 0){
 
                 if(error.css('display') != 'none'){
 
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写正确格式!','');
+                    $('#theLoading').modal('hide');
+
+                    topTipBar('请填写正确格式!');
 
                 }else{
 
-                    //验证通过
-                    fun();
+                    //验证时间是否是同一天
+                    if(timeSameDay($('#plan-st').val(),$('#plan-et').val())){
+
+                        //时间大小验证
+                        if(timeCompare($('#plan-st').val(),$('#plan-et').val())){
+
+                            $('#tip').hide();
+
+                            //验证通过
+                            fun();
+
+                        }else{
+
+                            $('#theLoading').modal('hide');
+
+                            topTipBar('结束时间必须大于开始时间!')
+
+                        }
+
+                    }else{
+
+                        $('#theLoading').modal('hide');
+
+                        topTipBar('开始时间和结束时间必须是同一天!')
+
+                    }
+
+
 
                 }
 
             }else{
 
-                //验证通过
-                fun();
+                //验证时间是否是同一天
+                if(timeSameDay($('#plan-st').val(),$('#plan-et').val())){
+
+                    //时间大小验证
+                    if(timeCompare($('#plan-st').val(),$('#plan-et').val())){
+
+                        $('#tip').hide();
+
+                        //验证通过
+                        fun();
+
+                    }else{
+
+                        $('#theLoading').modal('hide');
+
+                        topTipBar('结束时间必须大于开始时间!')
+
+                    }
+
+                }else{
+
+                    $('#theLoading').modal('hide');
+
+                    topTipBar('开始时间和结束时间必须是同一天!')
+
+                }
 
             }
 
@@ -907,6 +994,10 @@
                 }else if(result.code == -4){
 
                     _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                }else if(result.code == -6){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
 
                 }
 
@@ -1005,6 +1096,10 @@
 
                     _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
 
+                }else if(result.code == -6){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
+
                 }
 
             },
@@ -1013,6 +1108,64 @@
 
 
         })
+
+    }
+
+    //时间比大小
+    function timeCompare(st,et){
+
+        var stValue = st;
+
+        stValue = stValue.replace(/-/g,"/");
+
+        var etValue = et;
+
+        etValue = etValue.replace(/-/g,"/");
+
+        var stNum = new Date(Date.parse(stValue));
+
+        var etNum = new Date(Date.parse(etValue));
+
+        //结束时间必须大于结束时间
+        if(stNum < etNum){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
+    //验证时间是否是同一天的
+    function timeSameDay(st,et){
+
+        var stValue = moment(st).format('YYYY-MM-DD');
+
+        var etValue = moment(et).format('YYYY-MM-DD');
+
+        if(stValue == etValue){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
+    //顶置提示
+    function topTipBar(str){
+
+        $('#tip').find('span').remove();
+
+        $('#tip').find('i').after('<span style="margin-left: 20px;">' + str + '</span>');
+
+        $('#tip').show();
 
     }
 

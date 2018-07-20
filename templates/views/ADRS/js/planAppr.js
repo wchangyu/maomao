@@ -232,6 +232,10 @@
 
                     _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
 
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
+
                 }else if(result.code == 0){
 
                     conditionSelect();

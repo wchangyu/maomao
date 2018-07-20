@@ -18,6 +18,9 @@
     //记录当前参与户号数
     _thisHnum = '';
 
+    //记录当前事件的开始时间
+    var _thisPlanSt = '';
+
     /*-----------------------------------表格初始化-------------------------------------*/
 
     var col=[
@@ -102,11 +105,7 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                if(full.planState == 2){
-
-                    return ''
-
-                }else{
+                if(full.planState == 1){
 
                     //如果户号数为0，不显示
 
@@ -116,6 +115,10 @@
                             //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>" +
 
                         "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>"
+
+                }else{
+
+                    return ''
 
                 }
 
@@ -217,6 +220,12 @@
 
                     var start = moment(result.plan.createDate).format('YYYY-MM-DD HH:mm:ss');
 
+                    _thisPlanSt = moment(result.plan.startDate).format('YYYY-MM-DD HH:mm:ss');
+
+                    //摧毁之前的反馈时间对象
+
+                    $('#plan-by-time').datetimepicker('remove');
+
                     $('#plan-by-time').datetimepicker({
                         language:  'zh-CN',//此处修改
                         weekStart: 1,
@@ -225,13 +234,22 @@
                         todayHighlight: 1,
                         startView: 2,  //1时间  2日期  3月份 4年份
                         forceParse: 0,
-                        startDate:start
+                        endDate:start
                     });
-
-                    //样式
 
                     //赋值
                     $('#plan-by-time').val(byTime);
+
+                    //比较反馈时间和开始时间，反馈时间必须小于开始时间
+                    if( timeCompare($('#plan-by-time').val(),_thisPlanSt) ){
+
+                        $('#timeError').html('');
+
+                    }else{
+
+                        $('#timeError').html('反馈时间必须小于开始时间');
+
+                    }
 
 
                 }
@@ -244,6 +262,22 @@
 
     })
 
+    //反馈时间选择
+    $('#plan-by-time').change(function(){
+
+        //比较反馈时间和开始时间，反馈时间必须小于开始时间
+        if( timeCompare($('#plan-by-time').val(),_thisPlanSt) ){
+
+            $('#timeError').html('');
+
+        }else{
+
+            $('#timeError').html('反馈时间必须小于开始时间');
+
+        }
+
+    })
+
     //发布【确定按钮】
     $('#publish-Modal').on('click','.btn-primary',function(){
 
@@ -253,74 +287,97 @@
 
             $('#theLoading').modal('hide');
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'没有绑定户号不能发布！','发布');
+            $('#timeError').html('没有绑定户号不能发布！');
 
         }else{
 
-            var prm = {
+            //判断反馈时间是否正确
+            if($('#timeError').html() == ''){
 
-                //事件id
-                planId:_thisID,
-                //反馈截止时间
-                abortDate:$('#plan-by-time').val(),
-                //用户角色
-                userRole:sessionStorage.ADRS_UserRole,
-                //参与户数
-                takeInAcctNbers:_thisHnum
+                var prm = {
+
+                    //事件id
+                    planId:_thisID,
+                    //反馈截止时间
+                    abortDate:$('#plan-by-time').val(),
+                    //用户角色
+                    userRole:sessionStorage.ADRS_UserRole,
+                    //参与户数
+                    takeInAcctNbers:_thisHnum,
+                    //开始日期
+                    startDate:_thisPlanSt
+                }
+
+                $.ajax({
+
+                    type:'post',
+
+                    url:sessionStorage.apiUrlPrefix + 'DRPlanPublish/DRPlanPublish',
+
+                    timeout:_theTimes,
+
+                    data:prm,
+
+                    success:function(result){
+
+                        $('#theLoading').modal('hide');
+
+                        if(result.code == -2){
+
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                        }else if(result.code == -1){
+
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                        }else if(result.code == -3){
+
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                        }else if(result.code == -4){
+
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                        }else if(result.code == 0){
+
+                            $('#publish-Modal').modal('hide');
+
+                            $('#publish-Modal').one('hidden.bs.modal',function(){
+
+                                conditionSelect();
+
+                            })
+
+                        }
+
+                    },
+
+                    error:_errorFun
+
+                })
+
+            }else{
+
+                $('#theLoading').modal('hide');
+
+                _moTaiKuang($('#tip-Modal'),'提示',true,true,'反馈时间不能大于开始时间！','');
+
             }
-
-            $.ajax({
-
-                type:'post',
-
-                url:sessionStorage.apiUrlPrefix + 'DRPlanPublish/DRPlanPublish',
-
-                timeout:_theTimes,
-
-                data:prm,
-
-                success:function(result){
-
-                    $('#theLoading').modal('hide');
-
-                    if(result.code == -2){
-
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                    }else if(result.code == -1){
-
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                    }else if(result.code == -3){
-
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                    }else if(result.code == -4){
-
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                    }else if(result.code == 0){
-
-                        $('#publish-Modal').modal('hide');
-
-                        $('#publish-Modal').one('hidden.bs.modal',function(){
-
-                            conditionSelect();
-
-                        })
-
-                    }
-
-                },
-
-                error:_errorFun
-
-            })
 
         }
 
     })
 
+    //发布窗口关闭之后
+    $('#publish-Modal').on('hidden.bs.modal',function(){
+
+        _thisPlanSt = '';
+
+        _thisHnum = '';
+
+        _thisID = '';
+
+    })
 
     /*-----------------------------------其他方法-----------------------------------------*/
 
@@ -580,6 +637,34 @@
 
         //记录当前选中的userId
         _thisID = '';
+
+    }
+
+    //时间比大小
+    function timeCompare(st,et){
+
+        var stValue = st;
+
+        stValue = stValue.replace(/-/g,"/");
+
+        var etValue = et;
+
+        etValue = etValue.replace(/-/g,"/");
+
+        var stNum = new Date(Date.parse(stValue));
+
+        var etNum = new Date(Date.parse(etValue));
+
+        //结束时间必须大于结束时间
+        if(stNum < etNum){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
 
     }
 
