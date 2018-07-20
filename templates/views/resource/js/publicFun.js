@@ -1296,3 +1296,107 @@ function hiddenAreaTh(nameArr){
 
 }
 
+//顶置提示(红色提示条)
+function _topTipBar(str){
+
+    $('#tip').find('span').remove();
+
+    $('#tip').find('i').after('<span style="margin-left: 20px;">' + str + '</span>');
+
+    $('#tip').show();
+
+}
+
+//模态框中红色提示框
+function _modalTipBar(str){
+
+    $('#tip-error-modal').find('span').remove();
+
+    $('#tip-error-modal').find('i').after('<span style="margin:0 20px;">' + str + '</span>');
+
+    $('#tip-error-modal').show();
+
+}
+
+//红色提示框的成功方法
+function _successBar(data,fun){
+
+    if(data == 0){
+
+        fun();
+
+    }else if(data == -2){
+
+        _modalTipBar('暂无数据!');
+
+    }else if(data == -1){
+
+        _modalTipBar('异常错误!');
+
+    }else if(data == -3){
+
+        _modalTipBar('参数错误!');
+
+    }else if(data == -4){
+
+        _modalTipBar('内容已存在!');
+
+    }else if(data == -6){
+
+        _modalTipBar('没有权限!');
+
+    }
+
+}
+
+function _errorBarModal(XMLHttpRequest, textStatus, errorThrown){
+
+    $('#theLoading').modal('hide');
+
+    if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+        _modalTipBar('请求超时!');
+
+    }else{
+
+        _modalTipBar('请求失败!');
+
+    }
+
+}
+
+function _errorBar(XMLHttpRequest, textStatus, errorThrown){
+
+    $('#theLoading').modal('hide');
+
+    if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+        _topTipBar('请求超时!');
+
+    }else{
+
+        _topTipBar('请求失败!');
+
+    }
+
+}
+
+
+$(function(){
+
+    //模态框中的提示关闭按钮
+    $('#tip-error-modal').on('click','.close',function(){
+
+        $('#tip-error-modal').hide();
+
+    })
+
+    //普通提示关闭
+    $('#tip').on('click','.close',function(){
+
+        $('#tip').hide();
+
+    })
+
+})
+

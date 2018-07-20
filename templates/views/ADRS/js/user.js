@@ -245,107 +245,6 @@
 
     })
 
-    //【删除】
-    $('#table tbody').on('click','.option-shanchu',function(){
-
-        $('#theLoading').modal('show');
-
-        //样式
-        changeCss($(this));
-
-        //初始化
-        createInit();
-
-        //获取当前的账户id
-        _thisID = $(this).attr('data-userid');
-
-        //模态框
-        _moTaiKuang($('#create-Modal'), '确定要删除吗？', false, '' ,'', '删除');
-
-        //绑定数据
-        bind(_thisID);
-
-        //类
-        $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
-
-        //是否可操作
-        //账户登录名不能操作
-        $('#create-Modal').find('input').attr('disabled',true);
-
-        $('#create-Modal').find('select').attr('disabled',true);
-
-        $('#create-Modal').find('textarea').attr('disabled',true);
-
-        //密码不显示
-        $('.password-block').hide();
-
-    })
-
-    //删除【确定】
-    $('#create-Modal').on('click','.shanchu',function(){
-
-        $('#theLoading').modal('show');
-
-        formatValidate(function(){
-
-            var prm = {
-
-                UserId:_thisID
-
-            }
-
-            $.ajax({
-
-                type:'post',
-
-                url:sessionStorage.apiUrlPrefix + 'DRUser/LogicDelDRUser',
-
-                data:prm,
-
-                timeout:_theTimes,
-
-                success:function(result){
-
-                    $('#theLoading').modal('hide');
-
-                    if(result.code == 0){
-
-                        //创建成功
-                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'删除成功！','');
-
-                        //模态框消失
-                        $('#create-Modal').modal('hide');
-
-
-                    }else if(result.code == -2){
-
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                    }else if(result.code == -1){
-
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                    }else if(result.code == -3){
-
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                    }else if(result.code == -4){
-
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                    }
-
-                },
-
-                error:_errorFun
-
-            })
-
-
-        })
-
-    })
-
     /*----------------------------------其他方法-----------------------------------------*/
 
 
@@ -388,34 +287,18 @@
 
                 var arr = [];
 
-                if(result.code == -2){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                }else if(result.code == -1){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                }else if(result.code == -3){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                }else if(result.code == -4){
-
-                   _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                }else if(result.code == 0){
+                _successBar(result.code,function(){
 
                     arr = result.users;
 
-                }
+                })
 
                 _jumpNow($('#table'),arr);
 
 
             },
 
-            error:_errorFun
+            error:_errorBar
 
         })
 
@@ -445,7 +328,7 @@
 
             $('#theLoading').modal('hide');
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项!','');
+            _modalTipBar('请填写必填项!');
 
         }else{
 
@@ -456,7 +339,7 @@
 
                 if(error.css('display') != 'none'){
 
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写正确格式!','');
+                    _modalTipBar('请填写正确格式!');
 
                 }else{
 
@@ -519,7 +402,7 @@
 
                 $('#theLoading').modal('hide');
 
-                if(result.code == 0){
+                _successBar(result.code,function(){
 
                     //模态框消失
                     $('#create-Modal').modal('hide');
@@ -530,28 +413,11 @@
 
                     })
 
-
-                }else if(result.code == -2){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                }else if(result.code == -1){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                }else if(result.code == -3){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                }else if(result.code == -4){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                }
+                })
 
             },
 
-            error:_errorFun
+            error:_errorBarModal
 
 
         })
@@ -590,7 +456,7 @@
 
                 $('#theLoading').modal('hide');
 
-                if(result.code == 0){
+                _successBar(result.code,function(){
 
                     //绑定数据
                     //登录账户名
@@ -604,24 +470,7 @@
                     //备注
                     $('#create-remark').val(result.user.memo);
 
-                }else if(result.code == -2){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                }else if(result.code == -1){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                }else if(result.code == -3){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                }else if(result.code == -4){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                }
-
+                })
             }
 
         })

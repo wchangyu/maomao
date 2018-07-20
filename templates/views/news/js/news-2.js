@@ -68,7 +68,9 @@ $(function(){
     $('.creatButton').click(function(){
         //初始化
         $('#newsColum').val('');
+
         moTaiKuang($('#myModal1'),'新增栏目','');
+
         $('#myModal1').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
     })
     //新增确定按钮
