@@ -1206,115 +1206,7 @@
 
     })
 
-
     /*-------------------------------------其他方法-----------------------------------------*/
-
-    //获取所有产品
-    function conditionSelect(){
-
-        $('#theLoading').modal('show');
-
-        //_datasTable($('#table'),_allDataArr);
-
-        //首先判断登录者是聚合商还是大用户
-        var role = sessionStorage.ADRS_UserRole;
-
-        if( role != 3 && role != 4){
-
-            $('#theLoading').modal('hide');
-
-            $('#tip').find('i').after('<span style="margin-left: 20px;">无权限</span>');
-
-            $('#tip').show();
-
-            return false;
-
-        }
-
-        var prm = {
-
-            ////登录账户
-            //sysuserId:sessionStorage.ADRS_SysuserId,
-            //账户角色
-            userRole:sessionStorage.ADRS_UserRole
-
-        }
-
-        if(role == 3){
-
-            //聚合商
-            prm.userId = sessionStorage.ADRS_UserId;
-
-
-        }else if(role == 4){
-
-            //大用户
-            prm.acctId = sessionStorage.currentAcct;
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'DRUserAnswer/ReceiveAnswerDRPlan',
-
-            data:prm,
-
-            timeout:_theTimes,
-
-            success:function(result){
-
-                _allData.length = 0;
-
-                $('#theLoading').modal('hide');
-
-                if($('.modal-backdrop').length > 0){
-
-                    $('div').remove('.modal-backdrop');
-
-                    $('#theLoading').hide();
-                }
-
-                var arr = [];
-
-                if(result.code == -2){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                }else if(result.code == -1){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                }else if(result.code == -3){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                }else if(result.code == -4){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                }else if(result.code == 0){
-
-                    arr = result.plans;
-
-                    for(var i=0;i<result.plans.length;i++){
-
-                        _allData.push(result.plans[i]);
-
-                    }
-
-                }
-
-                _jumpNow($('#table'),arr);
-
-            },
-
-            error:_errorFun
-
-        })
-
-
-    }
 
     //显示详情(可操作的详情)
     function formatDetail(d){
@@ -1693,23 +1585,24 @@
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    topTipBar('暂无数据！');
+
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    topTipBar('异常错误！');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    topTipBar('参数错误！');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    topTipBar('内容已存在！');
 
                 }else if(result.code == -6){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
+                    topTipBar('没有权限！');
 
                 }else if(result.code == 0){
 
@@ -1727,7 +1620,21 @@
 
             },
 
-            error:_errorFun
+            error:function (XMLHttpRequest, textStatus, errorThrown){
+
+                $('#theLoading').modal('hide');
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    topTipBar('请求超时!')
+
+                }else{
+
+                    topTipBar('请求失败!')
+
+                }
+
+            }
 
         })
 
@@ -1802,6 +1709,17 @@
 
         })
 
+
+    }
+
+    //顶置提示
+    function topTipBar(str){
+
+        $('#tip').find('span').remove();
+
+        $('#tip').find('i').after('<span style="margin-left: 20px;">' + str + '</span>');
+
+        $('#tip').show();
 
     }
 

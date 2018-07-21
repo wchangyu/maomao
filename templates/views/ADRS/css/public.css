@@ -167,4 +167,14 @@ table.dataTable thead .sorting_desc:after{
 
 }
 
+.shadowEffect{
+
+	box-shadow: 10px 10px 10px #eceff1;
+	-moz-box-shadow: 10px 10px 10px #eceff1;
+	-webkit-box-shadow: 10px 10px 10px #eceff1;
+	border-radius: 4px !important;
+	background: #ffffff;
+	border: none !important;
+
+}
 

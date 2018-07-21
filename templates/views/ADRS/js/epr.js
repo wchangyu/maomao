@@ -1034,6 +1034,7 @@
         }
         else {
 
+            //要判断是哪一层的详情展示
             row.child( formatDetail(thisEprArr) ).show();
 
             tr.addClass('shown');
@@ -1291,7 +1292,7 @@
         }
         else {
 
-            row.child( formatDetail(thisEprArr) ).show();
+            row.child( formatDetail1(thisEprArr) ).show();
 
             tr.addClass('shown');
         }
@@ -1779,10 +1780,42 @@
         return theader + tbodyer + str + tbodyers + theaders;
     }
 
-    //显示详情
+    //显示详情(第一层详情显示)
     function formatDetail(d){
 
         var theader = '<table class="table tableDetail table-bordered table-advance table-hover">' + '<thead><tr style="background: #c5d7f1"><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td></tr></thead>';
+
+        var theaders = '</table>';
+
+        var tbodyer = '<tbody>'
+
+        var tbodyers = '</tbody>';
+
+        var str = '';
+
+        for(var i=0;i< d.length;i++){
+
+            str += '<tr>';
+            //地址
+            str += '<td>'+ d[i].address +'</td>' +
+                    //联系人
+                '<td>'+ d[i].linkMan +'</td>' +
+                    //联系方式
+                '<td>'+ d[i].phone +'</td>' +
+                    //邮箱
+                '<td>'+ d[i].eMail +'</td>'
+
+            str += '</tr>';
+        }
+
+        return theader + tbodyer + str + tbodyers + theaders;
+
+    }
+
+    //显示详情(第二层详情显示)
+    function formatDetail1(d){
+
+        var theader = '<table class="table tableDetail1 table-bordered table-advance table-hover">' + '<thead><tr style="background: #c5d7f1"><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td></tr></thead>';
 
         var theaders = '</table>';
 

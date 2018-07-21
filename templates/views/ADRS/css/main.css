@@ -1,0 +1,29 @@
+.main-block{
+
+    padding: 15px;
+
+}
+
+.main-block-children{
+
+    height: 380px;
+
+}
+
+.page-content{
+
+    background: #f9f9f9 !important;
+
+}
+
+.carousel-indicators{
+
+    bottom: 0px !important;
+
+}
+
+.carousel-caption{
+
+    bottom: 0;
+
+}
