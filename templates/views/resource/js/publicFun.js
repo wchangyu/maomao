@@ -1307,19 +1307,54 @@ function _topTipBar(str){
 
 }
 
-//模态框中红色提示框
-function _modalTipBar(str){
+//红色提示框的成功方法（顶置）
+function _successTopBar(data,attr,fun){
 
-    $('#tip-error-modal').find('span').remove();
+    var arr = [];
 
-    $('#tip-error-modal').find('i').after('<span style="margin:0 20px;">' + str + '</span>');
+    if(data == 0){
 
-    $('#tip-error-modal').show();
+        arr = attr;
+
+    }else if(data == -2){
+
+        _topTipBar('暂无数据!');
+
+    }else if(data == -1){
+
+        _topTipBar('异常错误!');
+
+    }else if(data == -3){
+
+        _topTipBar('参数错误!');
+
+    }else if(data == -4){
+
+        _topTipBar('内容已存在!');
+
+    }else if(data == -6){
+
+        _topTipBar('没有权限!');
+
+    }
+
+    fun(arr);
 
 }
 
-//红色提示框的成功方法
-function _successBar(data,fun){
+//模态框中红色提示框
+function _modalTipBar(el,str){
+
+    el.children().find('span').remove();
+
+    el.children().find('i').after('<span style="margin:0 20px;">' + str + '</span>');
+
+    el.children().show();
+
+}
+
+//红色提示框的成功方法(模态框)
+function _successBar(el,data,fun){
 
     if(data == 0){
 
@@ -1327,23 +1362,23 @@ function _successBar(data,fun){
 
     }else if(data == -2){
 
-        _modalTipBar('暂无数据!');
+        _modalTipBar(el,'暂无数据!');
 
     }else if(data == -1){
 
-        _modalTipBar('异常错误!');
+        _modalTipBar(el,'异常错误!');
 
     }else if(data == -3){
 
-        _modalTipBar('参数错误!');
+        _modalTipBar(el,'参数错误!');
 
     }else if(data == -4){
 
-        _modalTipBar('内容已存在!');
+        _modalTipBar(el,'内容已存在!');
 
     }else if(data == -6){
 
-        _modalTipBar('没有权限!');
+        _modalTipBar(el,'没有权限!');
 
     }
 
@@ -1381,6 +1416,33 @@ function _errorBar(XMLHttpRequest, textStatus, errorThrown){
 
 }
 
+//时间比大小,st<et返回真
+function _timeCompare(st,et){
+
+    var stValue = st;
+
+    stValue = stValue.replace(/-/g,"/");
+
+    var etValue = et;
+
+    etValue = etValue.replace(/-/g,"/");
+
+    var stNum = new Date(Date.parse(stValue));
+
+    var etNum = new Date(Date.parse(etValue));
+
+    //结束时间必须大于结束时间
+    if(stNum < etNum){
+
+        return true;
+
+    }else{
+
+        return false;
+
+    }
+
+}
 
 $(function(){
 
@@ -1397,6 +1459,14 @@ $(function(){
         $('#tip').hide();
 
     })
+
+    //如果模态框中的input聚焦的话，提示框消失
+    $('.modal-dialog').on('click','.modal-body',function(){
+
+        $('.modal-dialog').find('.btn-primary').prev().children().hide();
+
+    })
+
 
 })
 

@@ -81,8 +81,6 @@
         "aoColumnDefs": [ { "orderable": false, "targets": [ 1,2,3,4,5] }]
     });
 
-    //_tableInit($('#table'),col,2,true,'','','','');
-
     /*-----------------------------------创建表单验证-------------------------------------*/
 
     $('#commentForm').validate({
@@ -187,9 +185,9 @@
 
         $('#theLoading').modal('show');
 
-        formatValidate(function(){
+        formatValidate($(this).prev(),function(){
 
-            sendOption('DRUser/CreateDRUserInfo','创建成功！');
+            sendOption($(this).prev(),'DRUser/CreateDRUserInfo','创建成功！');
 
         })
     })
@@ -212,7 +210,7 @@
         _moTaiKuang($('#create-Modal'), '提示', false, '' ,'', '保存');
 
         //绑定数据
-        bind(_thisID);
+        bind($('#create-Modal').find('.btn-primary').prev(),_thisID);
 
         //类
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
@@ -237,9 +235,9 @@
 
         $('#theLoading').modal('show');
 
-        formatValidate(function(){
+        formatValidate($(this).prev(),function(){
 
-            sendOption('DRUser/ModifyDRUserInfo','编辑成功！',true);
+            sendOption($(this).prev(),'DRUser/ModifyDRUserInfo','编辑成功！',true);
 
         })
 
@@ -285,15 +283,11 @@
                     $('#theLoading').hide();
                 }
 
-                var arr = [];
+                _successTopBar(result.code,result.users,function(arr){
 
-                _successBar(result.code,function(){
-
-                    arr = result.users;
+                    _datasTable($('#table'),arr);
 
                 })
-
-                _jumpNow($('#table'),arr);
 
 
             },
@@ -321,14 +315,14 @@
     }
 
     //格式验证(flag为真的时候，验证密码是否为空)
-    function formatValidate(fun){
+    function formatValidate(el,fun){
 
         //非空验证
         if($('#create-user-name').val() == '' || $('#create-user-login-name').val() == '' ){
 
             $('#theLoading').modal('hide');
 
-            _modalTipBar('请填写必填项!');
+            _modalTipBar(el,'请填写必填项!');
 
         }else{
 
@@ -339,7 +333,7 @@
 
                 if(error.css('display') != 'none'){
 
-                    _modalTipBar('请填写正确格式!');
+                    _modalTipBar(el,'请填写正确格式!');
 
                 }else{
 
@@ -361,7 +355,7 @@
     }
 
     //创建账户(flag代表是否传id)
-    function sendOption(url,seccessMeg,flag){
+    function sendOption(el,url,seccessMeg,flag){
 
         var prm = {
 
@@ -402,7 +396,7 @@
 
                 $('#theLoading').modal('hide');
 
-                _successBar(result.code,function(){
+                _successBar(el,result.code,function(){
 
                     //模态框消失
                     $('#create-Modal').modal('hide');
@@ -434,7 +428,7 @@
     }
 
     //绑定数据
-    function bind(id){
+    function bind(el,id){
 
         var prm = {
 
@@ -456,7 +450,7 @@
 
                 $('#theLoading').modal('hide');
 
-                _successBar(result.code,function(){
+                _successBar(el,result.code,function(){
 
                     //绑定数据
                     //登录账户名

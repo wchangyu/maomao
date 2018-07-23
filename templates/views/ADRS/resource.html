@@ -376,6 +376,104 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
+    <!--选择设备-->
+    <div class="modal fade" id="bin-dev-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 297px;width: 554px!important;">
+            <div class="modal-content" style="height: 297px;width: 554px!important;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="overflow-y: auto;height: 175px;position: relative;">
+                    <span class="select-dev-GL select-dev-button" style="display: inline-block;padding: 5px 10px;background: #2170F4;position: absolute;top: 18px;right: 20px;color: #ffffff;cursor: pointer">选择功率设备...</span>
+                    <span class="select-dev-DL select-dev-button" style="display: inline-block;padding: 5px 10px;background: #2170F4;position: absolute;top: 62px;right: 20px;color: #ffffff;cursor: pointer">选择电量设备...</span>
+                    <span class="select-dev-KZ select-dev-button" style="display: inline-block;padding: 5px 10px;background: #2170F4;position: absolute;top: 106px;right: 20px;color: #ffffff;cursor: pointer">选择控制设备...</span>
+                    <ul class="modal-block">
+                            <li>
+                                <label for="">功率设备：</label>
+                                <input type="text" class="table-group-action-input form-control" id="dev-GL" placeholder="（选填字段，且多选）">
+                            </li>
+                            <br>
+                            <li>
+                                <label for="">电量设备：</label>
+                                <input type="text" class="table-group-action-input form-control" id="dev-DL" placeholder="（选填字段，且多选）">
+                            </li>
+                        <br>
+                        <li>
+                            <label for="">控制设备：</label>
+                            <input type="text" class="table-group-action-input form-control" id="dev-KZ" placeholder="（选填字段，且多选）">
+                        </li>
+                        </ul>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary confirm" type="submit" value="Submit">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--选择设备组-->
+    <div class="modal fade" id="bind-table-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 562px;width: 1000px!important;">
+            <div class="modal-content" style="height: 562px;width: 1000px!important;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="overflow-y: auto;height: 440px;position: relative;">
+                    <span class="add-row-dev" style="display: inline-block;padding: 5px 10px;background: #2170F4;color: #ffffff;cursor: pointer">添加设备</span>
+                    <table id="dev-manage" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary confirm" type="submit" value="Submit">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--选择设备列表-->
+    <div class="modal fade" id="dev-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 690px;width: 1000px !important;">
+            <div class="modal-content" style="height: 690px;width: 1000px !important;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="overflow-y: auto;height: 569px;">
+
+                    <ul class="ADRS-condition" style="margin: 0;">
+                        <li>
+                            <label for="">关键字</label>
+                            <input type="text" class="table-group-action-input form-control" id="keyWord-dev-modal" style="width: 150px !important;" >
+                        </li>
+                        <li>
+                            <div class="condition-button" id="selected-dev-modal">查询</div>
+                        </li>
+                    </ul>
+
+
+                    <table id="dev-table" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
     <!--所有提示-->
     <div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="height: 168px;">

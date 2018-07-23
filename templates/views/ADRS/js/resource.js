@@ -6,6 +6,27 @@
     //记录当前选中的户号
     var _thisHH = '';
 
+    //功率设备id
+    var _devGL = [];
+
+    //电量设备id
+    var _devDL = [];
+
+    //控制设备id
+    var _devKZ = [];
+
+    //存放设备
+    var _devArr = [];
+
+    //记录当前单元格
+    var _currentCell = '';
+
+    //选择的设备
+    var _selectedDevArr = [];
+
+    //当前是直接绑定还是创建
+    var _isBind = false;
+
     /*-----------------------------------表格初始化-------------------------------------*/
 
     var col=[
@@ -77,7 +98,7 @@
 
                         //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.id + "'>删除</span>" +
 
-                    "<span class='data-option option-qiye btn default btn-xs green-stripe' data-userId='" + full.id + "'>绑定设备</span>"
+                    "<span class='data-option option-dev btn default btn-xs green-stripe' data-userId='" + full.id + "'>绑定设备</span>"
 
             }
         }
@@ -125,6 +146,85 @@
 
     _tableInit($('#huNum-table'),huCol,2,true,'','','','');
 
+    //设备
+    var devCol = [
+
+        {
+            title:'选择',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                return '<div class="checker" data-id="' + full.f_ServiceId + '"><span><input type="checkbox" value=""></span></div>'
+
+            }
+        },
+        {
+            title:'楼宇',
+            data:'f_BuildingId'
+        },
+        {
+            title:'设备类型',
+            data:'f_ServiceType'
+        },
+        {
+            title:'设备',
+            data:'f_ServiceName'
+        }
+
+    ];
+
+    _tableInit($('#dev-table'),devCol,2,true,'','','','','',true);
+
+    //添加设备（表格编辑）
+    var editCol = [
+
+        {
+            title:'功率设备',
+            render:function(data, type, full, meta){
+
+                return '<div type="text" class="select-dev-GL table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
+
+            }
+
+
+        },
+        {
+            title:'电量设备',
+            render:function(data, type, full, meta){
+
+                return '<div type="text" class="select-dev-DL table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
+
+            }
+
+
+        },
+        {
+            title:'控制设备',
+            render:function(data, type, full, meta){
+
+                return '<div type="text" class="select-dev-KZ table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
+
+            }
+
+
+        },
+        {
+            title:'编辑操作',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                return  "<span class='data-option option-del btn default btn-xs green-stripe'>删除</span>"
+
+            }
+        }
+
+    ];
+
+    _tableInit($('#dev-manage'),editCol,2,true,'','','','','',true);
+
+
     /*-----------------------------------创建表单验证-------------------------------------*/
 
     $('#commentForm').validate({
@@ -143,7 +243,7 @@
 
                 required: true,
 
-                numberFormat:true
+                numberFormat1:true
 
             },
 
@@ -152,7 +252,7 @@
 
                 required: true,
 
-                numberFormat:true
+                numberFormat1:true
 
             },
 
@@ -161,7 +261,7 @@
 
                 required: true,
 
-                numberFormat:true
+                numberFormat1:true
 
             },
 
@@ -170,7 +270,7 @@
 
                 required: true,
 
-                numberFormat:true
+                numberFormat1:true
 
             },
 
@@ -179,7 +279,7 @@
 
                 required: true,
 
-                numberFormat:true
+                numberFormat1:true
 
             }
 
@@ -242,6 +342,14 @@
 
     },"请输入数字格式");
 
+    //正则表达式（大于0的数字）
+    $.validator.addMethod("numberFormat1",function(value,element,params){
+
+        var doubles= /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
+
+        return this.optional(element)||(doubles.test(value));
+
+    },"请输入大于0的数字");
 
     /*-----------------------------------按钮事件----------------------------------------*/
 
@@ -407,6 +515,328 @@
 
     })
 
+    //【绑定设备】
+    $('#table tbody').on('click','.option-dev',function(){
+
+        //样式
+        changeCss($(this));
+
+        //loadding
+        $('#theLoading').modal('show');
+
+        //初始化
+        _datasTable($('#dev-manage'),[]);
+
+        _thisID = $(this).attr('data-userid');
+
+        _isBind = true;
+
+        //根据id获取设备列表
+        devDataById(_thisID);
+
+        //模态框
+        _moTaiKuang($('#bind-table-Modal'),'绑定设备','','','','确定');
+
+        $('#theLoading').modal('hide');
+    })
+
+    //【点击设备选择按钮选择】
+    $('.select-dev-button').click(function(){
+
+        //首先判断是选择哪些设备的列表
+        var buttonGL = $(this).attr('class').indexOf('select-dev-GL');
+
+        var buttonDL = $(this).attr('class').indexOf('select-dev-DL');
+
+        var buttonKZ = $(this).attr('class').indexOf('select-dev-KZ');
+
+        var str = '';
+
+        if(buttonGL > -1){
+
+            str = '功率设备列表';
+
+            //功率设备
+            devData();
+
+            //改变类名
+            $('#dev-Modal').find('.btn-primary').addClass('dev-GL-B').removeClass('dev-DL-B').removeClass('dev-KZ-B');
+
+            //读取已选中的功率设备
+
+
+
+        }else if(buttonDL > -1){
+
+            str = '电量设备列表';
+
+            //电量设备
+            devData();
+
+            //改变类名
+            $('#dev-Modal').find('.btn-primary').addClass('dev-DL-B').removeClass('dev-GL-B').removeClass('dev-KZ-B');
+
+
+
+        }else if(buttonKZ > -1){
+
+            str = '控制设备列表';
+
+            //控制设备
+            devData();
+
+            //改变类名
+            $('#dev-Modal').find('.btn-primary').addClass('dev-KZ-B').removeClass('dev-DL-B').removeClass('dev-GL-B');
+
+
+
+        }
+
+        //模态框
+        _moTaiKuang($('#dev-Modal'),str,'','','','选择');
+
+    })
+
+    //选择设备【tr】
+    $('#dev-table tbody').on('click','tr',function(){
+
+        if($(this).hasClass('tables-hover')){
+
+            $('#dev-table tbody').find('tr').removeClass('tables-hover');
+
+            $('#dev-table tbody').find('input').parent('span').removeClass('checked');
+
+            $(this).removeClass('tables-hover');
+
+            $(this).find('input').parent('span').removeClass('checked');
+
+        }else{
+
+            $('#dev-table tbody').find('tr').removeClass('tables-hover');
+
+            $('#dev-table tbody').find('input').parent('span').removeClass('checked');
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent('span').addClass('checked');
+
+        }
+
+    })
+
+    //【选择设备】
+    $('#create-Modal').on('click','.select-SB',function(){
+
+        //初始化
+        $('#bin-dev-Modal').find('input').val('');
+
+        //模态框
+        _moTaiKuang($('#bind-table-Modal'),'设备','','','','确定');
+
+    })
+
+    //添加一行设备
+    $('#bind-table-Modal').on('click','.add-row-dev',function(){
+
+        var T = $('#dev-manage').DataTable();
+
+        T.row.add(['','','','']).draw();
+
+    })
+
+    //选择功率设备
+    $('#dev-manage tbody').on('click','.select-dev-GL',function(){
+
+        //初始化
+        _datasTable($('#dev-table'),[]);
+
+        //表格
+        _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
+
+        //数据
+        devData();
+
+        //类
+        $('#dev-Modal').find('.btn-primary').removeClass('dev-DL-B').removeClass('dev-KZ-B').addClass('dev-GL-B');
+
+        _currentCell = $(this);
+
+    })
+
+    //选择电量设备
+    $('#dev-manage tbody').on('click','.select-dev-DL',function(){
+
+        //初始化
+        _datasTable($('#dev-table'),[]);
+
+        //表格
+        _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
+
+        //数据
+        devData();
+
+        //类
+        $('#dev-Modal').find('.btn-primary').removeClass('dev-GL-B').removeClass('dev-KZ-B').addClass('dev-DL-B');
+
+        _currentCell = $(this);
+
+    })
+
+    //选择控制设备
+    $('#dev-manage tbody').on('click','.select-dev-KZ',function(){
+
+        //初始化
+        _datasTable($('#dev-table'),[]);
+
+        //表格
+        _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
+
+        //数据
+        devData();
+
+        //类
+        $('#dev-Modal').find('.btn-primary').removeClass('dev-GL-B').removeClass('dev-DL-B').addClass('dev-KZ-B');
+
+        _currentCell = $(this);
+
+    })
+
+    //选择设备按钮
+    $('#dev-Modal').on('click','.btn-primary',function(){
+
+        var currentTr = $('#dev-table tbody').children('.tables-hover');
+
+        //id
+        var num = currentTr.find('.checker').attr('data-id');
+
+        var pid = currentTr.children().eq(1).html();
+
+        var name = currentTr.children().eq(3).html();
+
+        _currentCell.attr('data-num',num);
+
+        _currentCell.attr('data-pid',pid);
+
+        _currentCell.html(name);
+
+        $('#dev-Modal').modal('hide');
+
+    })
+
+    //删除
+    $('#dev-manage').on('click','.option-del',function(){
+
+        var T = $('#dev-manage').DataTable();
+
+        T.row($(this).parents('tr')).remove().draw( false );
+
+    })
+
+    //获取绑定的n组数据
+    $('#bind-table-Modal').on('click','.btn-primary',function(){
+
+        var tr = $('#dev-manage tbody').children('tr');
+
+        _selectedDevArr.length = 0;
+
+        for(var i=0;i<tr.length;i++ ){
+
+            var currentTr = $(tr).eq(i);
+
+            var obj = {};
+            //用户资源Id
+            obj.resourceId = _thisID;
+            //楼宇Id ,
+            obj.pointerId = currentTr.find('.select-dev-GL').attr('data-pid')==undefined?'':currentTr.find('.select-dev-GL').attr('data-pid');
+            //功率Id
+            obj.powerId = currentTr.find('.select-dev-GL').attr('data-num')==undefined?'':currentTr.find('.select-dev-GL').attr('data-num');
+            //电量Id
+            obj.electricityId = currentTr.find('.select-dev-DL').attr('data-num')==undefined?'':currentTr.find('.select-dev-DL').attr('data-num');
+            //输出控制设备Id
+            obj.contrlId = currentTr.find('.select-dev-KZ').attr('data-num')==undefined?'':currentTr.find('.select-dev-KZ').attr('data-num');
+
+            _selectedDevArr.push(obj);
+
+        }
+
+        $('#bind-table-Modal').modal('hide');
+
+
+        //直接绑定数据
+        if(_isBind){
+
+            $('#theLoading').modal('show');
+
+            var prm = {
+
+                //用户资源Id
+                resourceId:_thisID,
+                //用户资源对应设备表
+                rbms:_selectedDevArr
+
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:sessionStorage.apiUrlPrefix + 'DRResource/CreateDRResourceBindMetersInfo',
+
+                data:prm,
+
+                timeout:_theTimes,
+
+                success:function(result){
+
+                    $('#theLoading').modal('hide');
+
+                    if($('.modal-backdrop').length > 0){
+
+                        $('div').remove('.modal-backdrop');
+
+                        $('#theLoading').hide();
+                    }
+
+                    if(result.code == -2){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                    }else if(result.code == -1){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                    }else if(result.code == -3){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                    }else if(result.code == -4){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                    }else if(result.code == 0){
+
+                        conditionSelect();
+
+                    }
+
+
+                },
+
+                error:_errorFun
+
+            })
+
+        }
+
+
+    })
+
+    $('#bind-table-Modal').on('hidden.bs.modal',function(){
+
+        _isBind = false;
+
+    })
+
     /*----------------------------------其他方法-----------------------------------------*/
 
     //获取列表
@@ -488,6 +918,8 @@
             $('#theLoading').modal('hide');
 
             _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项!','');
+
+
 
         }else{
 
@@ -579,9 +1011,13 @@
             //户号
             acctId:_thisHH,
             //设备
-            rbms:[]
+            rbms:_selectedDevArr
 
         };
+
+        console.log(prm);
+
+        return false;
 
         if(flag){
 
@@ -789,6 +1225,79 @@
         $('.table tbody').find('tr').removeClass('tables-hover');
 
         el.parents('tr').addClass('tables-hover');
+
+    }
+
+    //获取设备列表
+    function devData(url){
+
+        $('#theLoading').modal('show');
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRResource/GetResourceBindMeterSelectDs',
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                _datasTable($('#dev-table'),result.serviceObjs);
+
+            },
+
+            error:_errorFun
+
+        })
+    }
+
+    //根据id获取设备列表
+    function devDataById(id){
+
+        $('#theLoading').modal('show');
+
+        var prm = {
+
+            resId:id
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRResource/GetDRResourceBindMetersByResourceId',
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                //_datasTable($('#dev-table'),result.serviceObjs);
+
+                console.log(result);
+
+                if(result.code == 0){
+
+
+
+                }
+
+
+
+
+            },
+
+            error:_errorFun
+
+        })
+
 
     }
 

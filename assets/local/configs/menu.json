@@ -166,6 +166,14 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "事件执行": {
+        "type": "0",
+        "content": "事件执行",
+        "uri": "../ADRS/planExec.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   },

@@ -117,7 +117,7 @@
 
                 required: true,
 
-                numberFormat:true
+                numberFormat1:true
 
             },
 
@@ -126,7 +126,7 @@
 
                 required: true,
 
-                numberFormat:true
+                numberFormat1:true
 
             }
 
@@ -165,6 +165,15 @@
         return this.optional(element)||(doubles.test(value));
 
     },"请输入数字格式");
+
+    //正则表达式（大于0的数字）
+    $.validator.addMethod("numberFormat1",function(value,element,params){
+
+        var doubles= /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
+
+        return this.optional(element)||(doubles.test(value));
+
+    },"请输入大于0的数字");
 
     /*-----------------------------------按钮事件---------------------------------------*/
 
