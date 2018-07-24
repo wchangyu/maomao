@@ -28,7 +28,10 @@
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
     <!--zTree END-->
-
+    <!--treeTable start-->
+    <link rel="stylesheet" href="../resource/treeTable/css/jquery.treetable.css">
+    <link rel="stylesheet" href="../resource/treeTable/css/jquery.treetable.theme.default.css">
+    <!--treeTable end-->
     <!--DATATABLES-->
     <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
     <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
@@ -457,14 +460,35 @@
                             <div class="condition-button" id="selected-dev-modal">查询</div>
                         </li>
                     </ul>
+                    <div>
+                        <div style="width: 45%;display: inline-block;vertical-align: top;">
+                            <ul class="ztree" id="ztreeObj" style="border: 1px solid #e5e5e5">
 
+                            </ul>
 
-                    <table id="dev-table" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                        <thead>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                            <table id="dev-table1" class="treetable table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center">选择</th>
+                                        <th style="text-align: center">楼宇</th>
+                                        <th style="text-align: center">设备类型</th>
+                                        <th style="text-align: center">设备</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div style="width: 50%;display: inline-block;vertical-align: top;">
+                            <table id="dev-table" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="modal-footer">
@@ -541,6 +565,9 @@
     <script src="../resource/TableTools/js/pdfmake.min.js"></script>
     <script src="../resource/TableTools/js/vfs_fonts.js"></script>
     <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+    <!--treeTable start-->
+    <script src="../resource/treeTable/js/jquery.treetable.js"></script>
+    <!--treeTable end-->
     <!--VALIDATIION-->
     <script src="../resource/validation/jquery.validate.min.js"></script>
     <script src="../resource/validation/messages_zh.min.js"></script>

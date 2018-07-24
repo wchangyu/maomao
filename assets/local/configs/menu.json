@@ -119,14 +119,6 @@
         "arg": "",
         "iconclass": ""
       },
-      "事件列表": {
-        "type": "0",
-        "content": "事件列表",
-        "uri": "../ADRS/plans.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
       "事件发布": {
         "type": "0",
         "content": "事件发布",
@@ -182,7 +174,14 @@
     "iconclass": "icon-pie-chart",
     "content": "数据统计",
     "submenu": {
-
+      "事件列表": {
+        "type": "0",
+        "content": "事件列表",
+        "uri": "../ADRS/plans.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
     }
   }
 }

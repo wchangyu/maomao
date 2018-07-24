@@ -30,6 +30,9 @@
     //详情返回的属性名称
     var _detailAttrArr = ['','replyPBAs','chooseAccts','',''];
 
+    //记录总的消减负荷
+    var _thisLoad = 0;
+
     /*--------------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -51,7 +54,7 @@
             data:'closeDate'
         },
         {
-            title:'消减负荷（kWh）',
+            title:'消减负荷（kW）',
             data:'reduceLoad'
         },
         {
@@ -406,6 +409,8 @@
 
         _thisPlanId = thisEprId;
 
+        _thisLoad = $(this).parent('tr').children('td').eq(4).html()
+
         for(var i=0;i<_allData.length;i++){
 
             if(_allData[i].planId == thisEprId){
@@ -537,9 +542,25 @@
 
                     if(reg.test(inputs.eq(i).val())){
 
-                        inputs.eq(i).next('.error-tip').html('').hide();
+                        //验证消减负荷
+                        if(i==2){
 
-                        inputs.eq(i).removeClass('table-error');
+                            //判断提示消息是否还在
+                            var o = inputs.eq(i).next().css('display')
+
+                            if(o != 'none'){
+
+                                break;
+
+                            }
+
+                        }else{
+
+                            inputs.eq(i).next('.error-tip').html('').hide();
+
+                            inputs.eq(i).removeClass('table-error');
+
+                        }
 
                     }else{
 
@@ -683,6 +704,42 @@
 
                     $(this).next('.error-tip').html('').hide();
 
+                    //再判断消减负荷的数量
+
+                    if( $(this).parent('td').index() == 3 ){
+
+                        //将该表格的所有第三列数字加起来，必须小于等于thisLoad
+                        var table = $(this).parents('.innerTable');
+
+                        var loadTr = table.children('tbody').children('tr');
+
+                        var totle = 0;
+
+                        for(var i=0;i<loadTr.length;i++){
+
+                            var num = Number(loadTr.eq(i).children('td').eq(3).children().val());
+
+                            totle += num;
+
+                        }
+
+                        //如果总量大于thisLoad，要提示
+                        if(totle>_thisLoad){
+
+                            $(this).addClass('table-error');
+
+                            $(this).next('.error-tip').html('消减负荷累计不能超过总负荷量').show();
+
+                        }else{
+
+                            $(this).removeClass('table-error');
+
+                            $(this).next('.error-tip').html('').hide();
+
+                        }
+
+                    }
+
                 }else{
 
                     $(this).next('.error-tip').html('请输入大于0的数字').show();
@@ -710,7 +767,7 @@
             //初始化
 
             //模态框
-            _moTaiKuang($('#select-SB-Modal'),'账户','','','','选择');
+            _moTaiKuang($('#select-HH-Modal'),'账户','','','','选择');
 
             //获取数据
             HHData();
@@ -1222,7 +1279,7 @@
         var str = '';
 
         //计划名称、区域、开始时间、结束时间、计划消减负荷量
-        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kWh）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
+        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kW）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
 
         //基线、发布时间、反馈截止时间、
 
@@ -1283,7 +1340,7 @@
         var str = '';
 
         //计划名称、区域、开始时间、结束时间、计划消减负荷量
-        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kWh）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
+        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kW）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
 
         //基线、发布时间、反馈截止时间、
 

@@ -6,18 +6,6 @@
     //记录当前选中的户号
     var _thisHH = '';
 
-    //功率设备id
-    var _devGL = [];
-
-    //电量设备id
-    var _devDL = [];
-
-    //控制设备id
-    var _devKZ = [];
-
-    //存放设备
-    var _devArr = [];
-
     //记录当前单元格
     var _currentCell = '';
 
@@ -967,6 +955,9 @@
         //当前选中的户号
         _thisHH = '';
 
+        //清空设备数组
+        _selectedDevArr = [];
+
         //input框
         $('#isNo').parent('span').removeClass('checked');
 
@@ -1014,10 +1005,6 @@
             rbms:_selectedDevArr
 
         };
-
-        console.log(prm);
-
-        return false;
 
         if(flag){
 
@@ -1247,6 +1234,31 @@
 
                 _datasTable($('#dev-table'),result.serviceObjs);
 
+                //格式化数据
+                var ztreeArr = [];
+
+                for(var i=0;i<result.serviceObjs.length;i++){
+
+                    var obj = {};
+
+                    obj.name = result.serviceObjs[i].f_ServiceName;
+
+                    obj.id = result.serviceObjs[i].f_ServiceId;
+
+                    obj.pId = result.serviceObjs[i].f_ParentId;
+
+                    ztreeArr.push(obj);
+
+                }
+
+                setZtree($('#ztreeObj'),ztreeArr);
+
+                var treeObj = $.fn.zTree.getZTreeObj("ztreeObj");
+
+                var nodes = treeObj.getCheckedNodes(false);
+
+                treeTableF($('#dev-table1'),nodes);
+
             },
 
             error:_errorFun
@@ -1299,6 +1311,103 @@
         })
 
 
+    }
+
+    //设备树
+    //ztree树
+    function setZtree(treeId,treeData){
+
+        var setting = {
+            check: {
+                enable: true,
+                chkStyle: "radio",
+                chkboxType: { "Y": "s", "N": "ps" },
+                radioType:'all',
+                nocheckInherit: false
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            view:{
+                showIcon:false,
+            },
+            callback: {
+
+                onClick: function(e,treeId,treeNode){
+
+                    //取消全部打钩的节点
+                    pointerObj.checkNode(treeNode,!treeNode.checked,true);
+
+                },
+                beforeClick:function(){
+
+                    $('#ztreeStation').find('.curSelectedNode').removeClass('curSelectedNode');
+
+                },
+
+                onCheck:function(e,treeId,treeNode){
+
+                    $('#ztreeStation').find('.curSelectedNode').removeClass('curSelectedNode');
+
+                    $('#ztreeStation').find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+
+                    //取消全部打钩的节点
+                    pointerObj.checkNode(treeNode,true,true);
+
+
+                }
+
+            }
+        };
+
+        pointerObj = $.fn.zTree.init(treeId, setting, treeData);
+
+
+    }
+
+    //treeTable表格
+    function treeTableF(treeId,treeData){
+
+        var str = '';
+
+        //插入
+        for(var i=0;i<treeData.length;i++){
+
+            str += '<tr data-tt-id="' + treeData[i].id + '" data-tt-parent-id="' + treeData[i].pId + '">' + '<td class="checkedInput"></td>' + '<td>' + treeData[i].name + '</td>' + '</tr>'
+
+        }
+
+        treeId.children('tbody').append(str);
+
+        treeId.treetable({ expandable: true });
+
+    }
+
+    //排序
+    function compare(propertyName) {
+
+        return function(object1, object2) {
+
+            var value1 = object1[propertyName];
+
+            var value2 = object2[propertyName];
+
+            if (value2 < value1) {
+
+                return 1;
+
+            } else if (value2 > value1) {
+
+                return -1;
+
+            } else {
+
+                return 0;
+
+            }
+        }
     }
 
     return {

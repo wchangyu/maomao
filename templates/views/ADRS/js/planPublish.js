@@ -344,7 +344,7 @@
 
                             $('#publish-Modal').one('hidden.bs.modal',function(){
 
-                                conditionSelect();
+                                conditionSelect(true);
 
                             })
 

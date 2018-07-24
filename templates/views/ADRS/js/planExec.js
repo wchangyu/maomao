@@ -371,72 +371,6 @@
 
     })
 
-    //下发指令
-    $('#table').on('click','.answer-button',function(){
-
-        var prm = {
-
-            //用户角色
-            userRole:sessionStorage.ADRS_UserRole,
-            //事件id
-            planId:_thisPlanId
-
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'DRPlanInstruct/DRPlanDispatchInstruct',
-
-            data:prm,
-
-            timeout:_theTimes,
-
-            success:function(result){
-
-                $('#theLoading').modal('hide');
-
-                if($('.modal-backdrop').length > 0){
-
-                    $('div').remove('.modal-backdrop');
-
-                    $('#theLoading').hide();
-                }
-
-                if(result.code == -2){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
-
-                }else if(result.code == -1){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
-
-                }else if(result.code == -3){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
-
-                }else if(result.code == -4){
-
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
-
-                }else if(result.code == 0){
-
-                    conditionSelect();
-
-                }
-
-            },
-
-            error:_errorFun
-
-        })
-
-
-
-
-    })
-
     /*-------------------------------------其他方法-----------------------------------------*/
 
     //获取所有产品
@@ -568,7 +502,7 @@
 
         var chooseButton = '<div style="text-align: left !important;margin-bottom: 5px;"><button class="btn green answer-button">下发指令</button></div>';
 
-        return theader + tbodyer + str + tbodyers + theaders + chooseButton;
+        return theader + tbodyer + str + tbodyers + theaders;
 
     }
 

@@ -239,6 +239,8 @@
                 //表格
                 _jumpNow($('#table'),arr);
 
+                console.log(arr);
+
                 //ztree(大)
                 setZtree($("#ztreeStation"),arr);
 
