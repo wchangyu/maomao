@@ -3,29 +3,23 @@
     //记录当前选中的userId
     var _thisID = '';
 
-    //已创建列表
-    planData();
-
-    //区域下拉列表
-    districtData();
-
-    //基线下拉列表
-    baseData();
-
-    //事件插件
-    //_timeHMSComponentsFun($('.datatimeblock'),2);
-
     //记录当前参与户号数
     _thisHnum = '';
 
     //记录当前事件的开始时间
     var _thisPlanSt = '';
 
+    //存放当前所有值
+    var _allData = [];
+
     /*-----------------------------------表格初始化-------------------------------------*/
 
     var col=[
 
-
+        {
+            title:'状态',
+            data:'planStateName'
+        },
         {
             title:'事件名称',
             data:'planName'
@@ -39,7 +33,7 @@
             data:'closeDate'
         },
         {
-            title:'消减负荷（kWh）',
+            title:'消减负荷（kW）',
             data:'reduceLoad'
         },
         {
@@ -77,11 +71,8 @@
 
                 return str
 
+
             }
-        },
-        {
-            title:'状态',
-            data:'planStateName'
         },
         {
             title:'登记时间',
@@ -112,13 +103,13 @@
                     return  "<span class='data-option option-edit btn default btn-xs green-stripe'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
                         "'>编辑</a></span>" +
 
-                            //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.planId + "'>删除</span>" +
+                        "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>" +
 
-                        "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>"
+                        "<span class='data-option option-detail btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>详情</span>"
 
                 }else{
 
-                    return ''
+                    return "<span class='data-option option-detail btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>详情</span>"
 
                 }
 
@@ -379,6 +370,48 @@
 
     })
 
+    //详情
+    $('#table tbody').on('click','.option-detail',function(){
+
+        //存放当前企业所绑定户号的数组
+        var thisOBJ = {};
+
+        var thisEprId = $(this).attr('data-userid');
+
+        _thisPlanId = thisEprId;
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].planId == thisEprId){
+
+                thisOBJ = _allData[i];
+
+            }
+
+        }
+
+        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+
+        var table = $('#table').DataTable();
+
+        var row = table.row( tr );
+
+        if ( row.child.isShown() ) {
+
+            row.child.hide();
+
+            tr.removeClass('shown');
+
+        }
+        else {
+
+            row.child( formatDetail(thisOBJ) ).show();
+
+            tr.addClass('shown');
+        }
+
+    })
+
     /*-----------------------------------其他方法-----------------------------------------*/
 
     //获取列表
@@ -461,6 +494,14 @@
 
                     arr = result.plans;
 
+                    _allData.length = 0;
+
+                    for(var i=0;i<arr.length;i++){
+
+                        _allData.push(arr[i]);
+
+                    }
+
                 }
 
                 _jumpNow($('#table'),arr);
@@ -471,148 +512,6 @@
 
         })
 
-
-    }
-
-    //已创建事件名称
-    function planData(){
-
-        var prm = {
-
-            isAll:true
-
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'DRPlan/GetDRPlanIdns',
-
-            timeout:_theTimes,
-
-            data:prm,
-
-            success:function(result){
-
-                var str = '';
-
-                if(result.code == 0 || result.code == -2){
-
-                    for(var i=0;i<result.planIdns.length;i++){
-
-                        str += '<option value="' + result.planIdns[i].planId + '">' + result.planIdns[i].planNt +'</option>'
-
-                    }
-
-                }else{
-
-                    console.log('事件名称获取失败');
-
-                }
-
-                $('#plan-name').empty().append(str);
-
-            },
-
-            error:_errorFun1
-
-        })
-
-
-    }
-
-    //获取区域
-    function districtData(){
-
-        var prm = {
-
-            isAll:true
-
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'DRPlan/GetTakeInDRPlanDistrictDs',
-
-            data:prm,
-
-            timeout:_theTimes,
-
-            success:function(result){
-
-                var str = '';
-
-                if(result.code == 0 || result.code == -2 ){
-
-                    for(var i=0;i<result.districtIdns.length;i++){
-
-                        str += '<option value="' + result.districtIdns[i].id + '">' + result.districtIdns[i].name +'</option>'
-
-                    }
-
-                }else{
-
-                    console.log('区域获取失败');
-
-                }
-
-                $('#plan-district').empty().append(str);
-
-            },
-
-            error:_errorFun
-
-        })
-
-    }
-
-    //获取基线
-    function baseData(){
-
-        var prm = {
-
-            isAll:true
-
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'DRPlan/GetTakeInDRPlanBaselineDs',
-
-            data:prm,
-
-            timeout:_theTimes,
-
-            success:function(result){
-
-                var str = '';
-
-                if(result.code == 0 || result.code == -2 ){
-
-                    for(var i=0;i<result.baselineIdns.length;i++){
-
-                        str += '<option value="' + result.baselineIdns[i].id + '">' + result.baselineIdns[i].name +'</option>'
-
-                    }
-
-                }else{
-
-                    console.log('区域获取失败');
-
-                }
-
-                $('#plan-baseline').empty().append(str);
-
-            },
-
-            error:_errorFun
-
-        })
 
     }
 
@@ -663,6 +562,95 @@
         }else{
 
             return false;
+
+        }
+
+    }
+
+    function formatDetail(d){
+
+        console.log(d);
+
+        var theader = '<table class="table table-bordered table-advance table-hover subTable">';
+
+        var theaders = '</table>';
+
+        var tbodyer = '<tbody>'
+
+        var tbodyers = '</tbody>';
+
+        var ontherTable = '<table class="table userTable table-bordered table-advance table-hover subTable"></table>';
+
+        var str = '';
+
+        //计划名称、区域、开始时间、结束时间、计划消减负荷量
+        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kW）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
+
+        //基线、发布时间、反馈截止时间、
+
+        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle">反馈截止时间</td>' + '<td class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
+
+        if(d.librarys){
+
+            for(var i=0;i< d.librarys.length;i++){
+
+                var lengths = d.librarys.length;
+
+                var tc = d.librarys[i];
+
+                if(lengths == 1){
+
+                    //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>' + '</tr>';
+
+                }else{
+
+                    //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称' + (i+1) + '</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>'  + '</tr>';
+
+                }
+
+
+            }
+
+        }
+
+        //备注
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
+
+        return theader + tbodyer + str + tbodyers + theaders + ontherTable;
+
+    }
+
+    //套餐类型对应
+    function libType(num){
+
+        if(num == 1){
+
+            return '价格型';
+
+        }else if(num == 2){
+
+            return '鼓励型';
+
+        }
+
+    }
+
+    //补贴方式对应
+    function priceMode(data){
+
+        if(data == 1){
+
+            return '电费抵扣'
+
+        }else if(data == 2){
+
+            return '现金支付'
+
+        }else if(data == 3){
+
+            return '预付补贴'
 
         }
 

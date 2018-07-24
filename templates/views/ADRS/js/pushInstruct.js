@@ -43,10 +43,23 @@
             data:'librarys',
             render:function(data, type, full, meta){
 
-                return data.length
+                var str = '';
 
+                for(var i=0;i<data.length;i++){
 
+                    if(i == data.length-1){
 
+                        str += data[i].name
+
+                    }else{
+
+                        str += data[i].name + '、'
+
+                    }
+
+                }
+
+                return str
             }
         },
         {
@@ -258,7 +271,7 @@
 
                 if(result.code == -2){
 
-                    _topTipBar('暂无数据！')
+                    _topTipBar('暂时没有需要下发的事件！')
 
                 }else if(result.code == -1){
 
@@ -313,7 +326,7 @@
 
         //基线、发布时间、反馈截止时间、
 
-        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle" style="font-weight: bold">反馈截止时间</td>' + '<td style="font-weight: bold" class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
+        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle">反馈截止时间</td>' + '<td class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
 
         if(d.librarys){
 
@@ -339,6 +352,9 @@
             }
 
         }
+
+        //备注
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
 
         var chooseButton = '<div style="text-align: left !important;margin-bottom: 5px;"><button class="btn green answer-button">下发指令</button></div>';
 

@@ -27,7 +27,7 @@
             data:'closeDate'
         },
         {
-            title:'消减负荷（kWh）',
+            title:'消减负荷（kW）',
             data:'reduceLoad'
         },
         {
@@ -43,7 +43,23 @@
             data:'librarys',
             render:function(data, type, full, meta){
 
-                return data.length
+                var str = '';
+
+                for(var i=0;i<data.length;i++){
+
+                    if(i == data.length-1){
+
+                        str += data[i].name
+
+                    }else{
+
+                        str += data[i].name + '、'
+
+                    }
+
+                }
+
+                return str
 
 
 
@@ -409,7 +425,7 @@
 
                 if(result.code == -2){
 
-                    _topTipBar('暂无数据！')
+                    _topTipBar('暂时没有事件！')
 
                 }else if(result.code == -1){
 
@@ -462,11 +478,11 @@
         var str = '';
 
         //计划名称、区域、开始时间、结束时间、计划消减负荷量
-        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kWh）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
+        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kW）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
 
         //基线、发布时间、反馈截止时间、
 
-        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle" style="font-weight: bold">反馈截止时间</td>' + '<td style="font-weight: bold" class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
+        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle">反馈截止时间</td>' + '<td class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
 
         if(d.librarys){
 
@@ -492,6 +508,9 @@
             }
 
         }
+
+        //备注
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
 
         var chooseButton = '<div style="text-align: left !important;margin-bottom: 5px;"><button class="btn green answer-button">回复用户</button></div>';
 

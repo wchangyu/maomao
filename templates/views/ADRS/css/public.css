@@ -127,7 +127,7 @@ th{
 
 .subTableTitle{
 
-	background: rgb(226, 233, 242);
+	background: #c5d7ef !important;
 
 }
 
@@ -178,3 +178,40 @@ table.dataTable thead .sorting_desc:after{
 
 }
 
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+
+	border: 1px solid #ddd !important;
+
+}
+
+.table-advance thead tr th{
+
+	background:#e7eff7!important;
+
+	font-weight: normal !important;
+
+}
+
+.table-striped>tbody>tr:nth-of-type(odd){
+
+	background-color: #f5f7fb !important;
+
+}
+
+.table>thead>tr>th{
+
+	border-bottom:none !important;
+
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+
+	border-right: 1px solid #ddd !important;
+
+}
+.table{
+
+	border: 1px solid #ddd !important;
+
+	border-right: none !important;
+}

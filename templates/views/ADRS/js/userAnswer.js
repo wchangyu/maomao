@@ -70,7 +70,23 @@
             data:'librarys',
             render:function(data, type, full, meta){
 
-                return data.length
+                var str = '';
+
+                for(var i=0;i<data.length;i++){
+
+                    if(i == data.length-1){
+
+                        str += data[i].name
+
+                    }else{
+
+                        str += data[i].name + '、'
+
+                    }
+
+                }
+
+                return str
 
             }
         },
@@ -1342,6 +1358,8 @@
 
         }
 
+        //备注
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
 
         //账户响应的table
 
@@ -1402,6 +1420,9 @@
             }
 
         }
+
+        //备注
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
 
         //获取详情的接口
         var table = '<table class="table getInnerTable table-bordered table-advance table-hover"><thead></thead><tbody></tbody></table>'

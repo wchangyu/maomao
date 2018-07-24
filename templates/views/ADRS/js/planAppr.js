@@ -45,9 +45,23 @@
             data:'librarys',
             render:function(data, type, full, meta){
 
-                return data.length
+                var str = '';
 
+                for(var i=0;i<data.length;i++){
 
+                    if(i == data.length-1){
+
+                        str += data[i].name
+
+                    }else{
+
+                        str += data[i].name + '、'
+
+                    }
+
+                }
+
+                return str
 
             }
         },
@@ -310,7 +324,7 @@
 
                 if(result.code == -2){
 
-                    _topTipBar('暂无数据！');
+                    _topTipBar('暂时没有需要审核的事件！');
 
                 }else if(result.code == -1){
 
@@ -369,7 +383,7 @@
         str += '<tr>'+ '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kW）</td>'+ '<td>' + d.reduceLoad + '</td>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' +'</tr>';
 
         //发布时间、反馈截止时间
-        str += '<tr>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle" style="font-weight: bold">反馈截止时间</td>' + '<td style="font-weight: bold" class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' + '</tr>';
+        str += '<tr>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle">反馈截止时间</td>' + '<td class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' + '</tr>';
 
         if(d.librarys){
 
@@ -399,6 +413,10 @@
             }
 
         }
+
+        //备注
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
+
         //账户响应的table
         //echarts图
         var echart = '<div><div class="baseline-echart" id="echart' + num +'" style="height: 300px;background: #ffffff;border: 1px solid #e5e5e5;"></div></div>'
