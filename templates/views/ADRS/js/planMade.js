@@ -667,23 +667,23 @@
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    console.log('基线获取：暂无数据！' );
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    console.log('基线获取：异常错误！' );
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    console.log('基线获取：参数错误！' );
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    console.log('基线获取：内容已存在！' );
 
                 }else if(result.code == -6){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
+                    console.log('基线获取：没有权限！' );
 
                 }else if(result.code == 0){
 
@@ -737,23 +737,23 @@
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    console.log('区域获取：暂无数据！')
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    console.log('区域获取：异常错误！');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    console.log('区域获取：参数错误！');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    console.log('区域获取：内容已存在！');
 
                 }else if(result.code == -6) {
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap', '没有权限！', '');
+                    console.log('区域获取：没有权限！');
 
                 }else if(result.code == 0){
 
@@ -803,23 +803,23 @@
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    console.log('套餐获取：暂无数据！');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    console.log('套餐获取：异常错误！');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    console.log('套餐获取：参数错误！');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    console.log('套餐获取：内容已存在！');
 
                 }else if(result.code == -6){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
+                    console.log('套餐获取：没有权限！');
 
                 }else if(result.code == 0){
 
@@ -998,23 +998,23 @@
 
                 }else if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _topTipBar('暂无数据！');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _topTipBar('异常错误！');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _topTipBar('参数错误！');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _topTipBar('内容已存在！');
 
                 }else if(result.code == -6){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
+                    _topTipBar('没有权限！');
 
                 }
 
@@ -1099,23 +1099,23 @@
 
                 }else if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _topTipBar('暂无数据！');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _topTipBar('异常错误！');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _topTipBar('参数错误！');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _topTipBar('内容已存在！');
 
                 }else if(result.code == -6){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
+                    _topTipBar('没有权限！');
 
                 }
 

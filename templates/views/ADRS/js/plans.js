@@ -6,6 +6,15 @@
     //操作当前事件的id
     var _thisPlanId = '';
 
+    //基线
+    baselineData();
+
+    //区域
+    districtData();
+
+    //事件名称列表
+    planData();
+
     /*-----------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -117,6 +126,13 @@
         }
     } );
 
+    //【查询】
+    $('#selected').click(function(){
+
+        conditionSelect();
+
+    })
+
     /*-----------------------------------其他方法-----------------------------------------*/
 
     //获取列表
@@ -144,7 +160,7 @@
             var  prm = {
 
                 //事件
-                planId:$('#plan-name').val(),
+                planId:$('#plan-name-con').val(),
                 //区域
                 districtId:$('#plan-district').val(),
                 //基线
@@ -302,11 +318,227 @@
 
     }
 
+    //获取基线
+    function baselineData(){
+
+        var prm = {
+
+            type:0
+
+        };
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRBaseline/GetDRBaselineDs',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
+
+                var arr = []
+
+                if(result.code == -2){
+
+                    console.log('暂无数据！');
+
+                }else if(result.code == -1){
+
+                    console.log('异常错误！');
+
+                }else if(result.code == -3){
+
+                    console.log('参数错误！');
+
+                }else if(result.code == -4){
+
+                    console.log('内容已存在！');
+
+                }else if(result.code == 0){
+
+                    arr = result.drbls;
+
+
+                }
+
+                var str = '<option value="0">全部</option>';
+
+                for(var i=0;i<arr.length;i++){
+
+                    str += '<option value="' + arr[i].id + '">' + arr[i].name + '</option>'
+
+                }
+
+                $('#plan-baseline').empty().append(str);
+
+            },
+
+            error:_errorFun
+
+        })
+
+    }
+
+    //获取区域
+    function districtData(){
+
+        var prm = {
+
+            type:0
+
+        };
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRDistrict/GetDRDistrictDs',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
+
+                var arr = []
+
+                if(result.code == -2){
+
+                    console.log('暂无数据！');
+
+                }else if(result.code == -1){
+
+                    console.log('异常错误！');
+
+                }else if(result.code == -3){
+
+                    console.log('参数错误！');
+
+                }else if(result.code == -4){
+
+                    console.log('内容已存在！');
+
+                }else if(result.code == 0){
+
+                    arr = result.dists;
+
+
+                }
+
+                var str = '<option value="0">全部</option>';
+
+                for(var i=0;i<arr.length;i++){
+
+                    str += '<option value="' + arr[i].id + '">' + arr[i].name + '</option>'
+
+                }
+
+                $('#plan-district').empty().append(str);
+
+            },
+
+            error:_errorFun
+
+        })
+
+    }
+
+    //获取事件
+    function planData(){
+
+        var prm = {
+
+            isAll:true
+
+        };
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlan/GetDRPlanIdns',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
+
+                var arr = []
+
+                if(result.code == -2){
+
+                    console.log('暂无数据！');
+
+                }else if(result.code == -1){
+
+                    console.log('异常错误！');
+
+                }else if(result.code == -3){
+
+                    console.log('参数错误！');
+
+                }else if(result.code == -4){
+
+                    console.log('内容已存在！');
+
+                }else if(result.code == 0){
+
+                    arr = result.planIdns;
+
+
+                }
+
+                var str = '';
+
+                for(var i=0;i<arr.length;i++){
+
+                    str += '<option value="' + arr[i].planId + '">' + arr[i].planNt + '</option>'
+
+                }
+
+                $('#plan-name-con').empty().append(str);
+
+            },
+
+            error:_errorFun
+
+        })
+
+    }
+
     return {
         init: function () {
-
-            //条件查询
-            conditionSelect(true);
 
         }
     }

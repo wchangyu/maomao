@@ -210,7 +210,7 @@
 
             _tableInit(innerTable,colJ,2,true,'','',true,'','',true);
 
-            var el = $(this).parents('#table');
+            var el = $(this).parent('tr').next('tr');
 
             //获取数据
             getUserList(el,innerTable);
@@ -325,19 +325,23 @@
 
                     if(result.code == -2){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                        _topTipBar('暂无数据！');
 
                     }else if(result.code == -1){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                        _topTipBar('异常错误！');
 
                     }else if(result.code == -3){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                        _topTipBar('参数错误！');
 
                     }else if(result.code == -4){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                        _topTipBar('内容已存在！');
+
+                    }else if(result.code == -6){
+
+                        _topTipBar('没有权限！');
 
                     }else if(result.code == 0){
 
@@ -405,19 +409,19 @@
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _topTipBar('暂无数据！')
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _topTipBar('异常错误！')
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _topTipBar('参数错误！')
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _topTipBar('内容已存在！')
 
                 }else if(result.code == 0){
 
@@ -493,7 +497,11 @@
 
         var statistics = '<div style="text-align: left"><label for="">统计：</label><div style="text-align: left;display: inline-block;vertical-align: middle">聚合商数：<span class="JHSNum" style="font-weight: bold;margin-right: 5px;"></span>,聚合商下户号数：<span class="JYHS" style="font-weight: bold;margin-right: 5px;"></span>,可消减负荷量（kW）：<span class="JFH" style="font-weight: bold;margin-right: 5px;"></span><br>大用户数：<span class="DYHNum" style="font-weight: bold;margin-right: 5px;"></span>,大用户下户号数：<span class="DYHH" style="font-weight: bold;margin-right: 5px;"></span>,可消减负荷量（kW）：<span class="DFH" style="font-weight: bold;margin-right: 5px;"></span><br>总消减负荷（kW）：<span class="TOTalFH" style="font-weight: bold"></span></div></div>'
 
-        return theader + tbodyer + str + tbodyers + theaders + statistics + ontherTable + chooseButton;
+        var answer = '<div class="answer-block" style="display: none">';
+
+        var answers = '</div>';
+
+        return theader + tbodyer + str + tbodyers + theaders + answer +  statistics + ontherTable + chooseButton + answers;
 
     }
 
@@ -578,19 +586,23 @@
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _topTipBar('暂无数据！');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _topTipBar('异常错误！');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _topTipBar('参数错误！');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _topTipBar('内容已存在！');
+
+                }else if(result.code == -6){
+
+                    _topTipBar('没有权限！');
 
                 }else if(result.code == 0){
 
@@ -631,6 +643,22 @@
                 el.find('.TOTalFH').html(totalReduceLoad);
                 //列表
                 _datasTable(innerTable,arr);
+
+                el.find('.answer-block').hide();
+
+                //回复模块不显示
+
+                if(result.mergeAccts == null || result.mergeAccts.length == 0 || result.mergeAccts == '' ){
+
+                    el.find('.answer-block').hide();
+
+
+                }else{
+
+                    el.find('.answer-block').show();
+
+                }
+
 
             },
 

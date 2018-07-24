@@ -18,7 +18,11 @@
     /*-----------------------------------表格初始化-------------------------------------*/
 
     var col=[
-
+        {
+            title:'所属户号',
+            data:'acctNt',
+            name:'name'
+        },
         {
             title:'资源名称',
             data:'name'
@@ -61,12 +65,14 @@
             data:'noticehour'
         },
         {
-            title:'所属户号',
-            data:'acctNt'
-        },
-        {
-            title:'绑定设备个数',
-            data:'meterNbrs'
+            title:'绑定设备组数',
+            data:'meterNbrs',
+            className:'details-dev',
+            render:function(data, type, full, meta){
+
+                return '（<span style="text-decoration: underline;font-weight: bold" data-id="' + full.id + '">' + data + '</span>）'
+
+            }
         },
         {
             title:'资源类型',
@@ -94,7 +100,43 @@
 
     ]
 
-    _tableInit($('#table'),col,2,true,'','','','');
+    var _table = $('#table').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": true,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": false,
+        "ordering": true,
+        "bProcessing":true,
+        "iDisplayLength":50,//默认每页显示的条数
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":'t<"F"lip>',
+        'buttons':{
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs hiddenButton'
+        },
+        "columns": col,
+
+        "rowsGroup": [
+            'name:name',
+            0
+        ],
+        "aoColumnDefs": [ { "orderable": false, "targets": [ 1,2,3,4,5,6,7,8,9,10,11] }]
+    });
 
     //户号
     var huCol = [
@@ -143,17 +185,13 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return '<div class="checker" data-id="' + full.f_ServiceId + '"><span><input type="checkbox" value=""></span></div>'
+                return '<div class="checker" data-id="' + full.f_ServiceId + '" data-pointer="' + full.f_BuildingId + '"><span><input type="checkbox" value=""></span></div>'
 
             }
         },
         {
-            title:'楼宇',
-            data:'f_BuildingId'
-        },
-        {
-            title:'设备类型',
-            data:'f_ServiceType'
+            title:'设备编码',
+            data:'f_ServiceId'
         },
         {
             title:'设备',
@@ -162,7 +200,7 @@
 
     ];
 
-    _tableInit($('#dev-table'),devCol,2,true,'','','','','',true);
+    _tableInit($('#dev-table'),devCol,2,true,'','','','',10,'');
 
     //添加设备（表格编辑）
     var editCol = [
@@ -697,9 +735,9 @@
         //id
         var num = currentTr.find('.checker').attr('data-id');
 
-        var pid = currentTr.children().eq(1).html();
+        var pid = currentTr.find('.checker').attr('data-pointer');
 
-        var name = currentTr.children().eq(3).html();
+        var name = currentTr.children().eq(2).html();
 
         _currentCell.attr('data-num',num);
 
@@ -822,6 +860,115 @@
     $('#bind-table-Modal').on('hidden.bs.modal',function(){
 
         _isBind = false;
+
+    })
+
+    //表格树的点击事件
+    $('#dev-Modal').on('click','#dev-table1 tbody tr',function(){
+
+        $('#dev-table1 tbody').children('tr').removeClass('tables-hover');
+
+        $(this).addClass('tables-hover');
+
+    })
+
+    //点击绑定设备数，获取设备列表
+    $('#table tbody').on('click','.details-dev',function(){
+
+        //存放当前企业所管理户号的数组
+        var thisEprHHArr = [];
+
+        var length = $(this).children('span').html();
+
+        if(length == 0){
+
+            return
+
+        }
+
+        thisRow = $(this);
+
+        //首先判断是否需要获取数据
+
+        var tr = thisRow.closest('tr');  //找到距离按钮最近的行tr;
+
+        var row = _table.row( tr );
+
+
+        if ( row.child.isShown() ) {
+
+            row.child.hide();
+
+            tr.removeClass('shown');
+
+        }
+        else {
+
+            $('#theLoading').modal('show');
+
+            //获取绑定的户号信息
+
+            var id = $(this).children('span').attr('data-id');
+
+            var prm = {
+
+                // 资源Id
+                resId:id
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:sessionStorage.apiUrlPrefix + 'DRResource/GetDRResourceBindMetersByResourceId',
+
+                data:prm,
+
+                timeout:_theTimes,
+
+                success:function(result){
+
+                    $('#theLoading').modal('hide');
+
+                    if(result.code == -2){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+
+                    }else if(result.code == -1){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+
+                    }else if(result.code == -3){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+
+                    }else if(result.code == -4){
+
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+
+                    }else if(result.code == 0){
+
+                        for(var i=0;i<result.rbms.length;i++){
+
+                            thisEprHHArr.push(result.rbms[i]);
+
+                        }
+
+                    }
+
+                    row.child( formatDev(thisEprHHArr) ).show();
+
+                    tr.addClass('shown');
+
+                    //初始化变量
+                    thisRow = '';
+
+                },
+
+                error:_errorFun
+
+            })
+        }
 
     })
 
@@ -1257,13 +1404,47 @@
 
                 var nodes = treeObj.getCheckedNodes(false);
 
-                treeTableF($('#dev-table1'),nodes);
+                if (nodes.length>0) {
+
+                    treeObj.expandNode(nodes[4], true, false, true);
+
+                }
 
             },
 
             error:_errorFun
 
         })
+    }
+
+    //设备表格
+    function formatDev(d){
+
+        var theader = '<table class="table devTable table-bordered table-advance table-hover">' + '<thead><tr><th>功率设备</th><th>电量设备</th><th>控制设备</th></tr></thead>';
+
+        var theaders = '</table>';
+
+        var tbodyer = '<tbody>'
+
+        var tbodyers = '</tbody>';
+
+        var str = '';
+
+        for(var i=0;i< d.length;i++){
+
+            str += '<tr>';
+            //功率设备
+            str += '<td>'+ d[i].powerName +'</td>' +
+                    //电量设备
+                '<td>'+ d[i].electricityName +'</td>' +
+                    //控制设备
+                '<td>'+ d[i].controName +'</td>'
+
+            str += '</tr>';
+        }
+
+        return theader + tbodyer + str + tbodyers + theaders;
+
     }
 
     //根据id获取设备列表
@@ -1332,33 +1513,6 @@
             },
             view:{
                 showIcon:false,
-            },
-            callback: {
-
-                onClick: function(e,treeId,treeNode){
-
-                    //取消全部打钩的节点
-                    pointerObj.checkNode(treeNode,!treeNode.checked,true);
-
-                },
-                beforeClick:function(){
-
-                    $('#ztreeStation').find('.curSelectedNode').removeClass('curSelectedNode');
-
-                },
-
-                onCheck:function(e,treeId,treeNode){
-
-                    $('#ztreeStation').find('.curSelectedNode').removeClass('curSelectedNode');
-
-                    $('#ztreeStation').find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
-
-                    //取消全部打钩的节点
-                    pointerObj.checkNode(treeNode,true,true);
-
-
-                }
-
             }
         };
 
@@ -1368,48 +1522,49 @@
     }
 
     //treeTable表格
-    function treeTableF(treeId,treeData){
+    function treeTableF(treeData,arr){
+
+        if($('#dev-table1').length != 0){
+
+            $('#dev-table1').remove();
+
+        }
+
+        var table = '<table id="dev-table1" class="treetable table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">' +
+            '<thead>' +
+            '<tr>' +
+            '<th style="text-align: center">选择</th>' +
+            '<th style="text-align: center">设备</th>' +
+            '</tr>' +
+            '</thead>' +
+            '<tbody>' +
+            '</tbody>' +
+            '</table>';
+
+        $('#ztreeObj').after(table);
 
         var str = '';
 
         //插入
         for(var i=0;i<treeData.length;i++){
 
-            str += '<tr data-tt-id="' + treeData[i].id + '" data-tt-parent-id="' + treeData[i].pId + '">' + '<td class="checkedInput"></td>' + '<td>' + treeData[i].name + '</td>' + '</tr>'
+            for(var j=0;j<arr.length;j++){
 
-        }
+                if(treeData[i].id == arr[j].f_ServiceId){
 
-        treeId.children('tbody').append(str);
+                    str += '<tr data-tt-id="' + treeData[i].id + '" data-tt-parent-id="' + treeData[i].pId + '">' + '<td class="checkedInput"></td>' + '<td>' + treeData[i].name + '</td>' + '</tr>'
 
-        treeId.treetable({ expandable: true });
-
-    }
-
-    //排序
-    function compare(propertyName) {
-
-        return function(object1, object2) {
-
-            var value1 = object1[propertyName];
-
-            var value2 = object2[propertyName];
-
-            if (value2 < value1) {
-
-                return 1;
-
-            } else if (value2 > value1) {
-
-                return -1;
-
-            } else {
-
-                return 0;
+                }
 
             }
-        }
-    }
 
+        }
+
+        $('#dev-table1').children('tbody').empty().append(str);
+
+        $('#dev-table1').treetable({ expandable: true });
+
+    }
     return {
         init: function(){
 

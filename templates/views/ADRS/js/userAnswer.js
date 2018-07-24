@@ -159,8 +159,8 @@
             }
         },
         {
-            title:'参与时长（小时）',
-            data:'CYSC',
+            title:'此次消减负荷量',
+            data:'CCXJFHL',
             className:'inputValue',
             render:function(data, type, full, meta){
 
@@ -169,8 +169,8 @@
             }
         },
         {
-            title:'此次消减负荷量',
-            data:'CCXJFHL',
+            title:'参与时长（小时）',
+            data:'CYSC',
             className:'inputValue',
             render:function(data, type, full, meta){
 
@@ -717,7 +717,19 @@
 
                         for(var i=0;i<loadTr.length;i++){
 
-                            var num = Number(loadTr.eq(i).children('td').eq(3).children().val());
+                            var typeFlag = loadTr.eq(i).children('td').eq(3).children('input').length;
+
+                            var num = 0;
+
+                            if(typeFlag == 0){
+
+                                num = Number(loadTr.eq(i).children('td').eq(3).children().html());
+
+                            }else{
+
+                                num = Number(loadTr.eq(i).children('td').eq(3).children().val());
+
+                            }
 
                             totle += num;
 
@@ -1039,6 +1051,26 @@
                     var reg = /^\d+(\.\d+)?$/;
 
                     if(reg.test(inputs.eq(i).val())){
+
+                        //验证消减负荷
+                        if(i==2){
+
+                            //判断提示消息是否还在
+                            var o = inputs.eq(i).next().css('display')
+
+                            if(o != 'none'){
+
+                                break;
+
+                            }
+
+                        }else{
+
+                            inputs.eq(i).next('.error-tip').html('').hide();
+
+                            inputs.eq(i).removeClass('table-error');
+
+                        }
 
                         inputs.eq(i).next('.error-tip').html('').hide();
 

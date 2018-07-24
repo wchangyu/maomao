@@ -29,7 +29,7 @@
             data:'closeDate'
         },
         {
-            title:'消减负荷（kWh）',
+            title:'消减负荷（kW）',
             data:'reduceLoad'
         },
         {
@@ -310,19 +310,23 @@
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _topTipBar('暂无数据！');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _topTipBar('异常错误！');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _topTipBar('参数错误！');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _topTipBar('内容已存在！');
+
+                }else if(result.code == -6){
+
+                    _topTipBar('没有权限！');
 
                 }else if(result.code == 0){
 
@@ -362,7 +366,7 @@
         str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '</tr>';
 
         //结束时间、计划消减负荷量、基线
-        str += '<tr>'+ '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kWh）</td>'+ '<td>' + d.reduceLoad + '</td>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' +'</tr>';
+        str += '<tr>'+ '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kW）</td>'+ '<td>' + d.reduceLoad + '</td>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' +'</tr>';
 
         //发布时间、反馈截止时间
         str += '<tr>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle" style="font-weight: bold">反馈截止时间</td>' + '<td style="font-weight: bold" class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' + '</tr>';
