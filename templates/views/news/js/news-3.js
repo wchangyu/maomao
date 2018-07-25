@@ -14,7 +14,7 @@ $(function(){
             for(var i=0;i<result.length;i++){
                 spanStr += '<span>' + result[i].f_NewsTypeName + '</span>';
                 //动态的创建表格切换项
-                tableStr += '<div class="main-contents-table"><table class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%"><thead></thead><tbody></tbody></table></div> '
+                tableStr += '<div class="main-contents-table"><table class="table table-striped table-advance table-hover" cellspacing="0" width="100%"><thead></thead><tbody></tbody></table></div> '
             }
             $('.table-title').append(spanStr);
             //选中的span设置样式
@@ -89,13 +89,13 @@ $(function(){
                         "targets": -1,
                         "data": null,
                         render:function(data, type, row, meta){
-                            return  "<span class='data-option option-edite btn default btn-xs green-stripe'><a href='../news/news-4.html?id=" +
+                            return  "<span class='option-button option-edite option-qiye'><a href='../news/news-4.html?id=" +
                                 row.pK_NewsID + '&come=2' +
                                 "'>查看</a></span>" +
-                                "<span class='data-option option-edite btn default btn-xs green-stripe'><a href='../news/news-1.html?id=" +
+                                "<span class='option-button option-edite option-edit'><a href='../news/news-1.html?id=" +
                                 row.pK_NewsID + '&flag=1' +
                                 "'>编辑</a></span>" +
-                                "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                                "<span class='option-button option-delete option-del'>删除</span>"
 
                         }
 

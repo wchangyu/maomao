@@ -1314,6 +1314,8 @@ function _successTopBar(data,attr,fun){
 
     if(data == 0){
 
+        $('#tip').hide();
+
         arr = attr;
 
     }else if(data == -2){

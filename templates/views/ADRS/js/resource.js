@@ -88,11 +88,9 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.id + "'>编辑</span>" +
+                return  "<span class='option-button option-edit' data-userId='" + full.id + "'>编辑</span>" +
 
-                        //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.id + "'>删除</span>" +
-
-                    "<span class='data-option option-dev btn default btn-xs green-stripe' data-userId='" + full.id + "'>绑定设备</span>"
+                    "<span class='option-button option-dev' data-userId='" + full.id + "'>绑定设备</span>"
 
             }
         }
@@ -241,7 +239,7 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return  "<span class='data-option option-del btn default btn-xs green-stripe'>删除</span>"
+                return  "<span class='option-button option-del'>删除</span>"
 
             }
         }
@@ -553,6 +551,8 @@
         //初始化
         _datasTable($('#dev-manage'),[]);
 
+        createInit();
+
         _thisID = $(this).attr('data-userid');
 
         _isBind = true;
@@ -802,7 +802,6 @@
 
         $('#bind-table-Modal').modal('hide');
 
-
         //直接绑定数据
         if(_isBind){
 
@@ -866,6 +865,12 @@
                 error:_errorFun
 
             })
+
+        }else{
+
+            var showCon = '选中[ ' + _selectedDevArr.length + ' ]组设备'
+
+            $('#resource-SB').val(showCon);
 
         }
 
@@ -1024,23 +1029,25 @@
                     $('#theLoading').hide();
                 }
 
+                $('#tip').hide();
+
                 var arr = [];
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _topTipBar('暂无数据！');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _topTipBar('异常错误！');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _topTipBar('参数错误！');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _topTipBar('内容已存在！');
 
                 }else if(result.code == 0){
 
@@ -1052,7 +1059,7 @@
 
             },
 
-            error:_errorFun
+            error:_errorBar
 
         })
 
@@ -1122,6 +1129,23 @@
 
         //input框
         $('#isNo').parent('span').removeClass('checked');
+
+        //验证消息要隐藏
+        var error = $('#create-Modal').find('.error');
+
+        for(var i=0;i<error.length;i++){
+
+            if(error[i].nodeName == 'LABEL'){
+
+                error.eq(i).hide();
+
+            }else{
+
+                error.eq(i).removeClass('error');
+
+            }
+
+        }
 
     }
 
@@ -1621,7 +1645,7 @@
 
             if (value === "") {
 
-                $('#tip').html('');
+                $('.tipe').html('');
                 //将 zTree 使用的标准 JSON 嵌套格式的数据转换为简单 Array 格式。
                 //获取 zTree 的全部节点数据
                 //如果input是空的则显示全部；

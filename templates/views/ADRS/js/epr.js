@@ -115,17 +115,17 @@
 
                 if(full.eprType == 1){
 
-                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>编辑</span>" +
+                    return  "<span class='option-edit option-button' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>编辑</span>" +
 
-                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>设置账户</span>"
+                        "<span class='option-button option-yonghu' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>设置账户</span>"
 
                 }else{
 
-                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>编辑</span>" +
+                    return  "<span class='option-edit option-button' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>编辑</span>" +
 
-                        "<span class='data-option option-yonghu btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>设置账户</span>" +
+                        "<span class='option-button option-yonghu' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>设置账户</span>" +
 
-                        "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>管理户号</span>"
+                        "<span class='option-button option-huhao' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>管理户号</span>"
 
                 }
 
@@ -205,13 +205,13 @@
 
                 if(full.eprType == 1){
 
-                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>"
+                    return  "<span class='option-edit option-button' data-userId='" + full.eprId + "'>编辑</span>"
 
                 }else{
 
-                    return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.eprId + "'>编辑</span>" +
+                    return  "<span class='option-edit option-button' data-userId='" + full.eprId + "'>编辑</span>" +
 
-                        "<span class='data-option option-huhao btn default btn-xs green-stripe' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>管理户号</span>"
+                        "<span class='option-button option-huhao' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>管理户号</span>"
 
                 }
 
@@ -668,7 +668,7 @@
 
                     if(result.code == -2){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
 
                     }else if(result.code == -1){
 
@@ -805,7 +805,7 @@
 
                     if(result.code == -2){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
 
                     }else if(result.code == -1){
 
@@ -914,7 +914,7 @@
         //存放当前企业所管理户号的数组
         var thisEprHHArr = [];
 
-        var length = $(this).children('span').length;
+        var length = $(this).children('span').html();
 
         if(length == 0){
 
@@ -972,7 +972,7 @@
 
                     if(result.code == -2){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
 
                     }else if(result.code == -1){
 
@@ -1113,7 +1113,7 @@
 
                     if(result.code == -2){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
 
                     }else if(result.code == -1){
 
@@ -1228,7 +1228,7 @@
 
                     if(result.code == -2){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
 
                     }else if(result.code == -1){
 
@@ -1357,21 +1357,23 @@
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _topTipBar('暂无数据！');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _topTipBar('异常错误！');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _topTipBar('参数错误！');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _topTipBar('内容已存在！');
 
                 }else if(result.code == 0){
+
+                    $('#tip').hide();
 
                     _allMainArr.length = 0;
 
@@ -1389,7 +1391,7 @@
 
             },
 
-            error:_errorFun
+            error:_errorBar
 
         })
 
@@ -1418,6 +1420,24 @@
 
         //选中的户号数组
         _thisHHArr = [];
+
+        //验证消息要隐藏
+        var error = $('#create-Modal-J').find('.error');
+
+        for(var i=0;i<error.length;i++){
+
+            if(error[i].nodeName == 'LABEL'){
+
+                error.eq(i).hide();
+
+            }else{
+
+                error.eq(i).removeClass('error');
+
+            }
+
+        }
+
 
     }
 
@@ -1483,7 +1503,9 @@
             //邮箱
             eMail:$('#mailbox-J').val(),
             //描述
-            memo:$('#create-remark').val()
+            memo:$('#create-remark').val(),
+            //默认创建聚合商
+            eprType:1
 
         };
 
@@ -1511,6 +1533,21 @@
             }
 
             prm.aggregatorId = _JHID;
+
+            //创建大用户,如果行业机构是居民用户的话，eprType = 2，否则是3
+
+            if($('#industry-body-J').val() == 3){
+
+                prm.eprType = 2;
+
+            }else{
+
+                prm.eprType = 3;
+
+            }
+
+
+
 
         }
 
@@ -1542,7 +1579,7 @@
 
                 }else if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
 
                 }else if(result.code == -1){
 
@@ -1597,7 +1634,7 @@
 
                 }else if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
 
                 }else if(result.code == -1){
 
@@ -1663,7 +1700,7 @@
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'暂无数据！','');
+                    //_moTaiKuang($('#tip-Modal'),'提示',true,true,'暂无数据！','');
 
                 }else if(result.code == -1){
 

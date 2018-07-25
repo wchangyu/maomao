@@ -427,7 +427,12 @@
 
         var lefts = '</div>';
 
-        return left + theader + tbodyer + str + tbodyers + theaders + moeo + lefts + left + echart +lefts;
+        //最外边的框
+        var block = '<div style="border: 1px solid #68a1fd;">';
+
+        var blocks = '</div>';
+
+        return block + left + theader + tbodyer + str + tbodyers + theaders + moeo + lefts + left + echart +lefts + blocks;
 
         //return left + theader + tbodyer + str + tbodyers + theaders + block + echart + moeo + blocks + examineButton;
 

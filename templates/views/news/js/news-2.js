@@ -51,8 +51,8 @@ $(function(){
                 "targets": -1,
                 "data": null,
                 "defaultContent":
-                "<span class='data-option option-edite btn default btn-xs green-stripe'>编辑</span>" +
-                "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                "<span class='option-button option-edite option-edit'>编辑</span>" +
+                "<span class='option-button option-delete option-del'>删除</span>"
             }
         ],
         "aoColumnDefs": [

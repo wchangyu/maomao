@@ -82,13 +82,18 @@
             title:'创建人',
             data:'createPlanUserName'
         },
-        //{
-        //    title:'是否有效',
-        //    data:'isDelName'
-        //},
         {
             title:'备注',
             data:'memo'
+        },
+        {
+            title:'其他',
+            className:'table-detail',
+            render:function(data, type, full, meta){
+
+                return "<span data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"' style='color:#2170f4;text-decoration: underline'>详情</span>"
+
+            }
         },
         {
             title:'编辑操作',
@@ -100,16 +105,14 @@
 
                     //如果户号数为0，不显示
 
-                    return  "<span class='data-option option-edit btn default btn-xs green-stripe'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
+                    return  "<span class='option-button option-edit'><a href='planMade.html?num=" + full.planId + "&state=" + full.planState +
                         "'>编辑</a></span>" +
 
-                        "<span class='data-option option-publish btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>" +
-
-                        "<span class='data-option option-detail btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>详情</span>"
+                        "<span class='option-button option-publish' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>发布</span>"
 
                 }else{
 
-                    return "<span class='data-option option-detail btn default btn-xs green-stripe' data-userId='" + full.planId + "' data-public='" + full.takeInAcctNbers +"'>详情</span>"
+                    return ""
 
                 }
 
@@ -371,12 +374,12 @@
     })
 
     //详情
-    $('#table tbody').on('click','.option-detail',function(){
+    $('#table tbody').on('click','.table-detail',function(){
 
         //存放当前企业所绑定户号的数组
         var thisOBJ = {};
 
-        var thisEprId = $(this).attr('data-userid');
+        var thisEprId = $(this).children('span').attr('data-userid');
 
         _thisPlanId = thisEprId;
 
@@ -568,8 +571,6 @@
     }
 
     function formatDetail(d){
-
-        console.log(d);
 
         var theader = '<table class="table  table-advance table-hover subTable">';
 
