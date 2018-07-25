@@ -465,7 +465,7 @@
     //显示详情
     function formatDetail(d){
 
-        var theader = '<table class="table table-bordered table-advance table-hover subTable">';
+        var theader = '<table class="table  table-advance table-hover subTable">';
 
         var theaders = '</table>';
 
@@ -473,7 +473,7 @@
 
         var tbodyers = '</tbody>';
 
-        var ontherTable = '<table class="table userTable table-bordered table-advance table-hover subTable"></table>';
+        var ontherTable = '<table class="table userTable  table-advance table-hover subTable"></table>';
 
         var str = '';
 

@@ -1765,7 +1765,7 @@
     //显示隐藏
     function formatHH ( d ) {
 
-        var theader = '<table class="table HHtable table-bordered table-advance table-hover">' + '<thead><tr><th>户号</th><th>户号名称</th><th>所属区域</th><th>创建时间</th><th>描述</th></tr></thead>';
+        var theader = '<table class="table HHtable table-advance table-hover">' + '<thead><tr><th>户号</th><th>户号名称</th><th>所属区域</th><th>创建时间</th><th>描述</th></tr></thead>';
 
         var theaders = '</table>';
 
@@ -1798,7 +1798,7 @@
     //显示详情(第一层详情显示)
     function formatDetail(d){
 
-        var theader = '<table class="table tableDetail table-bordered table-advance table-hover">' + '<thead><tr style="background: #c5d7f1"><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td></tr></thead>';
+        var theader = '<table class="table tableDetail table-advance table-hover">' + '<thead><tr style="background: #c5d7f1"><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td></tr></thead>';
 
         var theaders = '</table>';
 
@@ -1830,7 +1830,7 @@
     //显示详情(第二层详情显示)
     function formatDetail1(d){
 
-        var theader = '<table class="table tableDetail1 table-bordered table-advance table-hover">' + '<thead><tr style="background: #c5d7f1"><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td></tr></thead>';
+        var theader = '<table class="table tableDetail1 table-advance table-hover">' + '<thead><tr style="background: #c5d7f1"><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td></tr></thead>';
 
         var theaders = '</table>';
 
@@ -1862,7 +1862,7 @@
     //聚合商下的大用户列表显示
     function JHdownDYH(d){
 
-        var table = '<table class="table tableDlist table-bordered table-advance table-hover"><thead></thead><tbody></tbody></table>'
+        var table = '<table class="table tableDlist table-advance table-hover"><thead></thead><tbody></tbody></table>'
 
         return  table
 

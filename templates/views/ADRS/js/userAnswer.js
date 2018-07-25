@@ -1316,7 +1316,7 @@
     //显示详情(可操作的详情)
     function formatDetail(d){
 
-        var theader = '<table class="table table-bordered table-advance table-hover subTable">';
+        var theader = '<table class="table  table-advance table-hover subTable">';
 
         var theaders = '</table>';
 
@@ -1367,7 +1367,7 @@
         var button = '<div style="text-align: left !important;margin-bottom: 5px;">' + '<button class="btn green add-button">' + '增加行 <i class="fa fa-plus"></i>' + '</button>' + '</div>';
 
         //首先判断是大用户还是聚合商
-        var answerTable = '<table class="table innerTable table-bordered table-advance table-hover"><thead></thead><tbody></tbody></table>';
+        var answerTable = '<table class="table innerTable  table-advance table-hover"><thead></thead><tbody></tbody></table>';
 
         //button【保存】
         var answerButton = '<div style="text-align: left !important;margin-bottom: 5px;">' + '<button class="btn green answer-button">' + '确定回应' + '</button>' + '</div>';
@@ -1379,7 +1379,7 @@
     //显示详情（不可操作的详情）
     function getFormatDetail(d){
 
-        var theader = '<table class="table table-bordered table-advance table-hover subTable">';
+        var theader = '<table class="table  table-advance table-hover subTable">';
 
         var theaders = '</table>';
 
@@ -1425,7 +1425,7 @@
         str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
 
         //获取详情的接口
-        var table = '<table class="table getInnerTable table-bordered table-advance table-hover"><thead></thead><tbody></tbody></table>'
+        var table = '<table class="table getInnerTable  table-advance table-hover"><thead></thead><tbody></tbody></table>'
 
         return theader + tbodyer + str + tbodyers + theaders + table;
 

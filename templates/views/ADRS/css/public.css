@@ -12,10 +12,6 @@
 
 }
 
-.tables-hover {
-	background: #FBEC88 !important;
-}
-
 .error:nth-child(3){
 
 	color: red;
@@ -133,7 +129,7 @@ th{
 
 .subTable>tbody>tr>td, .subTable>tbody>tr>th, .subTable>tfoot>tr>td, .subTable>tfoot>tr>th, .subTable>thead>tr>td, .subTable>thead>tr>th{
 
-	border: 2px solid #cccccc !important;
+	border: 1px solid #cccccc !important;
 
 }
 
@@ -178,11 +174,11 @@ table.dataTable thead .sorting_desc:after{
 
 }
 
-.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+/*.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{*/
 
-	border: 1px solid #ddd !important;
+	/*border: 1px solid #ddd !important;*/
 
-}
+/*}*/
 
 .table-advance thead tr th{
 
@@ -214,4 +210,14 @@ table.dataTable thead .sorting_desc:after{
 	border: 1px solid #ddd !important;
 
 	border-right: none !important;
+}
+
+table.dataTable thead th, table.dataTable thead td{
+
+	border-bottom: none !important;
+
+}
+
+.tables-hover {
+	/*background: #FBEC88 !important;*/
 }

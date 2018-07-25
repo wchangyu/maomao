@@ -475,7 +475,7 @@
     //显示详情
     function formatDetail(d){
 
-        var theader = '<table class="table table-bordered table-advance table-hover subTable">';
+        var theader = '<table class="table  table-advance table-hover subTable">';
 
         var theaders = '</table>';
 

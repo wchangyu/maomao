@@ -179,16 +179,16 @@
     //设备
     var devCol = [
 
-        {
-            title:'选择',
-            "targets": -1,
-            "data": null,
-            render:function(data, type, full, meta){
-
-                return '<div class="checker" data-id="' + full.f_ServiceId + '" data-pointer="' + full.f_BuildingId + '"><span><input type="checkbox" value=""></span></div>'
-
-            }
-        },
+        //{
+        //    title:'选择',
+        //    "targets": -1,
+        //    "data": null,
+        //    render:function(data, type, full, meta){
+        //
+        //        return '<div class="checker" data-id="' + full.f_ServiceId + '" data-pointer="' + full.f_BuildingId + '"><span><input type="checkbox" value=""></span></div>'
+        //
+        //    }
+        //},
         {
             title:'设备编码',
             data:'f_ServiceId'
@@ -624,31 +624,31 @@
     })
 
     //选择设备【tr】
-    $('#dev-table tbody').on('click','tr',function(){
-
-        if($(this).hasClass('tables-hover')){
-
-            $('#dev-table tbody').find('tr').removeClass('tables-hover');
-
-            $('#dev-table tbody').find('input').parent('span').removeClass('checked');
-
-            $(this).removeClass('tables-hover');
-
-            $(this).find('input').parent('span').removeClass('checked');
-
-        }else{
-
-            $('#dev-table tbody').find('tr').removeClass('tables-hover');
-
-            $('#dev-table tbody').find('input').parent('span').removeClass('checked');
-
-            $(this).addClass('tables-hover');
-
-            $(this).find('input').parent('span').addClass('checked');
-
-        }
-
-    })
+    //$('#dev-table tbody').on('click','tr',function(){
+    //
+    //    if($(this).hasClass('tables-hover')){
+    //
+    //        $('#dev-table tbody').find('tr').removeClass('tables-hover');
+    //
+    //        $('#dev-table tbody').find('input').parent('span').removeClass('checked');
+    //
+    //        $(this).removeClass('tables-hover');
+    //
+    //        $(this).find('input').parent('span').removeClass('checked');
+    //
+    //    }else{
+    //
+    //        $('#dev-table tbody').find('tr').removeClass('tables-hover');
+    //
+    //        $('#dev-table tbody').find('input').parent('span').removeClass('checked');
+    //
+    //        $(this).addClass('tables-hover');
+    //
+    //        $(this).find('input').parent('span').addClass('checked');
+    //
+    //    }
+    //
+    //})
 
     //【选择设备】
     $('#create-Modal').on('click','.select-SB',function(){
@@ -730,14 +730,29 @@
     //选择设备按钮
     $('#dev-Modal').on('click','.btn-primary',function(){
 
-        var currentTr = $('#dev-table tbody').children('.tables-hover');
+        //ztree选择
+        //获取树
+        var treeObj =  $.fn.zTree.getZTreeObj("ztreeObj");
 
-        //id
-        var num = currentTr.find('.checker').attr('data-id');
+        //获取已选中的节点
+        var nodes = treeObj.getCheckedNodes(true);
 
-        var pid = currentTr.find('.checker').attr('data-pointer');
+        var num = nodes[0].id;
 
-        var name = currentTr.children().eq(2).html();
+        var name = nodes[0].name;
+
+        var pid = nodes[0].pointer;
+
+        ////表格选择
+        //
+        //var currentTr = $('#dev-table tbody').children('.tables-hover');
+        //
+        ////id
+        //var num = currentTr.find('.checker').attr('data-id');
+        //
+        //var pid = currentTr.find('.checker').attr('data-pointer');
+        //
+        //var name = currentTr.children().eq(2).html();
 
         _currentCell.attr('data-num',num);
 
@@ -1394,6 +1409,8 @@
 
                     obj.pId = result.serviceObjs[i].f_ParentId;
 
+                    obj.pointer = result.serviceObjs[i].f_BuildingId;
+
                     ztreeArr.push(obj);
 
                 }
@@ -1410,6 +1427,10 @@
 
                 }
 
+                //ztree搜索功能
+                var key = $("#keyWord-dev-modal");
+
+                searchKey(key);
             },
 
             error:_errorFun
@@ -1420,7 +1441,7 @@
     //设备表格
     function formatDev(d){
 
-        var theader = '<table class="table devTable table-bordered table-advance table-hover">' + '<thead><tr><th>功率设备</th><th>电量设备</th><th>控制设备</th></tr></thead>';
+        var theader = '<table class="table devTable  table-advance table-hover">' + '<thead><tr><th>功率设备</th><th>电量设备</th><th>控制设备</th></tr></thead>';
 
         var theaders = '</table>';
 
@@ -1513,6 +1534,31 @@
             },
             view:{
                 showIcon:false,
+            },
+            callback: {
+
+                onClick: function(e,treeId,treeNode){
+
+                    //取消全部打钩的节点
+                    pointerObj.checkNode(treeNode,!treeNode.checked,true);
+
+                },
+                beforeClick:function(){
+
+                    $('#ztreeObj').find('.curSelectedNode').removeClass('curSelectedNode');
+
+                },
+                onCheck:function(e,treeId,treeNode){
+
+                    $('#ztreeObj').find('.curSelectedNode').removeClass('curSelectedNode');
+
+                    $('#ztreeObj').find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+
+                    //取消全部打钩的节点
+                    pointerObj.checkNode(treeNode,true,true);
+
+                }
+
             }
         };
 
@@ -1521,50 +1567,133 @@
 
     }
 
-    //treeTable表格
-    function treeTableF(treeData,arr){
+    //ztree树搜索功能
+    function searchKey(key){
 
-        if($('#dev-table1').length != 0){
+        //首先解绑所有事件
+        key.off();
 
-            $('#dev-table1').remove();
+        //聚焦事件
+        key.bind("focus",focusKey($('#keyWord-dev-modal')));
+        //失去焦点事件
+        key.bind("blur", blurKey);
+        //输入事件
+        //key.bind("propertychange", searchNode);
+        //输入事件
+        key.bind("input", searchNode);
 
+        function focusKey(e) {
+
+            if ($('#keyWord-dev-modal').hasClass("empty")) {
+
+                $('#keyWord-dev-modal').removeClass("empty");
+
+            }
         }
 
-        var table = '<table id="dev-table1" class="treetable table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">' +
-            '<thead>' +
-            '<tr>' +
-            '<th style="text-align: center">选择</th>' +
-            '<th style="text-align: center">设备</th>' +
-            '</tr>' +
-            '</thead>' +
-            '<tbody>' +
-            '</tbody>' +
-            '</table>';
+        function blurKey(e) {
 
-        $('#ztreeObj').after(table);
+            //内容置为空，并且加empty类
+            if ($('#keyWord-dev-modal').get(0).value === "") {
 
-        var str = '';
+                $('#keyWord-dev-modal').addClass("empty");
+            }
+        }
 
-        //插入
-        for(var i=0;i<treeData.length;i++){
+        var lastValue='',nodeList=[];
 
-            for(var j=0;j<arr.length;j++){
+        function searchNode(e) {
 
-                if(treeData[i].id == arr[j].f_ServiceId){
+            //获取树
+            var zTree = $.fn.zTree.getZTreeObj("ztreeObj");
 
-                    str += '<tr data-tt-id="' + treeData[i].id + '" data-tt-parent-id="' + treeData[i].pId + '">' + '<td class="checkedInput"></td>' + '<td>' + treeData[i].name + '</td>' + '</tr>'
+            //去掉input中的空格（首尾）
+            var value = $.trim($('#keyWord-dev-modal').get(0).value);
 
-                }
+            //设置搜索的属性
+            var keyType = "name";
+
+            if (lastValue === value)
+
+                return;
+
+            lastValue = value;
+
+            if (value === "") {
+
+                $('#tip').html('');
+                //将 zTree 使用的标准 JSON 嵌套格式的数据转换为简单 Array 格式。
+                //获取 zTree 的全部节点数据
+                //如果input是空的则显示全部；
+                zTree.showNodes(zTree.transformToArray(zTree.getNodes())) ;
+
+                return;
+            }
+            //getNodesByParamFuzzy:根据节点数据的属性搜索，获取条件模糊匹配
+            // 的节点数据 JSON 对象集合
+            nodeList = zTree.getNodesByParamFuzzy(keyType,value);
+
+            nodeList = zTree.transformToArray(nodeList);
+
+            if(nodeList==''){
+
+                $('.tipe').html('抱歉，没有您想要的结果');
+
+            }else{
+
+                $('.tipe').html('');
 
             }
 
+            updateNodes(true);
+
         }
 
-        $('#dev-table1').children('tbody').empty().append(str);
+        //选中之后更新节点
+        function updateNodes(highlight) {
 
-        $('#dev-table1').treetable({ expandable: true });
+            var zTree = $.fn.zTree.getZTreeObj("ztreeObj");
+
+            var allNode = zTree.transformToArray(zTree.getNodes());
+
+            //指定被隐藏的节点 JSON 数据集合
+            zTree.hideNodes(allNode);
+
+            //遍历nodeList第n个nodeList
+
+            for(var n in nodeList){
+
+                findParent(zTree,nodeList[n]);
+
+            }
+
+            zTree.showNodes(nodeList);
+        }
+
+        //确定父子关系
+        function findParent(zTree,node){
+
+            //展开符合搜索条件的节点
+            //展开 / 折叠 指定的节点
+            zTree.expandNode(node,true,false,false);
+
+            if(typeof node == 'object'){
+
+                //pNode父节点
+                var pNode = node.getParentNode();
+
+            }
+
+            if(pNode != null){
+
+                nodeList.push(pNode);
+
+                findParent(zTree,pNode);
+            }
+        }
 
     }
+
     return {
         init: function(){
 
