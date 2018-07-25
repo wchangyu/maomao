@@ -34,9 +34,7 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.userId + "'>编辑</span>"
-
-                //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.userId + "'>删除</span>"
+                return  "<span class='option-edit option-button' data-userId='" + full.userId + "'>编辑</span>"
 
             }
         },
@@ -311,6 +309,26 @@
 
         //记录当前选中的userId
         _thisID = '';
+
+        //验证消息要隐藏
+        var error = $('#create-Modal').find('.error');
+
+        for(var i=0;i<error.length;i++){
+
+            if(error[i].nodeName == 'LABEL'){
+
+                error.eq(i).hide();
+
+            }else{
+
+                error.eq(i).removeClass('error');
+
+            }
+
+        }
+
+        //提示消息隐藏
+        $('#create-Modal').find('#tip-error-modal').hide();
 
     }
 

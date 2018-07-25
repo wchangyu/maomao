@@ -358,7 +358,11 @@
 
         var chooseButton = '<div style="text-align: left !important;margin-bottom: 5px;"><button class="btn green answer-button">下发指令</button></div>';
 
-        return theader + tbodyer + str + tbodyers + theaders + chooseButton;
+        var block = '<div style="border: 1px solid #68a1fd;">';
+
+        var blocks = '</div>';
+
+        return block + theader + tbodyer + str + tbodyers + theaders + chooseButton + blocks;
 
     }
 

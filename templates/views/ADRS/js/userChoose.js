@@ -520,7 +520,12 @@
 
         var answers = '</div>';
 
-        return theader + tbodyer + str + tbodyers + theaders + answer +  statistics + ontherTable + chooseButton + answers;
+        //最外边的框
+        var block = '<div style="border: 1px solid #68a1fd;">';
+
+        var blocks = '</div>';
+
+        return block + theader + tbodyer + str + tbodyers + theaders + answer +  statistics + ontherTable + chooseButton + answers + blocks;
 
     }
 

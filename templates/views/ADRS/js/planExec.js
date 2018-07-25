@@ -146,27 +146,8 @@
 
     //折线
     var optionTop = {
-        title: {
-            text: '未来一周气温变化',
-            subtext: '纯属虚构'
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
         legend: {
             data:['最高气温','最低气温']
-        },
-        toolbox: {
-            show: true,
-            feature: {
-                dataZoom: {
-                    yAxisIndex: 'none'
-                },
-                dataView: {readOnly: false},
-                magicType: {type: ['line', 'bar']},
-                restore: {},
-                saveAsImage: {}
-            }
         },
         xAxis:  {
             type: 'category',
@@ -183,57 +164,21 @@
             {
                 name:'最高气温',
                 type:'line',
-                data:[11, 11, 15, 13, 12, 13, 10],
-                markPoint: {
-                    data: [
-                        {type: 'max', name: '最大值'},
-                        {type: 'min', name: '最小值'}
-                    ]
-                },
-                markLine: {
-                    data: [
-                        {type: 'average', name: '平均值'}
-                    ]
-                }
+                data:[11, 11, 15, 13, 12, 13, 10]
             },
             {
                 name:'最低气温',
                 type:'line',
-                data:[1, -2, 2, 5, 3, 2, 0],
-                markPoint: {
-                    data: [
-                        {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
-                    ]
-                },
-                markLine: {
-                    data: [
-                        {type: 'average', name: '平均值'},
-                        [{
-                            symbol: 'none',
-                            x: '90%',
-                            yAxis: 'max'
-                        }, {
-                            symbol: 'circle',
-                            label: {
-                                normal: {
-                                    position: 'start',
-                                    formatter: '最大值'
-                                }
-                            },
-                            type: 'max',
-                            name: '最高点'
-                        }]
-                    ]
-                }
+                data:[1, -2, 2, 5, 3, 2, 0]
             }
         ]
     };
 
     //饼
     var optionPie = {
+        color:['#7cb5ed','#424248'],
         title : {
-            text: '某站点用户访问来源',
-            subtext: '纯属虚构',
+            text: '参与用户统计',
             x:'center'
         },
         tooltip : {
@@ -241,22 +186,19 @@
             formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+            orient: 'horizontal',
+            top: '80%',
+            data: ['直接访问','邮件营销']
         },
         series : [
             {
                 name: '访问来源',
                 type: 'pie',
                 radius : '55%',
-                center: ['50%', '60%'],
+                center: ['50%', '45%'],
                 data:[
                     {value:335, name:'直接访问'},
-                    {value:310, name:'邮件营销'},
-                    {value:234, name:'联盟广告'},
-                    {value:135, name:'视频广告'},
-                    {value:1548, name:'搜索引擎'}
+                    {value:310, name:'邮件营销'}
                 ],
                 itemStyle: {
                     emphasis: {
@@ -271,17 +213,61 @@
 
     //柱状
     var optionBar = {
-        xAxis: {
-            type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        color:['#7cb5ed','#424248','#90ed7b'],
+        tooltip : {
+            trigger: 'axis'
         },
-        yAxis: {
-            type: 'value'
+        legend: {
+            data:['蒸发量','降水量','散热量']
         },
-        series: [{
-            data: [120, 200, 150, 80, 70, 110, 130],
-            type: 'bar'
-        }]
+        toolbox: {
+            show : true,
+            feature : {
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                data : ['1月']
+            }
+        ],
+        yAxis : [
+            {
+                show:true,
+                type : 'value',
+                axisTick:{
+                    show:false
+                },
+                axisLine:{
+                    show:false
+                }
+            }
+        ],
+        series : [
+            {
+                name:'蒸发量',
+                type:'bar',
+                data:[2.0],
+                barWidth:'80'
+            },
+            {
+                name:'降水量',
+                type:'bar',
+                data:[2.6],
+                barWidth:'80'
+            },
+            {
+                name:'散热量',
+                type:'bar',
+                data:[1.6],
+                barWidth:'80'
+            }
+        ]
     };
 
     /*-------------------------------------按钮事件-----------------------------------------*/
@@ -522,7 +508,11 @@
 
         var chooseButton = '<div style="text-align: left !important;margin-bottom: 5px;"><button class="btn green answer-button">下发指令</button></div>';
 
-        return theader + tbodyer + str + tbodyers + theaders;
+        var block = '<div style="border: 1px solid #68a1fd;">';
+
+        var blocks = '</div>';
+
+        return block + theader + tbodyer + str + tbodyers + theaders + blocks;
 
     }
 

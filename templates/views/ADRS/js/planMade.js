@@ -469,9 +469,12 @@
 
         formatValidate(function(){
 
+            return false;
+
             sendOption('DRPlanMade/DRPlanRegister','创建成功！');
 
         })
+
     })
 
     //编辑
@@ -841,7 +844,7 @@
     function formatValidate(fun){
 
         //非空验证
-        if($('#plan-name').val() == '' || $('#plan-st').val() == '' || $('#plan-et').val() == '' || $('#reduce-load').val() == '' ){
+        if($('#plan-name').val() == '' || $('#plan-st').val() == '' || $('#plan-et').val() == '' || $('#reduce-load').val() == '' ||$('#district').val() == '' || _thisMealArr.length ==0){
 
             $('#theLoading').modal('hide');
 

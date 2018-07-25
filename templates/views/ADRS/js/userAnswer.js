@@ -1372,7 +1372,12 @@
         //button【保存】
         var answerButton = '<div style="text-align: left !important;margin-bottom: 5px;">' + '<button class="btn green answer-button">' + '确定回应' + '</button>' + '</div>';
 
-        return theader + tbodyer + str + tbodyers + theaders + button + answerTable + answerButton;
+        //最外边的框
+        var block = '<div style="border: 1px solid #68a1fd;">';
+
+        var blocks = '</div>';
+
+        return block + theader + tbodyer + str + tbodyers + theaders + button + answerTable + answerButton + blocks;
 
     }
 
@@ -1427,7 +1432,12 @@
         //获取详情的接口
         var table = '<table class="table getInnerTable  table-advance table-hover"><thead></thead><tbody></tbody></table>'
 
-        return theader + tbodyer + str + tbodyers + theaders + table;
+        //最外边的框
+        var block = '<div style="border: 1px solid #68a1fd;">';
+
+        var blocks = '</div>';
+
+        return block + theader + tbodyer + str + tbodyers + theaders + table + blocks;
 
     }
 
@@ -1679,6 +1689,8 @@
             timeout:_theTimes,
 
             success:function(result){
+
+                $('#tip').hide();
 
                 _allData.length = 0;
 

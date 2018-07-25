@@ -297,7 +297,11 @@
         //备注
         str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
 
-        return theader + tbodyer + str + tbodyers + theaders;
+        var block = '<div style="border: 1px solid #68a1fd;">';
+
+        var blocks = '</div>';
+
+        return block + theader + tbodyer + str + tbodyers + theaders + blocks;
 
     }
 

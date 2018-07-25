@@ -40,11 +40,9 @@ var Account = function(){
             "data": null,
             render:function(data, type, full, meta){
 
-                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>编辑</span>" +
+                return  "<span class='option-button option-edit' data-userId='" + full.accountId + "'>编辑</span>" +
 
-                        //"<span class='data-option option-shanchu btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>删除</span>" +
-
-                    "<span class='data-option option-qiye btn default btn-xs green-stripe' data-userId='" + full.accountId + "'>绑定企业</span>"
+                    "<span class='option-button option-qiye' data-userId='" + full.accountId + "'>绑定企业</span>"
 
             }
         },
@@ -495,23 +493,25 @@ var Account = function(){
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _topTipBar('暂无数据！');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _topTipBar('异常错误！');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _topTipBar('参数错误！');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _topTipBar('内容已存在！');
 
                 }else if(result.code == 0){
 
                     arr = result.accts;
+
+                    $('#tip').hide();
 
                 }
 
@@ -520,7 +520,7 @@ var Account = function(){
 
             },
 
-            error:_errorFun
+            error:_errorBar
 
         })
 
@@ -540,7 +540,25 @@ var Account = function(){
         //初始化选中的区域id
         _thisDistrict = '';
 
-        _thisID = ''
+        _thisID = '';
+
+        //验证消息要隐藏
+        var error = $('#create-Modal').find('.error');
+
+        for(var i=0;i<error.length;i++){
+
+            if(error[i].nodeName == 'LABEL'){
+
+                error.eq(i).hide();
+
+            }else{
+
+                error.eq(i).removeClass('error');
+
+            }
+
+        }
+
 
     }
 

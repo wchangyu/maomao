@@ -334,7 +334,7 @@
                             <div class="total-warp">
                                 <ul class="ADRS-condition">
                                     <li>
-                                        <label for="">行业选择</label>
+                                        <label>行业选择</label>
                                         <select class="table-group-action-input form-control" id="industry-type">
                                             <option value="0">全部</option>
                                             <option value="1">工业账户</option>
@@ -345,7 +345,7 @@
                                         </select>
                                     </li>
                                     <li>
-                                        <label for="">企业及居民类型</label>
+                                        <label>企业及居民类型</label>
                                         <select class="table-group-action-input form-control" id="people-type">
                                             <option value="0">全部</option>
                                             <option value="1">聚合商</option>
@@ -354,15 +354,6 @@
 
                                         </select>
                                     </li>
-                                    <!--<li>-->
-                                        <!--<label for="">是否有效</label>-->
-                                        <!--<select class="table-group-action-input form-control" id="valuation-method">-->
-                                            <!--<option value="2">全部</option>-->
-                                            <!--<option value="0">有效</option>-->
-                                            <!--<option value="1">无效</option>-->
-
-                                        <!--</select>-->
-                                    <!--</li>-->
                                     <li>
                                         <div class="condition-button" id="selected">查询</div>
                                     </li>
@@ -373,9 +364,9 @@
                                         <div class="condition-button" id="creatUserD">创建大用户</div>
                                     </li>
                                 </ul>
-
+                                <div id="tip" style="display: none;margin: 10px 0 0 0;" class="Metronic-alerts alert alert-danger fade in"><button type="button" class="close"></button><i class="fa-lg fa fa-warning"></i>  </div>
                                 <div>
-                                    <table id="table" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                    <table id="table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
                                         <thead>
                                         </thead>
                                         <tbody>
@@ -413,11 +404,11 @@
 
                     <form class="cmxform" id="commentForm" method="post" action="">
                         <div class="JH-button">
-                            <input type="checkbox"><label for="">是否派生于聚合商</label><span class="modal-button">选择聚合商</span>
+                            <input type="checkbox"><label>是否派生于聚合商</label><span class="modal-button">选择聚合商</span>
                         </div>
                         <ul class="modal-block">
                             <li>
-                                <label for="">行业机构：</label>
+                                <label>行业机构：</label>
 
                                 <select class="table-group-action-input form-control" id="industry-body-J">
                                     <option value="1">工业账户</option>
@@ -429,43 +420,43 @@
                             <br>
                             <li>
                                 <div style="font-size: 12px;line-height: 25px;text-indent: 162px;">居民身份证编码、其他、营业执照编码</div>
-                                <label for="">编码：</label>
+                                <label>编码：</label>
                                 <input type="text" class="table-group-action-input form-control" id="encoded-J" name="encoded-J" placeholder="必填字段">
 
                             </li>
                             <br>
                             <li>
-                                <label for="">名称：</label>
+                                <label>名称：</label>
                                 <input type="text" class="table-group-action-input form-control" id="name-J" name="name-J" placeholder="必填字段">
                             </li>
                             <br>
                             <li>
-                                <label for="">签署容量（kW）：</label>
+                                <label>签署容量（kW）：</label>
                                 <input type="text" class="table-group-action-input form-control" id="capacity-J" name="capacity-J" placeholder="必填字段">
                             </li>
                             <br>
                             <li>
-                                <label for="">地址：</label>
+                                <label>地址：</label>
                                 <input type="text" class="table-group-action-input form-control" id="address-J" name="address-J" placeholder="必填字段">
                             </li>
                             <br>
                             <li>
-                                <label for="">联系人名称：</label>
+                                <label>联系人名称：</label>
                                 <input type="text" class="table-group-action-input form-control" id="contact-name-J" name="contact-name-J" placeholder="必填字段">
                             </li>
                             <br>
                             <li>
-                                <label for="">联系人方式：</label>
+                                <label>联系人方式：</label>
                                 <input type="text" class="table-group-action-input form-control" id="contact-mode-J" name="contact-mode-J" placeholder="必填字段">
                             </li>
                             <br>
                             <li>
-                                <label for="">邮箱：</label>
+                                <label>邮箱：</label>
                                 <input type="text" class="table-group-action-input form-control" id="mailbox-J" name="mailbox-J" placeholder="必填字段">
                             </li>
                             <br>
                             <li>
-                                <label for="">描述：</label>
+                                <label>描述：</label>
                                 <textarea class="table-group-action-input form-control" id="create-remark" rows="8"></textarea>
                             </li>
                         </ul>
@@ -489,32 +480,6 @@
                     <h4 class="modal-title">提示</h4>
                 </div>
                 <div class="modal-body" style="overflow-y: auto;height: 490px;">
-                    <!--条件-->
-                    <ul class="ADRS-condition">
-                        <!--<li>-->
-                            <!--<label for="">行业选择</label>-->
-                            <!--<select class="table-group-action-input form-control" id="industry-type-modal">-->
-                                <!--<option value="0">全部</option>-->
-                                <!--<option value="1">工业账户</option>-->
-                                <!--<option value="2">非工业账户</option>-->
-                                <!--<option value="3">居民账户</option>-->
-                                <!--<option value="4">政府机构</option>-->
-
-                            <!--</select>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<label for="">是否有效</label>-->
-                            <!--<select class="table-group-action-input form-control" id="valuation-method-modal">-->
-                                <!--<option value="2">全部</option>-->
-                                <!--<option value="0">有效</option>-->
-                                <!--<option value="1">无效</option>-->
-
-                            <!--</select>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<div class="condition-button" id="selected-modal">查询</div>-->
-                        <!--</li>-->
-                    </ul>
                     <div>
                         <table id="JH-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
                             <thead>
@@ -543,7 +508,7 @@
                     <!--条件-->
                     <ul class="ADRS-condition">
                         <li>
-                            <label for="">关键字</label>
+                            <label>关键字</label>
                             <input type="text" class="table-group-action-input form-control" style="width: 150px;" id="keyWord-YH">
                         </li>
                         <li>
@@ -551,7 +516,7 @@
                         </li>
                     </ul>
                     <div>
-                        <table id="YH-table" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <table id="YH-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
                             <thead>
                             </thead>
                             <tbody>
@@ -578,7 +543,7 @@
                     <!--条件-->
                     <ul class="ADRS-condition">
                         <li>
-                            <label for="">关键字</label>
+                            <label>关键字</label>
                             <input type="text" class="table-group-action-input form-control" style="width: 150px;" id="keyWord-HH">
                         </li>
                         <li>
@@ -586,7 +551,7 @@
                         </li>
                     </ul>
                     <div>
-                        <table id="HH-table" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <table id="HH-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
                             <thead>
                             </thead>
                             <tbody>

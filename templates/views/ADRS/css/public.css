@@ -12,7 +12,13 @@
 
 }
 
-.error:nth-child(3){
+.page-content{
+
+	color: #757575;
+
+}
+
+.modal-body input~.error{
 
 	color: red;
 
@@ -27,6 +33,7 @@
 	margin-top: 10px;
 
 }
+
 
 /*条件选择样式*/
 
@@ -174,12 +181,6 @@ table.dataTable thead .sorting_desc:after{
 
 }
 
-/*.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{*/
-
-	/*border: 1px solid #ddd !important;*/
-
-/*}*/
-
 .table-advance thead tr th{
 
 	background:#e7eff7!important;
@@ -220,4 +221,58 @@ table.dataTable thead th, table.dataTable thead td{
 
 .tables-hover {
 	/*background: #FBEC88 !important;*/
+}
+
+.table{
+
+	margin-bottom: 0 !important;
+
+}
+
+.option-button{
+
+	display: inline-block;
+
+	padding: 3px 8px;
+
+	border: 1px solid #757575;
+
+	border-radius: 3px !important;
+
+	cursor: pointer;
+
+	margin: 0 3px;
+
+}
+
+.option-edit{
+
+	color: #2472f5 !important;
+
+	border-color: #2472f5 !important;
+
+}
+
+.option-yonghu,.option-qiye,.option-dev,.option-publish{
+
+	color: #14e399 !important;
+
+	border-color: #14e399 !important;
+
+}
+
+.option-huhao{
+
+	color: #0aa3c3 !important;
+
+	border-color: #0aa3c3 !important;
+
+}
+
+.option-del{
+
+	color: #88898a !important;
+
+	border-color: #88898a !important;
+
 }
