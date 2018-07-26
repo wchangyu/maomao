@@ -27,6 +27,10 @@ var Account = function(){
             data:'accountName'
         },
         {
+            title:'签署容量（kW）',
+            data:'signatureVolume'
+        },
+        {
             title:'创建时间',
             data:'createDate'
         },
@@ -163,6 +167,15 @@ var Account = function(){
 
                 required: true
 
+            },
+
+            //签署容量
+            'account-capacity':{
+
+                required: true,
+
+                numberFormat1:true
+
             }
 
         },
@@ -192,6 +205,15 @@ var Account = function(){
         }
 
     })
+
+    //正则表达式（大于0的数字）
+    $.validator.addMethod("numberFormat1",function(value,element,params){
+
+        var doubles= /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
+
+        return this.optional(element)||(doubles.test(value));
+
+    },"请输入大于0的数字");
 
     /*-----------------------------------按钮事件----------------------------------------*/
 
@@ -665,7 +687,9 @@ var Account = function(){
             //所属区域
             districtId:_thisDistrict,
             //备注
-            memo:$('#create-remark').val()
+            memo:$('#create-remark').val(),
+            //签署容量
+            signatureVolume:$('#account-capacity').val()
 
         };
 
@@ -682,7 +706,7 @@ var Account = function(){
             //户号编码
             prm.accountCode = $('#account-num').val();
             //账户名称
-            prm.accountName = $('#account-name').val();
+                prm.accountName = $('#account-name').val();
 
         }
 
@@ -770,6 +794,8 @@ var Account = function(){
                     $('#account-name').val(result.acct.accountName);
                     //区域
                     $('#account-district').val(result.acct.districtName);
+                    //签署容量
+                    $('#account-capacity').val(result.acct.signatureVolume);
                     //区域id
                     _thisDistrict = result.acct.districtId;
                     //描述

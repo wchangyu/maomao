@@ -83,6 +83,12 @@
 
         }
 
+        .modal-block li label:first-child{
+
+            width: 130px !important;
+
+        }
+
     </style>
     <link href="../favicon.ico" rel="shortcut icon" />
 </head>
@@ -221,7 +227,7 @@
                             <div class="total-warp">
                                 <ul class="ADRS-condition">
                                     <li>
-                                        <label for="">关键字</label>
+                                        <label>关键字</label>
                                         <input type="text" class="table-group-action-input form-control" id="keyWord" style="width: 150px !important;">
                                     </li>
                                     <li>
@@ -259,34 +265,39 @@
     <!--模态框-->
     <!--创建账户-->
     <div class="modal fade" id="create-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 577px;width: 472px!important;">
-            <div class="modal-content" style="height: 577px;width: 472px!important;">
+        <div class="modal-dialog" style="height: 577px;width: 526px!important;">
+            <div class="modal-content" style="height: 577px;width: 526px!important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">提示</h4>
                 </div>
                 <div class="modal-body" style="overflow-y: auto;height: 440px;">
-                    <span class="select-district" style="display: inline-block;padding: 5px 10px;background: #2170F4;position: absolute;top: 106px;right: 20px;color: #ffffff;cursor: pointer">选择区域</span>
+                    <span class="select-district" style="display: inline-block;padding: 5px 10px;background: #2170F4;position: absolute;top: 150px;right: 20px;color: #ffffff;cursor: pointer">选择区域</span>
                     <form class="cmxform" id="commentForm" method="post" action="">
 
                         <ul class="modal-block">
                             <li>
-                                <label for="">编码：</label>
+                                <label>编码：</label>
                                 <input type="text" class="table-group-action-input form-control" id="account-num" name="account-num" placeholder="必填字段">
                             </li>
                             <br>
                             <li>
-                                <label for="">名称：</label>
+                                <label>名称：</label>
                                 <input type="text" class="table-group-action-input form-control" id="account-name" name="account-name" placeholder="必填字段">
                             </li>
                             <br>
                             <li>
-                                <label for="">选择区域</label>
-                                <input type="text" class="table-group-action-input form-control" id="account-district" name="account-district" placeholder="必填字段">
+                                <label>签署容量（kW）：</label>
+                                <input type="text" class="table-group-action-input form-control" id="account-capacity" name="account-capacity" placeholder="必填字段">
                             </li>
                             <br>
                             <li>
-                                <label for="">描述：</label>
+                                <label>选择区域</label>
+                                <input style="background: #ffffff" type="text" class="table-group-action-input form-control" readonly id="account-district" name="account-district" placeholder="必填字段">
+                            </li>
+                            <br>
+                            <li>
+                                <label>描述：</label>
                                 <textarea class="table-group-action-input form-control" id="create-remark" rows="10"></textarea>
                             </li>
                         </ul>
@@ -329,7 +340,7 @@
 
                     <ul class="ADRS-condition">
                         <li>
-                            <label for="">关键字</label>
+                            <label>关键字</label>
                             <input type="text" class="table-group-action-input form-control" id="keyWord-modal" style="width: 150px !important;" >
                         </li>
                         <li>

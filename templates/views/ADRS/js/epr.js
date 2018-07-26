@@ -67,10 +67,6 @@
             data:'eprCode'
         },
         {
-            title:'签署容量（kW）',
-            data:'signatureVolume'
-        },
-        {
             title:'行业机构',
             data:'agencyTypeName'
         },
@@ -159,10 +155,6 @@
         {
             title:'编码',
             data:'eprCode'
-        },
-        {
-            title:'签署容量（kW）',
-            data:'signatureVolume'
         },
         {
             title:'行业机构',
@@ -377,14 +369,6 @@
             'encoded-J':'required',
             //名称
             'name-J':'required',
-            //签署容量（kW）
-            'capacity-J':{
-
-                required:true,
-
-                numberFormat1:true
-
-            },
             //地址
             'address-J':'required',
             //联系人名称
@@ -419,12 +403,6 @@
             'name-J':{
 
                 required:'请输入名称'
-
-            },
-            //签署容量（kW）
-            'capacity-J':{
-
-                required:'请输入签署容量（kW）'
 
             },
             //地址
@@ -1307,6 +1285,7 @@
         }
 
     })
+
     /*-------------------------------------其他方法-----------------------------------------*/
 
     //获取所有产品
@@ -1445,7 +1424,7 @@
     function formatValidate(fun){
 
         //非空验证
-        if($('#encoded-J').val() == '' || $('#name-J').val() == '' || $('#capacity-J').val() == '' || $('#address-J').val() == ''|| $('#contact-name-J').val() == ''|| $('#contact-mode-J').val() == '' || $('#mailbox-J').val() == '' ){
+        if($('#encoded-J').val() == '' || $('#name-J').val() == '' || $('#address-J').val() == ''|| $('#contact-name-J').val() == ''|| $('#contact-mode-J').val() == '' || $('#mailbox-J').val() == '' ){
 
             $('#theLoading').modal('hide');
 
@@ -1492,8 +1471,6 @@
             eprCode:$('#encoded-J').val(),
             //名称
             eprName:$('#name-J').val(),
-            //签署容量（kW）
-            signatureVolume:$('#capacity-J').val(),
             //地址
             address:$('#address-J').val(),
             //联系人名称

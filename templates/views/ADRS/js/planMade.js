@@ -469,8 +469,6 @@
 
         formatValidate(function(){
 
-            return false;
-
             sendOption('DRPlanMade/DRPlanRegister','创建成功！');
 
         })

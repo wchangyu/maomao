@@ -8,6 +8,12 @@
 
     var chartAry = [];
 
+    //当前计划的开始事件
+    var _st = '';
+
+    //当前计划的结束事件
+    var _et = '';
+
     /*--------------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -123,16 +129,29 @@
 
     //echarts参数
     var option = {
+        title:{
 
+            text:'',
+            textStyle:{
+
+                color:'#757575',
+                fontWeight:'normal',
+                fontSize:'16px'
+            },
+            left:'40px',
+            top:'25px'
+
+        },
         xAxis: {
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            data: []
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
+            name:''
         },
         series: [{
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: [],
             type: 'line'
         }]
 
@@ -150,7 +169,14 @@
 
         var thisEprId = $(this).children().attr('data-id');
 
+        //计划id
         _thisPlanId = thisEprId;
+
+        //开始时间
+        _st = $(this).parent().children().eq(2).html();
+
+        //结束时间
+        _et = $(this).parent().children().eq(3).html();
 
         for(var i=0;i<_allData.length;i++){
 
@@ -182,9 +208,9 @@
 
             var echartObj = echarts.init(document.getElementById(echartId));
 
-            echartObj.setOption(option);
+            //获取当前的基线数据
+            chartData(echartObj);
 
-            chartAry.push(echartObj);
             tr.addClass('shown');
 
             chartNum ++;
@@ -419,22 +445,34 @@
 
         //账户响应的table
         //echarts图
-        var echart = '<div><div class="baseline-echart" id="echart' + num +'" style="height: 300px;background: #ffffff;border: 1px solid #e5e5e5;"></div></div>'
+        var echart = '<div><div class="baseline-echart" id="echart' + num +'" style="height: 256px;background: #ffffff;border: 1px solid #e5e5e5;"></div></div>'
 
-        var moeo = '<div style="position: relative;margin: 10px 0;"><div style="margin-right: 70px;"><textarea id="remark" placeholder="请输入备注" style="height: 35px;"class="table-group-action-input form-control"></textarea></div><button class="btn green examine-button" style="position: absolute;bottom: 0;right: 0;">审核</button></div></div>'
+        var moeo = '<div style="position: relative;margin: 10px 0;">' +
 
-        var left = '<div class="col-lg-6 col-md-12 col-sm-12">';
+            '<div style="margin-right: 70px;">' +
+
+            '<textarea id="remark" placeholder="请输入备注" style="height: 35px;"class="table-group-action-input form-control"></textarea>' +
+
+            '</div>' +
+
+            '<button class="btn green examine-button" style="position: absolute;bottom: 0;right: 0;">审核</button>' +
+
+            '</div>'
+
+        var left = '<div class="col-lg-6 col-md-12 col-sm-12" style="padding-left: 0">';
 
         var lefts = '</div>';
 
         //最外边的框
-        var block = '<div style="border: 1px solid #68a1fd;">';
+        var block = '<div class="row" style="margin: 0">';
 
         var blocks = '</div>';
 
-        return block + left + theader + tbodyer + str + tbodyers + theaders + moeo + lefts + left + echart +lefts + blocks;
+        var right = '<div class="col-lg-6 col-md-12 col-sm-12" style="padding-right: 0">';
 
-        //return left + theader + tbodyer + str + tbodyers + theaders + block + echart + moeo + blocks + examineButton;
+        var rights = '</div>';
+
+        return block + left + theader + tbodyer + str + tbodyers + theaders + moeo + lefts + right + echart + rights + blocks;
 
     }
 
@@ -470,6 +508,91 @@
 
         }
 
+    }
+
+    //获取基线chart图
+    function chartData(echartObj){
+
+        var prm = {
+
+            //事件Id
+            planId:_thisPlanId,
+            // 用户角色
+            userRole:sessionStorage.ADRS_UserRole,
+            //开始事件
+            startDate:_st,
+            //结束事件
+            closeDate:_et
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlanAppr/GetBSLByPlanId',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
+
+                //横坐标
+                var dataX = [];
+
+                //纵坐标
+                var dataY = [];
+
+                //纵坐标
+                var title = '';
+
+                if(result.code == 0){
+
+                    //处理数据
+                    for(var i=0;i<result.xs.length;i++){
+
+                        dataX.push(result.xs[i]);
+
+                    }
+
+                    for(var i=0;i<result.ys.length;i++){
+
+                        dataY.push(result.ys[i]);
+
+                    }
+
+                    title = result.lgs[0];
+
+                }
+
+                //横坐标
+                option.xAxis.data = dataX;
+
+                //纵坐标
+                option.series[0].data = dataY;
+
+                //title
+                option.title.text = title;
+
+                echartObj.setOption(option);
+
+                chartAry.push(echartObj);
+
+            },
+
+            error:_errorFun
+
+        })
     }
 
     return {

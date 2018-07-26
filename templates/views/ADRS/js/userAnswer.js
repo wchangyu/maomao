@@ -313,7 +313,7 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return  '<div class="checker" data-id="' + full.accountId +'"><span><input type="checkbox" value=""></span></div>'
+                return  '<div class="checker" data-id="' + full.accountId +'" data-capacity="' + full.signatureVolume + '"><span><input type="checkbox" value=""></span></div>'
 
             }
         },
@@ -324,18 +324,6 @@
         {
             title:'户号名称',
             data:'accountName'
-        },
-        {
-            title:'所属区域',
-            data:'districtName'
-        },
-        //{
-        //    title:'是否有效',
-        //    data:'isDelName'
-        //},
-        {
-            title:'创建时间',
-            data:'createDate'
         },
         {
             title:'备注',
@@ -724,45 +712,58 @@
 
                     if( $(this).parent('td').index() == 3 ){
 
-                        //将该表格的所有第三列数字加起来，必须小于等于thisLoad
-                        var table = $(this).parents('.innerTable');
+                        //首先判断是否在自己的签署容量之内
+                        var maxCapacity = $(this).parent().parent().children().eq(0).children().attr('data-capacity');
 
-                        var loadTr = table.children('tbody').children('tr');
-
-                        var totle = 0;
-
-                        for(var i=0;i<loadTr.length;i++){
-
-                            var typeFlag = loadTr.eq(i).children('td').eq(3).children('input').length;
-
-                            var num = 0;
-
-                            if(typeFlag == 0){
-
-                                num = Number(loadTr.eq(i).children('td').eq(3).children().html());
-
-                            }else{
-
-                                num = Number(loadTr.eq(i).children('td').eq(3).children().val());
-
-                            }
-
-                            totle += num;
-
-                        }
-
-                        //如果总量大于thisLoad，要提示
-                        if(totle>_thisLoad){
+                        if(Number($(this).val())>Number(maxCapacity)){
 
                             $(this).addClass('table-error');
 
-                            $(this).next('.error-tip').html('消减负荷累计不能超过总负荷量').show();
+                            $(this).next('.error-tip').html('消减负荷不能超过自身签署容量').show();
 
                         }else{
 
-                            $(this).removeClass('table-error');
+                            //将该表格的所有第三列数字加起来，必须小于等于thisLoad
+                            var table = $(this).parents('.innerTable');
 
-                            $(this).next('.error-tip').html('').hide();
+                            var loadTr = table.children('tbody').children('tr');
+
+                            var totle = 0;
+
+                            for(var i=0;i<loadTr.length;i++){
+
+                                var typeFlag = loadTr.eq(i).children('td').eq(3).children('input').length;
+
+                                var num = 0;
+
+                                if(typeFlag == 0){
+
+                                    num = Number(loadTr.eq(i).children('td').eq(3).children().html());
+
+                                }else{
+
+                                    num = Number(loadTr.eq(i).children('td').eq(3).children().val());
+
+                                }
+
+                                totle += num;
+
+                            }
+
+                            //如果总量大于thisLoad，要提示
+                            if(totle>_thisLoad){
+
+                                $(this).addClass('table-error');
+
+                                $(this).next('.error-tip').html('消减负荷累计不能超过总负荷量').show();
+
+                            }else{
+
+                                $(this).removeClass('table-error');
+
+                                $(this).next('.error-tip').html('').hide();
+
+                            }
 
                         }
 
@@ -866,6 +867,14 @@
             _thisRowButton.parent().next().children('.error-tip').html('').hide();
 
             _thisRowButton.parent().next().next().children('.error-tip').html('').hide();
+
+            //将签署容量写入【选择户号上】
+            var capacity = selectedTr.find('.checker').attr('data-capacity');
+
+            _thisRowButton.attr('data-capacity',capacity);
+
+            //模态框
+            $('#select-HH-Modal').modal('hide');
 
         }
 
@@ -1293,9 +1302,6 @@
 
             $('#theLoading').modal('hide');
 
-            //模态框
-            $('#select-SB-Modal').modal('hide');
-
             _thisRowButton.parent().next().children('input').val(_thisHH);
 
             _thisRowButton.parent().next().next().children('input').val(_thisHHM);
@@ -1304,6 +1310,15 @@
             _thisRowButton.parent().next().children('.error-tip').html('').hide();
 
             _thisRowButton.parent().next().next().children('.error-tip').html('').hide();
+
+            //将签署容量写入【选择户号上】
+            var capacity = selectedTr.find('.checker').attr('data-capacity');
+
+            _thisRowButton.attr('data-capacity',capacity);
+
+            //模态框
+            $('#select-SB-Modal').modal('hide');
+
 
         }
 
