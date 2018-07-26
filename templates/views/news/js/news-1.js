@@ -248,11 +248,17 @@ $(function(){
         }
 
         $('#thelist').find('.file-item').remove();
+
+        $('#theLoading').modal('show');
+
         $.ajax({
             type:'post',
             url:_url + 'News/DelUploadImageFile',
             data:fileNamePath,
             success:function(result){
+
+                $('#theLoading').modal('hide');
+
                 if(result == 99){
                     //成功；
                     moTaiKuang($('#myModal'),'删除成功！','flag');
@@ -269,6 +275,9 @@ $(function(){
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
+
+                $('#theLoading').modal('hide');
+
                 var info = JSON.parse(jqXHR.responseText).message;
 
                 $('.big-mark').hide();
@@ -349,11 +358,17 @@ $(function(){
                                 f_PublishUser:_publishUser,
                                 userID:_userID
                             }
+
+                            $('#theLoading').modal('show');
+
                             $.ajax({
                                 type:'post',
                                 url:_url + 'News/EditNewsContent',
                                 data:newsContent,
                                 success:function(result){
+
+                                    $('#theLoading').modal('hide');
+
                                     if(result == 99){
                                         //添加成功
                                         moTaiKuang($('#myModal1'),'新闻编辑成功！','flag')
@@ -364,7 +379,9 @@ $(function(){
                                     }
                                 },
                                 error:function(jqXHR, textStatus, errorThrown){
-                                    //console.log(JSON.parse(jqXHR.responseText).message);
+
+                                    $('#theLoading').modal('hide');
+
                                     if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
                                     }
                                 }

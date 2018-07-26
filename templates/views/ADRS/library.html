@@ -66,6 +66,13 @@
         body {
             min-width: 1555px;
         }
+
+        .modal-block li label:first-child{
+
+            width: 130px;
+
+        }
+
     </style>
     <link href="../favicon.ico" rel="shortcut icon" />
 </head>
@@ -256,8 +263,8 @@
     <!--模态框-->
     <!--创建账户-->
     <div class="modal fade" id="create-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 627px;width: 420px!important;">
-            <div class="modal-content" style="height: 627px;width: 420px!important;">
+        <div class="modal-dialog" style="height: 627px;width: 460px!important;">
+            <div class="modal-content" style="height: 627px;width: 460px!important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">提示</h4>
@@ -269,7 +276,7 @@
                         <ul class="modal-block">
                             <li>
                                 <label>产品名称：</label>
-                                <input type="text" class="table-group-action-input form-control" id="product-name" name="product-name" placeholder="必填字段">
+                                <input type="text" class="table-group-action-input form-control" id="product-name" name="product-name" placeholder="产品名称是必填字段">
                             </li>
                             <br>
                             <li>
@@ -292,7 +299,7 @@
                             <br>
                             <li>
                                 <label>补贴价格：</label>
-                                <input type="text" class="table-group-action-input form-control" id="subsidized-price" name="subsidized-price" placeholder="必填字段">
+                                <input type="text" class="table-group-action-input form-control" id="subsidized-price" name="subsidized-price" placeholder="补贴方式是必填字段">
                             </li>
                             <br>
                             <li>
@@ -305,8 +312,8 @@
                             </li>
                             <br>
                             <li>
-                                <label>通知时间：</label>
-                                <input type="text" class="table-group-action-input form-control" id="notice-time" name="notice-time" placeholder="必填字段">
+                                <label>通知时间（小时）：</label>
+                                <input type="text" class="table-group-action-input form-control" id="notice-time" name="notice-time" placeholder="通知时间是必填字段">
                             </li>
                             <br>
                             <li>

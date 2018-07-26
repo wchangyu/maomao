@@ -134,11 +134,11 @@ th{
 
 }
 
-.subTable>tbody>tr>td, .subTable>tbody>tr>th, .subTable>tfoot>tr>td, .subTable>tfoot>tr>th, .subTable>thead>tr>td, .subTable>thead>tr>th{
+/*.subTable>tbody>tr>td, .subTable>tbody>tr>th, .subTable>tfoot>tr>td, .subTable>tfoot>tr>th, .subTable>thead>tr>td, .subTable>thead>tr>th{*/
 
-	border: 1px solid #cccccc !important;
+	/*border: 1px solid #cccccc !important;*/
 
-}
+/*}*/
 
 .table-error{
 
@@ -274,5 +274,63 @@ table.dataTable thead th, table.dataTable thead td{
 	color: #88898a !important;
 
 	border-color: #88898a !important;
+
+}
+
+.state-ball{
+
+	display: inline-block;
+
+	width: 10px;
+
+	height:10px;
+
+	border-radius: 50% !important;
+
+	background: red;
+
+	margin: 0 10px;
+
+}
+
+.state-created{
+
+	background: #46b4e3;
+
+}
+
+.state-publish{
+
+	background: #216ff5;
+
+}
+
+.state-ensure-user{
+
+	background: #5045de;
+
+}
+
+.state-examine{
+
+	background: #20dca9;
+
+}
+
+.state-instruction{
+
+	background: #ebb43b;
+
+}
+
+.state-execution{
+
+	background: #f0496d;
+
+}
+
+.state-end-execution{
+
+	background: #9b9b9c;
 
 }

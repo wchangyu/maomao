@@ -117,7 +117,7 @@
 
         formatValidate(function(){
 
-            sendOption('DRDistrict/CreateDRDistrictInfo','创建成功！');
+            sendOption('DRDistrict/CreateDRDistrictInfo','创建成功');
 
         })
     })
@@ -167,7 +167,7 @@
 
         formatValidate(function(){
 
-            sendOption('DRDistrict/ModifyDRDistrictInfo','编辑成功！',true);
+            sendOption('DRDistrict/ModifyDRDistrictInfo','编辑成功',true);
 
         })
 
@@ -213,19 +213,19 @@
 
                 if(result.code == -2){
 
-                    _topTipBar('暂无数据！');
+                    _topTipBar('暂时没有区域数据');
 
                 }else if(result.code == -1){
 
-                    _topTipBar('异常错误！');
+                    _topTipBar('异常错误');
 
                 }else if(result.code == -3){
 
-                    _topTipBar('异常错误！');
+                    _topTipBar('异常错误');
 
                 }else if(result.code == -4){
 
-                    _topTipBar('内容已存在！');
+                    _topTipBar('内容已存在');
 
                 }else if(result.code == 0){
 
@@ -351,19 +351,19 @@
 
                 }else if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                 }
 
@@ -517,19 +517,19 @@
 
                 }else if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                 }
 

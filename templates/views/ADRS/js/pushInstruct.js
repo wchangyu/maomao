@@ -12,7 +12,12 @@
 
         {
             title:'状态',
-            data:'planStateName'
+            data:'planStateName',
+            render:function(data, type, full, meta){
+
+                return stateFlag(full.planState,data)
+
+            }
         },
         {
             title:'事件名称',
@@ -193,19 +198,19 @@
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                 }else if(result.code == 0){
 
@@ -271,19 +276,19 @@
 
                 if(result.code == -2){
 
-                    _topTipBar('暂时没有需要下发的事件！')
+                    _topTipBar('暂时没有需要下发的事件')
 
                 }else if(result.code == -1){
 
-                    _topTipBar('异常错误！')
+                    _topTipBar('异常错误')
 
                 }else if(result.code == -3){
 
-                    _topTipBar('参数错误！')
+                    _topTipBar('参数错误')
 
                 }else if(result.code == -4){
 
-                    _topTipBar('内容已存在！')
+                    _topTipBar('内容已存在')
 
                 }else if(result.code == 0){
 
@@ -354,9 +359,9 @@
         }
 
         //备注
-        str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9" style="text-align: left;text-indent: 25px;">' + d.memo + '</td></tr>'
 
-        var chooseButton = '<div style="text-align: left !important;margin-bottom: 5px;"><button class="btn green answer-button">下发指令</button></div>';
+        var chooseButton = '<div style="text-align: left !important;"><button class="btn green answer-button" style="margin: 5px 0 5px 5px">下发指令</button></div>';
 
         var block = '<div style="border: 1px solid #68a1fd;">';
 
@@ -395,6 +400,48 @@
         }else if(data == 3){
 
             return '预付补贴'
+
+        }
+
+    }
+
+    //不同状态值对应不同颜色的小圆圈
+    function stateFlag(state,data){
+
+        if(state == 1){
+
+            //已创建
+            return '<span class="state-ball state-created"></span>' + data
+
+        }else if(state == 2){
+
+            //已发布
+            return '<span class="state-ball state-publish"></span>' + data
+
+        }else if(state == 3){
+
+            //确定用户
+            return '<span class="state-ball state-ensure-user"></span>' + data
+
+        }else if(state == 4){
+
+            //已审核
+            return '<span class="state-ball state-examine"></span>' + data
+
+        }else if(state == 5){
+
+            //下发指令
+            return '<span class="state-ball state-instruction"></span>' + data
+
+        }else if(state == 6){
+
+            //执行中
+            return '<span class="state-ball state-execution"></span>' + data
+
+        }else if(state == 7){
+
+            //执行完毕
+            return '<span class="state-ball state-end-execution"></span>' + data
 
         }
 

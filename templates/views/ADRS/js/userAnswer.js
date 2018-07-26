@@ -39,7 +39,12 @@
 
         {
             title:'状态',
-            data:'planStateName'
+            data:'planStateName',
+            render:function(data, type, full, meta){
+
+                return stateFlag(full.planState,data)
+
+            }
         },
         {
             title:'事件名称',
@@ -324,6 +329,10 @@
         {
             title:'户号名称',
             data:'accountName'
+        },
+        {
+            title:'签署容量（kW）',
+            data:'signatureVolume'
         },
         {
             title:'备注',
@@ -843,7 +852,7 @@
 
         if(selectedTr.length == 0){
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择户号！','');
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择户号','');
 
         }else{
 
@@ -892,12 +901,12 @@
 
         if(NowTime>EndTime){
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'已超过反馈截止日期！','');
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'已超过反馈截止日期','');
 
         }else{
 
             //户号、消减负荷、是否手动、描述
-            var trs = $(this).parent().prev().find('table').children('tbody').children('tr')
+            var trs = $(this).parent().prev().find('table').children('tbody').children('tr');
 
             var arr = [];
 
@@ -909,18 +918,23 @@
 
                     var p = trs[i];
 
-                    var obj = {};
+                    if(trs.eq(i).children('.dataTables_empty').length == 0){
 
-                    //户号
-                    obj.acctId = $(p).children().eq(1).find('.input-value').html();
-                    //此次消减负荷量 ,
-                    obj.reduceLoad = $(p).children().eq(3).find('.input-value').html();
-                    //isAuto
-                    obj.isAuto = $(p).children().eq(4).find('input').val()
-                    //memo
-                    obj.memo = $(p).children().eq(5).find('.input-value').html();
+                        var obj = {};
 
-                    arr.push(obj);
+                        //户号
+                        obj.acctId = $(p).children().eq(1).find('.input-value').html();
+                        //此次消减负荷量 ,
+                        obj.reduceLoad = $(p).children().eq(3).find('.input-value').html();
+                        //isAuto
+                        obj.isAuto = $(p).children().eq(4).find('input').val()
+                        //memo
+                        obj.memo = $(p).children().eq(5).find('.input-value').html();
+
+                        arr.push(obj);
+
+
+                    }
 
 
                 }
@@ -1005,23 +1019,23 @@
 
                         if(result.code == -2){
 
-                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                         }else if(result.code == -1){
 
-                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                         }else if(result.code == -3){
 
-                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请选择户号，添加响应数据', '');
 
                         }else if(result.code == -4){
 
-                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                         }else if(result.code == -6){
 
-                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限！', '');
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'没有权限', '');
 
                         }else if(result.code == 0){
 
@@ -1289,7 +1303,7 @@
 
         if(selectedTr.length == 0){
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择户号！','');
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择户号','');
 
         }else{
 
@@ -1374,25 +1388,25 @@
         }
 
         //备注
-        str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9" style="text-align: left;text-indent: 25px;">' + d.memo + '</td></tr>'
 
         //账户响应的table
 
         //button【增加一行】
-        var button = '<div style="text-align: left !important;margin-bottom: 5px;">' + '<button class="btn green add-button">' + '增加行 <i class="fa fa-plus"></i>' + '</button>' + '</div>';
+        var button = '<div style="text-align: left !important;">' + '<button class="btn green add-button" style="margin:5px 0 0 5px;">' + '增加行 <i class="fa fa-plus"></i>' + '</button>' + '</div>';
 
         //首先判断是大用户还是聚合商
         var answerTable = '<table class="table innerTable  table-advance table-hover"><thead></thead><tbody></tbody></table>';
 
         //button【保存】
-        var answerButton = '<div style="text-align: left !important;margin-bottom: 5px;">' + '<button class="btn green answer-button">' + '确定回应' + '</button>' + '</div>';
+        var answerButton = '<div style="text-align: left !important;">' + '<button class="btn green answer-button" style="margin: 0 0 5px 5px;">' + '确定回应' + '</button>' + '</div>';
 
         //最外边的框
         var block = '<div style="border: 1px solid #68a1fd;">';
 
         var blocks = '</div>';
 
-        return block + theader + tbodyer + str + tbodyers + theaders + button + answerTable + answerButton + blocks;
+        return block + theader + tbodyer + str + tbodyers + theaders + blocks + '<div style="margin-top: 20px;"></div>' + block + button + answerTable + answerButton + blocks;
 
     }
 
@@ -1548,19 +1562,19 @@
 
                 if(result.code == -2){
 
-                    console.log('获取户号数据结果：暂无数据！');
+                    console.log('获取户号数据结果：暂无数据');
 
                 }else if(result.code == -1){
 
-                    console.log('获取户号数据结果：异常错误！');
+                    console.log('获取户号数据结果：异常错误');
 
                 }else if(result.code == -3){
 
-                    console.log('获取户号数据结果：参数错误！');
+                    console.log('获取户号数据结果：参数错误');
 
                 }else if(result.code == -4){
 
-                    console.log('获取户号数据结果：内容已存在！');
+                    console.log('获取户号数据结果：内容已存在');
 
                 }else if(result.code == 0){
 
@@ -1635,19 +1649,19 @@
 
                 if(result.code == -2){
 
-                    console.log('获取户号数据结果：暂无数据！');
+                    console.log('获取户号数据结果：暂无数据');
 
                 }else if(result.code == -1){
 
-                    console.log('获取户号数据结果：异常错误！');
+                    console.log('获取户号数据结果：异常错误');
 
                 }else if(result.code == -3){
 
-                    console.log('获取户号数据结果：参数错误！');
+                    console.log('获取户号数据结果：参数错误');
 
                 }else if(result.code == -4){
 
-                    console.log('获取户号数据结果：内容已存在！');
+                    console.log('获取户号数据结果：内容已存在');
 
                 }else if(result.code == 0){
 
@@ -1722,24 +1736,24 @@
 
                 if(result.code == -2){
 
-                    topTipBar('暂无数据！');
+                    topTipBar('暂时没有事件');
 
 
                 }else if(result.code == -1){
 
-                    topTipBar('异常错误！');
+                    topTipBar('异常错误');
 
                 }else if(result.code == -3){
 
-                    topTipBar('参数错误！');
+                    topTipBar('参数错误');
 
                 }else if(result.code == -4){
 
-                    topTipBar('内容已存在！');
+                    topTipBar('内容已存在');
 
                 }else if(result.code == -6){
 
-                    topTipBar('没有权限！');
+                    topTipBar('抱歉，您没有操作权限');
 
                 }else if(result.code == 0){
 
@@ -1818,19 +1832,19 @@
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                 }else if(result.code == 0){
 
@@ -1857,6 +1871,48 @@
         $('#tip').find('i').after('<span style="margin-left: 20px;">' + str + '</span>');
 
         $('#tip').show();
+
+    }
+
+    //不同状态值对应不同颜色的小圆圈
+    function stateFlag(state,data){
+
+        if(state == 1){
+
+            //已创建
+            return '<span class="state-ball state-created"></span>' + data
+
+        }else if(state == 2){
+
+            //已发布
+            return '<span class="state-ball state-publish"></span>' + data
+
+        }else if(state == 3){
+
+            //确定用户
+            return '<span class="state-ball state-ensure-user"></span>' + data
+
+        }else if(state == 4){
+
+            //已审核
+            return '<span class="state-ball state-examine"></span>' + data
+
+        }else if(state == 5){
+
+            //下发指令
+            return '<span class="state-ball state-instruction"></span>' + data
+
+        }else if(state == 6){
+
+            //执行中
+            return '<span class="state-ball state-execution"></span>' + data
+
+        }else if(state == 7){
+
+            //执行完毕
+            return '<span class="state-ball state-end-execution"></span>' + data
+
+        }
 
     }
 

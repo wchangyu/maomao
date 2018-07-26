@@ -18,7 +18,12 @@
 
         {
             title:'状态',
-            data:'planStateName'
+            data:'planStateName',
+            render:function(data, type, full, meta){
+
+                return stateFlag(full.planState,data)
+
+            }
         },
         {
             title:'事件名称',
@@ -81,10 +86,6 @@
         {
             title:'创建人',
             data:'createPlanUserName'
-        },
-        {
-            title:'备注',
-            data:'memo'
         },
         {
             title:'其他',
@@ -209,8 +210,8 @@
                     $('#district-publish').val(result.plan.districtName);
                     //参与户号数
                     $('#num-publish').val(_thisHnum);
-                    //默认截至日期
-                    var byTime = moment(result.plan.createDate).add(2,'days').format('YYYY-MM-DD HH:mm:ss');
+                    //默认截至日期(开始时间-12个小时)
+                    var byTime = moment(result.plan.startDate).subtract(0.5,'day').format('YYYY-MM-DD HH:mm:ss');
 
                     var start = moment(result.plan.createDate).format('YYYY-MM-DD HH:mm:ss');
 
@@ -234,10 +235,21 @@
                     //赋值
                     $('#plan-by-time').val(byTime);
 
-                    //比较反馈时间和开始时间，反馈时间必须小于开始时间
+                    //比较反馈时间和开始时间，反馈时间必须小于开始时间，并且大于现在的时间
                     if( timeCompare($('#plan-by-time').val(),_thisPlanSt) ){
 
                         $('#timeError').html('');
+
+                        if( timeCompare(moment().format('YYYY-MM-DD HH:mm:ss'),$('#plan-by-time').val()) ){
+
+                            $('#timeError').html('');
+
+                        }else{
+
+                            $('#timeError').html('反馈时间必须大于发布时间');
+
+                        }
+
 
                     }else{
 
@@ -259,10 +271,20 @@
     //反馈时间选择
     $('#plan-by-time').change(function(){
 
-        //比较反馈时间和开始时间，反馈时间必须小于开始时间
+        //比较反馈时间小于开始时间大于创建时间
         if( timeCompare($('#plan-by-time').val(),_thisPlanSt) ){
 
             $('#timeError').html('');
+
+            if( timeCompare(moment().format('YYYY-MM-DD HH:mm:ss'),$('#plan-by-time').val()) ){
+
+                $('#timeError').html('');
+
+            }else{
+
+                $('#timeError').html('反馈时间必须大于创建时间');
+
+            }
 
         }else{
 
@@ -281,7 +303,7 @@
 
             $('#theLoading').modal('hide');
 
-            $('#timeError').html('没有绑定户号不能发布！');
+            $('#timeError').html('没有绑定户号不能发布');
 
         }else{
 
@@ -318,19 +340,27 @@
 
                         if(result.code == -2){
 
-                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                         }else if(result.code == -1){
 
-                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                         }else if(result.code == -3){
 
-                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                         }else if(result.code == -4){
 
-                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
+
+                        }else if(result.code == -5){
+
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'反馈时间输入有误', '');
+
+                        }else if(result.code == 6){
+
+                            _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'抱歉，您没有操作权限', '');
 
                         }else if(result.code == 0){
 
@@ -354,7 +384,7 @@
 
                 $('#theLoading').modal('hide');
 
-                _moTaiKuang($('#tip-Modal'),'提示',true,true,'反馈时间不能大于开始时间！','');
+                _moTaiKuang($('#tip-Modal'),'提示',true,true,'反馈时间不能大于开始时间','');
 
             }
 
@@ -433,7 +463,7 @@
                 //基线
                 baselineId:0,
                 //状态
-                state:0
+                state:1
 
             }
 
@@ -475,23 +505,25 @@
                     $('#theLoading').hide();
                 }
 
-                var arr = []
+                var arr = [];
+
+                $('#tip').hide();
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _topTipBar('暂时没有需要发布的事件');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _topTipBar('异常错误');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _topTipBar('参数错误');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _topTipBar('内容已存在');
 
                 }else if(result.code == 0){
 
@@ -542,7 +574,7 @@
 
     }
 
-    //时间比大小
+    //时间比大小,第一个时间大于第二个时间
     function timeCompare(st,et){
 
         var stValue = st;
@@ -617,7 +649,7 @@
         }
 
         //备注
-        str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9" style="text-align: left;text-indent: 25px;">' + d.memo + '</td></tr>'
 
         return theader + tbodyer + str + tbodyers + theaders + ontherTable;
 
@@ -652,6 +684,48 @@
         }else if(data == 3){
 
             return '预付补贴'
+
+        }
+
+    }
+
+    //不同状态值对应不同颜色的小圆圈
+    function stateFlag(state,data){
+
+        if(state == 1){
+
+            //已创建
+            return '<span class="state-ball state-created"></span>' + data
+
+        }else if(state == 2){
+
+            //已发布
+            return '<span class="state-ball state-publish"></span>' + data
+
+        }else if(state == 3){
+
+            //确定用户
+            return '<span class="state-ball state-ensure-user"></span>' + data
+
+        }else if(state == 4){
+
+            //已审核
+            return '<span class="state-ball state-examine"></span>' + data
+
+        }else if(state == 5){
+
+            //下发指令
+            return '<span class="state-ball state-instruction"></span>' + data
+
+        }else if(state == 6){
+
+            //执行中
+            return '<span class="state-ball state-execution"></span>' + data
+
+        }else if(state == 7){
+
+            //执行完毕
+            return '<span class="state-ball state-end-execution"></span>' + data
 
         }
 

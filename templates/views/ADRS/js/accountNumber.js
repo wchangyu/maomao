@@ -262,7 +262,7 @@ var Account = function(){
 
         formatValidate(function(){
 
-            sendOption('DRAccount/CreateDRAcctInfo','创建成功！');
+            sendOption('DRAccount/CreateDRAcctInfo','创建成功');
 
         })
     })
@@ -310,7 +310,7 @@ var Account = function(){
 
         formatValidate(function(){
 
-            sendOption('DRAccount/ModifyDRAcctInfo','编辑成功！',true);
+            sendOption('DRAccount/ModifyDRAcctInfo','编辑成功',true);
 
         })
 
@@ -382,7 +382,7 @@ var Account = function(){
                     if(result.code == 0){
 
                         //创建成功
-                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'删除成功！','');
+                        _moTaiKuang($('#tip-Modal'),'提示',true,true,'删除成功','');
 
                         //模态框消失
                         $('#create-Modal').modal('hide');
@@ -390,19 +390,19 @@ var Account = function(){
 
                     }else if(result.code == -2){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                     }else if(result.code == -1){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                     }else if(result.code == -3){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                     }else if(result.code == -4){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                     }
 
@@ -515,19 +515,19 @@ var Account = function(){
 
                 if(result.code == -2){
 
-                    _topTipBar('暂无数据！');
+                    _topTipBar('暂时没有户号数据');
 
                 }else if(result.code == -1){
 
-                    _topTipBar('异常错误！');
+                    _topTipBar('异常错误');
 
                 }else if(result.code == -3){
 
-                    _topTipBar('参数错误！');
+                    _topTipBar('参数错误');
 
                 }else if(result.code == -4){
 
-                    _topTipBar('内容已存在！');
+                    _topTipBar('内容已存在');
 
                 }else if(result.code == 0){
 
@@ -609,19 +609,19 @@ var Account = function(){
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                 }else if(result.code == 0){
 
@@ -647,7 +647,7 @@ var Account = function(){
 
             $('#theLoading').modal('hide');
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项!','');
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项','');
 
         }else{
 
@@ -658,7 +658,7 @@ var Account = function(){
 
                 if(error.css('display') != 'none'){
 
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写正确格式!','');
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写正确格式','');
 
                 }else{
 
@@ -737,19 +737,19 @@ var Account = function(){
 
                 }else if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                 }
 
@@ -803,23 +803,24 @@ var Account = function(){
 
                 }else if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                 }
 
-            }
+            },
+            error:_errorFun
 
         })
 

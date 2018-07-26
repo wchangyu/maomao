@@ -352,7 +352,7 @@
             }
         },
         {
-            title:'提前通知时间',
+            title:'提前通知时间(小时)',
             data:'noticeHour'
         },
         {
@@ -469,7 +469,7 @@
 
         formatValidate(function(){
 
-            sendOption('DRPlanMade/DRPlanRegister','创建成功！');
+            sendOption('DRPlanMade/DRPlanRegister','创建成功');
 
         })
 
@@ -482,7 +482,7 @@
 
         formatValidate(function(){
 
-            sendOption('DRPlanMade/DRPlanModify','编辑成功！',true);
+            sendOption('DRPlanMade/DRPlanModify','编辑成功',true);
 
         })
 
@@ -668,23 +668,23 @@
 
                 if(result.code == -2){
 
-                    console.log('基线获取：暂无数据！' );
+                    console.log('基线获取：暂无数据' );
 
                 }else if(result.code == -1){
 
-                    console.log('基线获取：异常错误！' );
+                    console.log('基线获取：异常错误' );
 
                 }else if(result.code == -3){
 
-                    console.log('基线获取：参数错误！' );
+                    console.log('基线获取：参数错误' );
 
                 }else if(result.code == -4){
 
-                    console.log('基线获取：内容已存在！' );
+                    console.log('基线获取：内容已存在' );
 
                 }else if(result.code == -6){
 
-                    console.log('基线获取：没有权限！' );
+                    console.log('基线获取：没有权限' );
 
                 }else if(result.code == 0){
 
@@ -738,23 +738,23 @@
 
                 if(result.code == -2){
 
-                    console.log('区域获取：暂无数据！')
+                    console.log('区域获取：暂无数据')
 
                 }else if(result.code == -1){
 
-                    console.log('区域获取：异常错误！');
+                    console.log('区域获取：异常错误');
 
                 }else if(result.code == -3){
 
-                    console.log('区域获取：参数错误！');
+                    console.log('区域获取：参数错误');
 
                 }else if(result.code == -4){
 
-                    console.log('区域获取：内容已存在！');
+                    console.log('区域获取：内容已存在');
 
                 }else if(result.code == -6) {
 
-                    console.log('区域获取：没有权限！');
+                    console.log('区域获取：没有权限');
 
                 }else if(result.code == 0){
 
@@ -804,23 +804,23 @@
 
                 if(result.code == -2){
 
-                    console.log('套餐获取：暂无数据！');
+                    console.log('套餐获取：暂无数据');
 
                 }else if(result.code == -1){
 
-                    console.log('套餐获取：异常错误！');
+                    console.log('套餐获取：异常错误');
 
                 }else if(result.code == -3){
 
-                    console.log('套餐获取：参数错误！');
+                    console.log('套餐获取：参数错误');
 
                 }else if(result.code == -4){
 
-                    console.log('套餐获取：内容已存在！');
+                    console.log('套餐获取：内容已存在');
 
                 }else if(result.code == -6){
 
-                    console.log('套餐获取：没有权限！');
+                    console.log('套餐获取：没有权限');
 
                 }else if(result.code == 0){
 
@@ -999,23 +999,23 @@
 
                 }else if(result.code == -2){
 
-                    _topTipBar('暂无数据！');
+                    _topTipBar('暂无数据');
 
                 }else if(result.code == -1){
 
-                    _topTipBar('异常错误！');
+                    _topTipBar('异常错误');
 
                 }else if(result.code == -3){
 
-                    _topTipBar('参数错误！');
+                    _topTipBar('参数错误');
 
                 }else if(result.code == -4){
 
-                    _topTipBar('内容已存在！');
+                    _topTipBar('内容已存在');
 
                 }else if(result.code == -6){
 
-                    _topTipBar('没有权限！');
+                    _topTipBar('抱歉，您没有操作权限');
 
                 }
 
@@ -1100,23 +1100,27 @@
 
                 }else if(result.code == -2){
 
-                    _topTipBar('暂无数据！');
+                    _topTipBar('暂无数据');
 
                 }else if(result.code == -1){
 
-                    _topTipBar('异常错误！');
+                    _topTipBar('异常错误');
 
                 }else if(result.code == -3){
 
-                    _topTipBar('参数错误！');
+                    _topTipBar('参数错误');
 
                 }else if(result.code == -4){
 
-                    _topTipBar('内容已存在！');
+                    _topTipBar('内容已存在');
+
+                }else if(result.code == -5){
+
+                    _topTipBar('输入有误');
 
                 }else if(result.code == -6){
 
-                    _topTipBar('没有权限！');
+                    _topTipBar('抱歉，您没有操作权限');
 
                 }
 

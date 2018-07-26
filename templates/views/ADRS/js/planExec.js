@@ -6,6 +6,24 @@
     //操作当前事件的id
     var _thisPlanId = '';
 
+    //当前计划的开始事件
+    var _st = '';
+
+    //当前计划的结束事件
+    var _et = '';
+
+    //标记基线负荷是否返回数据成功
+    var _baselineIsComplete = false;
+
+    //标记实时负荷是否返回数据成功
+    var _realtimeIsComolete = false;
+
+    //存放基线返回的值
+    var baseObj = {};
+
+    //存放实时返回的值
+    var realObj = {};
+
     /*--------------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -24,13 +42,13 @@
 
                     //当前时间小于开始执行时间
 
-                    return '等待执行中'
+                    return '<span class="state-ball state-execution"></span>' + '等待执行中'
 
                 }else{
 
                     //当前时间大于开始执行时间
 
-                    return '执行中'
+                    return  '<span class="state-ball state-execution"></span>' + '执行中'
 
                 }
 
@@ -147,29 +165,34 @@
     //折线
     var optionTop = {
         legend: {
-            data:['最高气温','最低气温']
+            data:['实时负荷','基线负荷','消减负荷']
         },
         xAxis:  {
             type: 'category',
             boundaryGap: false,
-            data: ['周一','周二','周三','周四','周五','周六','周日']
+            data: []
         },
         yAxis: {
             type: 'value',
             axisLabel: {
-                formatter: '{value} °C'
+                formatter: '{value} kW'
             }
         },
         series: [
             {
-                name:'最高气温',
+                name:'实时负荷',
                 type:'line',
                 data:[11, 11, 15, 13, 12, 13, 10]
             },
             {
-                name:'最低气温',
+                name:'基线负荷',
                 type:'line',
-                data:[1, -2, 2, 5, 3, 2, 0]
+                data:[]
+            },
+            {
+                name:'消减负荷',
+                type:'line',
+                data:[]
             }
         ]
     };
@@ -316,9 +339,22 @@
     //点击【执行中】
     $('#table tbody').on('click','.option-implement',function(){
 
+        $('#theLoading').modal('show');
+
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
 
         var row = _table.row( tr );
+
+        var planId = $(this).attr('data-id');
+
+        //id
+        _thisPlanId = planId;
+
+        //开始时间
+        _st = $(this).parent().parent().children().eq(2).html();
+
+        //结束时间
+        _et = $(this).parent().parent().children().eq(3).html();
 
         if ( row.child.isShown() ) {
 
@@ -347,8 +383,6 @@
 
             var echart1 = echarts.init(document.getElementById(lineBlock));
 
-            echart1.setOption(optionTop);
-
             ////饼图
             var pieBlock = format.find('.pie-block').attr('id');
 
@@ -362,6 +396,22 @@
             var echartBar = echarts.init(document.getElementById(barBlock));
 
             echartBar.setOption(optionBar);
+
+            //获取基线数据
+            baselineLoad(echart1);
+
+            //获取实时数据（十分钟刷新一次）
+
+            realtimeLoad(echart1);
+
+            setInterval(function(){
+
+                realtimeLoad(echart1);
+
+            },1000*60*10)
+
+            //参与户数
+            joinInHH();
 
             tr.addClass('shown');
 
@@ -417,23 +467,23 @@
 
                 if(result.code == -2){
 
-                    _topTipBar('暂时没有执行中的事件！')
+                    _topTipBar('暂时没有执行中的事件')
 
                 }else if(result.code == -1){
 
-                    _topTipBar('异常错误！')
+                    _topTipBar('异常错误')
 
                 }else if(result.code == -3){
 
-                    _topTipBar('参数错误！')
+                    _topTipBar('参数错误')
 
                 }else if(result.code == -4){
 
-                    _topTipBar('内容已存在！')
+                    _topTipBar('内容已存在')
 
                 }else if(result.code == -6){
 
-                    _topTipBar('没有权限！')
+                    _topTipBar('抱歉，您没有操作权限')
 
                 }else if(result.code == 0){
 
@@ -504,7 +554,7 @@
         }
 
         //备注
-        str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9" style="text-align: left;text-indent: 25px;">' + d.memo + '</td></tr>'
 
         var chooseButton = '<div style="text-align: left !important;margin-bottom: 5px;"><button class="btn green answer-button">下发指令</button></div>';
 
@@ -532,25 +582,25 @@
             '</div>' +
             '<ul class="execute">' +
             '<li>' +
-            '<p id="baselineNum">5625</p>' +
+            '<p id="baselineNum">0</p>' +
             '<span>基线负荷（kw）</span>' +
             '</li>' +
             '<li>' +
-            '<p id="realTimeNum">5625</p>' +
+            '<p id="realTimeNum">0</p>' +
             '<span>实时负荷（kw）</span>' +
             '</li>' +
             '<li>' +
-            '<p id="SubtractNum">5625</p>' +
+            '<p id="SubtractNum">0</p>' +
             '<span>消减负荷（kw）</span>' +
             '</li>' +
             '<li>' +
-            '<p id="planNum">5625</p>' +
+            '<p id="planNum">0</p>' +
             '<span>计划负荷（kw）</span>' +
             '</li>' +
             '</ul>' +
             '</div>';
 
-        var right = '<div style="margin-left: 320px;"><p style="text-align:right;padding-top: 10px;background: #ffffff;margin: 0;padding-right:20px;padding-bottom: 10px;">实时事件：<span id="realTime"></span></p>'
+        var right = '<div style="margin-left: 320px;"><p style="text-align:right;padding-top: 10px;background: #ffffff;margin: 0;padding-right:20px;padding-bottom: 10px;">实时时间：<span id="realTime"></span></p>'
 
         var rightTop = '<div id="topEchart' + num + '" class="shadowEffect line-block" style="height: 350px;background: #ffffff;width: 100%;"></div>';
 
@@ -602,7 +652,250 @@
 
     }
 
-    //计划执行
+    //获取基线负荷
+    function baselineLoad(chart){
+
+        var prm = {
+
+            //事件Id
+            planId:_thisPlanId,
+            //事件开始时间
+            startDate:_st,
+            //事件结束时间
+            closeDate:_et
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlanExec/GetHistoryJXFHsByPlanId',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                _baselineIsComplete = true;
+
+                if(result.code == 0){
+
+                    //基线负荷赋值
+                    $('#baselineNum').html(result.jxFhVa);
+
+                    //基线负荷的值
+                    optionTop.xAxis.data = result.jxFhXs;
+
+                    optionTop.series[1].data = result.jxFhYs;
+
+                    chart.setOption(optionTop,true);
+
+                }else{
+
+                    //基线负荷赋值
+                    $('#baselineNum').html(result.jxFhXs);
+
+                    //基线负荷的值
+                    optionTop.xAxis.data = [];
+
+                    optionTop.series[1].data = [];
+
+                    chart.setOption(optionTop,true);
+
+                }
+
+                baseObj.x = result.jxFhXs;
+
+                baseObj.y = result.jxFhYs;
+
+                BaseTimeCallback(chart);
+
+            },
+
+            error:_errorFun
+
+        })
+
+
+    }
+
+    //获取实时负荷
+    function realtimeLoad(chart){
+
+        var prm = {
+
+            //事件Id
+            planId:_thisPlanId,
+            //事件开始时间
+            startDate:_st,
+            //事件结束时间
+            closeDate:_et,
+            //角色
+            userRole:sessionStorage.ADRS_UserRole
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlanExec/GetHistoryNSFHsByPlanId',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                _realtimeIsComolete = true;
+
+                if(result.code == 0){
+
+                    //实时负荷赋值
+                    $('#realTimeNum').html(result.ssFhVa);
+
+                    //基线负荷的值
+                    optionTop.xAxis.data = result.ssFhXs;
+
+                    optionTop.series[0].data = result.ssFhYs;
+
+                    chart.setOption(optionTop,true);
+
+                }else{
+
+                    //实时负荷赋值
+                    $('#realTimeNum').html(result.ssFhVa);
+
+                    //基线负荷的值
+                    optionTop.xAxis.data = [];
+
+                    optionTop.series[0].data = [];
+
+                    chart.setOption(optionTop,true);
+
+                }
+
+                realObj.x = result.ssFhXs;
+
+                realObj.y = result.ssFhYs;
+
+                BaseTimeCallback(chart);
+
+            },
+
+            error:_errorFun
+
+        })
+
+
+    }
+
+    //获取有参与户数和计划消减的统计值
+    function joinInHH(){
+
+        var prm = {
+
+            //事件Id
+            planId:_thisPlanId
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlanExec/GetAcctsNberAndXJFhVaByPlanId',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                if(result.code == 0){
+
+                    //参与户数
+                    $('#totalHH').html(result.acctsNber);
+
+                    //计划消减
+                    $('#planNum').html(result.xjFhVa);
+
+                }
+
+            },
+
+            error:_errorFun
+
+        })
+
+    }
+
+    //消减负荷=基线负荷的每一个值-实时负荷的每一个值
+    function BaseTimeCallback(chart){
+
+        if(_baselineIsComplete && _realtimeIsComolete){
+
+            $('#theLoading').modal('hide');
+
+            //存放消减负荷的值
+
+            var _reduceLoad = [];
+
+            //如果双方有任何一方为0,那么就直接写另一个,首先判断长度
+            if(baseObj.x.length==realObj.x.length){
+
+                //基线负荷-实时负荷
+                for(var i=0;i<baseObj.x.length;i++){
+
+                    var value = Number(baseObj.y[i]) - Number(realObj.y[i]);
+
+                    _reduceLoad.push(value);
+
+                }
+
+            }else{
+
+                //分别判断为0的情况
+                if(baseObj.x.length == 0){
+
+                    for(var i=0;i<baseObj.x.length;i++){
+
+                        var value = Number(0) - Number(realObj.y[i]);
+
+                        _reduceLoad.push(value);
+
+                    }
+
+                }
+
+                if(realObj.x.length == 0){
+
+                    for(var i=0;i<baseObj.x.length;i++){
+
+                        var value = Number(baseObj.y[i]) - Number(0);
+
+                        _reduceLoad.push(value);
+
+                    }
+
+                }
+
+            }
+
+            optionTop.series[2].data = _reduceLoad;
+
+            //设置坐标
+            chart.setOption(optionTop,true);
+
+            //消减负荷=基线负荷-实时负荷
+            var reduceLoad = Number($('#baselineNum').html()) - Number($('#realTimeNum').val());
+
+            $('#SubtractNum').html(reduceLoad);
+
+
+        }
+
+    }
 
     return {
         init: function () {

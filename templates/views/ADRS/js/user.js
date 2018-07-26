@@ -208,7 +208,7 @@
         _moTaiKuang($('#create-Modal'), '提示', false, '' ,'', '保存');
 
         //绑定数据
-        bind($('#create-Modal').find('.btn-primary').prev(),_thisID);
+        bind(_thisID);
 
         //类
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
@@ -281,12 +281,33 @@
                     $('#theLoading').hide();
                 }
 
-                _successTopBar(result.code,result.users,function(arr){
+                var arr = [];
 
-                    _datasTable($('#table'),arr);
+                if(result.code == -2){
 
-                })
+                    _topTipBar('暂时没有账户数据');
 
+                }else if(result.code == -1){
+
+                    _topTipBar('异常错误');
+
+                }else if(result.code == -3){
+
+                    _topTipBar('参数错误');
+
+                }else if(result.code == -4){
+
+                    _topTipBar('内容已存在');
+
+                }else if(result.code == 0){
+
+                    $('#tip').hide();
+
+                    arr = result.users
+
+                }
+
+                _datasTable($('#table'),arr)
 
             },
 
@@ -333,14 +354,14 @@
     }
 
     //格式验证(flag为真的时候，验证密码是否为空)
-    function formatValidate(el,fun){
+    function formatValidate(fun){
 
         //非空验证
         if($('#create-user-name').val() == '' || $('#create-user-login-name').val() == '' ){
 
             $('#theLoading').modal('hide');
 
-            _modalTipBar(el,'请填写必填项!');
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项','');
 
         }else{
 
@@ -351,7 +372,7 @@
 
                 if(error.css('display') != 'none'){
 
-                    _modalTipBar(el,'请填写正确格式!');
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写正确格式','');
 
                 }else{
 
@@ -373,7 +394,7 @@
     }
 
     //创建账户(flag代表是否传id)
-    function sendOption(el,url,seccessMeg,flag){
+    function sendOption(url,seccessMeg,flag){
 
         var prm = {
 
@@ -399,7 +420,6 @@
 
         }
 
-
         $.ajax({
 
             type:'post',
@@ -414,7 +434,7 @@
 
                 $('#theLoading').modal('hide');
 
-                _successBar(el,result.code,function(){
+                if(result.code == 0){
 
                     //模态框消失
                     $('#create-Modal').modal('hide');
@@ -425,11 +445,27 @@
 
                     })
 
-                })
+                }else if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
+
+                }
 
             },
 
-            error:_errorBarModal
+            error:_errorFun
 
 
         })
@@ -446,7 +482,7 @@
     }
 
     //绑定数据
-    function bind(el,id){
+    function bind(id){
 
         var prm = {
 
@@ -468,7 +504,7 @@
 
                 $('#theLoading').modal('hide');
 
-                _successBar(el,result.code,function(){
+                if(result.code == 0){
 
                     //绑定数据
                     //登录账户名
@@ -482,8 +518,25 @@
                     //备注
                     $('#create-remark').val(result.user.memo);
 
-                })
-            }
+                }else if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
+
+                }
+            },
+            error:_errorFun
 
         })
 

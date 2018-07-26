@@ -178,11 +178,17 @@ $(function(){
     function dataDBS(url,prm,title,flag,meg){
         if($('#newsColum').val()){
             $('.colorTip').hide();
+
+            $('#theLoading').modal('show');
+
             $.ajax({
                 type:'post',
                 url:_url + url,
                 data:prm,
                 success:function(result){
+
+                    $('#theLoading').modal('hide');
+
                     if(result == 99){
                         conditionSelect();
                         moTaiKuang($('#myModal'),title,flag,meg)
@@ -196,6 +202,8 @@ $(function(){
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
+
+                    $('#theLoading').modal('hide');
 
                 }
             })

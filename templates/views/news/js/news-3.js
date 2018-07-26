@@ -112,7 +112,6 @@ $(function(){
             $('.main-contents-table').hide();
             $('.main-contents-table').eq(0).show();
             //轮流赋值
-            console.log(result);
             for(var i=0;i<result.length;i++){
                 var tableBlock = $('.table').eq(i);
                 datasTable(tableBlock,result[i].newsContents);
@@ -141,6 +140,9 @@ $(function(){
     });
     //删除确定
     $('#myModal').on('click','.shanchu',function(){
+
+        $('#theLoading').modal('show');
+
         $.ajax({
             type:'post',
             url:_url + 'News/DelNewsContent',
@@ -149,6 +151,9 @@ $(function(){
                 "PK_NewsID":_thisBM,
                 "UserID" : _userID}),
             success:function(result){
+
+                $('#theLoading').modal('hide');
+
                 if(result == 99){
                     //删除成功
                     moTaiKuang($('#myModal1'),'提示','flag','删除成功！')
@@ -159,6 +164,8 @@ $(function(){
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
+
+                $('#theLoading').modal('hide');
 
             }
         })

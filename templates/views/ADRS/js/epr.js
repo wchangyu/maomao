@@ -359,6 +359,33 @@
 
     _tableInit($('#HH-table'),HHCol,2,true,'','','','',10);
 
+    //户号初始化
+    var HHDatetableCol = [
+
+        {
+            title:'所属区域',
+            data:'districtName',
+            name:'district'
+        },
+        {
+            title:'户号',
+            data:'accountCode'
+        },
+        {
+            title:'户号名称',
+            data:'accountName'
+        },
+        {
+            title:'创建时间',
+            data:'createDate'
+        },
+        {
+            title:'描述',
+            data:'memo'
+        }
+
+    ]
+
     /*-----------------------------------创建表单验证-------------------------------------*/
 
     $('#commentForm').validate({
@@ -537,7 +564,7 @@
 
         formatValidate(function(){
 
-            sendOption('DREpr/CreateDREprInfoByAggregator','创建聚合商成功！');
+            sendOption('DREpr/CreateDREprInfoByAggregator','创建聚合商成功');
 
         })
     })
@@ -549,7 +576,7 @@
 
         formatValidate(function(){
 
-            sendOption('DREpr/CreateDREprInfoByConsumer','创建大用户成功！',false,true);
+            sendOption('DREpr/CreateDREprInfoByConsumer','创建大用户成功',false,true);
 
         })
     })
@@ -613,7 +640,7 @@
 
             $('#theLoading').modal('hide');
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择账户！','');
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择账户','');
 
         }else{
 
@@ -646,19 +673,19 @@
 
                     if(result.code == -2){
 
-                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                     }else if(result.code == -1){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                     }else if(result.code == -3){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                     }else if(result.code == -4){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                     }else if(result.code == 0){
 
@@ -741,7 +768,7 @@
 
         if(selectedTr.length == 0){
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择户号！','');
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择户号','');
 
         }else{
 
@@ -783,23 +810,23 @@
 
                     if(result.code == -2){
 
-                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                     }else if(result.code == -1){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                     }else if(result.code == -3){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                     }else if(result.code == -4){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                     }else if(result.code == 0){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'设置账户成功！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'设置账户成功', '');
 
                         //模态框
                         $('#select-HH-Modal').modal('hide');
@@ -908,7 +935,6 @@
 
         var row = _table.row( tr );
 
-
         if ( row.child.isShown() ) {
 
             row.child.hide();
@@ -950,19 +976,19 @@
 
                     if(result.code == -2){
 
-                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                     }else if(result.code == -1){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                     }else if(result.code == -3){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                     }else if(result.code == -4){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                     }else if(result.code == 0){
 
@@ -974,7 +1000,53 @@
 
                     }
 
-                    row.child( formatHH(thisEprHHArr) ).show();
+                    //row.child( formatHH(thisEprHHArr) ).show();
+
+                    //插入表格
+                    row.child( formatHH() ).show();
+
+                    //当前表格
+                    var innerTable = thisRow.parent().next().find('.table');
+
+                    //表格初始化
+                    innerTable.DataTable({
+                        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+                        "paging": false,   //是否分页
+                        "destroy": true,//还原初始化了的datatable
+                        "searching": false,
+                        "ordering": false,
+                        "bProcessing":true,
+                        "iDisplayLength":50,//默认每页显示的条数
+                        'language': {
+                            'emptyTable': '没有数据',
+                            'loadingRecords': '加载中...',
+                            'processing': '查询中...',
+                            'lengthMenu': '每页 _MENU_ 条',
+                            'zeroRecords': '没有数据',
+                            'info': '',
+                            'infoEmpty': '没有数据',
+                            'paginate':{
+                                "previous": "上一页",
+                                "next": "下一页",
+                                "first":"首页",
+                                "last":"尾页"
+                            }
+                        },
+                        "dom":'t<"F"lip>',
+                        'buttons':{
+                            extend: 'excelHtml5',
+                            text: '导出',
+                            className:'saveAs hiddenButton'
+                        },
+                        "columns": HHDatetableCol,
+
+                        "rowsGroup": [
+                            'district:name',
+                            0
+                        ]
+                    });
+
+                    _datasTable(innerTable,thisEprHHArr);
 
                     tr.addClass('shown');
 
@@ -1091,19 +1163,19 @@
 
                     if(result.code == -2){
 
-                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                     }else if(result.code == -1){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                     }else if(result.code == -3){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                     }else if(result.code == -4){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                     }else if(result.code == 0){
 
@@ -1206,19 +1278,19 @@
 
                     if(result.code == -2){
 
-                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                        //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                     }else if(result.code == -1){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                     }else if(result.code == -3){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                     }else if(result.code == -4){
 
-                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                     }else if(result.code == 0){
 
@@ -1230,7 +1302,51 @@
 
                     }
 
-                    row.child( formatHH(thisEprHHArr) ).show();
+                    //插入表格
+                    row.child( formatHH() ).show();
+
+                    //当前表格
+                    var innerTable = thisRow.parent().next().find('.table');
+
+                    //表格初始化
+                    innerTable.DataTable({
+                        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+                        "paging": false,   //是否分页
+                        "destroy": true,//还原初始化了的datatable
+                        "searching": false,
+                        "ordering": false,
+                        "bProcessing":true,
+                        "iDisplayLength":50,//默认每页显示的条数
+                        'language': {
+                            'emptyTable': '没有数据',
+                            'loadingRecords': '加载中...',
+                            'processing': '查询中...',
+                            'lengthMenu': '每页 _MENU_ 条',
+                            'zeroRecords': '没有数据',
+                            'info': '',
+                            'infoEmpty': '没有数据',
+                            'paginate':{
+                                "previous": "上一页",
+                                "next": "下一页",
+                                "first":"首页",
+                                "last":"尾页"
+                            }
+                        },
+                        "dom":'t<"F"lip>',
+                        'buttons':{
+                            extend: 'excelHtml5',
+                            text: '导出',
+                            className:'saveAs hiddenButton'
+                        },
+                        "columns": HHDatetableCol,
+
+                        "rowsGroup": [
+                            'district:name',
+                            0
+                        ]
+                    });
+
+                    _datasTable(innerTable,thisEprHHArr);
 
                     tr.addClass('shown');
 
@@ -1326,29 +1442,23 @@
                     $('#theLoading').hide();
                 }
 
-                _successBar(result.code,function(){
-
-
-
-                })
-
                 var arr = [];
 
                 if(result.code == -2){
 
-                    _topTipBar('暂无数据！');
+                    _topTipBar('暂时没有企业及居民数据');
 
                 }else if(result.code == -1){
 
-                    _topTipBar('异常错误！');
+                    _topTipBar('异常错误');
 
                 }else if(result.code == -3){
 
-                    _topTipBar('参数错误！');
+                    _topTipBar('参数错误');
 
                 }else if(result.code == -4){
 
-                    _topTipBar('内容已存在！');
+                    _topTipBar('内容已存在');
 
                 }else if(result.code == 0){
 
@@ -1553,22 +1663,21 @@
 
                     })
 
-
                 }else if(result.code == -2){
 
-                    //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                 }
 
@@ -1611,19 +1720,19 @@
 
                 }else if(result.code == -2){
 
-                    //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据！', '');
+                    //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在！', '');
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
 
                 }
 
@@ -1634,15 +1743,6 @@
             error:_errorFun1
 
         })
-
-    }
-
-    //样式
-    function changeCss(el){
-
-        $('.table tbody').find('tr').removeClass('tables-hover');
-
-        el.parents('tr').addClass('tables-hover');
 
     }
 
@@ -1677,19 +1777,19 @@
 
                 if(result.code == -2){
 
-                    //_moTaiKuang($('#tip-Modal'),'提示',true,true,'暂无数据！','');
+                    //_moTaiKuang($('#tip-Modal'),'提示',true,true,'暂无数据','');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'异常错误！','');
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'异常错误','');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'参数错误！','');
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'参数错误','');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'内容已存在！','');
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'内容已存在','');
 
                 }else if(result.code == 0){
 
@@ -1732,19 +1832,19 @@
 
                 if(result.code == -2){
 
-                    console.log('获取户号数据结果：暂无数据！');
+                    console.log('获取户号数据结果：暂无数据');
 
                 }else if(result.code == -1){
 
-                    console.log('获取户号数据结果：异常错误！');
+                    console.log('获取户号数据结果：异常错误');
 
                 }else if(result.code == -3){
 
-                    console.log('获取户号数据结果：参数错误！');
+                    console.log('获取户号数据结果：参数错误');
 
                 }else if(result.code == -4){
 
-                    console.log('获取户号数据结果：内容已存在！');
+                    console.log('获取户号数据结果：内容已存在');
 
                 }else if(result.code == 0){
 
@@ -1777,42 +1877,17 @@
     }
 
     //显示隐藏
-    function formatHH ( d ) {
+    function formatHH ( ) {
 
-        var theader = '<table class="table HHtable table-advance table-hover">' + '<thead><tr><th>户号</th><th>户号名称</th><th>所属区域</th><th>创建时间</th><th>描述</th></tr></thead>';
+        var table = '<table class="table HHtable table-advance table-hover"></table>'
 
-        var theaders = '</table>';
-
-        var tbodyer = '<tbody>'
-
-        var tbodyers = '</tbody>';
-
-        var str = '';
-
-        for(var i=0;i< d.length;i++){
-
-            str += '<tr>';
-                    //户号
-            str += '<td>'+ d[i].accountCode +'</td>' +
-                    //户号名称
-                   '<td>'+ d[i].accountName +'</td>' +
-                    //所属区域
-                   '<td>'+ d[i].districtName +'</td>' +
-                    //创建时间
-                   '<td>'+ d[i].createDate +'</td>' +
-                    //描述
-                   '<td>'+ d[i].memo +'</td>';
-
-            str += '</tr>';
-        }
-
-        return theader + tbodyer + str + tbodyers + theaders;
+        return table;
     }
 
     //显示详情(第一层详情显示)
     function formatDetail(d){
 
-        var theader = '<table class="table tableDetail table-advance table-hover">' + '<thead><tr style="background: #c5d7f1"><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td></tr></thead>';
+        var theader = '<table class="table tableDetail table-advance table-hover">' + '<thead><tr style="background: #c5d7f1"><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td><td>描述</td></tr></thead>';
 
         var theaders = '</table>';
 
@@ -1832,7 +1907,9 @@
                     //联系方式
                 '<td>'+ d[i].phone +'</td>' +
                     //邮箱
-                '<td>'+ d[i].eMail +'</td>'
+                '<td>'+ d[i].eMail +'</td>' +
+                    //备注
+                '<td>'+ d[i].memo +'</td>'
 
             str += '</tr>';
         }
@@ -1844,7 +1921,7 @@
     //显示详情(第二层详情显示)
     function formatDetail1(d){
 
-        var theader = '<table class="table tableDetail1 table-advance table-hover">' + '<thead><tr style="background: #c5d7f1"><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td></tr></thead>';
+        var theader = '<table class="table tableDetail1 table-advance table-hover">' + '<thead><tr style="background: #c5d7f1"><td>地址</td><td>联系人</td><td>联系方式</td><td>邮箱</td><td>描述</td></tr></thead>';
 
         var theaders = '</table>';
 
@@ -1864,8 +1941,9 @@
                     //联系方式
                 '<td>'+ d[i].phone +'</td>' +
                     //邮箱
-                '<td>'+ d[i].eMail +'</td>'
-
+                '<td>'+ d[i].eMail +'</td>' +
+                    //描述
+                '<td>'+ d[i].memo +'</td>'
             str += '</tr>';
         }
 
@@ -1874,7 +1952,7 @@
     }
 
     //聚合商下的大用户列表显示
-    function JHdownDYH(d){
+    function JHdownDYH(){
 
         var table = '<table class="table tableDlist table-advance table-hover"><thead></thead><tbody></tbody></table>'
 

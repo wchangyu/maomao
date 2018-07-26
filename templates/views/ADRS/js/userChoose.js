@@ -12,7 +12,12 @@
 
         {
             title:'状态',
-            data:'planStateName'
+            data:'planStateName',
+            render:function(data, type, full, meta){
+
+                return stateFlag(full.planState,data)
+
+            }
         },
         {
             title:'事件名称',
@@ -341,23 +346,23 @@
 
                     if(result.code == -2){
 
-                        _topTipBar('暂无数据！');
+                        _topTipBar('暂无数据');
 
                     }else if(result.code == -1){
 
-                        _topTipBar('异常错误！');
+                        _topTipBar('异常错误');
 
                     }else if(result.code == -3){
 
-                        _topTipBar('参数错误！');
+                        _topTipBar('参数错误');
 
                     }else if(result.code == -4){
 
-                        _topTipBar('内容已存在！');
+                        _topTipBar('内容已存在');
 
                     }else if(result.code == -6){
 
-                        _topTipBar('没有权限！');
+                        _topTipBar('没有权限');
 
                     }else if(result.code == 0){
 
@@ -425,19 +430,19 @@
 
                 if(result.code == -2){
 
-                    _topTipBar('暂时没有事件！')
+                    _topTipBar('暂时没有事件')
 
                 }else if(result.code == -1){
 
-                    _topTipBar('异常错误！')
+                    _topTipBar('异常错误')
 
                 }else if(result.code == -3){
 
-                    _topTipBar('参数错误！')
+                    _topTipBar('参数错误')
 
                 }else if(result.code == -4){
 
-                    _topTipBar('内容已存在！')
+                    _topTipBar('内容已存在')
 
                 }else if(result.code == 0){
 
@@ -510,13 +515,13 @@
         }
 
         //备注
-        str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9" style="text-align: left;text-indent: 25px;">' + d.memo + '</td></tr>'
 
-        var chooseButton = '<div style="text-align: left !important;margin-bottom: 5px;"><button class="btn green answer-button">回复用户</button></div>';
+        var chooseButton = '<div style="text-align: left !important;"><button class="btn green answer-button" style="margin:0px 0 5px 5px;">回复用户</button></div>';
 
-        var statistics = '<div style="text-align: left"><label for="">统计：</label><div style="text-align: left;display: inline-block;vertical-align: middle">聚合商数：<span class="JHSNum" style="font-weight: bold;margin-right: 5px;"></span>,聚合商下户号数：<span class="JYHS" style="font-weight: bold;margin-right: 5px;"></span>,可消减负荷量（kW）：<span class="JFH" style="font-weight: bold;margin-right: 5px;"></span><br>大用户数：<span class="DYHNum" style="font-weight: bold;margin-right: 5px;"></span>,大用户下户号数：<span class="DYHH" style="font-weight: bold;margin-right: 5px;"></span>,可消减负荷量（kW）：<span class="DFH" style="font-weight: bold;margin-right: 5px;"></span><br>总消减负荷（kW）：<span class="TOTalFH" style="font-weight: bold"></span></div></div>'
+        var statistics = '<div style="text-align: left;margin: 5px 0;padding-left: 10px;"><label for="">统计：</label><div style="text-align: left;display: inline-block;vertical-align: middle">聚合商数：<span class="JHSNum" style="font-weight: bold;margin-right: 25px;"></span>聚合商下户号数：<span class="JYHS" style="font-weight: bold;margin-right: 25px;"></span>可消减负荷量（kW）：<span class="JFH" style="font-weight: bold;margin-right: 25px;"></span><br>大用户数：<span class="DYHNum" style="font-weight: bold;margin-right: 25px;"></span>大用户下户号数：<span class="DYHH" style="font-weight: bold;margin-right: 25px;"></span>可消减负荷量（kW）：<span class="DFH" style="font-weight: bold;margin-right: 5px;"></span><br>总消减负荷（kW）：<span class="TOTalFH" style="font-weight: bold"></span></div></div>'
 
-        var answer = '<div class="answer-block" style="display: none">';
+        var answer = '<div class="answer-block" style="">';
 
         var answers = '</div>';
 
@@ -610,23 +615,23 @@
 
                 if(result.code == -2){
 
-                    _topTipBar('暂无数据！');
+                    _topTipBar('暂时没有用户');
 
                 }else if(result.code == -1){
 
-                    _topTipBar('异常错误！');
+                    _topTipBar('异常错误');
 
                 }else if(result.code == -3){
 
-                    _topTipBar('参数错误！');
+                    _topTipBar('参数错误');
 
                 }else if(result.code == -4){
 
-                    _topTipBar('内容已存在！');
+                    _topTipBar('内容已存在');
 
                 }else if(result.code == -6){
 
-                    _topTipBar('没有权限！');
+                    _topTipBar('没有权限');
 
                 }else if(result.code == 0){
 
@@ -689,6 +694,48 @@
             error:_errorFun
 
         })
+
+    }
+
+    //不同状态值对应不同颜色的小圆圈
+    function stateFlag(state,data){
+
+        if(state == 1){
+
+            //已创建
+            return '<span class="state-ball state-created"></span>' + data
+
+        }else if(state == 2){
+
+            //已发布
+            return '<span class="state-ball state-publish"></span>' + data
+
+        }else if(state == 3){
+
+            //确定用户
+            return '<span class="state-ball state-ensure-user"></span>' + data
+
+        }else if(state == 4){
+
+            //已审核
+            return '<span class="state-ball state-examine"></span>' + data
+
+        }else if(state == 5){
+
+            //下发指令
+            return '<span class="state-ball state-instruction"></span>' + data
+
+        }else if(state == 6){
+
+            //执行中
+            return '<span class="state-ball state-execution"></span>' + data
+
+        }else if(state == 7){
+
+            //执行完毕
+            return '<span class="state-ball state-end-execution"></span>' + data
+
+        }
 
     }
 
