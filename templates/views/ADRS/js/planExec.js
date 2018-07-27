@@ -35,6 +35,8 @@
 
     var _state6 = false;
 
+    var thisTr = '';
+
     /*--------------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -428,6 +430,9 @@
 
             var echart1 = echarts.init(document.getElementById(lineBlock));
 
+            //当前选中的行
+            thisDataBlock = $(this).parent().parent().next().find('.formatLeft');
+
             //////饼图
             //var pieBlock = format.find('.pie-block').attr('id');
             //
@@ -613,12 +618,12 @@
 
         var left = '<div class="formatLeft shadowEffect">' +
             '    <ul>' +
-            '        <li>参与总户数：<span id="totalHH">0</span></li>' +
-            '        <li>基线负荷（kW）：<span id="baselineNum">0</span></li>' +
-            '        <li>实时负荷（kW）：<span id="realTimeNum">0</span></li>' +
-            '        <li>消减负荷（kW）：<span id="SubtractNum">0</span></li>' +
-            '        <li>计划消减（kW）：<span id="planNum">0</span></li>' +
-            '        <li>完成比例（%）：<span id="completePer">0</span></li>' +
+            '        <li>参与总户数：<span class="totalHH">0</span></li>' +
+            '        <li>基线负荷（kW）：<span class="baselineNum">0</span></li>' +
+            '        <li>实时负荷（kW）：<span class="realTimeNum">0</span></li>' +
+            '        <li>消减负荷（kW）：<span class="SubtractNum">0</span></li>' +
+            '        <li>计划消减（kW）：<span class="planNum">0</span></li>' +
+            '        <li>完成比例（%）：<span class="completePer">0</span></li>' +
             '    </ul>' +
             '</div>';
 
@@ -703,8 +708,10 @@
 
                 if(result.code == 0){
 
+
+
                     //基线负荷赋值
-                    $('#baselineNum').html(result.jxFhVa);
+                    thisDataBlock.find('.baselineNum').html(result.jxFhVa);
 
                     //基线负荷的值
                     optionTop.xAxis.data = result.jxFhXs;
@@ -716,7 +723,7 @@
                 }else{
 
                     //基线负荷赋值
-                    $('#baselineNum').html(result.jxFhXs);
+                    thisDataBlock.find('.baselineNum').html(result.jxFhXs);
 
                     //基线负荷的值
                     optionTop.xAxis.data = [];
@@ -774,7 +781,7 @@
                 if(result.code == 0){
 
                     //实时负荷赋值
-                    $('#realTimeNum').html(result.ssFhVa);
+                    thisDataBlock.find('.realTimeNum').html(result.ssFhVa);
 
                     //基线负荷的值
                     optionTop.xAxis.data = result.ssFhXs;
@@ -786,7 +793,7 @@
                 }else{
 
                     //实时负荷赋值
-                    $('#realTimeNum').html(result.ssFhVa);
+                    thisDataBlock.find('.realTimeNum').html(result.ssFhVa);
 
                     //基线负荷的值
                     optionTop.xAxis.data = [];
@@ -837,10 +844,10 @@
                 if(result.code == 0){
 
                     //参与户数
-                    $('#totalHH').html(result.acctsNber);
+                    thisDataBlock.find('.totalHH').html(result.acctsNber);
 
                     //计划消减
-                    $('#planNum').html(result.xjFhVa);
+                    thisDataBlock.find('.planNum').html(result.xjFhVa);
 
                 }
 
@@ -910,9 +917,14 @@
             chart.setOption(optionTop,true);
 
             //消减负荷=基线负荷-实时负荷
-            var reduceLoad = Number($('#baselineNum').html()) - Number($('#realTimeNum').val());
+            var reduceLoad = Number(thisDataBlock.find('.baselineNum').html()) - Number(thisDataBlock.find('.realTimeNum').html());
 
-            $('#SubtractNum').html(reduceLoad);
+            thisDataBlock.find('.SubtractNum').html(reduceLoad.toFixed(3));
+
+            //完成比例 消减负荷/计划消减
+            var per = (Number(thisDataBlock.find('.SubtractNum').html())/Number(thisDataBlock.find('.planNum').html())) * 100;
+
+            thisDataBlock.find('.completePer').html(per.toFixed(3));
 
 
         }
