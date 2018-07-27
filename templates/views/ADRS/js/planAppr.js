@@ -642,6 +642,34 @@
 
     }
 
+    //时间比大小,第一个时间大于第二个时间
+    function timeCompare(st,et){
+
+        var stValue = st;
+
+        stValue = stValue.replace(/-/g,"/");
+
+        var etValue = et;
+
+        etValue = etValue.replace(/-/g,"/");
+
+        var stNum = new Date(Date.parse(stValue));
+
+        var etNum = new Date(Date.parse(etValue));
+
+        //结束时间必须大于结束时间
+        if(stNum < etNum){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
     return {
         init: function(){
 
