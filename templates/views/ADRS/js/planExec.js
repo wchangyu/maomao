@@ -24,6 +24,17 @@
     //存放实时返回的值
     var realObj = {};
 
+    //当前事件的状态名称
+    var _currentStateName = '';
+
+    //获取当前操作的状态名称的dom
+    var _currentStateDom = '';
+
+    //判断发送两次条件查询是否全都返回了
+    var _state5 = false;
+
+    var _state6 = false;
+
     /*--------------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -112,14 +123,39 @@
             data:'createPlanUserName'
         },
         {
+            title:'其他',
+            "targets": -1,
+            "data": null,
+            "className":'detail-button',
+            render:function(data, type, full, meta){
+
+                return '<span class="option-particulars" data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline ">详情</span>'
+
+            }
+        },
+        {
             title:'操作',
             data:'',
             className:'detail-button',
             render:function(data, type, full, meta){
 
-                return '<span class="option-particulars" data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline ">详情</span>' +
+                //判断当前时间和结束时间，如果当前时间>结束时间，那么就要显示，否则不显示
 
-                    '<span class="option-implement" data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline;margin-left: 10px;">执行</span>'
+                var nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
+
+                var endTime = moment(full.closeDate).format('YYYY-MM-DD HH:mm:ss');
+
+                if(timeCompare(endTime,nowTime)){
+
+                    return '<span class="option-button option-implement" data-id="' + full.planId + '" style="border-color: #14e399 !important;color: #14e399 !important">监控</span>' +
+
+                        '<span class="option-button option-accounting" data-id="' + full.planId + '" style="border-color: #0aa3c3 !important;color: #0aa3c3 !important">核算</span>'
+
+                }else{
+
+                    return '<span class="option-button option-implement" data-id="' + full.planId + '" style="border-color: #14e399 !important;color: #14e399 !important">监控</span>'
+
+                }
 
             }
         }
@@ -336,10 +372,8 @@
 
     var _indexNum = 0;
 
-    //点击【执行中】
+    //点击【监控】
     $('#table tbody').on('click','.option-implement',function(){
-
-        $('#theLoading').modal('show');
 
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
 
@@ -356,6 +390,12 @@
         //结束时间
         _et = $(this).parent().parent().children().eq(3).html();
 
+        //当前事件状态
+        _currentStateName = $(this).parent().parent().children().eq(0).text();
+
+        //当前事件的currentdom
+        _currentStateDom = $(this).parent().parent().children().eq(0);
+
         if ( row.child.isShown() ) {
 
             row.child.hide();
@@ -364,6 +404,11 @@
 
         }
         else {
+
+            //判断状态
+            executeState();
+
+            $('#theLoading').modal('show');
 
             row.child( formatImplement(_indexNum) ).show();
 
@@ -383,19 +428,19 @@
 
             var echart1 = echarts.init(document.getElementById(lineBlock));
 
-            ////饼图
-            var pieBlock = format.find('.pie-block').attr('id');
-
-            var echartPie = echarts.init(document.getElementById(pieBlock));
-
-            echartPie.setOption(optionPie);
-
-            //柱状图
-            var barBlock = format.find('.bar-block').attr('id');
-
-            var echartBar = echarts.init(document.getElementById(barBlock));
-
-            echartBar.setOption(optionBar);
+            //////饼图
+            //var pieBlock = format.find('.pie-block').attr('id');
+            //
+            //var echartPie = echarts.init(document.getElementById(pieBlock));
+            //
+            //echartPie.setOption(optionPie);
+            //
+            ////柱状图
+            //var barBlock = format.find('.bar-block').attr('id');
+            //
+            //var echartBar = echarts.init(document.getElementById(barBlock));
+            //
+            //echartBar.setOption(optionBar);
 
             //获取基线数据
             baselineLoad(echart1);
@@ -425,7 +470,18 @@
     //获取所有产品
     function conditionSelect(){
 
+        _allData.length = 0;
+
         $('#theLoading').modal('show');
+
+        //调状态为5
+        stateSelect(5)
+
+        //调状态为6
+        stateSelect(6)
+    }
+
+    function stateSelect(state){
 
         var  prm = {
 
@@ -436,7 +492,7 @@
             //基线
             baselineId:0,
             //状态
-            state:5
+            state:state
 
         }
 
@@ -452,42 +508,19 @@
 
             success:function(result){
 
-                _allData.length = 0;
-
                 $('#theLoading').modal('hide');
 
-                if($('.modal-backdrop').length > 0){
+                if(state == 5){
 
-                    $('div').remove('.modal-backdrop');
+                    _state5 = true;
 
-                    $('#theLoading').hide();
+                }else if(state == 6){
+
+                    _state6 = true;
+
                 }
 
-                var arr = [];
-
-                if(result.code == -2){
-
-                    _topTipBar('暂时没有执行中的事件')
-
-                }else if(result.code == -1){
-
-                    _topTipBar('异常错误')
-
-                }else if(result.code == -3){
-
-                    _topTipBar('参数错误')
-
-                }else if(result.code == -4){
-
-                    _topTipBar('内容已存在')
-
-                }else if(result.code == -6){
-
-                    _topTipBar('抱歉，您没有操作权限')
-
-                }else if(result.code == 0){
-
-                    arr = result.plans;
+                if(result.code == 0){
 
                     for(var i=0;i<result.plans.length;i++){
 
@@ -497,14 +530,21 @@
 
                 }
 
-                _jumpNow($('#table'),arr);
+                if(_state5 && _state6){
+
+                    _jumpNow($('#table'),_allData.sort(function(a,b){
+
+                        return b-a
+
+                    }));
+
+                }
 
             },
 
             error:_errorFun
 
         })
-
 
     }
 
@@ -572,32 +612,14 @@
         var block = '<div style="background: #f9f9f9 !important;">'
 
         var left = '<div class="formatLeft shadowEffect">' +
-
-            '<div style="font-size: 20px;line-height: 40px;text-align: left;padding-left: 5px;">' +
-            '事件执行' +
-            '<div style="float: right;font-size: 14px;line-height: 38px;">' +
-            '参与总户数：' +
-            '<span id="totalHH" style="margin-right: 20px;font-size: 16px;font-weight: bold">0</span>' +
-            '</div>' +
-            '</div>' +
-            '<ul class="execute">' +
-            '<li>' +
-            '<p id="baselineNum">0</p>' +
-            '<span>基线负荷（kw）</span>' +
-            '</li>' +
-            '<li>' +
-            '<p id="realTimeNum">0</p>' +
-            '<span>实时负荷（kw）</span>' +
-            '</li>' +
-            '<li>' +
-            '<p id="SubtractNum">0</p>' +
-            '<span>消减负荷（kw）</span>' +
-            '</li>' +
-            '<li>' +
-            '<p id="planNum">0</p>' +
-            '<span>计划负荷（kw）</span>' +
-            '</li>' +
-            '</ul>' +
+            '    <ul>' +
+            '        <li>参与总户数：<span id="totalHH">0</span></li>' +
+            '        <li>基线负荷（kW）：<span id="baselineNum">0</span></li>' +
+            '        <li>实时负荷（kW）：<span id="realTimeNum">0</span></li>' +
+            '        <li>消减负荷（kW）：<span id="SubtractNum">0</span></li>' +
+            '        <li>计划消减（kW）：<span id="planNum">0</span></li>' +
+            '        <li>完成比例（%）：<span id="completePer">0</span></li>' +
+            '    </ul>' +
             '</div>';
 
         var right = '<div style="margin-left: 320px;"><p style="text-align:right;padding-top: 10px;background: #ffffff;margin: 0;padding-right:20px;padding-bottom: 10px;">实时时间：<span id="realTime"></span></p>'
@@ -614,7 +636,7 @@
 
         var clear = '<div class="clearfix"></div>';
 
-        return block + left + right + rightTop + rights + rightBottomL + rightBottomR + clear + blocks;
+        return block + left + right + rightTop + rights  + clear + blocks;
 
     }
 
@@ -894,6 +916,79 @@
 
 
         }
+
+    }
+
+    //时间比大小,第一个时间大于第二个时间
+    function timeCompare(st,et){
+
+        var stValue = st;
+
+        stValue = stValue.replace(/-/g,"/");
+
+        var etValue = et;
+
+        etValue = etValue.replace(/-/g,"/");
+
+        var stNum = new Date(Date.parse(stValue));
+
+        var etNum = new Date(Date.parse(etValue));
+
+        //结束时间必须大于结束时间
+        if(stNum < etNum){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
+    //判断当前事件的执行状态
+    function executeState(){
+
+        var prm = {
+
+            //事件Id
+            planId:_thisPlanId,
+            //用户角色
+            userRole:sessionStorage.ADRS_UserRole,
+            //事件开始时间
+            startDate:_st,
+            //事件结束时间
+            closeDate:_et
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlanExec/CreateDRPlanExecState',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                if(result.planStateName == _currentStateName){
+
+                    return false;
+
+                }else{
+
+                    _currentStateDom.html(result.planStateName);
+
+                }
+
+            },
+
+            error:_errorFun1
+
+        })
 
     }
 

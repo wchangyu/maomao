@@ -89,7 +89,7 @@ var Account = function(){
             0,
             1
         ],
-        "aoColumnDefs": [ { "orderable": false, "targets": [ 1,2,3,4,5] }]
+        "aoColumnDefs": [ { "orderable": false, "targets": [ 1,2,3,4,5,6,7] }]
     });
 
     var districtCol = [
