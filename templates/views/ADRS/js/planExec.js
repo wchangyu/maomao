@@ -169,7 +169,8 @@
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": false,
-        "ordering": false,
+        "ordering": true,
+        "sorting":[0,'desc'],
         "bProcessing":true,
         "iDisplayLength":50,//默认每页显示的条数
         'language': {
@@ -193,7 +194,8 @@
             text: '导出',
             className:'saveAs hiddenButton'
         },
-        "columns": col
+        "columns": col,
+        "aoColumnDefs": [ { "orderable": false, "targets": [ 1,2,3,4,5,6,7,8,9,10,11] }]
     });
 
     conditionSelect();
@@ -447,21 +449,132 @@
             //
             //echartBar.setOption(optionBar);
 
-            //获取基线数据
-            baselineLoad(echart1);
+            //如果是执行中，调三个接口，如果是一个，初始化
 
             //获取实时数据（十分钟刷新一次）
 
-            realtimeLoad(echart1);
-
-            setInterval(function(){
+            if(_currentStateDom.text() == '执行中'){
 
                 realtimeLoad(echart1);
 
-            },1000*60*10)
+                setInterval(function(){
 
-            //参与户数
-            joinInHH();
+                    realtimeLoad(echart1);
+
+                },1000*60*10)
+
+                //获取基线数据
+                baselineLoad(echart1);
+
+                //参与户数
+                joinInHH();
+
+            }else{
+
+
+
+                //调基线接口
+                var prm = {
+
+                    //事件Id
+                    planId:_thisPlanId,
+                    //事件开始时间
+                    startDate:_st,
+                    //事件结束时间
+                    closeDate:_et
+                }
+
+                $.ajax({
+
+                    type:'post',
+
+                    url:sessionStorage.apiUrlPrefix + 'DRPlanExec/GetHistoryJXFHsByPlanId',
+
+                    data:prm,
+
+                    timeout:_theTimes,
+
+                    success:function(result){
+
+                        $('#theLoading').modal('hide');
+
+                        if(result.code == 0){
+
+                            //基线负荷赋值
+                            thisDataBlock.find('.baselineNum').html(result.jxFhVa);
+
+                            //基线负荷的值
+                            optionTop.xAxis.data = result.jxFhXs;
+
+                            optionTop.series[1].data = result.jxFhYs;
+
+                            optionTop.series[0].data = [];
+
+                            optionTop.series[2].data = [];
+
+                            echart1.setOption(optionTop,true);
+
+                        }else{
+
+                            //基线负荷赋值
+                            thisDataBlock.find('.baselineNum').html(result.jxFhXs);
+
+                            //基线负荷的值
+                            optionTop.xAxis.data = [];
+
+                            optionTop.series[1].data = [];
+
+                            optionTop.series[0].data = [];
+
+                            optionTop.series[2].data = [];
+
+                            echart1.setOption(optionTop,true);
+
+                        }
+
+                    },
+
+                    error:_errorFun
+
+                })
+
+                //调户数接口
+                var prm1 = {
+
+                    //事件Id
+                    planId:_thisPlanId
+
+                }
+
+                $.ajax({
+
+                    type:'post',
+
+                    url:sessionStorage.apiUrlPrefix + 'DRPlanExec/GetAcctsNberAndXJFhVaByPlanId',
+
+                    data:prm1,
+
+                    timeout:_theTimes,
+
+                    success:function(result){
+
+                        if(result.code == 0){
+
+                            //参与户数
+                            thisDataBlock.find('.totalHH').html(result.acctsNber);
+
+                            //计划消减
+                            thisDataBlock.find('.planNum').html(result.xjFhVa);
+
+                        }
+
+                    },
+
+                    error:_errorFun
+
+                })
+
+            }
 
             tr.addClass('shown');
 
@@ -618,12 +731,12 @@
 
         var left = '<div class="formatLeft shadowEffect">' +
             '    <ul>' +
-            '        <li>参与总户数：<span class="totalHH">0</span></li>' +
-            '        <li>基线负荷（kW）：<span class="baselineNum">0</span></li>' +
-            '        <li>实时负荷（kW）：<span class="realTimeNum">0</span></li>' +
-            '        <li>消减负荷（kW）：<span class="SubtractNum">0</span></li>' +
-            '        <li>计划消减（kW）：<span class="planNum">0</span></li>' +
-            '        <li>完成比例（%）：<span class="completePer">0</span></li>' +
+            '        <li>参与总户数：<span class="totalHH">-</span></li>' +
+            '        <li>基线负荷（kW）：<span class="baselineNum">-</span></li>' +
+            '        <li>实时负荷（kW）：<span class="realTimeNum">-</span></li>' +
+            '        <li>消减负荷（kW）：<span class="SubtractNum">-</span></li>' +
+            '        <li>计划消减（kW）：<span class="planNum">-</span></li>' +
+            '        <li>完成比例（%）：<span class="completePer">-</span></li>' +
             '    </ul>' +
             '</div>';
 
@@ -862,9 +975,10 @@
     //消减负荷=基线负荷的每一个值-实时负荷的每一个值
     function BaseTimeCallback(chart){
 
-        if(_baselineIsComplete && _realtimeIsComolete){
+        $('#theLoading').modal('hide');
 
-            $('#theLoading').modal('hide');
+        //两个接口都调了
+        if(_baselineIsComplete && _realtimeIsComolete){
 
             //存放消减负荷的值
 
@@ -982,6 +1096,8 @@
 
             data:prm,
 
+            async:false,
+
             timeout:_theTimes,
 
             success:function(result){
@@ -995,6 +1111,8 @@
                     _currentStateDom.html(result.planStateName);
 
                 }
+
+
 
             },
 
