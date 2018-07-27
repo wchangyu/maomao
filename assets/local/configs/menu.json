@@ -166,6 +166,14 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "执行完毕": {
+        "type": "0",
+        "content": "执行完毕",
+        "uri": "../ADRS/execFinish.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   },

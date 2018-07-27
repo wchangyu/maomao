@@ -18,6 +18,9 @@
     //标记实时负荷是否返回数据成功
     var _realtimeIsComolete = false;
 
+    //户数是否返回数据成功
+    var _hsIsComplete = false;
+
     //存放基线返回的值
     var baseObj = {};
 
@@ -35,7 +38,14 @@
 
     var _state6 = false;
 
-    var thisTr = '';
+    //核算基线是否执行完成
+    var _baselineFlag = false;
+
+    //核算实时负荷是否执行完成
+    var _realtimeFlag = false;
+
+    //参与户数
+    var _joinFlag = false;
 
     /*--------------------------------------表格初始化-------------------------------------*/
 
@@ -200,6 +210,32 @@
 
     conditionSelect();
 
+    //核算表格
+    var accountCol = [
+
+        {
+            title:'户号',
+            data:''
+        },
+        {
+            title:'实际消减负荷（kW）',
+            data:''
+        },
+        {
+            title:'参与时长（h）',
+            data:''
+        },
+        {
+            title:'是否达标',
+            data:''
+        },
+        {
+            title:'总补贴',
+            data:''
+        }
+
+    ]
+
     /*---------------------------------------echart---------------------------------------*/
 
     //折线
@@ -233,102 +269,6 @@
                 name:'消减负荷',
                 type:'line',
                 data:[]
-            }
-        ]
-    };
-
-    //饼
-    var optionPie = {
-        color:['#7cb5ed','#424248'],
-        title : {
-            text: '参与用户统计',
-            x:'center'
-        },
-        tooltip : {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-            orient: 'horizontal',
-            top: '80%',
-            data: ['直接访问','邮件营销']
-        },
-        series : [
-            {
-                name: '访问来源',
-                type: 'pie',
-                radius : '55%',
-                center: ['50%', '45%'],
-                data:[
-                    {value:335, name:'直接访问'},
-                    {value:310, name:'邮件营销'}
-                ],
-                itemStyle: {
-                    emphasis: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }
-        ]
-    };
-
-    //柱状
-    var optionBar = {
-        color:['#7cb5ed','#424248','#90ed7b'],
-        tooltip : {
-            trigger: 'axis'
-        },
-        legend: {
-            data:['蒸发量','降水量','散热量']
-        },
-        toolbox: {
-            show : true,
-            feature : {
-                dataView : {show: true, readOnly: false},
-                magicType : {show: true, type: ['line', 'bar']},
-                restore : {show: true},
-                saveAsImage : {show: true}
-            }
-        },
-        calculable : true,
-        xAxis : [
-            {
-                type : 'category',
-                data : ['1月']
-            }
-        ],
-        yAxis : [
-            {
-                show:true,
-                type : 'value',
-                axisTick:{
-                    show:false
-                },
-                axisLine:{
-                    show:false
-                }
-            }
-        ],
-        series : [
-            {
-                name:'蒸发量',
-                type:'bar',
-                data:[2.0],
-                barWidth:'80'
-            },
-            {
-                name:'降水量',
-                type:'bar',
-                data:[2.6],
-                barWidth:'80'
-            },
-            {
-                name:'散热量',
-                type:'bar',
-                data:[1.6],
-                barWidth:'80'
             }
         ]
     };
@@ -435,22 +375,6 @@
             //当前选中的行
             thisDataBlock = $(this).parent().parent().next().find('.formatLeft');
 
-            //////饼图
-            //var pieBlock = format.find('.pie-block').attr('id');
-            //
-            //var echartPie = echarts.init(document.getElementById(pieBlock));
-            //
-            //echartPie.setOption(optionPie);
-            //
-            ////柱状图
-            //var barBlock = format.find('.bar-block').attr('id');
-            //
-            //var echartBar = echarts.init(document.getElementById(barBlock));
-            //
-            //echartBar.setOption(optionBar);
-
-            //如果是执行中，调三个接口，如果是一个，初始化
-
             //获取实时数据（十分钟刷新一次）
 
             if(_currentStateDom.text() == '执行中'){
@@ -470,8 +394,6 @@
                 joinInHH();
 
             }else{
-
-
 
                 //调基线接口
                 var prm = {
@@ -580,6 +502,91 @@
 
             _indexNum ++;
         }
+
+    })
+
+    //点击【核算】
+    $('#table tbody').on('click','.option-accounting',function(){
+
+        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+
+        var row = _table.row( tr );
+
+        var planId = $(this).attr('data-id');
+
+        //id
+        _thisPlanId = planId;
+
+        //开始时间
+        _st = $(this).parent().parent().children().eq(2).html();
+
+        //结束时间
+        _et = $(this).parent().parent().children().eq(3).html();
+
+        //当前事件状态
+        _currentStateName = $(this).parent().parent().children().eq(0).text();
+
+        //当前事件的currentdom
+        _currentStateDom = $(this).parent().parent().children().eq(0);
+
+        if ( row.child.isShown() ) {
+
+            row.child.hide();
+
+            tr.removeClass('shown');
+
+        }else{
+
+            row.child( accountFormat() ).show();
+
+            var table = $(this).parent().parent().next().find('.innerTable');
+
+            //初始化表格
+            _tableInit(table,accountCol,2,true,'','','','',10);
+
+            //左边列表
+            var list = $(this).parent().parent().next().find('.formatLeft');
+
+            tr.addClass('shown');
+
+        }
+
+
+    })
+
+    //【去核算】
+    $('#table tbody').on('click','.answer-button',function(){
+
+        $('#theLoading').modal('show');
+
+        var prm = {
+
+            //事件Id
+            planId:_thisPlanId,
+            //用户角色
+            userRole:sessionStorage.ADRS_UserRole
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRExecFinish/CreateDRPlanFinishState',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+            },
+
+            error:_errorFun
+
+        })
 
     })
 
@@ -792,7 +799,7 @@
 
     }
 
-    //获取基线负荷
+    //获取基线负荷（echart）
     function baselineLoad(chart){
 
         var prm = {
@@ -820,8 +827,6 @@
                 _baselineIsComplete = true;
 
                 if(result.code == 0){
-
-
 
                     //基线负荷赋值
                     thisDataBlock.find('.baselineNum').html(result.jxFhVa);
@@ -862,7 +867,7 @@
 
     }
 
-    //获取实时负荷
+    //获取实时负荷(echart)
     function realtimeLoad(chart){
 
         var prm = {
@@ -1121,6 +1126,59 @@
         })
 
     }
+
+    //核算按钮
+    function accountFormat(){
+
+        var block = '<div style="background: #f9f9f9 !important;position: relative">'
+
+        var left = '<div class="formatLeft shadowEffect" style="position: absolute;top: 0;left: 0;">' +
+            '    <ul>' +
+            '        <li>参与总户数：<span class="totalHH">-</span></li>' +
+            '        <li>基线负荷（kW）：<span class="baselineNum">-</span></li>' +
+            '        <li>实时负荷（kW）：<span class="realTimeNum">-</span></li>' +
+            '        <li>消减负荷（kW）：<span class="SubtractNum">-</span></li>' +
+            '        <li>计划消减（kW）：<span class="planNum">-</span></li>' +
+            '        <li>完成比例（%）：<span class="completePer">-</span></li>' +
+            '        <li>是否达标：<span class="isStandard">-</span></li>' +
+            '        <li>实际消减负荷(kW)：<span class="realSubtractNum">-</span></li>' +
+            '        <li>总补贴金额(元)：<span class="subsidyAmount">-</span></li>' +
+            '    </ul>' +
+            '</div>';
+
+        var right = '<div style="margin-left: 320px;height: 400px;">'
+
+        var rightTop = '<table class="table innerTable  table-striped shadowEffect table-advance table-hover" cellspacing="0" width="100%"></table>';
+
+        var rights = '</div>'
+
+        var blocks = '</div>'
+
+        var clear = '<div class="clearfix"></div>';
+
+        var chooseButton = '<div style="text-align: left !important;"><button class="btn green answer-button" style="margin: 5px 0 5px 5px">执行完毕，去核算</button></div>';
+
+        return block + left + right + rightTop + rights  + clear + chooseButton +  blocks;
+
+    }
+
+    //获取基线、实时数据、户数已完成的回调函数
+    function BaselineRealHSCallBack(){
+
+        //如果三个都获取到数据了，调用，并且计算消减负荷，完成比例
+
+        //如果实时数据没有获取到数据，那么消减负荷和完成比例都不能计算，
+
+        //如果基线负荷没有获取到数据，那么，消减负荷和完成比例也不能计算
+
+        //如果户数没有获取到数据，那么，完成比例不能计算
+
+        //消减负荷=基线负荷-实时负荷
+
+        //完成比例=消减负荷/计划消减
+
+    }
+
 
     return {
         init: function () {

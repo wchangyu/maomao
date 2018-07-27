@@ -165,19 +165,30 @@
             className:'inputValue',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="input-value input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
+                return '<input type="text" readonly style="background: #ffffff" class="input-value input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
 
             }
         },
         {
-            title:'户号',
+            title:'户号名称',
             data:'HHMC',
             className:'inputValue',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="input-chinese input-value input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
+                return '<input type="text" readonly style="background: #ffffff" class="input-chinese input-value input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
 
             }
+        },
+        {
+            title:'套餐',
+            data:'',
+            className:'TC',
+            render:function(data, type, full, meta){
+
+                return '<select class="setmeal table-group-action-input form-control"></select>'
+
+            }
+
         },
         {
             title:'此次消减负荷量',
@@ -251,7 +262,7 @@
             className:'inputValue hiddenButton',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="input-value input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
+                return '<input type="text" class="input-value input-required table-group-action-input form-control" placeholder="必填字段" readonly style="background: #ffffff"><span class="error-tip"></span>'
 
             }
         },
@@ -261,9 +272,20 @@
             className:'inputValue',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="input-chinese input-value input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
+                return '<input type="text" readonly style="background: #ffffff" class="input-chinese input-value input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
 
             }
+        },
+        {
+            title:'套餐',
+            data:'',
+            className:'TC',
+            render:function(data, type, full, meta){
+
+                return '<select class="setmeal table-group-action-input form-control"></select>'
+
+            }
+
         },
         {
             title:'此次消减负荷量',
@@ -413,7 +435,7 @@
     })
 
     //点击【详情】
-    $('#table tbody').on('click', '.detail-button', function () {
+    $('#table tbody').on('click', '.detail-button', function (){
 
         //存放当前企业所绑定户号的数组
         var thisOBJ = {};
@@ -460,11 +482,59 @@
 
                 if(_eprType == 4){
 
+                    //获取到的套餐数组
+                    DCol[3] = {
+
+                        title:'套餐',
+                        className:'TC',
+                        render:function(data, type, full, meta){
+
+                            var str = '<select class="table-setmeal table-group-action-input form-control">';
+
+                            for(var i=0;i<thisOBJ.librarys.length;i++){
+
+                                str += '<option value="' + thisOBJ.librarys[i].id + '">' + thisOBJ.librarys[i].name + '</option>>';
+
+                            }
+
+                            str += '</select>';
+
+                            return str
+
+                        }
+
+                    }
+
                     _tableInit(innerTable,DCol,2,true,'','',true,'',10);
 
                 }else if(_eprType == 3){
 
+                    //获取到的套餐数组
+                    JCol[3] = {
+
+                        title:'套餐',
+                        className:'TC',
+                        render:function(data, type, full, meta){
+
+                            var str = '<select class="table-setmeal table-group-action-input form-control">';
+
+                            for(var i=0;i<thisOBJ.librarys.length;i++){
+
+                                str += '<option value="' + thisOBJ.librarys[i].id + '">' + thisOBJ.librarys[i].name + '</option>>';
+
+                            }
+
+                            str += '</select>';
+
+
+                            return str
+
+                        }
+
+                    }
+
                     _tableInit(innerTable,JCol,2,true,'','',true,'',10);
+
 
                 }
 
@@ -501,7 +571,6 @@
         var T = $(this).parents('td').find('.innerTable').DataTable();
 
         T.row.add(['','','','']).draw();
-
 
         $('.switch input').bootstrapSwitch({
 
@@ -559,7 +628,7 @@
                         if(i==2){
 
                             //判断提示消息是否还在
-                            var o = inputs.eq(i).next().css('display')
+                            var o = inputs.eq(i).next().css('display');
 
                             if(o != 'none'){
 
@@ -634,9 +703,15 @@
 
             }
 
+            //switch不可操作
             var switchButton = $(this).parent().parent('tr').find('.switchButton');
 
             switchButton.bootstrapSwitch('disabled',true);
+
+            //select也不可操作
+            var select = $(this).parent().parent('tr').find('.table-setmeal');
+
+            select.attr('disabled',true);
 
             $(this).html('编辑').removeClass('option-save').addClass('option-edit');
 
@@ -658,15 +733,15 @@
 
             if(i == tds.length-1){
 
-                var str = '<input class="input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
+                var str = '<input class="input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip" style="display: none">';
 
             }else if( i == 1 ){
 
-                var str = '<input class="input-required input-chinese input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
+                var str = '<input class="input-required input-chinese input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip" style="display: none">';
 
             }else{
 
-                var str = '<input class="input-required input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
+                var str = '<input class="input-required input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip" style="display: none">';
 
             }
 
@@ -676,10 +751,15 @@
 
         $(this).html('保存').removeClass('option-edit').addClass('option-save');
 
+        //switch可操作
         var switchButton = $(this).parent().parent('tr').find('.switchButton');
 
         switchButton.bootstrapSwitch('disabled',false);
 
+        //select可操作
+        var select = $(this).parent().parent('tr').find('.table-setmeal');
+
+        select.attr('disabled',false);
 
     })
 
@@ -719,7 +799,7 @@
 
                     //再判断消减负荷的数量
 
-                    if( $(this).parent('td').index() == 3 ){
+                    if( $(this).parent('td').index() == 4 ){
 
                         //首先判断是否在自己的签署容量之内
                         var maxCapacity = $(this).parent().parent().children().eq(0).children().attr('data-capacity');
@@ -741,17 +821,17 @@
 
                             for(var i=0;i<loadTr.length;i++){
 
-                                var typeFlag = loadTr.eq(i).children('td').eq(3).children('input').length;
+                                var typeFlag = loadTr.eq(i).children('td').eq(4).children('input').length;
 
                                 var num = 0;
 
                                 if(typeFlag == 0){
 
-                                    num = Number(loadTr.eq(i).children('td').eq(3).children().html());
+                                    num = Number(loadTr.eq(i).children('td').eq(4).children().html());
 
                                 }else{
 
-                                    num = Number(loadTr.eq(i).children('td').eq(3).children().val());
+                                    num = Number(loadTr.eq(i).children('td').eq(4).children().val());
 
                                 }
 
@@ -924,12 +1004,14 @@
 
                         //户号
                         obj.acctId = $(p).children().eq(1).find('.input-value').html();
-                        //此次消减负荷量 ,
-                        obj.reduceLoad = $(p).children().eq(3).find('.input-value').html();
+                        //此次消减负荷量,
+                        obj.reduceLoad = $(p).children().eq(4).find('.input-value').html();
+                        //套餐
+                        obj.libraryId = $(p).children().eq(3).find('select').val();
                         //isAuto
-                        obj.isAuto = $(p).children().eq(4).find('input').val()
+                        obj.isAuto = $(p).children().eq(5).find('input').val();
                         //memo
-                        obj.memo = $(p).children().eq(5).find('.input-value').html();
+                        obj.memo = $(p).children().eq(6).find('.input-value').html();
 
                         arr.push(obj);
 
@@ -966,16 +1048,17 @@
                     //此次消减负荷量 ,
                     obj.reduceLoad = $(p).children().eq(4).find('.input-value').html();
                     //参与时长
-                    obj.partakeHourlength = $(p).children().eq(3).find('.input-value').html();
+                    obj.partakeHourlength = $(p).children().eq(5).find('.input-value').html();
+                    //套餐
+                    obj.libraryId = $(p).children().eq(3).find('select').val();
                     //isAuto
-                    obj.isAuto = $(p).children().eq(5).find('input').val()
+                    obj.isAuto = $(p).children().eq(6).find('input').val()
                     //memo
-                    obj.memo = $(p).children().eq(6).find('.input-value').html();
+                    obj.memo = $(p).children().eq(7).find('.input-value').html();
                     //设备
                     obj.respbabms = [];
 
                     arr.push(obj);
-
 
                 }
 
@@ -1180,6 +1263,11 @@
 
             switchButton.bootstrapSwitch('disabled',true);
 
+            //select也不可操作
+            var select = $(this).parent().parent('tr').find('.table-setmeal');
+
+            select.attr('disabled',true);
+
             $(this).html('编辑').removeClass('option-save-1').addClass('option-edit-1');
 
         }
@@ -1200,15 +1288,15 @@
 
             if(i == tds.length-1){
 
-                var str = '<input class="input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
+                var str = '<input class="input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip" style="display: none;">';
 
             }else if( i == 1 ){
 
-                var str = '<input class="input-required input-chinese input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
+                var str = '<input class="input-required input-chinese input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip" style="display: none;">';
 
             }else{
 
-                var str = '<input class="input-required input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip">';
+                var str = '<input class="input-required input-value table-group-action-input form-control" value="' + tds.eq(i).children('.input-value').html() +'"><span class="error-tip" style="display: none;">';
 
             }
 
@@ -1221,6 +1309,11 @@
         var switchButton = $(this).parent().parent('tr').find('.switchButton');
 
         switchButton.bootstrapSwitch('disabled',false);
+
+        //select也不可操作
+        var select = $(this).parent().parent('tr').find('.table-setmeal');
+
+        select.attr('disabled',false);
 
     })
 
