@@ -37,6 +37,12 @@
 
 /*条件选择样式*/
 
+.ADRS-condition{
+
+	margin-bottom: 6px !important;
+
+}
+
 .ADRS-condition li{
 
 	display: inline-block;
