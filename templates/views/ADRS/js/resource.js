@@ -19,6 +19,11 @@
 
     var col=[
         {
+            title:'所属区域',
+            data:'districtName',
+            name:'name'
+        },
+        {
             title:'所属户号',
             data:'acctNt',
             name:'name'
@@ -133,7 +138,7 @@
             'name:name',
             0
         ],
-        "aoColumnDefs": [ { "orderable": false, "targets": [ 1,2,3,4,5,6,7,8,9,10,11] }]
+        "aoColumnDefs": [ { "orderable": false, "targets": [ 1,2,3,4,5,6,7,8,9,10,11,12] }]
     });
 
     //户号

@@ -105,6 +105,9 @@
     //基线数据加载
     baselineData();
 
+    //记录当前区域下的户号和资源数据
+    var _HRArr = [];
+
     /*-----------------------------------表格初始化-------------------------------------*/
 
     var col=[
@@ -364,6 +367,22 @@
 
     _tableInit($('#set-meal-table'),mealCol,2,true,'','','','');
 
+    //根据区域获取资源和户号
+    var HRCol = [
+
+        {
+            title:'户号',
+            data:'acctNt'
+        },
+        {
+            title:'资源',
+            data:'name'
+        }
+
+    ]
+
+    _tableInit($('#HHResTable'),HRCol,2,true,'','','','','',true);
+
     /*-----------------------------------创建表单验证-------------------------------------*/
 
     $('#commentForm').validate({
@@ -500,6 +519,9 @@
         //数据
         districtData();
 
+        //初始化
+        _HRArr = [];
+
     })
 
     //区域条件选择【查询】
@@ -509,7 +531,7 @@
 
     })
 
-    //选择基线【tr】
+    //选择区域【tr】
     $('#district-table tbody').on('click','tr',function(){
 
         if($(this).hasClass('tables-hover')){
@@ -534,20 +556,75 @@
 
         }
 
+        var id = $(this).find('.checker').attr('data-id')
+
+        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+
+        var table1 = $(this).parents('table').DataTable();
+
+        var row = table1.row( tr );
+
+        if ( row.child.isShown() ) {
+
+            row.child.hide();
+
+            tr.removeClass('shown');
+
+        }
+        else {
+
+            row.child( HRData()).show();
+
+            var innerTable = $(this).next().find('.table');
+
+            var HHDom = $(this).next().find('.eprHH');
+
+            var ResDom = $(this).next().find('.eprRes');
+
+            //表格初始化
+            _tableInit(innerTable,HRCol,2,true,'','','','','',true);
+
+            //点击tr显示户号
+            HHResFormat(id,innerTable,HHDom,ResDom);
+
+            tr.addClass('shown');
+        }
+
     })
 
     //选择区域【选择】
     $('#district-Modal').on('click','.btn-primary',function(){
 
-        var nowSelected = $('#district-table tbody').find('.tables-hover');
 
-        _thisDistrict = nowSelected.children().eq(0).children('.checker').attr('data-id');
+        if(_HRArr.length != 0){
 
-        var name = nowSelected.children().eq(1).html();
+            var nowSelected = $('#district-table tbody').find('.tables-hover');
 
-        $('#district').val(name);
+            _thisDistrict = nowSelected.children().eq(0).children('.checker').attr('data-id');
 
-        $('#district-Modal').modal('hide');
+            var name = nowSelected.children().eq(1).html();
+
+            $('#district').val(name);
+
+            _datasTable($('#HHResTable'),_HRArr);
+
+            //户数
+            $('#HHNum').html(_HRArr.length);
+
+            //资源
+            $('#ResNum').html(_HRArr.length);
+
+            $('.HHRs-block').show();
+
+            $('#district-Modal').modal('hide');
+
+        }else{
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'当前选中的区域没有绑定户号和设备，请重新选择','')
+
+        }
+
+
 
     })
 
@@ -891,8 +968,6 @@
 
                     }
 
-
-
                 }
 
             }else{
@@ -905,8 +980,19 @@
 
                         $('#tip').hide();
 
-                        //验证通过
-                        fun();
+                        //验证当前区域是否绑定了设备和资源
+                        if(_HRArr.length == 0){
+
+                            $('#theLoading').modal('hide');
+
+                            topTipBar('当前选中的区域没有绑定户号和设备，请重新选择!')
+
+                        }else{
+
+                            //验证通过
+                            fun();
+
+                        }
 
                     }else{
 
@@ -1188,6 +1274,98 @@
         $('#tip').find('i').after('<span style="margin-left: 20px;">' + str + '</span>');
 
         $('#tip').show();
+
+    }
+
+    //显示户号和资源
+    function HHResFormat(id,innerTable,HHDom,ResDom){
+
+        _HRArr = [];
+
+        $('#theLoading').modal('show');
+
+        //获取当前选中的区域是否有户号和resource
+        var prm = {
+
+            districtId:id
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlanMade/GetAcctResDsByDistrictId',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                var arr = [];
+
+                if(result.code == 0){
+
+                    arr = result.acctRs;
+
+                    for(var i=0;i<result.acctRs.length;i++){
+
+                        _HRArr.push(result.acctRs[i]);
+
+                    }
+
+                }if(result.code == -2){
+
+                    console.log('暂时没有户号资源数据');
+
+                }else if(result.code == -1){
+
+                    conosle.log('异常错误');
+
+                }else if(result.code == -3){
+
+                    console.log('参数错误');
+
+                }else if(result.code == -4){
+
+                    console.log('内容已存在');
+
+                }else if(result.code == -6){
+
+                    console.log('抱歉，您没有操作权限');
+
+                }
+
+                _jumpNow(innerTable,arr);
+
+                HHDom.html(arr.length);
+
+                ResDom.html(arr.length);
+
+            },
+
+            error:_errorFun1
+
+        })
+
+    }
+
+    //显示户号，资源
+    function HRData(){
+
+        var tip = '<div style="text-align: left;line-height: 30px;text-indent: 20px;">当前区域下共有<span class="eprHH"></span>户号、<span class="eprRes"></span>资源</div>'
+
+        var table = '<table class="table table-striped  table-advance table-hover"></table>'
+
+        //最外边的框
+        var block = '<div style="border: 1px solid #68a1fd;">';
+
+        var blocks = '</div>';
+
+        return block + tip + table + blocks;
 
     }
 

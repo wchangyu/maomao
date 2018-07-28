@@ -213,7 +213,7 @@
                     //默认截至日期(开始时间-12个小时)
                     var byTime = moment(result.plan.startDate).subtract(0.5,'day').format('YYYY-MM-DD HH:mm:ss');
 
-                    var start = moment(result.plan.createDate).format('YYYY-MM-DD HH:mm:ss');
+                    var start = moment(result.plan.startDate).format('YYYY-MM-DD HH:mm:ss');
 
                     _thisPlanSt = moment(result.plan.startDate).format('YYYY-MM-DD HH:mm:ss');
 

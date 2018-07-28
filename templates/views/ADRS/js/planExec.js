@@ -582,6 +582,33 @@
 
                 $('#theLoading').modal('hide');
 
+                if(result.code == 0){
+
+                    //跳转到执行完毕页面
+                    window.location.href = 'execFinish.html'
+
+                }else if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'暂时没有需要审核的事件','');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'异常错误','');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'参数错误','');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'内容已存在','');
+
+                }else if(result.code == -6){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'抱歉，您没有审核的权限','');
+
+                }
+
             },
 
             error:_errorFun
@@ -826,6 +853,10 @@
 
                 _baselineIsComplete = true;
 
+                baseObj.x = [];
+
+                baseObj.y = [];
+
                 if(result.code == 0){
 
                     //基线负荷赋值
@@ -837,6 +868,11 @@
                     optionTop.series[1].data = result.jxFhYs;
 
                     chart.setOption(optionTop,true);
+
+                    baseObj.x = result.jxFhXs;
+
+                    baseObj.y = result.jxFhYs;
+
 
                 }else{
 
@@ -851,10 +887,6 @@
                     chart.setOption(optionTop,true);
 
                 }
-
-                baseObj.x = result.jxFhXs;
-
-                baseObj.y = result.jxFhYs;
 
                 BaseTimeCallback(chart);
 
@@ -896,6 +928,10 @@
 
                 _realtimeIsComolete = true;
 
+                realObj.x = [];
+
+                realObj.y = [];
+
                 if(result.code == 0){
 
                     //实时负荷赋值
@@ -907,6 +943,10 @@
                     optionTop.series[0].data = result.ssFhYs;
 
                     chart.setOption(optionTop,true);
+
+                    realObj.x = result.ssFhXs;
+
+                    realObj.y = result.ssFhYs;
 
                 }else{
 
@@ -922,9 +962,7 @@
 
                 }
 
-                realObj.x = result.ssFhXs;
 
-                realObj.y = result.ssFhYs;
 
                 BaseTimeCallback(chart);
 
@@ -1157,6 +1195,8 @@
         var clear = '<div class="clearfix"></div>';
 
         var chooseButton = '<div style="text-align: left !important;"><button class="btn green answer-button" style="margin: 5px 0 5px 5px">执行完毕，去核算</button></div>';
+
+        console.log(chooseButton);
 
         return block + left + right + rightTop + rights  + clear + chooseButton +  blocks;
 
