@@ -65,12 +65,6 @@
             min-width: 1555px;
         }
 
-        .modal-block label{
-
-            width: 140px;
-
-        }
-
         .modal-button{
 
             padding: 5px 10px;
@@ -394,8 +388,8 @@
     <!--模态框-->
     <!--创建账户-->
     <div class="modal fade" id="create-Modal-J" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 627px;width: 470px!important;">
-            <div class="modal-content" style="height: 627px;width: 470px!important;">
+        <div class="modal-dialog" style="height: 627px;width: 546px!important;">
+            <div class="modal-content" style="height: 627px;width: 546px!important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">提示</h4>
@@ -403,10 +397,18 @@
                 <div class="modal-body" style="overflow-y: auto;height: 490px;">
 
                     <form class="cmxform" id="commentForm" method="post" action="">
-                        <div class="JH-button">
-                            <input id="aa" type="checkbox"><label for="aa">是否派生于聚合商</label><span class="modal-button">选择聚合商</span>
-                        </div>
-                        <ul class="modal-block">
+
+                        <ul class="modal-block" style="position: relative">
+                            <span class="modal-button JH-button" style="position: absolute;top: -2px;left: 361px;cursor:pointer;">选择聚合商</span>
+                            <li class="JH-button">
+                                <label>选择聚合商：</label>
+                                <input type="text" class="table-group-action-input form-control" id="JHS-J" name="JHS-J">
+                                <br>
+                                <div style="padding-top: 10px;padding-left: 86px;">
+                                    <input id="aa" type="checkbox"><label for="aa" style="width: 140px;">是否派生于聚合商</label>
+                                </div>
+
+                            </li>
                             <li>
                                 <label>行业机构：</label>
 
@@ -419,7 +421,7 @@
                             </li>
                             <br>
                             <li>
-                                <div style="font-size: 12px;line-height: 25px;text-indent: 145px;">居民身份证编码、其他、营业执照编码</div>
+                                <div style="font-size: 12px;line-height: 25px;text-indent: 92px;margin-bottom: 10px;">居民身份证编码、其他、营业执照编码</div>
                                 <label>编码：</label>
                                 <input type="text" class="table-group-action-input form-control" id="encoded-J" name="encoded-J" placeholder="编码是必填字段">
 

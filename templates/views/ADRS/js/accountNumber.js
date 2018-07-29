@@ -9,6 +9,8 @@ var Account = function(){
     //记录当前去也
     var _thisErp = '';
 
+    //存放所有数组
+    var _allData = [];
 
     /*-----------------------------------表格初始化-------------------------------------*/
 
@@ -48,9 +50,7 @@ var Account = function(){
             "data": null,
             render:function(data, type, full, meta){
 
-                return  "<span class='option-button option-edit' data-userId='" + full.accountId + "'>编辑</span>" +
-
-                    "<span class='option-button option-qiye' data-userId='" + full.accountId + "'>绑定企业</span>"
+                return  "<span class='option-button option-edit' data-userId='" + full.accountId + "'>编辑</span>"
 
             }
         },
@@ -619,7 +619,9 @@ var Account = function(){
                     $('#theLoading').hide();
                 }
 
-                var arr = []
+                var arr = [];
+
+                _allData.length = 0;
 
                 if(result.code == -2){
 
@@ -640,6 +642,12 @@ var Account = function(){
                 }else if(result.code == 0){
 
                     arr = result.accts;
+
+                    for(var i=0;i<result.accts.length;i++){
+
+                        _allData.push(result.accts[i]);
+
+                    }
 
                     $('#tip').hide();
 
@@ -878,6 +886,34 @@ var Account = function(){
     //绑定数据
     function bind(id){
 
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].accountId == id){
+
+                //绑定数据
+                //编码
+                $('#account-num').val(_allData[i].accountCode);
+                //名称
+                $('#account-name').val(_allData[i].accountName);
+                //区域
+                $('#account-district').val(_allData[i].districtName);
+                //签署容量
+                $('#account-capacity').val(_allData[i].signatureVolume);
+                //区域id
+                _thisDistrict = _allData[i].districtId;
+                //企业
+                $('#account-epr').val(_allData[i].eprName);
+                //企业id
+                _thisErp = _allData[i].eprId;
+                //描述
+                $('#create-remark').val(_allData[i].memo);
+
+            }
+
+        }
+
+
+
         var prm = {
 
             acctId:id
@@ -900,19 +936,7 @@ var Account = function(){
 
                 if(result.code == 0){
 
-                    //绑定数据
-                    //编码
-                    $('#account-num').val(result.acct.accountCode);
-                    //名称
-                    $('#account-name').val(result.acct.accountName);
-                    //区域
-                    $('#account-district').val(result.acct.districtName);
-                    //签署容量
-                    $('#account-capacity').val(result.acct.signatureVolume);
-                    //区域id
-                    _thisDistrict = result.acct.districtId;
-                    //描述
-                    $('#create-remark').val(result.acct.memo);
+
 
                 }else if(result.code == -2){
 

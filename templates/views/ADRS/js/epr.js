@@ -904,7 +904,12 @@
     //确定选择的聚合商id
     $('#select-JH-Modal').on('click','.btn-primary',function(){
 
-        _JHID = $('.tables-hover').find('.checker').attr('data-id');
+        _JHID = $('#JH-table').find('.tables-hover').find('.checker').attr('data-id');
+
+        //获取聚合商名字
+        var name = $('#JH-table').find('.tables-hover').children().eq(3).html();
+
+        $('#JHS-J').val(name);
 
         //模态框消失
         $('#select-JH-Modal').modal('hide');
