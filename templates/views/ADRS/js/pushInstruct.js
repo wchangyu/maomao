@@ -32,7 +32,7 @@
             data:'closeDate'
         },
         {
-            title:'消减负荷（kW）',
+            title:'需消减负荷（kW）',
             data:'reduceLoad'
         },
         {
@@ -211,6 +211,10 @@
                 }else if(result.code == -4){
 
                     _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
+
+                }else if(result.code == -6){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'抱歉，您没有下发指令的权限', '');
 
                 }else if(result.code == 0){
 

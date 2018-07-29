@@ -38,7 +38,7 @@
             data:'closeDate'
         },
         {
-            title:'消减负荷（kW）',
+            title:'需消减负荷（kW）',
             data:'reduceLoad'
         },
         {

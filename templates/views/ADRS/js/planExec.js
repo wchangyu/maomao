@@ -18,8 +18,6 @@
     //标记实时负荷是否返回数据成功
     var _realtimeIsComolete = false;
 
-    //户数是否返回数据成功
-    var _hsIsComplete = false;
 
     //存放基线返回的值
     var baseObj = {};
@@ -37,15 +35,6 @@
     var _state5 = false;
 
     var _state6 = false;
-
-    //核算基线是否执行完成
-    var _baselineFlag = false;
-
-    //核算实时负荷是否执行完成
-    var _realtimeFlag = false;
-
-    //参与户数
-    var _joinFlag = false;
 
     /*--------------------------------------表格初始化-------------------------------------*/
 
@@ -91,7 +80,7 @@
             data:'closeDate'
         },
         {
-            title:'消减负荷（kW）',
+            title:'需消减负荷（kW）',
             data:'reduceLoad'
         },
         {
@@ -547,6 +536,7 @@
             //左边列表
             var list = $(this).parent().parent().next().find('.formatLeft');
 
+
             tr.addClass('shown');
 
         }
@@ -559,61 +549,8 @@
 
         $('#theLoading').modal('show');
 
-        var prm = {
-
-            //事件Id
-            planId:_thisPlanId,
-            //用户角色
-            userRole:sessionStorage.ADRS_UserRole
-
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'DRExecFinish/CreateDRPlanFinishState',
-
-            data:prm,
-
-            timeout:_theTimes,
-
-            success:function(result){
-
-                $('#theLoading').modal('hide');
-
-                if(result.code == 0){
-
-                    //跳转到执行完毕页面
-                    window.location.href = 'execFinish.html'
-
-                }else if(result.code == -2){
-
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'暂时没有需要审核的事件','');
-
-                }else if(result.code == -1){
-
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'异常错误','');
-
-                }else if(result.code == -3){
-
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'参数错误','');
-
-                }else if(result.code == -4){
-
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'内容已存在','');
-
-                }else if(result.code == -6){
-
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'抱歉，您没有审核的权限','');
-
-                }
-
-            },
-
-            error:_errorFun
-
-        })
+        //核算
+        accountData();
 
     })
 
@@ -690,11 +627,16 @@
 
                     }));
 
+                    if(_allData.length == 0){
+
+                        _topTipBar('暂时没有需要执行的事件');
+
+                    }
                 }
 
             },
 
-            error:_errorFun
+            error:_errorBar
 
         })
 
@@ -1196,26 +1138,106 @@
 
         var chooseButton = '<div style="text-align: left !important;"><button class="btn green answer-button" style="margin: 5px 0 5px 5px">执行完毕，去核算</button></div>';
 
-        console.log(chooseButton);
-
         return block + left + right + rightTop + rights  + clear + chooseButton +  blocks;
 
     }
 
-    //获取基线、实时数据、户数已完成的回调函数
-    function BaselineRealHSCallBack(){
+    //点击核算
+    function accountData(){
 
-        //如果三个都获取到数据了，调用，并且计算消减负荷，完成比例
+        var prm = {
 
-        //如果实时数据没有获取到数据，那么消减负荷和完成比例都不能计算，
+            //事件Id
+            planId:_thisPlanId,
+            //用户角色
+            userRole:sessionStorage.ADRS_UserRole
 
-        //如果基线负荷没有获取到数据，那么，消减负荷和完成比例也不能计算
+        }
 
-        //如果户数没有获取到数据，那么，完成比例不能计算
+        $.ajax({
 
-        //消减负荷=基线负荷-实时负荷
+            type:'post',
 
-        //完成比例=消减负荷/计划消减
+            url:sessionStorage.apiUrlPrefix + 'DRExecFinish/CreateDRPlanFinishState',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                if(result.code == 0){
+
+                    //再调一个接口
+                    createResult();
+
+                }
+
+            },
+
+            error:_errorFun1
+
+        })
+
+    }
+
+    //创建执行结果
+    function createResult(){
+
+        var prm = {
+
+            //事件Id
+            planId:_thisPlanId,
+            //开始时间
+            startDate:_st,
+            //结束时间
+            closeDate:_et
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlanExec/CreateDRPlanExecResult',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                if(result.code == 0){
+
+                    //跳转到执行完毕页面
+                    window.location.href = 'execFinish.html'
+
+                }else if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'暂时没有需要审核的事件','');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'异常错误','');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'参数错误','');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'内容已存在','');
+
+                }else if(result.code == -6){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'抱歉，您没有审核的权限','');
+
+                }
+
+            },
+
+            error:_errorFun1
+
+        })
 
     }
 

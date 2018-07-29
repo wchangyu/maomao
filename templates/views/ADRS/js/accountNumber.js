@@ -6,6 +6,10 @@ var Account = function(){
     //记录当前选择的区域id
     var _thisDistrict = '';
 
+    //记录当前去也
+    var _thisErp = '';
+
+
     /*-----------------------------------表格初始化-------------------------------------*/
 
     var col=[
@@ -105,7 +109,7 @@ var Account = function(){
             }
         },
         {
-            title:'区域id',
+            title:'区域编码',
             data:'id'
         },
         {
@@ -141,6 +145,36 @@ var Account = function(){
     ]
 
     _tableInit($('#district-table'),districtCol,2,true,'','','','',10);
+
+    //企业
+    var eprCol = [
+
+        {
+            title:'选择',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                return '<div class="checker" data-id="' + full.eprId + '"><span><input type="checkbox" value=""></span></div>'
+
+            }
+        },
+        {
+            title:'企业编码',
+            data:'eprCode'
+        },
+        {
+            title:'企业名称',
+            data:'eprName'
+        },
+        {
+            title:'企业类型',
+            data:'eprTypeName'
+        }
+
+    ]
+
+    _tableInit($('#epr-table'),eprCol,2,true,'','','','',10);
 
     /*-----------------------------------创建表单验证-------------------------------------*/
 
@@ -468,11 +502,85 @@ var Account = function(){
 
         _thisDistrict = $('#district-table').find('.tables-hover').children().eq(1).html();
 
-        var name = $('#district-table').find('.tables-hover').children().eq(2).html();
+        if(!_thisDistrict){
 
-        $('#district-Modal').modal('hide');
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择区域','')
 
-        $('#account-district').val(name);
+        }else{
+
+            var name = $('#district-table').find('.tables-hover').children().eq(2).html();
+
+            $('#district-Modal').modal('hide');
+
+            $('#account-district').val(name);
+
+        }
+
+    })
+
+    //【选择企业】
+    $('.select-epr').click(function(){
+
+        //初始化
+        $('#keyWord-epr-modal').val('');
+
+        _datasTable($('#epr-table'),[]);
+
+        //模态框
+        _moTaiKuang($('#epr-Modal'),'选择企业','','','','确定');
+
+        //获取数据
+        getEpr();
+
+    })
+
+    //选怎企业【tr】
+    $('#epr-table tbody').on('click','tr',function(){
+
+        if($(this).hasClass('tables-hover')){
+
+            $('#epr-table tbody').find('tr').removeClass('tables-hover');
+
+            $('#epr-table tbody').find('input').parent('span').removeClass('checked');
+
+            $(this).removeClass('tables-hover');
+
+            $(this).find('input').parent('span').removeClass('checked');
+
+        }else{
+
+            $('#epr-table tbody').find('tr').removeClass('tables-hover');
+
+            $('#epr-table tbody').find('input').parent('span').removeClass('checked');
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent('span').addClass('checked');
+
+        }
+
+    })
+
+    //企业选择【确定按钮】
+    $('#epr-Modal').on('click','.btn-primary',function(){
+
+        //获取区域id
+        _thisErp = $('#epr-table').find('.tables-hover').find('.checker').attr('data-id');
+
+        if(!_thisErp){
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择要绑定的企业','')
+
+        }else{
+
+            //区域name
+            var name = $('#epr-table').find('.tables-hover').children().eq(2).html();
+
+            $('#epr-Modal').modal('hide');
+
+            $('#account-epr').val(name);
+
+        }
 
     })
 
@@ -563,6 +671,9 @@ var Account = function(){
         _thisDistrict = '';
 
         _thisID = '';
+
+        //初始化选中的企业
+        _thisErp = '';
 
         //验证消息要隐藏
         var error = $('#create-Modal').find('.error');
@@ -686,6 +797,8 @@ var Account = function(){
 
             //所属区域
             districtId:_thisDistrict,
+            //选择企业
+            eprId:_thisErp,
             //备注
             memo:$('#create-remark').val(),
             //签署容量
@@ -831,6 +944,63 @@ var Account = function(){
         $('.table tbody').find('tr').removeClass('tables-hover');
 
         el.parents('tr').addClass('tables-hover');
+
+    }
+
+    //获取企业数据
+    function getEpr(){
+
+        $('#theLoading').modal('show');
+
+        var prm = {
+
+            keyword:$('#keyWord-epr-modal').val()
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRAccount/GetEprsByNotAggr',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
+
+                }else if(result.code == 0){
+
+                    var arr = result.eprs;
+
+                    //表格
+                    _jumpNow($('#epr-table'),arr);
+                }
+
+            },
+
+            error:_errorFun
+
+        })
 
     }
 

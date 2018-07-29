@@ -27,7 +27,7 @@
             data:'closeDate'
         },
         {
-            title:'消减负荷（kW）',
+            title:'需消减负荷（kW）',
             data:'reduceLoad'
         },
         {
@@ -64,15 +64,15 @@
         },
         {
           title:'是否达标',
-            data:''
+            data:'isStandard'
         },
         {
             title:'实际消减负荷数(kW)',
-            data:''
+            data:'actualReduceLoad'
         },
         {
             title:'总补贴',
-            data:''
+            data:'totalSubsidy'
         },
         {
             title:'登记时间',
@@ -254,7 +254,7 @@
 
                 if(result.code == -2){
 
-                    _topTipBar('暂时没有需要发布的事件');
+                    _topTipBar('暂时没有执行完毕的事件');
 
                 }else if(result.code == -1){
 

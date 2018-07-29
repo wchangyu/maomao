@@ -12,12 +12,12 @@
             name:'roleName'
         },
         {
-            title:'账户ID',
+            title:'登录账户',
             data:'sysuserId',
             className:'sysuserId'
         },
         {
-            title:'登录账户名',
+            title:'登录账户名称',
             data:'userName'
         },
         {

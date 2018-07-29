@@ -36,6 +36,14 @@
         "arg": "",
         "iconclass": ""
       },
+      "区域管理": {
+        "type": "0",
+        "content": "区域管理",
+        "uri": "../ADRS/district.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
       "户号管理": {
         "type": "0",
         "content": "户号管理",
@@ -64,14 +72,6 @@
         "type": "0",
         "content": "基线管理",
         "uri": "../ADRS/baseline.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
-      "区域管理": {
-        "type": "0",
-        "content": "区域管理",
-        "uri": "../ADRS/district.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

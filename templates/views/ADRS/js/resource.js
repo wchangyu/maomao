@@ -136,7 +136,8 @@
 
         "rowsGroup": [
             'name:name',
-            0
+            0,
+            1
         ],
         "aoColumnDefs": [ { "orderable": false, "targets": [ 1,2,3,4,5,6,7,8,9,10,11,12] }]
     });
@@ -628,38 +629,16 @@
 
     })
 
-    //选择设备【tr】
-    //$('#dev-table tbody').on('click','tr',function(){
-    //
-    //    if($(this).hasClass('tables-hover')){
-    //
-    //        $('#dev-table tbody').find('tr').removeClass('tables-hover');
-    //
-    //        $('#dev-table tbody').find('input').parent('span').removeClass('checked');
-    //
-    //        $(this).removeClass('tables-hover');
-    //
-    //        $(this).find('input').parent('span').removeClass('checked');
-    //
-    //    }else{
-    //
-    //        $('#dev-table tbody').find('tr').removeClass('tables-hover');
-    //
-    //        $('#dev-table tbody').find('input').parent('span').removeClass('checked');
-    //
-    //        $(this).addClass('tables-hover');
-    //
-    //        $(this).find('input').parent('span').addClass('checked');
-    //
-    //    }
-    //
-    //})
-
     //【选择设备】
     $('#create-Modal').on('click','.select-SB',function(){
 
         //初始化
         $('#bin-dev-Modal').find('input').val('');
+
+        _datasTable($('#dev-manage'),[]);
+
+        _selectedDevArr = [];
+
 
         //模态框
         _moTaiKuang($('#bind-table-Modal'),'设备','','','','确定');
@@ -748,17 +727,6 @@
 
         var pid = nodes[0].pointer;
 
-        ////表格选择
-        //
-        //var currentTr = $('#dev-table tbody').children('.tables-hover');
-        //
-        ////id
-        //var num = currentTr.find('.checker').attr('data-id');
-        //
-        //var pid = currentTr.find('.checker').attr('data-pointer');
-        //
-        //var name = currentTr.children().eq(2).html();
-
         _currentCell.attr('data-num',num);
 
         _currentCell.attr('data-pid',pid);
@@ -785,15 +753,33 @@
 
         _selectedDevArr.length = 0;
 
+        //要考虑到只选择了一个的情况，比如说只选择了一个功率
+
         for(var i=0;i<tr.length;i++ ){
 
             var currentTr = $(tr).eq(i);
+
+            var pointer = '';
+
+            if(currentTr.find('.select-dev-GL').attr('data-pid')){
+
+                pointer = currentTr.find('.select-dev-GL').attr('data-pid');
+
+            }else if(currentTr.find('.select-dev-DL').attr('data-pid')){
+
+                pointer = currentTr.find('.select-dev-DL').attr('data-pid');
+
+            }else if(currentTr.find('.select-dev-KZ').attr('data-pid')){
+
+                pointer = currentTr.find('.select-dev-KZ').attr('data-pid');
+
+            }
 
             var obj = {};
             //用户资源Id
             obj.resourceId = _thisID;
             //楼宇Id ,
-            obj.pointerId = currentTr.find('.select-dev-GL').attr('data-pid')==undefined?'':currentTr.find('.select-dev-GL').attr('data-pid');
+            obj.pointerId = pointer;
             //功率Id
             obj.powerId = currentTr.find('.select-dev-GL').attr('data-num')==undefined?'':currentTr.find('.select-dev-GL').attr('data-num');
             //电量Id
@@ -1568,8 +1554,10 @@
 
                 onClick: function(e,treeId,treeNode){
 
+                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+
                     //取消全部打钩的节点
-                    pointerObj.checkNode(treeNode,!treeNode.checked,true);
+                    treeObj.checkNode(treeNode,!treeNode.checked,true);
 
                 },
                 beforeClick:function(){
@@ -1579,12 +1567,14 @@
                 },
                 onCheck:function(e,treeId,treeNode){
 
+                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+
                     $('#ztreeObj').find('.curSelectedNode').removeClass('curSelectedNode');
 
                     $('#ztreeObj').find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
 
                     //取消全部打钩的节点
-                    pointerObj.checkNode(treeNode,true,true);
+                    treeObj.checkNode(treeNode,true,true);
 
                 }
 

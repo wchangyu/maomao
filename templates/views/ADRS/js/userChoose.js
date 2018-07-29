@@ -6,6 +6,9 @@
     //操作当前事件的id
     var _thisPlanId = '';
 
+    //总的消减负荷
+    var _totalReduce = 0;
+
     /*--------------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -32,7 +35,7 @@
             data:'closeDate'
         },
         {
-            title:'消减负荷（kW）',
+            title:'需消减负荷（kW）',
             data:'reduceLoad'
         },
         {
@@ -194,6 +197,8 @@
     //点击【详情】
     $('#table tbody').on('click', '.detail-button', function () {
 
+        _totalReduce = 0;
+
         //存放当前企业所绑定户号的数组
         var thisOBJ = {};
 
@@ -224,6 +229,8 @@
         }
         else {
 
+            _totalReduce = $(this).parent().children().eq(4).html();
+
             row.child( formatDetail(thisOBJ) ).show();
 
             //初始化表格(搞清楚当前是聚合商0还是大用户1);
@@ -243,6 +250,8 @@
     //筛选用户【tr】
     $('#table').on('click','.userTable tr',function(){
 
+        //取消
+
         if($(this).hasClass('tables-hover')){
 
             $(this).removeClass('tables-hover');
@@ -251,9 +260,53 @@
 
         }else{
 
+            //选中
+
             $(this).addClass('tables-hover');
 
             $(this).find('input').parent('span').addClass('checked');
+
+        }
+
+        //每次都把选中的跳出来
+        var checkedTr = $(this).parent().find('.tables-hover');
+
+        var total = 0;
+
+        for(var i=0;i<checkedTr.length;i++){
+
+            var num = checkedTr.eq(i).children().eq(4).html();
+
+            total += Number(num);
+
+        }
+
+        //总需消减负荷
+
+        var Dvalue = total - _totalReduce;
+
+        var DDom = $(this).parents('.answer-block').find('.reduceTip');
+
+        $(DDom).html('');
+
+        if(total != 0){
+
+            if(Dvalue<0){
+
+                var str = '选中消减负荷：' + total + '（kW），【短缺】消减负荷' + Math.abs(Dvalue) + '（kW）';
+
+
+            }else if(Dvalue >0){
+
+                var str = '选中消减负荷：' + total + '（kW），【超过】消减负荷' + Math.abs(Dvalue) + '（kW）';
+
+            }else{
+
+                var str = '';
+
+            }
+
+            $(DDom).html(str);
 
         }
 
@@ -430,7 +483,7 @@
 
                 if(result.code == -2){
 
-                    _topTipBar('暂时没有事件')
+                    _topTipBar('暂时没有需要筛选用户的事件')
 
                 }else if(result.code == -1){
 
@@ -519,9 +572,9 @@
 
         var chooseButton = '<div style="text-align: left !important;"><button class="btn green answer-button" style="margin:0px 0 5px 5px;">回复用户</button></div>';
 
-        var statistics = '<div style="text-align: left;margin: 5px 0;padding-left: 10px;"><label for="">统计：</label><div style="text-align: left;display: inline-block;vertical-align: middle">聚合商数：<span class="JHSNum" style="font-weight: bold;margin-right: 25px;"></span>聚合商下户号数：<span class="JYHS" style="font-weight: bold;margin-right: 25px;"></span>可消减负荷量（kW）：<span class="JFH" style="font-weight: bold;margin-right: 25px;"></span><br>大用户数：<span class="DYHNum" style="font-weight: bold;margin-right: 25px;"></span>大用户下户号数：<span class="DYHH" style="font-weight: bold;margin-right: 25px;"></span>可消减负荷量（kW）：<span class="DFH" style="font-weight: bold;margin-right: 5px;"></span><br>总消减负荷（kW）：<span class="TOTalFH" style="font-weight: bold"></span></div></div>'
+        var statistics = '<div style="text-align: left;margin: 5px 0;padding-left: 10px;"><label for="">统计：</label><div style="text-align: left;display: inline-block;vertical-align: middle">聚合商数：<span class="JHSNum" style="font-weight: bold;margin-right: 25px;"></span>聚合商下户号数：<span class="JYHS" style="font-weight: bold;margin-right: 25px;"></span>可消减负荷量（kW）：<span class="JFH" style="font-weight: bold;margin-right: 25px;"></span><br>大用户数：<span class="DYHNum" style="font-weight: bold;margin-right: 25px;"></span>大用户下户号数：<span class="DYHH" style="font-weight: bold;margin-right: 25px;"></span>可消减负荷量（kW）：<span class="DFH" style="font-weight: bold;margin-right: 5px;"></span><br>总消减负荷（kW）：<span class="TOTalFH" style="font-weight: bold;margin-right: 25px;"></span><br><span class="reduceTip" style="color: red;"></span></div></div>'
 
-        var answer = '<div class="answer-block" style="">';
+        var answer = '<div class="answer-block" style="display: none">';
 
         var answers = '</div>';
 
@@ -631,7 +684,7 @@
 
                 }else if(result.code == -6){
 
-                    _topTipBar('没有权限');
+                    _topTipBar('抱歉，您没有用户筛选权限');
 
                 }else if(result.code == 0){
 

@@ -13,7 +13,7 @@
     var HHArr = [];
 
     //获取户号数据
-    HHData(true);
+    //HHData(true);
 
     //记录当前选中的账户id
     var _thisYHID = '';
@@ -241,27 +241,6 @@
             className:'saveAs hiddenButton'
         },
         "columns": col
-        //rowCallback:function(row, data){
-        //
-        //    var table = $(this).DataTable();
-        //
-        //    var rows = table.row(row);
-        //
-        //    if(data.childs == null){
-        //
-        //
-        //
-        //    }else{
-        //
-        //        //行回调，插入表格
-        //        rows.child( JHdownDYH(data.childs) ).show();
-        //
-        //        //对插入的表格初始化
-        //        //_tableInit($(this).find('.table'),col,2,true,'','',true,'',10);
-        //
-        //    }
-        //
-        //}
     });
 
     //选择聚合商表格
@@ -374,14 +353,6 @@
         {
             title:'户号名称',
             data:'accountName'
-        },
-        {
-            title:'创建时间',
-            data:'createDate'
-        },
-        {
-            title:'描述',
-            data:'memo'
         }
 
     ]
@@ -405,7 +376,7 @@
 
                 required:true,
 
-                numberFormat:true
+                phoneNumFormat:true
 
             },
             //邮箱
@@ -487,6 +458,33 @@
         return this.optional(element)||(doubles.test(value));
 
     },"请输入大于0的数字");
+
+    //联系方式验证（手机和座机）
+    $.validator.addMethod("phoneNumFormat",function(value,element,params){
+
+        //手机号
+        var mobile = /^1[3|5|8]\d{9}$/ ;
+        //带区号的座机
+        //var phone = /^0\d{2,3}-?\d{7,8}$/;
+
+        var phone = /^(\(\d{3,4}\)|\d{3,4}-)?\d{7}$/;
+
+        //不带区号的座机
+        //var phone1 = /[0-9]?\d{7}$/;
+
+        var flag = false;
+
+        if( mobile.test(value) || phone.test(value)){
+
+            flag = true;
+
+        }
+
+        //return mobile.test(tel) || phone.test(tel);
+
+        return this.optional(element)||flag;
+
+    },"请输入合法的联系方式");
 
     /*-----------------------------------按钮事件---------------------------------------*/
 
@@ -735,8 +733,8 @@
         //模态框
         _moTaiKuang($('#select-HH-Modal'),'账户','','','','选择');
 
-        //数据
-        _datasTable($('#HH-table'),HHArr);
+        //获取户号
+        HHData();
 
     })
 
@@ -1808,7 +1806,7 @@
     }
 
     //获取户号数据
-    function HHData(flag){
+    function HHData(){
 
         var prm = {
 
@@ -1850,10 +1848,6 @@
 
                     arr = result.accts;
 
-                }
-
-                if(flag){
-
                     HHArr.length = 0;
 
                     for(var i=0;i<arr.length;i++){
@@ -1862,11 +1856,9 @@
 
                     }
 
-                }else{
-
-                    _datasTable($('#HH-table'),arr);
-
                 }
+
+                _datasTable($('#HH-table'),arr);
 
             },
 
@@ -1879,7 +1871,7 @@
     //显示隐藏
     function formatHH ( ) {
 
-        var table = '<table class="table HHtable table-advance table-hover"></table>'
+        var table = '<div style="width: 50%"><table class="table HHtable table-advance table-hover"></table></div>'
 
         return table;
     }

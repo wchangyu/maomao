@@ -41,45 +41,20 @@
             data:'closeDate'
         },
         {
-            title:'消减负荷（kW）',
+            title:'需消减负荷（kW）',
             data:'reduceLoad'
         },
         {
-            title:'基线',
-            data:'baselineName'
+            title:'是否达标',
+            data:'isStandard'
         },
         {
-            title:'区域',
-            data:'districtName'
+            title:'总补贴',
+            data:'totalSubsidy'
         },
         {
-            title:'套餐（多个）',
-            data:'librarys',
-            render:function(data, type, full, meta){
-
-                var str = '';
-
-                for(var i=0;i<data.length;i++){
-
-                    if(i == data.length-1){
-
-                        str += data[i].name
-
-                    }else{
-
-                        str += data[i].name + '、'
-
-                    }
-
-                }
-
-                return str
-
-            }
-        },
-        {
-            title:'登记时间',
-            data:'createDate'
+            title:'实际消减负荷（kW）',
+            data:'actualReduceLoad'
         },
         {
             title:'创建人',
@@ -272,7 +247,7 @@
 
         //基线、发布时间、反馈截止时间、
 
-        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle" style="font-weight: bold">反馈截止时间</td>' + '<td style="font-weight: bold" class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
+        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle">反馈截止时间</td>' + '<td class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
 
         if(d.librarys){
 
@@ -399,7 +374,7 @@
 
                 }
 
-                var str = '<option value="0">全部</option>';
+                var str = '';
 
                 for(var i=0;i<arr.length;i++){
 
@@ -411,7 +386,7 @@
 
             },
 
-            error:_errorFun
+            error:_errorFun1
 
         })
 
@@ -472,7 +447,7 @@
 
                 }
 
-                var str = '<option value="0">全部</option>';
+                var str = '';
 
                 for(var i=0;i<arr.length;i++){
 
@@ -484,7 +459,7 @@
 
             },
 
-            error:_errorFun
+            error:_errorFun1
 
         })
 
@@ -557,7 +532,7 @@
 
             },
 
-            error:_errorFun
+            error:_errorFun1
 
         })
 
