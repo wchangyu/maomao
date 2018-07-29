@@ -183,9 +183,9 @@
 
         $('#theLoading').modal('show');
 
-        formatValidate($(this).prev(),function(){
+        formatValidate(function(){
 
-            sendOption($(this).prev(),'DRUser/CreateDRUserInfo','创建成功！');
+            sendOption('DRUser/CreateDRUserInfo','创建成功！');
 
         })
     })
@@ -233,9 +233,9 @@
 
         $('#theLoading').modal('show');
 
-        formatValidate($(this).prev(),function(){
+        formatValidate(function(){
 
-            sendOption($(this).prev(),'DRUser/ModifyDRUserInfo','编辑成功！',true);
+            sendOption('DRUser/ModifyDRUserInfo','编辑成功！',true);
 
         })
 

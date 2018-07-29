@@ -11,7 +11,7 @@
     var col = [
 
         {
-            title:'区域id',
+            title:'区域编码',
             data:'id'
         },
         {
@@ -209,7 +209,7 @@
                     $('#theLoading').hide();
                 }
 
-                var arr = [];
+                    var arr = [];
 
                 if(result.code == -2){
 
@@ -235,11 +235,29 @@
                 //表格
                 _jumpNow($('#table'),arr);
 
-                //ztree(大)
-                setZtree($("#ztreeStation"),arr);
+                if(arr.length == 0){
 
-                //ztree(小)
-                setZtree($("#ztreeStationS"),arr);
+                    //没有您想要的结果
+                    $('#ztreeStation').html('暂时没有区域数据');
+
+                    $('#ztreeStationS').html('暂时没有区域数据');
+
+                }else{
+
+                    //ztree(大)
+
+                    $('#ztreeStation').empty();
+
+                    setZtree($("#ztreeStation"),arr);
+
+                    //ztree(小)
+                    $('#ztreeStationS').empty();
+
+                    setZtree($("#ztreeStationS"),arr);
+
+                }
+
+
 
             },
 
@@ -431,23 +449,32 @@
                 onClick: function(e,treeId,treeNode){
 
                     //取消全部打钩的节点
-                    pointerObj.checkNode(treeNode,!treeNode.checked,true);
+
+                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+                    //
+                    //var nodes = treeObj.getSelectedNodes();
+                    //
+                    //for (var i=0, l=nodes.length; i < l; i++) {
+                    //
+                    //    treeObj.checkNode(nodes[i], true, true);
+                    //
+                    //}
+
+                    treeObj.checkNode(treeNode,!treeNode.checked,true);
 
                 },
                 beforeClick:function(){
 
-                    $('#ztreeStation').find('.curSelectedNode').removeClass('curSelectedNode');
+                    treeId.find('.curSelectedNode').removeClass('curSelectedNode');
 
                 },
 
                 onCheck:function(e,treeId,treeNode){
 
-                    $('#ztreeStation').find('.curSelectedNode').removeClass('curSelectedNode');
-
-                    $('#ztreeStation').find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
 
                     //取消全部打钩的节点
-                    pointerObj.checkNode(treeNode,true,true);
+                    treeObj.checkNode(treeNode,true,true);
 
 
                 }

@@ -284,7 +284,7 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
             'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
             'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'infoEmpty': '没有数据',
+            'infoEmpty': '',
             'paginate':{
                 "previous": "上一页",
                 "next": "下一页",

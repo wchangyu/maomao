@@ -514,7 +514,7 @@
         $('#keyWord-district-modal').val('');
 
         //模态框
-        _moTaiKuang($('#district-Modal'),'区域',false,'','','选择');
+        _moTaiKuang($('#district-Modal'),'选择区域',false,'','','选择');
 
         //数据
         districtData();
