@@ -1,10 +1,5 @@
 $(function(){
 
-    /*---------------------------------变量-------------------------------------*/
-
-    //当前创建用户的id
-    var _thisUserId = '';
-
     //当前企业id
     var _thisEprId = '';
 
@@ -14,55 +9,10 @@ $(function(){
     //选择区域按钮
     var _thisDistrictButton = '';
 
+    //当前选中的账户id
+    var _thisUserId = '';
+
     /*----------------------------------验证------------------------------------*/
-
-    //创建用户验证
-    $('#commentForm').validate({
-
-        rules:{
-
-            //登录账户名(不能是中文)
-            'create-user-name':{
-
-                required: true,
-
-                NonChinese:true
-
-            },
-            //登录密码
-            'create-user-passW':{
-
-                required: true,
-
-                minlength: 6
-
-            },
-            //账户名称
-            'create-user-login-name':'required'
-
-        },
-        messages:{
-
-            //登录账户名
-            'create-user-name':{
-
-                required: '请输入登录账户名'
-
-            },
-            //登录密码
-            'create-user-passW':{
-
-                required: '请输入登录密码',
-
-                minlength: '密码长度不能小于 6 位'
-
-            },
-            //账户名称
-            'create-user-login-name':'请输入账户名'
-
-        }
-
-    })
 
     //创建企业验证
     $('#commentFormEpr').validate({
@@ -416,6 +366,36 @@ $(function(){
 
     _tableInit($('#accountTable'),accountCol,2,true,'','','','',10);
 
+    //登录账户
+    var userCol = [
+
+        {
+            title:'选择',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                return '<div class="checker" data-id="' + full.userId +  '"><span><input type="checkbox" value=""></span></div>'
+
+            }
+        },
+        {
+            title:'账户角色',
+            data:'roleName'
+        },
+        {
+            title:'登录账户',
+            data:'sysuserId'
+        },
+        {
+            title:'登录账户名称',
+            data:'userName'
+        }
+
+    ]
+
+    _tableInit($('#user-table'),userCol,2,true,'','','','',10);
+
     /*---------------------------------按钮操作---------------------------------*/
 
     //tab选项
@@ -430,18 +410,6 @@ $(function(){
     //    $('.tab-pane').eq($(this).index()).show();
     //
     //})
-
-    //创建【用户】
-    $('#createUser').click(function(){
-
-        //格式验证
-        formatValidateUser(function(){
-
-            sendOptionUser();
-
-        })
-
-    })
 
     //创建【企业】
     $('#createEpr').click(function(){
@@ -527,17 +495,6 @@ $(function(){
 
         }
 
-
-    })
-
-    //创建【户号】
-    $('#createAccount').click(function(){
-
-        formatValidateAccount(function(){
-
-
-
-        })
 
     })
 
@@ -919,150 +876,77 @@ $(function(){
 
     })
 
-    /*-----------------------------------------------------其他方法----------------------------------------*/
+    //【选择登录账户】
+    $('.select-user-button').click(function(){
 
-    //创建用户验证
-    function formatValidateUser(fun){
+        //初始化
+        _datasTable($('#user-table'),[]);
+        //模态框
+        _moTaiKuang($('#user-Modal'),'账户选择','','','','确定');
 
-        //非空验证
-        if($('#create-user-name').val() == '' || $('#create-user-login-name').val() == '' ){
+        //数据
+        //判断当前创建的是聚合商还是大用户
+        var s = $('.JH-button').css('display');
 
-            $('#theLoading').modal('hide');
+        var roleId = '';
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项','');
+        if(s == 'none'){
+
+            roleId = 3;
 
         }else{
-
-            //验证错误
-            var error = $('#commentForm').find('.error');
-
-            if(error.length != 0){
-
-                var flag = true;
-
-                for(var i=0;i<error.length;i++){
-
-                    if(error.eq(i).css('display') != 'none'){
-
-                        flag = false;
-
-                        break;
-
-                    }
-
-                }
-
-                if(flag){
-
-                    fun();
-
-                }else{
-
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写正确格式','');
-
-                }
-
-            }else{
-
-                //验证通过
-                fun();
-
-            }
-
+            roleId = 4;
 
         }
 
-    }
+        getUser(roleId);
 
-    //创建用户发送数据
-    function sendOptionUser(){
+    })
 
-        $('#tip').hide();
+    //账户选择【tr】
+    $('#user-table tbody').on('click','tr',function(){
 
-        $('#theLoading').modal('show');
+        if($(this).hasClass('tables-hover')){
 
-        var prm = {
+            $('#user-table tbody').find('tr').removeClass('tables-hover');
 
-            //账户登录名 ,
-            sysuserId : $('#create-user-name').val(),
-            //账户密码
-            sysuserPass : $('#create-user-passW').val(),
-            //账户名称
-            userName:$('#create-user-login-name').val(),
-            //账户角色
-            userRole:$('#create-user-role').val(),
-            //备注
-            memo:$('#create-remark').val()
+            $('#user-table tbody').find('input').parent('span').removeClass('checked');
 
-        };
+            $(this).removeClass('tables-hover');
 
-        $.ajax({
+            $(this).find('input').parent('span').removeClass('checked');
 
-            type:'post',
+        }else{
 
-            url:sessionStorage.apiUrlPrefix + 'DRUserNew/CreateDRUserInfoReturnNewId',
+            $('#user-table tbody').find('tr').removeClass('tables-hover');
 
-            timeout:_theTimes,
+            $('#user-table tbody').find('input').parent('span').removeClass('checked');
 
-            data:prm,
+            $(this).addClass('tables-hover');
 
-            success:function(result){
+            $(this).find('input').parent('span').addClass('checked');
 
-                $('#theLoading').modal('hide');
+        }
 
-                if(result.code == 0){
+    })
 
-                    //跳到创建企业页面。
-                    //跳到创建企业
+    //账户【确定】
+    $('#user-Modal').on('click','.btn-primary',function(){
 
-                    //样式修改
-                    $('.steps').children().removeClass('active');
+        var currentTr = $('#user-table tbody').find('.tables-hover');
 
-                    $('.steps').children().eq(1).addClass('active');
+        _thisUserId = currentTr.find('.checker').attr('data-id');
 
-                    $('.tab-pane').hide();
+        var name = currentTr.children().eq(3).html();
 
-                    $('.tab-pane').eq(1).show();
+        $('#create-id').val(name);
 
-                    $('#theLoading').modal('hide');
+        //模态框
+        $('#user-Modal').modal('hide');
 
-                    //进度条
-                    $('.progress-bar-success').css({width:'66.66%'});
+    })
 
-                    //将id保存
-                    _thisUserId = result.userNewId;
-
-
-                }else if(result.code == -2){
-
-                    _topTipBar('暂无数据');
-
-                }else if(result.code == -1){
-
-                    _topTipBar('异常错误');
-
-                }else if(result.code == -3){
-
-                    _topTipBar('参数错误');
-
-                }else if(result.code == -4){
-
-                    _topTipBar('内容已存在');
-
-                }else if(result.code == -6){
-
-                    _topTipBar('抱歉，您没有创建用户的权限');
-
-                }
-
-            },
-
-            error:_errorFun
-
-
-        })
-
-    }
+    /*-----------------------------------------------------其他方法----------------------------------------*/
 
     //创建企业验证
     function formatValidateEpr(fun){
@@ -1215,6 +1099,9 @@ $(function(){
                     //给企业赋值
                     _thisEprId = result.eprNewId;
 
+                    //创建户号显示
+                    $('#tab3').show();
+
 
                 }else if(result.code == -2){
 
@@ -1347,8 +1234,6 @@ $(function(){
             success:function(result){
 
                 $('#theLoading').modal('hide');
-
-                console.log(result);
 
                 if(result.code == 0){
 
@@ -1496,6 +1381,62 @@ $(function(){
 
     }
 
+    //获取用户列表
+    function getUser(id){
 
+        $('#theLoading').modal('show');
+
+        var prm = {
+
+            role:id,
+            isdel: 2
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRUser/GetDRUserDs',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if(result.code == -2){
+
+                    //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
+
+                }else if(result.code == 0){
+
+                    var arr = result.users;
+
+                    //表格
+                    _jumpNow($('#user-table'),arr);
+                }
+
+            },
+
+            error:_errorFun
+
+        })
+
+    }
 
 })

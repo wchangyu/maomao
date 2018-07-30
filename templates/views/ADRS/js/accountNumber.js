@@ -136,11 +136,7 @@ var Account = function(){
                 }
 
             }
-        },
-        //{
-        //    title:'是否有效',
-        //    data:'isDelName'
-        //}
+        }
 
     ]
 
@@ -827,7 +823,7 @@ var Account = function(){
             //户号编码
             prm.accountCode = $('#account-num').val();
             //账户名称
-                prm.accountName = $('#account-name').val();
+            prm.accountName = $('#account-name').val();
 
         }
 
