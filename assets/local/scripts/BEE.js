@@ -116,7 +116,9 @@ var BEE = (function(){
             var str = sessionStorage.menuStr;
             var $sidebar = $(".page-sidebar-menu");
             if (sessionStorage.changeMenuByProcs == 1) {
+
                 var string1 = changeMenuByProcs(JSON.parse(str));
+
                 getHTMLFromMenu(string1, $sidebar);
                 sessionStorage.curMenuStr = JSON.stringify(string1);
             }else{
@@ -1026,6 +1028,7 @@ var BEE = (function(){
                 _newMenu[_showMenu['content']] = _showMenu;
             }
         });
+
         return _newMenu;
     };
 
@@ -1061,6 +1064,11 @@ var BEE = (function(){
                 obj[o.content+''+i] = o;
             });
         }
+
+        if(JSON.stringify(obj) == "{}"){
+            return false;
+        }
+
         menu.submenu = obj;
         //返回筛选后的菜单
         //console.log(menu);
@@ -1125,8 +1133,11 @@ var BEE = (function(){
         var arg3 = childMenu.arg3;
 
         if(arg2){
+
             //获取权限参数
             var role = sessionStorage.userRole;
+            //console.log(role);
+
             if(role && arg2.indexOf(role) >= 0 ){
                 return true;
             }else{

@@ -118,11 +118,39 @@ var Login = function(){
                                 //登录角色
                                 sessionStorage.ADRS_UserRole = res.userRole;
 
+                                var role = '';
+
+                                if(sessionStorage.ADRS_UserRole == 1){
+
+                                    role = 'auditor'
+
+                                }else if( sessionStorage.ADRS_UserRole == 2 ){
+
+                                    role = 'service'
+
+                                }else if( sessionStorage.ADRS_UserRole == 3 ){
+
+                                    role = 'aggregator'
+
+                                }else if( sessionStorage.ADRS_UserRole == 4 ){
+
+                                    role = 'consumer'
+
+                                }
+
+                                //权限时候使用
+                                sessionStorage.userRole =  role;
+
                                 //account
                                 sessionStorage.account = JSON.stringify(res.accts);
 
-
                                 sessionStorage.userName = 'mch';
+
+                                //流程图
+                                sessionStorage.allProcs = JSON.stringify([]);
+
+                                sessionStorage.pointers = JSON.stringify([]);
+
 
                                 getMenu();
 
@@ -170,6 +198,10 @@ var Login = function(){
 
                     var indexUrl = data["indexUrl"] || "";
                     sessionStorage.indexUrl = indexUrl;     //存储到暂存区，在本次session中使用
+
+                    //动态绘制菜单
+                    var changeMenuByProcs = data["changeMenuByProcs"] || "";
+                    sessionStorage.changeMenuByProcs = changeMenuByProcs;     //存储到暂存区，在本次session中使用
 
                     //系统的theme
                     if(!localStorage.themeColor){

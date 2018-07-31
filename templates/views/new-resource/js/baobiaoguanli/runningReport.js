@@ -1268,13 +1268,20 @@ $(function(){
             $('.page-header-fixed').css('background','rgb(21, 59, 96)');
             //footer
             $('.page-footer').show();
+
+
+        }else if(searchL == '000'){
+
+
         }else{
 
             //隐藏部分div
             //header
             $('.page-header').hide();
+
             //menu
             $('.page-sidebar-menu').hide();
+
             //content
             $('.page-container').css('marginTop',0);
             $('.page-bar').hide();

@@ -11,7 +11,8 @@
         "uri": "../ADRS/main.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       }
     }
   },
@@ -26,7 +27,8 @@
         "uri": "../ADRS/user.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "用户管理（新）": {
         "type": "0",
@@ -34,7 +36,8 @@
         "uri": "../ADRS/userNew.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "企业信息管理": {
         "type": "0",
@@ -42,7 +45,8 @@
         "uri": "../ADRS/epr.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "企业信息管理（新）": {
         "type": "0",
@@ -50,7 +54,8 @@
         "uri": "../ADRS/eprNew.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "区域管理": {
         "type": "0",
@@ -58,7 +63,8 @@
         "uri": "../ADRS/district.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "户号管理": {
         "type": "0",
@@ -66,7 +72,8 @@
         "uri": "../ADRS/accountNumber.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "户号管理（新）": {
         "type": "0",
@@ -74,7 +81,8 @@
         "uri": "../ADRS/accountNumberNew.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "资源管理": {
         "type": "0",
@@ -82,7 +90,8 @@
         "uri": "../ADRS/resource.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "套餐管理": {
         "type": "0",
@@ -90,7 +99,8 @@
         "uri": "../ADRS/library.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "基线管理": {
         "type": "0",
@@ -98,11 +108,13 @@
         "uri": "../ADRS/baseline.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "新闻配置": {
         "type": "2",
-        "content": "新闻配置"
+        "content": "新闻配置",
+        "arg2": "admin"
       },
       "添加新闻": {
         "type": "0",
@@ -110,7 +122,8 @@
         "uri": "../news/news-1.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "栏目管理": {
         "type": "0",
@@ -118,7 +131,8 @@
         "uri": "../news/news-2.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "新闻管理": {
         "type": "0",
@@ -126,7 +140,8 @@
         "uri": "../news/news-3.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       }
     }
   },
@@ -141,7 +156,8 @@
         "uri": "../ADRS/planMade.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "事件发布": {
         "type": "0",
@@ -149,7 +165,8 @@
         "uri": "../ADRS/planPublish.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "用户响应": {
         "type": "0",
@@ -157,7 +174,8 @@
         "uri": "../ADRS/userAnswer.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin,service,aggregator,consumer"
       },
       "用户筛选": {
         "type": "0",
@@ -165,7 +183,8 @@
         "uri": "../ADRS/userChoose.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "事件审核": {
         "type": "0",
@@ -173,7 +192,8 @@
         "uri": "../ADRS/planAppr.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "auditor service"
       },
       "下发指令": {
         "type": "0",
@@ -181,7 +201,8 @@
         "uri": "../ADRS/pushInstruct.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "事件执行": {
         "type": "0",
@@ -189,7 +210,8 @@
         "uri": "../ADRS/planExec.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       },
       "执行完毕": {
         "type": "0",
@@ -197,7 +219,8 @@
         "uri": "../ADRS/execFinish.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       }
     }
   },
@@ -212,7 +235,8 @@
         "uri": "../ADRS/plans.html",
         "uid": "",
         "arg": "",
-        "iconclass": ""
+        "iconclass": "",
+        "arg2": "admin"
       }
     }
   }

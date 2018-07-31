@@ -1148,20 +1148,15 @@ $(function(){
                 if(result.code == 0){
 
                     //如果是创建的是审核者和服务商，不能跳转到创建企业页面
-                    if(_createRole != 3 || _createRole != 4 ){
+                    if(_createRole != 3 && _createRole != 4 ){
 
                         $('.steps').children().removeClass('active');
 
                         //创建用户步骤添加类
                         $('.steps').children().eq(0).addClass('done');
 
-                        //清空列表
-                        $('#commentForm').find('input').val('');
+                        window.location.href = 'user.html';
 
-                        $('#commentForm').find('textarea').val('');
-
-
-                        return false;
 
                     }
 
@@ -1189,7 +1184,7 @@ $(function(){
                     _thisUserId = result.userNewId;
 
                     //新建账户名称
-                    $('#createName').html(_createName);
+                    $('#userName').html(_createName);
 
 
                 }else if(result.code == -2){
