@@ -93,9 +93,9 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return  "<span class='option-button option-edit' data-userId='" + full.id + "'>编辑</span>" +
+                //return  //"<span class='option-button option-edit' data-userId='" + full.id + "'>编辑</span>" +
 
-                    "<span class='option-button option-dev' data-userId='" + full.id + "'>绑定设备</span>"
+                return   "<span class='option-button option-dev' data-userId='" + full.id + "'>绑定设备</span>"
 
             }
         }
