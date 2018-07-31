@@ -15,6 +15,9 @@
     //当前是直接绑定还是创建
     var _isBind = false;
 
+    //条件查询资源
+    eprCondition();
+
     /*-----------------------------------表格初始化-------------------------------------*/
 
     var col=[
@@ -995,7 +998,9 @@
             //资源类别
             type:$('#resource-type').val(),
             //关键字
-            keyword:$('#resource-name').val()
+            keyword:$('#resource-name').val(),
+            //区域
+            districtId:$('#epr1').val()
 
         }
 
@@ -1713,11 +1718,79 @@
 
     }
 
+    //条件查询获取区域
+    function eprCondition(){
+
+        var prm = {
+
+            isAll:true
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRAccount/GetIncludeDistrictDs',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                var arr = [];
+
+                $('#theLoading').modal('hide');
+
+                if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
+
+                }else if(result.code == 0){
+
+                    var arr = result.districtIdnts;
+
+                }
+
+                var str = '';
+
+                for(var i=0;i<arr.length;i++){
+
+                    str += '<option value="' + arr[i].id + '">' + arr[i].name + '</option>'
+
+                }
+
+                $('#epr1').empty().append(str);
+
+                //获取账户列表
+                conditionSelect();
+
+            },
+
+            error:_errorFun1
+
+        })
+
+    }
+
     return {
         init: function(){
 
             //条件查询
-            conditionSelect();
+            //conditionSelect();
 
         }
     }

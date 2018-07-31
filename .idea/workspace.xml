@@ -28,7 +28,7 @@
       <file leaf-file-name="abbr.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/views/EPMA/abbr.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.885714">
+            <state vertical-scroll-proportion="0.0">
               <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
               <folding>
                 <element signature="n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -50,7 +50,7 @@
       <file leaf-file-name="config.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/local/configs/config.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.8">
+            <state vertical-scroll-proportion="0.0">
               <caret line="192" column="20" selection-start-line="192" selection-start-column="20" selection-end-line="192" selection-end-column="20" />
               <folding>
                 <element signature="n#!!block;n#allEnergyType#0;n#!!top" expanded="false" />
@@ -79,7 +79,7 @@
         <entry file="file://$PROJECT_DIR$/templates/views/EPMA/js/abbr.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="141" column="36" selection-start-line="141" selection-start-column="36" selection-end-line="141" selection-end-column="36" />
+              <caret line="141" column="9" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -217,23 +217,15 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scope">
+        <subPane subId="Project Files" />
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="BEE" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BEE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BEE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -678,6 +670,58 @@
     <entry file="file://$PROJECT_DIR$/templates/views/EPMA/abbr.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+          <folding>
+            <element signature="n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/EPMA/calendar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/local/configs/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="192" column="20" selection-start-line="192" selection-start-column="20" selection-end-line="192" selection-end-column="20" />
+          <folding>
+            <element signature="n#!!block;n#allEnergyType#0;n#!!top" expanded="false" />
+            <element signature="e#202#3042#0" expanded="false" />
+            <element signature="e#210#549#0" expanded="false" />
+            <element signature="e#557#890#0" expanded="false" />
+            <element signature="e#898#1225#0" expanded="false" />
+            <element signature="e#1233#1559#0" expanded="false" />
+            <element signature="e#1567#1886#0" expanded="false" />
+            <element signature="e#1894#2188#0" expanded="false" />
+            <element signature="e#2196#2398#0" expanded="false" />
+            <element signature="e#2406#2608#0" expanded="false" />
+            <element signature="e#2616#2822#0" expanded="false" />
+            <element signature="e#2830#3036#0" expanded="false" />
+            <element signature="n#!!block;n#officeEnergyType#0;n#!!top" expanded="false" />
+            <element signature="e#3135#3938#0" expanded="false" />
+            <element signature="e#3143#3407#0" expanded="false" />
+            <element signature="e#3415#3673#0" expanded="false" />
+            <element signature="e#3681#3932#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/EPMA/js/abbr.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="141" column="9" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/EPMA/abbr.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
           <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
           <folding>
             <element signature="n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -750,14 +794,14 @@
     <entry file="file://$PROJECT_DIR$/templates/views/EPMA/js/abbr.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="141" column="36" selection-start-line="141" selection-start-column="36" selection-end-line="141" selection-end-column="36" />
+          <caret line="141" column="9" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/local/configs/config.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.8">
+        <state vertical-scroll-proportion="0.0">
           <caret line="192" column="20" selection-start-line="192" selection-start-column="20" selection-end-line="192" selection-end-column="20" />
           <folding>
             <element signature="n#!!block;n#allEnergyType#0;n#!!top" expanded="false" />
@@ -783,7 +827,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/EPMA/abbr.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.885714">
+        <state vertical-scroll-proportion="0.0">
           <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
           <folding>
             <element signature="n#body#0;n#html#0;n#!!top" expanded="false" />

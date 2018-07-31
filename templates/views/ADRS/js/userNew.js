@@ -14,6 +14,15 @@ $(function(){
     //选择区域按钮
     var _thisDistrictButton = '';
 
+    //新建账户的名称
+    var _createName = '';
+
+    //新建企业名称
+    var _createEprName = '';
+
+    //记录当前创建的角色
+    var _createRole = '';
+
     /*----------------------------------验证------------------------------------*/
 
     //创建用户验证
@@ -383,10 +392,10 @@ $(function(){
         {
             title:'区域',
             data:'',
-            className:'inputValue',
+            className:'inputValue hiddenButton',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="input-value input-required table-group-action-input form-control" placeholder="必填字段" style="background: #ffffff"><span class="error-tip" style="display: none;"></span>'
+                return '<input type="text" readonly class="input-value input-required table-group-action-input form-control" placeholder="必填字段" style="background: #ffffff"><span class="error-tip" style="display: none;"></span>'
 
             }
         },
@@ -418,7 +427,7 @@ $(function(){
 
     /*---------------------------------按钮操作---------------------------------*/
 
-    //tab选项
+    ////tab选项
     //$('.steps').on('click','li',function(){
     //
     //    $('.steps').find('li').removeClass('active');
@@ -919,6 +928,128 @@ $(function(){
 
     })
 
+    //返回账户列表
+    $('#returnUser').click(function(){
+
+        //如果上列信息都填写了，就要提醒用户是否要返回用户列表
+        if($('#create-user-name').val() != '' && $('#create-user-login-name').val() != '' && $('#create-user-passW').val() != '' ){
+
+            _moTaiKuang($('#IsBack-Modal'),'提示',false,true,'是否返回账户列表？','返回');
+
+        }else{
+
+            window.location.href = 'user.html'
+
+        }
+
+    })
+
+    //点击返回
+    $('#IsBack-Modal').on('click','.btn-primary',function(){
+
+        window.location.href = 'user.html'
+
+    })
+
+    //返回企业账户列表(只要填写内容不全部为空，就要弹出框提示)
+    $('#returnEpr').click(function(){
+
+        var content = $('#commentFormEpr').find('.input-block').children('input');
+
+        var isModal = false;
+
+        for(var i=0;i<content.length;i++){
+
+            if(content.eq(i).val() != ''){
+
+                isModal = true;
+
+                break;
+
+            }
+
+        }
+
+        //判断当前页面创建的是聚合商还是大用户
+        var type = $('.eprType:checked').val();
+
+        if(isModal){
+
+            _moTaiKuang($('#IsBack-Modal-Epr'),'提示','',true,'是否返回企业列表');
+
+        }else{
+
+            if(type == 0){
+
+                //聚合商
+                window.location.href = 'epr.html?create=1';
+
+            }else{
+
+                //大用户
+                window.location.href = 'epr.html?create=2';
+
+            }
+
+
+        }
+
+    })
+
+    //点击返回企业
+    $('#IsBack-Modal-Epr').on('click','.btn-primary',function(){
+
+        window.location.href = 'epr.html'
+
+    })
+
+    //返回户号列表
+    $('#returnAccount').click(function(){
+
+        //判断表格中是否有数据，如果有的话提示
+        var tr = $('#accountTable tbody').children();
+
+        var flag = false;
+
+        if(tr.length > 1){
+
+            flag = false;
+
+        }else{
+
+            if(tr.children().length!=1){
+
+                flag = false;
+
+            }else{
+
+                flag = true;
+
+            }
+
+        }
+
+        if(flag){
+
+            window.location.href = 'accountNumber.html'
+
+        }else{
+
+            _moTaiKuang($('#IsBack-Modal-Account'),'提示','',true,'是否返回户号列表','返回');
+
+        }
+
+
+
+    })
+
+    //点击返回
+    $('#IsBack-Modal-Account').on('click','.btn-primary',function(){
+
+        window.location.href = 'accountNumber.html'
+
+    })
+
     /*-----------------------------------------------------其他方法----------------------------------------*/
 
     //创建用户验证
@@ -990,11 +1121,15 @@ $(function(){
             //账户名称
             userName:$('#create-user-login-name').val(),
             //账户角色
-            userRole:$('#create-user-role').val(),
+            userRole:$('.roleRadio:checked').val(),
             //备注
             memo:$('#create-remark').val()
 
         };
+
+        _createName = $('#create-user-login-name').val()
+
+        _createRole = $('.roleRadio:checked').val();
 
         $.ajax({
 
@@ -1012,6 +1147,24 @@ $(function(){
 
                 if(result.code == 0){
 
+                    //如果是创建的是审核者和服务商，不能跳转到创建企业页面
+                    if(_createRole != 3 || _createRole != 4 ){
+
+                        $('.steps').children().removeClass('active');
+
+                        //创建用户步骤添加类
+                        $('.steps').children().eq(0).addClass('done');
+
+                        //清空列表
+                        $('#commentForm').find('input').val('');
+
+                        $('#commentForm').find('textarea').val('');
+
+
+                        return false;
+
+                    }
+
                     //跳到创建企业页面。
                     //跳到创建企业
 
@@ -1026,11 +1179,17 @@ $(function(){
 
                     $('#theLoading').modal('hide');
 
+                    //创建用户步骤添加类
+                    $('.steps').children().eq(0).addClass('done');
+
                     //进度条
                     $('.progress-bar-success').css({width:'66.66%'});
 
                     //将id保存
                     _thisUserId = result.userNewId;
+
+                    //新建账户名称
+                    $('#createName').html(_createName);
 
 
                 }else if(result.code == -2){
@@ -1145,6 +1304,8 @@ $(function(){
 
         };
 
+        _createEprName = $('#name-J').val();
+
         var url = 'DREprNew/CreateDREprInfoByAggregatorReturnNewId';
 
         //通过判断$('.JH-button')的状态来确定是聚合商还是大用户
@@ -1212,8 +1373,16 @@ $(function(){
 
                     $('#theLoading').modal('hide');
 
+                    //企业的创建成功，样式修改
+                    $('.steps').children().eq(0).addClass('done');
+
+                    $('.steps').children().eq(1).addClass('done');
+
                     //给企业赋值
                     _thisEprId = result.eprNewId;
+
+                    //在创建户号部分显示已创建的企业
+                    $('#createEprName').html(_createEprName);
 
 
                 }else if(result.code == -2){
@@ -1348,29 +1517,37 @@ $(function(){
 
                 $('#theLoading').modal('hide');
 
-                console.log(result);
-
                 if(result.code == 0){
+
+                    $('.steps').children().eq(0).addClass('done');
+
+                    $('.steps').children().eq(1).addClass('done');
+
+                    $('.steps').children().eq(2).addClass('done');
 
                     //跳到账户页面
 
-                    window.location.href = 'accountNumber.html'
+                    window.location.href = 'accountNumber.html';
 
                 }else if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
+                    //_moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
 
                 }else if(result.code == -1){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
+                    _topTipBar('异常错误');
 
                 }else if(result.code == -3){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
+                    _topTipBar('参数错误');
 
                 }else if(result.code == -4){
 
-                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
+                    _topTipBar('内容已存在');
+
+                }else if(result.code == 6){
+
+                    _topTipBar('抱歉，您没有创建户号的权限');
 
                 }
 

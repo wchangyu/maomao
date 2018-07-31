@@ -12,6 +12,9 @@ $(function(){
     //当前选中的账户id
     var _thisUserId = '';
 
+    //记录当前创建的企业的名字
+    var _createEprName = '';
+
     /*----------------------------------验证------------------------------------*/
 
     //创建企业验证
@@ -483,6 +486,9 @@ $(function(){
     //企业类型选择
     $('input[type=radio][name=JD]').change(function(){
 
+        //选择账户显示
+        $('.user-block').show();
+
         if($(this).val() == 0){
 
             //创建聚合商
@@ -492,6 +498,8 @@ $(function(){
 
             //创建大用户
             $('.JH-button').show();
+
+            $('#aa').parent().removeClass('checked');
 
         }
 
@@ -946,6 +954,123 @@ $(function(){
 
     })
 
+    //【是否派生于聚合商】，创建小用户，不选择账户，创建聚合商和大用户的时候，需要
+    $('#commentFormEpr').on('click','#aa',function(){
+
+        if($(this).attr('checked')){
+
+            //选择账户不显示
+            $('.user-block').hide();
+
+        }else{
+
+            //选择账户显示
+            $('.user-block').show();
+
+        }
+
+
+    })
+
+    //返回企业账户列表(只要填写内容不全部为空，就要弹出框提示)
+    $('#returnEpr').click(function(){
+
+        var content = $('#commentFormEpr').find('.input-block').children('input');
+
+        var isModal = false;
+
+        for(var i=0;i<content.length;i++){
+
+            if(content.eq(i).val() != ''){
+
+                isModal = true;
+
+                break;
+
+            }
+
+        }
+
+        //判断当前页面创建的是聚合商还是大用户
+        var type = $('.eprType:checked').val();
+
+        if(isModal){
+
+            _moTaiKuang($('#IsBack-Modal-Epr'),'提示','',true,'是否返回企业列表');
+
+        }else{
+
+            if(type == 0){
+
+                //聚合商
+                window.location.href = 'epr.html?create=1';
+
+            }else{
+
+                //大用户
+                window.location.href = 'epr.html?create=2';
+
+            }
+
+
+        }
+
+    })
+
+    //点击返回企业
+    $('#IsBack-Modal-Epr').on('click','.btn-primary',function(){
+
+        window.location.href = 'epr.html'
+
+    })
+
+    //返回户号列表
+    $('#returnAccount').click(function(){
+
+        //判断表格中是否有数据，如果有的话提示
+        var tr = $('#accountTable tbody').children();
+
+        var flag = false;
+
+        if(tr.length > 1){
+
+            flag = false;
+
+        }else{
+
+            if(tr.children().length!=1){
+
+                flag = false;
+
+            }else{
+
+                flag = true;
+
+            }
+
+        }
+
+        if(flag){
+
+            window.location.href = 'accountNumber.html'
+
+        }else{
+
+            _moTaiKuang($('#IsBack-Modal-Account'),'提示','',true,'是否返回户号列表','返回');
+
+        }
+
+
+
+    })
+
+    //点击返回
+    $('#IsBack-Modal-Account').on('click','.btn-primary',function(){
+
+        window.location.href = 'accountNumber.html'
+
+    })
+
     /*-----------------------------------------------------其他方法----------------------------------------*/
 
     //创建企业验证
@@ -1029,6 +1154,8 @@ $(function(){
 
         };
 
+        _createEprName = $('#name-J').val();
+
         var url = 'DREprNew/CreateDREprInfoByAggregatorReturnNewId';
 
         //通过判断$('.JH-button')的状态来确定是聚合商还是大用户
@@ -1085,16 +1212,21 @@ $(function(){
                     //样式修改
                     $('.steps').children().removeClass('active');
 
-                    $('.steps').children().eq(2).addClass('active');
+                    $('.steps').children().eq(1).addClass('active');
 
                     $('.tab-pane').hide();
 
-                    $('.tab-pane').eq(2).show();
+                    $('.tab-pane').eq(1).show();
 
                     //进度条
                     $('.progress-bar-success').css({width:'100%'});
 
+                    //已创建的样式要变
+                    $('.steps').children().eq(0).addClass('done');
+
                     $('#theLoading').modal('hide');
+
+                    $('#createEprName').html(_createEprName);
 
                     //给企业赋值
                     _thisEprId = result.eprNewId;

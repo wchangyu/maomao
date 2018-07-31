@@ -21,6 +21,9 @@ $(function(){
     //当前的资源id
     var _resourceId = '';
 
+    //已创建户号的名称
+    var _createAccountName = '';
+
     /*-------------------------------------表单验证---------------------------------*/
 
     $('#commentFormAccount').validate({
@@ -381,6 +384,19 @@ $(function(){
 
     _tableInit($('#devTable'),addDevCol,2,true,'','','','',10,'');
     /*--------------------------------------按钮事件---------------------------------*/
+
+    ////tab选项
+    //$('.steps').on('click','li',function(){
+    //
+    //    $('.steps').find('li').removeClass('active');
+    //
+    //    $(this).addClass('active');
+    //
+    //    $('.tab-pane').hide();
+    //
+    //    $('.tab-pane').eq($(this).index()).show();
+    //
+    //})
 
     //选择区域
     $('.select-district').click(function(){
@@ -1269,6 +1285,97 @@ $(function(){
 
     })
 
+    //返回户号列表
+    $('#returnAccount').click(function(){
+
+        var content = $('#commentFormAccount').find('.input-block').children('input');
+
+        var isModal = false;
+
+        for(var i=0;i<content.length;i++){
+
+            if(content.eq(i).val() != ''){
+
+                isModal = true;
+
+                break;
+
+            }
+
+        }
+
+        if(isModal){
+
+            //提示
+            _moTaiKuang($('#IsBack-Modal-Account'),'提示','',true,'是否返回户号列表','返回');
+
+        }else{
+
+            window.location.href = 'accountNumber.html';
+
+        }
+
+    })
+
+    //点击返回
+    $('#IsBack-Modal-Account').on('click','.btn-primary',function(){
+
+        window.location.href = 'accountNumber.html'
+
+    })
+
+    //返回资源列表
+    $('#returnResource').on('click',function(){
+
+        //判断表格中是否有数据，如果有的话提示
+        var tr = $('#resourceTable tbody').children();
+
+        var flag = false;
+
+        if(tr.length > 1){
+
+            flag = false;
+
+        }else{
+
+            if(tr.children().length!=1){
+
+                flag = false;
+
+            }else{
+
+                flag = true;
+
+            }
+
+        }
+
+        if(flag){
+
+            window.location.href = 'resource.html'
+
+        }else{
+
+            _moTaiKuang($('#IsBack-Modal-Resource'),'提示','',true,'是否返回资源列表','返回');
+
+        }
+
+    })
+
+    //返回资源列表
+    $('#IsBack-Modal-Resource').on('click','.btn-primary',function(){
+
+        window.location.href = 'resource.html'
+
+    })
+
+    //绑定设备返回资源列表
+    $('#returnResourceBindDev').on('click',function(){
+
+        _moTaiKuang($('#IsBack-Modal-Resource'),'提示','',true,'是否返回资源列表','返回');
+
+    })
+
     /*-------------------------------其他方法--------------------------------------*/
 
     //获取区域
@@ -1456,6 +1563,31 @@ $(function(){
 
         };
 
+        //记录已创建的户号的名称
+        _createAccountName = $('#account-name').val();
+
+        //跳转、样式修改
+        $('.steps').children().removeClass('active');
+
+        $('.steps').children().eq(1).addClass('active');
+
+        $('.tab-pane').hide();
+
+        $('.tab-pane').eq(1).show();
+
+        $('.steps').children().eq(0).addClass('done');
+
+        $('#theLoading').modal('hide');
+
+        //进度条
+        $('.progress-bar-success').css({width:'66.66%'});
+
+        _thisHHId = result.acctNewId;
+
+        $('#createAccountName').html(_createAccountName);
+
+        return false;
+
         $.ajax({
 
             type:'post',
@@ -1481,12 +1613,16 @@ $(function(){
 
                     $('.tab-pane').eq(1).show();
 
+                    $('.steps').children().eq(0).addClass('done');
+
                     $('#theLoading').modal('hide');
 
                     //进度条
                     $('.progress-bar-success').css({width:'66.66%'});
 
-                    _thisHHId = result.acctNewId
+                    _thisHHId = result.acctNewId;
+
+                    $('#createAccountName').html(_createAccountName);
 
 
                 }else if(result.code == -2){
