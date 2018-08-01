@@ -1,11 +1,53 @@
 ﻿var Main = function () {
 
+    /*-------------------------------------echart-------------------------------------------*/
+    var optionLine = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data:[]
+        },
+        xAxis:  {
+            type: 'category',
+            boundaryGap: false,
+            data: []
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: '{value}'
+            }
+        },
+        series: []
+    };
+
+    //历史曲线初始化
+    var _echartHistory = echarts.init(document.getElementById('powerHistoryChart'));
+
+
     //新闻
     newsInfo();
 
+    //历史曲线
+    historyLine();
+
+    window.onresize = function(){
+
+        if(_echartHistory){
+
+            _echartHistory.resize();
+
+        }
+
+    }
+
     /*------------------------------------------其他方法--------------------------------------*/
 
+    //新闻轮播
     function newsInfo(){
+
+        $('#myCarousel').showLoading();
 
         //获取推荐轮播图块
         $.ajax({
@@ -14,6 +56,8 @@
             url:sessionStorage.apiUrlPrefix + 'News/GetRecommendNews',
 
             success:function(result){
+
+                $('#myCarousel').hideLoading();
 
                 //创建轮播图
                 var showArr = result.splice(0,4);
@@ -89,9 +133,91 @@
 
             error:function(jqXHR, textStatus, errorThrown){
 
+                $('#myCarousel').hideLoading();
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    console.log('请求超时')
+
+                }else{
+
+                    console.log('请求失败')
+
+                }
+
             }
         })
     };
+
+    //历史曲线
+    function historyLine(){
+
+        //loadding显示
+        $('#powerHistoryChart').showLoading();
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRMain/GetHistoryEFhDs',
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#powerHistoryChart').hideLoading();
+
+                //横坐标
+                optionLine.xAxis.data = result.xs;
+
+                //标识
+                optionLine.legend.data = result.lgs;
+
+                //纵坐标
+                var yArr = [];
+
+                //纵坐标
+                for(var i=0;i<result.ys.length;i++){
+
+                    var obj = {};
+
+                    obj.name = result.lgs[i];
+
+                    obj.type = 'line';
+
+                    obj.data = result.ys[i];
+
+                    yArr.push(obj);
+
+                }
+
+                //处理数据，三个数据选最长的，如果
+
+                optionLine.series = yArr;
+
+                _echartHistory.setOption(optionLine,true);
+
+            },
+
+            error:function(jqXHR, textStatus, errorThrown){
+
+                $('#powerHistoryChart').hideLoading();
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    console.log('请求超时')
+
+                }else{
+
+                    console.log('请求失败')
+
+                }
+
+            }
+
+        })
+
+    }
 
 
     return {

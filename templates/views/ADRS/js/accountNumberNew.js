@@ -232,15 +232,6 @@ $(function(){
 
             }
         },
-        //{
-        //    title:'设备绑定',
-        //    className:'inputValue minW',
-        //    render:function(data, type, full, meta){
-        //
-        //        return '<span class="select-district-table" style="display: inline-block;padding: 3px 5px;border: 1px solid #cccccc;border-radius: 4px !important;margin-right: 5px;cursor: pointer">设备</span><input type="text" class="table-group-action-input form-control" placeholder="选填，且多选" readonly style="background: #ffffff;width: 120px;display: inline-block;"><span class="error-tip" style="display:none; "></span>'
-        //
-        //    }
-        //},
         {
             title:'设备是否具有信息交互接口',
             className:'inputValue',
@@ -264,7 +255,7 @@ $(function(){
             className:'inputValue',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="input-chinese input-value table-group-action-input form-control" placeholder="必填字段" style="background: #ffffff"><span class="error-tip" style="display:none; "></span>'
+                return '<input type="text" class="input-chinese input-value table-group-action-input form-control" style="background: #ffffff"><span class="error-tip" style="display:none; "></span>'
 
             }
         },
@@ -406,12 +397,22 @@ $(function(){
         //初始化
         _datasTable($('#district-table'),[]);
 
+        $('#keyWord-modal').val('');
+
         _thisDistrict = '';
 
         //模态框
         _moTaiKuang($('#district-Modal'),'区域',false,'','','选择');
 
         //数据
+        getDistrict();
+
+    })
+
+    //区域条件选择
+    $('#selected-modal').click(function(){
+
+        //获取数据
         getDistrict();
 
     })
@@ -476,6 +477,14 @@ $(function(){
 
         //模态框
         _moTaiKuang($('#epr-Modal'),'选择企业','','','','确定');
+
+        //获取数据
+        getEpr();
+
+    })
+
+    //企业条件查询
+    $('#selected-epr-modal').click(function(){
 
         //获取数据
         getEpr();
@@ -1257,8 +1266,6 @@ $(function(){
 
                 $('#theLoading').modal('hide');
 
-                console.log(result);
-
                 if(result.code == -2){
 
 
@@ -1274,6 +1281,10 @@ $(function(){
                 }else if(result.code == -4){
 
                     _topTipBar('内容已存在')
+
+                }else if(result.code == -6){
+
+                    _topTipBar('抱歉，您没有绑定设备的权限')
 
                 }else if(result.code == 0){
 
