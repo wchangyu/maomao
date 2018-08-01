@@ -12,7 +12,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       }
     }
   },
@@ -28,16 +28,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
-      },
-      "用户管理（新）": {
-        "type": "0",
-        "content": "用户管理（新）",
-        "uri": "../ADRS/userNew.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "企业信息管理": {
         "type": "0",
@@ -46,16 +37,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
-      },
-      "企业信息管理（新）": {
-        "type": "0",
-        "content": "企业信息管理（新）",
-        "uri": "../ADRS/eprNew.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "区域管理": {
         "type": "0",
@@ -64,7 +46,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "户号管理": {
         "type": "0",
@@ -73,16 +55,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
-      },
-      "户号管理（新）": {
-        "type": "0",
-        "content": "户号管理（新）",
-        "uri": "../ADRS/accountNumberNew.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "资源管理": {
         "type": "0",
@@ -91,7 +64,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "套餐管理": {
         "type": "0",
@@ -100,7 +73,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "基线管理": {
         "type": "0",
@@ -109,12 +82,12 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "新闻配置": {
         "type": "2",
         "content": "新闻配置",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "添加新闻": {
         "type": "0",
@@ -123,7 +96,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "栏目管理": {
         "type": "0",
@@ -132,7 +105,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "新闻管理": {
         "type": "0",
@@ -141,7 +114,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       }
     }
   },
@@ -157,7 +130,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "事件发布": {
         "type": "0",
@@ -166,7 +139,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "用户响应": {
         "type": "0",
@@ -175,7 +148,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin,service,aggregator,consumer"
+        "arg2": "admin,aggregator,consumer"
       },
       "用户筛选": {
         "type": "0",
@@ -184,7 +157,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "事件审核": {
         "type": "0",
@@ -193,7 +166,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "auditor service"
+        "arg2": "auditor"
       },
       "下发指令": {
         "type": "0",
@@ -202,7 +175,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "事件执行": {
         "type": "0",
@@ -211,7 +184,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       },
       "执行完毕": {
         "type": "0",
@@ -220,7 +193,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       }
     }
   },
@@ -236,7 +209,7 @@
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "arg2": "admin"
+        "arg2": "admin,service"
       }
     }
   }

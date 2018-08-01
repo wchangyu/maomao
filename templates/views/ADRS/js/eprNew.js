@@ -15,6 +15,38 @@ $(function(){
     //记录当前创建的企业的名字
     var _createEprName = '';
 
+    //创建聚合商or大用户？
+    var search = window.location.search;
+
+    //单选按钮初始化
+    if(search != ''){
+
+        var type = search.split('=')[1];
+
+        if(type == 1){
+
+            //1，创建聚合商
+            //样式：聚合商勾选，选择用户，是否派生不显示
+            $('.eprType').eq(0).attr('checked','checked');
+            //选择用户显示
+            $('.user-block').show();
+            //是否派生不显示
+            $('.JH-button').hide();
+
+        }else if(type ==2){
+
+            //2，创建大用户
+            //大用户勾选，选择用户，是否派生显示
+            $('.eprType').eq(1).attr('checked','checked');
+            //选择用户显示
+            $('.user-block').show();
+            //是否派生显示，但不勾选
+            $('.JH-button').show();
+
+        }
+
+    }
+
     /*----------------------------------验证------------------------------------*/
 
     //创建企业验证
@@ -483,28 +515,6 @@ $(function(){
 
     })
 
-    //企业类型选择
-    $('input[type=radio][name=JD]').change(function(){
-
-        //选择账户显示
-        $('.user-block').show();
-
-        if($(this).val() == 0){
-
-            //创建聚合商
-            $('.JH-button').hide();
-
-        }else{
-
-            //创建大用户
-            $('.JH-button').show();
-
-            $('#aa').parent().removeClass('checked');
-
-        }
-
-
-    })
 
     //【选择区域】
     $('#accountTable').on('click','.select-district-table',function(){
@@ -954,24 +964,6 @@ $(function(){
 
     })
 
-    //【是否派生于聚合商】，创建小用户，不选择账户，创建聚合商和大用户的时候，需要
-    $('#commentFormEpr').on('click','#aa',function(){
-
-        if($(this).attr('checked')){
-
-            //选择账户不显示
-            $('.user-block').hide();
-
-        }else{
-
-            //选择账户显示
-            $('.user-block').show();
-
-        }
-
-
-    })
-
     //返回企业账户列表(只要填写内容不全部为空，就要弹出框提示)
     $('#returnEpr').click(function(){
 
@@ -1071,6 +1063,41 @@ $(function(){
 
     })
 
+    //如果派生于聚合商的话，选择聚合商显示，否则，聚合商不显示
+    $('#aa').change(function(){
+
+        //如果选中的话，显示选择聚合商
+        if($(this).parent('.checked').length){
+
+            //选择聚合商显示
+            $('.isPS-block').show();
+
+            //选择账户清空
+            _thisUserId = '';
+
+            //选择账户不显示
+            $('.user-block').hide();
+
+        }else{
+
+            //选择聚合商不显示
+            $('.isPS-block').hide();
+
+            _JHID = '';
+
+            $('#JHS-J').val('');
+
+            //账户不选
+            $('#create-id').val('');
+
+            _thisUserId = '';
+
+            //选择账户显示
+            $('.user-block').show();
+        }
+
+    })
+
     /*-----------------------------------------------------其他方法----------------------------------------*/
 
     //创建企业验证
@@ -1129,6 +1156,34 @@ $(function(){
     //创建企业发送数据
     function sendOptionEpr(){
 
+        //验证。如果勾选了是否派生于聚合商，就必须选择聚合商，如果没有勾选聚合商，聚合商变量清空
+        if($('#aa').parent('.checked').length == 0){
+
+            _JHID = '';
+
+            //验证账户是否选择
+            if(_thisUserId == ''){
+
+                _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择账户','');
+
+                return false;
+
+            }
+
+        }else{
+
+            //如果勾选了，聚合商必须选择
+            if(_JHID == ''){
+
+                //验证
+                _moTaiKuang($('#tip-Modal'),'提示',true,true,'派生于聚合商情况下，必须选择聚合商');
+
+                return false;
+
+            }
+
+        }
+
         var prm = {
 
             //行业机构
@@ -1146,7 +1201,7 @@ $(function(){
             //邮箱
             eMail:$('#mailbox-J').val(),
             //描述
-            memo:$('#create-remark').val(),
+            memo:$('#create-remark-epr').val(),
             //默认创建聚合商
             eprType:1,
             //账户id

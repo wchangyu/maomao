@@ -8,10 +8,6 @@
     var col=[
 
         {
-            title:'产品ID',
-            data:'id'
-        },
-        {
             title:'产品名称',
             data:'name'
         },

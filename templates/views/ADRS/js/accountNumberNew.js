@@ -1180,6 +1180,10 @@ $(function(){
 
                     $('#theLoading').modal('hide');
 
+                    $('.steps').children().eq(0).addClass('done');
+
+                    $('.steps').children().eq(1).addClass('done');
+
                     //进度条
                     $('.progress-bar-success').css({width:'100%'});
 
@@ -1582,11 +1586,9 @@ $(function(){
         //进度条
         $('.progress-bar-success').css({width:'66.66%'});
 
-        _thisHHId = result.acctNewId;
+        //_thisHHId = result.acctNewId;
 
         $('#createAccountName').html(_createAccountName);
-
-        return false;
 
         $.ajax({
 

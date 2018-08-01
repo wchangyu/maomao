@@ -522,22 +522,22 @@ $(function(){
     })
 
     //企业类型选择
-    $('input[type=radio][name=JD]').change(function(){
-
-        if($(this).val() == 0){
-
-            //创建聚合商
-            $('.JH-button').hide();
-
-        }else{
-
-            //创建大用户
-            $('.JH-button').show();
-
-        }
-
-
-    })
+    //$('input[type=radio][name=JD]').change(function(){
+    //
+    //    if($(this).val() == 0){
+    //
+    //        //创建聚合商
+    //        $('.JH-button').hide();
+    //
+    //    }else{
+    //
+    //        //创建大用户
+    //        $('.JH-button').show();
+    //
+    //    }
+    //
+    //
+    //})
 
     //创建【户号】
     $('#createAccount').click(function(){
@@ -1050,6 +1050,27 @@ $(function(){
 
     })
 
+    //如果派生于聚合商的话，选择聚合商显示，否则，聚合商不显示
+    $('#aa').change(function(){
+
+        //如果选中的话，显示选择聚合商
+        if($(this).parent('.checked').length){
+
+            //选择聚合商显示
+            $('.isPS-block').show();
+
+        }else{
+
+            //选择聚合商不显示
+            $('.isPS-block').hide();
+
+            _JHID = '';
+
+            $('#JHS-J').val('');
+        }
+
+    })
+
     /*-----------------------------------------------------其他方法----------------------------------------*/
 
     //创建用户验证
@@ -1157,34 +1178,58 @@ $(function(){
 
                         window.location.href = 'user.html';
 
+                        return false;
+                    }else{
+
+                        //跳到创建企业页面。
+                        //跳到创建企业
+
+                        //样式修改
+                        $('.steps').children().removeClass('active');
+
+                        $('.steps').children().eq(1).addClass('active');
+
+                        $('.tab-pane').hide();
+
+                        $('.tab-pane').eq(1).show();
+
+                        $('#theLoading').modal('hide');
+
+                        //创建用户步骤添加类
+                        $('.steps').children().eq(0).addClass('done');
+
+                        //进度条
+                        $('.progress-bar-success').css({width:'66.66%'});
+
+                        ////将id保存
+                        _thisUserId = result.userNewId;
+
+                        //新建账户名称
+                        $('#userName').html(_createName);
+
+                        //单选按钮初始化
+                        $('.eprType').parent().removeClass('checked');
+
+                        //选择聚合商Dom初始化
+                        $('.JH-button').hide();
+
+                        //创建的是聚合上的话，企业类型直接选择聚合商，大用户的话，直接选择大用户
+                        if(_createRole == 3){
+
+                            //聚合商
+                            $('.eprType').eq(0).parent().addClass('checked');
+
+
+                        }else if(_createRole == 4){
+
+                            //大用户
+                            $('.eprType').eq(1).parent().addClass('checked');
+
+                            //
+                            $('.JH-button').show();
+                        }
 
                     }
-
-                    //跳到创建企业页面。
-                    //跳到创建企业
-
-                    //样式修改
-                    $('.steps').children().removeClass('active');
-
-                    $('.steps').children().eq(1).addClass('active');
-
-                    $('.tab-pane').hide();
-
-                    $('.tab-pane').eq(1).show();
-
-                    $('#theLoading').modal('hide');
-
-                    //创建用户步骤添加类
-                    $('.steps').children().eq(0).addClass('done');
-
-                    //进度条
-                    $('.progress-bar-success').css({width:'66.66%'});
-
-                    //将id保存
-                    _thisUserId = result.userNewId;
-
-                    //新建账户名称
-                    $('#userName').html(_createName);
 
 
                 }else if(result.code == -2){
@@ -1273,6 +1318,23 @@ $(function(){
 
     //创建企业发送数据
     function sendOptionEpr(){
+
+        //验证。如果勾选了是否派生于聚合商，就必须选择聚合商，如果没有勾选聚合商，聚合商变量清空
+        if($('#aa').parent('.checked').length == 0){
+
+            _JHID = '';
+
+        }else{
+
+            //如果勾选了，聚合商必须选择
+            if(_JHID == ''){
+
+                //验证
+                _moTaiKuang($('#tip-Modal'),'提示',true,true,'派生于聚合商情况下，必须选择聚合商');
+
+            }
+
+        }
 
         var prm = {
 

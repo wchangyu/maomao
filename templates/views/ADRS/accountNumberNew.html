@@ -347,7 +347,7 @@
                                                                                 <label >选择区域：</label>
                                                                             </div>
                                                                             <div class="input-block col-md-4" style="position: relative">
-                                                                                <input style="background: #ffffff" type="text" class="table-group-action-input form-control" readonly id="account-district" name="account-district" placeholder="选择区域是必填字段,且单选">
+                                                                                <input style="background: #ffffff" type="text" class="table-group-action-input form-control" readonly id="account-district" name="account-district" placeholder="选择区域是必选字段,且单选">
                                                                                 <span class="select-district" style="display: inline-block;padding: 5px 10px;background: #2170F4;position: absolute;top: 3px;right: -77px;color: #ffffff;cursor: pointer">选择区域</span>
                                                                             </div>
                                                                             <div class="clearfix"></div>
@@ -357,7 +357,7 @@
                                                                                 <label >选择企业：</label>
                                                                             </div>
                                                                             <div class="input-block col-md-4" style="position: relative">
-                                                                                <input style="background: #ffffff" type="text" class="table-group-action-input form-control" readonly id="account-epr" name="account-epr" placeholder="选择区域是必填字段，且单选">
+                                                                                <input style="background: #ffffff" type="text" class="table-group-action-input form-control" readonly id="account-epr" name="account-epr" placeholder="选择区域是必选字段，且单选">
                                                                                 <span class="select-epr" style="display: inline-block;padding: 5px 10px;background: #2170F4;position: absolute;top: 3px;right: -77px;color: #ffffff;cursor: pointer">选择企业</span>
                                                                             </div>
                                                                             <div class="clearfix"></div>
@@ -730,7 +730,7 @@
     <script>
         jQuery(document).ready(function () {
             Metronic.init();
-            BEE.init();
+            BEE.init(true);
             Layout.init();
             Demo.init();
             ADRS.init();
