@@ -385,7 +385,7 @@ $(function(){
             className:'inputValue',
             render:function(data, type, full, meta){
 
-                return '<span class="select-district-table" style="display: inline-block;padding: 3px 5px;border: 1px solid #cccccc;border-radius: 4px !important;margin-right: 5px;cursor: pointer">选择区域</span><input type="text" class="input-chinese input-value input-required table-group-action-input form-control" placeholder="必填字段" readonly style="background: #ffffff;width: 120px;display: inline-block;"><span class="error-tip" style="display: none;"></span>'
+                return '<span class="select-district-table" style="display: inline-block;padding: 3px 5px;border: 1px solid #cccccc;border-radius: 4px !important;margin-right: 5px;cursor: pointer">选择区域</span><input type="text" class="input-chinese input-value input-required table-group-action-input form-control" placeholder="必选字段" readonly style="background: #ffffff;width: 120px;display: inline-block;"><span class="error-tip" style="display: none;"></span>'
 
             }
         },
@@ -405,7 +405,7 @@ $(function(){
             className:'inputValue',
             render:function(data, type, full, meta){
 
-                return '<input type="text" class="input-value table-group-action-input form-control" placeholder="必填字段" style="background: #ffffff"><span class="error-tip" style="display: none;"></span>'
+                return '<input type="text" class="input-value table-group-action-input form-control" style="background: #ffffff"><span class="error-tip" style="display: none;"></span>'
 
             }
         },
@@ -427,7 +427,7 @@ $(function(){
 
     /*---------------------------------按钮操作---------------------------------*/
 
-    ////tab选项
+    //tab选项
     //$('.steps').on('click','li',function(){
     //
     //    $('.steps').find('li').removeClass('active');
@@ -521,24 +521,6 @@ $(function(){
 
     })
 
-    //企业类型选择
-    //$('input[type=radio][name=JD]').change(function(){
-    //
-    //    if($(this).val() == 0){
-    //
-    //        //创建聚合商
-    //        $('.JH-button').hide();
-    //
-    //    }else{
-    //
-    //        //创建大用户
-    //        $('.JH-button').show();
-    //
-    //    }
-    //
-    //
-    //})
-
     //创建【户号】
     $('#createAccount').click(function(){
 
@@ -556,6 +538,12 @@ $(function(){
         _thisDistrictButton = $(this);
 
         $('#theLoading').modal('show');
+
+        //初始化
+        $('#keyWord-modal').val('');
+
+        //表格
+        _datasTable($('#district-table'),[]);
 
         //模态框
         _moTaiKuang($('#district-Modal'),'区域',false,'','','选择');
@@ -624,6 +612,9 @@ $(function(){
             dom.parents('td').next().find('input').next().hide();
 
             $('#district-Modal').modal('hide');
+
+            //红色边框消失
+            dom.removeClass('table-error');
 
         }
 
@@ -842,78 +833,31 @@ $(function(){
 
             if($(this).attr('class').indexOf('input-chinese')<0){
 
+                //数字
+
                 var reg = /^\d+(\.\d+)?$/;
 
                 if(reg.test($(this).val())){
 
                     $(this).next('.error-tip').html('').hide();
 
-                    //再判断消减负荷的数量
-
-                    if( $(this).parent('td').index() == 4 ){
-
-                        //首先判断是否在自己的签署容量之内
-                        var maxCapacity = $(this).parent().parent().children().eq(0).children().attr('data-capacity');
-
-                        if(Number($(this).val())>Number(maxCapacity)){
-
-                            $(this).addClass('table-error');
-
-                            $(this).next('.error-tip').html('消减负荷不能超过自身签署容量').show();
-
-                        }else{
-
-                            //将该表格的所有第三列数字加起来，必须小于等于thisLoad
-                            var table = $(this).parents('.innerTable');
-
-                            var loadTr = table.children('tbody').children('tr');
-
-                            var totle = 0;
-
-                            for(var i=0;i<loadTr.length;i++){
-
-                                var typeFlag = loadTr.eq(i).children('td').eq(4).children('input').length;
-
-                                var num = 0;
-
-                                if(typeFlag == 0){
-
-                                    num = Number(loadTr.eq(i).children('td').eq(4).children().html());
-
-                                }else{
-
-                                    num = Number(loadTr.eq(i).children('td').eq(4).children().val());
-
-                                }
-
-                                totle += num;
-
-                            }
-
-                            //如果总量大于thisLoad，要提示
-                            if(totle>_thisLoad){
-
-                                $(this).addClass('table-error');
-
-                                $(this).next('.error-tip').html('消减负荷累计不能超过总负荷量').show();
-
-                            }else{
-
-                                $(this).removeClass('table-error');
-
-                                $(this).next('.error-tip').html('').hide();
-
-                            }
-
-                        }
-
-                    }
+                    $(this).removeClass('table-error');
 
                 }else{
 
                     $(this).next('.error-tip').html('请输入大于0的数字').show();
 
+                    $(this).addClass('table-error');
+
                 }
+
+            }else{
+
+                //文字
+                $(this).next('.error-tip').html('').hide();
+
+                $(this).removeClass('table-error');
+
 
             }
 
@@ -1179,56 +1123,54 @@ $(function(){
                         window.location.href = 'user.html';
 
                         return false;
-                    }else{
+                    }
 
-                        //跳到创建企业页面。
-                        //跳到创建企业
+                    //跳到创建企业页面。
+                    //跳到创建企业
 
-                        //样式修改
-                        $('.steps').children().removeClass('active');
+                    //样式修改
+                    $('.steps').children().removeClass('active');
 
-                        $('.steps').children().eq(1).addClass('active');
+                    $('.steps').children().eq(1).addClass('active');
 
-                        $('.tab-pane').hide();
+                    $('.tab-pane').hide();
 
-                        $('.tab-pane').eq(1).show();
+                    $('.tab-pane').eq(1).show();
 
-                        $('#theLoading').modal('hide');
+                    $('#theLoading').modal('hide');
 
-                        //创建用户步骤添加类
-                        $('.steps').children().eq(0).addClass('done');
+                    //创建用户步骤添加类
+                    $('.steps').children().eq(0).addClass('done');
 
-                        //进度条
-                        $('.progress-bar-success').css({width:'66.66%'});
+                    //进度条
+                    $('.progress-bar-success').css({width:'66.66%'});
 
-                        ////将id保存
-                        _thisUserId = result.userNewId;
+                    ////将id保存
+                    _thisUserId = result.userNewId;
 
-                        //新建账户名称
-                        $('#userName').html(_createName);
+                    //新建账户名称
+                    $('#userName').html(_createName);
 
-                        //单选按钮初始化
-                        $('.eprType').parent().removeClass('checked');
+                    //单选按钮初始化
+                    $('.eprType').parent().removeClass('checked');
 
-                        //选择聚合商Dom初始化
-                        $('.JH-button').hide();
+                    //选择聚合商Dom初始化
+                    $('.JH-button').hide();
 
-                        //创建的是聚合上的话，企业类型直接选择聚合商，大用户的话，直接选择大用户
-                        if(_createRole == 3){
+                    //创建的是聚合上的话，企业类型直接选择聚合商，大用户的话，直接选择大用户
+                    if(_createRole == 3){
 
-                            //聚合商
-                            $('.eprType').eq(0).parent().addClass('checked');
+                        //聚合商
+                        $('.eprType').eq(0).parent().addClass('checked');
 
 
-                        }else if(_createRole == 4){
+                    }else if(_createRole == 4){
 
-                            //大用户
-                            $('.eprType').eq(1).parent().addClass('checked');
+                        //大用户
+                        $('.eprType').eq(1).parent().addClass('checked');
 
-                            //
-                            $('.JH-button').show();
-                        }
-
+                        //
+                        $('.JH-button').show();
                     }
 
 
