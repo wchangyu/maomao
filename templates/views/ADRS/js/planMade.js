@@ -251,7 +251,13 @@
         },
         {
             title:'区域名称',
-            data:'name'
+            data:'name',
+            className:'getRes',
+            render:function(data, type, full, meta){
+
+                    return '（<span style="color: #68a1fd;;text-decoration: underline;" data-id="' + full.id +'" data-type="' + full.name +'">' + data + '</span>）'
+
+            }
         },
         {
             title:'区域等级',
@@ -532,7 +538,7 @@
     })
 
     //选择区域【tr】
-    $('#district-table tbody').on('click','tr',function(){
+    $('#district-table').on('click','tr',function(){
 
         if($(this).hasClass('tables-hover')){
 
@@ -556,11 +562,15 @@
 
         }
 
-        var id = $(this).find('.checker').attr('data-id')
+    })
 
-        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+    $('#district-table').on('click','.getRes',function(){
 
-        var table1 = $(this).parents('table').DataTable();
+        var id = $(this).children('span').attr('data-id');
+
+        var tr = $(this).parent().closest('tr');  //找到距离按钮最近的行tr;
+
+        var table1 = $('#district-table').DataTable();
 
         var row = table1.row( tr );
 
@@ -575,7 +585,7 @@
 
             row.child( HRData()).show();
 
-            var innerTable = $(this).next().find('.table');
+            var innerTable = $(this).parent().next().find('.table');
 
             var HHDom = $(this).next().find('.eprHH');
 
@@ -1356,9 +1366,9 @@
     //显示户号，资源
     function HRData(){
 
-        var tip = '<div style="text-align: left;line-height: 30px;text-indent: 20px;">当前区域下共有<span class="eprHH"></span>户号、<span class="eprRes"></span>资源</div>'
+        var tip = '<div style="text-align: left;line-height: 30px;text-indent: 20px;" class="table-tip-area">当前区域下共有<span class="eprHH"></span>户号、<span class="eprRes"></span>资源</div>'
 
-        var table = '<table class="table table-striped  table-advance table-hover"></table>'
+        var table = '<table class="table table-striped innerTable table-hover"></table>'
 
         //最外边的框
         var block = '<div style="border: 1px solid #68a1fd;">';

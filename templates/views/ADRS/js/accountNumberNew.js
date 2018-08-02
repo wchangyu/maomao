@@ -376,7 +376,7 @@ $(function(){
     _tableInit($('#devTable'),addDevCol,2,true,'','','','',10,'');
     /*--------------------------------------按钮事件---------------------------------*/
 
-    ////tab选项
+    //tab选项
     //$('.steps').on('click','li',function(){
     //
     //    $('.steps').find('li').removeClass('active');
@@ -726,6 +726,12 @@ $(function(){
             var name = inputValue.eq(i).attr('class');
 
             str = '<input class="' + name + '" placeholder="必填字段" style="background: #ffffff" value="' + valueArr[i] + '"><span class="error-tip" style="display:none; "></span>'
+
+            if(i == valueArr.length-1){
+
+                str = '<input class="' + name + '" style="background: #ffffff" value="' + valueArr[i] + '"><span class="error-tip" style="display:none; "></span>'
+
+            }
 
             td.html(str);
 
