@@ -1552,8 +1552,7 @@ $(function(){
 
         var prm = {
 
-            role:id,
-            isdel: 2
+            eprType:id
 
         }
 
@@ -1561,7 +1560,7 @@ $(function(){
 
             type:'post',
 
-            url:sessionStorage.apiUrlPrefix + 'DRUser/GetDRUserDs',
+            url:sessionStorage.apiUrlPrefix + 'DREpr/GetEprBindUserSelectDs',
 
             data:prm,
 
