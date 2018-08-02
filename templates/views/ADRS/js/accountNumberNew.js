@@ -13,7 +13,7 @@ $(function(){
     var _thisHHId = '';
 
     //当前资源返回的id数组
-    var _thisResIdArr = [25,11];
+    var _thisResIdArr = [];
 
     //存放静态数组的设备
     var _demoDevArr = [];
@@ -377,17 +377,17 @@ $(function(){
     /*--------------------------------------按钮事件---------------------------------*/
 
     //tab选项
-    $('.steps').on('click','li',function(){
-
-        $('.steps').find('li').removeClass('active');
-
-        $(this).addClass('active');
-
-        $('.tab-pane').hide();
-
-        $('.tab-pane').eq($(this).index()).show();
-
-    })
+    //$('.steps').on('click','li',function(){
+    //
+    //    $('.steps').find('li').removeClass('active');
+    //
+    //    $(this).addClass('active');
+    //
+    //    $('.tab-pane').hide();
+    //
+    //    $('.tab-pane').eq($(this).index()).show();
+    //
+    //})
 
     //选择区域
     $('.select-district').click(function(){
@@ -986,7 +986,6 @@ $(function(){
 
             if(tr.eq(i).children('td').length>1){
 
-                //console.log(33)
 
                 var currentTr = $(tr).eq(i);
 
@@ -1024,9 +1023,14 @@ $(function(){
                 //控制名称
                 obj.contrlName = currentTr.find('.select-dev-KZ').attr('data-num')==undefined?'':currentTr.find('.select-dev-KZ').html();
 
-                thisArr.push(obj);
+                //如果功率Id、，电量Id、输出控制设备Id
+                if(obj.powerId == '' && obj.electricityId == '' && obj.contrlId == ''){
 
-                //console.log(thisArr);
+                }else{
+
+                    thisArr.push(obj);
+
+                }
 
             }
 
@@ -1141,27 +1145,6 @@ $(function(){
             resBMs:arr
 
         }
-
-        $('.steps').children().removeClass('active');
-
-        $('.steps').children().eq(2).addClass('active');
-
-        $('.tab-pane').hide();
-
-        $('.tab-pane').eq(2).show();
-
-        $('#theLoading').modal('hide');
-
-        $('.steps').children().eq(0).addClass('done');
-
-        $('.steps').children().eq(1).addClass('done');
-
-        //进度条
-        $('.progress-bar-success').css({width:'100%'});
-
-        addDev(_thisResIdArr)
-
-        return false;
 
         $.ajax({
 
