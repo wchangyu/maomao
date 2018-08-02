@@ -36,6 +36,8 @@
 
     var _state6 = false;
 
+    var chartAry = [];
+
     /*--------------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -142,21 +144,23 @@
 
                 //判断当前时间和结束时间，如果当前时间>结束时间，那么就要显示，否则不显示
 
-                var nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
+                //var nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
+                //
+                //var endTime = moment(full.closeDate).format('YYYY-MM-DD HH:mm:ss');
 
-                var endTime = moment(full.closeDate).format('YYYY-MM-DD HH:mm:ss');
+                return '<span class="option-button option-implement" data-id="' + full.planId + '" style="border-color: #14e399 !important;color: #14e399 !important">监控</span>'
 
-                if(timeCompare(endTime,nowTime)){
-
-                    return '<span class="option-button option-implement" data-id="' + full.planId + '" style="border-color: #14e399 !important;color: #14e399 !important">监控</span>' +
-
-                        '<span class="option-button option-accounting" data-id="' + full.planId + '" style="border-color: #0aa3c3 !important;color: #0aa3c3 !important">核算</span>'
-
-                }else{
-
-                    return '<span class="option-button option-implement" data-id="' + full.planId + '" style="border-color: #14e399 !important;color: #14e399 !important">监控</span>'
-
-                }
+                //if(timeCompare(endTime,nowTime)){
+                //
+                //    return '<span class="option-button option-implement" data-id="' + full.planId + '" style="border-color: #14e399 !important;color: #14e399 !important">监控</span>'
+                //
+                //        //'<span class="option-button option-accounting" data-id="' + full.planId + '" style="border-color: #0aa3c3 !important;color: #0aa3c3 !important">核算</span>'
+                //
+                //}else{
+                //
+                //    return '<span class="option-button option-implement" data-id="' + full.planId + '" style="border-color: #14e399 !important;color: #14e399 !important">监控</span>'
+                //
+                //}
 
             }
         }
@@ -361,10 +365,15 @@
 
             var echart1 = echarts.init(document.getElementById(lineBlock));
 
+            //当前核算按钮
+            var button = $(this).parent('td').parent().next().find('.answer-button');
+
             //当前选中的行
             thisDataBlock = $(this).parent().parent().next().find('.formatLeft');
 
             //获取实时数据（十分钟刷新一次）
+
+            //执行中的话，实时数据和基线、参与户数都要调，等待资源的情况下。只调基线和户数
 
             if(_currentStateDom.text() == '执行中'){
 
@@ -374,7 +383,7 @@
 
                     realtimeLoad(echart1);
 
-                },1000*60*10)
+                },1000*10)
 
                 //获取基线数据
                 baselineLoad(echart1);
@@ -489,6 +498,17 @@
 
             tr.addClass('shown');
 
+            //核算
+            var nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
+
+            //如果当前时间>结束时间,核算按钮显示
+            if(timeCompare(_et,nowTime)){
+
+                console.log(222);
+
+                button.show();
+
+            }
             _indexNum ++;
         }
 
@@ -553,6 +573,19 @@
         accountData();
 
     })
+
+    window.onresize = function(){
+
+        for (var i = 0;i<chartAry.length;i++){
+
+            if(chartAry[i]){
+
+                chartAry[i].resize();
+
+            }
+        }
+
+    }
 
     /*-------------------------------------其他方法-----------------------------------------*/
 
@@ -728,9 +761,13 @@
 
         var blocks = '</div>'
 
+        //核算按钮
+
+        var chooseButton = '<div style="text-align: left !important;"><button class="btn green answer-button" style="margin: 5px 0 5px 5px;display: none;">执行完毕，去核算</button></div>';
+
         var clear = '<div class="clearfix"></div>';
 
-        return block + left + right + rightTop + rights  + clear + blocks;
+        return block + left + right + rightTop + rights + chooseButton + clear + blocks;
 
     }
 
@@ -811,6 +848,8 @@
 
                     chart.setOption(optionTop,true);
 
+                    chartAry.push(chart);
+
                     baseObj.x = result.jxFhXs;
 
                     baseObj.y = result.jxFhYs;
@@ -879,6 +918,8 @@
                     //实时负荷赋值
                     thisDataBlock.find('.realTimeNum').html(result.ssFhVa);
 
+                    console.log('实时负荷'+ result.ssFhVa);
+
                     //基线负荷的值
                     optionTop.xAxis.data = result.ssFhXs;
 
@@ -894,6 +935,8 @@
 
                     //实时负荷赋值
                     thisDataBlock.find('.realTimeNum').html(result.ssFhVa);
+
+                    console.log('实时负荷'+ result.ssFhVa);
 
                     //基线负荷的值
                     optionTop.xAxis.data = [];
@@ -972,6 +1015,8 @@
             //如果双方有任何一方为0,那么就直接写另一个,首先判断长度
             if(baseObj.x.length==realObj.x.length){
 
+                //console.log('相等')
+
                 //基线负荷-实时负荷
                 for(var i=0;i<baseObj.x.length;i++){
 
@@ -986,6 +1031,8 @@
                 //分别判断为0的情况
                 if(baseObj.x.length == 0){
 
+                    //console.log('基线为0')
+
                     for(var i=0;i<baseObj.x.length;i++){
 
                         var value = Number(0) - Number(realObj.y[i]);
@@ -998,11 +1045,27 @@
 
                 if(realObj.x.length == 0){
 
+                    //console.log('实时为0')
+
                     for(var i=0;i<baseObj.x.length;i++){
 
                         var value = Number(baseObj.y[i]) - Number(0);
 
                         _reduceLoad.push(value);
+
+                    }
+
+                }
+
+                //基线的点大于实时的点
+
+                if(baseObj.x.length > realObj.x.length){
+
+                    for(var i=0;i<realObj.x.length;i++){
+
+                        var value = Number(baseObj.y[i]) - Number(realObj.y[i]);
+
+                        _reduceLoad.push(value.toFixed(3));
 
                     }
 
@@ -1018,10 +1081,14 @@
             //消减负荷=基线负荷-实时负荷
             var reduceLoad = Number(thisDataBlock.find('.baselineNum').html()) - Number(thisDataBlock.find('.realTimeNum').html());
 
+            console.log('消减负荷' + reduceLoad.toFixed(3));
+
             thisDataBlock.find('.SubtractNum').html(reduceLoad.toFixed(3));
 
             //完成比例 消减负荷/计划消减
             var per = (Number(thisDataBlock.find('.SubtractNum').html())/Number(thisDataBlock.find('.planNum').html())) * 100;
+
+            console.log('完成比例' + per);
 
             thisDataBlock.find('.completePer').html(per.toFixed(3));
 

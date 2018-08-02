@@ -63,8 +63,29 @@
             }
         },
         {
-          title:'是否达标',
-            data:'isStandard'
+            title:'是否达标',
+            data:'isStandard',
+            render:function(data, type, full, meta){
+
+                if( data == ''){
+
+                    return ''
+
+                }if(data == 0){
+
+                    return '<span class="state-ball" style="background: red;"></span>' + '未达标'
+
+                }else if(data == 1){
+
+                    return '<span class="state-ball" style="background: green;"></span>' + '达标'
+
+                }else{
+
+                    return ''
+
+                }
+
+            }
         },
         {
             title:'实际消减负荷数(kW)',
@@ -133,23 +154,44 @@
 
         {
             title:'户号',
-            data:''
+            data:'accountName'
         },
         {
             title:'实际消减负荷（kW）',
-            data:''
+            data:'actualReduceLoad'
         },
         {
             title:'参与时长（h）',
-            data:''
+            data:'partakeHourlength'
         },
         {
             title:'是否达标',
-            data:''
+            data:'isStandard',
+            render:function(data, type, full, meta){
+
+                if( data == ''){
+
+                    return ''
+
+                }if(data == 0){
+
+                    return '<span class="state-ball" style="background: red;"></span>' + '未达标'
+
+                }else if(data == 1){
+
+                    return '<span class="state-ball" style="background: green;"></span>' + '达标'
+
+                }else{
+
+                    return ''
+
+                }
+
+            }
         },
         {
             title:'总补贴',
-            data:''
+            data:'totalSubsidy'
         }
 
     ]
@@ -201,6 +243,10 @@
 
             //表格初始化
             _tableInit(innerTable,accountCol,2,true,'','',true,'',10);
+
+            var id = $(this).children().attr('data-id');
+
+            planResult(id,innerTable);
 
             tr.addClass('shown');
         }
@@ -395,7 +441,7 @@
 
         var table = '<table class="table table-striped  table-advance table-hover innerTable"></table>'
 
-        return block + theader + tbodyer + str + tbodyers + theaders + blocks + '<div style="margin-top: 20px;"></div>' + block + table + blocks + answerButton ;
+        return block + theader + tbodyer + str + tbodyers + theaders + blocks + '<div style="margin-top: 20px;"></div>' + block + table + blocks ;
 
     }
 
@@ -433,7 +479,80 @@
 
     }
 
-    //执行完毕
+    //获取事件执行结果
+    function planResult(id,table){
+
+        $('#theLoading').modal('show');
+
+        var  prm = {
+
+            //事件
+            planId:id
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRExecFinish/GetDRPlanResultDsByPlanId',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
+
+                var arr = [];
+
+                $('#tip').hide();
+
+                if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'暂时没有获取到执行结果','');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'异常错误','');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'参数错误','');
+
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'内容已存在','');
+
+
+                }else if(result.code == -6){
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'抱歉，您没有获取执行结果的权限','');
+
+                }else if(result.code == 0){
+
+                    arr = result.planResultDs;
+
+                }
+
+                _jumpNow(table,arr);
+
+            },
+
+            error:_errorFun
+
+        })
+
+    }
 
     return {
         init: function () {

@@ -81,7 +81,7 @@
             className:'detail-button',
             render:function(data, type, full, meta){
 
-                return '<span data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline ">详情</span>'
+                return '<span data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline ">下发指令</span>'
 
             }
         }

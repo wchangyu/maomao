@@ -112,7 +112,7 @@
             className:'detail-button',
             render:function(data, type, full, meta){
 
-                return '<span data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline ">详情</span>'
+                return '<span data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline ">响应</span>'
 
             }
         }
@@ -587,6 +587,9 @@
 
                             innerTable.find('tbody').children().children().eq(2).children().val(account[i].accountName);
 
+                            //绑定签署容量
+                            innerTable.find('tbody').children().children().eq(0).children().attr('data-capacity',1000); //account[i].signatureVolume
+
                         }
 
                     }
@@ -924,7 +927,9 @@
 
                             $(this).addClass('table-error');
 
-                            $(this).next('.error-tip').html('消减负荷不能超过自身签署容量').show();
+                            var str = '不能超过自身签署容量:' + maxCapacity + '(kW)';
+
+                            $(this).next('.error-tip').html(str).show();
 
                         }else{
 

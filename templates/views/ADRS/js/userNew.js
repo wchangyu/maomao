@@ -26,6 +26,9 @@ $(function(){
     //记录当前创建的是聚合商还是大用户
     var _eprType = '';
 
+    //记录当前正在操作的按钮
+    var _thisButton = '';
+
     /*----------------------------------验证------------------------------------*/
 
     //创建用户验证
@@ -431,25 +434,27 @@ $(function(){
     /*---------------------------------按钮操作---------------------------------*/
 
     //tab选项
-    //$('.steps').on('click','li',function(){
-    //
-    //    $('.steps').find('li').removeClass('active');
-    //
-    //    $(this).addClass('active');
-    //
-    //    $('.tab-pane').hide();
-    //
-    //    $('.tab-pane').eq($(this).index()).show();
-    //
-    //})
+    $('.steps').on('click','li',function(){
+
+        $('.steps').find('li').removeClass('active');
+
+        $(this).addClass('active');
+
+        $('.tab-pane').hide();
+
+        $('.tab-pane').eq($(this).index()).show();
+
+    })
 
     //创建【用户】
     $('#createUser').click(function(){
 
+        _thisButton = $(this);
+
         //格式验证
         formatValidateUser(function(){
 
-            sendOptionUser();
+            sendOptionUser(_thisButton);
 
         })
 
@@ -458,9 +463,11 @@ $(function(){
     //创建【企业】
     $('#createEpr').click(function(){
 
+        _thisButton = $(this);
+
         formatValidateEpr(function(){
 
-            sendOptionEpr();
+            sendOptionEpr(_thisButton);
 
         })
 
@@ -521,17 +528,6 @@ $(function(){
 
         //模态框消失
         $('#select-JH-Modal').modal('hide');
-
-    })
-
-    //创建【户号】
-    $('#createAccount').click(function(){
-
-        formatValidateAccount(function(){
-
-
-
-        })
 
     })
 
@@ -876,7 +872,9 @@ $(function(){
     //管理户号
     $('#createAccount').click(function(){
 
-        sendOptionAccount()
+        _thisButton = $(this);
+
+        sendOptionAccount(_thisButton)
 
     })
 
@@ -1079,7 +1077,9 @@ $(function(){
     }
 
     //创建用户发送数据
-    function sendOptionUser(){
+    function sendOptionUser(el){
+
+        el.attr('disabled',true).html('正在保存...')
 
         $('#tip').hide();
 
@@ -1119,6 +1119,8 @@ $(function(){
                 $('#theLoading').modal('hide');
 
                 if(result.code == 0){
+
+                    el.attr('disabled',false).html('创建账户');
 
                     //如果是创建的是审核者和服务商，不能跳转到创建企业页面
                     if(_createRole != 3 && _createRole != 4 ){
@@ -1267,7 +1269,9 @@ $(function(){
     }
 
     //创建企业发送数据
-    function sendOptionEpr(){
+    function sendOptionEpr(el){
+
+        el.attr('disabled',true).html('正在保存...');
 
         //验证。如果勾选了是否派生于聚合商，就必须选择聚合商，如果没有勾选聚合商，聚合商变量清空
         if($('#aa').parent('.checked').length == 0){
@@ -1369,6 +1373,8 @@ $(function(){
                 $('#theLoading').modal('hide');
 
                 if(result.code == 0){
+
+                    el.attr('disabled',false).html('创建企业');
 
                     //样式修改
                     $('.steps').children().removeClass('active');
@@ -1491,7 +1497,9 @@ $(function(){
     }
 
     //创建户号
-    function sendOptionAccount(){
+    function sendOptionAccount(el){
+
+        el.attr('disabled',true).html('正在保存...');
 
         //获取所有户号的数组
         var td = $('#accountTable tbody').children('tr');
@@ -1549,6 +1557,8 @@ $(function(){
                     $('.steps').children().eq(1).addClass('done');
 
                     $('.steps').children().eq(2).addClass('done');
+
+                    el.attr('disabled',true).html('创建户号');
 
                     //跳到账户页面
 
