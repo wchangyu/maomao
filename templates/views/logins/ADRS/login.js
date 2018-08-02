@@ -256,19 +256,43 @@ var Login = function(){
 
         if(_isMenuLoaded){
 
-            if(sessionStorage.indexUrl){
+            if(sessionStorage.ADRS_UserRole == 1){
 
-                _indexUrl = sessionStorage.indexUrl
+                //审核者，默认跳到
+
+                window.location.href = '../../ADRS/planAppr.html';
+
+            }else if(sessionStorage.ADRS_UserRole == 2){
+
+                //服务商
+                window.location.href = '../../ADRS/main.html';
+
+            }else if(sessionStorage.ADRS_UserRole == 3){
+
+                //聚合商
+                window.location.href = '../../ADRS/userAnswer.html'
+
+            }else if(sessionStorage.ADRS_UserRole == 4){
+
+                //聚合商
+                window.location.href = '../../ADRS/userAnswer.html'
 
             }
 
-            if(sessionStorage.redirectFromPage){
-                window.location.href = sessionStorage.redirectFromPage;
-
-            }else{
-
-                window.location.href = _indexUrl;
-            }
+            //if(sessionStorage.indexUrl){
+            //
+            //    _indexUrl = sessionStorage.indexUrl
+            //
+            //}
+            //
+            //if(sessionStorage.redirectFromPage){
+            //
+            //    window.location.href = sessionStorage.redirectFromPage;
+            //
+            //}else{
+            //
+            //    window.location.href = _indexUrl;
+            //}
         }
 
     };

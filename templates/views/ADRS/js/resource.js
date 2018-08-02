@@ -557,7 +557,7 @@
         changeCss($(this));
 
         //loadding
-        $('#theLoading').modal('show');
+        //$('#theLoading').modal('show');
 
         //初始化
         _datasTable($('#dev-manage'),[]);
@@ -574,7 +574,12 @@
         //模态框
         _moTaiKuang($('#bind-table-Modal'),'绑定设备','','','','确定');
 
-        $('#theLoading').modal('hide');
+        //$('#theLoading').modal('hide');
+
+        //获取一下已绑定的设备，然后再去重
+
+
+
     })
 
     //【点击设备选择按钮选择】
@@ -1526,8 +1531,6 @@
     //根据id获取设备列表
     function devDataById(id){
 
-        $('#theLoading').modal('show');
-
         var prm = {
 
             resId:id
@@ -1546,20 +1549,40 @@
 
             success:function(result){
 
-                $('#theLoading').modal('hide');
-
-                //_datasTable($('#dev-table'),result.serviceObjs);
-
-                console.log(result);
+                var arr = [];
 
                 if(result.code == 0){
 
+                    //获取已绑定的设备，然后
+                    for(var i=0;i<result.rbms.length;i++){
+
+                        //功率设备
+                        if(result.rbms[i].electricityId != 0){
+
+                            arr.push(result.rbms[i].electricityId);
+
+                        }
+
+                        //电量设备
+                        if(result.rbms[i].powerId != 0){
+
+                            arr.push(result.rbms[i].electricityId);
+
+                        }
+
+                        //控制设备
+                        if(result.rbms[i].controId == 0){
+
+                            arr.push(result.rbms[i].controId);
+
+                        }
+
+                    }
 
 
                 }
 
-
-
+                devData(arr);
 
             },
 
