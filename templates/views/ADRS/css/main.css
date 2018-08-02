@@ -27,3 +27,43 @@
     bottom: 0;
 
 }
+
+.statistics-block{
+
+    height: 200px;
+
+    border-right: 1px solid #eee;
+
+    padding: 20px;
+
+}
+
+.statistics-title{
+
+    text-align: center;
+
+    font-size: 14px;
+
+}
+
+.statistics-block p{
+
+    margin: 0;
+
+    line-height: 40px;
+
+    background: #edebeb;
+
+    text-indent: 20px;
+
+    margin-bottom: 20px;
+
+    padding-right: 20px;
+
+}
+
+.statistics-block span{
+
+    float: right;
+
+}

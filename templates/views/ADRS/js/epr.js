@@ -36,35 +36,6 @@
     //选择账户的时候，绑定当前企业的企业类型
     var _thisEprType = '';
 
-    //默认首先判断一下是否是从其他页面跳进来的
-    var _search = window.location.search;
-
-    ////两个创建按钮隐藏
-    //$('.creatUser').hide();
-    //
-    //if(_search != ''){
-    //
-    //    //说明是从其他页面跳过来的
-    //    var flag = _search.split('=')[1];
-    //
-    //    if(flag == 1){
-    //
-    //        //聚合商（只能创建聚合商，创建大用户的按钮消失）
-    //        $('#creatUserS').show();
-    //
-    //    }else if(flag == 2){
-    //
-    //        //大用户（只能创建大用户，创建聚合商的按钮消失）
-    //        $('#creatUserD').show();
-    //
-    //    }
-    //
-    //}else{
-    //
-    //    $('.creatUser').show();
-    //
-    //}
-
     /*-----------------------------------表格初始化-------------------------------------*/
 
     //主表格
@@ -140,17 +111,13 @@
 
                 if(full.eprType == 1){
 
-                    return  "<span class='option-edit option-button' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>编辑</span>" +
-
-                        "<span class='option-button option-yonghu' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>设置账户</span>"
+                    return  "" //"<span class='option-button option-yonghu' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>设置账户</span>"
 
                 }else{
 
-                    return  "<span class='option-edit option-button' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>编辑</span>" +
+                     //"<span class='option-button option-yonghu' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>设置账户</span>" +
 
-                        "<span class='option-button option-yonghu' data-userId='" + full.eprId + "' data-type='" + full.eprType + "'>设置账户</span>" +
-
-                        "<span class='option-button option-huhao' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>管理户号</span>"
+                    return  "<span class='option-button option-huhao' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>管理户号</span>"
 
                 }
 
@@ -218,26 +185,26 @@
 
             }
         },
-        {
-            title:'编辑操作',
-            "targets": -1,
-            "data": null,
-            render:function(data, type, full, meta){
-
-                if(full.eprType == 1){
-
-                    return  "<span class='option-edit option-button' data-userId='" + full.eprId + "'>编辑</span>"
-
-                }else{
-
-                    return  "<span class='option-edit option-button' data-userId='" + full.eprId + "'>编辑</span>" +
-
-                        "<span class='option-button option-huhao' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>管理户号</span>"
-
-                }
-
-            }
-        },
+        //{
+        //    title:'编辑操作',
+        //    "targets": -1,
+        //    "data": null,
+        //    render:function(data, type, full, meta){
+        //
+        //        if(full.eprType == 1){
+        //
+        //            return  ""
+        //
+        //        }else{
+        //
+        //            //return  "<span class='option-edit option-button' data-userId='" + full.eprId + "'>编辑</span>" +
+        //
+        //             return   "<span class='option-button option-huhao' data-userId='" + full.eprId + "' data-type='" + full.eprType +"'>管理户号</span>"
+        //
+        //        }
+        //
+        //    }
+        //},
     ]
 
     var _table = $('#table').DataTable({

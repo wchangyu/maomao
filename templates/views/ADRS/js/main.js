@@ -25,6 +25,39 @@
     //历史曲线初始化
     var _echartHistory = echarts.init(document.getElementById('powerHistoryChart'));
 
+    //区域响应饼图
+    var _echartPie = echarts.init(document.getElementById('district-answer'));
+
+    var optionPie = {
+
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'horizontal',
+            left: 'center',
+            top:'bottom',
+            data: []
+        },
+        series : [
+            {
+                name: '',
+                type: 'pie',
+                radius : '65%',
+                center: ['45%', '40%'],
+                data:[],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
 
     //新闻
     newsInfo();
@@ -32,11 +65,25 @@
     //历史曲线
     historyLine();
 
+    //角色响应统计
+    RoleAnswer();
+
+    //行业响应统计
+    industryAnswer();
+
+    //区域响应统计
+    districtAnswer();
+
+    //产品响应统计
+    productAnswer();
+
     window.onresize = function(){
 
-        if(_echartHistory){
+        if(_echartHistory && _echartPie){
 
             _echartHistory.resize();
+
+            _echartPie.resize();
 
         }
 
@@ -159,7 +206,7 @@
 
             type:'post',
 
-            url:sessionStorage.apiUrlPrefix + 'DRMain/GetHistoryEFhDs',
+            url:sessionStorage.apiUrlPrefix + 'DRMain/GetDRHistoryEFhDs',
 
             timeout:_theTimes,
 
@@ -167,35 +214,61 @@
 
                 $('#powerHistoryChart').hideLoading();
 
-                //横坐标
-                optionLine.xAxis.data = result.xs;
+                if(result.code == 0){
 
-                //标识
-                optionLine.legend.data = result.lgs;
+                    //横坐标
+                    optionLine.xAxis.data = result.xs;
 
-                //纵坐标
-                var yArr = [];
+                    //标识
+                    optionLine.legend.data = result.lgs;
 
-                //纵坐标
-                for(var i=0;i<result.ys.length;i++){
+                    //纵坐标
+                    var yArr = [];
 
-                    var obj = {};
+                    //纵坐标
+                    for(var i=0;i<result.ys.length;i++){
 
-                    obj.name = result.lgs[i];
+                        var obj = {};
 
-                    obj.type = 'line';
+                        obj.name = result.lgs[i];
 
-                    obj.data = result.ys[i];
+                        obj.type = 'line';
 
-                    yArr.push(obj);
+                        obj.data = result.ys[i];
 
-                }
+                        yArr.push(obj);
 
-                //处理数据，三个数据选最长的，如果
+                    }
 
-                optionLine.series = yArr;
+                    //处理数据，三个数据选最长的，如果
 
-                _echartHistory.setOption(optionLine,true);
+                    optionLine.series = yArr;
+
+                    _echartHistory.setOption(optionLine,true);
+
+                }else if(result.code == -1){
+
+                        console.log('获取历史用电负荷曲线数据时出现异常');
+
+                    }else if(result.code == -2){
+
+                        console.log('暂时没有历史用电负荷曲线');
+
+                    }else if(result.code == -3){
+
+                        console.log('参数错误');
+
+                    }else if(result.code == -4){
+
+                        console.log('内容已存在')
+
+                    }else if(result.code == -6){
+
+                        console.log('抱歉，您没有获取历史用电负荷曲线数据的权限');
+
+                    }
+
+
 
             },
 
@@ -218,6 +291,310 @@
         })
 
     }
+
+    //角色响应
+    function RoleAnswer(){
+
+        $('.role-answer').showLoading();
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRMain/GetDRSGVByURole',
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('.role-answer').hideLoading();
+
+                var str = '';
+
+                if(result.code == 0){
+
+                    for(var i in result.uRoleSGVs){
+
+                        str += '<p>' + i + ':' + '<span>' + result.uRoleSGVs[i] + '</span>' + '</p>'
+
+                    }
+
+                }else if(result.code == -1){
+
+                    console.log('获取角色响应数据时出现异常');
+
+                }else if(result.code == -2){
+
+                    console.log('暂时没有角色响应数据');
+
+                }else if(result.code == -3){
+
+                    console.log('参数错误');
+
+                }else if(result.code == -4){
+
+                    console.log('内容已存在')
+
+                }else if(result.code == -6){
+
+                    console.log('抱歉，您没有获取角色响应统计的权限');
+
+                }
+
+                $('.role-answer').empty().append(str);
+
+            },
+
+            error:function(jqXHR, textStatus, errorThrown){
+
+                $('.role-answer').hideLoading();
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    console.log('请求超时')
+
+                }else{
+
+                    console.log('请求失败')
+
+                }
+
+            }
+
+        })
+
+    }
+
+    //行业响应
+    function industryAnswer(){
+
+        $('.industry-answer').showLoading();
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRMain/GetDRSGVByAgency',
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('.industry-answer').hideLoading();
+
+                var str = '';
+
+                if(result.code == 0){
+
+                    for(var i in result.agencySGVs){
+
+                        str += '<p>' + i + ':' + '<span>' + result.agencySGVs[i] + '</span>' + '</p>'
+
+                    }
+
+                }else if(result.code == -1){
+
+                    console.log('获取行业响应数据时出现异常');
+
+                }else if(result.code == -2){
+
+                    console.log('暂时没有行业响应数据');
+
+                }else if(result.code == -3){
+
+                    console.log('参数错误');
+
+                }else if(result.code == -4){
+
+                    console.log('内容已存在')
+
+                }else if(result.code == -6){
+
+                    console.log('抱歉，您没有获取行业响应统计的权限');
+
+                }
+
+                $('.industry-answer').empty().append(str);
+
+            },
+
+            error:function(jqXHR, textStatus, errorThrown){
+
+                $('.industry-answer').hideLoading();
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    console.log('请求超时')
+
+                }else{
+
+                    console.log('请求失败')
+
+                }
+
+            }
+
+        })
+
+    }
+
+    //产品响应
+    function productAnswer(){
+
+        $('.product-answer').showLoading();
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRMain/GetDRSGVByIndustry',
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('.product-answer').hideLoading();
+
+                var str = '';
+
+                if(result.code == 0){
+
+                    for(var i in result.industrySGVs){
+
+                        str += '<p>' + i + ':' + '<span>' + result.industrySGVs[i] + '</span>' + '</p>'
+
+                    }
+
+                }else if(result.code == -1){
+
+                    console.log('获取行业响应数据时出现异常');
+
+                }else if(result.code == -2){
+
+                    console.log('暂时没有行业响应数据');
+
+                }else if(result.code == -3){
+
+                    console.log('参数错误');
+
+                }else if(result.code == -4){
+
+                    console.log('内容已存在')
+
+                }else if(result.code == -6){
+
+                    console.log('抱歉，您没有获取行业响应统计的权限');
+
+                }
+
+                $('.product-answer').empty().append(str);
+
+            },
+
+            error:function(jqXHR, textStatus, errorThrown){
+
+                $('.product-answer').hideLoading();
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    console.log('请求超时')
+
+                }else{
+
+                    console.log('请求失败')
+
+                }
+
+            }
+
+        })
+
+    }
+
+    //响应能力
+    function districtAnswer(){
+
+        $('.district-answer').showLoading();
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRMain/GetDRSGVByDIST',
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('.district-answer').hideLoading();
+
+                if(result.code == 0){
+
+                    optionPie.legend.data = result.lgs;
+
+                    var yArr = [];
+
+                    for(var i=0;i<result.lgs.length;i++){
+
+                        var obj = {};
+
+                        obj.value = result.ys[i];
+
+                        obj.name = result.lgs[i];
+
+                        yArr.push(obj);
+
+                    }
+
+                    optionPie.series[0].data = yArr;
+
+
+                }else if(result.code == -1){
+
+                    console.log('获取行业响应数据时出现异常');
+
+                }else if(result.code == -2){
+
+                    console.log('暂时没有行业响应数据');
+
+                }else if(result.code == -3){
+
+                    console.log('参数错误');
+
+                }else if(result.code == -4){
+
+                    console.log('内容已存在')
+
+                }else if(result.code == -6){
+
+                    console.log('抱歉，您没有获取行业响应统计的权限');
+
+                }
+
+                _echartPie.setOption(optionPie);
+
+            },
+
+            error:function(jqXHR, textStatus, errorThrown){
+
+                $('.district-answer').hideLoading();
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    console.log('请求超时')
+
+                }else{
+
+                    console.log('请求失败')
+
+                }
+
+            }
+
+        })
+
+    }
+
 
 
     return {
