@@ -13,7 +13,7 @@ $(function(){
     var _thisHHId = '';
 
     //当前资源返回的id数组
-    var _thisResIdArr = [];
+    var _thisResIdArr = [25,11];
 
     //存放静态数组的设备
     var _demoDevArr = [];
@@ -282,7 +282,7 @@ $(function(){
             title:'功率设备',
             render:function(data, type, full, meta){
 
-                return '<div type="text" class="select-dev-GL table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
+                return '<div type="text" class="select-dev-cell select-dev-GL table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
 
             }
 
@@ -292,7 +292,7 @@ $(function(){
             title:'电量设备',
             render:function(data, type, full, meta){
 
-                return '<div type="text" class="select-dev-DL table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
+                return '<div type="text" class="select-dev-cell select-dev-DL table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
 
             }
 
@@ -302,7 +302,7 @@ $(function(){
             title:'控制设备',
             render:function(data, type, full, meta){
 
-                return '<div type="text" class="select-dev-KZ table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
+                return '<div type="text" class="select-dev-cell select-dev-KZ table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
 
             }
 
@@ -377,17 +377,17 @@ $(function(){
     /*--------------------------------------按钮事件---------------------------------*/
 
     //tab选项
-    //$('.steps').on('click','li',function(){
-    //
-    //    $('.steps').find('li').removeClass('active');
-    //
-    //    $(this).addClass('active');
-    //
-    //    $('.tab-pane').hide();
-    //
-    //    $('.tab-pane').eq($(this).index()).show();
-    //
-    //})
+    $('.steps').on('click','li',function(){
+
+        $('.steps').find('li').removeClass('active');
+
+        $(this).addClass('active');
+
+        $('.tab-pane').hide();
+
+        $('.tab-pane').eq($(this).index()).show();
+
+    })
 
     //选择区域
     $('.select-district').click(function(){
@@ -890,7 +890,8 @@ $(function(){
         _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
 
         //数据
-        devData();
+        //devData();
+        getAlreadyDev();
 
         //类
         $('#dev-Modal').find('.btn-primary').removeClass('dev-DL-B').removeClass('dev-KZ-B').addClass('dev-GL-B');
@@ -909,7 +910,7 @@ $(function(){
         _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
 
         //数据
-        devData();
+        getAlreadyDev();
 
         //类
         $('#dev-Modal').find('.btn-primary').removeClass('dev-GL-B').removeClass('dev-KZ-B').addClass('dev-DL-B');
@@ -928,7 +929,7 @@ $(function(){
         _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
 
         //数据
-        devData();
+        getAlreadyDev();
 
         //类
         $('#dev-Modal').find('.btn-primary').removeClass('dev-GL-B').removeClass('dev-DL-B').addClass('dev-KZ-B');
@@ -1140,6 +1141,27 @@ $(function(){
             resBMs:arr
 
         }
+
+        $('.steps').children().removeClass('active');
+
+        $('.steps').children().eq(2).addClass('active');
+
+        $('.tab-pane').hide();
+
+        $('.tab-pane').eq(2).show();
+
+        $('#theLoading').modal('hide');
+
+        $('.steps').children().eq(0).addClass('done');
+
+        $('.steps').children().eq(1).addClass('done');
+
+        //进度条
+        $('.progress-bar-success').css({width:'100%'});
+
+        addDev(_thisResIdArr)
+
+        return false;
 
         $.ajax({
 
@@ -1858,7 +1880,7 @@ $(function(){
     }
 
     //获取设备列表
-    function devData(){
+    function devData(arr){
 
         $('#theLoading').modal('show');
 
@@ -1878,6 +1900,20 @@ $(function(){
 
                 //格式化数据
                 var ztreeArr = [];
+
+                for(var i=0;i<result.serviceObjs.length;i++){
+
+                    for(var j=0;j<arr.length;j++){
+
+                        if(result.serviceObjs[i].f_ServiceId == arr[j]){
+
+                            result.serviceObjs.remove(result.serviceObjs[i]);
+
+                        }
+
+                    }
+
+                }
 
                 for(var i=0;i<result.serviceObjs.length;i++){
 
@@ -1916,6 +1952,74 @@ $(function(){
             error:_errorFun
 
         })
+    }
+
+    //每次获取已添加的设备
+    function getAlreadyDev(){
+
+        var arr = [];
+
+        //遍历已添加的设备，
+        for(var i=0;i<_demoDevArr.length;i++){
+
+            for(var j=0;j<_demoDevArr[i].dev.length;j++){
+
+                var data = _demoDevArr[i].dev[j];
+
+                //功率
+                if(data.powerId != ''){
+
+                    arr.push(data.powerId)
+
+                }
+
+                //电量
+                if(data.electricityId != ''){
+
+                    arr.push(data.electricityId)
+
+                }
+
+                //控制
+                if(data.contrlId != ''){
+
+                    arr.push(data.contrlId)
+
+                }
+
+
+            }
+
+        }
+
+        //遍历现在添加的设备
+        var devDom = $('#dev-manage tbody').find('.select-dev-cell');
+
+        //当前已选中的数组
+        existArr = [];
+
+        for(var i=0;i<devDom.length;i++){
+
+            var num = devDom.eq(i).attr('data-num') == undefined?'':devDom.eq(i).attr('data-num');
+
+            if(num != ''){
+
+                existArr.push(num);
+
+            }
+
+        }
+
+        for(var i=0;i<existArr.length;i++){
+
+            arr.push(existArr[i]);
+
+        }
+
+        //获取所有设备数组
+        devData(arr);
+
+
     }
 
     //根据数组，生成添加设备表格

@@ -605,14 +605,13 @@
     //选择区域【选择】
     $('#district-Modal').on('click','.btn-primary',function(){
 
-
         if(_HRArr.length != 0){
 
             var nowSelected = $('#district-table tbody').find('.tables-hover');
 
             _thisDistrict = nowSelected.children().eq(0).children('.checker').attr('data-id');
 
-            var name = nowSelected.children().eq(1).html();
+            var name = nowSelected.children().eq(1).children().html();
 
             $('#district').val(name);
 

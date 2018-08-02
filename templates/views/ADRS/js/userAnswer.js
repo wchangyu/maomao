@@ -33,6 +33,9 @@
     //记录总的消减负荷
     var _thisLoad = 0;
 
+    //当前选中的ids
+    var _acctIdsArr = [];
+
     /*--------------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -451,6 +454,8 @@
             if(_allData[i].planId == thisEprId){
 
                 thisOBJ = _allData[i];
+
+                _acctIdsArr = _allData[i].acctIDs;
 
             }
 
@@ -1896,7 +1901,9 @@
             //用户角色
             userRole:sessionStorage.ADRS_UserRole,
             //事件Id
-            planId:_thisPlanId
+            planId:_thisPlanId,
+
+            acctIds:_acctIdsArr
 
         }
 

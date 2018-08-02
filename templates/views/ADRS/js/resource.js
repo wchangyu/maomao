@@ -491,6 +491,8 @@
         //初始化
         $('#keyWord-modal').val('');
 
+        $('#district-con').val(0);
+
         //模态框
         _moTaiKuang($('#huNum-Modal'),'户号','','','','选择');
 
@@ -555,7 +557,7 @@
         changeCss($(this));
 
         //loadding
-        $('#theLoading').modal('show');
+        //$('#theLoading').modal('show');
 
         //初始化
         _datasTable($('#dev-manage'),[]);
@@ -572,7 +574,12 @@
         //模态框
         _moTaiKuang($('#bind-table-Modal'),'绑定设备','','','','确定');
 
-        $('#theLoading').modal('hide');
+        //$('#theLoading').modal('hide');
+
+        //获取一下已绑定的设备，然后再去重
+
+
+
     })
 
     //【点击设备选择按钮选择】
@@ -670,7 +677,7 @@
         _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
 
         //数据
-        devData();
+        getAlreadyDev();
 
         //类
         $('#dev-Modal').find('.btn-primary').removeClass('dev-DL-B').removeClass('dev-KZ-B').addClass('dev-GL-B');
@@ -689,7 +696,7 @@
         _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
 
         //数据
-        devData();
+        getAlreadyDev();
 
         //类
         $('#dev-Modal').find('.btn-primary').removeClass('dev-GL-B').removeClass('dev-KZ-B').addClass('dev-DL-B');
@@ -708,7 +715,7 @@
         _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
 
         //数据
-        devData();
+        getAlreadyDev();
 
         //类
         $('#dev-Modal').find('.btn-primary').removeClass('dev-GL-B').removeClass('dev-DL-B').addClass('dev-KZ-B');
@@ -1263,7 +1270,7 @@
             keyword:$('#keyWord-modal').val(),
 
             //区域
-            districtId:0
+            districtId:$('#district-con').val()
 
         }
 
@@ -1404,7 +1411,7 @@
     }
 
     //获取设备列表
-    function devData(url){
+    function devData(arr){
 
         $('#theLoading').modal('show');
 
@@ -1424,6 +1431,22 @@
 
                 //格式化数据
                 var ztreeArr = [];
+
+                //将获取到的数组和已选择的数组去重
+
+                for(var i=0;i<result.serviceObjs.length;i++){
+
+                    for(var j=0;j<arr.length;j++){
+
+                        if(result.serviceObjs[i].f_ServiceId == arr[j]){
+
+                            result.serviceObjs.remove(result.serviceObjs[i]);
+
+                        }
+
+                    }
+
+                }
 
                 for(var i=0;i<result.serviceObjs.length;i++){
 
@@ -1463,7 +1486,6 @@
                     }
 
                 }
-
 
                 //ztree搜索功能
                 var key = $("#keyWord-dev-modal");
@@ -1509,8 +1531,6 @@
     //根据id获取设备列表
     function devDataById(id){
 
-        $('#theLoading').modal('show');
-
         var prm = {
 
             resId:id
@@ -1529,20 +1549,40 @@
 
             success:function(result){
 
-                $('#theLoading').modal('hide');
-
-                //_datasTable($('#dev-table'),result.serviceObjs);
-
-                console.log(result);
+                var arr = [];
 
                 if(result.code == 0){
 
+                    //获取已绑定的设备，然后
+                    for(var i=0;i<result.rbms.length;i++){
+
+                        //功率设备
+                        if(result.rbms[i].electricityId != 0){
+
+                            arr.push(result.rbms[i].electricityId);
+
+                        }
+
+                        //电量设备
+                        if(result.rbms[i].powerId != 0){
+
+                            arr.push(result.rbms[i].electricityId);
+
+                        }
+
+                        //控制设备
+                        if(result.rbms[i].controId == 0){
+
+                            arr.push(result.rbms[i].controId);
+
+                        }
+
+                    }
 
 
                 }
 
-
-
+                devData(arr);
 
             },
 
@@ -1793,6 +1833,8 @@
 
                 $('#epr1').empty().append(str);
 
+                $('#district-con').empty().append(str);
+
                 //获取账户列表
                 conditionSelect();
 
@@ -1810,15 +1852,23 @@
         //遍历添加的设备，
         var devDom = $('#dev-manage tbody').find('.select-dev-cell');
 
-        console.log(devDom.length);
-
-        //已选中的数组arr
+        //当前已选中的数组
+        existArr = [];
 
         for(var i=0;i<devDom.length;i++){
 
-            console.log(devDom.eq(i).attr('data-num'));
+            var num = devDom.eq(i).attr('data-num') == undefined?'':devDom.eq(i).attr('data-num');
+
+            if(num != ''){
+
+                existArr.push(num);
+
+            }
 
         }
+
+        //获取所有设备数组
+        devData(existArr);
 
 
     }
