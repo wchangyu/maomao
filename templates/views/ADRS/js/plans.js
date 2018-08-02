@@ -46,7 +46,28 @@
         },
         {
             title:'是否达标',
-            data:'isStandard'
+            data:'isStandard',
+            render:function(data, type, full, meta){
+
+                if( data == ''){
+
+                    return ''
+
+                }if(data == 0){
+
+                    return '<span class="state-ball" style="background: red;"></span>' + '未达标'
+
+                }else if(data == 1){
+
+                    return '<span class="state-ball" style="background: green;"></span>' + '达标'
+
+                }else{
+
+                    return ''
+
+                }
+
+            }
         },
         {
             title:'总补贴',
@@ -163,17 +184,28 @@
         }
         else {
 
-            row.child( formatDetail(thisOBJ) ).show();
+            //判断当前状态
+            var state = $(this).parent().children().eq(0).text();
 
-            //初始化表格
-            var innerTable = $(this).parent().next().find('.innerTable');
+            if(state == '执行完毕'){
 
-            //表格初始化
-            _tableInit(innerTable,accountCol,2,true,'','',true,'',10);
+                row.child( formatDetail(thisOBJ) ).show();
 
-            var id = $(this).children().attr('data-id');
+                //初始化表格
+                var innerTable = $(this).parent().next().find('.innerTable');
 
-            planResult(id,innerTable);
+                //表格初始化
+                _tableInit(innerTable,accountCol,2,true,'','',true,'',10);
+
+                var id = $(this).children().attr('data-id');
+
+                planResult(id,innerTable);
+
+            }else{
+
+                row.child( formatDetailOther(thisOBJ) ).show();
+
+            }
 
             tr.addClass('shown');
         }
@@ -342,13 +374,69 @@
         var answerButton = '<div style="text-align: left !important;">' + '<button class="btn green answer-button" style="margin: 5px 0 5px 5px;">' + '执行完毕' + '</button>' + '</div>';
 
         //最外边的框
-        var block = '<div style="border: 1px solid #68a1fd;">';
+        var block = '<div class="HH-block" style="border: 1px solid #68a1fd;">';
 
         var blocks = '</div>';
 
         var table = '<table class="table table-striped  table-advance table-hover innerTable"></table>'
 
-        return block + theader + tbodyer + str + tbodyers + theaders + blocks + '<div style="margin-top: 20px;"></div>' + block + table + blocks ;
+        return block + theader + tbodyer + str + tbodyers + theaders + blocks + '<div style="margin-top: 20px;"></div>' + block + '<span style="display: block;line-height: 30px;text-align: left !important;text-indent: 10px;">事件参与户号执行详情:</span>' +  table + blocks ;
+
+    }
+
+    function formatDetailOther(d){
+
+        var theader = '<table class="table  table-advance table-hover subTable">';
+
+        var theaders = '</table>';
+
+        var tbodyer = '<tbody>'
+
+        var tbodyers = '</tbody>';
+
+        var str = '';
+
+        //计划名称、区域、开始时间、结束时间、计划消减负荷量
+        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kW）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
+
+        //基线、发布时间、反馈截止时间、
+
+        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle">反馈截止时间</td>' + '<td class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
+
+        if(d.librarys){
+
+            for(var i=0;i< d.librarys.length;i++){
+
+                var lengths = d.librarys.length;
+
+                var tc = d.librarys[i];
+
+                if(lengths == 1){
+
+                    //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>'  + '</tr>';
+
+                }else{
+
+                    //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称' + (i+1) + '</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>' + '</tr>';
+
+                }
+
+
+            }
+
+        }
+
+        //备注
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9" style="text-align: left;text-indent: 25px;">' + d.memo + '</td></tr>'
+
+        //最外边的框
+        var block = '<div class="HH-block" style="border: 1px solid #68a1fd;">';
+
+        var blocks = '</div>';
+
+        return block + theader + tbodyer + str + tbodyers + theaders + blocks ;
 
     }
 
