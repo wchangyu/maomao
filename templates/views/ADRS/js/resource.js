@@ -216,7 +216,7 @@
             title:'功率设备',
             render:function(data, type, full, meta){
 
-                return '<div type="text" class="select-dev-GL table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
+                return '<div type="text" class="select-dev-cell select-dev-GL table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
 
             }
 
@@ -226,7 +226,7 @@
             title:'电量设备',
             render:function(data, type, full, meta){
 
-                return '<div type="text" class="select-dev-DL table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
+                return '<div type="text" class="select-dev-cell select-dev-DL table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
 
             }
 
@@ -236,7 +236,7 @@
             title:'控制设备',
             render:function(data, type, full, meta){
 
-                return '<div type="text" class="select-dev-KZ table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
+                return '<div type="text" class="select-dev-cell select-dev-KZ table-group-action-input form-control" placeholder="点击选择" style="cursor: pointer">点击选择</div>'
 
             }
 
@@ -657,7 +657,6 @@
 
         //获取已选中的设备
         getAlreadyDev();
-
 
     })
 
@@ -1261,7 +1260,10 @@
         var  prm = {
 
             //关键字
-            keyword:$('#keyWord-modal').val()
+            keyword:$('#keyWord-modal').val(),
+
+            //区域
+            districtId:0
 
         }
 
@@ -1451,16 +1453,16 @@
 
                 }
 
-                console.log(treeObj.getNodes());
-
                 //用递归，将所有父节点的checked隐藏
-                for(var i=0;i<treeObj.getNodes().length;i++){
+                for(var i=0;i<nodes.length;i++){
 
-                    
+                    if(nodes[i].isParent){
+
+                        nodes[i].nocheck = true;
+
+                    }
 
                 }
-
-                treeObj.getNodes()[0].nocheck = true;
 
 
                 //ztree搜索功能
@@ -1806,7 +1808,18 @@
     function getAlreadyDev(){
 
         //遍历添加的设备，
-        console.log()
+        var devDom = $('#dev-manage tbody').find('.select-dev-cell');
+
+        console.log(devDom.length);
+
+        //已选中的数组arr
+
+        for(var i=0;i<devDom.length;i++){
+
+            console.log(devDom.eq(i).attr('data-num'));
+
+        }
+
 
     }
 
