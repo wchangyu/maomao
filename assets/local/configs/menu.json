@@ -21,9 +21,9 @@
     "iconclass": "icon-notebook",
     "content": "信息管理",
     "submenu": {
-      "用户管理": {
+      "账户管理": {
         "type": "0",
-        "content": "用户管理",
+        "content": "账户管理",
         "uri": "../ADRS/user.html",
         "uid": "",
         "arg": "",

@@ -1079,7 +1079,9 @@ $(function(){
     //创建用户发送数据
     function sendOptionUser(el){
 
-        el.attr('disabled',true).html('正在保存...')
+        var buttonStr = '<i class="fa fa-check" style="margin-right: 5px;"></i>正在保存...';
+
+        el.empty().append(buttonStr).attr('disabled',true)
 
         $('#tip').hide();
 
@@ -1118,9 +1120,11 @@ $(function(){
 
                 $('#theLoading').modal('hide');
 
-                if(result.code == 0){
+                var buttonStr = '<i class="fa fa-check" style="margin-right: 5px;"></i>创建账户';
 
-                    el.attr('disabled',false).html('创建账户');
+                el.empty().append(buttonStr).attr('disabled',false);
+
+                if(result.code == 0){
 
                     //如果是创建的是审核者和服务商，不能跳转到创建企业页面
                     if(_createRole != 3 && _createRole != 4 ){
@@ -1271,7 +1275,10 @@ $(function(){
     //创建企业发送数据
     function sendOptionEpr(el){
 
-        el.attr('disabled',true).html('正在保存...');
+        var buttonStr = '<i class="fa fa-check" style="margin-right: 5px;"></i>正在保存...';
+
+        el.empty().append(buttonStr).attr('disabled',true)
+
 
         //验证。如果勾选了是否派生于聚合商，就必须选择聚合商，如果没有勾选聚合商，聚合商变量清空
         if($('#aa').parent('.checked').length == 0){
@@ -1372,9 +1379,11 @@ $(function(){
 
                 $('#theLoading').modal('hide');
 
-                if(result.code == 0){
+                var buttonStr = '<i class="fa fa-check" style="margin-right: 5px;"></i>创建企业';
 
-                    el.attr('disabled',false).html('创建企业');
+                el.empty().append(buttonStr).attr('disabled',false);
+
+                if(result.code == 0){
 
                     //样式修改
                     $('.steps').children().removeClass('active');
@@ -1499,7 +1508,10 @@ $(function(){
     //创建户号
     function sendOptionAccount(el){
 
-        el.attr('disabled',true).html('正在保存...');
+        var buttonStr = '<i class="fa fa-check" style="margin-right: 5px;"></i>正在保存...';
+
+        el.empty().append(buttonStr).attr('disabled',true)
+
 
         //获取所有户号的数组
         var td = $('#accountTable tbody').children('tr');
@@ -1549,6 +1561,10 @@ $(function(){
             success:function(result){
 
                 $('#theLoading').modal('hide');
+
+                var buttonStr = '<i class="fa fa-check" style="margin-right: 5px;"></i>创建户号';
+
+                el.empty().append(buttonStr).attr('disabled',false);
 
                 if(result.code == 0){
 

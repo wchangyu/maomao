@@ -218,7 +218,10 @@
 
                 }else if(result.code == 0){
 
-                    conditionSelect();
+                    //conditionSelect();
+
+                    window.location.href = 'planExec.html';
+
 
                 }
 
@@ -280,7 +283,7 @@
 
                 if(result.code == -2){
 
-                    _topTipBar('暂时没有需要下发的事件')
+                    _topTipBar('请等待审核者审核')
 
                 }else if(result.code == -1){
 
