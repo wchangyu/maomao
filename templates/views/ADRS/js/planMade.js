@@ -1081,6 +1081,9 @@
                     $('#district').val(result.plan.districtName);
                     //区域选择（值）
                     _thisDistrict = result.plan.districtId;
+
+                    HHResFormatEdite(_thisDistrict);
+
                     //选择产品库（文本）
                     var str = '';
                     //选择产品库（值）
@@ -1366,6 +1369,78 @@
                 //HHDom.html(arr.length);
 
                 //ResDom.html(arr.length);
+
+            },
+
+            error:_errorFun1
+
+        })
+
+    }
+
+    //根据区域id获取资源设备列表
+    function HHResFormatEdite(id){
+
+        _HRArr = [];
+
+        //获取当前选中的区域是否有户号和resource
+        var prm = {
+
+            districtId:id
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlanMade/GetAcctResDsByDistrictId',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                var arr = [];
+
+                if(result.code == 0){
+
+                    arr = result.acctRs;
+
+                    for(var i=0;i<result.acctRs.length;i++){
+
+                        _HRArr.push(result.acctRs[i]);
+
+                    }
+
+                }if(result.code == -2){
+
+                    console.log('暂时没有户号资源数据');
+
+                }else if(result.code == -1){
+
+                    conosle.log('异常错误');
+
+                }else if(result.code == -3){
+
+                    console.log('参数错误');
+
+                }else if(result.code == -4){
+
+                    console.log('内容已存在');
+
+                }else if(result.code == -6){
+
+                    console.log('抱歉，您没有操作权限');
+
+                }
+
+                _jumpNow($('#HHResTable'),arr);
+
+                $('.HHRs-block').show();
 
             },
 
