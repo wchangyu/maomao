@@ -229,7 +229,25 @@
 
                 }else if(result.code == 0){
 
-                    arr = result.dists.reverse();
+
+                    for(var i=0;i<result.dists.reverse().length;i++){
+
+                        var data = result.dists.reverse()[i];
+
+                        var obj = {};
+
+                        obj.id = data.id;
+
+                        obj.name = data.name;
+
+                        obj.pId = data.pId;
+
+                        obj.open = true;
+
+                        arr.push(obj);
+
+                    }
+
                 }
 
                 //表格
@@ -483,6 +501,11 @@
         };
 
         pointerObj = $.fn.zTree.init(treeId, setting, treeData);
+
+        //var node = pointerObj.getNodesByFilter(function (node) { return node.level == 0 }, true);
+        //
+        ////获取根节点
+        //pointerObj.expandNode(node, true, false, false);
 
     }
 

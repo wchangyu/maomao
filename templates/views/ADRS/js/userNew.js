@@ -248,7 +248,7 @@ $(function(){
         //带区号的座机
         //var phone = /^0\d{2,3}-?\d{7,8}$/;
 
-        var phone = /^(\(\d{3,4}\)|\d{3,4}-)?\d{7}$/;
+        var phone = /^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/;
 
         var flag = false;
 
@@ -431,17 +431,17 @@ $(function(){
     /*---------------------------------按钮操作---------------------------------*/
 
     //tab选项
-    $('.steps').on('click','li',function(){
-
-        $('.steps').find('li').removeClass('active');
-
-        $(this).addClass('active');
-
-        $('.tab-pane').hide();
-
-        $('.tab-pane').eq($(this).index()).show();
-
-    })
+    //$('.steps').on('click','li',function(){
+    //
+    //    $('.steps').find('li').removeClass('active');
+    //
+    //    $(this).addClass('active');
+    //
+    //    $('.tab-pane').hide();
+    //
+    //    $('.tab-pane').eq($(this).index()).show();
+    //
+    //})
 
     //创建【用户】
     $('#createUser').click(function(){
@@ -793,7 +793,12 @@ $(function(){
 
                 str = '<span class="select-district-table" style="display: inline-block;padding: 3px 5px;border: 1px solid #cccccc;border-radius: 4px !important;margin-right: 5px;cursor: pointer">选择区域</span><input type="text" class="input-chinese input-value input-required table-group-action-input form-control" placeholder="必填字段" readonly style="background: #ffffff;width: 120px;display: inline-block;" value="' + valueArr[i] + '"><span class="error-tip" style="display: none;"></span>'
 
-            }else{
+            }else if(i==5){
+
+                //非必填
+                str = '<input type="text" class="input-value table-group-action-input form-control" style="background: #ffffff" value="' + valueArr[i] + '"><span class="error-tip" style="display:none; "></span>'
+
+            } else{
 
                 //其他
                 str = '<input type="text" class="input-chinese input-value input-required table-group-action-input form-control" placeholder="必填字段" style="background: #ffffff" value="' + valueArr[i] + '"><span class="error-tip" style="display:none; "></span>'
