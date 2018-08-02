@@ -36,6 +36,8 @@
     //当前选中的ids
     var _acctIdsArr = [];
 
+    var _table = '';
+
     /*--------------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -119,7 +121,88 @@
 
     ]
 
-    var _table  = $('#table').DataTable({
+    var col1 = [
+
+        {
+            title:'状态',
+            data:'planStateName',
+            render:function(data, type, full, meta){
+
+                return stateFlag(full.planState,data)
+
+            }
+        },
+        {
+            title:'事件名称',
+            data:'planName'
+        },
+        {
+            title:'开始时间',
+            data:'startDate'
+        },
+        {
+            title:'结束时间',
+            data:'closeDate'
+        },
+        {
+            title:'需消减负荷（kW）',
+            data:'reduceLoad'
+        },
+        {
+            title:'基线',
+            data:'baselineName'
+        },
+        {
+            title:'区域',
+            data:'districtName'
+        },
+        {
+            title:'套餐（多个）',
+            data:'librarys',
+            render:function(data, type, full, meta){
+
+                var str = '';
+
+                for(var i=0;i<data.length;i++){
+
+                    if(i == data.length-1){
+
+                        str += data[i].name
+
+                    }else{
+
+                        str += data[i].name + '、'
+
+                    }
+
+                }
+
+                return str
+
+            }
+        },
+        {
+            title:'发布时间',
+            data:'publishDate'
+        },
+        {
+            title:'创建人',
+            data:'createPlanUserName'
+        },
+        {
+            title:'操作',
+            data:'',
+            className:'detail-button1',
+            render:function(data, type, full, meta){
+
+                return '<span data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline ">详情</span>'
+
+            }
+        }
+
+    ]
+
+    _table  = $('#table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -486,7 +569,87 @@
 
         var indexUrl = $(this).index();
 
-        tenderData(_urlArr[indexUrl],indexUrl);
+        var tableStr =
+            '<table id="table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">' +
+            '    <thead>' +
+            '    </thead>' +
+            '    <tbody>' +
+            '    </tbody>' +
+            '</table>';
+
+        $('#table-block').empty().append(tableStr);
+
+        if(indexUrl == 0){
+
+            _table =  $('#table').DataTable({
+                "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+                "paging": true,   //是否分页
+                "destroy": true,//还原初始化了的datatable
+                "searching": false,
+                "ordering": false,
+                "bProcessing":true,
+                "iDisplayLength":50,//默认每页显示的条数
+                'language': {
+                    'emptyTable': '没有数据',
+                    'loadingRecords': '加载中...',
+                    'processing': '查询中...',
+                    'lengthMenu': '每页 _MENU_ 条',
+                    'zeroRecords': '没有数据',
+                    'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+                    'infoEmpty': '没有数据',
+                    'paginate':{
+                        "previous": "上一页",
+                        "next": "下一页",
+                        "first":"首页",
+                        "last":"尾页"
+                    }
+                },
+                "dom":'t<"F"lip>',
+                'buttons':{
+                    extend: 'excelHtml5',
+                    text: '导出',
+                    className:'saveAs hiddenButton'
+                },
+                "columns": col
+            });
+
+        }else{
+
+            _table =  $('#table').DataTable({
+                "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+                "paging": true,   //是否分页
+                "destroy": true,//还原初始化了的datatable
+                "searching": false,
+                "ordering": false,
+                "bProcessing":true,
+                "iDisplayLength":50,//默认每页显示的条数
+                'language': {
+                    'emptyTable': '没有数据',
+                    'loadingRecords': '加载中...',
+                    'processing': '查询中...',
+                    'lengthMenu': '每页 _MENU_ 条',
+                    'zeroRecords': '没有数据',
+                    'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+                    'infoEmpty': '没有数据',
+                    'paginate':{
+                        "previous": "上一页",
+                        "next": "下一页",
+                        "first":"首页",
+                        "last":"尾页"
+                    }
+                },
+                "dom":'t<"F"lip>',
+                'buttons':{
+                    extend: 'excelHtml5',
+                    text: '导出',
+                    className:'saveAs hiddenButton'
+                },
+                "columns": col
+            });
+
+        }
+
+        //tenderData(_urlArr[indexUrl],indexUrl);
 
     })
 
@@ -588,7 +751,7 @@
                             innerTable.find('tbody').children().children().eq(2).children().val(account[i].accountName);
 
                             //绑定签署容量
-                            innerTable.find('tbody').children().children().eq(0).children().attr('data-capacity',1000); //account[i].signatureVolume
+                            innerTable.find('tbody').children().children().eq(0).children().attr('data-capacity',account[i].signatureVolume); //account[i].signatureVolume
 
                         }
 
@@ -1269,7 +1432,12 @@
 
                         }else if(result.code == 0){
 
-                            //获取当前的index值
+                            //直接跳到一tab
+                            $('.nav-tabs').children().removeClass('active');
+
+                            $('.nav-tabs').children().eq(1).addClass('active');
+
+                            //获取当前的index值（）
                             var index = $('.nav-tabs').children('.active').index();
 
                             tenderData(_urlArr[index],index);
