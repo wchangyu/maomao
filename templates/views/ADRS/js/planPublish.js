@@ -368,7 +368,9 @@
 
                             $('#publish-Modal').one('hidden.bs.modal',function(){
 
-                                conditionSelect(true);
+                                //conditionSelect(true);
+
+                                window.location.href = 'userChoose.html';
 
                             })
 

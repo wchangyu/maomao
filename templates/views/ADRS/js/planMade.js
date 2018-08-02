@@ -243,6 +243,7 @@
             title:'选择',
             "targets": -1,
             "data": null,
+            className:'getRes',
             render:function(data, type, full, meta){
 
                 return '<div class="checker" data-id="' + full.id + '"><span><input type="checkbox" value=""></span></div>'
@@ -262,6 +263,7 @@
         {
             title:'区域等级',
             data:'level',
+            className:'getRes',
             render:function(data, type, full, meta){
 
                 if(data == 1){
@@ -383,6 +385,10 @@
         {
             title:'资源',
             data:'name'
+        },
+        {
+            title:'支路设备',
+            data:'elecNt'
         }
 
     ]
@@ -562,48 +568,55 @@
 
         }
 
+        var id = $(this).find('.checker').attr('data-id');
+
+        HHResFormat(id);
+
+        //HHResFormat(id,innerTable,HHDom,ResDom);
+
+        //var tr = $(this).parent().closest('tr');  //找到距离按钮最近的行tr;
+        //
+        //var table1 = $('#district-table').DataTable();
+        //
+        //var row = table1.row( tr );
+
+        //if ( row.child.isShown() ) {
+        //
+        //    row.child.hide();
+        //
+        //    tr.removeClass('shown');
+        //
+        //}
+        //else {
+        //
+        //    row.child( HRData()).show();
+        //
+        //    var innerTable = $(this).parent().next().find('.table');
+        //
+        //    var HHDom = $(this).next().find('.eprHH');
+        //
+        //    var ResDom = $(this).next().find('.eprRes');
+        //
+        //    //表格初始化
+        //    _tableInit(innerTable,HRCol,2,true,'','','','','',true);
+        //
+        //    //点击tr显示户号
+        //    HHResFormat(id,innerTable,HHDom,ResDom);
+        //
+        //    tr.addClass('shown');
+        //}
+
     })
 
     $('#district-table').on('click','.getRes',function(){
 
-        var id = $(this).children('span').attr('data-id');
 
-        var tr = $(this).parent().closest('tr');  //找到距离按钮最近的行tr;
-
-        var table1 = $('#district-table').DataTable();
-
-        var row = table1.row( tr );
-
-        if ( row.child.isShown() ) {
-
-            row.child.hide();
-
-            tr.removeClass('shown');
-
-        }
-        else {
-
-            row.child( HRData()).show();
-
-            var innerTable = $(this).parent().next().find('.table');
-
-            var HHDom = $(this).next().find('.eprHH');
-
-            var ResDom = $(this).next().find('.eprRes');
-
-            //表格初始化
-            _tableInit(innerTable,HRCol,2,true,'','','','','',true);
-
-            //点击tr显示户号
-            HHResFormat(id,innerTable,HHDom,ResDom);
-
-            tr.addClass('shown');
-        }
 
     })
 
     //选择区域【选择】
     $('#district-Modal').on('click','.btn-primary',function(){
+
 
         if(_HRArr.length != 0){
 
@@ -1348,11 +1361,11 @@
 
                 }
 
-                _jumpNow(innerTable,arr);
+                //_jumpNow(innerTable,arr);
 
-                HHDom.html(arr.length);
+                //HHDom.html(arr.length);
 
-                ResDom.html(arr.length);
+                //ResDom.html(arr.length);
 
             },
 

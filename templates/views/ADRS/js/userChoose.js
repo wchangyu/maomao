@@ -87,7 +87,7 @@
             className:'detail-button',
             render:function(data, type, full, meta){
 
-                return '<span data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline ">详情</span>'
+                return '<span data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline ">筛选</span>'
 
             }
         }
@@ -419,7 +419,9 @@
 
                     }else if(result.code == 0){
 
-                        conditionSelect();
+                        //conditionSelect();
+
+                        window.location.href = 'pushInstruct.html'
 
                     }
 
@@ -483,7 +485,7 @@
 
                 if(result.code == -2){
 
-                    _topTipBar('暂时没有需要筛选用户的事件')
+                    _topTipBar('请等待聚合商和大用户响应')
 
                 }else if(result.code == -1){
 
@@ -583,7 +585,10 @@
 
         var blocks = '</div>';
 
-        return block + theader + tbodyer + str + tbodyers + theaders + answer +  statistics + ontherTable + chooseButton + answers + blocks;
+        var noDataError = '<div class="noDataError" style="line-height: 30px;color: red;text-align: left;text-indent: 20px;"></div>'
+
+
+        return block + theader + tbodyer + str + tbodyers + theaders + answer +  statistics + ontherTable + chooseButton + answers + blocks + noDataError;
 
     }
 
@@ -728,11 +733,15 @@
 
                 el.find('.answer-block').hide();
 
+                el.find('.noDataError').html('');
+
                 //回复模块不显示
 
                 if(result.mergeAccts == null || result.mergeAccts.length == 0 || result.mergeAccts == '' ){
 
                     el.find('.answer-block').hide();
+
+                    el.find('.noDataError').html('请等待聚合商和大用户响应');
 
 
                 }else{
