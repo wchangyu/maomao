@@ -518,7 +518,7 @@
 
                 if(result.code == -2){
 
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'暂时没有获取到执行结果','');
+                    //_moTaiKuang($('#tip-Modal'),'提示',true,true,'暂时没有获取到执行结果','');
 
                 }else if(result.code == -1){
 

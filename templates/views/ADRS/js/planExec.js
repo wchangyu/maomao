@@ -38,6 +38,12 @@
 
     var chartAry = [];
 
+    //当前基线数据
+    var _currentBaselineObj = [];
+
+    //当前实时数据
+    var _currentRealObj = [];
+
     /*--------------------------------------表格初始化-------------------------------------*/
 
     var col = [
@@ -567,8 +573,6 @@
     //【去核算】
     $('#table tbody').on('click','.answer-button',function(){
 
-        $('#theLoading').modal('show');
-
         //核算
         accountData();
 
@@ -723,7 +727,7 @@
         //备注
         str += '<tr><td class="subTableTitle">描述</td><td colspan="9" style="text-align: left;text-indent: 25px;">' + d.memo + '</td></tr>'
 
-        var chooseButton = '<div style="text-align: left !important;margin-bottom: 5px;"><button class="btn green answer-button">下发指令</button></div>';
+        var chooseButton = '<div style="text-align: left !important;margin-bottom: 5px;"><span id="HSErro"></span><br><button class="btn green answer-button">下发指令</button></div>';
 
         var block = '<div style="border: 1px solid #68a1fd;">';
 
@@ -763,7 +767,7 @@
 
         //核算按钮
 
-        var chooseButton = '<div style="text-align: left !important;"><button class="btn green answer-button" style="margin: 5px 0 5px 5px;display: none;">执行完毕，去核算</button></div>';
+        var chooseButton = '<div style="text-align: left !important;"><span id="HSErro"></span><br><button class="btn green answer-button" style="margin: 5px 0 5px 5px;display: none;">执行完毕，去核算</button></div>';
 
         var clear = '<div class="clearfix"></div>';
 
@@ -869,6 +873,8 @@
 
                 }
 
+                _currentBaselineObj = baseObj.x;
+
                 BaseTimeCallback(chart);
 
             },
@@ -918,8 +924,6 @@
                     //实时负荷赋值
                     thisDataBlock.find('.realTimeNum').html(result.ssFhVa);
 
-                    console.log('实时负荷'+ result.ssFhVa);
-
                     //基线负荷的值
                     optionTop.xAxis.data = result.ssFhXs;
 
@@ -936,8 +940,6 @@
                     //实时负荷赋值
                     thisDataBlock.find('.realTimeNum').html(result.ssFhVa);
 
-                    console.log('实时负荷'+ result.ssFhVa);
-
                     //基线负荷的值
                     optionTop.xAxis.data = [];
 
@@ -947,7 +949,7 @@
 
                 }
 
-
+                _currentRealObj = realObj.x;
 
                 BaseTimeCallback(chart);
 
@@ -1081,7 +1083,6 @@
             //消减负荷=基线负荷-实时负荷
             var reduceLoad = Number(thisDataBlock.find('.baselineNum').html()) - Number(thisDataBlock.find('.realTimeNum').html());
 
-            console.log('消减负荷' + reduceLoad.toFixed(3));
 
             thisDataBlock.find('.SubtractNum').html(reduceLoad.toFixed(3));
 
@@ -1090,8 +1091,10 @@
 
             console.log('完成比例' + per);
 
-            thisDataBlock.find('.completePer').html(per.toFixed(3));
 
+            console.log(_currentBaselineObj);
+
+            console.log(_currentRealObj);
 
         }
 
@@ -1211,6 +1214,23 @@
 
     //点击核算
     function accountData(){
+
+        //实时负荷为0的情况下不允许核算，基线负荷和实时负荷的点数不相同时，不允许核算
+        if(Number($('.realTimeNum').html()) == 0.000 || _currentBaselineObj.length != _currentRealObj.length){
+
+            //_moTaiKuang($('#tip-Modal'),'提示',true,true,'实时数据采集上传延迟，清等数据完整时再进行核算','');
+
+            $('#HSErro').html('实时数据采集上传延迟，清等数据完整时再进行核算');
+
+            return false;
+
+        }else{
+
+            $('#HSErro').html('');
+
+        }
+
+        $('#theLoading').modal('show');
 
         var prm = {
 
