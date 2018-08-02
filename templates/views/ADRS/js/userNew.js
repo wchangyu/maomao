@@ -23,6 +23,9 @@ $(function(){
     //记录当前创建的角色
     var _createRole = '';
 
+    //记录当前创建的是聚合商还是大用户
+    var _eprType = '';
+
     /*----------------------------------验证------------------------------------*/
 
     //创建用户验证
@@ -428,17 +431,17 @@ $(function(){
     /*---------------------------------按钮操作---------------------------------*/
 
     //tab选项
-    //$('.steps').on('click','li',function(){
-    //
-    //    $('.steps').find('li').removeClass('active');
-    //
-    //    $(this).addClass('active');
-    //
-    //    $('.tab-pane').hide();
-    //
-    //    $('.tab-pane').eq($(this).index()).show();
-    //
-    //})
+    $('.steps').on('click','li',function(){
+
+        $('.steps').find('li').removeClass('active');
+
+        $(this).addClass('active');
+
+        $('.tab-pane').hide();
+
+        $('.tab-pane').eq($(this).index()).show();
+
+    })
 
     //创建【用户】
     $('#createUser').click(function(){
@@ -1299,7 +1302,9 @@ $(function(){
             //默认创建聚合商
             eprType:1,
             //账户id
-            userId:_thisUserId
+            userId:_thisUserId,
+            //企业类型
+            industryType:$('.IndustryType:checked').val()
 
         };
 
@@ -1342,6 +1347,8 @@ $(function(){
 
         }
 
+        _eprType = $('.eprType').parent('.checked').children().val();
+
         $.ajax({
 
             type:'post',
@@ -1361,15 +1368,6 @@ $(function(){
                     //样式修改
                     $('.steps').children().removeClass('active');
 
-                    $('.steps').children().eq(2).addClass('active');
-
-                    $('.tab-pane').hide();
-
-                    $('.tab-pane').eq(2).show();
-
-                    //进度条
-                    $('.progress-bar-success').css({width:'100%'});
-
                     $('#theLoading').modal('hide');
 
                     //企业的创建成功，样式修改
@@ -1382,6 +1380,29 @@ $(function(){
 
                     //在创建户号部分显示已创建的企业
                     $('#createEprName').html(_createEprName);
+
+                    //如果是创建了聚合商，完毕之后直接跳回企业列表，如果是大用户，继续跳到创建户号。
+
+                    if(_eprType == 0){
+
+                        //聚合商
+                        window.location.href = 'epr.html';
+
+                        return false;
+
+                    }else if( _eprType == 1 ){
+
+                        //大小用户
+                        $('.steps').children().eq(2).addClass('active');
+
+                        $('.tab-pane').hide();
+
+                        $('.tab-pane').eq(2).show();
+
+                        //进度条
+                        $('.progress-bar-success').css({width:'100%'});
+
+                    }
 
 
                 }else if(result.code == -2){

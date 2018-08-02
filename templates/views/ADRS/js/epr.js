@@ -71,6 +71,10 @@
             data:'agencyTypeName'
         },
         {
+            title:'产业类型',
+            data:'industryTypeName'
+        },
+        {
             title: '登录账户',
             data: 'userName'
         },
@@ -155,6 +159,10 @@
         {
             title:'行业机构',
             data:'agencyTypeName'
+        },
+        {
+            title:'产业类型',
+            data:'industryTypeName'
         },
         {
             title:'管理户号数',

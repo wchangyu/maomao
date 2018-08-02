@@ -1163,7 +1163,9 @@ $(function(){
             //默认创建聚合商
             eprType:1,
             //账户id
-            userId:_thisUserId
+            userId:_thisUserId,
+            //企业类型
+            industryType:$('.IndustryType:checked').val()
 
         };
 
@@ -1206,6 +1208,8 @@ $(function(){
 
         }
 
+        _eprType = $('.eprType').parent('.checked').children().val();
+
         $.ajax({
 
             type:'post',
@@ -1225,17 +1229,7 @@ $(function(){
                     //样式修改
                     $('.steps').children().removeClass('active');
 
-                    $('.steps').children().eq(1).addClass('active');
 
-                    $('.tab-pane').hide();
-
-                    $('.tab-pane').eq(1).show();
-
-                    //进度条
-                    $('.progress-bar-success').css({width:'100%'});
-
-                    //已创建的样式要变
-                    $('.steps').children().eq(0).addClass('done');
 
                     $('#theLoading').modal('hide');
 
@@ -1246,6 +1240,31 @@ $(function(){
 
                     //创建户号显示
                     $('#tab3').show();
+
+                    //如果是创建了聚合商，完毕之后直接跳回企业列表，如果是大用户，继续跳到创建户号。
+
+                    if(_eprType == 0){
+
+                        //聚合商
+                        window.location.href = 'epr.html';
+
+                        return false;
+
+                    }else if( _eprType == 1 ){
+
+                        $('.steps').children().eq(1).addClass('active');
+
+                        $('.tab-pane').hide();
+
+                        $('.tab-pane').eq(1).show();
+
+                        //进度条
+                        $('.progress-bar-success').css({width:'100%'});
+
+                        //已创建的样式要变
+                        $('.steps').children().eq(0).addClass('done');
+
+                    }
 
 
                 }else if(result.code == -2){

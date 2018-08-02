@@ -65,6 +65,13 @@
     //历史曲线
     historyLine();
 
+    //历史曲线十分钟刷新一下
+    setInterval(function(){
+
+        historyLine();
+
+    },1000*10*60)
+
     //角色响应统计
     RoleAnswer();
 
@@ -315,7 +322,7 @@
 
                     for(var i in result.uRoleSGVs){
 
-                        str += '<p>' + i + ':' + '<span>' + result.uRoleSGVs[i] + '</span>' + '</p>'
+                        str += '<p>' + i + '<span>' + result.uRoleSGVs[i] + '</span>' + '</p>'
 
                     }
 
@@ -388,7 +395,7 @@
 
                     for(var i in result.agencySGVs){
 
-                        str += '<p>' + i + ':' + '<span>' + result.agencySGVs[i] + '</span>' + '</p>'
+                        str += '<p>' + i + '<span>' + result.agencySGVs[i] + '</span>' + '</p>'
 
                     }
 
@@ -461,7 +468,7 @@
 
                     for(var i in result.industrySGVs){
 
-                        str += '<p>' + i + ':' + '<span>' + result.industrySGVs[i] + '</span>' + '</p>'
+                        str += '<p>' + i + '<span>' + result.industrySGVs[i] + '</span>' + '</p>'
 
                     }
 

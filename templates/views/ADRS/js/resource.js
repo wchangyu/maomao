@@ -655,6 +655,10 @@
 
         T.row.add(['','','','']).draw();
 
+        //获取已选中的设备
+        getAlreadyDev();
+
+
     })
 
     //选择功率设备
@@ -1447,6 +1451,18 @@
 
                 }
 
+                console.log(treeObj.getNodes());
+
+                //用递归，将所有父节点的checked隐藏
+                for(var i=0;i<treeObj.getNodes().length;i++){
+
+                    
+
+                }
+
+                treeObj.getNodes()[0].nocheck = true;
+
+
                 //ztree搜索功能
                 var key = $("#keyWord-dev-modal");
 
@@ -1783,6 +1799,14 @@
             error:_errorFun1
 
         })
+
+    }
+
+    //每次获取已添加的设备
+    function getAlreadyDev(){
+
+        //遍历添加的设备，
+        console.log()
 
     }
 
