@@ -156,6 +156,7 @@
         {
             title:'选择户号',
             data:'',
+            className:'hiddenButton',
             render:function(data, type, full, meta){
 
                 return '<span class="select-dev" style="cursor: pointer;display: inline-block;padding: 3px 5px;border:1px solid #cccccc;border-radius: 3px !important;">选择户号</span>'
@@ -165,7 +166,7 @@
         {
             title:'户号',
             data:'HH',
-            className:'inputValue',
+            className:'inputValue hiddenButton',
             render:function(data, type, full, meta){
 
                 return '<input type="text" readonly style="background: #ffffff" class="input-value input-required table-group-action-input form-control" placeholder="必填字段"><span class="error-tip"></span>'
@@ -371,7 +372,7 @@
     _tableInit($('#SB-table'),HHCol,2,true,'','','','',10);
 
     //只读表格
-    var ReadCol = [
+    var ReadColD = [
 
         {
             title:'用户角色',
@@ -394,7 +395,59 @@
             }
         },
         {
-            title:'户数|户号',
+            title:'户号',
+            render:function(data, type, full, meta){
+
+                if(full.eprTy == 1){
+
+                    //聚合商
+                    return full.acctNbers
+
+
+                }else if(full.eprTy == 2){
+
+                    //大用户
+                    return '<span data-acctId="' + full.acctId + '">' + full.acctName + '</span>'
+
+                }else{
+
+                    return '';
+
+                }
+
+            }
+        },
+        {
+            title:'此次消减负荷量(kW)',
+            data:'reduceLoad'
+        }
+
+    ]
+
+    var ReadColJ = [
+
+        {
+            title:'用户角色',
+            data:'eprTyNt',
+            class:'type',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.eprTy + '">'+ data +'</span>'
+
+            }
+        },
+        {
+            title:'企业名称',
+            data:'eprName',
+            class:'epr',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.eprId + '">'+ data +'</span>'
+
+            }
+        },
+        {
+            title:'户数',
             render:function(data, type, full, meta){
 
                 if(full.eprTy == 1){
@@ -480,12 +533,18 @@
 
             if(index == 0){
 
-                row.child( formatDetail(thisOBJ) ).show();
-
-                //初始化表格(搞清楚当前是聚合商0还是大用户1);
-                var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
+                //row.child( formatDetail(thisOBJ) ).show();
+                //
+                ////初始化表格(搞清楚当前是聚合商0还是大用户1);
+                //var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
 
                 if(_eprType == 4){
+
+                    //大用户
+                    row.child( formatDetailD(thisOBJ) ).show();
+
+                    //初始化表格(搞清楚当前是聚合商0还是大用户1);
+                    var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
 
                     //获取到的套餐数组
                     DCol[3] = {
@@ -512,7 +571,51 @@
 
                     _tableInit(innerTable,DCol,2,true,'','',true,'',10);
 
+                    //默认选中第一个账户
+                    var account = JSON.parse(sessionStorage.account);
+
+                    //跟现在选择的户号对比
+                    for(var i=0;i<account.length;i++){
+
+                        if(sessionStorage.currentAcct == account[i].accountId){
+
+                            _datasTable(innerTable,[account[i].accountId]);
+
+                            //自动填写户号和名称
+
+                            innerTable.find('tbody').children().children().eq(1).children().val(account[i].accountId);
+
+                            innerTable.find('tbody').children().children().eq(2).children().val(account[i].accountName);
+
+                        }
+
+                    }
+
+                    $('.switch input').bootstrapSwitch({
+
+                        size : "small",
+                        state:false,
+                        onSwitchChange:function(event,state){
+
+                            if(state==true){
+
+                                $(this).val("1");
+
+                            }else{
+
+                                $(this).val("0");
+                            }
+                        }
+
+                    });
+
                 }else if(_eprType == 3){
+
+                    //大用户
+                    row.child( formatDetailJ(thisOBJ) ).show();
+
+                    //初始化表格(搞清楚当前是聚合商0还是大用户1);
+                    var innerTable = $(this).parents('tr').next('tr').find('.innerTable')
 
                     //获取到的套餐数组
                     JCol[3] = {
@@ -545,14 +648,22 @@
 
             }else{
 
-                //调用获取详情的接口
+                //插入操作模块
                 row.child( getFormatDetail(thisOBJ) ).show();
 
                 //表格初始化
 
                 var innerTable = $(this).parents('tr').next('tr').find('.getInnerTable');
 
-                _tableInit(innerTable,ReadCol,2,true,'','',true,'','',true);
+                if(_eprType == 3){
+
+                    _tableInit(innerTable,ReadColJ,2,true,'','',true,'','',true);
+
+                }else if(_eprType == 4){
+
+                    _tableInit(innerTable,ReadColD,2,true,'','',true,'','',true);
+
+                }
 
                 //获取url
                 var index = $('.nav-tabs').children('.active').index();
@@ -989,6 +1100,32 @@
             _moTaiKuang($('#tip-Modal'),'提示',true,true,'已超过反馈截止日期','');
 
         }else{
+
+            //判断当前选择的户号是否保存了
+            var button = $(this).parent().prev().find('.data-option');
+
+            //标记是否表格中有未保存的户号
+            var isCom = true;
+
+            for(var i=0;i<button.length;i++){
+
+                if(button.eq(i).attr('class').indexOf('option-save')>-1){
+
+                    isCom = false;
+
+                    break;
+
+                }
+
+            }
+
+            if(!isCom){
+
+                _moTaiKuang($('#tip-Modal'),'提示',true,true,'存在未保存的户号，请先保存','');
+
+                return false;
+
+            }
 
             //户号、消减负荷、是否手动、描述
             var trs = $(this).parent().prev().find('table').children('tbody').children('tr');
@@ -1440,8 +1577,8 @@
 
     /*-------------------------------------其他方法-----------------------------------------*/
 
-    //显示详情(可操作的详情)
-    function formatDetail(d){
+    //显示详情(可操作的详情)聚合商的时候
+    function formatDetailJ(d){
 
         var theader = '<table class="table  table-advance table-hover subTable">';
 
@@ -1507,6 +1644,75 @@
         return block + theader + tbodyer + str + tbodyers + theaders + blocks + '<div style="margin-top: 20px;"></div>' + block + button + answerTable + answerButton + blocks;
 
     }
+
+    function formatDetailD(d){
+
+        var theader = '<table class="table  table-advance table-hover subTable">';
+
+        var theaders = '</table>';
+
+        var tbodyer = '<tbody>'
+
+        var tbodyers = '</tbody>';
+
+        var str = '';
+
+        //计划名称、区域、开始时间、结束时间、计划消减负荷量
+        str += '<tr>' + '<td class="subTableTitle" ">计划名称</td>' + '<td>'+ d.planName +'</td>' + '<td class="subTableTitle">区域</td>' + '<td>' + d.districtName + '</td>' + '<td class="subTableTitle">开始时间</td>' + '<td>' + d.startDate + '</td>'  + '<td class="subTableTitle">结束时间</td>' + '<td>' + d.closeDate + '</td>' + '<td class="subTableTitle" ">消减负荷（kW）</td>'+ '<td>' + d.reduceLoad + '</td>' + '</tr>';
+
+        //基线、发布时间、反馈截止时间、
+
+        str += '<tr>' + '<td class="subTableTitle">基线</td>' + '<td>'+ d.baselineName +'</td>' + '<td class="subTableTitle">发布时间</td>' + '<td>'+ d.publishDate +'</td>' + '<td class="subTableTitle" style="font-weight: bold">反馈截止时间</td>' + '<td style="font-weight: bold" class="endTime">'+ d.abortDate +'</td>' + '<td class="subTableTitle"></td>' + '<td>' + '</td>' +'<td class="subTableTitle"></td>' + '<td>' + '</td>'  + '</tr>'
+
+        if(d.librarys){
+
+            for(var i=0;i< d.librarys.length;i++){
+
+                var lengths = d.librarys.length;
+
+                var tc = d.librarys[i];
+
+                if(lengths == 1){
+
+                    //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>'  + '</tr>';
+
+                }else{
+
+                    //产品名称、产品类型、补贴方式、补贴价格、提前通知时间、产品描述
+                    str += '<tr>' + '<td class="subTableTitle" ">套餐名称' + (i+1) + '</td>' + '<td>' + tc.name + '</td>' + '<td class="subTableTitle">套餐类型</td>' + '<td>' + libType(tc.libraryType) + '</td>' + '<td class="subTableTitle" ">补贴方式</td>' + '<td>' + priceMode(tc.priceMode) + '</td>' + '<td class="subTableTitle">补贴价格</td>' + '<td>' + tc.price + '</td>' +  '<td class="subTableTitle">提前通知时间</td>' + '<td>' + tc.noticeHour + '</td>' + '</tr>';
+
+                }
+
+
+            }
+
+        }
+
+        //备注
+        str += '<tr><td class="subTableTitle">描述</td><td colspan="9" style="text-align: left;text-indent: 25px;">' + d.memo + '</td></tr>'
+
+        //账户响应的table
+
+        //button【增加一行】
+        var button = '<div style="text-align: left !important;">' + '<button class="btn green add-button" style="margin:5px 0 0 5px;">' + '增加行 <i class="fa fa-plus"></i>' + '</button>' + '</div>';
+
+        //首先判断是大用户还是聚合商
+        var answerTable = '<table class="table innerTable  table-advance table-hover"><thead></thead><tbody></tbody></table>';
+
+        //button【保存】
+        var answerButton = '<div style="text-align: left !important;">' + '<button class="btn green answer-button" style="margin: 0 0 5px 5px;">' + '确定回应' + '</button>' + '</div>';
+
+        //最外边的框
+        var block = '<div style="border: 1px solid #68a1fd;">';
+
+        var blocks = '</div>';
+
+        return block + theader + tbodyer + str + tbodyers + theaders + blocks + '<div style="margin-top: 20px;"></div>' + block + answerTable + answerButton + blocks;
+
+    }
+
+    //大用户的时候
 
     //显示详情（不可操作的详情）
     function getFormatDetail(d){
