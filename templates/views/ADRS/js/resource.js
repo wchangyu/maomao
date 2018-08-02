@@ -800,7 +800,18 @@
             //输出控制设备Id
             obj.contrlId = currentTr.find('.select-dev-KZ').attr('data-num')==undefined?'':currentTr.find('.select-dev-KZ').attr('data-num');
 
-            _selectedDevArr.push(obj);
+            //如果功率id、电量id、控制id都是''，不放进去
+            if( obj.powerId == '' && obj.electricityId == '' && obj.contrlId == '' ){
+
+
+
+            }else{
+
+                _selectedDevArr.push(obj);
+
+            }
+
+
 
         }
 

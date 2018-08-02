@@ -1089,12 +1089,7 @@
             //完成比例 消减负荷/计划消减
             var per = (Number(thisDataBlock.find('.SubtractNum').html())/Number(thisDataBlock.find('.planNum').html())) * 100;
 
-            console.log('完成比例' + per);
-
-
-            console.log(_currentBaselineObj);
-
-            console.log(_currentRealObj);
+            $('.completePer').html(per.toFixed(3));
 
         }
 

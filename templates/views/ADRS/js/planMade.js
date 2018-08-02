@@ -642,7 +642,7 @@
 
         }else{
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'当前选中的区域没有绑定户号和设备，请重新选择','')
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'当前选中区域下的户号没有绑定资源设备，请绑定后再选择','')
 
         }
 
@@ -1007,7 +1007,7 @@
 
                             $('#theLoading').modal('hide');
 
-                            topTipBar('当前选中的区域没有绑定户号和设备，请重新选择!')
+                            topTipBar('当前选中区域下的户号没有绑定资源设备，请绑定后再选择!')
 
                         }else{
 
