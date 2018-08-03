@@ -948,19 +948,27 @@ $(function(){
         //获取已选中的节点
         var nodes = treeObj.getCheckedNodes(true);
 
-        var num = nodes[0].id;
+        if(nodes.length == 0){
 
-        var name = nodes[0].name;
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'未选择设备','');
 
-        var pid = nodes[0].pointer;
+        }else{
 
-        _currentCell.attr('data-num',num);
+            var num = nodes[0].id;
 
-        _currentCell.attr('data-pid',pid);
+            var name = nodes[0].name;
 
-        _currentCell.html(name);
+            var pid = nodes[0].pointer;
 
-        $('#dev-Modal').modal('hide');
+            _currentCell.attr('data-num',num);
+
+            _currentCell.attr('data-pid',pid);
+
+            _currentCell.html(name);
+
+            $('#dev-Modal').modal('hide');
+
+        }
 
     })
 
@@ -1708,6 +1716,7 @@ $(function(){
                     //取消全部打钩的节点
                     treeObj.checkNode(treeNode,!treeNode.checked,true);
 
+
                 },
                 beforeClick:function(){
 
@@ -1910,6 +1919,8 @@ $(function(){
 
                     obj.pointer = result.serviceObjs[i].f_BuildingId;
 
+                    obj.open = true;
+
                     ztreeArr.push(obj);
 
                 }
@@ -1920,11 +1931,19 @@ $(function(){
 
                 var nodes = treeObj.getCheckedNodes(false);
 
-                if (nodes.length>0) {
+                //用递归，将所有父节点的checked隐藏
+                for(var i=0;i<nodes.length;i++){
 
-                    treeObj.expandNode(nodes[4], true, false, true);
+                    if(nodes[i].isParent){
+
+                        nodes[i].nocheck = true;
+
+                    }
 
                 }
+
+                //自动刷新ztree树
+                treeObj.refresh();
 
                 //ztree搜索功能
                 var key = $("#keyWord-dev-modal");

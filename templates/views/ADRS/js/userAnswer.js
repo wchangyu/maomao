@@ -657,7 +657,6 @@
     $('#table-block').on('click', '#table tbody .detail-button', function (){
 
 
-
         //存放当前企业所绑定户号的数组
         var thisOBJ = {};
 
@@ -681,7 +680,9 @@
 
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
 
-        var row = _table.row( tr );
+        var table = $(this).parents('table').DataTable();
+
+        var row = table .row( tr );
 
         if ( row.child.isShown() ) {
 
@@ -1917,7 +1918,7 @@
         var button = '<div style="text-align: left !important;">' + '<button class="btn green add-button" style="margin:5px 0 0 5px;">' + '增加行 <i class="fa fa-plus"></i>' + '</button>' + '</div>';
 
         //首先判断是大用户还是聚合商
-        var answerTable = '<table class="table innerTable  table-advance table-hover"><thead></thead><tbody></tbody></table>';
+        var answerTable = '<table class="table innerTable  table-advance table-hover" style="margin-top:0 !important;"><thead></thead><tbody></tbody></table>';
 
         //button【保存】
         var answerButton = '<div style="text-align: left !important;">' + '<button class="btn green answer-button" style="margin: 0 0 5px 5px;">' + '确定回应' + '</button>' + '</div>';
@@ -1982,7 +1983,7 @@
         str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
 
         //获取详情的接口
-        var table = '<table class="table getInnerTable  table-advance table-hover" style="margin: 0;"><thead></thead><tbody></tbody></table>'
+        var table = '<table class="table getInnerTable  table-advance table-hover" style="margin: 0!important;"><thead></thead><tbody></tbody></table>'
 
         //最外边的框
         var block = '<div style="border: 1px solid #68a1fd;">';
@@ -2377,7 +2378,7 @@
 
                 }
 
-                _jumpNow(table,arr);
+                _datasTable(table,arr);
 
             },
 

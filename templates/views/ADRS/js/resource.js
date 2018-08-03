@@ -734,19 +734,28 @@
         //获取已选中的节点
         var nodes = treeObj.getCheckedNodes(true);
 
-        var num = nodes[0].id;
+        if(nodes.length == 0){
 
-        var name = nodes[0].name;
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'未选择设备','');
 
-        var pid = nodes[0].pointer;
+        }else{
 
-        _currentCell.attr('data-num',num);
 
-        _currentCell.attr('data-pid',pid);
+            var num = nodes[0].id;
 
-        _currentCell.html(name);
+            var name = nodes[0].name;
 
-        $('#dev-Modal').modal('hide');
+            var pid = nodes[0].pointer;
+
+            _currentCell.attr('data-num',num);
+
+            _currentCell.attr('data-pid',pid);
+
+            _currentCell.html(name);
+
+            $('#dev-Modal').modal('hide');
+
+        }
 
     })
 
@@ -1494,6 +1503,9 @@
 
                 }
 
+                //自动刷新ztree树
+                treeObj.refresh();
+
                 //ztree搜索功能
                 var key = $("#keyWord-dev-modal");
 
@@ -1605,6 +1617,7 @@
     function setZtree(treeId,treeData){
 
         var setting = {
+
             check: {
                 enable: true,
                 chkStyle: "radio",
@@ -1877,75 +1890,6 @@
         //获取所有设备数组
         devData(existArr);
 
-
-    }
-
-    function ajaxDataFilter(treeId, parentNode, responseData) {
-        if (responseData) {
-            for(var i =0; i < responseData.length; i++) {
-                responseData[i].name += "_filter";
-            }
-        }
-        return responseData;
-    };
-
-    //直接异步加载ztree树
-    function asyncZtree(){
-
-        var setting = {
-            async: {
-                enable: true,
-                url: sessionStorage.apiUrlPrefix + 'DRResource/GetDRResourceBindMetersByResourceId',
-                dataFilter: ajaxDataFilter,  //
-                otherParam:['']
-            },
-            check: {
-                enable: true,
-                chkStyle: "radio",
-                chkboxType: { "Y": "s", "N": "ps" },
-                radioType:'all',
-                nocheckInherit: false
-            },
-            data: {
-                simpleData: {
-                    enable: true
-                }
-            },
-            view:{
-                showIcon:false,
-            },
-            callback: {
-
-                onClick: function(e,treeId,treeNode){
-
-                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
-
-                    //取消全部打钩的节点
-                    treeObj.checkNode(treeNode,!treeNode.checked,true);
-
-                },
-                beforeClick:function(){
-
-                    $('#ztreeObj').find('.curSelectedNode').removeClass('curSelectedNode');
-
-                },
-                onCheck:function(e,treeId,treeNode){
-
-                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
-
-                    $('#ztreeObj').find('.curSelectedNode').removeClass('curSelectedNode');
-
-                    $('#ztreeObj').find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
-
-                    //取消全部打钩的节点
-                    treeObj.checkNode(treeNode,true,true);
-
-                }
-
-            }
-        };
-
-        pointerObj = $.fn.zTree.init(treeId, setting, treeData);
 
     }
 
