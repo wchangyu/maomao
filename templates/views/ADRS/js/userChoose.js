@@ -522,6 +522,88 @@
 
     }
 
+    //获取一下用户响应的接口，如果有数据，提示请等待聚合商和大用户响应，如果没有数据，提示暂时没有需要筛选的事件
+    function userAnswer(){
+
+        var  prm = {
+
+            //事件
+            planId:0,
+            //区域
+            districtId:0,
+            //基线
+            baselineId:0,
+            //状态
+            state:2
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRPlan/GetDRPlanDs',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                _allData.length = 0;
+
+                $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
+                }
+
+                var arr = [];
+
+                if(result.code == -2){
+
+                    _topTipBar('请等待聚合商和大用户响应')
+
+                }else if(result.code == -1){
+
+                    _topTipBar('异常错误')
+
+                }else if(result.code == -3){
+
+                    _topTipBar('参数错误')
+
+                }else if(result.code == -4){
+
+                    _topTipBar('内容已存在')
+
+                }else if(result.code == 0){
+
+                    arr = result.plans;
+
+                    for(var i=0;i<result.plans.length;i++){
+
+                        _allData.push(result.plans[i]);
+
+                    }
+
+                }
+
+                _jumpNow($('#table'),arr);
+
+            },
+
+            error:_errorFun
+
+        })
+
+
+    }
+
+
+
     //显示详情
     function formatDetail(d){
 
@@ -572,7 +654,7 @@
         //备注
         str += '<tr><td class="subTableTitle">描述</td><td colspan="9" style="text-align: left;text-indent: 25px;">' + d.memo + '</td></tr>'
 
-        var chooseButton = '<div style="text-align: left !important;"><button class="btn green answer-button" style="margin:0px 0 5px 5px;">回复用户</button></div>';
+        var chooseButton = '<div style="text-align: left !important;"><button class="btn green answer-button" style="margin:0px 0 5px 5px;">选中用户</button></div>';
 
         var statistics = '<div style="text-align: left;margin: 5px 0;padding-left: 10px;"><label for="">统计：</label><div style="text-align: left;display: inline-block;vertical-align: middle">聚合商数：<span class="JHSNum" style="font-weight: bold;margin-right: 25px;"></span>聚合商下户号数：<span class="JYHS" style="font-weight: bold;margin-right: 25px;"></span>可消减负荷量（kW）：<span class="JFH" style="font-weight: bold;margin-right: 25px;"></span><br>大用户数：<span class="DYHNum" style="font-weight: bold;margin-right: 25px;"></span>大用户下户号数：<span class="DYHH" style="font-weight: bold;margin-right: 25px;"></span>可消减负荷量（kW）：<span class="DFH" style="font-weight: bold;margin-right: 5px;"></span><br>总消减负荷（kW）：<span class="TOTalFH" style="font-weight: bold;margin-right: 25px;"></span><br><span class="reduceTip" style="color: red;"></span></div></div>'
 

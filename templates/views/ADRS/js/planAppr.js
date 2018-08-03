@@ -460,7 +460,7 @@
 
             '</div>' +
 
-            '<button class="btn green examine-button" style="position: absolute;bottom: 0;right: 0;">审核</button>' +
+            '<button class="btn green examine-button" style="position: absolute;bottom: 0;right: 0;">审核通过</button>' +
 
             '</div>'
 

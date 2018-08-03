@@ -499,66 +499,6 @@
 
     })
 
-    //【创建聚合商】
-    $('#creatUserS').click(function(){
-
-        //loadding
-        $('#theLoading').modal('show');
-
-        //初始化
-        createInitJ();
-
-        //模态框
-        _moTaiKuang($('#create-Modal-J'), '提示', false, '' ,'', '创建');
-
-        //loadding
-        $('#theLoading').modal('hide');
-
-        //类
-        $('#create-Modal-J').find('.btn-primary').removeClass('bianji').removeClass('shanchu').removeClass('dengjiD').addClass('dengjiJ');
-
-        //是否可编辑（都可编辑）
-        $('#create-Modal-J').find('input').attr('disabled',false);
-
-        $('#create-Modal-J').find('select').attr('disabled',false);
-
-        $('#create-Modal-J').find('textarea').attr('disabled',false);
-
-        //隐藏是否派生于聚合商
-        $('.JH-button').hide();
-
-    })
-
-    //【创建大用户】
-    $('#creatUserD').click(function(){
-
-        //loadding
-        $('#theLoading').modal('show');
-
-        //初始化
-        createInitJ();
-
-        //模态框
-        _moTaiKuang($('#create-Modal-J'), '提示', false, '' ,'', '创建');
-
-        //loadding
-        $('#theLoading').modal('hide');
-
-        //类
-        $('#create-Modal-J').find('.btn-primary').removeClass('bianji').removeClass('shanchu').removeClass('dengjiJ').addClass('dengjiD');
-
-        //是否可编辑（都可编辑）
-        $('#create-Modal-J').find('input').attr('disabled',false);
-
-        $('#create-Modal-J').find('select').attr('disabled',false);
-
-        $('#create-Modal-J').find('textarea').attr('disabled',false);
-
-        //隐藏是否派生于聚合商
-        $('.JH-button').show();
-
-    })
-
     //创建聚合商【确定按钮】
     $('#create-Modal-J').on('click','.dengjiJ',function(){
 

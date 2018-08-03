@@ -332,9 +332,9 @@
                                                                             </div>
                                                                             <div class="col-md-4 input-block">
                                                                                 <select class="table-group-action-input form-control" id="industry-body-J">
-                                                                                    <option value="1">工业账户</option>
-                                                                                    <option value="2">非工业账户</option>
-                                                                                    <option value="3">居民账户</option>
+                                                                                    <option value="1">工业用户</option>
+                                                                                    <option value="2">非工业用户</option>
+                                                                                    <option value="3">居民用户</option>
                                                                                     <option value="4">政府机构</option>
                                                                                 </select>
                                                                             </div>
@@ -520,7 +520,7 @@
                     <ul class="ADRS-condition">
                         <li>
                             <label>关键字</label>
-                            <input type="text" class="table-group-action-input form-control" id="keyWord-modal" style="width: 150px !important;" >
+                            <input type="text" class="table-group-action-input form-control" id="keyWord-modal" placeholder="模糊搜索" style="width: 150px !important;" >
                         </li>
                         <li>
                             <div class="condition-button" id="selected-modal">查询</div>
@@ -555,7 +555,7 @@
                     <ul class="ADRS-condition">
                         <li>
                             <label>关键字</label>
-                            <input type="text" class="table-group-action-input form-control" id="keyWord-epr-modal" style="width: 150px !important;" >
+                            <input type="text" class="table-group-action-input form-control" placeholder="模糊搜索" id="keyWord-epr-modal" style="width: 150px !important;" >
                         </li>
                         <li>
                             <div class="condition-button" id="selected-epr-modal">查询</div>
@@ -578,7 +578,7 @@
         </div><!-- /.modal -->
     </div>
     <!--选择登录账户-->
-    <!--选择企业-->
+    <!--选择账户-->
     <div class="modal fade" id="user-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="height: 690px;">
             <div class="modal-content" style="height: 690px;">
@@ -587,7 +587,15 @@
                     <h4 class="modal-title">提示</h4>
                 </div>
                 <div class="modal-body" style="overflow-y: auto;height: 569px;">
-
+                    <ul class="ADRS-condition">
+                        <li>
+                            <label>关键字</label>
+                            <input type="text" class="table-group-action-input form-control" placeholder="模糊搜索" id="keyWord-user-modal" style="width: 150px !important;" >
+                        </li>
+                        <li>
+                            <div class="condition-button" id="selected-user-modal">查询</div>
+                        </li>
+                    </ul>
                     <table id="user-table" class="table table-striped  table-advance table-hover" cellspacing="0" width="100%">
                         <thead>
                         </thead>

@@ -570,9 +570,6 @@
         //数据
         districtData();
 
-        //初始化
-        _HRArr = [];
-
     })
 
     //区域条件选择【查询】
@@ -607,86 +604,32 @@
 
         }
 
-        var id = $(this).find('.checker').attr('data-id');
-
-        HHResFormat(id);
-
-        //HHResFormat(id,innerTable,HHDom,ResDom);
-
-        //var tr = $(this).parent().closest('tr');  //找到距离按钮最近的行tr;
-        //
-        //var table1 = $('#district-table').DataTable();
-        //
-        //var row = table1.row( tr );
-
-        //if ( row.child.isShown() ) {
-        //
-        //    row.child.hide();
-        //
-        //    tr.removeClass('shown');
-        //
-        //}
-        //else {
-        //
-        //    row.child( HRData()).show();
-        //
-        //    var innerTable = $(this).parent().next().find('.table');
-        //
-        //    var HHDom = $(this).next().find('.eprHH');
-        //
-        //    var ResDom = $(this).next().find('.eprRes');
-        //
-        //    //表格初始化
-        //    _tableInit(innerTable,HRCol,2,true,'','','','','',true);
-        //
-        //    //点击tr显示户号
-        //    HHResFormat(id,innerTable,HHDom,ResDom);
-        //
-        //    tr.addClass('shown');
-        //}
-
-    })
-
-    $('#district-table').on('click','.getRes',function(){
-
-
-
     })
 
     //选择区域【选择】
     $('#district-Modal').on('click','.btn-primary',function(){
 
+        //初始化
+        $('#HHNum').html(0);
 
-        if(_HRArr.length != 0){
+        $('#ResNum').html(0);
 
-            var nowSelected = $('#district-table tbody').find('.tables-hover');
+        _HRArr = [];
 
-            _thisDistrict = nowSelected.children().eq(0).children('.checker').attr('data-id');
+        var nowSelected = $('#district-table tbody').find('.tables-hover');
 
-            var name = nowSelected.children().eq(1).children().html();
+        //当前选中的区域
+        _thisDistrict = nowSelected.children().eq(0).children('.checker').attr('data-id');
 
-            $('#district').val(name);
+        var name = nowSelected.children().eq(1).children().html();
 
-            _datasTable($('#HHResTable'),_HRArr);
+        $('#district').val(name);
 
-            //户数
-            $('#HHNum').html(_HRArr.length);
+        //模态框消失
+        $('#district-Modal').modal('hide');
 
-            //资源
-            $('#ResNum').html(_HRArr.length);
-
-            $('.HHRs-block').show();
-
-            $('#district-Modal').modal('hide');
-
-        }else{
-
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'当前选中区域下的户号没有绑定资源设备，请绑定后再选择','')
-
-        }
-
-
-
+        //获取该区域下边的资源设备数
+        HHResFormat(_thisDistrict);
     })
 
     //【选择套餐】
@@ -985,7 +928,6 @@
             $('#theLoading').modal('hide');
 
             topTipBar('请填写必填项!')
-
 
         }else{
 
@@ -1375,11 +1317,38 @@
 
                     arr = result.acctRs;
 
+                    _HRArr = result.acctRs;
+
+                    //判断当前的资源数和设备数
+
+                    var HHArr = [];
+
+                    var DevArr = [];
+
                     for(var i=0;i<result.acctRs.length;i++){
 
-                        _HRArr.push(result.acctRs[i]);
+                        if(HHArr.indexOf(result.acctRs[i].acctId)<0){
+
+                            HHArr.push(result.acctRs[i].acctId);
+
+                        }
+
+                        if(DevArr.indexOf(result.acctRs[i].elecId)<0){
+
+                            DevArr.push(result.acctRs[i].elecId);
+
+                        }
 
                     }
+
+                    //户数
+                    $('#HHNum').html(HHArr.length);
+
+                    //设备数
+                    $('#ResNum').html(DevArr.length);
+
+                    $('.HHRs-block').show();
+
 
                 }if(result.code == -2){
 
@@ -1403,11 +1372,7 @@
 
                 }
 
-                //_jumpNow(innerTable,arr);
-
-                //HHDom.html(arr.length);
-
-                //ResDom.html(arr.length);
+                _jumpNow($('#HHResTable'),arr);
 
             },
 

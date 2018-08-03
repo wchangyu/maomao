@@ -19,7 +19,7 @@
             data:'name'
         },
         {
-            title:'父级id',
+            title:'父级',
             data:'pId'
         },
         {
@@ -243,6 +243,8 @@
                         obj.pId = data.pId;
 
                         obj.open = true;
+
+                        obj.level = data.level;
 
                         arr.push(obj);
 

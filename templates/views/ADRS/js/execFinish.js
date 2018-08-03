@@ -439,9 +439,9 @@
 
         var blocks = '</div>';
 
-        var table = '<table class="table table-striped  table-advance table-hover innerTable"></table>'
+        var table = '<table class="table table-striped  table-advance table-hover innerTable" style="margin: 0!important;"></table>'
 
-        return block + theader + tbodyer + str + tbodyers + theaders + blocks + '<div style="margin-top: 20px;"></div>' + block + table + blocks ;
+        return block + theader + tbodyer + str + tbodyers + theaders + blocks + '<div style="margin-top: 8px;"></div>' + block + '<span style="display: block;line-height: 30px;text-align: left !important;text-indent: 10px;">事件参与户号执行详情:</span>' + table + blocks ;
 
     }
 

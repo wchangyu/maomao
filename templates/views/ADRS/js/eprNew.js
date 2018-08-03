@@ -1067,6 +1067,26 @@ $(function(){
 
     })
 
+    //账户条件选择
+    $('#selected-user-modal').click(function(){
+
+        var roleId = '';
+
+        if($('.eprType:checked').val() == 0){
+
+            //聚合商
+            roleId = 1;
+
+        }else if($('.eprType:checked').val() == 1){
+
+            //大用户
+            roleId =4
+        }
+
+        getUser(roleId);
+
+    })
+
     /*-----------------------------------------------------其他方法----------------------------------------*/
 
     //创建企业验证
@@ -1583,7 +1603,9 @@ $(function(){
 
         var prm = {
 
-            eprType:id
+            eprType:id,
+
+            keyword:$('#keyWord-user-modal').val()
 
         }
 

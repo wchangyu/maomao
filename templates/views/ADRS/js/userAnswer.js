@@ -1936,14 +1936,14 @@
         str += '<tr><td class="subTableTitle">描述</td><td colspan="9">' + d.memo + '</td></tr>'
 
         //获取详情的接口
-        var table = '<table class="table getInnerTable  table-advance table-hover"><thead></thead><tbody></tbody></table>'
+        var table = '<table class="table getInnerTable  table-advance table-hover" style="margin: 0;"><thead></thead><tbody></tbody></table>'
 
         //最外边的框
         var block = '<div style="border: 1px solid #68a1fd;">';
 
         var blocks = '</div>';
 
-        return block + theader + tbodyer + str + tbodyers + theaders + table + blocks;
+        return block + theader + tbodyer + str + tbodyers + theaders + blocks + '<div style="margin-top: 8px;"></div>' + block + table + blocks;
 
     }
 

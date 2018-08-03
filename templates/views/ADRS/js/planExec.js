@@ -298,18 +298,18 @@
 
         var row = _table.row( tr );
 
-        if ( row.child.isShown() ) {
+        if($(this).parent().parent().next().find('.subTable').length == 1){
 
             row.child.hide();
 
             tr.removeClass('shown');
 
-        }
-        else {
+        }else{
 
             row.child( formatDetail(thisOBJ) ).show();
 
             tr.addClass('shown');
+
         }
     } );
 
@@ -339,14 +339,13 @@
         //当前事件的currentdom
         _currentStateDom = $(this).parent().parent().children().eq(0);
 
-        if ( row.child.isShown() ) {
+        if($(this).parent().parent().next().find('.line-block').length == 1){
 
             row.child.hide();
 
             tr.removeClass('shown');
 
-        }
-        else {
+        }else{
 
             //判断状态
             executeState();
@@ -510,12 +509,11 @@
             //如果当前时间>结束时间,核算按钮显示
             if(timeCompare(_et,nowTime)){
 
-                console.log(222);
-
                 button.show();
 
             }
             _indexNum ++;
+
         }
 
     })

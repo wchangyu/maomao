@@ -434,17 +434,17 @@ $(function(){
     /*---------------------------------按钮操作---------------------------------*/
 
     //tab选项
-    $('.steps').on('click','li',function(){
-
-        $('.steps').find('li').removeClass('active');
-
-        $(this).addClass('active');
-
-        $('.tab-pane').hide();
-
-        $('.tab-pane').eq($(this).index()).show();
-
-    })
+    //$('.steps').on('click','li',function(){
+    //
+    //    $('.steps').find('li').removeClass('active');
+    //
+    //    $(this).addClass('active');
+    //
+    //    $('.tab-pane').hide();
+    //
+    //    $('.tab-pane').eq($(this).index()).show();
+    //
+    //})
 
     //创建【用户】
     $('#createUser').click(function(){

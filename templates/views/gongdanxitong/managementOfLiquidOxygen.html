@@ -384,7 +384,7 @@
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
 <script src="../resource/js/publicFun.js"></script>
 <script src="../bank-resource/js/common.js"></script>
-<script src="../resource/js/managementOfSewage.js"></script>
+<script src="../resource/js/managementOfLiquidOxygen.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -397,8 +397,8 @@
 <!--模态框提示框-->
 <!--操作模态框-->
 <div class="modal fade ui-draggable in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="overflow: hidden;">
-    <div class="modal-dialog" style="height: 342px; margin-top: 317px;width: 332px !important;">
-        <div class="modal-content" style="height: 342px;width: 332px !important;">
+    <div class="modal-dialog" style="height: 282px; margin-top: 317px;width: 332px !important;">
+        <div class="modal-content" style="height: 282px;width: 332px !important;">
             <div class="modal-header ui-draggable-handle">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel">添加</h4>
@@ -414,15 +414,9 @@
                             </div>
                         </li>
                         <li class="floatLeft">
-                            <div class="labels" style="color: red">* 盐用量（公斤） ：</div>
+                            <div class="labels" style="color: red">* 朝阳液氧过磅重量（吨） ：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="consumption">
-                            </div>
-                        </li>
-                        <li class="floatLeft">
-                            <div class="labels" style="color: red">* 执行人 ：<span id="chosePerson" style="cursor: pointer;color: #00a0e9">【选择】</span></div>
-                            <div class="input-blockeds">
-                                <input type="text" v-model="person" id="person1">
                             </div>
                         </li>
                         <div class="clearfix"></div>

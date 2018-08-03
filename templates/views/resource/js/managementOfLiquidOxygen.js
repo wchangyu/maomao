@@ -19,8 +19,6 @@ $(function(){
             time:'',
             //盐用量
             consumption:'',
-            //执行人
-            person:''
         },
         methods:{
             timeFun:function(){
@@ -37,16 +35,52 @@ $(function(){
         }
     });
 
-    //执行人数组
-    var _personArr = [];
+    /*----------------------------------------------------表格初始化----------------------------------*/
 
-    //获取执行人
-    personFun(true);
+    //主表格
+    var mainCol = [
 
-    //当前操作数据的id
-    var _id = '';
+        {
+            title:'日期',
+            data:'f_DayDate',
+            render:function(data, type, full, meta){
+
+                return data.split(' ')[0]
+            }
+
+        },
+        {
+            title:'朝阳液氧过磅重量(吨)',
+            data:'f_InputValue'
+        },
+        {
+            title:'操作',
+            data:null,
+            className:'table-option',
+            render:function(data, type, full, meta){
+
+                return "<span class='data-option option-bianji btn default btn-xs green-stripe' data-id='" +
+                    full.pK_ID + "'>编辑</span><span class='data-option option-shanchu btn default btn-xs green-stripe' data-id='" + full.pK_ID +
+                    "'>删除</span>"
+
+            }
+        }
+
+    ]
+
+    _tableInit($('#all-reporting'),mainCol,1,true,'','','',[0,1],10,'');
+
+    //获取加载数据
+    conditionSelect();
 
     /*----------------------------------------按钮事件-------------------------------------------*/
+
+    //查询
+    $('#selected').click(function(){
+
+        conditionSelect();
+
+    })
 
     //新增
     $('.creatButton').click(function(){
@@ -84,7 +118,7 @@ $(function(){
     $('#myModal').on('click','.dengji',function(){
 
         //验证
-        if(obj.time == '' || obj.consumption == '' || obj.person == ''){
+        if(obj.time == '' || obj.consumption == ''){
 
             _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写红色必填项！', '');
 
@@ -104,61 +138,6 @@ $(function(){
             }
 
         }
-
-    })
-
-    //查询
-    $('#selected').click(function(){
-
-        conditionSelect();
-
-    })
-
-    //导出
-    $('.excelButton').click(function(){
-
-        _FFExcel($('#all-reporting')[0]);
-
-    })
-
-    //选择执行人
-    $('#chosePerson').click(function(){
-
-        //loadding
-        $('#theLoading').modal('show');
-
-        //初始化
-        personInit();
-        //模态框
-        _moTaiKuang($('#person-myModal'),'选择执行人',false, '' ,'', '选择');
-
-        $('#theLoading').modal('hide');
-
-    })
-
-    //选择表格中的执行人
-    $('#personTable tbody').on('click','tr',function(){
-
-        $('#personTable tbody').find('tr').removeClass('tables-hover');
-
-        $(this).addClass('tables-hover');
-
-    })
-
-    //选择确定按钮
-    $('#person-myModal').on('click','.btn-primary',function(){
-
-        //赋值
-        var table = $('#personTable tbody').find('.tables-hover');
-
-        //姓名
-        obj.person = table.children().eq(1).html();
-
-        //id
-        $('#person1').attr('data-attr',table.children().eq(0).html());
-
-        //模态框消失
-        $('#person-myModal').modal('hide');
 
     })
 
@@ -197,7 +176,7 @@ $(function(){
     $('#myModal').on('click','.bianji',function(){
 
         //验证
-        if(obj.time == '' || obj.consumption == '' || obj.person == ''){
+        if(obj.time == '' || obj.consumption == ''){
 
             _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写红色必填项！', '');
 
@@ -258,63 +237,12 @@ $(function(){
 
     })
 
-    /*----------------------------------------------------表格初始化----------------------------------*/
-
-    //主表格
-    var mainCol = [
-
-        {
-            title:'日期',
-            data:'f_DayDate',
-            render:function(data, type, full, meta){
-
-                return data.split(' ')[0]
-            }
-
-        },
-        {
-            title:'盐用量（公斤）',
-            data:'f_InputValue'
-        },
-        {
-            title:'执行人',
-            data:'f_SysUserName'
-        },
-        {
-            title:'操作',
-            data:null,
-            className:'table-option',
-            render:function(data, type, full, meta){
-
-                return "<span class='data-option option-bianji btn default btn-xs green-stripe' data-id='" +
-                    full.pK_ID + "'>编辑</span><span class='data-option option-shanchu btn default btn-xs green-stripe' data-id='" + full.pK_ID +
-                "'>删除</span>"
-
-            }
-        }
-
-    ]
-
-    _tableInit($('#all-reporting'),mainCol,1,true,'','','',[0,1,2],10,'');
-
-    //执行人表格
-    var personCol = [
-
-        {
-            title:'工号',
-            data:'sysUserID'
-        },
-        {
-            title:'姓名',
-            data:'sysUserName'
-        }
-
-    ]
-
-    _tableInit($('#personTable'),personCol,'1','','','','','',10,'');
-
-    //条件查询
-    conditionSelect();
+    //导出
+    //$('.excelButton').click(function(){
+    //
+    //    _FFExcel($('#all-reporting')[0]);
+    //
+    //})
 
     /*----------------------------------------------------其他方法------------------------------------*/
 
@@ -325,68 +253,21 @@ $(function(){
         obj.time = '';
         //用盐量
         obj.consumption = '';
-        //执行人
-        obj.person = '';
-        //执行人id
-        $('#person1').removeAttr('data-attr');
 
     }
 
-    //获取执行人
-    function personFun(flag){
+    //是可操作
+    function disAbledOption(){
 
-        var prm = {
+        $('#myApp33').find('input').addClass('disabled-block').attr('disabled',true);
 
-            //用户id
-            sysUserID:_userIdNum,
-            //用户名
-            sysUserName:_userIdName
-
-        }
-
-        $.ajax({
-
-            type:'get',
-
-            url:_urls + 'EnergyReportV2/GetAllSewageOperators',
-
-            data:prm,
-
-            timeout:_theTimes,
-
-            success:function(result){
-
-                if(flag){
-
-                    _personArr.length = 0;
-
-                    for(var i=0;i<result.length;i++){
-
-                        _personArr.push(result[i]);
-
-                    }
-
-                }else{
-
-                    _datasTable($('#personTable'),result);
-
-                }
-
-
-
-            },
-
-            error:_errorFun1
-
-        })
 
     }
 
-    //执行人模态框初始化
-    function personInit(){
+    //不可操作
+    function abledOption(){
 
-        //表格
-        _datasTable($('#personTable'),_personArr);
+        $('#myApp33').find('input').removeClass('disabled-block').attr('disabled',false);
 
     }
 
@@ -405,12 +286,10 @@ $(function(){
                 f_DayDate:obj.time,
                 //盐用量
                 f_InputValue:obj.consumption,
-                //执行人
-                f_SysuserID:$('#person1').attr('data-attr'),
                 //用户id
                 userID:_userIdNum,
                 //是污水处理还是液氧0是污水处理1是液氧
-                f_ValueType:0
+                f_ValueType:1
             }
 
             if(flag){
@@ -538,25 +417,6 @@ $(function(){
 
     }
 
-    //是可操作
-    function disAbledOption(){
-
-        $('#myApp33').find('input').addClass('disabled-block').attr('disabled',true);
-
-        $('#chosePerson').hide();
-
-
-    }
-
-    //不可操作
-    function abledOption(){
-
-        $('#myApp33').find('input').removeClass('disabled-block').attr('disabled',false);
-
-        $('#chosePerson').show();
-
-    }
-
     //条件查询
     function conditionSelect(){
 
@@ -573,7 +433,8 @@ $(function(){
 
             'monthDT':$('.datatimeblock').eq(0).val() + '/01',
 
-            'f_ValueType':0
+            'f_ValueType':1
+
         }
 
         $.ajax({
@@ -606,8 +467,8 @@ $(function(){
         var prm = {
 
             id:id,
-            //是污水处理还是液氧0是污水处理1是液氧
-            f_ValueType:0
+
+            f_ValueType:1
 
         }
 
@@ -651,6 +512,5 @@ $(function(){
 
     }
 
-    $('#all-reporting').next().addClass('noprint');
 
 })
