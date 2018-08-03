@@ -602,8 +602,6 @@
 
     }
 
-
-
     //显示详情
     function formatDetail(d){
 
@@ -667,7 +665,7 @@
 
         var blocks = '</div>';
 
-        var noDataError = '<div class="noDataError" style="line-height: 30px;color: red;text-align: left;text-indent: 20px;"></div>'
+        var noDataError = '<div style="display: none;margin: 6px 0;width: 255px;" class="noDataError Metronic-alerts alert alert-danger fade in"><button type="button" class="close"></button><i class="fa-lg fa fa-warning"></i>  请等待聚合商和大用户响应</div>'
 
 
         return block + theader + tbodyer + str + tbodyers + theaders + answer +  statistics + ontherTable + chooseButton + answers + blocks + noDataError;
@@ -815,7 +813,7 @@
 
                 el.find('.answer-block').hide();
 
-                el.find('.noDataError').html('');
+                el.find('.noDataError').hide();
 
                 //回复模块不显示
 
@@ -823,7 +821,7 @@
 
                     el.find('.answer-block').hide();
 
-                    el.find('.noDataError').html('请等待聚合商和大用户响应');
+                    el.find('.noDataError').show();
 
 
                 }else{

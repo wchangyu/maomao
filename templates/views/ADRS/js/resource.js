@@ -1471,6 +1471,8 @@
 
                     obj.pointer = result.serviceObjs[i].f_BuildingId;
 
+                    obj.open = true;
+
                     ztreeArr.push(obj);
 
                 }
@@ -1480,12 +1482,6 @@
                 var treeObj = $.fn.zTree.getZTreeObj("ztreeObj");
 
                 var nodes = treeObj.getCheckedNodes(false);
-
-                if (nodes.length>0) {
-
-                    treeObj.expandNode(nodes[4], true, false, true);
-
-                }
 
                 //用递归，将所有父节点的checked隐藏
                 for(var i=0;i<nodes.length;i++){
@@ -1881,6 +1877,75 @@
         //获取所有设备数组
         devData(existArr);
 
+
+    }
+
+    function ajaxDataFilter(treeId, parentNode, responseData) {
+        if (responseData) {
+            for(var i =0; i < responseData.length; i++) {
+                responseData[i].name += "_filter";
+            }
+        }
+        return responseData;
+    };
+
+    //直接异步加载ztree树
+    function asyncZtree(){
+
+        var setting = {
+            async: {
+                enable: true,
+                url: sessionStorage.apiUrlPrefix + 'DRResource/GetDRResourceBindMetersByResourceId',
+                dataFilter: ajaxDataFilter,  //
+                otherParam:['']
+            },
+            check: {
+                enable: true,
+                chkStyle: "radio",
+                chkboxType: { "Y": "s", "N": "ps" },
+                radioType:'all',
+                nocheckInherit: false
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            view:{
+                showIcon:false,
+            },
+            callback: {
+
+                onClick: function(e,treeId,treeNode){
+
+                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+
+                    //取消全部打钩的节点
+                    treeObj.checkNode(treeNode,!treeNode.checked,true);
+
+                },
+                beforeClick:function(){
+
+                    $('#ztreeObj').find('.curSelectedNode').removeClass('curSelectedNode');
+
+                },
+                onCheck:function(e,treeId,treeNode){
+
+                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+
+                    $('#ztreeObj').find('.curSelectedNode').removeClass('curSelectedNode');
+
+                    $('#ztreeObj').find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+
+                    //取消全部打钩的节点
+                    treeObj.checkNode(treeNode,true,true);
+
+                }
+
+            }
+        };
+
+        pointerObj = $.fn.zTree.init(treeId, setting, treeData);
 
     }
 

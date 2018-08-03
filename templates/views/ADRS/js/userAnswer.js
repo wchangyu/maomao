@@ -192,7 +192,7 @@
         {
             title:'操作',
             data:'',
-            className:'detail-button1',
+            className:'detail-button',
             render:function(data, type, full, meta){
 
                 return '<span data-id="' + full.planId + '" style="color:#2170f4;text-decoration: underline ">详情</span>'
@@ -654,7 +654,9 @@
     })
 
     //点击【详情】
-    $('#table tbody').on('click', '.detail-button', function (){
+    $('#table-block').on('click', '#table tbody .detail-button', function (){
+
+
 
         //存放当前企业所绑定户号的数组
         var thisOBJ = {};
@@ -1440,7 +1442,51 @@
                             //获取当前的index值（）
                             var index = $('.nav-tabs').children('.active').index();
 
+                            var tableStr =
+                                '<table id="table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">' +
+                                '    <thead>' +
+                                '    </thead>' +
+                                '    <tbody>' +
+                                '    </tbody>' +
+                                '</table>';
+
+                            $('#table-block').empty().append(tableStr);
+
+                            //重新初始化表格
+                            $('#table').DataTable({
+                                "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+                                "paging": true,   //是否分页
+                                "destroy": true,//还原初始化了的datatable
+                                "searching": false,
+                                "ordering": false,
+                                "bProcessing":true,
+                                "iDisplayLength":50,//默认每页显示的条数
+                                'language': {
+                                    'emptyTable': '没有数据',
+                                    'loadingRecords': '加载中...',
+                                    'processing': '查询中...',
+                                    'lengthMenu': '每页 _MENU_ 条',
+                                    'zeroRecords': '没有数据',
+                                    'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+                                    'infoEmpty': '没有数据',
+                                    'paginate':{
+                                        "previous": "上一页",
+                                        "next": "下一页",
+                                        "first":"首页",
+                                        "last":"尾页"
+                                    }
+                                },
+                                "dom":'t<"F"lip>',
+                                'buttons':{
+                                    extend: 'excelHtml5',
+                                    text: '导出',
+                                    className:'saveAs hiddenButton'
+                                },
+                                "columns": col1
+                            });
+
                             tenderData(_urlArr[index],index);
+
 
                         }
 

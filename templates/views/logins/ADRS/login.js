@@ -144,6 +144,7 @@ var Login = function(){
                                 //account
                                 sessionStorage.account = JSON.stringify(res.accts);
 
+
                                 sessionStorage.userName = 'mch';
 
                                 //流程图
