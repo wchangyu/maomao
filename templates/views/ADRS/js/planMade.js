@@ -375,16 +375,18 @@
 
     _tableInit($('#set-meal-table'),mealCol,2,true,'','','','');
 
-    //根据区域获取资源和户号
+    //根据区域获取资源和户号（合并单元格）
     var HRCol = [
 
         {
             title:'户号',
-            data:'acctNt'
+            data:'acctNt',
+            name:'districtName'
         },
         {
             title:'资源',
-            data:'name'
+            data:'name',
+            name:'districtName'
         },
         {
             title:'支路设备',
@@ -393,7 +395,44 @@
 
     ]
 
-    _tableInit($('#HHResTable'),HRCol,2,true,'','','','','',true);
+    $('#HHResTable').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": true,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": false,
+        "ordering": true,
+        "bProcessing":true,
+        "iDisplayLength":50,//默认每页显示的条数
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":'t<"F"lip>',
+        'buttons':{
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs hiddenButton'
+        },
+        "columns": HRCol,
+
+        "rowsGroup": [
+            'districtName:name',
+            0,
+            1
+        ],
+        "aoColumnDefs": [ { "orderable": false, "targets": [ 2] }]
+    });
 
     /*-----------------------------------创建表单验证-------------------------------------*/
 

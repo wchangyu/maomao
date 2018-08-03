@@ -644,12 +644,12 @@
                     text: '导出',
                     className:'saveAs hiddenButton'
                 },
-                "columns": col
+                "columns": col1
             });
 
         }
 
-        //tenderData(_urlArr[indexUrl],indexUrl);
+        tenderData(_urlArr[indexUrl],indexUrl);
 
     })
 

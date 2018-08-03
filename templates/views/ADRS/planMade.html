@@ -306,12 +306,12 @@
 
                                                 <div class="plan-title" style="margin-top: 80px">选择产品库（套餐）</div>
                                                 <input type="text" class="table-group-action-input form-control" style="background: #ffffff" id="set-meal" readonly placeholder="必选字段，且多选" name="set-meal">
-                                                <span class="select-set-meal select-button" style="margin-left: 10px;display: inline-block;padding: 5px 10px;background: #ffffff;border:1px solid #e5e5e5;border-radius:4px !important;color: #888888;cursor: pointer">选择（一对多）</span>
+                                                <span class="select-set-meal select-button" style="margin-left: 10px;display: inline-block;padding: 5px 10px;background: #ffffff;border:1px solid #e5e5e5;border-radius:4px !important;color: #888888;cursor: pointer">多选</span>
                                             </div>
                                             <div class="col-lg-4 col-md-6 col-sm-12">
                                                 <div class="plan-title districtMargin">区域选择</div>
                                                 <input type="text" class="table-group-action-input form-control" style="background: #ffffff" placeholder="必选字段，且单选" readonly id="district" name="district">
-                                                <span class="select-district select-button" style="margin-left: 10px;display: inline-block;padding: 5px 10px;background: #ffffff;border:1px solid #e5e5e5;border-radius:4px !important;color: #888888;cursor: pointer">选择（一对一）</span>
+                                                <span class="select-district select-button" style="margin-left: 10px;display: inline-block;padding: 5px 10px;background: #ffffff;border:1px solid #e5e5e5;border-radius:4px !important;color: #888888;cursor: pointer">单选</span>
                                                 <br>
                                                 <div style="margin-top: 20px;display: none" class="HHRs-block" >
                                                     <p style="font-size: 18px;font-weight: bold">统计：共有<span id="HHNum"></span>户、<span id="ResNum"></span>资源</p>
@@ -553,6 +553,9 @@
             PlanMade.init();
         });
     </script>
+
+    <!--合并单元格-->
+    <script src="../resource/TableTools/js/dataTables.rowsGroup.js"></script>
 
     <script src="../resource/js/publicFun.js"></script>
 
