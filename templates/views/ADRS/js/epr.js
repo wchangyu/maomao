@@ -1418,7 +1418,7 @@
 
                 }else if(result.code == -6){
 
-                    _topTipBar('抱歉，您没有获取企业及居民的权限');
+                    _topTipBar('抱歉，您没有获取企业及居民数据的权限');
 
                 }else if(result.code == 0){
 

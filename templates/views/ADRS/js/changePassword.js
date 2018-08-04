@@ -106,6 +106,29 @@ $(function(){
 
     })
 
+    //返回账户列表
+    $('#returnUser').click(function(){
+
+        //如果上列信息都填写了，就要提醒用户是否要返回用户列表
+        if($('#create-old-pwd').val() != '' || $('#create-new-pwd').val() != '' || $('#sure-new-pwd').val() != '' ){
+
+            _moTaiKuang($('#IsBack-Modal'),'提示',false,true,'是否返回账户列表？','返回');
+
+        }else{
+
+            window.location.href = 'user.html'
+
+        }
+
+    })
+
+    //点击返回
+    $('#IsBack-Modal').on('click','.btn-primary',function(){
+
+        window.location.href = 'user.html'
+
+    })
+
     //格式验证
     function formatValidateUser(fun){
 

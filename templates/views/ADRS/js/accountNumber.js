@@ -651,7 +651,7 @@ var Account = function(){
 
                 }else if(result.code == -6){
 
-                    _topTipBar('抱歉，您没有获取户号的权限');
+                    _topTipBar('抱歉，您没有获取户号数据的权限');
 
                 }else if(result.code == 0){
 

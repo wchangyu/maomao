@@ -365,7 +365,7 @@
 
                 }else if(result.code == -6){
 
-                    _topTipBar('抱歉，您没有获取基线的权限')
+                    _topTipBar('抱歉，您没有获取基线数据的权限')
 
                 }else if(result.code == 0){
 
