@@ -602,7 +602,9 @@ var Account = function(){
             //关键字
             keyword:$('#keyWord').val(),
             //区域id
-            districtId:$('#epr').val()
+            districtId:$('#epr').val(),
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 
@@ -646,6 +648,10 @@ var Account = function(){
                 }else if(result.code == -4){
 
                     _topTipBar('内容已存在');
+
+                }else if(result.code == -6){
+
+                    _topTipBar('抱歉，您没有获取户号的权限');
 
                 }else if(result.code == 0){
 
@@ -716,7 +722,10 @@ var Account = function(){
 
         var prm = {
 
-            keyword:$('#keyWord-modal').val()
+            keyword:$('#keyWord-modal').val(),
+
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 

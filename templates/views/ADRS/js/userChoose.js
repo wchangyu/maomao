@@ -454,7 +454,9 @@
             //基线
             baselineId:0,
             //状态
-            state:2
+            state:2,
+            //角色
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 

@@ -6,7 +6,7 @@ var _userIdName = sessionStorage.getItem('realUserName');
 var _userIdNum = sessionStorage.getItem('userName');
 
 //获取本地url
-var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+var _urls = sessionStorage.getItem("apiUrlPrefix");
 
 //获取角色权限
 var  _userRole = sessionStorage.getItem("userRole");

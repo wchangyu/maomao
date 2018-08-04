@@ -316,7 +316,9 @@
         var  prm = {
 
             //基线类别
-            type:$('#baseline-type').val()
+            type:$('#baseline-type').val(),
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 
@@ -360,6 +362,10 @@
                 }else if(result.code == -4){
 
                     _topTipBar('内容已存在')
+
+                }else if(result.code == -6){
+
+                    _topTipBar('抱歉，您没有获取基线的权限')
 
                 }else if(result.code == 0){
 

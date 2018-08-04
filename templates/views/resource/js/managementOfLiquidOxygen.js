@@ -125,11 +125,11 @@ $(function(){
         }else{
 
             //验证数字
-            var reg = new RegExp("^[0-9]*$");
+            var reg = /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
 
             if(!reg.test(obj.consumption)){
 
-                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写正确格式的数字！', '');
+                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写大于0的数字！', '');
 
             }else{
 
@@ -183,11 +183,11 @@ $(function(){
         }else{
 
             //验证数字
-            var reg = new RegExp("^[0-9]*$");
+            var reg = /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
 
             if(!reg.test(obj.consumption)){
 
-                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写正确格式的数字！', '');
+                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写大于0的数字！', '');
 
             }else{
 

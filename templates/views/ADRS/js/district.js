@@ -182,7 +182,9 @@
 
         var prm = {
 
-            keyword:$('#keyWord').val()
+            keyword:$('#keyWord').val(),
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 
@@ -226,6 +228,10 @@
                 }else if(result.code == -4){
 
                     _topTipBar('内容已存在');
+
+                }else if(result.code == -6){
+
+                    _topTipBar('抱歉，您没有获取区域的权限');
 
                 }else if(result.code == 0){
 
