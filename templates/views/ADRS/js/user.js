@@ -34,7 +34,10 @@
             "data": null,
             render:function(data, type, full, meta){
 
-                return  "<span class='option-edit option-button' data-userId='" + full.userId + "'>编辑</span>"
+                return  "<span class='option-edit option-button' data-userId='" + full.userId + "'>编辑</span>" +
+
+                    "<span class='option-edit option-button option-huhao' data-userId='" + full.userId + "'><a href='changePassword.html?a=" + full.userId + "' style='color: #0aa3c3 !important'>修改密码</a></span>"
+
 
             }
         },
@@ -192,6 +195,8 @@
 
         $('#create-user-name').attr('disabled',true);
 
+        $('#create-user-role').attr('disabled',true);
+
         //密码不显示
         $('.password-block').hide();
 
@@ -224,8 +229,11 @@
             role:$('#role').val(),
 
             //是否有效
-            isdel:2
+            isdel:2,
             //isdel:$('#effective').val()
+
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 
@@ -267,6 +275,10 @@
                 }else if(result.code == -4){
 
                     _topTipBar('内容已存在');
+
+                }else if(result.code == -6){
+
+                    _topTipBar('抱歉，您没有获取账户的权限');
 
                 }else if(result.code == 0){
 

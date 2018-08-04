@@ -313,7 +313,9 @@
             //产品类型
             libraryType:$('#product-type').val(),
             //计价方式
-            priceMode:$('#valuation-method').val()
+            priceMode:$('#valuation-method').val(),
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 
@@ -357,6 +359,10 @@
                 }else if(result.code == -4){
 
                     _topTipBar('内容已存在')
+
+                }else if(result.code == -6){
+
+                    _topTipBar('抱歉，您没有获取套餐的权限')
 
                 }else if(result.code == 0){
 

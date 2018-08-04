@@ -37,7 +37,7 @@ $(document).ready(function(){
             timeout: theTimes,
             data:{
                 "orderNum": godownNum,
-                "userID": _userIdName,
+                "userID": _userIdNum,
                 "userName": _userName
             },
             success: function (data) {
@@ -45,10 +45,15 @@ $(document).ready(function(){
                 var html = '';
                 //总价
                 var countNum = 0;
+
                 $(data).each(function(i,o){
+
+                    var brand = o.brand==null?'':o.brand;
+
                     html +=' <tr>' +
                         '     <td>'+ o.itemNum+'</td>' +
                         '     <td>'+ o.itemName+'</td>' +
+                        '     <td>'+ brand+'</td>' +
                         '     <td>'+ o.size+'</td>' +
                         '     <td>'+ o.unitName+'</td>' +
                         '     <td>'+ o.num+'</td>' +

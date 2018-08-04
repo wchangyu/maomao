@@ -324,7 +324,9 @@
             //基线
             baselineId:0,
             //状态
-            state:3
+            state:3,
+            //角色
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 
@@ -454,13 +456,13 @@
 
         var moeo = '<div style="position: relative;margin: 10px 0;">' +
 
-            '<div style="margin-right: 70px;">' +
+            '<div style="margin-right: 130px;">' +
 
             '<textarea id="remark" placeholder="请输入备注" style="height: 35px;"class="table-group-action-input form-control"></textarea>' +
 
             '</div>' +
 
-            '<button class="btn green examine-button" style="position: absolute;bottom: 0;right: 0;">审核通过</button>' +
+            '<button class="btn green examine-button" style="position: absolute;bottom: 0;right: 0;margin-right: 0">审核通过</button>' +
 
             '</div>'
 

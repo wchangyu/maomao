@@ -1371,7 +1371,9 @@
             eprtype:$('#people-type').val(),
             //是否有效
             //isdel:$('#valuation-method').val()
-            isdel:2
+            isdel:2,
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 
@@ -1413,6 +1415,10 @@
                 }else if(result.code == -4){
 
                     _topTipBar('内容已存在');
+
+                }else if(result.code == -6){
+
+                    _topTipBar('抱歉，您没有获取企业及居民的权限');
 
                 }else if(result.code == 0){
 

@@ -465,7 +465,9 @@
                 //基线
                 baselineId:0,
                 //状态
-                state:1
+                state:1,
+                //角色
+                loginSysuserRole:sessionStorage.ADRS_UserRole
 
             }
 
@@ -480,7 +482,9 @@
                 //基线
                 baselineId:$('#plan-baseline').val(),
                 //状态
-                state:$('#plan-state').val()
+                state:$('#plan-state').val(),
+                //角色
+                loginSysuserRole:sessionStorage.ADRS_UserRole
 
             }
 

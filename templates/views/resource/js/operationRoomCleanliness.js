@@ -170,7 +170,7 @@ $(function(){
 
         //设置表头
 
-        var title = $('.min').val() + $('.spanhover').html() + '报表';
+        var title = $('.min').val() + '  ' + $('.spanhover').html() + '报表';
 
         $('.table-block-title').html(title);
 

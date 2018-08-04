@@ -1,5 +1,12 @@
 $(function(){
 
+    //只有服务商才可以进到这个页面
+    if(sessionStorage.ADRS_UserRole != 2){
+
+        window.history.go(-1);
+
+    }
+
     /*---------------------------------变量-------------------------------------*/
 
     //当前创建用户的id
@@ -1674,7 +1681,9 @@ $(function(){
 
         var prm = {
 
-            keyword:$('#keyWord-modal').val()
+            keyword:$('#keyWord-modal').val(),
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 

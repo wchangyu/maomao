@@ -1030,7 +1030,9 @@
             //关键字
             keyword:$('#resource-name').val(),
             //区域
-            districtId:$('#epr1').val()
+            districtId:$('#epr1').val(),
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 
@@ -1074,6 +1076,10 @@
                 }else if(result.code == -4){
 
                     _topTipBar('内容已存在');
+
+                }else if(result.code == -6){
+
+                    _topTipBar('抱歉，您没有获取资源的权限');
 
                 }else if(result.code == 0){
 
@@ -1290,7 +1296,10 @@
             keyword:$('#keyWord-modal').val(),
 
             //区域
-            districtId:$('#district-con').val()
+            districtId:$('#district-con').val(),
+
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 

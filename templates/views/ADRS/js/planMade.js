@@ -725,7 +725,9 @@
         var  prm = {
 
             //基线类别
-            type:$('#keyWord-baseline-modal').val()
+            type:$('#keyWord-baseline-modal').val(),
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 
@@ -797,7 +799,10 @@
 
         var prm = {
 
-            keyword:$('#keyWord-district-modal').val()
+            keyword:$('#keyWord-district-modal').val(),
+
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 
@@ -863,7 +868,9 @@
             //产品类型
             libraryType:$('#product-type').val(),
             //计价方式
-            priceMode:$('#valuation-method').val()
+            priceMode:$('#valuation-method').val(),
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 
@@ -1286,6 +1293,8 @@
     //显示户号和资源
     function HHResFormat(id,innerTable,HHDom,ResDom){
 
+        $('.HHRs-block').hide();
+
         _HRArr = [];
 
         $('#theLoading').modal('show');
@@ -1373,6 +1382,17 @@
                 }
 
                 _jumpNow($('#HHResTable'),arr);
+
+                if(arr.length == 0){
+
+                    topTipBar('当前选中区域下的户号没有绑定资源设备，请绑定后再选择')
+
+                }else{
+
+                    $('#tip').hide()
+
+                }
+
 
             },
 

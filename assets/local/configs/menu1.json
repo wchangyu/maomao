@@ -2245,6 +2245,16 @@
         "target": "",
         "arg2": "admin,WXBZ01"
       },
+      "液氧用量录入": {
+        "type": "0",
+        "content": "液氧用量录入",
+        "uri": "../gongdanxitong/managementOfLiquidOxygen.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
+      },
       "手术室洁净系统运行记录": {
         "type": "0",
         "content": "手术室洁净系统运行记录",

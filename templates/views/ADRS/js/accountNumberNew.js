@@ -1,5 +1,12 @@
 $(function(){
 
+    //只有服务商才可以进到这个页面
+    if(sessionStorage.ADRS_UserRole != 2){
+
+        window.history.go(-1);
+
+    }
+
     //当前选中的区域的id
     var _thisDistrict = '';
 
@@ -1417,7 +1424,10 @@ $(function(){
 
         var prm = {
 
-            keyword:$('#keyWord-modal').val()
+            keyword:$('#keyWord-modal').val(),
+
+            //登录者
+            loginSysuserRole:sessionStorage.ADRS_UserRole
 
         }
 
