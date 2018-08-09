@@ -15,6 +15,9 @@
     //当前是直接绑定还是创建
     var _isBind = false;
 
+    //记录当前已选中的楼宇
+    var _currentPointer = '';
+
     //条件查询资源
     eprCondition();
 
@@ -207,7 +210,7 @@
 
     ];
 
-    _tableInit($('#dev-table'),devCol,2,true,'','','','',10,'');
+    //_tableInit($('#dev-table'),devCol,2,true,'','','','',10,'');
 
     //添加设备（表格编辑）
     var editCol = [
@@ -574,12 +577,6 @@
         //模态框
         _moTaiKuang($('#bind-table-Modal'),'绑定设备','','','','确定');
 
-        //$('#theLoading').modal('hide');
-
-        //获取一下已绑定的设备，然后再去重
-
-
-
     })
 
     //【点击设备选择按钮选择】
@@ -649,7 +646,6 @@
 
         _selectedDevArr = [];
 
-
         //模态框
         _moTaiKuang($('#bind-table-Modal'),'设备','','','','确定');
 
@@ -663,21 +659,21 @@
         T.row.add(['','','','']).draw();
 
         //获取已选中的设备
-        getAlreadyDev();
+        //getAlreadyDev();
 
     })
 
     //选择功率设备
     $('#dev-manage tbody').on('click','.select-dev-GL',function(){
 
-        //初始化
-        _datasTable($('#dev-table'),[]);
+        //获取当前选中的楼宇
+        var pointerId = $(this).attr('data-pid');
 
         //表格
         _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
 
-        //数据
-        getAlreadyDev();
+        //获取楼宇
+        getPointer(pointerId);
 
         //类
         $('#dev-Modal').find('.btn-primary').removeClass('dev-DL-B').removeClass('dev-KZ-B').addClass('dev-GL-B');
@@ -689,14 +685,14 @@
     //选择电量设备
     $('#dev-manage tbody').on('click','.select-dev-DL',function(){
 
-        //初始化
-        _datasTable($('#dev-table'),[]);
+        //获取当前选中的楼宇
+        var pointerId = $(this).attr('data-pid');
 
         //表格
         _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
 
-        //数据
-        getAlreadyDev();
+        //获取楼宇
+        getPointer(pointerId);
 
         //类
         $('#dev-Modal').find('.btn-primary').removeClass('dev-GL-B').removeClass('dev-KZ-B').addClass('dev-DL-B');
@@ -708,14 +704,17 @@
     //选择控制设备
     $('#dev-manage tbody').on('click','.select-dev-KZ',function(){
 
-        //初始化
-        _datasTable($('#dev-table'),[]);
+        //获取当前选中的楼宇
+        var pointerId = $(this).attr('data-pid');
 
         //表格
         _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
 
-        //数据
-        getAlreadyDev();
+        //获取楼宇
+        getPointer(pointerId);
+
+        //获取楼宇
+        getPointer();
 
         //类
         $('#dev-Modal').find('.btn-primary').removeClass('dev-GL-B').removeClass('dev-DL-B').addClass('dev-KZ-B');
@@ -1456,20 +1455,61 @@
 
                 $('#theLoading').modal('hide');
 
-                _datasTable($('#dev-table'),result.serviceObjs);
-
                 //格式化数据
                 var ztreeArr = [];
 
+                //首先根据楼宇去重
+
+                //获取当前选中的楼宇
+                var pointerObj = $.fn.zTree.getZTreeObj("ztreePointerObj");
+
+                var currentPointerArr = [];
+
+                if(pointerObj){
+
+                    //获取选中的楼宇
+                    var currentPointer = pointerObj.getCheckedNodes(true);
+
+                    //根据选中的楼宇，获取该楼宇下的设备
+                    if(currentPointer.length>0){
+
+                        var pointer = currentPointer[0].id;
+
+                        for(var i=0;i<result.serviceObjs.length;i++){
+
+                            if(result.serviceObjs[i].f_BuildingId == pointer){
+
+                                currentPointerArr.push(result.serviceObjs[i]);
+
+                            }
+
+                        }
+
+                    }
+
+                }else{
+
+                    for(var i=0;i<result.serviceObjs.length;i++){
+
+                        currentPointerArr.push(result.serviceObjs[i]);
+
+                    }
+
+                }
+
                 //将获取到的数组和已选择的数组去重
 
-                for(var i=0;i<result.serviceObjs.length;i++){
+                if(arr.length != 0){
 
-                    for(var j=0;j<arr.length;j++){
+                    for(var i=0;i<currentPointerArr.length;i++){
 
-                        if(result.serviceObjs[i].f_ServiceId == arr[j]){
+                        for(var j=0;j<arr.length;j++){
 
-                            result.serviceObjs.remove(result.serviceObjs[i]);
+                            if(currentPointerArr[i].f_ServiceId == arr[j]){
+
+                                currentPointerArr.remove(currentPointerArr[i]);
+
+                            }
 
                         }
 
@@ -1477,17 +1517,17 @@
 
                 }
 
-                for(var i=0;i<result.serviceObjs.length;i++){
+                for(var i=0;i<currentPointerArr.length;i++){
 
                     var obj = {};
 
-                    obj.name = result.serviceObjs[i].f_ServiceName;
+                    obj.name = currentPointerArr[i].f_ServiceName;
 
-                    obj.id = result.serviceObjs[i].f_ServiceId;
+                    obj.id = currentPointerArr[i].f_ServiceId;
 
-                    obj.pId = result.serviceObjs[i].f_ParentId;
+                    obj.pId = currentPointerArr[i].f_ParentId;
 
-                    obj.pointer = result.serviceObjs[i].f_BuildingId;
+                    obj.pointer = currentPointerArr[i].f_BuildingId;
 
                     obj.open = true;
 
@@ -1610,7 +1650,7 @@
 
                 }
 
-                devData(arr);
+                getAlreadyDev();
 
             },
 
@@ -1899,6 +1939,150 @@
         //获取所有设备数组
         devData(existArr);
 
+
+    }
+
+    //获取楼宇
+    function getPointer(pointerId){
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'DRResource/GetDRPointerDs',
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                var arr1 = [];
+
+                $('#theLoading').modal('hide');
+
+                if(result.code == -2){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'暂无数据', '');
+
+                }else if(result.code == -1){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'异常错误', '');
+
+                }else if(result.code == -3){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'参数错误', '');
+
+                }else if(result.code == -4){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'内容已存在', '');
+
+                }else if(result.code == -6){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'抱歉，您没有获取楼宇的权限', '');
+
+                }else if(result.code == 0){
+
+                    for(var i=0;i<result.pos.length;i++){
+
+                        var obj = {};
+
+                        obj.id = result.pos[i].pointerID;
+
+                        obj.name = result.pos[i].pointerName;
+
+                        if(pointerId){
+
+                            if( obj.id == pointerId ){
+
+                                obj.checked = true;
+
+                            }
+
+                        }else{
+
+                            if(i==0){
+
+                                obj.checked = true;
+
+                            }
+
+                        }
+
+                        arr1.push(obj);
+
+                    }
+
+                }
+
+
+
+                if(arr1.length == 0){
+
+                    $('#ztreePointerObj').html('暂时没有获取到楼宇数据');
+
+                }else{
+
+                    var setting = {
+
+                        check: {
+                            enable: true,
+                            chkStyle: "radio",
+                            chkboxType: { "Y": "s", "N": "ps" },
+                            radioType:'all',
+                            nocheckInherit: false
+                        },
+                        data: {
+                            simpleData: {
+                                enable: true
+                            }
+                        },
+                        view:{
+                            showIcon:false,
+                        },
+                        callback: {
+
+                            onClick: function(e,treeId,treeNode){
+
+                                var treeObj = $.fn.zTree.getZTreeObj(treeId);
+
+                                //取消全部打钩的节点
+                                treeObj.checkNode(treeNode,!treeNode.checked,true);
+
+                                //获取所有设备
+                                getAlreadyDev();
+
+                            },
+                            beforeClick:function(){
+
+                                $('#ztreeObj').find('.curSelectedNode').removeClass('curSelectedNode');
+
+                            },
+                            onCheck:function(e,treeId,treeNode){
+
+                                var treeObj = $.fn.zTree.getZTreeObj(treeId);
+
+                                $('#ztreeObj').find('.curSelectedNode').removeClass('curSelectedNode');
+
+                                $('#ztreeObj').find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+
+                                //取消全部打钩的节点
+                                treeObj.checkNode(treeNode,true,true);
+
+                            }
+
+                        }
+                    };
+
+                    $.fn.zTree.init($('#ztreePointerObj'), setting, arr1);
+
+                    getAlreadyDev();
+
+                }
+
+            },
+
+            error:_errorFun1
+
+        })
 
     }
 

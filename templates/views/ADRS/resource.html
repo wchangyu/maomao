@@ -466,27 +466,24 @@
                 </div>
                 <div class="modal-body" style="overflow-y: auto;height: 569px;">
 
-                    <ul class="ADRS-condition" style="margin: 0;">
-                        <li>
-                            <label>关键字</label>
-                            <input type="text" class="table-group-action-input form-control" id="keyWord-dev-modal" placeholder="模糊搜索" style="width: 150px !important;" >
-                            <span style="display: inline-block;color: red;vertical-align: middle" class="tipe"></span>
-                        </li>
-                    </ul>
                     <div>
-                        <div style="width: 45%;display: inline-block;vertical-align: top;">
-                            <ul class="ztree" id="ztreeObj" style="border: 1px solid #e5e5e5;min-height: 300px;">
+                        <div style="width: 45%;float: left">
+                            <ul class="ztree" id="ztreePointerObj" style="border: 1px solid #e5e5e5;min-height: 300px;">
 
                             </ul>
 
                         </div>
-                        <div style="width: 50%;display: inline-block;vertical-align: top;">
-                            <table id="dev-table" class="table table-striped  table-advance table-hover" cellspacing="0" width="100%">
-                                <thead>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                        <div style="width: 50%;float: right;border: 1px solid #e5e5e5;">
+                            <ul class="ADRS-condition" style="margin: 0;">
+                                <li>
+                                    <label>关键字</label>
+                                    <input type="text" class="table-group-action-input form-control" id="keyWord-dev-modal" placeholder="设备模糊搜索" style="width: 150px !important;" >
+                                    <span style="display: inline-block;color: red;vertical-align: middle" class="tipe"></span>
+                                </li>
+                            </ul>
+                            <ul class="ztree" id="ztreeObj" style="min-height: 300px;">
+
+                            </ul>
                         </div>
                     </div>
 
