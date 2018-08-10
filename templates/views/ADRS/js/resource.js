@@ -2067,6 +2067,9 @@
                                 //取消全部打钩的节点
                                 treeObj.checkNode(treeNode,true,true);
 
+                                //获取所有设备
+                                getAlreadyDev();
+
                             }
 
                         }
