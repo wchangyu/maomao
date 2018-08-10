@@ -58,7 +58,6 @@
         ]
     };
 
-
     //新闻
     newsInfo();
 
@@ -113,75 +112,85 @@
 
                 $('#myCarousel').hideLoading();
 
-                //创建轮播图
-                var showArr = result.splice(0,4);
+                if(result.length > 0){
 
-                var html = '';
+                    //创建轮播图
+                    var showArr = result.splice(0,4);
 
-                var html1 = '';
+                    var html = '';
 
-                for(var i=0;i<showArr.length;i++){
+                    var html1 = '';
 
-                    if(i == 0){
+                    for(var i=0;i<showArr.length;i++){
 
-                        html += '<a class="item active" style="height: 100%">' +
+                        if(i == 0){
 
-                            ' <img class="img">' +
+                            html += '<a class="item active" style="height: 100%">' +
 
-                            ' <div class="carousel-caption" style="color: #2B2B2B;font-size: 16px;"></div>' +
+                                ' <img class="img">' +
 
-                            '</a>';
+                                ' <div class="carousel-caption" style="color: #2B2B2B;font-size: 16px;"></div>' +
 
-                        html1 += '<li data-target="#myCarousel" data-slide-to="'+i+'" class="active"></li>'
+                                '</a>';
 
-                    }else{
-                        html += '<a class="item" style="height: 100%">' +
+                            html1 += '<li data-target="#myCarousel" data-slide-to="'+i+'" class="active"></li>'
 
-                            ' <img class="img">' +
+                        }else{
+                            html += '<a class="item" style="height: 100%">' +
 
-                            ' <div class="carousel-caption" style="color: #2B2B2B;font-size: 16px;"></div>' +
+                                ' <img class="img">' +
 
-                            '</a>';
+                                ' <div class="carousel-caption" style="color: #2B2B2B;font-size: 16px;"></div>' +
 
-                        html1 += '<li data-target="#myCarousel" data-slide-to="'+i+'" class=""></li>'
+                                '</a>';
+
+                            html1 += '<li data-target="#myCarousel" data-slide-to="'+i+'" class=""></li>'
+                        }
+
+
+
                     }
 
+                    $('.carousel-inner').html(html);
+
+                    $('.carousel-indicators').html(html1);
 
 
-                }
+                    for(var i=0;i<showArr.length;i++){
 
-                $('.carousel-inner').html(html);
+                        if( showArr[i].f_RecommImgName){
 
-                $('.carousel-indicators').html(html1);
+                            var imgurl = showArr[i].f_RecommImgName.split('\\');
 
+                            $('.carousel-inner').find('.item').eq(i).children('.img');
 
-                for(var i=0;i<showArr.length;i++){
+                            $('.carousel-inner').find('.item').eq(i).children('.img').attr('src','' + imgurl[0] + '/' + imgurl[1] + '/' + imgurl[2] + '');
 
-                    if( showArr[i].f_RecommImgName){
+                            $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(showArr[i].f_NewsTitle);
 
-                        var imgurl = showArr[i].f_RecommImgName.split('\\');
+                            $('.carousel-inner').find('.item').eq(i).attr('href','../news/news-4.html?id=' + showArr[i].pK_NewsID + '&come=1');
+                        }else{
 
-                        $('.carousel-inner').find('.item').eq(i).children('.img');
+                            $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(showArr[i].f_NewsTitle);
 
-                        $('.carousel-inner').find('.item').eq(i).children('.img').attr('src','' + imgurl[0] + '/' + imgurl[1] + '/' + imgurl[2] + '');
-
-                        $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(showArr[i].f_NewsTitle);
-
-                        $('.carousel-inner').find('.item').eq(i).attr('href','../news/news-4.html?id=' + showArr[i].pK_NewsID + '&come=1');
-                    }else{
-
-                        $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(showArr[i].f_NewsTitle);
-
-                        $('.carousel-inner').find('.item').eq(i).attr('href','../news/news-4.html?id=' + showArr[i].pK_NewsID + '&come=1');
+                            $('.carousel-inner').find('.item').eq(i).attr('href','../news/news-4.html?id=' + showArr[i].pK_NewsID + '&come=1');
+                        }
                     }
+
+                    $('#myCarousel').carousel({
+
+                        interval: 3000
+
+                    })
+
+
+                }else{
+
+                    var str = '<div style="position: absolute;top: 45%;text-align: center;width: 100%;">暂时没有获取到新闻数据</div>'
+
+                    $('.carousel-inner').empty().append(str);
+
                 }
-
-                $('#myCarousel').carousel({
-
-                    interval: 3000
-
-                })
-
 
             },
 
@@ -251,15 +260,15 @@
 
                     optionLine.series = yArr;
 
-                    _echartHistory.setOption(optionLine,true);
-
                 }else if(result.code == -1){
 
                         console.log('获取历史用电负荷曲线数据时出现异常');
 
                     }else if(result.code == -2){
 
-                        console.log('暂时没有历史用电负荷曲线');
+                        var str = '<div style="position: absolute;top: 45%;text-align: center;width: 100%;">暂时没有历史用电负荷曲线</div>'
+
+                        $('#powerHistoryChart').append(str);
 
                     }else if(result.code == -3){
 
@@ -275,6 +284,7 @@
 
                     }
 
+                _echartHistory.setOption(optionLine,true);
 
 
             },
@@ -332,7 +342,7 @@
 
                 }else if(result.code == -2){
 
-                    console.log('暂时没有角色响应数据');
+                    str = '<div style="position: relative;top: 45%;text-align: center;">暂时没有角色响应数据</div>';
 
                 }else if(result.code == -3){
 
@@ -405,7 +415,7 @@
 
                 }else if(result.code == -2){
 
-                    console.log('暂时没有行业响应数据');
+                    str = '<div style="position: relative;top: 45%;text-align: center;">暂时没有行业响应数据</div>';
 
                 }else if(result.code == -3){
 
@@ -478,7 +488,8 @@
 
                 }else if(result.code == -2){
 
-                    console.log('暂时没有行业响应数据');
+                    str = '<div style="position: relative;top: 45%;text-align: center;">暂时没有行业响应数据</div>';
+
 
                 }else if(result.code == -3){
 
@@ -562,7 +573,9 @@
 
                 }else if(result.code == -2){
 
-                    console.log('暂时没有行业响应数据');
+                    var str = '<div style="position: absolute;top: 45%;text-align: center;width: 100%;">暂时没有行业响应数据</div>'
+
+                    $('#district-answer').append(str);
 
                 }else if(result.code == -3){
 
@@ -601,8 +614,6 @@
         })
 
     }
-
-
 
     return {
         init: function () {

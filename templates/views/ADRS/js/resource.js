@@ -669,6 +669,9 @@
         //获取当前选中的楼宇
         var pointerId = $(this).attr('data-pid');
 
+        //初始化;
+        devInit();
+
         //表格
         _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
 
@@ -688,6 +691,9 @@
         //获取当前选中的楼宇
         var pointerId = $(this).attr('data-pid');
 
+        //初始化;
+        devInit();
+
         //表格
         _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
 
@@ -706,6 +712,9 @@
 
         //获取当前选中的楼宇
         var pointerId = $(this).attr('data-pid');
+
+        //初始化;
+        devInit();
 
         //表格
         _moTaiKuang($('#dev-Modal'),'设备','','','','选择');
@@ -1718,7 +1727,7 @@
 
     }
 
-    //ztree树搜索功能
+    //ztree树搜索功能(设备)
     function searchKey(key){
 
         //首先解绑所有事件
@@ -1804,6 +1813,133 @@
         function updateNodes(highlight) {
 
             var zTree = $.fn.zTree.getZTreeObj("ztreeObj");
+
+            var allNode = zTree.transformToArray(zTree.getNodes());
+
+            //指定被隐藏的节点 JSON 数据集合
+            zTree.hideNodes(allNode);
+
+            //遍历nodeList第n个nodeList
+
+            for(var n in nodeList){
+
+                findParent(zTree,nodeList[n]);
+
+            }
+
+            zTree.showNodes(nodeList);
+        }
+
+        //确定父子关系
+        function findParent(zTree,node){
+
+            //展开符合搜索条件的节点
+            //展开 / 折叠 指定的节点
+            zTree.expandNode(node,true,false,false);
+
+            if(typeof node == 'object'){
+
+                //pNode父节点
+                var pNode = node.getParentNode();
+
+            }
+
+            if(pNode != null){
+
+                nodeList.push(pNode);
+
+                findParent(zTree,pNode);
+            }
+        }
+
+    }
+
+    //ztree树搜索功能(楼宇)
+    function searchPointerKey(key){
+
+        //首先解绑所有事件
+        key.off();
+
+        //聚焦事件
+        key.bind("focus",focusKey($('#keyWord-pointer-modal')));
+        //失去焦点事件
+        key.bind("blur", blurKey);
+        //输入事件
+        //key.bind("propertychange", searchNode);
+        //输入事件
+        key.bind("input", searchNode);
+
+        function focusKey(e) {
+
+            if ($('#keyWord-pointer-modal').hasClass("empty")) {
+
+                $('#keyWord-pointer-modal').removeClass("empty");
+
+            }
+        }
+
+        function blurKey(e) {
+
+            //内容置为空，并且加empty类
+            if ($('#keyWord-pointer-modal').get(0).value === "") {
+
+                $('#keyWord-pointer-modal').addClass("empty");
+            }
+        }
+
+        var lastValue='',nodeList=[];
+
+        function searchNode(e) {
+
+            //获取树
+            var zTree = $.fn.zTree.getZTreeObj("ztreePointerObj");
+
+            //去掉input中的空格（首尾）
+            var value = $.trim($('#keyWord-pointer-modal').get(0).value);
+
+            //设置搜索的属性
+            var keyType = "name";
+
+            if (lastValue === value)
+
+                return;
+
+            lastValue = value;
+
+            if (value === "") {
+
+                $('.tipe-pointer').html('');
+                //将 zTree 使用的标准 JSON 嵌套格式的数据转换为简单 Array 格式。
+                //获取 zTree 的全部节点数据
+                //如果input是空的则显示全部；
+                zTree.showNodes(zTree.transformToArray(zTree.getNodes())) ;
+
+                return;
+            }
+            //getNodesByParamFuzzy:根据节点数据的属性搜索，获取条件模糊匹配
+            // 的节点数据 JSON 对象集合
+            nodeList = zTree.getNodesByParamFuzzy(keyType,value);
+
+            nodeList = zTree.transformToArray(nodeList);
+
+            if(nodeList==''){
+
+                $('.tipe-pointer').html('抱歉，没有您想要的结果');
+
+            }else{
+
+                $('.tipe-pointer').html('');
+
+            }
+
+            updateNodes(true);
+
+        }
+
+        //选中之后更新节点
+        function updateNodes(highlight) {
+
+            var zTree = $.fn.zTree.getZTreeObj("ztreePointerObj");
 
             var allNode = zTree.transformToArray(zTree.getNodes());
 
@@ -2077,6 +2213,11 @@
 
                     $.fn.zTree.init($('#ztreePointerObj'), setting, arr1);
 
+                    //ztree搜索功能
+                    var key = $("#keyWord-pointer-modal");
+
+                    searchPointerKey(key);
+
                     getAlreadyDev();
 
                 }
@@ -2086,6 +2227,29 @@
             error:_errorFun1
 
         })
+
+    }
+
+    //设备模态框初始化
+    function devInit(){
+
+        //楼宇关键字
+        $('#keyWord-pointer-modal').val('');
+
+        //楼宇提示
+        $('.tipe-pointer').html('');
+
+        //楼宇树
+        $('#ztreePointerObj').empty();
+
+        //设备关键字
+        $('#keyWord-dev-modal').val('');
+
+        //楼宇提示
+        $('.tipe').html('');
+
+        //楼宇树
+        $('#ztreeObj').empty();
 
     }
 

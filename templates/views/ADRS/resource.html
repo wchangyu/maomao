@@ -464,16 +464,23 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">提示</h4>
                 </div>
-                <div class="modal-body" style="overflow-y: auto;height: 569px;">
+                <div class="modal-body" style="height: 569px;">
 
                     <div>
-                        <div style="width: 45%;float: left">
-                            <ul class="ztree" id="ztreePointerObj" style="border: 1px solid #e5e5e5;min-height: 300px;">
+                        <div style="width: 45%;float: left;height: 550px;overflow-y: auto;border: 1px solid #e5e5e5;">
+                            <ul class="ADRS-condition" style="margin: 0;">
+                                <li>
+                                    <label>关键字</label>
+                                    <input type="text" class="table-group-action-input form-control" id="keyWord-pointer-modal" placeholder="楼宇模糊搜索" style="width: 150px !important;" >
+                                    <span style="display: inline-block;color: red;vertical-align: middle" class="tipe-pointer"></span>
+                                </li>
+                            </ul>
+                            <ul class="ztree" id="ztreePointerObj" style="min-height: 300px;">
 
                             </ul>
 
                         </div>
-                        <div style="width: 50%;float: right;border: 1px solid #e5e5e5;">
+                        <div style="width: 50%;float: right;border: 1px solid #e5e5e5;height: 550px;overflow-y: auto">
                             <ul class="ADRS-condition" style="margin: 0;">
                                 <li>
                                     <label>关键字</label>
