@@ -342,11 +342,15 @@
 
         districtZtreeS = $.fn.zTree.getZTreeObj("ztreeStationS");
 
-        var parentArr = districtZtreeS.getCheckedNodes(true);
+        if(districtZtreeS){
 
-        if(parentArr.length != 0){
+            var parentArr = districtZtreeS.getCheckedNodes(true);
 
-            parentId = parentArr[0].id;
+            if(parentArr.length != 0){
+
+                parentId = parentArr[0].id;
+
+            }
 
         }
 
