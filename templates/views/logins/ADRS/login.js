@@ -77,14 +77,33 @@ var Login = function(){
                     window.localStorage.BEE_remember = "1";
                 }
 
+                //样式修改
+
                 if(sessionStorage.apiUrlPrefix)
                 {
 
                     var url = sessionStorage.apiUrlPrefix + "DRLogin/Login";
+
                     $.ajax({
                         url:url,
                         type:"post",
                         data:accParams,
+                        beforeSend:function(){
+
+                            //改变按钮样式
+                            var str = '正在登录...';
+
+                            $('.green-haze').html(str).attr('disabled',true);
+
+                        },
+                        complete:function(){
+
+                            //改变按钮样式
+                            var str = '登录<i class="m-icon-swapright m-icon-white"></i>';
+
+                            $('.green-haze').html(str).attr('disabled',false);
+
+                        },
                         success:function(res){
 
                             if(res.code != 0){
