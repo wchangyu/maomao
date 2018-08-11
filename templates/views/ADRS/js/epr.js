@@ -111,6 +111,7 @@
             title:'编辑操作',
             "targets": -1,
             "data": null,
+            "className":"hiddenButton",
             render:function(data, type, full, meta){
 
                 if(full.eprType == 1){

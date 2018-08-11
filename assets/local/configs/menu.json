@@ -21,6 +21,15 @@
     "iconclass": "icon-notebook",
     "content": "信息管理",
     "submenu": {
+      "区域管理": {
+        "type": "0",
+        "content": "区域管理",
+        "uri": "../ADRS/district.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,service"
+      },
       "账户管理": {
         "type": "0",
         "content": "账户管理",
@@ -34,15 +43,6 @@
         "type": "0",
         "content": "企业及居民管理",
         "uri": "../ADRS/epr.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "",
-        "arg2": "admin,service"
-      },
-      "区域管理": {
-        "type": "0",
-        "content": "区域管理",
-        "uri": "../ADRS/district.html",
         "uid": "",
         "arg": "",
         "iconclass": "",

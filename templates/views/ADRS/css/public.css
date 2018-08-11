@@ -346,3 +346,9 @@ table.dataTable thead th, table.dataTable thead td{
 	background: #9b9b9c;
 
 }
+
+.hiddenButton{
+
+	display: none;
+
+}
