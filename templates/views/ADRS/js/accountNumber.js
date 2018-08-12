@@ -602,7 +602,7 @@ var Account = function(){
             //关键字
             keyword:$('#keyWord').val(),
             //区域id
-            districtId:$('#epr').val(),
+            districtId:$('#epr').val() == null?0:$('#epr').val(),
             //登录者
             loginSysuserRole:sessionStorage.ADRS_UserRole
 

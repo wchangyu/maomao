@@ -213,6 +213,9 @@
 
                     var arr = [];
 
+                    var arr1 = [];
+
+
                 if(result.code == -2){
 
                     _topTipBar('暂时没有区域数据');
@@ -252,7 +255,42 @@
 
                         obj.level = data.level;
 
+                        if(obj.level == 1){
+
+                            //省级
+
+                            obj.nocheck = false;
+
+                        }else{
+
+                            //市级
+                            obj.nocheck = true;
+
+                        }
+
                         arr.push(obj);
+
+                    }
+
+                    for(var i=0;i<result.dists.reverse().length;i++){
+
+                        var data = result.dists.reverse()[i];
+
+                        var obj = {};
+
+                        obj.id = data.id;
+
+                        obj.name = data.name;
+
+                        obj.pId = data.pId;
+
+                        obj.open = true;
+
+                        obj.level = data.level;
+
+                        obj.nocheck = true;
+
+                        arr1.push(obj);
 
                     }
 
@@ -261,20 +299,25 @@
                 //表格
                 _jumpNow($('#table'),arr);
 
-                if(arr.length == 0){
+                if(arr1.length == 0){
 
                     //没有您想要的结果
                     $('#ztreeStation').html('暂时没有区域数据');
 
-                    $('#ztreeStationS').html('暂时没有区域数据');
-
                 }else{
-
-                    //ztree(大)
 
                     $('#ztreeStation').empty();
 
-                    setZtree($("#ztreeStation"),arr);
+                    setZtree($("#ztreeStation"),arr1);
+
+
+                }
+
+                if(arr.length == 0){
+
+                    $('#ztreeStationS').html('暂时没有区域数据');
+
+                }else{
 
                     //ztree(小)
                     $('#ztreeStationS').empty();
@@ -479,18 +522,31 @@
                 onClick: function(e,treeId,treeNode){
 
                     //取消全部打钩的节点
-
                     var treeObj = $.fn.zTree.getZTreeObj(treeId);
-                    //
-                    //var nodes = treeObj.getSelectedNodes();
-                    //
-                    //for (var i=0, l=nodes.length; i < l; i++) {
-                    //
-                    //    treeObj.checkNode(nodes[i], true, true);
-                    //
-                    //}
 
                     treeObj.checkNode(treeNode,!treeNode.checked,true);
+
+                    //如果选中，则级别是市，且不可操作
+
+                    var length = treeObj.getCheckedNodes(true).length;
+
+                    if(length>0){
+
+                        $('#level').attr('disabled',true);
+
+                        //默认选中市
+                        $('#level').val(2);
+
+                    }else{
+
+                        $('#level').attr('disabled',true);
+
+                        //默认选中省
+                        $('#level').val(1);
+
+                    }
+
+
 
                 },
                 beforeClick:function(){
@@ -505,6 +561,26 @@
 
                     //取消全部打钩的节点
                     treeObj.checkNode(treeNode,true,true);
+
+                    //如果选中，则级别是市，且不可操作
+
+                    var length = treeObj.getCheckedNodes(true).length;
+
+                    if(length>0){
+
+                        $('#level').attr('disabled',true);
+
+                        //默认选中市
+                        $('#level').val(2);
+
+                    }else{
+
+                        $('#level').attr('disabled',true);
+
+                        //默认选中省
+                        $('#level').val(1);
+
+                    }
 
 
                 }

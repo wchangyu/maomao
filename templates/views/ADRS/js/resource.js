@@ -1038,7 +1038,7 @@
             //关键字
             keyword:$('#resource-name').val(),
             //区域
-            districtId:$('#epr1').val(),
+            districtId:$('#epr1').val()== null?0:$('#epr1').val(),
             //登录者
             loginSysuserRole:sessionStorage.ADRS_UserRole
 

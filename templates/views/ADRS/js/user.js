@@ -379,6 +379,8 @@
 
         var prm = {
 
+            //账户登录名 ,
+            sysuserId:$('#create-user-name').val(),
             //账户名称
             userName:$('#create-user-login-name').val(),
             //账户角色
@@ -393,9 +395,6 @@
             prm.id = _thisID;
 
         }else{
-
-            //账户登录名 ,
-            prm.sysuserId = $('#create-user-name').val();
             //账户密码
             prm.sysuserPass = $('#create-user-passW').val();
 
