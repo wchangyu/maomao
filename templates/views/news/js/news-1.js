@@ -12,7 +12,7 @@ $(function(){
             success:function(result){
 
                 if(result.length == 0){
-                    moTaiKuang($('#myModal'),'请先添加栏目！');
+                    moTaiKuang($('#columnModal'),'请先添加栏目！');
                 }
 
                 var str = '';
@@ -28,6 +28,7 @@ $(function(){
             }
         })
     }
+
     /*-----------------------------------首先判断content的值，然后加载--------------------*/
     //记录发布日期
     var _publishDate = '';
@@ -449,6 +450,13 @@ $(function(){
     })
     $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
+    })
+    //请先添加栏目
+    $('#columnModal').on('click','.btn-primary',function(){
+
+        //跳转到添加栏目页面
+        window.location.href = 'news-2.html'
+
     })
     /*----------------------------------------------其他方法------------------------------------------*/
     function moTaiKuang(who,meg,flag){
