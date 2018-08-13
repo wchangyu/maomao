@@ -315,7 +315,7 @@ var Account = function(){
         _thisID = $(this).attr('data-userid');
 
         //模态框
-        _moTaiKuang($('#create-Modal'), '提示', false, '' ,'', '保存');
+        _moTaiKuang($('#create-Modal'), '编辑户号', false, '' ,'', '保存');
 
         //绑定数据
         bind(_thisID);

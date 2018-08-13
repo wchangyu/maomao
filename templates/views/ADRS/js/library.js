@@ -188,7 +188,7 @@
         createInit();
 
         //模态框
-        _moTaiKuang($('#create-Modal'), '提示', false, '' ,'', '创建');
+        _moTaiKuang($('#create-Modal'), '创建产品库', false, '' ,'', '创建');
 
         //loadding
         $('#theLoading').modal('hide');
@@ -233,7 +233,7 @@
         _thisID = $(this).attr('data-userid');
 
         //模态框
-        _moTaiKuang($('#create-Modal'), '提示', false, '' ,'', '保存');
+        _moTaiKuang($('#create-Modal'), '编辑产品库', false, '' ,'', '保存');
 
         //绑定数据
         bind(_thisID);
