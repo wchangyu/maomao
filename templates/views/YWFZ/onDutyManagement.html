@@ -313,11 +313,6 @@
                                             <input type="text" class="filterInput ZBBH">
                                         </div>
                                     </li>
-                                    <li><label for="">部门名称：</label>
-                                        <div class="input-blocked">
-                                            <input type="text" class="filterInput">
-                                        </div>
-                                    </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li>
                                         <div class="cont-col1">
@@ -450,7 +445,7 @@
                             </ul>
                         </div>
                         <li class="floatRight" style="float: right">
-                            <label>选择班次：</label>
+                            <label class="colorTip">选择班次 *：</label>
                             <br>
                             <div class="input-blocked">
                                 <!--<select id="shift"></select>-->
@@ -483,14 +478,14 @@
 </div>
 <!--选择执行人员-->
 <div class="modal fade" id="Worker-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 520px;">
-        <div class="modal-content" style="height: 520px;">
+    <div class="modal-dialog" style="height: 550px;">
+        <div class="modal-content" style="height: 550px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">操作执行人员</h4>
             </div>
             <div class="modal-body">
-                <div class="gongdanContent" style="height: 360px;">
+                <div class="gongdanContent" style="height: 360px;margin-bottom: 10px;">
                     <ul class="gongdanList">
                         <li class="floatLeft">
                             <div class="labels">姓名：</div>
@@ -523,12 +518,12 @@
                         <tbody></tbody>
                     </table>
                 </div>
+                <div style="position: relative;top: 65px;left: 237px;display: inline-block">
+                    <label class="colorTip">选择班次 *：</label>
+                    <select id="shift" style="width: 226px;height: 30px;outline: none"></select>
+                </div>
             </div>
             <div class="modal-footer">
-                <label>选择班次：</label>
-                <div class="input-blocked">
-                    <select id="shift" style="width: 226px;"></select>
-                </div>
                 <button type="button" class="btn btn-primary confirm addZXR">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>

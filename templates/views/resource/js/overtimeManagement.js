@@ -91,7 +91,7 @@ $(function(){
             },
             naturalNumber:function(attr){
 
-                var mny = /^[1-9]\d*(\.\d+)?$/;
+                var mny = /^\+?[1-9][0-9]*$/;
 
                 var $this = $(this)[0][attr];
 
@@ -305,25 +305,27 @@ $(function(){
 
                     for(var i=0;i<_JBType.length;i++){
 
-                        if( _JBType[i].type == data ){
+                        if( _JBType[i].id == data ){
 
-                            str += '<option value="' + _JBType[i].type +
+                            str += '<option value="' + _JBType[i].id +
                                 '" selected>' + _JBType[i].name + '</option>'
 
                         }else{
 
-                            str += '<option value="' + _JBType[i].type +
+                            str += '<option value="' + _JBType[i].id +
                                 '">' + _JBType[i].name + '</option>'
 
                         }
 
                     }
 
+
+
                 }else{
 
                     for(var i=0;i<_JBType.length;i++){
 
-                        str += '<option value="' + _JBType[i].type +
+                        str += '<option value="' + _JBType[i].id +
                             '">' + _JBType[i].name + '</option>'
 
                     }
@@ -432,7 +434,7 @@ $(function(){
 
                 for(var i=0;i<_JBType.length;i++){
 
-                    str += '<option value="' + _JBType[i].type +
+                    str += '<option value="' + _JBType[i].id +
                         '">' + _JBType[i].name + '</option>'
 
                 }
@@ -589,6 +591,8 @@ $(function(){
 
         //数据绑定
         bindData($(this),true);
+
+        $('#ADD-Modal').find('.datatimeblock').click();
 
         //模态框
         _moTaiKuang($('#ADD-Modal'),'编辑','','','','保存');
@@ -1372,7 +1376,16 @@ $(function(){
 
         }else{
 
-            //验证格式
+            //验证开始时间和结束时间
+            if(!timeCompare(datailVue.stTime,datailVue.etTime)){
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'开始时间要小于结束时间', '');
+
+                return false;
+
+            }
+
+            //验证加班时长格式
 
             var o = $('#ADD-Modal').find('.multiple-condition');
 
@@ -1387,6 +1400,14 @@ $(function(){
                     break;
 
                 }
+
+            }
+
+            if(isShow){
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请输入正确的格式', '');
+
+                return false;
 
             }
 
@@ -1450,7 +1471,7 @@ $(function(){
                 //上报人姓名
                 createUserName:_userIdName,
                 //时长类型
-                moneyType:datailVue.moneyType,
+                moneyType:Number(datailVue.moneyType),
                 //高度
                 height:datailVue.buildHeight,
                 //所属部门编号
@@ -1760,10 +1781,10 @@ $(function(){
                 datailVue.aboutGD = result.gdCodeRef;
 
                 //计划开始时间
-                datailVue.stTime = result.planBeginTime.split('T')[0];
+                datailVue.stTime = result.planBeginTime.split('T')[0] + ' ' + result.planBeginTime.split('T')[1];
 
                 //计划结束时间
-                datailVue.etTime = result.planStopTime.split('T')[0];
+                datailVue.etTime = result.planStopTime.split('T')[0] + ' ' + result.planStopTime.split('T')[1];
 
                 //施工高度
                 datailVue.buildHeight = result.height;
@@ -1844,11 +1865,17 @@ $(function(){
         //select框能操作
         $('#ADD-Modal').find('select').attr('disabled',false).removeClass('disabled-block');
 
-        //选择按钮可操作
-        //$('.select-CZ').attr('disabled',false);
+        //车站不能输入
+        $('.station').attr('disabled',true);
+
+        //相关工单也不能输入
+        $('.aboutGD').attr('disabled',true);
 
         //表格中的按钮是否能操作
         $('#worker-list').find('.option-delete').attr('disabled',false);
+
+        //选择按钮可操作
+        $('.select-CZ').attr('disabled',false);
 
     }
 
@@ -1896,5 +1923,35 @@ $(function(){
         })
 
     }
+
+    //时间比大小,st<et返回真
+    function timeCompare(st,et){
+
+        var stValue = st;
+
+        stValue = stValue.replace(/-/g,"/");
+
+        var etValue = et;
+
+        etValue = etValue.replace(/-/g,"/");
+
+        var stNum = new Date(Date.parse(stValue));
+
+        var etNum = new Date(Date.parse(etValue));
+
+        //结束时间必须大于结束时间
+        if(stNum < etNum){
+
+            return true;
+
+        }else{
+
+
+            return false;
+
+        }
+
+    }
+
 
 })
