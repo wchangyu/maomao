@@ -304,7 +304,7 @@
             var ofstLeft = ofst.left - 240;
             var ofstTop = ofst.top - 90;
             $("#treeCNT")
-                .css({ left: ofstLeft + "px", top: ofstTop + "px" })
+                //.css({ left: ofstLeft + "px", top: ofstTop + "px" })
                 .slideDown("fast");
             $("body").bind("mousedown", onBodyDown);
         });

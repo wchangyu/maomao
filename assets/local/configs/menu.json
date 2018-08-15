@@ -429,6 +429,136 @@
       }
     }
   },
+  "电力需求响应": {
+    "type": "1",
+    "content": "电力需求响应",
+    "iconclass": "icon-camcorder",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
+      "首页": {
+        "type": "0",
+        "content": "首页",
+        "uri": "../ADRS/main.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "用户管理": {
+        "type": "0",
+        "content": "用户管理",
+        "uri": "../ADRS/user.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "企业信息管理": {
+        "type": "0",
+        "content": "企业及居民管理",
+        "uri": "../ADRS/epr.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "户号管理": {
+        "type": "0",
+        "content": "户号管理",
+        "uri": "../ADRS/accountNumber.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "资源管理": {
+        "type": "0",
+        "content": "资源管理",
+        "uri": "../ADRS/resource.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "套餐管理": {
+        "type": "0",
+        "content": "套餐管理",
+        "uri": "../ADRS/library.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "基线管理": {
+        "type": "0",
+        "content": "基线管理",
+        "uri": "../ADRS/baseline.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "区域管理": {
+        "type": "0",
+        "content": "区域管理",
+        "uri": "../ADRS/district.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "事件登记": {
+        "type": "0",
+        "content": "事件登记",
+        "uri": "../ADRS/planMade.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "事件列表": {
+        "type": "0",
+        "content": "事件列表",
+        "uri": "../ADRS/plans.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "事件发布": {
+        "type": "0",
+        "content": "事件发布",
+        "uri": "../ADRS/planPublish.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "用户响应": {
+        "type": "0",
+        "content": "用户响应",
+        "uri": "../ADRS/userAnswer.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "用户筛选": {
+        "type": "0",
+        "content": "用户筛选",
+        "uri": "../ADRS/userChoose.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "事件审核": {
+        "type": "0",
+        "content": "事件审核",
+        "uri": "../ADRS/planAppr.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "下发指令": {
+        "type": "0",
+        "content": "下发指令",
+        "uri": "../ADRS/pushInstruct.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+
+    }
+  },
   "高效机房": {
     "type": "1",
     "content": "高效机房",
@@ -519,6 +649,18 @@
         "uid": "",
         "arg": "",
         "iconclass": "icon-anchor"
+      },
+      "设备台账": {
+        "type": "2",
+        "content": "设备台账"
+      },
+      "设备信息": {
+        "type": "0",
+        "content": "设备信息",
+        "uri": "../EPMA/equip.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-screen-tablet"
       },
       "报表": {
         "type": "2",
@@ -704,7 +846,7 @@
         "content": "监控总览",
         "uri": "../yongnengjiance/energyMonitor.html?a=1",
         "uid": "",
-        "arg": "2,18",
+        "arg": "2,4",
         "iconclass": ""
       },
       "测试一下": {
@@ -1893,7 +2035,7 @@
       },
       "值班管理": {
         "type": "0",
-        "content": "值班管理",
+        "content": "考勤管理",
         "uri": "../YWFZ/onDutyManagement.html",
         "uid": "",
         "arg": "",
@@ -2107,6 +2249,45 @@
       }
     }
   },
+  "新闻": {
+    "type": "1",
+    "iconclass": "icon-note",
+    "content": "新闻",
+    "submenu": {
+      "新闻首页": {
+        "type": "0",
+        "content": "新闻首页",
+        "uri": "../news/news.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "添加新闻": {
+        "type": "0",
+        "content": "添加新闻",
+        "uri": "../news/news-1.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "栏目管理": {
+        "type": "0",
+        "content": "栏目管理",
+        "uri": "../news/news-2.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "新闻管理": {
+        "type": "0",
+        "content": "新闻管理",
+        "uri": "../news/news-3.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
   "统计分析": {
     "type": "1",
     "iconclass": "icon-note",
@@ -2297,6 +2478,46 @@
         "type": "0",
         "content": "污水站录入",
         "uri": "../gongdanxitong/managementOfSewage.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
+      },
+      "液氧用量统计表": {
+        "type": "0",
+        "content": "液氧用量统计表",
+        "uri": "../gongdanxitong/liquidOxygen.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
+      },
+      "液氧用量录入": {
+        "type": "0",
+        "content": "液氧用量录入",
+        "uri": "../gongdanxitong/managementOfLiquidOxygen.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
+      },
+      "手术室洁净系统运行记录": {
+        "type": "0",
+        "content": "手术室洁净系统运行记录",
+        "uri": "../gongdanxitong/operationRoomCleanliness.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01"
+      },
+      "ICU、层流病房净化设备巡视登记本": {
+        "type": "0",
+        "content": "ICU、层流病房净化设备巡视登记本",
+        "uri": "../gongdanxitong/rquipmentRegistrationForm.html",
         "uid": "",
         "arg": "",
         "iconclass": "",

@@ -237,30 +237,30 @@
                         <form action="" id="form-content" target="nm_iframe">
                             <ul class="form-content">
                                 <li style="line-height: 26px;">
-                                    <div class="labels"><span style="color:red;font-size:22px;vertical-align: middle">*</span>选择栏目 ：</div>
+                                    <div class="labels"><span style="color:red;font-size:22px;vertical-align: middle;margin-right: 10px;">*</span>选择栏目 ：</div>
                                     <div class="input-blockeds">
-                                        <select name="" id="column">
+                                        <select name="" id="column" style="height: 40px;">
                                         </select>
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
                                 <li style="line-height: 26px;">
-                                    <div class="labels"><span style="color:red;font-size:22px;vertical-align: middle">*</span>新闻标题 ：</div>
+                                    <div class="labels"><span style="color:red;font-size:22px;vertical-align: middle;margin-right:10px; ">*</span>新闻标题 ：</div>
                                     <div class="input-blockeds">
                                         <label class="colorTip">最大长度为50字节*</label>
-                                        <input type="text" id="newsTitle" name="newsTitle" style="height: 30px;line-height: 30px;">
+                                        <input type="text" id="newsTitle" name="newsTitle" style="height: 40px;line-height: 40px;">
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
                                 <li style="line-height: 26px;">
                                     <div class="labels">新闻内容描述 ：</div>
                                     <div class="input-blockeds">
-                                        <textarea id="newsDesc" name=""></textarea>
+                                        <textarea id="newsDesc" name=""  style="height: 40px;"></textarea>
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
                                 <li style="line-height: 26px;width: 100%">
-                                    <div class="labels"><span style="color:red;font-size:22px;vertical-align: middle">*</span>新闻内容 ：</div>
+                                    <div class="labels"><span style="color:red;font-size:22px;vertical-align: middle;margin-right: 10px;">*</span>新闻内容 ：</div>
                                     <div style="height: 500px;margin-left: 170px;margin-right: 20px;">
                                         <script id="editor" type="text/plain" style="width:100%;height:500px;"></script>
                                     </div>
@@ -269,7 +269,7 @@
                                 <li style="line-height: 26px;">
                                     <div class="labels">作者 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" id="author" name="" style="height: 30px;line-height: 30px;">
+                                        <input type="text" id="author" name="" style="height: 40px;line-height: 40px;">
                                     </div>
                                     <label class="colorTip" for="author">最大长度为10字节*</label>
                                     <div class="clearfix"></div>
@@ -299,7 +299,7 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
-                                <li style="line-height: 26px;margin-left: 50px;">
+                                <li style="line-height: 26px;margin-left: 50px;margin-bottom: 20px;">
                                     <input class="btn btn-success" id="saveNews" type="submit" value="保存">
                                     <button type="button" class="btn btn-default" onClick="window.history.back()">返回</button>
                                 </li>
@@ -419,6 +419,22 @@
     </div><!-- /.modal -->
 </div>
 
+<!--请先添加栏目-->
+<div class="modal fade" id="columnModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">在这里添加一些文本</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <!--确定跳转按钮-->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -434,6 +450,12 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<!--loadding-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
 </div>
 </body>
 <!-- END BODY -->

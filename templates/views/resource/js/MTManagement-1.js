@@ -1,424 +1,493 @@
 $(function(){
-    /*-------------------------全局变量------------------------*/
-    //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
-    //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-    //登记弹出框的vue对象
-    var myApp33 = new Vue({
+
+    /*-----------------------------变量--------------------------------*/
+
+    //保养vue
+    var MTObj = new Vue({
+
         el:'#myApp33',
+
         data:{
+
+            //保养编码
+            bianma:'',
+
+            //保养名称
             mingcheng:'',
+
+            //设备分类
             sbfl:'',
-            options:[],
+
+            //工作内容
             gznr:'',
+
+            //保养方式
             byfs:'',
+
+            //备注
             beizhu:''
+
         }
+
     })
-    //验证必填项（非空）
-    Vue.validator('requireds', function (val) {
-        //获取内容的时候先将首尾空格删除掉；
-        val=val.replace(/^\s+|\s+$/g,'');
-        return /[^.\s]{1,500}$/.test(val)
-    });
-    //表格
-    var _table = $('#scrap-datatables');
-    var  _allData = [];
-    var _thisRowBM = '';
-    //存放设备类型的所有数据
-    var _allDataLX = [];
-    //获取设备类型
-    ajaxFun('YWDev/ywDMGetDCs',_allDataLX,$('#shebeileixing'),'dcName','dcNum',myApp33.options);
-    /*-------------------------表格初始化----------------------*/
-    var _tables =  _table.DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "ordering": false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'infoEmpty': '没有数据',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
-            }
+
+    //当前选中的保养编码
+    var _thisBM = '';
+
+    /*-----------------------------表格初始化---------------------------*/
+
+    var mainCol = [
+
+        {
+            title:'条目编码',
+            data:'ditNum',
+            className:'bianma'
         },
-        "dom":'t<"F"lip>',
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '导出',
-                className:'saveAs'
-            }
-        ],
-        "columns": [
-            {
-                title:'条目编码',
-                data:'ditNum',
-                className:'bianma'
-            },
-            {
-                title:'条目名称',
-                data:'ditName',
-                className:'mingcheng'
-            },
-            {
-                title:'设备分类',
-                data:'dcName',
-            },
-            {
-                title:'工作内容',
-                data:'desc'
-            },
-            {
-                title:'保养方式',
-                data:'mtContent'
-            },
-            {
-                title:'备注',
-                data:'remark',
-            },
-            {
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                "<span class='data-option option-edite btn default btn-xs green-stripe'>编辑</span>" +
-                "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
-            }
-        ]
-    });
-    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
-    conditionSelect();
-    /*-------------------------按钮方法-----------------------*/
-    //查询按钮
-    $('#selected').click(function(){
-        conditionSelect();
-    });
-    //登记按钮
-    $('.creatButton').on('click',function(){
-        //初始化
-        if( _allDataLX.length !=0 ){
-            myApp33.sbfl = _allDataLX[0].dcNum;
+        {
+            title:'条目名称',
+            data:'ditName',
+            className:'mingcheng'
+        },
+        {
+            title:'设备分类',
+            data:'dcName',
+        },
+        {
+            title:'工作内容',
+            data:'desc'
+        },
+        {
+            title:'保养方式',
+            data:'mtContent'
+        },
+        {
+            title:'备注',
+            data:'remark',
+        },
+        {
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+            "<span class='data-option option-edite btn default btn-xs green-stripe'>编辑</span>" +
+            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
         }
-        myApp33.mingcheng = '';
-        myApp33.gznr = '';
-        myApp33.byfs = '';
-        myApp33.bjgx = '1';
-        myApp33.beizhu = '';
-        //可编辑
-        abledBlock()
 
-        $('#myModal').find('.btn-primary').removeClass('.bianji').addClass('dengji');
-        //确定按钮显示，
+    ];
+
+    //导出列
+    var excelArr = [0,1,2,3,4,5]
+
+    _tableInit($('#scrap-datatables'),mainCol,1,true,'','','',excelArr);
+
+    //获取设备类型
+    getDevType();
+
+    /*-----------------------------按钮事件-----------------------------*/
+
+    //【查询】
+    $('#selected').click(function(){
+
+        conditionSelect();
+
+    })
+
+    //【新增】
+    $('.creatButton').click(function(){
+
+        //初始化
+        modalInit();
+
+        //模态框
         _moTaiKuang($('#myModal'), '新增', '', '' ,'', '新增');
-    });
-    _table.find('tbody')
-    //查看按钮
-    .on('click','.option-see',function(){
-        //样式
-        trCss($(this));
-        $('#myModal').find('.btn-primary').hide();
-        bjOrCk($(this),true);
 
-        disabledBlock();
+        //类
+        $('#myModal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
+
+        //是否可操作(可操作)；
+        editOption();
     })
-    //编辑按钮
-    .on('click','.option-edite',function(){
-        $('#myModal').find('.btn-primary').removeClass('.dengji').addClass('bianji');
-        //样式
-        trCss($(this));
-        //$('#myModal').find('.btn-primary').show();
-        bjOrCk($(this),false);
 
-        abledBlock();
+    //【查看】
+    $('#scrap-datatables tbody').on('click','.option-see',function(){
+
+        //初始化
+        modalInit();
+
+        //模态框
+        _moTaiKuang($('#myModal'), '查看', true, '' ,'', '');
+
+        //绑定数据
+        bindData($(this));
+
+        //不可编辑
+        disEditOption();
+
     })
-    //删除按钮
-    .on('click','.option-delete',function(){
-        //样式
-        trCss($(this));
-        _thisRowBM = $(this).parents('tr').find('.bianma').html();
-        //赋值
-        $('#tmbm').val($(this).parents('tr').find('.bianma').html());
-        $('#tmmc').val($(this).parents('tr').find('.mingcheng').html());
 
-        _moTaiKuang($('#myModal3'), '确定要删除吗？', '', '' ,'', '删除');
+    //【编辑】
+    $('#scrap-datatables tbody').on('click','.option-edite',function(){
+
+        //初始化
+        modalInit();
+
+        //模态框
+        _moTaiKuang($('#myModal'), '编辑', false, '' ,'', '保存');
+
+        //绑定数据
+        bindData($(this));
+
+        //不可编辑
+        editOption();
+
+        //类
+        $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
+
     })
-    $('#myModal')
-        //登记确定按钮；
-        .on('click','.dengji',function(){
 
-            if( myApp33.mingcheng == '' ){
+    //【删除】
+    $('#scrap-datatables tbody').on('click','.option-delete',function(){
 
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
-            }else {
-                //获取填写的值
-                var prm = {
-                    dcNum:myApp33.sbfl,
-                    dcName: $.trim($('#sblx').find('option:selected').html()),
-                    ditName:myApp33.mingcheng,
-                    description:myApp33.gznr,
-                    mtContent:myApp33.byfs,
-                    remark:myApp33.beizhu,
-                    userID:_userIdName
+        //初始化
+        modalInit();
+
+        //模态框
+        _moTaiKuang($('#myModal'), '确定要删除吗？', false, '' ,'', '删除');
+
+        //绑定数据
+        bindData($(this));
+
+        //不可编辑
+        disEditOption();
+
+        //类
+        $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
+
+    })
+
+    //登记【确定】
+    $('#myModal').on('click','.dengji',function(){
+
+        sendOption('YWDevMT/ywDMAddDIItem','添加成功！','添加失败！')
+
+    })
+
+    //编辑【确定】
+    $('#myModal').on('click','.bianji',function(){
+
+        sendOption('YWDevMT/ywDMUptDIItem','编辑成功！','编辑失败！')
+
+    })
+
+    //删除【确定】
+    $('#myModal').on('click','.shanchu',function(){
+
+        sendOption('YWDevMT/ywDMDelDIItem','删除成功！','删除失败！')
+
+    })
+
+    /*----------------------------其他方法-------------------------------*/
+
+    //获取设备类型
+    function getDevType(){
+
+        var prm = {
+
+            userID:_userIdNum,
+
+            userName:_userIdName
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls+'YWDev/ywDMGetDCs',
+
+            data:prm,
+
+            success:function(result){
+
+                //将数组赋值到下拉框(条件选择)；
+                var str = '<option value="">全部</option>';
+
+                var strModal = '<option value="">请选择</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].dcNum + '">' + result[i].dcName + '</option>'
+
+                    strModal += '<option value="' + result[i].dcNum + '">' + result[i].dcName + '</option>'
+
                 }
-                $.ajax({
-                    type:'post',
-                    url:_urls + 'YWDevMT/ywDMAddDIItem',
-                    data:prm,
-                    success:function( result ){
-                        if(result == 99){
 
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'新增成功！', '');
+                //条件选择下拉框
+                $('#shebeileixing').empty().append(str);
 
-                            conditionSelect();
+                //模态框
+                $('#sblx').empty().append(strModal);
 
-                            $('#myModal').modal('hide');
+                //默认数据
+                conditionSelect();
+            },
 
-                        }else{
+            error:_errorFun1
 
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'新增失败！', '');
-                        }
-                    },
-                    error:function(jqXHR, textStatus, errorThrown){
-                        console.log(JSON.parse(jqXHR.responseText).message);
-                        if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                        }
-                    }
-                })
-            }
         })
-        //编辑确定按钮
-        .on('click','.bianji',function(){
-            if( myApp33.mingcheng == '' ){
 
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
-            }else{
+    }
 
-                var prm = {
-                    dcNum:myApp33.sbfl,
-                    dcName:$('#sblx').find('option:selected').html(),
-                    ditNum:_thisRowBM,
-                    ditName:myApp33.mingcheng,
-                    description:myApp33.gznr,
-                    mtContent:myApp33.byfs,
-                    remark:myApp33.beizhu,
-                    userID:_userIdName
-                };
-                $.ajax({
-                    type:'post',
-                    url:_urls + 'YWDevMT/ywDMUptDIItem',
-                    data:prm,
-                    success:function(result){
-                        if(result == 99){
+    //条件查询
+    function conditionSelect(){
 
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'编辑成功！', '');
+        $('#theLoading').modal('show');
 
-                            conditionSelect();
+        var prm = {
+            //设备类型
+            dcNum:$('#shebeileixing').val(),
+            //保养步骤名称
+            ditName:$('.filterInput').val(),
+            //用户id
+            userID:_userIdName
+        }
 
-                            $('#myModal').modal('hide');
-                        }else{
+        $.ajax({
 
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'编辑失败！', '');
-
-                        }
-                    },
-                    error:function(jqXHR, textStatus, errorThrown){
-                        console.log(JSON.parse(jqXHR.responseText).message);
-                        if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                        }
-                    }
-                })
-
-            }
-        })
-        //删除确定按钮
-    $('#myModal3').on('click','.shanchu',function(){
-            var prm = {
-                ditNum :_thisRowBM,
-                userID:_userIdName
-            };
-            $.ajax({
+                //发送方式
                 type:'post',
-                url:_urls + 'YWDevMT/ywDMDelDIItem',
+
+                //url
+                url:_urls + 'YWDevMT/YWDMGetDMItems',
+
+                //timeout
+                timeout:_theTimes,
+
+                //参数
                 data:prm,
+
+                //成功
                 success:function(result){
+
+                    $('#theLoading').modal('hide');
+
+                    //赋值
+                    _jumpNow($('#scrap-datatables'),result);
+
+                },
+
+                //失败
+                error: _errorFun
+
+        })
+
+    }
+
+    //模态框初始化
+    function modalInit(){
+
+        //保养编码
+        MTObj.bianma = '';
+
+        //保养名称
+        MTObj.mingcheng = '';
+
+        //设备分类
+        MTObj.sbfl = '';
+
+        //工作内容
+        MTObj.gznr = '';
+
+        //保养方式
+        MTObj.byfs = '';
+
+        //备注
+        MTObj.beizhu = '';
+
+    }
+
+    //可编辑
+    function editOption(){
+
+        //input控件全可操作
+
+        $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
+
+        $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
+
+        $('#myApp33').find('textarea').attr('disabled',false).removeClass('disabled-block');
+
+        //保养编码永远不可操作
+        $('.bmStep').attr('disabled',true).addClass('disabled-block');
+
+    }
+
+    //不可编辑
+    function disEditOption(){
+
+        //input控件全可操作
+
+        $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+
+        $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
+
+        $('#myApp33').find('textarea').attr('disabled',true).addClass('disabled-block');
+    }
+
+    //给模态框绑定数据
+    function bindData(el){
+
+        //样式
+        $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+
+        el.parents('tr').addClass('tables-hover');
+
+        //获取当前选中的编码
+        _thisBM = el.parents('tr').find('.bianma').html();
+
+        //loadding
+        $('#theLoading').modal('show');
+
+        var prm = {
+
+            //保养编码
+            ditNum:_thisBM,
+
+            //用户id
+            userID:_userIdNum
+
+        };
+
+        $.ajax({
+
+            //发送方式
+            type:'post',
+
+            //url
+            url:_urls + 'YWDevMT/YWDMGetDMItems',
+
+            //timeout
+            timeout:_theTimes,
+
+            //参数
+            data:prm,
+
+            //成功
+            success:function(result){
+
+                $('#theLoading').modal('hide');
+
+                if(result != ''){
+
+                    //赋值
+                    //保养编码
+                    MTObj.bianma = result[0].ditNum;
+
+                    //保养名称
+                    MTObj.mingcheng = result[0].ditName;
+
+                    //设备分类
+                    MTObj.sbfl = result[0].dcNum;
+
+                    //工作内容
+                    MTObj.gznr = result[0].desc;
+
+                    //保养方式
+                    MTObj.byfs = result[0].mtContent;
+
+                    //备注
+                    MTObj.beizhu = result[0].remark;
+
+                }
+
+            },
+
+            //失败
+            error: _errorFun
+
+        })
+
+    }
+
+    //操作发送数据
+    function sendOption(url,successMeg,errorMeg){
+
+        //非空验证
+        if(MTObj.mingcheng == '' || MTObj.sbfl == ''){
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,'istap','请填写红色必填项！','');
+
+        }else{
+
+            var prm = {
+
+                //保养编码
+                ditNum:MTObj.bianma,
+
+                //保养名称
+                ditName:MTObj.mingcheng,
+
+                //设备分类(编码)
+                dcNum:MTObj.sbfl,
+
+                //设备分类（名称）
+                dcName:$('#sblx').children('option:selected').html(),
+
+                //工作内容
+                description:MTObj.gznr,
+
+                //保养方式
+                mtContent:MTObj.byfs,
+
+                //备注
+                remark:MTObj.beizhu,
+
+                //用户id
+                userID:_userIdNum
+
+            }
+
+            $.ajax({
+
+                type:'post',
+
+                url:_urls + url,
+
+                data:prm,
+
+                timeOut:_theTimes,
+
+                success:function(result){
+
+                    $('#theLoading').modal('hide');
 
                     if(result == 99){
 
-                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'删除成功！', '');
+                        _moTaiKuang($('#tip-Modal'),'提示',true,'istap',successMeg,'');
 
-                        conditionSelect();
+                        setTimeout(function(){
+
+                            conditionSelect();
+
+                            $('#myModal').modal('hide');
+
+
+                        },600);
+
+
                     }else{
 
-                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'删除失败！', '');
+                        _moTaiKuang($('#tip-Modal'),'提示',true,'istap',errorMeg,'');
 
                     }
+
                 },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(JSON.parse(jqXHR.responseText).message);
-                    if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                    }
-                }
+
+                error:_errorFun
+
             })
-        })
-    $('.confirm').click(function(){
-        $(this).parents('.modal').modal('hide');
-    })
-    /*-------------------------其他方法----------------------*/
-    //确定新增弹出框的位置
-    //控制模态框的设置，出现确定按钮的话，第三个参数传''，第四个才有效,用不到的参数一定要传''；istap,如果有值的话，内容改变，否则内容不变。
-    function _moTaiKuang(who, title, flag, istap ,meg, buttonName) {
-        who.modal({
-            show: false,
-            backdrop: 'static'
-        })
-        who.find('.modal-title').html(title);
-        who.modal('show');
-        var markHeight = document.documentElement.clientHeight;
-        var markBlockHeight = who.find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight) / 2;
-        who.find('.modal-dialog').css({'margin-top': markBlockTop});
-        if (flag) {
-            who.find('.btn-primary').hide();
-        } else {
-            who.find('.btn-primary').show();
-            who.find('.modal-footer').children('.btn-primary').html(buttonName);
+
         }
-        if(istap){
-            who.find('.modal-body').html(meg);
-        }
-    }
-    //条件查询
-    function conditionSelect(){
-        //获取条件
-        var prm = {
-            dcNum:$('#shebeileixing').val(),
-            ditName:$('.filterInput').val(),
-            userID:_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWDevMT/YWDMGetDMItems',
-            data:prm,
-            success:function(result){
-                for(var i=0;i<result.length;i++){
-                    _allData.push(result[i]);
-                }
-                datasTable(_table,result);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(JSON.parse(jqXHR.responseText).message);
-                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                }
-            }
-        })
-    }
-    //dataTables表格填数据
-    function datasTable(tableId,arr){
-        var table = tableId.dataTable();
-        if(arr.length == 0){
-            table.fnClearTable();
-            table.fnDraw();
-        }else{
-            table.fnClearTable();
-            table.fnAddData(arr);
-            table.fnDraw();
-        }
-    }
-    //ajaxFun（select的值）
-    function ajaxFun(url,allArr,select,text,num,arr){
-        var prm = {
-            'userID':_userIdName
-        }
-        prm[text] = '';
-        $.ajax({
-            type:'post',
-            url:_urls + url,
-            async:false,
-            data:prm,
-            success:function(result){
-                //给select赋值
-                var str = '<option value="">全部</option>'
-                for(var i=0;i<result.length;i++){
-                    str += '<option' + ' value="' + result[i][num] +'">' + result[i][text] + '</option>'
-                    var obj = {};
-                    obj.text = result[i][text];
-                    obj.value = result[i][num];
-                    arr.push(obj);
-                    allArr.push(result[i]);
-                }
-                select.append(str);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(JSON.parse(jqXHR.responseText).message);
-                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                }
-            }
-        })
-    }
-    function bjOrCk(el,zhi){
-        //确定按钮显示，
-        var $myModal = $('#myModal');
-
-        _moTaiKuang($myModal, '编辑', '', '' ,'', '保存')
-        //赋值
-        _thisRowBM = el.parents('tr').find('.bianma').html();
-        for( var i=0;i<_allData.length;i++ ){
-            if( _allData[i].ditNum == _thisRowBM ){
-                myApp33.mingcheng = _allData[i].ditName;
-                myApp33.sbfl = _allData[i].dcNum;
-                myApp33.gznr = _allData[i].desc;
-                myApp33.byfs = _allData[i].mtContent;
-                myApp33.beizhu = _allData[i].remark;
-            }
-        }
-        //给所有的操作框添加不可操作属性
-        var notOption = $('#myApp33').children().children().children('.input-blockeds').children();
-        notOption.attr('disabled',zhi);
-    }
-    //click tr css change
-    function trCss(el){
-        var $this = el.parents('tr');
-        $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
-        $this.addClass('tables-hover');
-    }
-    //操作成功提示框消息
-    function tipInfo(el,meg,el1){
-        var myModal = el;
-        myModal.find('.modal-body').html(meg);
-        if(el1){
-            el1.modal('hide');
-        }
-    }
-
-    //可操作
-    function abledBlock(){
-
-        $('#myModal').find('input').attr('disabled',false).removeClass('disabled-block');
-
-        $('#myModal').find('select').attr('disabled',false).removeClass('disabled-block');
-
-        $('#myModal').find('textarea').attr('disabled',false).removeClass('disabled-block');
-    }
-
-    //不可操作
-    function disabledBlock(){
-
-        $('#myModal').find('input').attr('disabled',true).addClass('disabled-block');
-
-        $('#myModal').find('select').attr('disabled',true).addClass('disabled-block');
-
-        $('#myModal').find('textarea').attr('disabled',true).addClass('disabled-block');
 
     }
+
 })

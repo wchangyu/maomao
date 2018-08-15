@@ -91,11 +91,11 @@ $(function(){
         }else{
 
             //验证数字
-            var reg = new RegExp("^[0-9]*$");
+            var reg = /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
 
             if(!reg.test(obj.consumption)){
 
-                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写正确格式的数字！', '');
+                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写大于0的数字！', '');
 
             }else{
 
@@ -204,11 +204,11 @@ $(function(){
         }else{
 
             //验证数字
-            var reg = new RegExp("^[0-9]*$");
+            var reg = /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
 
             if(!reg.test(obj.consumption)){
 
-                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写正确格式的数字！', '');
+                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写大于0的数字！', '');
 
             }else{
 
@@ -295,7 +295,7 @@ $(function(){
 
     ]
 
-    _tableInit($('#all-reporting'),mainCol,'1','','','','','',10,'');
+    _tableInit($('#all-reporting'),mainCol,1,true,'','','',[0,1,2],10,'');
 
     //执行人表格
     var personCol = [
@@ -408,7 +408,9 @@ $(function(){
                 //执行人
                 f_SysuserID:$('#person1').attr('data-attr'),
                 //用户id
-                userID:_userIdNum
+                userID:_userIdNum,
+                //是污水处理还是液氧0是污水处理1是液氧
+                f_ValueType:0
             }
 
             if(flag){
@@ -569,13 +571,14 @@ $(function(){
 
         var prm = {
 
-            'monthDT':$('.datatimeblock').eq(0).val() + '/01'
+            'monthDT':$('.datatimeblock').eq(0).val() + '/01',
 
+            'f_ValueType':0
         }
 
         $.ajax({
 
-            type:'get',
+            type:'post',
 
             url:_urls + 'EnergyReportV2/GetSewageDataByDT',
 
@@ -602,7 +605,9 @@ $(function(){
 
         var prm = {
 
-            id:id
+            id:id,
+            //是污水处理还是液氧0是污水处理1是液氧
+            f_ValueType:0
 
         }
 

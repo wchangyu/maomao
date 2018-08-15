@@ -51,8 +51,8 @@ $(function(){
                 "targets": -1,
                 "data": null,
                 "defaultContent":
-                "<span class='data-option option-edite btn default btn-xs green-stripe'>编辑</span>" +
-                "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                "<span class='option-button option-edite option-edit'>编辑</span>" +
+                "<span class='option-button option-delete option-del'>删除</span>"
             }
         ],
         "aoColumnDefs": [
@@ -68,7 +68,9 @@ $(function(){
     $('.creatButton').click(function(){
         //初始化
         $('#newsColum').val('');
+
         moTaiKuang($('#myModal1'),'新增栏目','');
+
         $('#myModal1').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
     })
     //新增确定按钮
@@ -176,11 +178,17 @@ $(function(){
     function dataDBS(url,prm,title,flag,meg){
         if($('#newsColum').val()){
             $('.colorTip').hide();
+
+            $('#theLoading').modal('show');
+
             $.ajax({
                 type:'post',
                 url:_url + url,
                 data:prm,
                 success:function(result){
+
+                    $('#theLoading').modal('hide');
+
                     if(result == 99){
                         conditionSelect();
                         moTaiKuang($('#myModal'),title,flag,meg)
@@ -194,6 +202,8 @@ $(function(){
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
+
+                    $('#theLoading').modal('hide');
 
                 }
             })

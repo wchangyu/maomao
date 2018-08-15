@@ -69,11 +69,68 @@
             jQuery('#IsBusy').hideLoading();
         });
     }
-    
+
+    //结算调整弹窗中 生成超额用能通知单
+    $('#monitorBtn').on('click',function(){
+
+        _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'无数据，生成失败!', '');
+
+        return false;
+
+        jQuery('#IsBusy').showLoading();
+
+        var url = sessionStorage.apiUrlPrefix + "Monitor/ExportMonitorInstDs";
+
+        $.ajax({
+            type: 'get',
+            url: url,
+            data:{
+
+                sSearch : sessionStorage.PointerID
+
+            },
+            success: function (xml,textStatus, xhr) {
+
+                jQuery('#IsBusy').hideLoading();
+
+                var status =  xhr.status;
+
+                if(status == 204){
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'无数据，生成失败!', '');
+
+                    return false;
+                };
+
+                window.open(sessionStorage.apiUrlPrefix + "Monitor/ExportMonitorInstDs?sSearch="+ sessionStorage.PointerID);
+
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+
+                jQuery('#IsBusy').hideLoading();
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+                }
+
+
+            }
+        });
+
+    });
+
+
     return {
         init: function () {
             //查询实时数据
             getMonitorDs()
+
         }
     }
 

@@ -263,11 +263,27 @@ $(function(){
 
                                             if(result[i]['submenu'][x].uri.indexOf(srcParhs)>=0 ){
 
-                                                secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+
+                                                if(result[i]['submenu'][x].uri.indexOf('new-baobiaoguanli/runningReport.html')>=0){
+
+                                                    secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '?000">' + result[i]['submenu'][x].content + '</li>'
+                                                }else{
+                                                    secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+                                                }
+
+
 
                                             }else{
 
-                                                secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+                                                if(result[i]['submenu'][x].uri.indexOf('new-baobiaoguanli/runningReport.html')>=0){
+
+                                                    secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '?000">' + result[i]['submenu'][x].content + '</li>'
+
+                                                }else{
+                                                    secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+                                                }
+
+
                                             }
 
                                             srcPath = '../' + srcParhs;
@@ -340,13 +356,30 @@ $(function(){
 
                                         }else{
 
+
+
                                             if(result[i]['submenu'][x].uri.indexOf(configureUrl)>=0 ){
 
-                                                secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+                                                if(result[i]['submenu'][x].uri.indexOf('new-baobiaoguanli/runningReport.html') > -1){
+
+                                                    secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '?000">' + result[i]['submenu'][x].content + '</li>'
+                                                }else{
+                                                    secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+                                                }
+
+
 
                                             }else{
 
-                                                secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+                                                if(result[i]['submenu'][x].uri.indexOf('new-baobiaoguanli/runningReport.html') > -1){
+
+                                                    secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '?000">' + result[i]['submenu'][x].content + '</li>'
+
+                                                }else{
+                                                    secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+                                                }
+
+
                                             }
 
                                             srcPath = configureUrl;
@@ -408,7 +441,15 @@ $(function(){
 
                                 if(secIndex == 0){
 
-                                    secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+                                    if(result[i]['submenu'][x].uri.indexOf('new-baobiaoguanli/runningReport.html') > -1){
+
+                                        secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '?000">' + result[i]['submenu'][x].content + '</li>'
+                                    }else{
+
+                                        secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+                                    }
+
+
 
                                     srcPath = result[i]['submenu'][x]['uri'];
 
@@ -416,7 +457,15 @@ $(function(){
 
                                 }else{
 
-                                    secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+
+                                    if(result[i]['submenu'][x].uri.indexOf('new-baobiaoguanli/runningReport.html') > -1){
+
+                                        secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '?000">' + result[i]['submenu'][x].content + '</li>'
+
+                                    }else{
+
+                                        secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+                                    }
 
                                 }
 
@@ -495,7 +544,16 @@ $(function(){
 
             }else{
 
-                secMenu += '<li class="ordinary-menu" data-attr="' + menuObj[thisAttr]['submenu'][i].uri + '">' + menuObj[thisAttr]['submenu'][i].content + '</li>'
+                if(menuObj[thisAttr]['submenu'][i].uri.indexOf('new-baobiaoguanli/runningReport.html') > -1){
+
+                    secMenu += '<li class="ordinary-menu" data-attr="' + menuObj[thisAttr]['submenu'][i].uri + '?000">' + menuObj[thisAttr]['submenu'][i].content + '</li>'
+
+                }else{
+
+                    secMenu += '<li class="ordinary-menu" data-attr="' + menuObj[thisAttr]['submenu'][i].uri + '">' + menuObj[thisAttr]['submenu'][i].content + '</li>'
+                }
+
+
 
             }
 

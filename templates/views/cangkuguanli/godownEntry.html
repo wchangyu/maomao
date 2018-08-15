@@ -94,15 +94,16 @@
                         <td>供货单位</td>
                         <td colspan="2" class="unit-name"></td>
                         <td colspan="2">联系人</td>
-                        <td colspan="3" class="linkman-name"></td>
+                        <td colspan="4" class="linkman-name"></td>
                     </tr>
                     <tr>
                         <td>项目名称</td>
-                        <td colspan="7">高铁(普铁)维保配件</td>
+                        <td colspan="8">高铁(普铁)维保配件</td>
                     </tr>
                     <tr class="goods-message">
                         <td>物品编号</td>
                         <td>物品名称</td>
+                        <td>品牌</td>
                         <td>规格型号</td>
                         <td>单位</td>
                         <td>数量</td>
@@ -114,13 +115,13 @@
                     <tr>
                         <td>合计金额</td>
                         <td>大写</td>
-                        <td colspan="3" class="big-count"></td>
+                        <td colspan="4" class="big-count"></td>
                         <td>小写</td>
                         <td class="small-count"></td>
                         <td></td>
                     </tr>
                     <tr class="bottom-sign">
-                        <td colspan="8" style="text-align: left">
+                        <td colspan="9" style="text-align: left">
                             <span>部门负责人签字：</span>
                             <span>综合维修中心负责人签字：</span>
                             <span>经办人签字：</span>
@@ -174,8 +175,6 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../bank-resource/js/common.js"></script>
-<script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/js/godownEntry.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
     <script>
@@ -185,6 +184,8 @@
     </script>
 
 </body>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/js/godownEntry.js"></script>
 <!--loading图-->
 <div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
     <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
@@ -570,28 +571,3 @@
 </div>
 <!-- END BODY -->
 </html>
-
-'<div id="eprBox1" style="padding-bottom: 10px;' +
-'            background: url(\'../../../assets/admin/layout/img/bgUnite.png\')no-repeat;' +
-'            background-size:300px; z-index: 10000; top: 42px; width: 300px;' +
-'            height: auto; position: fixed; right: 107px; display: block;">' +
-'        <div style="padding:15px 15px;color:#FFFFFF;margin-top:0px;">' +
-'            <div class="row">' +
-'                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">单位切换</label>' +
-'                <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">' +
-'                    <select name="epr_type" id="epr_unit" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;">' +
-'                        <option value="1" selected="selected">KW/KW</option>' +
-'                        <option value="2" selected="selected">KW/RT</option>' +
-'                    </select>' +
-'                </div>' +
-'            </div>' +
-'            <div class="row">' +
-'                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="margin-bottom:10px;line-height:34px;"></label>' +
-'                <div class="col-md-8 col-xs-8 col-xs-8">' +
-'                    <button id="goEprBtn1" type="submit" class="btn blue pull-left">' +
-'                        切换' +
-'                    </button>' +
-'                </div>' +
-'            </div>' +
-'        </div>' +
-'    </div>';

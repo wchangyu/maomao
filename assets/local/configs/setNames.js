@@ -14,7 +14,10 @@ var __names = {
     workshop: "车间1",
 
     //班组
-    group:"维修班组1"
+    group:"维修班组1",
+
+    //科室
+    office:'单位'
 
 };
 
@@ -32,6 +35,9 @@ function __setNames(){
 
     //班组
     $('.user-defined-group').html(__names.group);
+
+    //科室
+    $('.user-defined-office').html(__names.office);
 
 }
 

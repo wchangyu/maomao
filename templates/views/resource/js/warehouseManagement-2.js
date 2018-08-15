@@ -3394,8 +3394,6 @@ $(function(){
 
                         }
 
-                        //console.log(_tempRukuArr);
-
                     }else{
 
                         for(var i=0;i<_batchArr.length;i++){
@@ -3505,8 +3503,6 @@ $(function(){
 
                         foldFun(_foldArr,_tempRukuArr);
 
-                        console.log(_foldArr);
-
                         _datasTable($('#wuPinListTable1'),_foldArr);
 
                         //共计
@@ -3580,7 +3576,17 @@ $(function(){
 
                     num += Number(arr1[j].num);
 
-                    amount += Number(arr1[j].inPrice);
+                    if(arr1[j].isSpare == 1){
+
+                        amount += Number(arr1[j].inPrice);
+
+                    }else{
+
+                        amount += Number(arr1[j].amount);
+
+                    }
+
+
 
                 }
 

@@ -47,7 +47,7 @@ $(function(){
 
                     var html = '';
                     var html1 = '';
-                    console.log(showArr.length);
+
                     for(var i=0;i<showArr.length;i++){
                         if(i == 0){
                             html += '<a class="item active" style="height: 100%">' +

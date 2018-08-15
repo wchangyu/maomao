@@ -24,13 +24,23 @@ $(function(){
 
                 $('.cycle-block').hide();
 
+                //初始化表格
+                $('.table').find('.td-title').addClass('td-hovers');
+
+                $('.table').find('.td-title').find('span').addClass('checked');
+
+                //判断显示哪个周期表格。
                 if(classVue.periodicunit == 1){
 
                     $('.cycle-block-week').show();
 
+                    $('.cycle-block-week').find('select').val('');
+
                 }else if(classVue.periodicunit == 2){
 
                     $('.cycle-block-month').show();
+
+                    $('.cycle-block-month').find('select').val('');
 
                 }else{
 
@@ -101,6 +111,9 @@ $(function(){
     //记录当前编码
     var _$thisCode = '';
 
+    //判断当前状态是否可编辑
+    var _isEdit = false;
+
     /*-------------------------------------按钮事件---------------------------------------*/
 
     //新增
@@ -108,6 +121,9 @@ $(function(){
 
         //loadding显示
         $('#theLoading').modal('show');
+
+        //当前状态可编辑
+        _isEdit = true;
 
         //初始化
         detailedInit();
@@ -126,18 +142,32 @@ $(function(){
 
     })
 
-    //月的复选框
-    $('.cycle-block-month').on('click','input',function(){
+    //复选框勾选问题
+    $('.table').on('click','.td-title',function(){
 
-        var flag = $(this).parent('span').hasClass('checked');
+        //首先判断当前状态是否可编辑
+        if(!_isEdit){
 
-        if(flag){
+            return false;
 
-            $(this).parent('span').removeClass('checked');
+        }
+
+        var length = $(this).find('.checker').children('.checked').length;
+
+        if(length == 1){
+
+            //去掉
+            $(this).find('.checker').children('span').removeClass('checked');
+
+            $(this).removeClass('td-hovers');
+
 
         }else{
 
-            $(this).parent('span').addClass('checked');
+            //加上
+            $(this).find('.checker').children('span').addClass('checked');
+
+            $(this).addClass('td-hovers');
 
         }
 
@@ -153,6 +183,10 @@ $(function(){
     //查看
     $('#table-list tbody').on('click','.option-see',function(){
 
+        //当前状态不可编辑
+        _isEdit = false;
+
+        //绑定值
         bindData($(this));
 
         //模态框
@@ -165,6 +199,9 @@ $(function(){
 
     //编辑
     $('#table-list tbody').on('click','.option-edit',function(){
+
+        //当前状态可编辑
+        _isEdit = true;
 
         //数据绑定
         bindData($(this));
@@ -190,6 +227,9 @@ $(function(){
     //删除
     $('#table-list tbody').on('click','.option-delete',function(){
 
+        //当前状态不可编辑
+        _isEdit = false;
+
         bindData($(this));
 
         //模态框
@@ -207,27 +247,6 @@ $(function(){
     $('#ADD-Modal').on('click','.shanchu',function(){
 
         optionSureButton('YWFZ/BanCiDelete',true,'删除成功！','删除失败!');
-
-    })
-
-    //静态添加班次
-    $('.addStatic').on('click',function(){
-
-        //给每一天赋值
-
-        //通过判断选中的是周还是月
-
-        var values = $('#time-slot').val();
-
-        if( classVue.periodicunit == 1 ){
-
-            $('.cycle-block-week').find('.time-range').val(values);
-
-        }else{
-
-            $('.cycle-block-month').find('.time-range').val(values);
-
-        }
 
     })
 
@@ -345,10 +364,28 @@ $(function(){
 
         //月select初始化
         $('.cycle-block-month').find('select').val('');
+
+        //给选中的td添加背景色
+        $('.table').find('.td-title').addClass('td-hovers');
+
     }
 
     //数据绑定
     function bindData($this){
+
+        //初始化
+        //班次名称
+        classVue.cname = '';
+
+        //周期单位
+        classVue.periodicunit = '';
+
+        //周期表格
+        $('.table').find('.td-title').removeClass('td-hovers');
+
+        $('.table').find('.td-title').find('span').removeClass('checked');
+
+        $('.table').find('.td-title').find('select').val('');
 
         //样式修改
         $('#table-list tbody').children('tr').removeClass('tables-hover');
@@ -386,9 +423,6 @@ $(function(){
 
                 //周期单位
                 classVue.periodicunit = result.period;
-
-                //时间段
-                classVue.timeslot = '';
 
                 $('.cycle-block').hide();
 
@@ -435,7 +469,13 @@ $(function(){
 
                                     inputNum.eq(i).parent().addClass('checked');
 
+                                    inputNum.eq(i).parents('.td-title').addClass('td-hovers');
+
                                     selectNum.eq(i).val(result.banCiDetailList[j].sjDid);
+
+                                }else{
+
+
 
                                 }
 
@@ -557,62 +597,85 @@ $(function(){
 
             }
 
-            var prm = {
+            //只要勾选上日期的，必须安排班次
+            var isPass = false;
 
-                //班次名称
-                name:classVue.cname,
-                //周期
-                period:classVue.periodicunit,
-                //时间段id
-                sjDid:classVue.timeslot,
-                //时间段名称
-                sjDname:time,
-                //具体天周:
-                BanCiDetailList:arr
-            }
+            for(var i=0;i<arr.length;i++){
 
-            if(flag){
+                if(arr[i].sjDid == ''){
 
-                prm.id = _$thisID;
+                    isPass = true;
 
-                prm.bccode = _$thisCode;
+                    break;
 
-            }
-
-            $.ajax({
-
-                type:'post',
-                url:_urls + url,
-                data:prm,
-                timeout:_theTimes,
-                beforeSend: function () {
-                    $('#theLoading').modal('show');
-                },
-                complete: function () {
-                    $('#theLoading').modal('hide');
-                },
-                success:function(result){
-
-                    if(result == 99){
-
-                        _moTaiKuang($('#myModal2'),'提示','flag','istap',successMeg,'');
-
-                        $('#ADD-Modal').modal('hide');
-
-                        conditionSelect();
-
-                    }else{
-
-                        _moTaiKuang($('#myModal2'),'提示','flag','istap',errorMeg,'');
-
-                    }
-
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
                 }
 
-            })
+            }
+
+            if(isPass){
+
+                _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请给选中的日期安排时间段', '');
+
+            }else{
+
+                var prm = {
+
+                    //班次名称
+                    name:classVue.cname,
+                    //周期
+                    period:classVue.periodicunit,
+                    //时间段id
+                    sjDid:classVue.timeslot,
+                    //时间段名称
+                    sjDname:time,
+                    //具体天周:
+                    BanCiDetailList:arr
+                }
+
+                if(flag){
+
+                    prm.id = _$thisID;
+
+                    prm.bccode = _$thisCode;
+
+                }
+
+                $.ajax({
+
+                    type:'post',
+                    url:_urls + url,
+                    data:prm,
+                    timeout:_theTimes,
+                    beforeSend: function () {
+                        $('#theLoading').modal('show');
+                    },
+                    complete: function () {
+                        $('#theLoading').modal('hide');
+                    },
+                    success:function(result){
+
+                        if(result == 99){
+
+                            _moTaiKuang($('#myModal2'),'提示','flag','istap',successMeg,'');
+
+                            $('#ADD-Modal').modal('hide');
+
+                            conditionSelect();
+
+                        }else{
+
+                            _moTaiKuang($('#myModal2'),'提示','flag','istap',errorMeg,'');
+
+                        }
+
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+
+                })
+
+            }
 
         }
 

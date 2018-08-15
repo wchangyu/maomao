@@ -46,6 +46,15 @@
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <link href="../bank-resource/css/common.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../ADRS/css/public.css">
+    <style>
+        .table tr:last-child td{
+
+            border-bottom: 1px solid #ddd;
+
+        }
+
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -232,7 +241,7 @@
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="button-block">
+                    <div class="button-block" style="margin: 20px 0;">
                         <button type="button" class="btn btn-success creatButton">新增栏目</button>
                     </div>
                     <!--<ul class="list-block">
@@ -245,7 +254,7 @@
                             </div>
                         </li>
                     </ul>-->
-                    <table id="browse-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                    <table id="browse-datatables" class="table table-striped table-advance table-hover" cellspacing="0" width="100%" style="margin-bottom: 6px !important;">
                         <thead>
                         </thead>
                         <tbody>
@@ -324,26 +333,10 @@
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
-<!--提示模态框提示-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">提示</h4>
-            </div>
-            <div class="modal-body">在这里添加一些文本</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
 <!--新增-->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 700px;">
-        <div class="modal-content" style="width: 700px;">
+    <div class="modal-dialog" style="width: 700px;height: 192px !important;">
+        <div class="modal-content" style="width: 700px;height: 192px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">提示</h4>
@@ -353,8 +346,8 @@
                         <li>
                             <div class="labels">栏目名称 ：</div>
                             <span class="colorTip">最大长度为50</span>
-                            <div class="input-blockeds">
-                                <input type="text" id="newsColum" name="newsColum">
+                            <div class="input-blockeds" style="width: 100%">
+                                <input type="text" id="newsColum" name="newsColum" style="height: 40px;line-height: 40px;">
                             </div>
                             <div class="clearfix"></div>
                         </li>
@@ -367,5 +360,30 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+
+<!--提示模态框提示-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px !important;">
+        <div class="modal-content" style="height: 168px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">提示</h4>
+            </div>
+            <div class="modal-body">在这里添加一些文本</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--loadding-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
+
 <!-- END BODY -->
 </html>

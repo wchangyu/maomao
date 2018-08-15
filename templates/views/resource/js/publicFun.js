@@ -6,7 +6,7 @@ var _userIdName = sessionStorage.getItem('realUserName');
 var _userIdNum = sessionStorage.getItem('userName');
 
 //获取本地url
-var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+var _urls = sessionStorage.getItem("apiUrlPrefix");
 
 //获取角色权限
 var  _userRole = sessionStorage.getItem("userRole");
@@ -209,7 +209,7 @@ function _timeComponentsFun(el){
 /*-----------------------dataTable---------------------------*/
 
 //基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页,导出列,每页显示列数,最后一个是否分页)；
-function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr,num,isPaging){
+function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr,num,isPaging,headerCallback){
 
     var buttonVisible = [
         {
@@ -285,7 +285,7 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
             'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
             'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'infoEmpty': '没有数据',
+            'infoEmpty': '',
             'paginate':{
                 "previous": "上一页",
                 "next": "下一页",
@@ -297,7 +297,8 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
         'buttons':buttons,
         "columns": col,
         "fnRowCallback": fnRowCallback,
-        "drawCallback":drawCallback
+        "drawCallback":drawCallback,
+        "headerCallback":headerCallback
     });
 
     if(flag){
@@ -1346,4 +1347,182 @@ function hiddenAreaTh(nameArr){
     });
 
 }
+
+//顶置提示(红色提示条)
+function _topTipBar(str){
+
+    $('#tip').find('span').remove();
+
+    $('#tip').find('i').after('<span style="margin-left: 20px;">' + str + '</span>');
+
+    $('#tip').show();
+
+}
+
+//红色提示框的成功方法（顶置）
+function _successTopBar(data,attr,fun){
+
+    var arr = [];
+
+    if(data == 0){
+
+        $('#tip').hide();
+
+        arr = attr;
+
+    }else if(data == -2){
+
+        _topTipBar('暂无数据!');
+
+    }else if(data == -1){
+
+        _topTipBar('异常错误!');
+
+    }else if(data == -3){
+
+        _topTipBar('参数错误!');
+
+    }else if(data == -4){
+
+        _topTipBar('内容已存在!');
+
+    }else if(data == -6){
+
+        _topTipBar('没有权限!');
+
+    }
+
+    fun(arr);
+
+}
+
+//模态框中红色提示框
+function _modalTipBar(el,str){
+
+    el.children().find('span').remove();
+
+    el.children().find('i').after('<span style="margin:0 20px;">' + str + '</span>');
+
+    el.children().show();
+
+}
+
+//红色提示框的成功方法(模态框)
+function _successBar(el,data,fun){
+
+    if(data == 0){
+
+        fun();
+
+    }else if(data == -2){
+
+        _modalTipBar(el,'暂无数据!');
+
+    }else if(data == -1){
+
+        _modalTipBar(el,'异常错误!');
+
+    }else if(data == -3){
+
+        _modalTipBar(el,'参数错误!');
+
+    }else if(data == -4){
+
+        _modalTipBar(el,'内容已存在!');
+
+    }else if(data == -6){
+
+        _modalTipBar(el,'没有权限!');
+
+    }
+
+}
+
+function _errorBarModal(XMLHttpRequest, textStatus, errorThrown){
+
+    $('#theLoading').modal('hide');
+
+    if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+        _modalTipBar('请求超时!');
+
+    }else{
+
+        _modalTipBar('请求失败!');
+
+    }
+
+}
+
+function _errorBar(XMLHttpRequest, textStatus, errorThrown){
+
+    $('#theLoading').modal('hide');
+
+    if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+        _topTipBar('请求超时!');
+
+    }else{
+
+        _topTipBar('请求失败!');
+
+    }
+
+}
+
+//时间比大小,st<et返回真
+function _timeCompare(st,et){
+
+    var stValue = st;
+
+    stValue = stValue.replace(/-/g,"/");
+
+    var etValue = et;
+
+    etValue = etValue.replace(/-/g,"/");
+
+    var stNum = new Date(Date.parse(stValue));
+
+    var etNum = new Date(Date.parse(etValue));
+
+    //结束时间必须大于结束时间
+    if(stNum < etNum){
+
+        return true;
+
+    }else{
+
+        return false;
+
+    }
+
+}
+
+$(function(){
+
+    //模态框中的提示关闭按钮
+    $('#tip-error-modal').on('click','.close',function(){
+
+        $('#tip-error-modal').hide();
+
+    })
+
+    //普通提示关闭
+    $('#tip').on('click','.close',function(){
+
+        $('#tip').hide();
+
+    })
+
+    //如果模态框中的input聚焦的话，提示框消失
+    $('.modal-dialog').on('click','.modal-body',function(){
+
+        $('.modal-dialog').find('.btn-primary').prev().children().hide();
+
+    })
+
+
+})
+
+
 

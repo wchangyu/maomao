@@ -1,0 +1,354 @@
+*{
+
+	margin: 0;
+
+	padding: 0;
+
+}
+
+.page-logo{
+
+	line-height: 40px !important;
+
+}
+
+.colorTop{
+
+	color: red;
+
+}
+
+.page-content{
+
+	color: #757575;
+
+}
+
+.modal-body input~.error{
+
+	color: red;
+
+	width: 100% !important;
+
+	text-align: center;
+
+	line-height: 30px;
+
+	margin: 0;
+
+	margin-top: 10px;
+
+}
+
+
+/*条件选择样式*/
+
+.ADRS-condition{
+
+	margin-bottom: 6px !important;
+
+}
+
+.ADRS-condition li{
+
+	display: inline-block;
+
+	margin:10px;
+
+	color: #757575;
+
+}
+
+.ADRS-condition li .form-control{
+
+	display: inline-block !important;
+
+}
+
+.ADRS-condition select{
+
+	width: 150px;
+
+}
+
+.condition-button{
+
+	font-size: 16px;
+
+	background: #2170F4;
+
+	padding: 7px 17px;
+
+	color: #ffffff !important;
+
+	cursor: pointer;
+
+}
+
+/*表格样式*/
+
+th,td{
+
+	text-align: center;
+
+}
+
+th{
+
+	background: #e7eef7 !important;
+
+}
+
+/*模态框*/
+.modal-block li{
+
+	display: inline-block;
+
+	margin: 0 10px 10px 10px;
+
+}
+
+.modal-block label{
+
+	width: 85px;
+
+}
+
+.modal-block input,.modal-block select{
+
+	width: 250px;
+
+	display: inline-block;
+
+}
+
+.modal-block textarea{
+
+	vertical-align: top;
+
+	display: inline-block;
+
+	width: 250px;
+	
+}
+
+/*时间*/
+.datatimeblock{
+	background: url("../img/clendar.png") no-repeat #ffffff !important;
+	background-size: 25px !important;
+	background-position: 98% center !important;
+	cursor: pointer !important;
+}
+
+.subTableTitle{
+
+	background: #c5d7ef !important;
+
+}
+
+/*.subTable>tbody>tr>td, .subTable>tbody>tr>th, .subTable>tfoot>tr>td, .subTable>tfoot>tr>th, .subTable>thead>tr>td, .subTable>thead>tr>th{*/
+
+	/*border: 1px solid #cccccc !important;*/
+
+/*}*/
+
+.table-error{
+
+	border: 2px solid red;
+
+}
+
+.error-tip{
+
+	color: red;
+
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:last-child{
+
+	padding-right:10px;
+
+}
+
+table.dataTable thead .sorting_asc:after{
+
+	opacity: 0 !important;
+
+}
+
+table.dataTable thead .sorting_desc:after{
+
+	opacity: 0 !important;
+
+}
+
+.shadowEffect{
+
+	box-shadow: 10px 10px 10px #eceff1;
+	-moz-box-shadow: 10px 10px 10px #eceff1;
+	-webkit-box-shadow: 10px 10px 10px #eceff1;
+	border-radius: 4px !important;
+	background: #ffffff;
+	border: none !important;
+
+}
+
+.table-advance thead tr th{
+
+	background:#e7eff7!important;
+
+	font-weight: normal !important;
+
+}
+
+.table-striped>tbody>tr:nth-of-type(odd){
+
+	background-color: #f5f7fb !important;
+
+}
+
+.table>thead>tr>th{
+
+	border-bottom:none !important;
+
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+
+	border-right: 1px solid #ddd !important;
+
+}
+.table{
+
+	border: 1px solid #ddd !important;
+
+	border-right: none !important;
+}
+
+table.dataTable thead th, table.dataTable thead td{
+
+	border-bottom: none !important;
+
+}
+
+.tables-hover {
+	/*background: #FBEC88 !important;*/
+}
+
+.table{
+
+	margin-bottom: 0 !important;
+
+}
+
+.option-button{
+
+	display: inline-block;
+
+	padding: 3px 8px;
+
+	border: 1px solid #757575;
+
+	border-radius: 3px !important;
+
+	cursor: pointer;
+
+	margin: 0 3px;
+
+}
+
+.option-edit{
+
+	color: #2472f5 !important;
+
+	border-color: #2472f5 !important;
+
+}
+
+.option-yonghu,.option-qiye,.option-dev,.option-publish{
+
+	color: #14e399 !important;
+
+	border-color: #14e399 !important;
+
+}
+
+.option-huhao{
+
+	color: #0aa3c3 !important;
+
+	border-color: #0aa3c3 !important;
+
+}
+
+.option-del{
+
+	color: #88898a !important;
+
+	border-color: #88898a !important;
+
+}
+
+.state-ball{
+
+	display: inline-block;
+
+	width: 10px;
+
+	height:10px;
+
+	border-radius: 50% !important;
+
+	background: red;
+
+	margin: 0 10px;
+
+}
+
+.state-created{
+
+	background: #46b4e3;
+
+}
+
+.state-publish{
+
+	background: #216ff5;
+
+}
+
+.state-ensure-user{
+
+	background: #5045de;
+
+}
+
+.state-examine{
+
+	background: #20dca9;
+
+}
+
+.state-instruction{
+
+	background: #ebb43b;
+
+}
+
+.state-execution{
+
+	background: #f0496d;
+
+}
+
+.state-end-execution{
+
+	background: #9b9b9c;
+
+}
+
+.hiddenButton{
+
+	display: none;
+
+}

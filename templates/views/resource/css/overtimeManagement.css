@@ -12,6 +12,7 @@
     font-size: 0;
     vertical-align: top;
     margin-left: -4px;
+    background-position: center !important;
 }
 .dataTables_filter label{
     display: block !important;

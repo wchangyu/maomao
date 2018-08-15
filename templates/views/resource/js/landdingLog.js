@@ -6,6 +6,13 @@ $(function(){
     //默认今天
     $('.datatimeblock').val(moment().format('YYYY-MM-DD'));
 
+    //查询
+    $('#selected').click(function(){
+
+        conditionSelect();
+
+    })
+
     //条件查询
     conditionSelect();
 

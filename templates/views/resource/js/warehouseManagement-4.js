@@ -26,7 +26,8 @@ $(function(){
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": true,
-        "ordering": false,
+        "ordering": true,
+        "order":[],
         "iDisplayLength":50,//默认每页显示的条数
         "pagingType":"full_numbers",
         'language': {
@@ -162,7 +163,8 @@ $(function(){
 
             }
 
-        ]
+        ],
+        "aoColumnDefs": [ { "orderable": false, "targets": [ 0,1,2,3,4,5,6,7,8,11,12,13,14,15 ] }]
     });
 
     //自定义按钮位置

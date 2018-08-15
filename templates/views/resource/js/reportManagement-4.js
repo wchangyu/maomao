@@ -29,7 +29,8 @@ $(function (){
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": true,
-        "ordering": false,
+        "ordering": true,
+        "order":[],
         "pagingType":"full_numbers",
         "iDisplayLength":50,//默认每页显示的条数
         'language': {
@@ -74,7 +75,8 @@ $(function (){
                 title:'未完工量',
                 data:'gdWwgNum'
             }
-        ]
+        ],
+        "columnDefs": [ { "orderable": false, "targets": ['0'] }]
     });
 
     _table.buttons().container().appendTo($('.excelButton'),_table.table().container());
@@ -84,7 +86,8 @@ $(function (){
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": true,
-        "ordering": false,
+        "ordering": true,
+        "order":[],
         "iDisplayLength":50,//默认每页显示的条数
         "pagingType":"full_numbers",
         'language': {
@@ -150,7 +153,7 @@ $(function (){
             3,
             4,
             5
-        ],
+        ]
     });
     //报错时不弹出弹框
     $.fn.dataTable.ext.errMode = function(s,h,m){

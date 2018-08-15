@@ -1,0 +1,73 @@
+.main-block{
+
+    padding: 15px;
+
+}
+
+.main-block-children{
+
+    height: 380px;
+
+}
+
+.page-content{
+
+    background: #f9f9f9 !important;
+
+}
+
+.carousel-indicators{
+
+    bottom: 0px !important;
+
+}
+
+.carousel-caption{
+
+    bottom: 0;
+
+}
+
+.statistics-block{
+
+    height: 200px;
+
+    border-right: 1px solid #eee;
+
+    padding: 20px;
+
+    position: relative;
+
+}
+
+.statistics-title{
+
+    text-align: center;
+
+    font-size: 14px;
+
+}
+
+.statistics-block p{
+
+    margin: 0;
+
+    line-height: 40px;
+
+    background: #edebeb;
+
+    text-indent: 20px;
+
+    margin-bottom: 20px;
+
+    padding-right: 20px;
+
+}
+
+.statistics-block span{
+
+    float: right;
+
+    font-weight: bold;
+
+}

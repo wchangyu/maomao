@@ -315,7 +315,7 @@
                                             </caption>
                                             <thead>
                                             <tr>
-                                                <th style="text-align: center">巡检内容</th>
+                                                <th style="text-align: center">保养内容</th>
                                                 <th style="text-align: center">是否详检</th>
                                                 <th style="text-align: center">报警关系</th>
                                                 <th style="text-align: center">报警值</th>
@@ -468,7 +468,7 @@
                                     </div>
                                 </li>
                                 <li class="floatLeft" style="margin-right: 10px;">
-                                    <div class="labels colorTip">保养内容名称 *：<span v-if="$validation.xjnrmc.noempty">请填写巡检内容名称</span></div>
+                                    <div class="labels colorTip">保养内容名称 *：<span v-if="$validation.xjnrmc.noempty">请填写保养内容名称</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" class="" v-model="xjnrmc" v-validate:xjnrmc="['noempty']" initial='off'>
                                     </div>
@@ -523,7 +523,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<!--增加巡检条目-->
+<!--增加保养条目-->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 575px;width:1000px !important;">
         <div class="modal-content" style="height: 575px;width: 1000px !important;">
@@ -561,7 +561,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<!--巡检条目删除提示框-->
+<!--保养条目删除提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 211px;">
         <div class="modal-content" style="height: 211px;">

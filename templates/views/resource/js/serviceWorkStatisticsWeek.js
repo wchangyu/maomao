@@ -30,7 +30,7 @@ $(function(){
             data:'building'
         },
         {
-            title:'科室或楼层',
+            title:__names.office+'或楼层',
             data:'bxKeshi'
         },
         {
@@ -145,7 +145,7 @@ $(function(){
             data:'sn'
         },
         {
-            title:'科室名称',
+            title:__names.office,
             data:'bxKeshi'
         },
         {
@@ -165,7 +165,7 @@ $(function(){
     var allSectionCol = [
 
         {
-            title:'科室名称',
+            title:__names.office + '名称',
             data:'bxKeshi'
         },
         {
@@ -225,7 +225,7 @@ $(function(){
             data:'sn'
         },
         {
-            title:'科室名称',
+            title:__names.office,
             data:'bxKeshi'
         },
         {
@@ -237,7 +237,7 @@ $(function(){
             data:'gongshiFee'
         },
         {
-            title:'科室总计',
+            title:__names.office+'总计',
             data:'gdFee'
         }
 
