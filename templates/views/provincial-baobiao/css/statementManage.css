@@ -1,0 +1,30 @@
+.condition-query .input-blocked select {
+    height: 100%;
+    border: none;
+    width: 156px;
+    outline: none;
+}
+
+.condition-query  li{
+    margin-right:30px;
+}
+
+#statement-type{
+    width:206px;
+}
+
+#statement-type .long-select{
+    width:203px;
+}
+
+.dataTables_length{
+    display: none;
+}
+
+.table th,.table td{
+    text-align: center;
+}
+
+.creatButton{
+    cursor: pointer;
+}

@@ -158,6 +158,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
                             '<div class="bottom-problem">';
 
     };
+
     //给页面中添加诊断信息
     $('#content-container').html(diagHtml);
 

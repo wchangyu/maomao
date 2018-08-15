@@ -147,7 +147,7 @@ $(function(){
     //ringChartR.setOption(optionRing1);
 
     //定义计算安全运行天数的开始日期
-    var startSafeDate = new Date('2017/07/20 12:00');
+    var startSafeDate = new Date('2017/07/20 00:00');
 
     var date2 = new Date();
 

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link href="../resource/css/ALLDevice.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/css/common.css">
+    <link rel="stylesheet" href="css/statementManage.css">
+</head>
+
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"> </div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap">
+                            <!-- 标题 -->
+                            <div class="content-main-contents content-main-right">
+                                <div style="height: 10px;"></div>
+                                <ul class="condition-query noprint">
+                                    <li>
+
+                                        <label for="">汇总类型：</label>
+                                        <div class="input-blocked" id="filter_global">
+
+                                            <select type="text" class="filterInput" id="collect-type">
+
+                                                <option value="-1">全部</option>
+                                                <option value="0">年报</option>
+                                                <option value="1">半年报</option>
+                                                <option value="2">季报</option>
+                                                <option value="3">月报</option>
+
+                                            </select>
+
+                                        </div>
+
+                                    </li>
+
+                                    <li>
+
+                                        <label for=""><span class=""></span>年份：</label>
+                                        <div class="input-blocked">
+                                            <!--<input type="text">-->
+                                            <select id="years">
+                                                <!--<option value="">2019</option>-->
+                                                <!--<option value="">2018</option>-->
+                                                <!--<option value="">2017</option>-->
+                                                <!--<option value="">2016</option>-->
+                                                <!--<option value="">2015</option>-->
+                                            </select>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label for="">报表类型：</label>
+                                        <div class="input-blocked" id="statement-type">
+
+                                            <select type="text" class="filterInput long-select" id="statement-type-val">
+                                                <option value="0">能源资源消费统计分级汇总</option>
+                                                <option value="1">能源资源消费统计分类汇总</option>
+                                                <option value="2">数据中心机房能源消费统计汇总</option>
+                                                <option value="3">采暖能源资源消费统计汇总</option>
+
+                                            </select>
+                                        </div>
+                                    </li>
+
+                                    <li><button class="btn btn-success btn1" id="selected">查询</button></li>
+                                    <li>
+                                        <div class="cont-col1">
+
+                                            <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="excelButton"></li>
+                                    <div class="clearfix"></div>
+                                </ul>
+                                <!-- 表格 -->
+                                <div class="content-main-contents">
+
+                                    <div class="main-contents-table">
+                                        <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                            <thead>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="js/statementManage.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

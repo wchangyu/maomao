@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link href="../resource/css/ALLDevice.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/css/common.css">
+    <link rel="stylesheet" href="css/statementManage.css">
+    <link rel="stylesheet" href="../new-resource/css/common.css">
+    <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/areaEnergyDataStatement.css">
+    <style>
+
+        #entry-datatables {
+            width: 1500px;
+            margin: 0 auto;
+        }
+
+        .top-message{
+
+            color:black;
+            position: relative;
+            margin-bottom: 2px;
+        }
+
+        .top-message .right-title{
+            margin-left:600px;
+            color:black;
+            margin-right:5px;
+        }
+
+        .top-message .left-title{
+
+            margin-left: 80px;
+            width:450px;
+            display: inline-block;
+
+        }
+
+        .choose-type-select{
+            width:120px;
+            border:1px solid #ccc;
+            margin-right:10px;
+        }
+
+        .td-input{
+            width:90px;
+            height:22px;
+
+            border:1px solid #ccc;
+        }
+
+        .bottom-message{
+
+            width: 360px;
+            display: inline-block;
+            margin-left:50px;
+            margin-bottom:10px;
+        }
+
+    </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<div style="height:15px;"></div>
+
+<div class="main-content-entry">
+
+    <h1 style="text-align: center;margin-bottom: 20px;">公共机构能源资源消费统计分类汇总情况</h1>
+
+    <div class="top-operation" style="text-align:right;padding-top:15px;">
+        <!--<button class="top-btn top-edit">编辑</button>-->
+        <button class="top-btn top-sure">保存</button>
+
+        <br>
+    </div>
+
+    <!--下方主体表格-->
+    <div class="bottom-main-table" style="position: relative">
+
+
+
+        <table id="entry-datatables" class="table" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black;margin-bottom:80px;">
+            <caption>
+
+                <div class="top-message">
+
+                    <span style="" class="left-title"></span>
+
+                    <span style="" class="right-title">表&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:</span>国管节能综2表
+                </div>
+
+                <div class="top-message">
+
+                    <span style="" class="left-title"></span>
+
+                    <span style="" class="right-title">制定机关:</span>国家机关事务管理局
+                </div>
+
+                <div class="top-message">
+
+                    <span style="" class="left-title"></span>
+
+
+                    <span style="" class="right-title">批准机关:</span>国家统计局
+                </div>
+
+                <div class="top-message">
+
+                    <span style="" class="left-title">综合机构名称（盖章）:
+                         <input type="text" style="width:180px;outline: none;" class="organization-name">
+                    </span>
+
+                    <span style="" class="right-title">批准文号:</span>国统制[2017]79号
+
+                </div>
+
+                <div class="top-message" style="position: relative">
+
+                    <span style="" class="left-title">电话号码:
+                        <input type="text" style="width:180px;outline: none;" class="phone-number">
+                    </span>
+
+                    <span style="" class="right-title">有效期至:</span>2019年7月
+
+
+                    <div class="choose-type" style="position: absolute;left:500px;top:0px;">
+
+                        <select name="" id="collect-type" class="choose-type-select">
+                            <option value="0">年报</option>
+                            <option value="1">半年报</option>
+                            <option value="2">季报</option>
+                            <option value="3">月报</option>
+                        </select>
+
+                        <select name="" id="years" class="choose-type-select">
+
+                        </select>
+
+                        <select name="" id="choose-type-message" class="choose-type-select" style="display: none">
+
+                        </select>
+
+                    </div>
+                </div>
+
+
+
+            </caption>
+
+            <thead style="text-align:center">
+            <tr style="text-align:center">
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" rowspan="2">指标名称</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" rowspan="2">计量单位</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" rowspan="2">代码</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" rowspan="2">合计</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" rowspan="2">国家机关</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" colspan="7">事业单位</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" rowspan="2">团体组织</th>
+
+            </tr>
+            <tr>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >小计</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >教育</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >科技</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >文化</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >卫生</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >体育</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >其他</th>
+
+            </tr>
+            <tr>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >甲</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >乙</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >丙</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >1</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >2</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >3</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >4</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >5</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >6</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >7</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >8</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >9</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;" >10</th>
+            </tr>
+
+            </thead>
+            <tbody>
+
+            </tbody>
+
+            <caption style="position: absolute;bottom:-75px;left:10%;">
+
+                <span class="bottom-message">单位负责人：<input type="text" class="unitPrincipal"></span>
+
+                <span class="bottom-message">填表人：<input type="text" class="preparer"></span>
+
+                <span class="bottom-message">填表日期：<input type="text" class="selectDate datatimeblock"></span>
+
+                <h4>说明：单位负责人指本单位主管节能工作的领导；填表人指本单位具体负责填写能耗统计报表的人员。</h4>
+            </caption>
+
+        </table>
+    </div>
+</div>
+
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+
+    <div class='modal-dialog' style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+
+</div>
+
+<!--所有提示框-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="js/classifyStatement.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

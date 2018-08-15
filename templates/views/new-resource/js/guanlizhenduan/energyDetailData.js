@@ -34,6 +34,13 @@ var showDataArr = [
         url :'OneKeyDiag/GetBranchMutationDetail',
         echartName1:'当前数据',
         echartName2:'对比数据'
+    },
+    {
+        id:'3',
+        name:'变压器损耗偏高诊断',
+        url :'OneKeyDiag/GetSysWastageDetail',
+        echartName1:'低压变压器',
+        echartName2:'高压变压器'
     }
 ];
 
@@ -84,6 +91,11 @@ var optionBar = {
             name:'',
             type:'bar',
             data:[],
+            //itemStyle:{
+            //    normal:{
+            //        color:['#4ad2ff','#019cdf']
+            //    }
+            //},
             barMaxWidth: '30'
         }
     ]
@@ -376,6 +388,20 @@ function getPointerData(url){
 
                 //向下的图标
                 $('.left-pillar').removeClass('up');
+
+                $('.left-pillar').removeClass('no-background');
+            }
+
+            //不要向上 向下的图标 变压器突变诊断时
+            if(url == 'OneKeyDiag/GetSysWastageDetail'){
+
+                $('.left-pillar').removeClass('equal');
+
+                //向下的图标
+                $('.left-pillar').removeClass('up');
+
+                $('.left-pillar').addClass('no-background');
+
             }
 
             //下方诊断信息

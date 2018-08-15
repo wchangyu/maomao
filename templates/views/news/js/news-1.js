@@ -194,22 +194,19 @@ $(function(){
 
         console.log(imgWidth / imgHeight)
 
-        if( imgWidth / imgHeight > 1.6 ||  imgWidth / imgHeight < 1.2){
-
-            $li.find('p.state').text('请选择长宽比合适的图片上传(推荐比例1.4:1)');
-
-            uploader.stop(true);
-
-        }else{
-
-            $li.find('p.state').text('上传中');
-
-            $percent.css( 'width', percentage * 100 + '%' );
-
-        }
-
-
-
+        //if( imgWidth / imgHeight > 1.6 ||  imgWidth / imgHeight < 1.2){
+        //
+        //    $li.find('p.state').text('请选择长宽比合适的图片上传(推荐比例1.4:1)');
+        //
+        //    uploader.stop(true);
+        //
+        //}else{
+        //
+        //    $li.find('p.state').text('上传中');
+        //
+        //    $percent.css( 'width', percentage * 100 + '%' );
+        //
+        //}
 
     });
 
@@ -301,6 +298,7 @@ $(function(){
             $('.big-mark').show();
         }
     })
+
     //点击保存，发送数据
     $('#saveNews').click(function(){
 

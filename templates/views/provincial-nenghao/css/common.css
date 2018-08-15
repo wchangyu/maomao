@@ -1,0 +1,382 @@
+.showOrHidden{
+    display: none !important;
+}
+
+@media (min-width: 992px){
+
+    .page-content-wrapper .page-content {
+        margin-left: 235px;
+        margin-top: 0px;
+        min-height: 600px;
+        padding: 10px 20px 10px 20px !important;
+    }
+}
+
+.page-title{
+    display: none;
+}
+
+
+
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+.scrollbar::-webkit-scrollbar{
+    width: 16px;
+    height: 16px;
+    background-color: #f5f5f5;
+}
+/*定义滚动条的轨道，内阴影及圆角*/
+.scrollbar::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+/*定义滑块，内阴影及圆角*/
+.scrollbar::-webkit-scrollbar-thumb{
+    /*width: 10px;*/
+    height: 20px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #DCDCDC;
+}
+
+
+/*固定表头*/
+.table-fixation tbody {
+    display:block;
+    max-height:295px;
+    overflow-y:auto;
+}
+
+.table-fixation thead,.table-fixation tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+.table-fixation td{
+    height: 40px !important;
+}
+
+.table-fixation thead {
+    width: calc( 100% - 1em )
+}
+
+.table-fixation{
+    background: #e1e8f2 !important;
+}
+
+.table td,.table th{
+    text-align: center;
+}
+
+.table-striped>tbody>tr:nth-of-type(even) {
+    background-color: white;
+}
+
+
+/*选择时间*/
+.user-search .choose-time{
+
+    padding:1px 8px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.chooseDate {
+    background: url(../../new-resource/img/clendar.png) no-repeat #ffffff !important;
+    background-size: 25px !important;
+    background-position: 100% center !important;
+    cursor: pointer !important;
+}
+
+.user-search .chooses{
+
+    border: 1px solid #1D82CA;
+    color:#1D82CA;
+}
+
+
+.top-select-container{
+    padding-top:15px;
+}
+.top-select-container li {
+    line-height: 26px !important;
+    margin-bottom: 10px;
+    float: left;
+    margin-right: 25px;
+    color: #666 !important;
+}
+
+.top-select-container li label {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.top-select-container li .input-blockeds {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 auto;
+    margin-left: 5px;
+    margin-top:-5px;
+}
+
+.top-select-container li input,.top-select-container li select{
+    width:160px;
+    border:1px solid #ccc;
+    outline: none;
+    padding-left:3px;
+    height: 30px;
+}
+
+/*右侧选择年月日按钮*/
+.right-choose-energy{
+
+    float: right !important;
+    background: #AEBFD4;
+    overflow: hidden;
+    border-radius: 4px !important;
+}
+
+.right-choose-energy span{
+    width:26px;
+    height:26px;
+    color:white;
+    font-size:16px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+
+.right-choose-date{
+
+    float: right !important;
+    background: #AEBFD4;
+    overflow: hidden;
+    border-radius: 4px !important;
+    z-index: 1000;
+    position: relative;
+}
+
+.right-choose-date span{
+    width:26px;
+    height:26px;
+    color:white;
+    font-size:16px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+
+.right-choose-date .onClick{
+
+    background: white;
+    color:#F2285C;
+}
+
+.right-choose-energy .onClick{
+
+    background: white;
+    color:#F2285C;
+}
+
+.btn-success{
+    padding: 7px 22px !important;
+}
+
+/*.right-choose-time .borders{*/
+
+   /*border-left:1px solid #AEBFD4;*/
+   /*border-right:1px solid #AEBFD4;*/
+/*}*/
+
+
+/*下方展示数据*/
+.main-contents-table{
+
+    width:100%;
+    height:400px;
+    background:rgba(255,255,255,1);
+    border-radius:6px !important;
+    border:1px solid #B6D8F1;
+    padding-left:20px;
+    padding-right:20px;
+    margin-bottom:30px;
+}
+
+
+/*导出按钮*/
+.excelButton{
+    background-color: #5a8dc4 !important;
+    color:white !important;
+    padding: 7px 22px;
+}
+
+.excelButton:hover{
+    background-color: #5d83a7 !important;
+}
+
+.has-patch{
+    position: relative;
+    padding-left:15px;
+    box-sizing: border-box;
+    font-size: 20px;
+    color:#626262;
+    font-weight: 600;
+    margin-bottom:15px;
+}
+
+h3 .left-patch {
+
+    display: inline-block;
+    width: 9px;
+    height: 22px;
+    background: #1d3b61;
+    position: absolute;
+    left: 0;
+    top: 1px;
+}
+
+.right-unit{
+    font-size: 16px;
+    font-weight: 500;
+    float: right;
+    margin-right: 20px;
+}
+
+
+/*右侧数据展示*/
+.rheader-content-rights {
+    width: 250px;
+    height: 280px;
+    border-radius: 30px;
+    margin: 0 auto;
+    margin-top: 40px;
+    background: #F9F9F9;
+    background-size: 140px;
+    background-position: 50px 20px;
+    color:#757575;
+}
+
+.rheader-content-rights {
+    position: relative;
+    margin-top: 0%;
+    border-radius: 20px !important;
+}
+/*左侧上一时段数据*/
+.compared-with-last-time {
+    position: absolute;
+    top: 140px;
+    left: 42px;
+    font-size: 1.5rem;
+}
+.total-power-consumption {
+    color: #757575;
+    position: absolute;
+    top: 36px;
+    left: 75px;
+    font-size: 2rem;
+}
+.total-power-consumption-value {
+    color: #019cdf;
+    position: absolute;
+    top: 82px;
+    left: 60px;
+    font-size: 20px;
+    font-weight: bold;
+}
+/*累计用量*/
+#consumption-value-number {
+    font-size: 24px !important;
+    color:#F2285C;
+}
+/*单位*/
+.the-cumulative-power-unit {
+    font-size: 1rem;
+    color:#F2285C;
+}
+
+/*中间指示箭头*/
+.rights-up {
+    display: inline-block;
+    width: 26px;
+    height: 40px;
+    position: absolute;
+    top: 170px;
+    left: 112px;
+    background: url(../../new-resource/img/tongbi0%25.png) no-repeat;
+    background-size: 36px;
+    margin-left: 5px;
+}
+
+/*数据相等时的箭头*/
+.data-equal {
+    background: url(../../new-resource/img/tongbi0%25.png) no-repeat;
+    background-size: 36px;
+}
+
+.data-down {
+    background: url(../../new-resource/img/xiajiang.png) no-repeat;
+    background-size: 26px;
+}
+
+.data-up {
+    background: url(../../new-resource/img/zengzhang.png) no-repeat;
+    background-size: 26px;
+}
+
+
+
+
+/*右侧百分比*/
+.rights-up-value {
+    color: #019cdf;
+    font-weight: bold;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 150px;
+    left: 157px;
+    display: inline-block;
+    margin-left: 5px;
+}
+/*右侧同比数据*/
+.rights-up-name{
+    position: absolute;
+    top: 140px;
+    left: 162px;
+    font-size: 1.5rem;
+}
+.rights-up-value {
+    color: #2B2B2B;
+    font-weight: bold;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 160px;
+    left: 157px;
+    display: inline-block;
+    margin-left: 5px;
+}
+.the-show-data{
+
+    color: #2B2B2B;
+}
+
+/*右侧环比数据*/
+.compared-with-last-time1{
+    top:200px;
+}
+.rights-up1{
+    top:225px;
+}
+.rights-up-name1{
+    top: 200px;
+}
+.rights-up-value1{
+    top: 220px;
+}
+
+/*中间下降箭头*/
+.decline{
+    background: url(../../resource/img/up.png) 0% 0% / 23px no-repeat !important;
+}
+

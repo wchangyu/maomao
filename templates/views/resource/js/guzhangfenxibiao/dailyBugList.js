@@ -17,14 +17,15 @@ $(function(){
 
     var _dataWeekStart = moment(_date).subtract(1,'d').format('YYYY-MM-DD');
 
-    var _dataWeekEnd = moment(_date);
+    var _dataWeekEnd = moment(_date).format('YYYY-MM-DD');
 
     //设置初始日期
     $('.datatimeblock').eq(0).val(_dataWeekStart);
-
+    $('.datatimeblock').eq(1).val(_dataWeekEnd);
 
     //设置初始时间
     $('.timeblock').eq(0).val('00:00');
+    $('.timeblock').eq(1).val('00:00');
 //
 //
     var _dataEndFact = moment($('.datatimeblock').eq(1).val(_dataWeekEnd)).endOf('week').add(2,'d').format('YYYY/MM/DD');
@@ -39,16 +40,17 @@ $(function(){
     var _totalNums = 0;
 
     //修改时间
-    $('.endTime').html($('.datatimeblock').eq(0).val() +" "+ $('.timeblock').eq(0).val());
+    $('.endTime').html($('.datatimeblock').eq(1).val() +" "+ $('.timeblock').eq(1).val());
 
-    $('.startTime').html(moment($('.datatimeblock').eq(0).val()).subtract(1,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val());
+    $('.startTime').html($('.datatimeblock').eq(0).val() +' ' + $('.timeblock').eq(0).val());
 
     /*--------------------------------------按钮事件---------------------------------*/
     $('#selected').click(function(){
-        //修改时间
-        $('.endTime').html($('.datatimeblock').eq(0).val() +" "+ $('.timeblock').eq(0).val());
 
-        $('.startTime').html(moment($('.datatimeblock').eq(0).val()).subtract(1,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val());
+        //修改时间
+        $('.endTime').html($('.datatimeblock').eq(1).val() +" "+ $('.timeblock').eq(1).val());
+
+        $('.startTime').html($('.datatimeblock').eq(0).val() +' ' + $('.timeblock').eq(0).val());
 
         //本周客服设备故障上报及处理情况
         conditionSelect('YWGDReport/GetGDDTDepartReport',$('#failure-reporting'),'flag');
@@ -58,9 +60,11 @@ $(function(){
         //
         //未修复
         conditionSelect('YWGDReport/GetGDDepartWaitReturn',$('#failure-to-repair'));
-    })
+
+    });
     /*------------------------------------表格初始化------------------------------------------*/
     var failureReportingCol = [
+
         {
             title:'站（段）名',
             data:'departName',
@@ -256,7 +260,11 @@ $(function(){
     var failureToRepairCol = [
         {
             title:'编号',
-            data:'gdCode2'
+            data:'gdCode2',
+            render:function(data, type, row, meta){
+                return '<a href="../gongdangunali/productionOrder_see.html?gdCode=' +  row.gdCode  +  '&gdCircle=' + row.gdCircle + '"' +
+                    'target="_blank">' + data + '</a>'
+            }
         },
         {
             title:'站（段）名',
@@ -316,7 +324,11 @@ $(function(){
     var failureInfoCol = [
         {
             title:'编号',
-            data:'gdCode2'
+            data:'gdCode2',
+            render:function(data, type, row, meta){
+                return '<a href="../gongdangunali/productionOrder_see.html?gdCode=' +  row.gdCode  +  '&gdCircle=' + row.gdCircle + '"' +
+                    'target="_blank">' + data + '</a>'
+            }
         },
         {
             title:'站（段）名',
@@ -633,9 +645,10 @@ $(function(){
     //
     //条件查询
     function conditionSelect(url,tableId,flag,title){
+
         var startTime = $('.datatimeblock').eq(0).val() +' ' + $('.timeblock').eq(0).val();
 
-        var endTime = moment($('.datatimeblock').eq(0).val()).subtract(1,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val();
+        var endTime = $('.datatimeblock').eq(1).val() +' ' + $('.timeblock').eq(1).val();
 
         //传递给后台的车务段集合
         var postArr = [];
@@ -656,8 +669,8 @@ $(function(){
 
         //获取条件
         var prm = {
-            "st":endTime,
-            "et":startTime,
+            "st":startTime,
+            "et":endTime,
             "departs":postArr,
             "gdRepariQuantum":gdRepariQuantum,
             'gdCutOffTime': gdCutOffTime

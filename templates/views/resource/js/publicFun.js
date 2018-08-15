@@ -79,6 +79,7 @@ function _timeYMDComponentsFun(el){
 }
 
 function _timeYMDComponentsFun11(el){
+
     el.datepicker('destroy');
     el.datepicker({
         language:  'zh-CN',
@@ -311,6 +312,22 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
 
 }
 
+//深拷贝的方法
+function deepCopy(src,obj){
+
+    obj = obj || (Array.isArray(src) ? [] : {});
+    for(var i in src){
+        if(src.hasOwnProperty(i)){
+            if(typeof src[i] == 'object' && src[i]!=null){
+                obj[i] = Array.isArray(src[i]) ? [] : {};
+                deepCopy(src[i],obj[i]);
+            }else{
+                obj[i] = src[i];
+            }
+        }
+    }
+};
+
 //
 function _tableInitS(tableId,col,buttons,searching,flag,fnRowCallback,drawCallback){
     var buttonVisible = [
@@ -327,6 +344,7 @@ function _tableInitS(tableId,col,buttons,searching,flag,fnRowCallback,drawCallba
             className:'saveAs hiddenButton'
         }
     ];
+
     if(buttons == 1){
         buttons = buttonVisible;
     }else{
@@ -1029,7 +1047,6 @@ function _uniqueArr(maxArr,minArr,attr){
 
 };
 
-
 //对后台返回的表格数据进行包装，方便datatables插件进行调用
 function packagingTableData(tableData){
 
@@ -1198,6 +1215,41 @@ function _mainAjaxFun(type,url,prm,successFun){
     })
 
 }
+
+//ajaxerror方法
+function _mainAjaxFunComplete(type,url,prm,successFun,beforeSendFun,errorFun){
+
+
+    $.ajax(
+        {
+
+            //发送方式
+            type:type,
+
+            //url
+            url:_urls + url,
+
+            //timeout
+            timeout:_theTimes,
+
+            //参数
+            data:prm,
+
+            //发送数据之前
+            beforeSend:beforeSendFun,
+
+            ////发送数据完成之后
+            //complete:completeFun,
+
+            //成功
+            success:successFun,
+
+            //失败
+            error: errorFun
+
+        })
+}
+
 
 //打印插件初始化
 function _printFun(table){

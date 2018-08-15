@@ -8,7 +8,6 @@ _scaleX = 1;
 //全局设置容器高度
 var containHeight = 800;
 
-
 var userMonitor = (function(){
 
     var _urlPrefix = sessionStorage.apiUrlPrefix;
@@ -55,20 +54,32 @@ var userMonitor = (function(){
 
     var curProcID;            //存放当前的流程图ID
 
+    var thisProcName = 'ckId=';
+
     $('.content-main-left').width(0);
 
     //monitorSize流程图宽高 jumpPageSize弹出二级页面的宽高 ifRemove是否可以移动 1为不可移动 不传则可移动
     var init = function(monitorSize,jumpPageSize,ifRemove){
 
-        //console.log(455);
+        if(!_urlPrefix){
+
+            _urlPrefix  = sessionStorage.apiUrlPrefix;
+        }
+
         //获取到存储区的监控配置信息
 
-        if(window.location.search.split('ckId=')[1]){
+        if(window.location.search.split('procID=')[1]){
+
+            thisProcName = 'procID=';
+        }
+
+        //console.log(thisProcName);
+
+        if(window.location.search.split(thisProcName)[1]){
 
             _configArg1 = 1;
-            _configArg2 = window.location.search.split('ckId=')[1];
+            _configArg2 = window.location.search.split(thisProcName)[1];
             _configArg3 = undefined;
-
 
 
         }else if(window.location.search.split('configArg1=')[1]){
@@ -83,7 +94,7 @@ var userMonitor = (function(){
                 _configArg3 = undefined;
             }
 
-            console.log( _configArg1, _configArg2, _configArg3)
+            console.log( _configArg1, _configArg2, _configArg3);
 
             containHeight =600;
 
@@ -106,14 +117,25 @@ var userMonitor = (function(){
 
         if(monitorSize){
 
-            var procId = window.location.search.split('ckId=')[1];
+            var procId = window.location.search.split(thisProcName)[1];
 
             //如果是跳转页面
             if(procId){
 
-                jumpPageWidth = parseInt(monitorSize.split(',')[0]);
+                if(window.location.search.split('userId=')){
 
-                jumpPageHeight = parseInt(monitorSize.split(',')[1]);
+                    //定义当前页面流程图宽高
+                    sessionStorage.monitorSize = monitorSize;
+
+                    containHeight = parseInt(sessionStorage.monitorSize.split(',')[1]);
+
+                }else{
+
+                    jumpPageWidth = parseInt(monitorSize.split(',')[0]);
+
+                    jumpPageHeight = parseInt(monitorSize.split(',')[1]);
+
+                }
 
             }else{
 
@@ -125,7 +147,7 @@ var userMonitor = (function(){
 
         }else{
 
-            var procId = window.location.search.split('ckId=')[1];
+            var procId = window.location.search.split(thisProcName)[1];
 
             //如果是非跳转页面 则清除页面中缓存的宽高
             if(procId){
@@ -148,6 +170,7 @@ var userMonitor = (function(){
 
         //获取当前用户的操控权限和访问控制方案的权限
         if(sessionStorage.userAuth){
+
             var userAuth = sessionStorage.userAuth;
             if(userAuth.charAt(26)=="1"){
                 _hasControlAuth = true;
@@ -299,6 +322,7 @@ var userMonitor = (function(){
 
     //根据用户名获取当前的监控方案，对应左侧列表
     var getUserProcs = function(){
+
         var userName = sessionStorage.userName;     //获取当前用户名
         //console.log(_isViewAllProcs);
 
@@ -761,7 +785,7 @@ var userMonitor = (function(){
 
                     var norWidth = $('.page-title').width();
 
-                    var procId = window.location.search.split('ckId=')[1];
+                    var procId = window.location.search.split(thisProcName)[1];
 
                     //实际宽度
                     var realWidth = norWidth - _leftWidth - 20;
@@ -776,15 +800,19 @@ var userMonitor = (function(){
                     //当前为跳转页面，获取跳转页面的流程图宽高
                     if(procId){
 
-                        jumpPageWidth = parseInt(window.location.search.split('width=')[1].split('height=')[0]);
+                        if(window.location.search.indexOf('width=')>-1){
 
-                        jumpPageHeight = parseInt(window.location.search.split('height=')[1].split('ckId=')[0]);
+                            jumpPageWidth = parseInt(window.location.search.split('width=')[1].split('height=')[0]);
 
-                        norWidth = jumpPageWidth;
+                            jumpPageHeight = parseInt(window.location.search.split('height=')[1].split(thisProcName)[0]);
+                            norWidth = jumpPageWidth;
 
-                        containHeight = jumpPageHeight;
+                            containHeight = jumpPageHeight;
 
-                        realWidth = norWidth;
+                            realWidth = norWidth;
+
+                        }
+
                     }
 
                     //缩放比例计算
@@ -848,7 +876,7 @@ var userMonitor = (function(){
 
                         var norWidth1 = $('.page-title').width();
 
-                        var procId = window.location.search.split('ckId=')[1];
+                        var procId = window.location.search.split(thisProcName)[1];
 
                         //实际宽度
                         var realWidth1 = norWidth1 - _leftRealwidth - 20;
@@ -863,15 +891,20 @@ var userMonitor = (function(){
                         //当前为跳转页面，获取跳转页面的流程图宽高
                         if(procId){
 
-                            jumpPageWidth = parseInt(window.location.search.split('width=')[1].split('height=')[0]);
+                            if(window.location.search.indexOf('width=')>-1){
 
-                            jumpPageHeight = parseInt(window.location.search.split('height=')[1].split('ckId=')[0]);
+                                jumpPageWidth = parseInt(window.location.search.split('width=')[1].split('height=')[0]);
 
-                            norWidth1 = jumpPageWidth;
+                                jumpPageHeight = parseInt(window.location.search.split('height=')[1].split(thisProcName)[0]);
 
-                            containHeight = jumpPageHeight;
+                                norWidth1 = jumpPageWidth;
 
-                            realWidth1 = norWidth1;
+                                containHeight = jumpPageHeight;
+
+                                realWidth1 = norWidth1;
+
+                            }
+
                         }
 
                         //缩放比例计算
@@ -943,7 +976,9 @@ var userMonitor = (function(){
 
 
                 }else{
+
                     $divMain.width( 1330);
+
                     if((1330 + _leftWidth) > _originPageWidth){
                         //$(".page-content").width(1330 + _leftWidth);
                         $(".total-wrap").width(1330 + _leftWidth);
@@ -1976,14 +2011,25 @@ var userMonitor = (function(){
         if(!procDef) return;
         if(_refreshAction){ clearTimeout(_refreshAction);}
         if(procDef.cType == 166 || procDef.cType >= 500 && procDef.cType <= 600 || procDef.dType >= 500 && procDef.dType <= 600){       //方案跳转
-            if(!_isViewAllProcs && _userProcIds.indexOf(procDef.ckId)<0){       //在跳转图中ckId的值就是需要跳转的procID
+
+           if(!_isViewAllProcs && procDef.cType == 166 && _userProcIds.indexOf(procDef.ckId)<0){       //在跳转图中ckId的值就是需要跳转的procID
+                //console.log(procDef.ckId);
                 alertMessage("没有权限");
                 return;
             }
+
             var proc = _.findWhere(_allProcs,{"procID":procDef.ckId});
 
             //流程图内部跳转
             if( procDef.prdProcLnk && procDef.prdProcLnk.procLnkBase.startpos == 3){
+
+                //权限判断
+                if(!_isViewAllProcs && procDef.prdProcLnk.paras[0] && _userProcIds.indexOf(procDef.prdProcLnk.paras[0])<0){
+
+                    alertMessage("没有权限");
+                    return;
+                }
+
 
                 $("#content-main-right").empty();
 
@@ -1995,6 +2041,13 @@ var userMonitor = (function(){
             //流程图内部跳转
             if( procDef.prcProcLnk && procDef.prcProcLnk.procLnkBase.startpos == 3){
 
+                //权限判断
+                if(!_isViewAllProcs && procDef.prcProcLnk.paras[0] && _userProcIds.indexOf(procDef.prcProcLnk.paras[0])<0){
+
+                    alertMessage("没有权限");
+                    return;
+                }
+
                 $("#content-main-right").empty();
 
                 initializeProcSubs(procDef.prcProcLnk.paras[0]);
@@ -2004,7 +2057,15 @@ var userMonitor = (function(){
             }
 
             //如果新建模态框打开流程图
-            if( procDef.prcProcLnk&& procDef.prcProcLnk.procLnkBase.type == 502) {
+            if( procDef.prcProcLnk && procDef.prcProcLnk.procLnkBase.type == 502) {
+
+                //权限判断
+                if(!_isViewAllProcs && procDef.prcProcLnk.paras[0] && _userProcIds.indexOf(procDef.prcProcLnk.paras[0])<0){
+
+                    alertMessage("没有权限");
+                    return;
+                }
+
 
                 //获取当前ID
                 var id = procDef.ckId;
@@ -2052,6 +2113,7 @@ var userMonitor = (function(){
             }else{
 
                 if(proc){
+
                     _curProc = proc;
                 }else{
                     _curProc = null;
@@ -2063,6 +2125,7 @@ var userMonitor = (function(){
                 //重新绘制左侧选择列表
                 displayAllProc();
             }
+
         }else{
 
             if(isHaveControl(procDef.prDefId)){

@@ -363,7 +363,7 @@ var option3 = {
             fontWeight:'normal'
         },
         textBaseline:'middle',
-        subtext:'Kgce/m2',
+        subtext:'kgce/m2',
         subtextStyle:{
             color:'#333'
         },
@@ -401,7 +401,7 @@ var option4 = {
             fontWeight:'normal'
         },
         textBaseline:'middle',
-        subtext:'Kgce/床',
+        subtext:'kgce/床',
         subtextStyle:{
             color:'#333'
         },
@@ -538,6 +538,31 @@ function getTopPageData(){
         },
         success:function(result){
 
+            console.log(result);
+
+            var html = "";
+
+            $(result).each(function(i,o){
+
+               //获取图片路径
+               var imgUrl =  o.showImgPath;
+
+                html +='<div class="inside-data inside-four">' +
+                            '<p>'+ o.statistName+'</p>' +
+                            '<p class="data">'+ o.statistValue+'</p>' +
+                            '<div class="inside-img" style="background: url(\'../new-resource/img/'+ imgUrl+'\')no-repeat"></div>' +
+                        '</div>';
+
+            });
+
+            //清除浮动
+            html += '<div class="clearfix"></div>';
+
+            $('.left-middle-main1').html(html);
+
+            return false;
+
+
             //初始化一下
             //建筑面积
             $('.inside-data').eq(0).find('.data').html(0);
@@ -547,6 +572,7 @@ function getTopPageData(){
             $('.inside-data').eq(2).find('.data').html(0);
             //职工人数
             $('.inside-data').eq(3).find('.data').html(0);
+
             //给页面中赋值
             if(result.length>0){
 
@@ -1026,7 +1052,7 @@ function getTopPageEnergyData(){
                 var energyName = o.f_EnergyItemName;
 
                 //获取当前单位
-                var energyUnit = 'Kgce';
+                var energyUnit = 'kgce';
 
                 if(energyID != -2){
 
@@ -1829,7 +1855,7 @@ function setEnergyBlock(et,ec){
         et.etname = ec.ecClassName;
         et.img = "totalEneragery.png";
         et.color = "#fee8af";
-        et.etunit = "Kgce";
+        et.etunit = "kgce";
     }else{
         et.etname = "总用" + et.etname + "量";
     }

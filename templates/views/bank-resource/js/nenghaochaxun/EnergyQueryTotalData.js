@@ -7,7 +7,6 @@ $(document).ready(function() {
     // 基于准备好的dom，初始化echarts实例
     //console.log('ok');
 
-
     //点击查询按钮时，获取后台数据
     $('.condition-query .top-refer').on('click',function(){
         //获取查询条件
@@ -21,9 +20,39 @@ $(document).ready(function() {
 
         getMainData();
 
-    })
+    });
 
+    //自定义时间中单选按钮点击事件
+    $('.time-radio').on('change',function(){
 
+        //获取当前被选中的
+        for(var i=0; i<2; i++){
+
+            if($('.time-radio').eq(i).is(":checked")) {
+
+                //按天展示
+                if(i ==0){
+
+                    $('.start-label').html('选择时间:');
+
+                    $('.end-time-input').hide();
+
+                    $('.end-time-input input').val(1);
+
+                //按时间段展示
+                }else{
+
+                    $('.start-label').html('开始时间:');
+
+                    $('.end-time-input').show();
+
+                    $('.end-time-input input').val('');
+
+                }
+            }
+        }
+
+    });
 
 });
 //存放查询对象
@@ -33,6 +62,7 @@ var pointArr = [];
 var typeArr = [];
 //获取能耗查询页面初始数据
 function getStartData(){
+
     //获取查询类别
     $.ajax({
         type: 'get',
@@ -276,6 +306,21 @@ function getMainData(){
 
     selectDate = dateArr[5];
 
+    for(var i=0; i<2; i++){
+
+        if($('.time-radio').eq(i).is(":checked")) {
+
+            //按天展示
+            if(i ==0){
+
+                dateSign = "小时";
+
+                selectDate = "日";
+            }
+
+        }
+    }
+
     //console.log(dateArr);
 
     //console.log(postArr);
@@ -407,6 +452,7 @@ $('.datatimeblock').on('change',function(){
 
 
 });
+
 //关闭时间弹窗时
 $('#choose-date .btn-default').on('click',function(){
 
@@ -418,12 +464,39 @@ $('#choose-date .close').on('click',function(){
     $('.datatimeblock').val('今天');
 
 });
+
 //选定时间后
 $('#choose-date .btn-primary').on('click',function(){
+
+    //获取当前被选中的
+    for(var i=0; i<2; i++){
+
+        if($('.time-radio').eq(i).is(":checked")) {
+
+            //按天展示
+            if(i ==0){
+
+                $('.end-time-input input').val(1);
+
+            }
+        }
+    }
+
 
     if(!checkedNull('#choose-date')){
         return false;
     }
+
+    if($('.end-time-input input').val() == 1){
+
+        var startTime = $('#choose-date .add-input').eq(0).val();
+
+
+        var endTime = moment(startTime).add(1,'day').format('YYYY-MM-DD');
+
+        $('#choose-date .add-input').eq(1).val(endTime);
+    }
+
     var txt1 = $('#choose-date .add-input').eq(0).val();
     var txt2 = $('#choose-date .add-input').eq(1).val();
 

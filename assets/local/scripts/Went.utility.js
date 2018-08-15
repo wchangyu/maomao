@@ -14,8 +14,7 @@ Went.utility.namespace = function(ns){
         current[parts[i]] = current[parts[i]] || {};
         current = current[parts[i]];
     }
-}
-
+};
 
 Went.utility.deepCopy = function(p,c){
     c = c || {};

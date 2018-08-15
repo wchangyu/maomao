@@ -38,10 +38,13 @@ $(function(){
     //获取车站单位客流量排名
     getStataionFootfallRank();
 
+    //右下角车站同比数据
+    getStationCompareData();
+
     //------------------------------------页面点击事件-----------------------------------//
 
     //点击实时能耗上方的按钮变换能耗种类
-    $('.top-cut li a').on('click',function(){
+    $('.real-time-energy .top-cut li a').on('click',function(){
 
         $(this).parents('ul').find('a').removeClass('onClicks');
         $(this).addClass('onClicks');
@@ -51,6 +54,18 @@ $(function(){
 
     });
 
+    //点击右下角车站同比数据上方的按钮变换能耗种类
+    $('.main-right-oness-3  .top-cut li a').on('click',function(){
+
+        $(this).parents('ul').find('a').removeClass('onClicks');
+        $(this).addClass('onClicks');
+
+        //右下角车站同比数据
+        getStationCompareData();
+
+    });
+
+
     //点击能耗分类中的年月日时
     $('.left-tab-container .right-tab').on('click',function(){
 
@@ -59,8 +74,6 @@ $(function(){
          endDate =  getPostTimeByDom('.left-tab-container .right-tab-choose')[1];
 
          selectDateType = getShowDateTypeByDom('.left-tab-container .right-tab-choose')[1];
-
-
 
         //获取实时数据中上方的能耗种类
         getEcTypeByDeploy();
@@ -525,7 +538,6 @@ var option6 = {
         }
     ]
 };
-
 
 // 指定图表的配置项和数据 用于KPI指标
 var option7 = {
@@ -1608,6 +1620,7 @@ function getAllEnergyItemData(){
         "startTime": startDate,
         "endTime": endDate,
         "selectDateType": "日",
+        "energyFlag":1,
         "pointerIDs":  pointerIdArr
     };
 
@@ -1778,8 +1791,11 @@ function getFirstEnergyItemData(){
 //------------------------------------右下角车站单位客流排名-----------------------------------//
 function getStataionFootfallRank(){
 
+    return false;
+
     //获取配置好的能耗类型数据
     var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
     var txt = unitObj.alltypes;
 
     //获取能耗分项ID集合
@@ -1893,6 +1909,198 @@ function getStataionFootfallRank(){
         }
     })
 };
+
+
+//柱状图配置项
+var optionBar = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    grid: {
+        top: 10,
+        bottom: 5,
+        right:2,
+        left:10,
+        containLabel: true
+    },
+    yAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
+    xAxis: {
+        type: 'category',
+        data: ['灼伤大楼','转化医学研究院','儿童住院部','门诊和急诊','外科楼','内科楼']
+    },
+    series : [
+        {
+            name:'本年数据',
+            type:'bar',
+            data:[],
+            itemStyle:{
+                normal:{
+                    color:function(params){
+
+                        var colorList = [
+                            '#0088ec','#999'
+                        ];
+
+                        if(params.value == 20){
+                            return '#999'
+                        }else{
+                            return '#0088ec'
+                        }
+                        //return colorList[params.dataIndex]
+
+                    }
+                }
+
+            },
+            barMaxWidth:35
+        },
+        {
+            name:'上年数据',
+            type:'bar',
+            data:[],
+            itemStyle:{
+                normal:{
+                    color:function(params){
+                        var colorList = [
+                            '#2be4b4','#999'
+                        ];
+
+                        if(params.value == 20){
+                            return '#999'
+                        }else{
+                            return '#2be4b4'
+                        }
+                        //return colorList[params.dataIndex]
+
+                    }
+                }
+            },
+            barMaxWidth:35
+        }
+    ]
+};
+
+//------------------------------------右下角车站同比数据-----------------------------------//
+function getStationCompareData(){
+
+    var startDate = moment().startOf('year').format('YYYY-MM-DD');
+
+    var endDate = moment().add('1','years').startOf('year').format('YYYY-MM-DD');
+
+    //获取要展示的能耗类型
+    var energyType = $('.main-right-oness-3 .top-cut .onClicks').attr('type');
+
+    //根据能耗类型获取分项ID
+    var energyItemCode = getUnitID(energyType);
+
+    //根据能耗类型获取分项单位
+    var unit = getUnitByType(energyType);
+
+    $('.main-right-oness-3 .unit').html(unit);
+
+    //传递给后台的数据
+    var ecParams = {
+        "energyItemID": energyItemCode,
+        "startTime": startDate,
+        "endTime": endDate,
+        "pointerIDs": pointerIdArr
+    };
+
+
+
+    //发送请求
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'EnergyTopPageV2/GetPointerYearEnergyCompareData',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            _myChart0.showLoading();
+        },
+        success:function(result){
+
+            console.log(result);
+
+            //console.log(result);
+            _myChart0.hideLoading();
+
+            //无数据
+            if(result == null || result.length == 0){
+
+                return false;
+            }
+
+
+            //存放图例中数据
+            var legendArr = [];
+
+            //重新给echarts图中添加数据
+            //存放Y轴数据
+            var xArr = [];
+
+            //存放能耗数据
+            var sArr = [];
+
+            var sArr1 = [];
+
+            $(result.compareDatas).each(function(i,o){
+
+                //取前五名展示
+                    var month = i +1 +'月';
+
+                    //重绘Y轴
+                    xArr.push(month);
+
+                    //添加数据
+                    sArr.push(o.currentData.toFixed(1));
+
+
+                    if(o.lastYearData == -1){
+
+                        sArr1.push(20);
+
+                    }else{
+
+                        sArr1.push(o.lastYearData.toFixed(1));
+
+                    }
+
+
+
+
+            });
+
+            optionBar.series[0].data = sArr;
+
+            optionBar.series[1].data = sArr1;
+
+            optionBar.xAxis.data = xArr;
+
+            //console.log(optionBar);
+
+            //页面重绘数据
+            _myChart0.setOption(optionBar,true);
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            _myChart0.hideLoading();
+
+            //错误提示信息
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请求失败', '');
+            }
+
+        }
+    })
+
+}
+
 
 //------------------------------------其他方法-----------------------------------------//
 

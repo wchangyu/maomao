@@ -10,6 +10,7 @@ $(function(){
 
         //表格初始化
         table = $('#datatables').DataTable({
+
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
             "destroy": true,//还原初始化了的datatable
             "searching": true,
@@ -239,6 +240,7 @@ $(function(){
 
         //表格初始化
         table = $('#datatables').DataTable({
+
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
             "destroy": true,//还原初始化了的datatable
             "searching": false,
@@ -422,7 +424,13 @@ $(function(){
                     "data":'dNum',
                     "render":function(data,type,row,meta){
 
-                        return  "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
+                        if(data == null || data == ''){
+
+                            return '无法创建'
+
+                        }else{
+
+                            return  "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
 
                         //if(data == null || data == ''){
                         //
@@ -489,6 +497,7 @@ $(function(){
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
         var row = table.row( tr );
         if ( row.child.isShown() ) {
+
             row.child.hide();
             tr.removeClass('shown');
         }
@@ -497,6 +506,7 @@ $(function(){
             row.child( format(historyArr) ).show();
             tr.addClass('shown');
         }
+
     } );
 
     $('#datatables').on('click','.clickButtons',function(){
@@ -520,6 +530,14 @@ $(function(){
             if(_history[i].pointerID == pointerID && _history[i].cdataID == cdataID){
 
                 _currentArr.push(_history[i].alaLogID);
+
+                var dataArr = _history[i].rowDetailsExcDatas;
+
+                $(dataArr).each(function(i,o){
+
+                    _currentArr.push(o.alaLogID);
+
+                });
 
             }
 
@@ -550,7 +568,7 @@ $(function(){
     });
 
     //按报警类型查询
-    $('.btn-success').on('click',function(){
+    $('#selected').on('click',function(){
 
         //改变报警类型
         excTypeInnderId = $('#alarm-type').val();
@@ -599,7 +617,7 @@ $(function(){
 
         $('#GdNum').html('0');
 
-        $('.gdListInfo').html('<li>无</li>')
+        $('.gdListInfo').html('<li>无</li>');
 
         var prm = {
 
@@ -608,7 +626,8 @@ $(function(){
 
             //cdataId
             cdataid:$(this).attr('data-cdata')
-        }
+
+        };
 
         var _this = $(this);
 
@@ -830,6 +849,7 @@ $(function(){
                 'wxShebei':$('#devBM').val()
 
             }
+        };
 
             $.ajax({
 
@@ -1025,10 +1045,22 @@ function logoToRead (){
     for(var i=0;i<$('.choice').length;i++){
         //if($('.choice').eq(i).parent('.checked'))
         if($('.choice').eq(i).parent('.checked').length != 0){
-            logoToReadID.push($('.choice').eq(i).attr('data-alalogid'));
+
+            var alalogid = $('.choice').eq(i).attr('data-alalogid');
+
+            var alalogIdArr = getAlaLogID(alalogid);
+
+            $(alalogIdArr).each(function(k,o){
+
+                logoToReadID.push(o);
+            });
+
         }
     }
-    console.log(logoToReadID);
+
+
+    //console.log(logoToReadID);
+
     var alaLogIDs = {
         '':logoToReadID
     };
@@ -1045,6 +1077,30 @@ function logoToRead (){
             }
         }
     )
+}
+
+//根据父alaLogID获取子alaLogID
+function getAlaLogID(alaLogID){
+
+    var alaLogIDArr = [];
+
+    $(_history).each(function(i,o){
+
+        if(o.alaLogID == alaLogID){
+
+            var arr = o.rowDetailsExcDatas;
+
+            $(arr).each(function(i,o){
+
+                alaLogIDArr.push(o.alaLogID);
+            });
+
+            return false;
+        }
+
+    });
+
+    return alaLogIDArr;
 }
 
 //报警类型
@@ -1091,7 +1147,7 @@ function format ( d ) {
             '</td><td>' + d[i].alarmSetName+
             '</td><td>' + d[i].cDtnName +
             '</td><td>' + d[i].expression +
-            '</td><td>' + d[i].data +
+            '</td><td>' + d[i].data.toFixed(2) +
             '</td><td>' + d[i].priority +
             '</td></tr>';
     }

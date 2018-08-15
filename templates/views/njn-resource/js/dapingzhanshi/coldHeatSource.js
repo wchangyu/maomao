@@ -798,7 +798,7 @@ function getTDayQs(ew) {
                 },
                 yAxis: {
                     type: 'value',
-                    name:'单位:(kg)'
+                    name:'单位:(m³)'
                 },
                 series: serary
             };

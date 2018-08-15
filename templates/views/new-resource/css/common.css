@@ -350,11 +350,13 @@
     font-size: 1rem;
 }
 
+
 /*中间指示箭头*/
 .rights-up {
     display: inline-block;
     width: 20px;
     height: 40px;
+    position: absolute;
     position: absolute;
     top: 140px;
     left: 117px;

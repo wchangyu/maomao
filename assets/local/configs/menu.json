@@ -1,5 +1,219 @@
 {
   "content": "type:0代表具体菜单,1代表上级菜单;content:显示文本;uri:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;",
+  "能耗统计": {
+    "type": "1",
+    "content": "能耗统计",
+    "iconclass": "icon-camcorder",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
+      "能耗总览": {
+        "type": "2",
+        "content": "能耗总览"
+      },
+      "能耗首页": {
+        "type": "0",
+        "content": "能耗首页",
+        "uri": "../provincial-nenghao/index.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      },
+      "单位信息": {
+        "type": "0",
+        "content": "单位信息",
+        "uri": "../provincial-nenghao/unitTypeMessage.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      },
+      "能耗趋势": {
+        "type": "0",
+        "content": "能耗趋势",
+        "uri": "../provincial-nenghao/energyTrend.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      },
+      "能耗指标统计": {
+        "type": "2",
+        "content": "能耗指标统计"
+      },
+      "区域位置指标": {
+        "type": "0",
+        "content": "区域位置指标",
+        "uri": "../provincial-nenghao/areaTarget.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      },
+      "单位类型指标": {
+        "type": "0",
+        "content": "单位类型指标",
+        "uri": "../provincial-nenghao/unitTarget.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      },
+      "能耗占比统计": {
+        "type": "2",
+        "content": "能耗占比统计"
+      },
+      "区域位置占比": {
+        "type": "0",
+        "content": "区域位置占比",
+        "uri": "../provincial-nenghao/areaProportion.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      },
+      "单位类型占比": {
+        "type": "0",
+        "content": "单位类型占比",
+        "uri": "../provincial-nenghao/unitProportion.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      },
+      "能耗排名统计": {
+        "type": "2",
+        "content": "能耗排名统计"
+      },
+      "区域位置排名": {
+        "type": "0",
+        "content": "区域位置排名",
+        "uri": "../provincial-nenghao/areaRanking.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      },
+      "单位类型排名": {
+        "type": "0",
+        "content": "单位类型排名",
+        "uri": "../provincial-nenghao/unitRanking.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      }
+    }
+  },
+  "能耗查询分析": {
+    "type": "1",
+    "content": "能耗查询分析",
+    "iconclass": "icon-camcorder",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
+      "能耗查询": {
+        "type": "0",
+        "content": "能耗查询",
+        "uri": "../provincial-nenghao/energyDemand.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      },
+      "横向对比": {
+        "type": "0",
+        "content": "横向对比",
+        "uri": "../provincial-nenghao/crosswiseCompare.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      },
+      "同比环比": {
+        "type": "0",
+        "content": "同比环比",
+        "uri": "../provincial-nenghao/energyCompare.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      },
+      "分项分析": {
+        "type": "0",
+        "content": "分项分析",
+        "uri": "../provincial-nenghao/subentry.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      }
+    }
+  },
+  "新闻系统": {
+    "type": "1",
+    "content": "新闻系统",
+    "iconclass": "icon-camcorder",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
+      "添加新闻": {
+        "type": "0",
+        "content": "添加新闻",
+        "uri": "../news/addNews.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "user,admin"
+      },
+      "新闻管理": {
+        "type": "0",
+        "content": "新闻管理",
+        "uri": "../news/manageNews.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "user,admin"
+      },
+      "新闻审批": {
+        "type": "0",
+        "content": "新闻审批",
+        "uri": "../news/examine-news.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      }
+    }
+  },
+  "泳池管理": {
+    "type": "1",
+    "content": "泳池管理",
+    "iconclass": "icon-camcorder",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
+      "录入数据": {
+        "type": "0",
+        "content": "录入数据",
+        "uri": "../mobile-demo/computerImport.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "user"
+      },
+      "数据展示": {
+        "type": "0",
+        "content": "数据展示",
+        "uri": "../mobile-demo/showImportData.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "user"
+      }
+    }
+  },
   "大屏幕": {
     "type": "1",
     "content": "大屏幕",
@@ -89,7 +303,42 @@
       }
     }
   },
-
+  "新闻": {
+    "type": "1",
+    "content": "新闻",
+    "iconclass": "icon-camcorder",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
+      "添加新闻": {
+        "type": "0",
+        "content": "添加新闻",
+        "uri": "../news/news-1.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "栏目管理": {
+        "type": "0",
+        "content": "栏目管理",
+        "uri": "../news/news-2.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "新闻管理": {
+        "type": "0",
+        "content": "新闻管理",
+        "uri": "../news/news-3.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      }
+    }
+  },
   "暖通空调": {
     "type": "1",
     "content": "暖通空调",

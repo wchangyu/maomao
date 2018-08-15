@@ -19,10 +19,8 @@ $(function(){
     //设置初始日期
     $('.datatimeblock').eq(0).val(_dataWeekStart);
 
-
     //设置初始时间
     $('.timeblock').eq(0).val('00:00');
-//
 //
     var _dataEndFact = moment($('.datatimeblock').eq(1).val(_dataWeekEnd)).endOf('week').add(2,'d').format('YYYY/MM/DD');
 

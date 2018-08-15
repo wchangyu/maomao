@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>流程图展示</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="js/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+    <!--loading插件-->
+    <link rel="stylesheet" href="css/showLoading.css"/>
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="../favicon.ico"/>
+    <!--datatables-->
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+    <!--时间插件-->
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/userMonitor/common.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <style>
+        .go-back-btn{
+            min-width: 100px;
+            border-radius: 5px !important;
+            background: darkorchid;
+            color:white;
+            height:40px;
+            line-height: 40px;
+            outline: none;
+            border:none;
+            margin-left:10px;
+        }
+
+        .top-go-back{
+            margin-bottom:10px;
+        }
+
+    </style>
+
+    <script src="js/jquery-1.11.2.js"></script>
+</head>
+<body class="fixed_head " style="background:white;">
+
+<!--<div class="top-go-back">-->
+    <!--<button class="go-back-btn">返回</button>-->
+<!--</div>-->
+
+<!-- 下方左侧流程图 -->
+<div id="right-container">
+
+    <div class="content-main-right" id="content-main-right">
+
+        <!--&lt;!&ndash;浮动显示的控制按钮&ndash;&gt;-->
+        <!--<div class="content-ctrls-show" id="content-ctrls">-->
+
+        <!--</div>-->
+
+        <div class="content-menu-hide" id="content-menu">
+
+            <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
+
+        </div>
+
+    </div>
+</div>
+<script src="../../../assets/local/scripts/underscore-min.js"></script>
+<script src="../../../assets/global/plugins/respond.min.js"></script>
+<script src="../../../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<!--datatable-->
+<script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
+<script src="../resource/TableTools/button/buttons.print.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.buttons.min.js"></script>
+<script src="../resource/TableTools/button/buttons.colVis.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.tableTools.min.js"></script>
+<script src="../resource/TableTools/js/jszip.min.js"></script>
+<script src="../resource/TableTools/js/pdfmake.min.js"></script>
+<script src="../resource/TableTools/js/vfs_fonts.js"></script>
+<script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../../../assets/local/scripts/Went.utility.js"></script>
+<!--时间插件-->
+<script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+
+<!--页面js-->
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/userMonitor.js"></script>
+<script>
+
+    //console.log(sessionStorage.apiUrlPrefix);
+
+    jQuery(document).ready(function() {
+
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+
+        //获取登录信息
+        getLoginMessage();
+    });
+
+
+    //判断用户有无登录权限
+    function getLoginLimits(){
+
+        //获取用户名
+        var  name1 =  window.location.href.split("userId=")[1].split("&")[0];
+
+        //给用户名解密
+        var realName1 = decryptByDESModeEBC(name1);
+
+        sessionStorage.userName = realName1;
+
+        //console.log(realName1);
+
+        var accParams = {"userID":name1};
+
+        var url = sessionStorage.apiUrlPrefix + "Account/GetUserAuthByUserID";
+
+        $.ajax({
+            url:url,
+            type:"get",
+            data:accParams,
+            //async:true,
+            success:function(res){
+
+                //console.log(res);
+
+                 sessionStorage.userAuth = convertAuthTo01Str(res);     //存储权限字符串
+//                    getAllProce(name1);
+
+                console.log(sessionStorage.apiUrlPrefix);
+
+                //获取流程图
+                getMonitor();
+            },
+            error:function(xhr,res,err){
+
+            }
+        });
+    }
+
+    //获取登录信息
+    function getLoginMessage (){
+
+        //首先获取url根目录
+        var _Lurls = window.document.location.href.split('templates')[0];
+
+        //获取存放配置文件的地址
+        var configSrc =  _Lurls + "assets/local/configs/config.json?"+ Math.random();
+
+        $.ajax({
+            url: configSrc,
+            type: 'get',
+            async:false,
+            success: function (data) {
+
+                apiUrlPrefix = data["apiUriPrefix"] || '';
+                sessionStorage.apiUrlPrefix = apiUrlPrefix;
+
+                //登录系统
+                getLoginLimits();
+
+                //console.log(sessionStorage.loginPath)
+            },
+            error: function (xhr, res, err) {
+                //showAlertInfo(err);
+            }
+
+        });
+    };
+
+    //加密的私钥
+    var key = 'huaqincx';
+
+
+    //DES  ECB模式解密
+    function decryptByDESModeEBC(ciphertext) {
+
+        var userId = "";
+
+        $.ajax({
+            url: sessionStorage.apiUrlPrefix + "HBYYG/Analysis",
+            type: 'get',
+            data:{"str":ciphertext},
+            async:false,
+            success: function (data) {
+                //console.log(data);
+                userId = data;
+
+                //console.log(sessionStorage.loginPath)
+            },
+            error: function (xhr, res, err) {
+                //showAlertInfo(err);
+            }
+
+        });
+
+        return userId;
+
+    }
+
+
+    //获取流程图
+    function getMonitor(){
+
+        //获取宽度
+        var  curWidth = 1200;
+
+        //获取高度
+        var curHeight = 800;
+
+        var postSize = curWidth + "," + curHeight;
+
+        userMonitor.init(postSize,false,1);
+
+    }
+
+    //将用户权限转换成01的字符串
+    var convertAuthTo01Str = function(hexstr){
+        var arr = [];
+        var i=0;
+        for(i=0;i<800;i++){
+            arr[i] = "";
+        }
+        var seed = [8,4,2,1];
+        hexstr = hexstr.toUpperCase();
+        var hexStrs = "0123456789ABCDEF";
+        for(i = 0;i < hexstr.length;i++){
+            var ic = hexStrs.indexOf(hexstr.charAt(i));
+            for(var d = 0; d < 4; d++){
+                var r = ic & seed[d];
+                arr[i * 4 + d] = r == 0 ? "0" : "1";
+            }
+        }
+        return arr.join("");
+    };
+
+    //返回按钮
+    $('.go-back-btn').on('click',function(){
+
+        window.history.go(-1);
+    });
+
+</script>
+</body>
+</html>

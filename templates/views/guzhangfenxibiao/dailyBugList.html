@@ -274,10 +274,26 @@
                                     <li class="main-contents-header-lists0">报表管理</li>
                                 </ul>
                                 <ul class="condition-query condition-query1 noprint">
+                                    <!--<li style="line-height: 26px;">-->
+                                        <!--<label for="">截止日期：</label>-->
+                                        <!--<div class="input-blocked">-->
+                                            <!--<input type="text" class="datatimeblock min">-->
+                                        <!--</div>-->
+                                        <!--<div class="input-blocked inline-block1">-->
+                                            <!--<input type="text" class="timeblock">-->
+                                        <!--</div>-->
+                                    <!--</li>-->
                                     <li style="line-height: 26px;">
-                                        <label for="">截止日期：</label>
+                                        <label for="">时段选择：</label>
                                         <div class="input-blocked">
                                             <input type="text" class="datatimeblock min">
+                                        </div>
+                                        <div class="input-blocked inline-block1">
+                                            <input type="text" class="timeblock">
+                                        </div>
+                                        <label for="">--</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="datatimeblock max">
                                         </div>
                                         <div class="input-blocked inline-block1">
                                             <input type="text" class="timeblock">
@@ -313,7 +329,7 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li style="line-height: 30px;">
+                                    <li style="line-height: 30px;display: none">
                                         <label for="">未修复时段：</label>
                                         <div class="input-blocked" style="height:32px">
                                             <select name="" id="no-repair" value="72">
@@ -324,7 +340,7 @@
                                         </div>
 
                                     </li>
-                                    <li style="line-height: 30px;">
+                                    <li style="line-height: 30px;display: none">
                                         <label for="">报修截止时间：</label>
                                         <div class="input-blocked" style="height:32px">
                                             <select name="" id="report-repair" value="12">
@@ -344,7 +360,7 @@
                                     <li><button class="btn btn-success excelButton11" style="display: none">导出</button></li>
                                     <div class="clearfix"></div>
                                 </ul>
-                                <div class="table-block-title">江西铁路实业发展有限公司客服设备设施本日故障分析表</div>
+                                <div class="table-block-title">江西铁路实业发展有限公司客服设备设施故障分析表</div>
                                 <div style="overflow: hidden;position: relative">
                                     <div class="statistical-time">统计时间：<span class="startTime">2017年6月11日18时0分</span> 至 <span class="endTime">2017年6月12日18时0分</span></div>
                                     <div class="table-title">
@@ -358,7 +374,7 @@
                                             <div class="main-contents-table">
                                                 <table id="failure-reporting" class="table table-striped table-bordered  table-hover" cellspacing="0" width="100%">
                                                     <caption style="font-size: 18px;color: #777;">
-                                                        一、本日客服设备故障上报及处理情况：
+                                                        一、客服设备故障上报及处理情况：
                                                         <span class="title-info">各站段共报修客服设备故障<span class="goods-num"></span>件，其中：</span>
                                                     </caption>
                                                     <thead>
@@ -390,7 +406,7 @@
                                             <div class="main-contents-table">
                                                 <table id="failure-info" class="table table-striped table-bordered  table-hover" cellspacing="0" width="100%">
                                                     <caption style="font-size: 18px;color: #777;">
-                                                        三、本日发现或反馈的客服设备惯性、典型（重点）故障情况：
+                                                        三、发现或反馈的客服设备惯性、典型（重点）故障情况：
                                                     </caption>
                                                     <thead>
                                                     </thead>

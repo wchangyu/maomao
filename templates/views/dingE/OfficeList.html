@@ -14,39 +14,15 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!--MY STYLE-->
-    <link rel="stylesheet" href="../resource/css/leftBat.css">
-    <link rel="stylesheet" href="../resource/css/index.css">
-    <script src="../resource/js/jquery-1.11.2.js"></script>
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
 
-    <script src="../../../assets/local/scripts/underscore-min.js"></script>
-    <script src="../resource/js/pointersoffices.js"></script>
-    <script src="../resource/js/moment.js"></script>
-    <script src="../resource/js/showOrHidden.js"></script>
-    <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
-    <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-    <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
-    <!-- END GLOBAL MANDATORY STYLES -->
-    <!-- BEGIN THEME STYLES -->
-    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
-    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-    <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
-    <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
-    <!-- END THEME STYLES -->
-    <link rel="shortcut icon" href="../favicon.ico"/>
-    <!--非框架中的样式-->
-    <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/lib/jquery.dataTables.min.css"/>
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/index.css">
     <link rel="stylesheet" href="css/lib/lanrenzhijia.css">
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="css/OfficeList.css">
-
     <style>
         .inner-input{
             text-align:left;
@@ -54,101 +30,25 @@
             margin-bottom:0px;
             margin-left:20px;
         }
+        .showOrHidden{
+            display: none;
+        }
     </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
-<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
-<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
-<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
-<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
-<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
-<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
-<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
-<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
-<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
 <body class="page-header-fixed page-quick-sidebar-over-content">
 <!-- BEGIN HEADER -->
-<div class="page-header navbar navbar-fixed-top">
-    <!-- BEGIN HEADER INNER -->
-    <div class="page-header-inner">
-        <!-- BEGIN LOGO -->
-        <div class="page-logo">
-            <a href="./EnergyQueryTotalData.html">
-                <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default"/>
-            </a>
-            <div class="menu-toggler sidebar-toggler hide">
-                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-            </div>
-        </div>
-        <!-- END LOGO -->
-        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-        </a>
-        <!-- END RESPONSIVE MENU TOGGLER -->
-        <!-- BEGIN TOP NAVIGATION MENU -->
-        <div class="totalTitle"></div>
-        <div class="top-menu">
-            <ul class="nav navbar-nav pull-right">
-                <!-- BEGIN NOTIFICATION DROPDOWN -->
-                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <i class="icon-bell"></i>
-					<span class="badge badge-danger">
-					0 </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="external">
-                            <h3><span class="bold">0 </span> 当日报警</h3>
-                            <a href="../baojingyujing/warningAlarm-3.html">查看详细</a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- END NOTIFICATION DROPDOWN -->
+<div id="head-html"> </div>
 
-                <!-- BEGIN USER LOGIN DROPDOWN -->
-                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                <li class="dropdown dropdown-user">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-					<span class="username username-hide-on-mobile">
-					</span>
-                        <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-default">
-                        <li>
-                            <a class="logout-page" href="../login.html">
-                                <i class="icon-key"></i> 退出 </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- END USER LOGIN DROPDOWN -->
-                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                <!-- END QUICK SIDEBAR TOGGLER -->
-            </ul>
-        </div>
-        <!-- END TOP NAVIGATION MENU -->
-    </div>
-    <!-- END HEADER INNER -->
-</div>
-<!-- END HEADER -->
-<div class="clearfix">
-</div>
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
+
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar-wrapper">
-        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+
         <div class="page-sidebar navbar-collapse collapse">
-            <!-- BEGIN SIDEBAR MENU -->
-            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+
             <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                 <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
                 <li class="sidebar-toggler-wrapper">
@@ -161,80 +61,14 @@
             <!-- END SIDEBAR MENU -->
         </div>
     </div>
+
     <!-- END SIDEBAR -->
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <div class="page-content">
-            <!-- BEGIN STYLE CUSTOMIZER -->
-            <div class="theme-panel hidden-xs hidden-sm">
-                <div class="toggler">
-                </div>
-                <div class="toggler-close">
-                </div>
-                <div class="theme-options">
-                    <div class="theme-option theme-colors clearfix">
-						<span>
-						配色 </span>
-                        <ul>
-                            <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="默认">
-                            </li>
-                            <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="蓝黑">
-                            </li>
-                            <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="蓝色">
-                            </li>
-                            <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="theme-option">
-						<span>
-						布局 </span>
-                        <select class="layout-option form-control input-sm">
-                            <option value="fluid" selected="selected">平铺</option>
-                            <option value="boxed">盒式</option>
-                        </select>
-                    </div>
 
-                    <div class="theme-option">
-						<span>
-						侧边菜单 </span>
-                        <select class="sidebar-menu-option form-control input-sm">
-                            <option value="accordion" selected="selected">手风琴式</option>
-                            <option value="hover">鼠标悬停</option>
-                        </select>
-                    </div>
-                    <div class="theme-option">
-						<span>
-						侧边位置 </span>
-                        <select class="sidebar-pos-option form-control input-sm">
-                            <option value="left" selected="selected">左</option>
-                            <option value="right">右</option>
-                        </select>
-                    </div>
-                    <div class="theme-option">
-						<span>
-						底部 </span>
-                        <select class="page-footer-option form-control input-sm">
-                            <option value="fixed">位置固定</option>
-                            <option value="default" selected="selected">默认</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <!-- END STYLE CUSTOMIZER -->
-            <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title"></h3>
-            <div class="page-bar">
-                <ul class="page-breadcrumb">
-                    <li>
-                        <i class="fa fa-home"></i>
+            <div id="menu-html"></div>
 
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                </ul>
-                <div class="page-toolbar">
-                </div>
-            </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
@@ -308,415 +142,419 @@
                     </div>
                 </div>
             </div>
-            <!-- END PAGE CONTENT-->
         </div>
+        <!-- END PAGE CONTENT-->
     </div>
+</div>
 
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
 
-    <!--新增二级单位弹窗-->
-    <div class="modal fade " id="add-unit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog add-window" style="min-width:1094px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <div class="add-title">新增二级单位</div>
-                    <div class="add-main-content">
-                        <div class="row first-row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
-                                <label for="" class="input-label ">代码：</label>
+<!--新增二级单位弹窗-->
+<div class="modal fade " id="add-unit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog add-window" style="min-width:1094px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <div class="add-title">新增二级单位</div>
+                <div class="add-main-content">
+                    <div class="row first-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
+                            <label for="" class="input-label ">代码：</label>
 
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input">
-                                </div>
+                            <div class="add-input-block">
+                                <input type="text" class="add-input">
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
-                                <label for="" class="input-label">单位名称：</label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
+                            <label for="" class="input-label">单位名称：</label>
 
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input">
-                                </div>
+                            <div class="add-input-block">
+                                <input type="text" class="add-input">
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
-                                <label for="" class="input-label">单位性质：</label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
+                            <label for="" class="input-label">单位性质：</label>
 
-                                <div class="add-input-father" style="margin-left:10px">
-                                    <div class="add-input-block" style="margin-left:0">
-                                        <div type="text" class="add-input add-input-select" style="">
-                                            <span></span>
-                                            <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
-                                        </div>
+                            <div class="add-input-father" style="margin-left:10px">
+                                <div class="add-input-block" style="margin-left:0">
+                                    <div type="text" class="add-input add-input-select" style="">
+                                        <span></span>
+                                        <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
                                     </div>
-                                    <ul class="add-select-block" style="display: none;z-index:1000">
-                                        <li>电</li>
-                                        <li>水</li>
-                                        <li>气</li>
-                                        <li>冷</li>
-                                        <li>暖</li>
-                                    </ul>
                                 </div>
+                                <ul class="add-select-block" style="display: none;z-index:1000">
+                                    <li>电</li>
+                                    <li>水</li>
+                                    <li>气</li>
+                                    <li>冷</li>
+                                    <li>暖</li>
+                                </ul>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
-                                <label for="" class="input-label">负责人姓名：</label>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
+                            <label for="" class="input-label">负责人姓名：</label>
 
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input">
-                                </div>
+                            <div class="add-input-block">
+                                <input type="text" class="add-input">
                             </div>
-
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input type-phone">
-                                <label for="">负责人电话：</label>
-
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
-                                <label for="" class="input-label">单位用能系数：</label>
-                                <div class="add-input-father" style="margin-left:10px">
-                                    <div class="add-input-block" style="margin-left:0">
-                                        <div type="text" class="add-input add-input-select" style="">
-                                            <span></span>
-                                            <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
-                                        </div>
-                                    </div>
-                                    <ul class="add-select-block" style="display: none;z-index:1000">
-                                        <li>电</li>
-                                        <li>水</li>
-                                        <li>气</li>
-                                        <li>冷</li>
-                                        <li>暖</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
-                                <label for="" >单位房间：</label>
-
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input1  type-number">
-                                <label for="" >单位面积：</label>
-
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input type-number">
-                                <label for="">百分比减免：</label>
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input2 open-time">
-                                <label for="">开户时间：</label>
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input chooseDate ">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input2 establish-time" >
-                                <label for="">成立时间：</label>
-
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input chooseDate">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
-                                <label for="">备注字段1：</label>
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input type-long">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input" >
-                                <label for="">备注字段2：</label>
-
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input type-long">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input" >
-                                <label for="">备注字段3：</label>
-
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input type-long">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input" >
-                                <label for="">备注字段4：</label>
-
-                                <div class="add-input-block">
-                                    <input type="text" class="add-input type-long">
-                                </div>
-                            </div>
-
                         </div>
 
-                        <div class="row" style="margin-right:0px">
-                            <div  class="col-lg-12 col-md-12  bottom-div">
-                                <div class="wrap">
-                                    <div class="tabs tabs0">
-                                        <a href="#" hidefocus="true" class="active">选择人员类别</a>
-                                        <a href="#" hidefocus="true">手工调整配置</a>
-                                        <a href="#" hidefocus="true">选择计费方案</a>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input type-phone">
+                            <label for="">负责人电话：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
+                            <label for="" class="input-label">单位用能系数：</label>
+                            <div class="add-input-father" style="margin-left:10px">
+                                <div class="add-input-block" style="margin-left:0">
+                                    <div type="text" class="add-input add-input-select" style="">
+                                        <span></span>
+                                        <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
                                     </div>
-                                    <div class="swiper-container">
-                                        <!--人员类别-->
-                                        <div class="add-deploy" style="display: block">
-                                            <form action="" method="get" class="deploy-form" style="margin-bottom:20px">
+                                </div>
+                                <ul class="add-select-block" style="display: none;z-index:1000">
+                                    <li>电</li>
+                                    <li>水</li>
+                                    <li>气</li>
+                                    <li>冷</li>
+                                    <li>暖</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
+                            <label for="" >单位房间：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input1  type-number">
+                            <label for="" >单位面积：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input type-number">
+                            <label for="">百分比减免：</label>
+                            <div class="add-input-block">
+                                <input type="text" class="add-input">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input2 open-time">
+                            <label for="">开户时间：</label>
+                            <div class="add-input-block">
+                                <input type="text" class="add-input chooseDate ">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input2 establish-time" >
+                            <label for="">成立时间：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input chooseDate">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input">
+                            <label for="">备注字段1：</label>
+                            <div class="add-input-block">
+                                <input type="text" class="add-input type-long">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input" >
+                            <label for="">备注字段2：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input type-long">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input" >
+                            <label for="">备注字段3：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input type-long">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  inner-input" >
+                            <label for="">备注字段4：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input type-long">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" style="margin-right:0px">
+                        <div  class="col-lg-12 col-md-12  bottom-div">
+                            <div class="wrap">
+                                <div class="tabs tabs0">
+                                    <a href="#" hidefocus="true" class="active">选择人员类别</a>
+                                    <a href="#" hidefocus="true">手工调整配置</a>
+                                    <a href="#" hidefocus="true">选择计费方案</a>
+                                </div>
+                                <div class="swiper-container">
+                                    <!--人员类别-->
+                                    <div class="add-deploy" style="display: block">
+                                        <form action="" method="get" class="deploy-form" style="margin-bottom:20px">
 
 
-                                                <div class="row" style="margin-top:15px">
-                                                    <div class="col-lg-6  inner-input person-type" >
-                                                        <label for=""  class="input-label">人员类别：</label>
+                                            <div class="row" style="margin-top:15px">
+                                                <div class="col-lg-6  inner-input person-type" >
+                                                    <label for=""  class="input-label">人员类别：</label>
 
-                                                        <div class="add-input-father" style="margin-left:10px">
-                                                            <div class="add-input-block" style="margin-left:0">
-                                                                <div type="text" class="add-input add-input-select" style="">
-                                                                    <span></span>
-                                                                    <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
-                                                                </div>
+                                                    <div class="add-input-father" style="margin-left:10px">
+                                                        <div class="add-input-block" style="margin-left:0">
+                                                            <div type="text" class="add-input add-input-select" style="">
+                                                                <span></span>
+                                                                <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
                                                             </div>
-                                                            <ul class="add-select-block" style="display: none;z-index:1000">
-                                                                <li>电</li>
-                                                                <li>水</li>
-                                                                <li>气</li>
-                                                                <li>冷</li>
-                                                                <li>暖</li>
-                                                            </ul>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-6   inner-input add-sign type-number" style="margin-bottom:6px">
-                                                        <label for="" class="input-label">人数或人时：</label>
-
-                                                        <div class="add-input-block">
-                                                            <input type="text" class="add-input">
-                                                        </div>
-                                                        <img src="img/add.png" alt="" class="add-person-table">
-                                                    </div>
-
-                                                </div>
-
-
-                                            </form>
-                                            <!--展示表格-->
-                                            <div class="main-content-table" style="height:500px">
-                                                <h3 class="table-heads">已选人员类别列表</h3>
-                                                <table class="table table-striped" id="dateTables2">
-                                                    <thead>
-
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div style>
-                                        <!--手工调整值-->
-                                        <div class="add-deploy" style="display: none">
-
-                                            <div class="clears" style="height:20px"></div>
-                                            <!--填写内容-->
-                                            <form action="" method="get" class="deploy-form choose-radio">
-                                                <label style="margin-left:20px">
-                                                    <input class="chooseIt" name="Fruit" type="radio" value="0" checked="'checked"/>已禁用
-                                                </label>
-                                                <label>
-                                                    <input class="chooseIt" name="Fruit" type="radio" value="1" />启用加减微调
-                                                </label>
-                                                <label>
-                                                    <input class="chooseIt" name="Fruit" type="radio" value="2" />启用人工修订
-                                                </label>
-
-                                                <div class="row">
-                                                    <h2>按照用能指标类别及对应人数计算得出定额量</h2>
-                                                </div>
-
-                                                <div class="row" style="display: none">
-                                                    <div class="col-lg-6 col-xs-6 inner-input energy-type" style="text-ali">
-                                                        <label for=""  class="input-label">能耗类型：</label>
-
-                                                        <div class="add-input-father" style="margin-left:10px">
-                                                            <div class="add-input-block" style="margin-left:0">
-                                                                <div type="text" class="add-input add-input-select" style="">
-                                                                    <span></span>
-                                                                    <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
-                                                                </div>
-                                                            </div>
-                                                            <ul class="add-select-block" style="display: none;z-index:1000">
-                                                                <li>电</li>
-                                                                <li>水</li>
-                                                                <li>气</li>
-                                                                <li>冷</li>
-                                                                <li>暖</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-xs-6  inner-input type-number">
-                                                        <label for="" class="input-label" style="width:140px;margin-right:20px">年加减微调值：</label>
-
-                                                        <div class="add-input-block">
-                                                            <input type="text" class="add-input">
-                                                        </div>
-
-
-                                                    </div>
-                                                    <div class="col-lg-10 col-xs-10 inner-input add-sign">
-                                                        <label for="" >调整备注：</label>
-
-                                                        <div class="add-input-block">
-                                                            <input type="text" class="add-input">
-                                                        </div>
-                                                        <img src="img/add.png" alt="" class="small-adjust">
+                                                        <ul class="add-select-block" style="display: none;z-index:1000">
+                                                            <li>电</li>
+                                                            <li>水</li>
+                                                            <li>气</li>
+                                                            <li>冷</li>
+                                                            <li>暖</li>
+                                                        </ul>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-6   inner-input add-sign type-number" style="margin-bottom:6px">
+                                                    <label for="" class="input-label">人数或人时：</label>
 
-                                                <div class="row" style="display: none">
-                                                    <div class="col-lg-6 col-xs-6 inner-input energy-type" style="text-ali">
-                                                        <label for=""  class="input-label">能耗类型：</label>
-
-                                                        <div class="add-input-father" style="margin-left:10px">
-                                                            <div class="add-input-block" style="margin-left:0">
-                                                                <div type="text" class="add-input add-input-select" style="">
-                                                                    <span></span>
-                                                                    <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
-                                                                </div>
-                                                            </div>
-                                                            <ul class="add-select-block" style="display: none;z-index:1000">
-                                                                <li>电</li>
-                                                                <li>水</li>
-                                                                <li>气</li>
-                                                                <li>冷</li>
-                                                                <li>暖</li>
-                                                            </ul>
-                                                        </div>
+                                                    <div class="add-input-block">
+                                                        <input type="text" class="add-input">
                                                     </div>
-                                                    <div class="col-lg-6  col-xs-6 inner-input type-number">
-                                                        <label for="" class="input-label" style="width:140px;margin-right:20px">用能年定额量：</label>
-
-                                                        <div class="add-input-block">
-                                                            <input type="text" class="add-input">
-                                                        </div>
-
-
-                                                    </div>
-                                                    <div class="col-lg-10 col-xs-10 inner-input add-sign">
-                                                        <label for="" >调整备注：</label>
-
-                                                        <div class="add-input-block">
-                                                            <input type="text" class="add-input">
-                                                        </div>
-                                                        <img src="img/add.png" alt="" class="quota-adjust">
-                                                    </div>
+                                                    <img src="img/add.png" alt="" class="add-person-table">
                                                 </div>
-
-                                            </form>
-                                            <!--展示表格-->
-
-                                            <div class="main-content-table choose-tables" style="display:none;height: 0">
 
                                             </div>
 
-                                            <div class="main-content-table choose-tables" style="display:none">
-                                                <h3 class="table-heads">已选定额加减微调列表</h3>
-                                                <table class="table table-striped" id="dateTables1">
-                                                    <thead>
 
-                                                    </thead>
-                                                    <tbody>
+                                        </form>
+                                        <!--展示表格-->
+                                        <div class="main-content-table" style="height:500px">
+                                            <h3 class="table-heads">已选人员类别列表</h3>
+                                            <table class="table table-striped" id="dateTables2">
+                                                <thead>
 
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                </thead>
+                                                <tbody>
 
-                                            <div class="main-content-table choose-tables" style="display:none">
-                                                <h3 class="table-heads">已选定额人工修订列表</h3>
-                                                <table class="table table-striped" id="dateTables11">
-                                                    <thead>
-
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <!--计费方式-->
-                                        <div class="add-deploy" style="display:none" >
-                                            <form action="" method="get" class="deploy-form" style="margin-bottom:20px">
+                                    </div style>
+                                    <!--手工调整值-->
+                                    <div class="add-deploy" style="display: none">
 
+                                        <div class="clears" style="height:20px"></div>
+                                        <!--填写内容-->
+                                        <form action="" method="get" class="deploy-form choose-radio">
+                                            <label style="margin-left:20px">
+                                                <input class="chooseIt" name="Fruit" type="radio" value="0" checked="'checked"/>已禁用
+                                            </label>
+                                            <label>
+                                                <input class="chooseIt" name="Fruit" type="radio" value="1" />启用加减微调
+                                            </label>
+                                            <label>
+                                                <input class="chooseIt" name="Fruit" type="radio" value="2" />启用人工修订
+                                            </label>
 
-                                                <div class="row">
-                                                    <div class="col-lg-6  inner-input energy-type" style="margin-top:25px">
-                                                        <label for=""  class="input-label">能耗类型：</label>
+                                            <div class="row">
+                                                <h2>按照用能指标类别及对应人数计算得出定额量</h2>
+                                            </div>
 
-                                                        <div class="add-input-father" style="margin-left:10px">
-                                                            <div class="add-input-block" style="margin-left:0">
-                                                                <div type="text" class="add-input add-input-select" style="">
-                                                                    <span class=""></span>
-                                                                    <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
-                                                                </div>
+                                            <div class="row" style="display: none">
+                                                <div class="col-lg-6 col-xs-6 inner-input energy-type" style="text-ali">
+                                                    <label for=""  class="input-label">能耗类型：</label>
+
+                                                    <div class="add-input-father" style="margin-left:10px">
+                                                        <div class="add-input-block" style="margin-left:0">
+                                                            <div type="text" class="add-input add-input-select" style="">
+                                                                <span></span>
+                                                                <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
                                                             </div>
-                                                            <ul class="add-select-block  change-count" style="display: none;z-index:1000">
-                                                                <li>电</li>
-                                                                <li>水</li>
-                                                                <li>气</li>
-                                                                <li>冷</li>
-                                                                <li>暖</li>
-                                                            </ul>
                                                         </div>
+                                                        <ul class="add-select-block" style="display: none;z-index:1000">
+                                                            <li>电</li>
+                                                            <li>水</li>
+                                                            <li>气</li>
+                                                            <li>冷</li>
+                                                            <li>暖</li>
+                                                        </ul>
                                                     </div>
-                                                    <div class="col-lg-6  inner-input count-type" style="margin-bottom:10px; margin-top:30px">
-                                                        <label for=""  class="input-label">计费方案：</label>
+                                                </div>
+                                                <div class="col-lg-6 col-xs-6  inner-input type-number">
+                                                    <label for="" class="input-label" style="width:140px;margin-right:20px">年加减微调值：</label>
 
-                                                        <div class="add-input-father" style="margin-left:10px">
-                                                            <div class="add-input-block" style="margin-left:0">
-                                                                <div type="text" class="add-input add-input-select" style="">
-                                                                    <span></span>
-                                                                    <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
-                                                                </div>
-                                                            </div>
-                                                            <ul class="add-select-block" style="display: none;z-index:1000">
-                                                                <li>方案1</li>
-                                                                <li>方案2</li>
-
-                                                            </ul>
-                                                        </div>
-                                                        <img src="img/add.png" alt="" class="price-group">
+                                                    <div class="add-input-block">
+                                                        <input type="text" class="add-input">
                                                     </div>
+
 
                                                 </div>
+                                                <div class="col-lg-10 col-xs-10 inner-input add-sign">
+                                                    <label for="" >调整备注：</label>
 
-
-                                            </form>
-                                            <!--展示表格-->
-                                            <div class="main-content-table" style="height:400px;">
-                                                <h3 class="table-heads">已选计费方案列表</h3>
-                                                <table class="table table-striped" id="dateTables9">
-                                                    <thead>
-
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
+                                                    <div class="add-input-block">
+                                                        <input type="text" class="add-input">
+                                                    </div>
+                                                    <img src="img/add.png" alt="" class="small-adjust">
+                                                </div>
                                             </div>
+
+                                            <div class="row" style="display: none">
+                                                <div class="col-lg-6 col-xs-6 inner-input energy-type" style="text-ali">
+                                                    <label for=""  class="input-label">能耗类型：</label>
+
+                                                    <div class="add-input-father" style="margin-left:10px">
+                                                        <div class="add-input-block" style="margin-left:0">
+                                                            <div type="text" class="add-input add-input-select" style="">
+                                                                <span></span>
+                                                                <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="add-select-block" style="display: none;z-index:1000">
+                                                            <li>电</li>
+                                                            <li>水</li>
+                                                            <li>气</li>
+                                                            <li>冷</li>
+                                                            <li>暖</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6  col-xs-6 inner-input type-number">
+                                                    <label for="" class="input-label" style="width:140px;margin-right:20px">用能年定额量：</label>
+
+                                                    <div class="add-input-block">
+                                                        <input type="text" class="add-input">
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-lg-10 col-xs-10 inner-input add-sign">
+                                                    <label for="" >调整备注：</label>
+
+                                                    <div class="add-input-block">
+                                                        <input type="text" class="add-input">
+                                                    </div>
+                                                    <img src="img/add.png" alt="" class="quota-adjust">
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                        <!--展示表格-->
+
+                                        <div class="main-content-table choose-tables" style="display:none;height: 0">
+
+                                        </div>
+
+                                        <div class="main-content-table choose-tables" style="display:none">
+                                            <h3 class="table-heads">已选定额加减微调列表</h3>
+                                            <table class="table table-striped" id="dateTables1">
+                                                <thead>
+
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="main-content-table choose-tables" style="display:none">
+                                            <h3 class="table-heads">已选定额人工修订列表</h3>
+                                            <table class="table table-striped" id="dateTables11">
+                                                <thead>
+
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!--计费方式-->
+                                    <div class="add-deploy" style="display:none" >
+                                        <form action="" method="get" class="deploy-form" style="margin-bottom:20px">
+
+
+                                            <div class="row">
+                                                <div class="col-lg-6  inner-input energy-type" style="margin-top:25px">
+                                                    <label for=""  class="input-label">能耗类型：</label>
+
+                                                    <div class="add-input-father" style="margin-left:10px">
+                                                        <div class="add-input-block" style="margin-left:0">
+                                                            <div type="text" class="add-input add-input-select" style="">
+                                                                <span class=""></span>
+                                                                <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="add-select-block  change-count" style="display: none;z-index:1000">
+                                                            <li>电</li>
+                                                            <li>水</li>
+                                                            <li>气</li>
+                                                            <li>冷</li>
+                                                            <li>暖</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6  inner-input count-type" style="margin-bottom:10px; margin-top:30px">
+                                                    <label for=""  class="input-label">计费方案：</label>
+
+                                                    <div class="add-input-father" style="margin-left:10px">
+                                                        <div class="add-input-block" style="margin-left:0">
+                                                            <div type="text" class="add-input add-input-select" style="">
+                                                                <span></span>
+                                                                <div class="add-input-arrow" style="transform: rotate(180deg);"></div>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="add-select-block" style="display: none;z-index:1000">
+                                                            <li>方案1</li>
+                                                            <li>方案2</li>
+
+                                                        </ul>
+                                                    </div>
+                                                    <img src="img/add.png" alt="" class="price-group">
+                                                </div>
+
+                                            </div>
+
+
+                                        </form>
+                                        <!--展示表格-->
+                                        <div class="main-content-table" style="height:400px;">
+                                            <h3 class="table-heads">已选计费方案列表</h3>
+                                            <table class="table table-striped" id="dateTables9">
+                                                <thead>
+
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary top-btn">提交更改</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary top-btn">提交更改</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <!--查看定额弹窗-->
 <div class='modal fade' id='quota' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
     <div class='modal-dialog quota-window' style="min-width:707px;">
@@ -809,7 +647,7 @@
         </div>
     </div>
 </div>
-</div>
+
 
 <!--查看定额窗口中添加按钮弹窗-->
 <div class='modal fade' id='indexSort' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
@@ -1454,8 +1292,6 @@
     </div>
 </div>
 
-
-
 <!--修改新增弹窗中的加减微调-->
 <div class='modal fade' id='small-adjust' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
     <div class='modal-dialog'style='width:30%;margin:15% auto;min-width:250px'>
@@ -1978,70 +1814,29 @@
     </div>
 </div>
 
-<!-- END CONTENT -->
-<!-- BEGIN QUICK SIDEBAR -->
-<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
-<!-- END QUICK SIDEBAR -->
-</div>
-<!-- END CONTAINER -->
-<!-- BEGIN FOOTER -->
-<div class="page-footer">
-    <div class="page-footer-inner">
-        2016 &copy; Huaqin.
-    </div>
-    <div class="scroll-to-top">
-        <i class="icon-arrow-up"></i>
-    </div>
-</div>
-
 
 <!-- END FOOTER -->
-<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-<!-- BEGIN CORE PLUGINS -->
-<!--[if lt IE 9]>
-<script src="../../../assets/global/plugins/respond.min.js"></script>
-<script src="../../../assets/global/plugins/excanvas.min.js"></script>
-<![endif]-->
-<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
-<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-<script src="../../../assets/local/scripts/BEE.js"></script>
-<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
-<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
-<!--非框架中js-->
-<script src="../bank-resource/js/lib/bootstrap-datepicker.js"></script>
-<script src="../bank-resource/js/lib/moment.min.js"></script>
-<script rel="stylesheet" src="../bank-resource/js/lib/echarts.common.min.js"></script>
-<script rel="stylesheet" src="../bank-resource/js/lib/jquery.dataTables.min.js"></script>
-
-
-<script src="./js/commonIP.js"></script>
-<script src="js/OfficeList.js"></script>
-
 <script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
-        BEE.init();
         Layout.init(); // init current layout
         Demo.init(); // init demo features
-
+        BEE.init();
     });
+
 </script>
-
-
-
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../resource/js/alarm.js"></script>
+<script src="js/lib/jQuery.Hz2Py-min.js"  type="text/javascript"></script>
+<script src="./js/commonIP.js"></script>
+<script src="js/OfficeList.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

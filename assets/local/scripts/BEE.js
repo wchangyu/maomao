@@ -78,7 +78,6 @@ var BEE = (function(){
                 url = url.split("?")[0];
 
 
-
             }
 
     _LurlLength= url.split('templates')[1].split('/').length-1;
@@ -122,6 +121,7 @@ var BEE = (function(){
                 getHTMLFromMenu(string1, $sidebar);
                 sessionStorage.curMenuStr = JSON.stringify(string1);
             }else{
+
                 getHTMLFromMenu(JSON.parse(str), $sidebar);
                 sessionStorage.curMenuStr = str;
             }
@@ -423,7 +423,7 @@ var BEE = (function(){
                 cameraAlarmHistory();
 
                 //对页面右上角当前重要信息进行重绘
-                modificationImportInfo(ifHintVoice);
+                modificationImportInfo(ifHintVoice,true);
 
                 var now = new Date();
                 sessionStorage.alaInsDataTime = now.toString();      //存储当前的数据载入时间
@@ -489,6 +489,7 @@ var BEE = (function(){
                 sessionStorage.alaDataLength = dataLength;
                 var alarmAlert = sessionStorage.alarmAlert || 0;
                 var alarmSong = sessionStorage.alarmSong || 0;
+
                 //声音
                 var audioStr = '<audio src="'+_loginSlash+'../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" style="display: none"></audio>';
 
@@ -534,8 +535,8 @@ var BEE = (function(){
 
     var timename2;
 
-    //对页面右上角当前重要信息进行重绘
-    var modificationImportInfo = function(ifHintVoice){
+    //对页面右上角当前重要信息进行重绘 flag 为true 则不循环调用
+    var modificationImportInfo = function(ifHintVoice,flag){
 
         //定义给悬浮窗中插入的信息
         var infoHtml = '<li class="top-close" style="padding-right: 10px;height:10px;background: #eaedf2;padding-top: 3px;overflow: hidden;box-sizing: content-box"><strong class="close" style="display: inline-block;background: url(\'../resource/img/close.png\') no-repeat center;background-size:100%" ></strong></li>';
@@ -623,6 +624,13 @@ var BEE = (function(){
                             infoHtml += addInfoMessage(num3,'待闭环','productionOrder-8.html','../gongdangunali/');
                         }
 
+                        //声音
+                        if(num1 > 0 || num2 > 0 || num3 > 0){
+
+                            ifHintVoice = true;
+                        }
+
+
 
                         //给悬浮窗插入指定信息
                         $dropdownMenu.html(infoHtml);
@@ -640,6 +648,7 @@ var BEE = (function(){
                         //判断是否需要动态弹出信息框
                         if(num1 != 0 || num2 != 0 || num3 != 0 || _cameraAlarmCount > 0 || _alarmCount > 0){
                             $('.dropdown-menu').hide();
+
                             //给上方铃铛增加闪烁效果
                             $('.dropdown-toggle .icon-bell').hide();
 
@@ -664,8 +673,27 @@ var BEE = (function(){
                             $('.dropdown-extended .dropdown-menu').hide();
 
                         }
+
+                        //声音
+                        if(ifHintVoice){
+
+                            var audioStr = '<audio src="'+_loginSlash+'../resource/song/alert.mp3" id="audioMain1" controls="controls" autoplay="autoplay"  style="display: none"></audio>';
+
+                            if($('#audioMain1').length > 0 ){
+
+                                $('#header_notification_bar').children('audio').remove();
+
+                                $('#header_notification_bar').append(audioStr);
+
+                            }else{
+
+                                $('#header_notification_bar').append(audioStr);
+                            }
+
+                        }
+
                         //判断是否需要定时刷新
-                        if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
+                        if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0' && !flag){
                             var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
                             setTimeout(modificationImportInfo,refreshItv);
                         }
@@ -673,7 +701,7 @@ var BEE = (function(){
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         //判断是否需要定时刷新
-                        if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
+                        if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0' && !flag){
                             var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
                             setTimeout(modificationImportInfo,refreshItv);
                         }
@@ -723,7 +751,7 @@ var BEE = (function(){
 
                             if(data == null){
                                 //判断是否需要定时刷新
-                                if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
+                                if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0' && !flag){
                                     var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
                                     setTimeout(modificationImportInfo,refreshItv);
                                 }
@@ -781,6 +809,12 @@ var BEE = (function(){
                             }
                             //给悬浮窗插入指定信息
                             $dropdownMenu.html(infoHtml);
+
+                            //声音
+                            if(num1 > 0 || num2 > 0 || num3 > 0){
+
+                                ifHintVoice = true;
+                            }
 
                             if(timename2){
                                 clearTimeout(timename2);
@@ -852,7 +886,7 @@ var BEE = (function(){
                             });
 
                             //判断是否需要定时刷新
-                            if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
+                            if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'  && !flag){
                                 var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
                                 setTimeout(modificationImportInfo,refreshItv);
                             }
@@ -860,7 +894,7 @@ var BEE = (function(){
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) {
                             //判断是否需要定时刷新
-                            if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
+                            if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'  && !flag){
                                 var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
                                 setTimeout(modificationImportInfo,refreshItv);
                             }
@@ -884,6 +918,7 @@ var BEE = (function(){
                 }
             }
         }else{
+
             //给悬浮窗插入指定信息
             $dropdownMenu.html(infoHtml);
             //关闭按钮
@@ -1009,13 +1044,21 @@ var BEE = (function(){
     //根据流程图动态绘制菜单
     var changeMenuByProcs = function(menu){
 
+        if(sessionStorage.allProcs && sessionStorage.allPointers){
 
-         allProcsArr = JSON.parse(sessionStorage.allProcs);
+            allProcsArr = JSON.parse(sessionStorage.allProcs);
 
-         pointersArr = JSON.parse(sessionStorage.pointers);
+            pointersArr = JSON.parse(sessionStorage.allPointers);
+
+        }else{
+
+            return menu
+        }
+
 
         //将对象转化为数组，方便处理
         var _menuArr = transform(menu);
+
         //删除对象中第一个元素
         _menuArr.shift();
         //定义新的菜单对象
@@ -1034,6 +1077,7 @@ var BEE = (function(){
 
     //对父级菜单下的子菜单根据流程图以及Arg参数进行处理
     var changeMenuByArg = function(menu){
+
         //获取父级菜单下的子菜单,并将其转化为数组
         var _childMenuArr = transform(menu.submenu);
         $(_childMenuArr).each(function(i,o){
@@ -1091,6 +1135,8 @@ var BEE = (function(){
 
         }else{
 
+            allProcsArr = JSON.parse(sessionStorage.allProcs);
+
             //获取到当前的arg参数
             var arg = childMenu.arg;
 
@@ -1119,6 +1165,8 @@ var BEE = (function(){
                     }
                 })
             }
+
+
             //根据arg参数及流程图对子菜单进行判断
             return ifExistProcs(allProcsArr,arg);
         }
@@ -1161,10 +1209,12 @@ var BEE = (function(){
 
     //根据arg参数判断当前菜单下是否存在流程图
     var ifExistProcs = function(procsArr,arg){
+
         // 获取流程图显示方式
         var showStyle = arg.split(',')[0];
         //获取具体筛选条件
         var type =arg.split(',')[1];
+
         //根据流程图类型进行判断
         if(showStyle == 0 || showStyle == 2){
             $(procsArr).each(function(i,o){
@@ -1203,11 +1253,14 @@ var BEE = (function(){
         for(var item in obj){
             arr.push(obj[item]);
         }
+
         return arr;
+
     };
 
     //判断已登陆用户是否有访问页面的权限
     var permitJumpPage = function(){
+
         //获取当前菜单
         var curMenu = sessionStorage.curMenuStr;
 
