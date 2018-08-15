@@ -26,7 +26,7 @@ $(document).ready(function() {
 
         getMainData();
 
-    })
+    });
 
     //改变能耗类型时 对应的对象随着改变
     $('#energy-type ').on('change',function(){
@@ -36,9 +36,42 @@ $(document).ready(function() {
         getObjType(typeID);
     });
 
+    //自定义时间中单选按钮点击事件
+    $('.time-radio').on('change',function(){
+        //console.log(33);
 
+        //获取当前被选中的
+        for(var i=0; i<2; i++){
+
+            if($('.time-radio').eq(i).is(":checked")) {
+
+                //按天展示
+                if(i ==0){
+
+                    $('.start-label').html('选择时间:');
+
+                    $('.end-time-input').hide();
+
+                    $('.end-time-input input').val(1);
+
+                    //按时间段展示
+
+                }else{
+
+                    $('.start-label').html('开始时间:');
+
+                    $('.end-time-input').show();
+
+                    $('.end-time-input input').val('');
+
+                }
+            }
+        }
+
+    });
 
 });
+
 //存放查询对象
 var pointArr = [];
 
@@ -47,6 +80,7 @@ var typeArr = [];
 
 //获取能耗查询页面初始数据
 function getStartData(){
+
     //获取查询类别
     $.ajax({
         type: 'get',
@@ -58,7 +92,6 @@ function getStartData(){
         beforeSend: function () {
 
         },
-
         complete: function () {
             $('#theLoading').modal('hide');
         },
@@ -66,6 +99,7 @@ function getStartData(){
             $('#theLoading').modal('hide');
             //console.log(data);
             typeArr = data;
+
             var html= '';
             for(var i=0; i<data.length;i++){
                 html +=   '<option value="'+data[i].energyTypeID+'">'+data[i].energyTypeName+'</option>'
@@ -75,6 +109,7 @@ function getStartData(){
 
             //获取查询对象
             var energyType = $('#energy-type').val();
+
             $.ajax({
                 type: 'get',
                 url: IP + "/EnergyQuery/GetServerItemByEnergyType",
@@ -132,9 +167,8 @@ function getStartData(){
             myAlter("请求失败！");
         }
     });
-
-
 }
+
 getStartData();
 
 var myChart = echarts.init(document.getElementById('energy-demand'));
@@ -224,6 +258,7 @@ window.onresize = function () {
 
     }
 };
+
 //获取页面初始数据
 function getMainData(){
 
@@ -264,8 +299,6 @@ function getMainData(){
 
     var title2 = $('#energy-type').find('option:selected').text();
 
-
-
     var postDate = $('#post-date').val();
 
     var showTime = postDate;
@@ -283,6 +316,21 @@ function getMainData(){
     showTime = dateArr[4];
 
     selectDate = dateArr[5];
+
+    for(var i=0; i<2; i++){
+
+        if($('.time-radio').eq(i).is(":checked")) {
+
+            //按天展示
+            if(i ==0){
+
+                dateSign = "小时";
+
+                selectDate = "日";
+            }
+
+        }
+    }
 
     //console.log(dateArr);
 
@@ -422,6 +470,7 @@ function getObjType(id){
             $('#theLoading').modal('hide');
         },
         success: function (data) {
+
             $('#theLoading').modal('hide');
             //console.log(data);
 
@@ -479,9 +528,35 @@ $('#choose-date .close').on('click',function(){
 //选定时间后
 $('#choose-date .btn-primary').on('click',function(){
 
+    //获取当前被选中的
+    for(var i=0; i<2; i++){
+
+        if($('.time-radio').eq(i).is(":checked")) {
+
+            //按天展示
+            if(i ==0){
+
+                $('.end-time-input input').val(1);
+
+            }
+        }
+    }
+
+
     if(!checkedNull('#choose-date')){
         return false;
     }
+
+    if($('.end-time-input input').val() == 1){
+
+        var startTime = $('#choose-date .add-input').eq(0).val();
+
+
+        var endTime = moment(startTime).add(1,'day').format('YYYY-MM-DD');
+
+        $('#choose-date .add-input').eq(1).val(endTime);
+    }
+
     var txt1 = $('#choose-date .add-input').eq(0).val();
     var txt2 = $('#choose-date .add-input').eq(1).val();
 

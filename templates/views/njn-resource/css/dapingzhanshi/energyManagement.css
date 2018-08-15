@@ -181,3 +181,24 @@
 #bottom-right-one{
     height:220px;
 }
+
+/*车站年度能耗对比图例*/
+.main-right-oness-3 .legend{
+
+    position: absolute;
+    right:10px;
+    top:36px;
+}
+
+.main-right-oness-3 .legend .colors{
+    display: inline-block;
+    width:26px;
+    height:12px;
+    background: #0088ec;
+    margin-left:10px;
+    border-radius: 5px !important;
+}
+
+.main-right-oness-3 .legend .colors1{
+    background: #2be4b4;
+}

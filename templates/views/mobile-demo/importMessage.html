@@ -1,0 +1,507 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>数据录入</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="js/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+
+    <!--loading插件-->
+    <link rel="stylesheet" href="css/showLoading.css"/>
+    <script src="js/jquery-1.11.2.js"></script>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:"微软雅黑";
+        }
+
+        h1,h2,h3,h4,h5,p{
+            margin:0;
+        }
+
+        /*清除浮动*/
+        .clearfix{
+            clear:both;
+        }
+
+        .head-title{
+            font-size: 20px;
+            text-align: center;
+            background: #f1fdf9;
+            padding:15px 0px !important;
+            border-bottom: 1px solid #d9d9d9;
+            color: #7ac9b8;
+            /*margin-bottom:10px;*/
+        }
+
+        .content-container{
+            text-align: center;
+        }
+
+        .input-container{
+            width:95%;
+            border-bottom:1px solid #d9d9d9;
+            font-size: 20px;
+            display: inline-block;
+        }
+
+        .input-container .left-name,.input-container .right-input-data{
+
+            height:58px;
+            line-height: 58px;
+        }
+
+        .input-container .left-name{
+            float: left;
+            width:35%;
+            text-align: right;
+            padding-right: 10px;
+            box-sizing: border-box;
+        }
+
+        .input-container .right-input{
+            float: left;
+            width:65%;
+        }
+
+
+
+        .right-input-data::-webkit-input-placeholder{
+
+            color:#999;
+        }
+
+        .right-input-data::-moz-placeholder{
+
+            color:#999;
+        }
+
+        .right-input-data:-ms-input-placeholder{
+
+            color:#999;
+        }
+
+        .right-input-data::-moz-placeholder{
+
+            color:#999;
+        }
+
+        .right-input-data{
+            border: none;
+            outline: none;
+            font-size: 20px;
+        }
+
+        .left-name-picture{
+            padding-left:20px;
+            box-sizing: border-box;
+            background: url('img/asterisk.png') no-repeat left center;
+        }
+
+        .success-btn{
+            min-width: 100px;
+            border-radius: 5px;
+            background: darkorchid;
+            color:white;
+            height:40px;
+            line-height: 40px;
+            margin-top:10px;
+            margin-right:20px;
+            float: right;
+            border: none;
+            outline: none;
+        }
+
+        .right-input select{
+            min-width: 90%;
+            max-width: 100%;
+
+        }
+
+        /*.success-btn:hover{*/
+            /*background: darkorchid;*/
+        /*}*/
+    </style>
+
+
+</head>
+<body class="fixed_head ">
+
+    <!--头部信息-->
+    <h3 class="head-title">基本信息</h3>
+
+    <!--输入内容-->
+    <div class="content-container">
+
+        <div class="input-container">
+
+            <div class="left-name">
+                <span class="left-name-picture">游泳馆</span>
+            </div>
+
+            <div class="right-input">
+
+                <select  class="right-input-data " id="eprName">
+
+                </select>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+        <div class="input-container">
+
+            <div class="left-name">
+                <span class="left-name-picture">游泳池</span>
+            </div>
+
+            <div class="right-input">
+                <select type="text" placeholder="请输入PH值" class="right-input-data " id="f_IsApproval">
+                </select>
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+
+        <div class="input-container">
+
+            <div class="left-name">
+                <span class="left-name-picture">PH值</span>
+            </div>
+
+            <div class="right-input">
+                <input type="text" placeholder="请输入PH值" class="right-input-data phData">
+
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+        <div class="input-container">
+
+            <div class="left-name">
+                <span class="left-name-picture">浊度</span>
+            </div>
+
+            <div class="right-input">
+                <input type="text" placeholder="请输入浊度" class="right-input-data zhuDuData">
+
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+        <div class="input-container">
+
+            <div class="left-name">
+                <span class="left-name-picture">余氯</span>
+            </div>
+
+            <div class="right-input">
+                <input type="text" placeholder="请输入余氯" class="right-input-data yuLvData">
+
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+        <div class="input-container">
+
+            <div class="left-name">
+                <span class="left-name-picture">ORP</span>
+            </div>
+
+            <div class="right-input">
+                <input type="text" placeholder="请输入ORP值" class="right-input-data orpData">
+
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+        <div class="input-container">
+
+            <div class="left-name">
+                <span class="left-name-picture">人数</span>
+            </div>
+
+            <div class="right-input">
+                <input type="text" placeholder="请输入人数" class="right-input-data people-num">
+
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+        <div class="input-container">
+
+            <div class="left-name">
+                <span class="left-name-picture">时间</span>
+            </div>
+
+            <div class="right-input">
+                <input type="text" placeholder="请选择时间" class="right-input-data chooseDate">
+
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+        <div class="input-container">
+
+            <div class="left-name">
+
+            </div>
+
+            <div class="right-input">
+
+                <button class="success-btn" style="">确定</button>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+
+    </div>
+
+    <script src="js/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script src="js/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+    <!--loading插件-->
+    <script src="js/jquery.showLoading.min.js"></script>
+
+    <script>
+
+        //获取用户名
+        var  name1 =  window.location.href.split("userId=")[1];
+
+        //获取登陆信息
+        getLoginMessage();
+
+        //时间
+        _timeComponentsFun1($('.chooseDate'));
+
+        //获取所有游泳馆
+        conditionSelect();
+
+        //点击提交按钮
+        $('.success-btn').on('click',function(){
+
+            $('.fixed_head').showLoading();
+
+            //获取楼宇id
+            var pointerID = $('#f_IsApproval').val();
+
+            //获取PH值
+            var phData = $('.content-container .phData').val();
+
+            //获取浊度
+            var zhuDuData = $('.content-container .zhuDuData').val();
+
+            //获取余氯
+            var yuLvData = $('.content-container .yuLvData').val();
+
+            //获取ORP
+            var orpData = $('.content-container .orpData').val();
+
+            //获取人数
+            var renShuDaTa = $('.content-container .people-num').val();
+
+            //获取时间
+            var time = $('.content-container .chooseDate').val();
+
+            //传递给后台的参数
+            var accParams =
+                {
+                    "pointerID": pointerID,
+                    "phData": phData,
+                    "zhuDuData":zhuDuData,
+                    "yuLvData": yuLvData,
+                    "renShuDaTa": renShuDaTa,
+                    "orpData": orpData,
+                    "time": time,
+                    "userId": name1
+                };
+
+            var url = sessionStorage.apiUrlPrefix + "HBYYG/PubenvDatasAddHM";
+
+            //调用后台数据
+            $.ajax({
+                url:url,
+                type:"post",
+                data:accParams,
+                //async:true,
+                success:function(res){
+                    console.log(res);
+
+                    $('.fixed_head').hideLoading();
+
+                    setTimeout(function(){
+
+                        //报错提示信息
+                        if(res.status == 3){
+
+                            alert(res.message);
+                        }else{
+
+                            alert('录入成功');
+                        }
+
+                    },100);
+
+
+                },
+                error:function(xhr,res,err){
+
+                    $('.fixed_head').hideLoading();
+                }
+            });
+        });
+
+        //改变游泳馆 重新获取游泳池
+        $('#eprName').on('change',function(){
+
+            //根据游泳馆 获取游泳池
+            getPointerList();
+
+        });
+
+        //时间插件初始化
+        function _timeComponentsFun1(el){
+
+            el.datetimepicker({
+                language:  'zh-CN',//此处修改
+                weekStart: 1,
+                todayBtn:  1,
+                autoclose: 1,
+                todayHighlight: 1,
+                format : "yyyy/mm/dd hh:ii",//日期格式
+                startView: 2,  //1时间  2日期  3月份 4年份
+                forceParse: true,
+                //minView : 1,
+                minuteStep:0
+            });
+        };
+
+        //获取登录信息
+        function getLoginMessage (){
+
+            //首先获取url根目录
+            var _Lurls = window.document.location.href.split('templates')[0];
+
+            //获取存放配置文件的地址
+            var configSrc =  _Lurls + "assets/local/configs/config.json?"+ Math.random();
+            loginPath = '';
+
+            $.ajax({
+                url: configSrc,
+                type: 'get',
+                async:false,
+                success: function(data){
+
+                    apiUrlPrefix = data["apiUriPrefix"] || '';
+                    sessionStorage.apiUrlPrefix = apiUrlPrefix;
+                    //console.log(sessionStorage.loginPath)
+                },
+                error: function (xhr, res, err) {
+                    //showAlertInfo(err);
+                }
+
+            });
+        };
+
+
+        //获取所有游泳馆
+        function conditionSelect(){
+            $.ajax({
+                type:'post',
+                url:sessionStorage.apiUrlPrefix + 'HBYYG/GetUserAppPubenvDatas',
+                data:{
+                    'userID':name1
+                },
+                success:function(result){
+
+                    //if(result.length == 0){
+                    //    moTaiKuang($('#myModal'),'请先添加栏目！');
+                    //}
+
+                    var str = '';
+                    for(var i=0;i<result.length;i++){
+                        str += '<option value="'+ result[i].enterpriseID+ '" >' + result[i].eprName +'</option>'
+                    }
+
+                    $('#eprName').html(str);
+
+                    //根据游泳馆 获取游泳池
+                    getPointerList();
+
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+
+                }
+            })
+        }
+
+        //根据游泳馆 获取游泳池
+        function getPointerList(){
+
+            //获取当前游泳馆id
+            var id = $('#eprName').val();
+
+            $.ajax({
+                type:'post',
+                url:sessionStorage.apiUrlPrefix + 'HBYYG/GetAppPointerList',
+                data:{
+                    'enterpriseID':id,
+                    'userID':name1
+                },
+                success:function(result){
+
+                    console.log(result);
+
+                    if(result.length == 0){
+                        moTaiKuang($('#myModal'),'当前无泳池！');
+                    }
+
+                    var str = '';
+                    for(var i=0;i<result.length;i++){
+                        str += '<option value="'+ result[i].pointerID+ '" >' + result[i].pointerName +'</option>'
+                    }
+
+                    $('#f_IsApproval').html(str);
+
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+
+                }
+            })
+        };
+
+    </script>
+
+</body>
+</html>

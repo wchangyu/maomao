@@ -1,0 +1,508 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ taglib prefix="st" uri="http://www.springframework.org/tags" %>
+<%
+String from=request.getParameter("from")=="null"||null==request.getParameter("from")||"undefined"==request.getParameter("from")?"":request.getParameter("from");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/iscroll.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-2.1.1.min.js"></script>
+    <jsp:include page="init.jsp" flush="true" />
+    <style>
+        .edit_span{
+            font: 12px/1.5 "微软雅黑";
+            font-size:3.8vw;
+        }
+        .modal-footer{
+            text-align:center;
+            border:none;
+        }
+        .modal-footer>button,.modal-footer>a{
+            width:47%;
+            padding:2vw;
+            font-size:3.8vw;
+        }
+        .bigType span{
+            color:#7ac9b8
+        }
+        .bigType{
+            background:#f1fdf9;
+            height:9vw;
+            line-height:9vw;
+            padding-left:2vw;
+            position:relative
+        }
+        .bigType::after{
+            border-bottom: 1px solid #d9d9d9;
+            color: #d9d9d9;
+            content: " ";
+            height: 1px;
+            left: 0vw;
+            position: absolute;
+            right: 0vw;
+            bottom: 0;
+            transform: scaleY(0.5);
+            transform-origin: 0 0 0;
+        }
+        .data_cells{
+            margin-top:0
+        }
+        .col-xs-3,.col-xs-9{
+            padding:0
+        }
+        .view_label{
+            color:#000
+        }
+        .weui-skin_android .weui-actionsheet .weui-actionsheet__cell{
+            font-size:3.8vw;
+            width:90.1vw;
+            height:13.9vw;
+            padding:0 5.6vw;
+            line-height:13.9vw;
+            color:#000
+        }
+        #wrapper{
+            height:70vw;
+            overflow-y:hidden;
+            margin-bottom:11vw;
+        }
+        .firstChoose::after{
+            border-bottom: 1px solid #d9d9d9;
+            color: #d9d9d9;
+            content: " ";
+            height: 1px;
+            left: 5.6vw;
+            position: absolute;
+            right: 5.6vw;
+            top: 0;
+            transform: scaleY(0.5);
+            transform-origin: 0 0 0;
+        }
+        .weui-actionsheet__cell::before {
+            border-top: 1px solid #d9d9d9;
+            color: #d9d9d9;
+            content: " ";
+            height: 1px;
+            left: 5.6vw;
+            position: absolute;
+            right: 5.6vw;
+            top: 0;
+            transform: scaleY(0.5);
+            transform-origin: 0 0 0;
+        }
+        .weui-actionsheet__cell:hover{
+            background:#fff
+        }
+
+        .lastCell::after{
+            border-bottom: 1px solid #d9d9d9;
+            color: #d9d9d9;
+            content: " ";
+            height: 1px;
+            left: 5.6vw;
+            position: absolute;
+            right: 5.6vw;
+            bottom: 0;
+            transform: scaleY(0.5);
+            transform-origin: 0 0 0;
+        }
+        .weui-skin_android .weui-actionsheet {
+            width: auto;
+        }
+        .chooseBox::-webkit-scrollbar-track-piece {
+            background-color: rgba(0, 0, 0, 0);
+            border-left: 1px solid rgba(0, 0, 0, 0);
+        }
+        .chooseBox::-webkit-scrollbar {
+            width: 5px;
+            height: 13px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+        .chooseBox::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0);
+            background-clip: padding-box;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            min-height: 28px;
+        }
+        .chooseBox::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 0, 0, 0);
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+        .btn-block {
+            display: inline-block;
+            width: 48%;
+        }
+        .btn-block+.btn-block {
+            margin-top: 0px;
+        }
+        .icon-duigou{
+            color:#f9b943;
+            position:absolute;
+            right:11.2vw;
+            display:none
+        }
+        .active .icon-duigou{
+            display:inline-block
+        }
+        span.noempty {
+            position: absolute;
+            color: #f33;
+            margin: 0 0 0 1vw;
+            top: -0.5vw;
+        }
+        .otherBigType{
+            position:relative;
+        }
+        .otherBigType::before {
+            border-left: 1.5vw solid transparent;
+            border-right: 1.5vw solid transparent;
+            border-top: 1.5vw solid #7ac9b8;
+            bottom: 3.5vw;
+            content: "";
+            display: inline-block !important;
+            position: absolute;
+            right: 5.3vw;
+        }
+        .otherDiv{
+            display:none
+        }
+        .btn-default {
+            color:#f9b943;
+            border-color: #e6e6e6;
+        }
+        .choose,.otherBigType,.edit_medical_card_no,.weui-actionsheet__cell{
+            cursor:pointer
+        }
+        .dwhl .dwl {
+            display: block;
+        }
+        .dwl {
+            line-height: 30px;
+            height: 30px;
+            top: 3px;
+            left: 0;
+            text-align: center;
+            white-space: nowrap;
+            position: absolute;
+            width: 100%;
+            Z-INDEX: 99999999999999999999;
+            background: #f5f5f5;
+        }
+        .data_cell .rt{
+            padding-right:1.5vw
+        }
+        .row .data_cell .col-xs-9{
+            padding-left:3vw
+        }
+        span.noempty {
+            position: static;
+            color: #f33;
+            margin: 0 1vw 0 0;
+        }
+        .otherBigType.open::before {
+            border-left: 1.5vw solid transparent;
+            border-right: 1.5vw solid transparent;
+            border-bottom: 1.5vw solid #7ac9b8;
+            border-top: none;
+            bottom: 3.5vw;
+            content: "";
+            display: inline-block !important;
+            position: absolute;
+            right: 5.3vw;
+        }
+    </style>
+
+</head>
+<body class="fixed_head">
+<header>
+    <a href="<%=request.getContextPath()%>/Views/personal/personalCenter.jsp" class="pull-left"><i class="fa fa-angle-left"></i></a>
+    绑定患者
+    <a href="javascript:void(0)" class="pull-right save active">提交</a>
+</header>
+<div id="formBind" class="body_row ll row" style="border-bottom:none;padding-bottom:10vw;margin-top:11vw;">
+    <%--  <form id="formBind" class="form-horizontal" role="form" action='<st:url value="/customer/bindPat.do"></st:url>' method="post"> --%>
+    <div class="data_cells weui_cells_form">
+        <div class="bigType">
+            <span>基本信息</span>
+        </div>
+        <input  name="bindType" class="data_input weui_input" type="hidden" value="SELF" placeholder=""/>
+        <div class="data_cell">
+            <div class="col-xs-3 rt"><label for="name" class="data_label"><span class="noempty">*</span>姓名</label></div>
+            <div class="col-xs-9">
+                <input name="pageTab" class="data_input weui_input" type="hidden" value="${pageTab}" />
+                <input name="pageApp" class="data_input weui_input" type="hidden" value="${pageApp}"/>
+                <input name="name" class="data_input weui_input" type="text" value="" placeholder="请填写需要绑定的患者姓名"/>
+            </div>
+        </div>
+        <div class="data_cell" style="padding-right:0">
+            <div class="col-xs-3 rt"><label for="relationship" class="data_label"><span class="noempty">*</span>绑定关系</label></div>
+            <div class="col-xs-9 chooseRelationship choose" data-code="relationship">
+                <input name="relationship" class="weui_check" type="hidden" value="SELF"/>
+                <span id="relationship" data-code="SELF" style="display:inline-block;text-align:right;width:88%;font-size:3.8vw;color:#888"/>本人</span><i style="margin-left:1.7vw" class="glyphicon icon-arrow-right iconfont icon-zuoyoujiantou-copy"></i>
+            </div>
+        </div>
+
+        <div class="data_cell">
+            <div class="col-xs-3 rt"><label for="sex" class="data_label "><span class="noempty">*</span>性别</label></div>
+            <div class="col-xs-9" style="text-align:right">
+                <input id="sex1" name="sex"  class="weui_check" type="radio" checked="checked" value="男"/><label for="sex1" class="data_radio" style="padding:0 6vw;">男</label>
+                <input id="sex2" name="sex"  class="weui_check" type="radio" value="女"/><label for="sex2"  class="data_radio" style="padding:0 6vw;margin-right:0;">女</label>
+            </div>
+        </div>
+        <div class="data_cell" style="padding-right:0">
+            <div class="col-xs-3 rt"><label for="card_type" class="data_label"><span class="noempty">*</span>证件类型</label></div>
+            <div class="col-xs-9 chooseCardType choose" data-code="card_type">
+                <input name="card_type" class="weui_check" type="hidden" value="IDCARD"/>
+                <span id="card_type" data-code="IDCARD" style="display:inline-block;text-align:right;width:88%;font-size:3.8vw;color:#888"/>身份证</span><i style="margin-left:1.7vw" class="glyphicon icon-arrow-right iconfont icon-zuoyoujiantou-copy"></i>
+            </div>
+        </div>
+        <div class="data_cell">
+            <div class="col-xs-3 rt"><label for="card_no" class="data_label"><span class="noempty">*</span>证件号码</label></div>
+            <div class="col-xs-9">
+                <input name="card_no" class="data_input weui_input" type="text" value="" placeholder="请填写证件号码"/>
+            </div>
+        </div>
+        <div class="data_cell edit_nub edit_medical_card_no">
+            <div class="col-xs-3 rt"><label for="medical_card_no" class="data_label"><span class="noempty">*</span>就诊卡号</label></div>
+            <div class="col-xs-9">
+                <span class="data_input weui_input edit_span" style="color:#999">请填写就医卡表面号</span>
+                <input name="medical_card_no" class="data_input weui_input" type="hidden" value="" placeholder="无数据"/>
+            </div>
+        </div>
+        <div class="data_cell birthTime">
+            <div class="col-xs-3 rt"><label for="date_of_birth" class="data_label">出生日期</label></div>
+            <div class="col-xs-9">
+                <input name="date_of_birth" class="data_input weui_input" type="text" value="" placeholder="请选择患者的出生日期"/>
+            </div>
+        </div>
+        <div class="data_cell">
+            <div class="col-xs-3 rt"><label for="age" class="data_label">年龄</label></div>
+            <div class="col-xs-9">
+                <input name="age" class="data_input weui_input" type="number" disabled="disabled" value="" placeholder=""/>
+            </div>
+        </div>
+        <div class="data_cell">
+            <div class="col-xs-3 rt"><label for="mobile" class="data_label">手机号码</label></div>
+            <div class="col-xs-9">
+                <input name="mobile" class="data_input weui_input" type="number" value="" placeholder="请填写手机号码"/>
+            </div>
+        </div>
+
+        <div class="bigType otherBigType">
+            <span>院内信息</span>
+        </div>
+        <div class="otherDiv">
+            <div class="data_cell edit_nub edit_patient_id">
+                <div class="col-xs-3 rt"><label for="patient_id" class="data_label">患者ID</label></div>
+                <div class="col-xs-9">
+                    <input name="patient_id" class="data_input weui_input" type="number" value="" placeholder=""/>
+                </div>
+            </div>
+
+            <div class="data_cell edit_nub edit_inp_no">
+                <div class="col-xs-3 rt"><label for="inp_no" class="data_label">住院号</label></div>
+                <div class="col-xs-9">
+                    <input name="inp_no" class="data_input weui_input" type="number" value="" placeholder="请填写住院号"/>
+                </div>
+            </div>
+            <div class="data_cell last edit_nub">
+                <div class="col-xs-3 rt"><label for="" class="data_label">病历号</label></div>
+                <div class="col-xs-9">
+                    <input name="" class="data_input weui_input" type="number" value="" placeholder="请填写病历号"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="bigType otherBigType">
+            <span>其他信息</span>
+        </div>
+        <div class="otherDiv">
+            <div class="data_cell">
+                <div class="col-xs-3 rt"><label for="native_place" class="data_label">籍贯</label></div>
+                <div class="col-xs-9">
+                    <input name="native_place" class="data_input weui_input" type="text" value="" placeholder="请填写籍贯"/>
+                </div>
+            </div>
+            <div class="data_cell">
+                <div class="col-xs-3 rt"><label for="" class="data_label">民族</label></div>
+                <div class="col-xs-9">
+                    <input name="" class="data_input weui_input" type="text" value="" placeholder="请填写民族"/>
+                </div>
+            </div>
+            <div class="data_cell">
+                <div class="col-xs-3 rt"><label for="home" class="data_label">现居住地</label></div>
+                <div class="col-xs-9">
+                    <input name="home" class="data_input weui_input" type="text" value="" placeholder="请填写现居住地"/>
+                </div>
+            </div>
+            <div class="data_cell">
+                <div class="col-xs-3 rt"><label for="address" class="data_label">现地址</label></div>
+                <div class="col-xs-9">
+                    <input name="address" class="data_input weui_input" type="text" value="" placeholder="请填写现地址"/>
+                </div>
+            </div>
+            <div class="data_cell">
+                <div class="col-xs-3 rt"><label for="email" class="data_label">电子邮箱</label></div>
+                <div class="col-xs-9">
+                    <input name="email" class="data_input weui_input" type="text" value="" placeholder="请填写电子邮箱"/>
+                </div>
+            </div>
+            <div class="data_cell">
+                <div class="col-xs-3 rt"><label for="" class="data_label">家庭电话</label></div>
+                <div class="col-xs-9">
+                    <input name="" class="data_input weui_input" type="number" value="" placeholder="请填写家庭电话"/>
+                </div>
+            </div>
+            <div class="data_cell">
+                <div class="col-xs-3 rt"><label for="" class="data_label">家庭地址</label></div>
+                <div class="col-xs-9">
+                    <input name="" class="data_input weui_input" type="text" value="" placeholder="请填写家庭地址"/>
+                </div>
+            </div>
+            <div class="data_cell" style="padding-right:0">
+                <div class="col-xs-3 rt"><label for="education_level" class="data_label">文化程度</label></div>
+                <div class="col-xs-9 choose chooseEducationLevel" data-code="education_level">
+                    <input name="education_level"  class="weui_check" type="hidden" value=""/>
+
+                    <span id="education_level" data-code="" style="display:inline-block;text-align:right;width:88%;font-size:3.8vw;color:#888"/></span><i style="margin-left:1.7vw" class="glyphicon icon-arrow-right iconfont icon-zuoyoujiantou-copy"></i>
+                    <!-- <input name="education_level" class="data_input weui_input" type="text" value="" placeholder="无数据"/> -->
+                </div>
+            </div>
+            <div class="data_cell" style="padding-right:0">
+                <div class="col-xs-3 rt"><label for="occupation" class="data_label">职业性质</label></div>
+                <div class="col-xs-9 choose chooseOccupation"  data-code="occupation">
+                    <input name="occupation"  class="weui_check" type="hidden" value=""/>
+                    <span id="occupation" data-code="" style="display:inline-block;text-align:right;width:88%;font-size:3.8vw;color:#888"/></span><i style="margin-left:1.7vw" class="glyphicon icon-arrow-right iconfont icon-zuoyoujiantou-copy"></i>
+                    <!-- <input name="occupation" class="data_input weui_input" type="text" value="" placeholder="无数据"/> -->
+                </div>
+            </div>
+            <div class="data_cell" style="padding-right:0">
+                <div class="col-xs-3 rt"><label for="marital_status" class="data_label">婚姻状况</label></div>
+                <div class="col-xs-9 choose chooseMaritalStatus" data-code="marital_status">
+                    <input name="marital_status"  class="weui_check" type="hidden" value=""/>
+                    <span id="marital_status" data-code="" style="display:inline-block;text-align:right;width:88%;font-size:3.8vw;color:#888"/></span><i style="margin-left:1.7vw" class="glyphicon icon-arrow-right iconfont icon-zuoyoujiantou-copy"></i>
+                </div>
+            </div>
+            <div class="data_cell">
+                <div class="col-xs-3 rt"><label for="" class="data_label">工作单位</label></div>
+                <div class="col-xs-9">
+                    <input name="" class="data_input weui_input" type="text" value="" placeholder="请填写工作单位"/>
+                </div>
+            </div>
+            <div class="data_cell">
+                <div class="col-xs-3 rt"><label for="next_of_kin" class="data_label">联系人姓名</label></div>
+                <div class="col-xs-9">
+                    <input name="next_of_kin" class="data_input weui_input" type="text" value="" placeholder="请填写联系人姓名"/>
+                </div>
+            </div>
+            <div class="data_cell">
+                <div class="col-xs-3 rt"><label for="next_of_kin_phone" class="data_label">联系人电话</label></div>
+                <div class="col-xs-9">
+                    <input name="next_of_kin_phone" class="data_input weui_input" type="number" value="" placeholder="请填写联系人电话"/>
+                </div>
+            </div>
+            <div class="data_cell">
+                <div class="col-xs-3 rt"><label for="" class="data_label">联系人单位</label></div>
+                <div class="col-xs-9">
+                    <input name="" class="data_input weui_input" type="text" value="" placeholder="请填写联系人单位"/>
+                </div>
+            </div>
+            <div class="data_cell">
+                <div class="col-xs-3 rt"><label for="" class="data_label">联系人地址</label></div>
+                <div class="col-xs-9">
+                    <input name="" class="data_input weui_input" type="text" value="" placeholder="请填写联系人地址"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- </form> -->
+</div>
+
+<!-- @*form表单展示*@ -->
+<div class="modal inmodal fade" id="editModel" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">Close</span></button> -->
+                <h5 class="modal-title">填写就诊卡号</h5>
+            </div>
+            <div class="modal-body">
+                <div class="" style="padding-top:0;">
+                    <div class="l-cell bg-write">
+                        <a class="l-a" href="javascript:;">
+                            当前卡示例
+                            <!-- <span class="pull-right" style="font-size:5vw;">+</span> -->
+                        </a>
+                    </div>
+                </div>
+                <div class="form-group" style="padding:3vw 8vw;">
+                    <img src="<%=request.getContextPath()%>/images/card.png" style="width:100%;height:auto;"></img>
+                </div>
+                <div class="" style="padding-top:0;">
+                    <div class="l-cell bg-write">
+                        <a class="l-a" href="javascript:;">
+                            输入卡号
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-input">
+                    <input id="name" class="data_input weui_input" type="number" placeholder="例如:0811 8034 9122" value="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                <a class="btn btn-yellow pull-right but_confirm" href="javascript:void(0)">保存</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="androidActionsheet1" class="weui-skin_android" style="display:none">
+    <div class="weui-mask"></div>
+    <div class="weui-actionsheet">
+        <div class="weui-actionsheet__menu" style="padding:5.6vw 0vw 6.5vw 0vw;font-size:4vw">
+            <div class="chooseTitle" style="text-align:center;padding-bottom:8.3vw;color:#666;font-weight:700">
+                绑定关系
+            </div>
+            <div id="wrapper">
+                <div class="chooseBox" id="scroller">
+                </div>
+            </div>
+
+            <div class="chooseFooter" style="padding:0 5.6vw">
+					<span class="btn btn-block btn-default">
+                		取消
+            		</span>
+            		<span class="btn btn-block btn_yellow">
+                		保存
+            		</span>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    Powered by 北京嘉和美康信息技术有限公司
+</footer>
+</body>
+</html>

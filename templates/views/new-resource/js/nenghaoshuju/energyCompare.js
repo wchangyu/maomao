@@ -148,6 +148,7 @@ $(function(){
 
         //改变右上角单位名称
         $('.unit').val($('.curChoose').attr('data-unit'));
+
     });
 
     //chart图自适应
@@ -458,6 +459,11 @@ function getPointerData(url,flag){
     //获取指标ID
     var normItemID = $('.left-middle-main1 .curChoose').attr('data-num');
 
+    //支路是否瞬时值标识
+    var f_AddSamAvg = 0;
+
+    var branchUnit = '';
+
     if(normItemID){
         //在指标类型中寻找对应项
         $(energyNormItemArr).each(function(i,o){
@@ -511,12 +517,20 @@ function getPointerData(url,flag){
         //确定支路id
         var nodes = branchTreeObj.getCheckedNodes(true);
 
+
         //比较对象不能超过三个
         if(nodes.length > 3){
             _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
 
             return false;
         }
+
+        if(nodes.length < 1){
+            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择支路查询', '');
+
+            return false;
+        }
+
         $( nodes).each(function(i,o){
 
             serviceID.push(o.id);
@@ -529,6 +543,10 @@ function getPointerData(url,flag){
         energyNormItemObj.energyItemID = _ajaxEcType;
 
         energyNormItemObj.energyNormFlag = 1;
+
+        f_AddSamAvg = nodes[0].f_AddSamAvg;
+
+        branchUnit = nodes[0].unit;
     }
 
     //判断是否标煤
@@ -555,6 +573,7 @@ function getPointerData(url,flag){
         "pointerIDs": postPointerID,
         "officeIDs": officeID,
         "serviceIDs": serviceID,
+        "f_AddSamAvg": f_AddSamAvg,
         "unityType": 0,
         "showDateType": showDateType,
         "selectDateType": selectDateType,
@@ -583,13 +602,80 @@ function getPointerData(url,flag){
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
                 return false;
             }
+
+
+            //console.log(selectDateType);
+
+            //年没有环比数据
+            if(selectDateType == 'Year'){
+
+                //console.log(33);
+
+                $('.right-header').eq(1).hide();
+
+                $('.comparisonOfHistograms').eq(1).hide();
+
+                $('#rheader-content-17').hide();
+
+            }else{
+
+                $('.right-header').eq(1).show();
+
+                $('.comparisonOfHistograms').eq(1).show();
+
+                $('#rheader-content-17').show();
+
+            }
+
+            //如果选择支路 且为瞬时值
+            if(flag == 3 && f_AddSamAvg != 0){
+
+                $('.comparisonOfHistograms').hide();
+
+                $('.unit').hide();
+
+                $('#rheader-content-16').css({
+
+                    'marginRight': '0px'
+                });
+
+                $('#rheader-content-17').css({
+
+                    'marginRight': '0px'
+                });
+
+                //单位
+                $('.header-right-lists label').html("单位："+branchUnit);
+
+            }else{
+
+                $('.comparisonOfHistograms').show();
+
+                $('.unit').show();
+
+                $('#rheader-content-16').css({
+
+                    'marginRight': '300px '
+                });
+
+                $('#rheader-content-17').css({
+
+                    'marginRight': '300px '
+                });
+
+                //单位
+                $('.header-right-lists label').html("单位：");
+            }
+
+            window.onresize();
+
+
             //改变头部显示信息
             var energyName = '';
 
             if($('.left-middle-main1 .curChoose').length > 0){
                 energyName = $('.left-middle-main1 .curChoose').html();
             }
-
 
             //改变头部日期
             var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');

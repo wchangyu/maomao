@@ -538,6 +538,31 @@ function getTopPageData(){
         },
         success:function(result){
 
+            console.log(result);
+
+            var html = "";
+
+            $(result).each(function(i,o){
+
+               //获取图片路径
+               var imgUrl =  o.showImgPath;
+
+                html +='<div class="inside-data inside-four">' +
+                            '<p>'+ o.statistName+'</p>' +
+                            '<p class="data">'+ o.statistValue+'</p>' +
+                            '<div class="inside-img" style="background: url(\'../new-resource/img/'+ imgUrl+'\')no-repeat"></div>' +
+                        '</div>';
+
+            });
+
+            //清除浮动
+            html += '<div class="clearfix"></div>';
+
+            $('.left-middle-main1').html(html);
+
+            return false;
+
+
             //初始化一下
             //建筑面积
             $('.inside-data').eq(0).find('.data').html(0);
@@ -547,6 +572,7 @@ function getTopPageData(){
             $('.inside-data').eq(2).find('.data').html(0);
             //职工人数
             $('.inside-data').eq(3).find('.data').html(0);
+
             //给页面中赋值
             if(result.length>0){
 

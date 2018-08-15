@@ -3,6 +3,10 @@
     width:19% !important;
 }
 
+.showOrHidden{
+    display: none;
+}
+
 .swiper-container {
     width: 97%;
     border: 1px solid #c1c6ce;

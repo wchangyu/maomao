@@ -1,4 +1,5 @@
 $(function(){
+
     $('.loading').showLoading();
     /*-------------------------------全局变量-------------------------------*/
     var _userIdName = sessionStorage.getItem('userName');
@@ -10,7 +11,8 @@ $(function(){
     //今日/聚焦
     $('.tab-block').on('click','li',function(){
         tabToggle($(this),'tab-active','news-content-active');
-    })
+    });
+
     //法规/政策
     $('.fgcontent').on('click','li',function(){
         tabToggle($(this),'tab-active-bottom','news-content-active');

@@ -40,3 +40,7 @@
     margin-top: 20px;
     border-top: 1px solid #e2e2e2;
 }
+
+.box-block img{
+    max-width: 660px !important;
+}

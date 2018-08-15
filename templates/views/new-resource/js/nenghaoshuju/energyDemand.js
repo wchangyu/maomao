@@ -45,6 +45,7 @@ $(function(){
 
     $('#unit').html(html);
 
+
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
     $('.buttons').children('.btn-success').click(function(){
@@ -60,6 +61,7 @@ $(function(){
         var s = $('.tree-3')[0].style.display;
 
         if(o != 'none'){
+
             //楼宇数据
             getPointerData('EnergyQueryV2/GetPointerEnergyQuery',1);
 
@@ -72,6 +74,8 @@ $(function(){
             getPointerData('EnergyQueryV2/GetBranchEnergyQuery',3);
 
         }
+
+        //console.log()
     });
 
     //能耗选择
@@ -135,7 +139,7 @@ var optionBar = {
     },
     legend: {
         data:['本期用电','上期用电'],
-        top:'30',
+        top:'30'
     },
     toolbox: {
         show : true,
@@ -164,13 +168,13 @@ var optionBar = {
             name:'本期用电',
             type:'bar',
             data:[],
-            barMaxWidth: '60',
+            barMaxWidth: '60'
         },
         {
             name:'上期用电',
             type:'bar',
             data:[],
-            barMaxWidth: '60',
+            barMaxWidth: '60'
         }
     ]
 };
@@ -232,7 +236,7 @@ var optionLineBar = {
         {
             name:'比较斜率',
             type:'line',
-            data:[],
+            data:[]
         }
     ]
 };
@@ -348,6 +352,11 @@ function getPointerData(url,flag){
     //获取区域id
     var districtID = '';
 
+    //支路是否瞬时值标识
+    var f_AddSamAvg = 0;
+
+    var branchUnit = '';
+
     //楼宇数据
     if(flag == 1){
 
@@ -356,8 +365,6 @@ function getPointerData(url,flag){
 
         //确定支路id
         var nodes = treeObj.getCheckedNodes(true)[0];
-
-        //console.log(33);
 
         //当前勾选企业
         if(nodes.nodeType == 1){
@@ -382,7 +389,6 @@ function getPointerData(url,flag){
 
         }
 
-
         areaName = $('.radio_true_full').next().attr('title');
 
         //分户数据
@@ -405,6 +411,12 @@ function getPointerData(url,flag){
         serviceID = nodes[0].id;
 
         areaName = nodes[0].name;
+
+        f_AddSamAvg = nodes[0].f_AddSamAvg;
+
+        branchUnit = nodes[0].unit;
+
+        //console.log(nodes[0]);
     }
 
     //判断是否标煤
@@ -467,6 +479,7 @@ function getPointerData(url,flag){
         "officeID": officeID,
         "serviceID": serviceID,
         "unityType": unitType,
+        "f_AddSamAvg": f_AddSamAvg,
         "showDateType": showDateType,
         "selectDateType": selectDateType,
         "startTime": startTime,
@@ -489,9 +502,11 @@ function getPointerData(url,flag){
         data:ecParams,
         timeout:_theTimes,
         beforeSend:function(){
+
             myChartTopLeft.showLoading();
         },
         success:function(result){
+
             myChartTopLeft.hideLoading();
 
             //判断是否返回数据
@@ -499,6 +514,38 @@ function getPointerData(url,flag){
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
                 return false;
             }
+
+            //如果选择支路 且为瞬时值
+            if(flag == 3 && f_AddSamAvg != 0){
+
+                $('.comparisonOfHistograms').hide();
+
+                $('#unit').hide();
+
+                $('#rheader-content-16').css({
+
+                    'marginRight': '0px'
+                });
+
+                //单位
+                $('.header-right-lists label').html("单位："+branchUnit);
+
+            }else{
+
+                $('.comparisonOfHistograms').show();
+
+                $('#unit').show();
+
+                $('#rheader-content-16').css({
+
+                    'marginRight': '300px '
+                });
+
+                //单位
+                $('.header-right-lists label').html("单位：");
+            }
+
+            window.onresize();
 
             //改变头部显示信息
             var energyName = $('.selectedEnergy p').html() + '耗';
@@ -535,6 +582,13 @@ function getPointerData(url,flag){
                         allDataX.push(allData[i].dataDate.split('T')[0] + " " + allData[i].dataDate.split('T')[1]);
                     }
 
+                }else{
+
+                    for(var i=0;i<allData.length;i++){
+
+                        allDataX.push(allData[i].dataDate.split('T')[0]);
+                    }
+
                 }
 
             }else if(showDateType == 'Hour' ){
@@ -549,6 +603,7 @@ function getPointerData(url,flag){
                 }
 
             }else{
+
                 //确定x轴
                 for(var i=0;i<allData.length;i++){
                     var dataSplit = allData[i].dataDate.split('T')[0];
@@ -653,3 +708,30 @@ function getPointerData(url,flag){
         }
     })
 }
+
+//存储数据
+var resultArr = [];
+
+//简单递归
+function recursion(dataArr,resultArr){
+
+    $(dataArr).each(function(i,o){
+
+        var obj = {
+
+            id : o.id,
+            name : o.name
+        };
+
+        resultArr.push(obj);
+
+        var childrenArr = o.children;
+
+        if(childrenArr && childrenArr.length > 0){
+
+            recursion(childrenArr,resultArr);
+        }
+
+    });
+}
+

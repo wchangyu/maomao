@@ -416,6 +416,11 @@ function getPointerData(url,flag){
     //获取指标ID
     var normItemID = $('.left-middle-main1 .curChoose').attr('data-num');
 
+    //支路是否瞬时值标识
+    var f_AddSamAvg = 0;
+
+    var branchUnit = '';
+
     if(normItemID){
         //在指标类型中寻找对应项
         $(energyNormItemArr).each(function(i,o){
@@ -481,18 +486,41 @@ function getPointerData(url,flag){
         //
         //    return false;
         //}
+        f_AddSamAvg = nodes[0].f_AddSamAvg;
+
+        branchUnit = nodes[0].unit;
+
+        var isComare = true;
+
         $( nodes).each(function(i,o){
 
             serviceID.push(o.id);
 
             //页面上方展示信息
             areaName += o.name+ " -- ";
+
+            if(o.f_AddSamAvg != f_AddSamAvg || o.unit != branchUnit){
+
+                isComare = false;
+
+                return false;
+
+            }
+
         });
+
+        if(!isComare){
+
+            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'不同类型支路无法比较', '');
+            return false;
+        }
 
         //本地构建energyNormItemObj对象
         energyNormItemObj.energyItemID = _ajaxEcType;
 
         energyNormItemObj.energyNormFlag = 1;
+
+
     }
 
     //判断是否标煤
@@ -519,6 +547,7 @@ function getPointerData(url,flag){
         "pointerIDs": postPointerID,
         "officeIDs": officeID,
         "serviceIDs": serviceID,
+        "f_AddSamAvg": f_AddSamAvg,
         "unityType": 0,
         "showDateType": showDateType,
         "selectDateType": selectDateType,
@@ -533,9 +562,11 @@ function getPointerData(url,flag){
         data:ecParams,
         timeout:_theTimes,
         beforeSend:function(){
+
             myChartTopLeft.showLoading();
         },
         success:function(result){
+
             myChartTopLeft.hideLoading();
 
             //console.log(result);
@@ -545,6 +576,24 @@ function getPointerData(url,flag){
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
                 return false;
             }
+
+            //如果选择支路 且为瞬时值
+            if(flag == 3 && f_AddSamAvg != 0){
+
+                $('.unit').hide();
+
+                //单位
+                $('.header-right-lists label').html("单位："+branchUnit);
+
+            }else{
+
+                $('.unit').show();
+
+                //单位
+                $('.header-right-lists label').html("单位：");
+            }
+
+
             //改变头部显示信息
             var energyName = '';
 
@@ -571,6 +620,7 @@ function getPointerData(url,flag){
 
             //绘制echarts
             if(showDateType == 'Hour' ){
+
                 //确定x轴
                 for(var i=0;i<allData[0].length;i++){
                     var dataSplit = allData[0][i].dataDate.split('T')[1].split(':');
@@ -580,6 +630,7 @@ function getPointerData(url,flag){
                     }
                 }
             }else{
+
                 //确定x轴
                 for(var i=0;i<allData[0].length;i++){
                     var dataSplit = allData[0][i].dataDate.split('T')[0];
@@ -644,10 +695,10 @@ function getPointerData(url,flag){
                 tableHtml += '<tr>' +
                     '<td>'+ index+'</td>'+
                     '<td>'+ o.returnOBJName+'</td>'+
-                    '<td>'+ o.sumMetaData.toFixed(2)+'</td>'+
+                    '<td class="branch-hide">'+ o.sumMetaData.toFixed(2)+'</td>'+
                     '<td>'+ o.maxMetaData.toFixed(2)+'</td>'+
                     '<td>'+ o.minMetaData.toFixed(2)+'</td>'+
-                    '<td>'+ o.avgMetaData.toFixed(2)+'</td>'+
+                    '<td class="branch-hide">'+ o.avgMetaData.toFixed(2)+'</td>'+
 
                     '</tr>';
 
@@ -680,16 +731,36 @@ function getPointerData(url,flag){
 
                     tableHtml += '<tr>' +
                         '<td colspan="2">'+ index+'对比1</td>'+
-                        '<td>'+ totalPercent+'</td>'+
+                        '<td class="branch-hide">'+ totalPercent+'</td>'+
                         '<td>'+ maxPercent+'</td>'+
                         '<td>'+ minPercent+'</td>'+
-                        '<td>'+ avgPercent+'</td>'+
+                        '<td class="branch-hide">'+ avgPercent+'</td>'+
                         '</tr>';
 
                 }
             });
 
             $('#dateTables tbody').html(tableHtml);
+
+            if(flag == 3 && f_AddSamAvg != 0){
+
+                $('#dateTables thead tr th').eq(2).hide();
+
+                $('#dateTables thead tr th').eq(5).hide();
+
+                $('#dateTables .branch-hide').hide();
+
+
+            }else{
+
+                $('#dateTables thead tr th').eq(2).show();
+
+                $('#dateTables thead tr th').eq(5).show();
+
+                $('#dateTables .branch-hide').eq(5).show();
+            }
+
+
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -758,8 +829,8 @@ function GetShowEnergyNormItem(energyType,flag){
                     html += '<p data-num ="'+ o.normIndex+' " data-unit="'+ o.energyUnit+'">'+ o.energyItemName+'</p>'
                 }
 
-
             });
+
             html += '<div class="clearfix"></div>';
             //将指标类型嵌入页面
             $('.left-middle-main1').html(html);

@@ -4,6 +4,7 @@
 
 <!-- BEGIN GLOBAL MANDATORY STYLES 系统框架中的样式 -->
 document.write('<link rel="stylesheet" href="../resource/css/leftBat.css">');
+
 document.write('<link rel="stylesheet" href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css">');
 
 document.write('<link rel="stylesheet" href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css">');
@@ -41,9 +42,22 @@ document.write('<link rel="stylesheet" href="../resource/TableTools/button/jquer
 document.write('<link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">');
 
 // <!--时间插件-->
+
 document.write('<link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>');
 
 document.write('<link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>');
+
+<!--datatimepicker-->
+document.write('<link rel="stylesheet" href="../resource/plug-in-resource/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">');
+
+//loading插件
+<!--loading插件-->
+document.write('<link rel="stylesheet" href="../resource/jQuery-showLoading/css/showLoading.css"/>');
+
+
+//<link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+//    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
+
 
 
 

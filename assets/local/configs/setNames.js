@@ -84,13 +84,13 @@ var __systemConfigArr = [
             },
             {
                 statementName:"区域能耗报表",
-                jumpUrl: "areaEnergyDataStatement.html",
+                jumpUrl: "areaEnergyDataStatement2.html",
                 addClass:'statement-contain',
                 isShow:1
             },
             {
                 statementName:"部门能耗报表",
-                jumpUrl: "officeEnergyDataManagement.html",
+                jumpUrl: "officeEnergyDataManagement2.html",
                 addClass:'statement-contain1 statement-contain',
                 isShow:1
             },

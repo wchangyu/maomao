@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link rel="stylesheet" href="../resource/css/index.css">
+    <link rel="stylesheet" href="css/news-4.css">
+    <script src="js/jquery-1.11.2.js"></script>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="../favicon.ico"/>
+    <link href="../bank-resource/css/common.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../new-resource/css/common.css">
+    <style>
+        .box-block{
+            width: 100% !important;
+            max-width: 800px !important;
+        }
+        .header{
+            width:100% !important;
+        }
+        .content{
+            width: 100% !important;
+            max-width:660px !important;
+        }
+        .content img{
+            max-width: 100% !important;
+        }
+        body{
+            background: #f9f9f9 !important;
+
+        }
+        .returns{
+            min-width: 100px;
+            border-radius: 5px !important;
+            background: darkorchid;
+            color: white;
+            height: 40px;
+            line-height: 40px;
+            outline: none;
+            border: none;
+            margin-left: 10px;
+            padding:0 !important;
+            display: none;
+        }
+        .head-title{
+            font-size: 20px;
+            text-align: center;
+            background: #f1fdf9;
+            padding:15px 0px !important;
+            border-bottom: 1px solid #d9d9d9;
+            color: #7ac9b8;
+            /*margin-bottom:10px;*/
+        }
+
+        .desc{
+            width: 100% !important;
+        }
+
+        .go-back-btn{
+            min-width: 90px;
+            border-radius: 5px !important;
+            background: darkorchid;
+            color:white;
+            height:35px;
+            line-height: 35px;
+            outline: none;
+            border:none;
+            margin-left:10px;
+            float: left;
+        }
+
+        /*隐藏栏目 作者*/
+        .column{
+            display: none;
+        }
+
+        .write{
+            display: none;
+        }
+
+    </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!--头部信息-->
+<h3 class="head-title">
+    <button class="go-back-btn">返回</button>
+    <div class="clearfix"></div>
+</h3>
+
+<div style="padding:20px 10px">
+
+    <a type="button" class="btn btn-default returns" href="javascript:history.go(-1)" style="margin-bottom:10px;">返回</a>
+    <div class="box-block">
+        <div class="header">
+            <h1></h1>
+            <div class="date"><span class="publishDate"></span> <span class="column"></span><span class="write"></span></div>
+        </div>
+        <div class="desc"></div>
+        <div class="content">
+
+        </div>
+        <div class="footer">
+        </div>
+    </div>
+
+</div>
+
+
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../../../assets/global/plugins/respond.min.js"></script>
+<script src="../../../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="../resource/js/moment.js"></script>
+
+<!-- END CORE PLUGINS -->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../bank-resource/js/common.js"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="js/news-cellphone.js"></script>
+<script>
+
+    getLoginMessage ();
+
+    //获取登录信息
+    function getLoginMessage (){
+
+        //首先获取url根目录
+        var _Lurls = window.document.location.href.split('templates')[0];
+
+        //获取存放配置文件的地址
+        var configSrc =  _Lurls + "assets/local/configs/config.json?"+ Math.random();
+
+        $.ajax({
+            url: configSrc,
+            type: 'get',
+            async:false,
+            success: function (data) {
+
+                apiUrlPrefix = data["apiUriPrefix"] || '';
+                sessionStorage.apiUrlPrefix = apiUrlPrefix;
+
+                //console.log(sessionStorage.loginPath)
+            },
+            error: function (xhr, res, err) {
+                //showAlertInfo(err);
+            }
+
+        });
+    };
+
+    //返回按钮
+    $('.go-back-btn').on('click',function(){
+
+        window.history.go(-1);
+    });
+
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+
+<!--提示模态框提示-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">提示</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- END BODY -->
+</html>

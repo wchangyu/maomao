@@ -176,8 +176,11 @@ $('.energy-types').on('click','div',function(){
     if($('.onChecked').length > 0){
         //获取对应能耗类型下的支路
         if(branchesType == 2){
+
             GetAllBranches(2);
+
         }else{
+
             GetAllBranches();
         }
 
@@ -356,6 +359,7 @@ function GetAllBranches(flag,energy){
     var energyType = $('.selectedEnergy').attr('value');
 
     if(!energyType){
+
         energyType = 100;
     }
 
@@ -415,7 +419,7 @@ key.bind("focus",focusKey)
 //构建支路树状图
 //zTree树
 var branchTreeObj;
-function getBranchZtree(EnItdata,flag,fun,dom){
+function getBranchZtree(EnItdata,branchesType,fun,dom){
 
     var setting = {
         check: {
@@ -463,15 +467,19 @@ function getBranchZtree(EnItdata,flag,fun,dom){
     };
     //判断是单选框还是复选框
     if(branchesType == 2){
+
         setting.check.chkStyle = 'checkbox';
+
     }
     var zNodes;
 
     if(!fun){
          zNodes = getZNodes(EnItdata);
     }else{
-        zNodes = fun();
+        zNodes = fun(EnItdata);
     }
+
+    //console.log(zNodes);
 
     //console.log(zNodes);
     if(dom){
@@ -565,7 +573,7 @@ function getZNodes(EnItdata){
         if(i == 0){
             ifOpen = true;
         }
-        zNodes.push({ id: o.pointerID, pId:-1, name:o.pointerName,title: o.pointerName,open:ifOpen,checked:false,nocheck :true})
+        zNodes.push({ id: o.pointerID, pId:-1, name:o.pointerName,title: o.pointerName,open:ifOpen,checked:false,nocheck :true});
         //二级结构
         $(o.branchModelV2s).each(function(i,o){
             var parentid = o.f_ParentId;
@@ -573,13 +581,14 @@ function getZNodes(EnItdata){
             if(o.f_ParentId == 0){
                 parentid = pointerID
             }
-            zNodes.push({ id: o.f_ServiceId, pId: parentid, title: o.f_ServiceName,name:o.f_ServiceName,open:false,checked:false})
+            zNodes.push({ id: o.f_ServiceId, pId: parentid, title: o.f_ServiceName,name:o.f_ServiceName,open:false,checked:false, unit: o.dataUnit, f_AddSamAvg: o.f_AddSamAvg})
 
         })
     });
     return zNodes;
 
 }
+
 //搜索
 var lastValue='',nodeList=[],fontCss={};
 
@@ -662,6 +671,7 @@ function blurKey(e) {
 
 //展示日期类型 用户选择日期类型
 function getShowDateType(){
+
     //获取页面日期类型
     var dateType = $('.time-options-1').html();
 
@@ -697,6 +707,7 @@ function getShowDateType(){
 
     return [showDateType,selectDateType]
 };
+
 
 //展示日期类型 用户选择日期类型
 function getShowDateType1(){
@@ -738,6 +749,7 @@ function getShowDateType1(){
 
 //获取开始结束时间
 function getPostTime(){
+
     //获取页面日期类型
     var dateType = $('.time-options-1').html();
 
