@@ -415,7 +415,7 @@
                                         <input type="text" v-model="station" class="station">
                                     </div>
                                 </li>
-                                <div class="btn btn-success select-CZ" id="select-DEV" disabled="disabled">选择</div>
+                                <div class="btn btn-success select-CZ" id="select-DEV">选择</div>
                             </div>
                             <div>
                                 <li class="floatLeft" style="width: 537px;">
@@ -439,7 +439,7 @@
                                 <li class="floatLeft" style="width: 428px">
                                     <div class="labels colorTip">相关工单 *：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="aboutGD">
+                                        <input type="text" v-model="aboutGD" class="aboutGD">
                                     </div>
                                 </li>
                                 <div class="btn btn-success btn1 select-CZ" id="select-GD" disabled="disabled">选择</div>
@@ -470,7 +470,7 @@
                                     </div>
                                 </li>
                                 <li class="floatRight" style="width: 249px !important;">
-                                    <div class="labels colorTip">加班时长（小时） *：<div class="multiple-condition dateType" style="width: 122px;display: none;"><span class="colorTip">请输入正确格式</span></div></div>
+                                    <div class="labels colorTip">加班时长（小时） *：<div class="multiple-condition dateType" style="width: 122px;display: none;"><span class="colorTip">请输入正整数</span></div></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="moneyType" @keyup="naturalNumber('moneyType')" style="width: 247px">
 
@@ -561,14 +561,14 @@
 </div>
 <!--审核-->
 <div class="modal fade" id="examine-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 462px;">
-        <div class="modal-content" style="height: 462px;">
+    <div class="modal-dialog" style="height: 362px;">
+        <div class="modal-content" style="height: 362px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" >提示</h4>
             </div>
             <div class="modal-body">
-                <ul class="gongdanList" id="examineBlock" style="height: 300px;overflow-y: auto">
+                <ul class="gongdanList" id="examineBlock" style="height: 200px;overflow-y: auto">
                     <li class="floatLeft">
                         <div class="labels">加班编号 ：</div>
                         <div class="input-blockeds">
@@ -577,17 +577,17 @@
                     </li>
                     <div class="clearfix"></div>
                     <div>
-                        <div class="labels">一级审批意见：</div>
+                        <div class="labels">审批意见：</div>
                         <div class="input-blockeds" style="height: 80px;">
                             <textarea  style="height: 100%;width: 100%;outline: none"></textarea>
                         </div>
                     </div>
-                    <div>
-                        <div class="labels">二级审批意见：</div>
-                        <div class="input-blockeds" style="height: 80px;">
-                            <textarea  style="height: 100%;width: 100%;outline: none"></textarea>
-                        </div>
-                    </div>
+                    <!--<div>-->
+                        <!--<div class="labels">二级审批意见：</div>-->
+                        <!--<div class="input-blockeds" style="height: 80px;">-->
+                            <!--<textarea  style="height: 100%;width: 100%;outline: none"></textarea>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div id="radioblock">
                         <input type="radio" attr-value="1" id="adopt" checked style="margin-left: -10px;"><label for="adopt">通过</label>
                         <input type="radio" attr-value="0" id="notAdopt" style="margin-left: -10px;"><label for="notAdopt">不通过</label>

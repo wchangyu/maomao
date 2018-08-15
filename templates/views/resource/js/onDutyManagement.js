@@ -921,6 +921,7 @@ $(function(){
 
                     arr.push(obj);
                 }
+
                 $.ajax({
 
                     type:'post',
@@ -941,6 +942,8 @@ $(function(){
                     success:function(result){
 
                         if(result == 99){
+
+                            $('#Worker-Modal').modal('hide');
 
                             _moTaiKuang($('#myModal2'),'提示','flag','istap','添加人员成功!');
 
@@ -1156,14 +1159,14 @@ $(function(){
 
         $(this).parents('tr').addClass('tables-hover');
 
-        //生成数组[{title:'',start:'',end:''}];
-
         var title = '';
 
         //根据当前的班次编码，选择班次详情
         for(var i=0;i<_BCData.length;i++){
 
             if( $(this).attr('data-num') == _BCData[i].bccode ){
+
+                //console.log(_BCData[i]);
 
                 //title = _BCData[i].name;
 
@@ -1195,6 +1198,8 @@ $(function(){
                 var times = moment(year + '-' + Monthnum + '-' + (i + 1)).format('YYYY-MM-DD');
 
                 var flag = false;
+
+                //console.log(_BCDayObj.banCiDetailList);
 
                 for(var j=0;j<_BCDayObj.banCiDetailList.length;j++){
 
@@ -1416,7 +1421,9 @@ $(function(){
 
             },
             error:function(jqXHR, textStatus, errorThrown){
+
                 console.log(jqXHR.responseText);
+
             }
 
         })
@@ -1539,25 +1546,29 @@ $(function(){
 
                     _allData.length = 0;
 
-                    for(var i=0;i<result.wprList.length;i++){
+                    if(result.wprList){
 
-                        var obj = {};
+                        for(var i=0;i<result.wprList.length;i++){
 
-                        obj.name = result.wprList[i].watchUserName;
+                            var obj = {};
 
-                        obj.num = result.wprList[i].watchUser;
+                            obj.name = result.wprList[i].watchUserName;
 
-                        obj.bcCode = result.wprList[i].bccode;
+                            obj.num = result.wprList[i].watchUser;
 
-                        obj.bcName = result.wprList[i].bcname;
+                            obj.bcCode = result.wprList[i].bccode;
 
-                        obj.id = result.wprList[i].id;
+                            obj.bcName = result.wprList[i].bcname;
 
-                        obj.shangbantime = result.wprList[i].shangbantime;
+                            obj.id = result.wprList[i].id;
 
-                        obj.xiabantime = result.wprList[i].xiabantime;
+                            obj.shangbantime = result.wprList[i].shangbantime;
 
-                        _allData.push(obj);
+                            obj.xiabantime = result.wprList[i].xiabantime;
+
+                            _allData.push(obj);
+
+                        }
 
                     }
 

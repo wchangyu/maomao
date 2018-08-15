@@ -100,7 +100,7 @@
         createInit();
 
         //模态框
-        _moTaiKuang($('#create-Modal'),'创建','',false,false,'创建');
+        _moTaiKuang($('#create-Modal'),'创建区域','',false,false,'创建');
 
         //类
         $('#create-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
@@ -137,7 +137,7 @@
         _thisID = $(this).attr('data-userid');
 
         //模态框
-        _moTaiKuang($('#create-Modal'), '提示', false, '' ,'', '保存');
+        _moTaiKuang($('#create-Modal'), '编辑区域', false, '' ,'', '保存');
 
         //绑定数据
         bind(_thisID);

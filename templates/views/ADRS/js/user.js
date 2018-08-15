@@ -36,7 +36,7 @@
 
                 return  "<span class='option-edit option-button' data-userId='" + full.userId + "'>编辑</span>" +
 
-                    "<span class='option-edit option-button option-huhao' data-userId='" + full.userId + "'><a href='changePassword.html?a=" + full.userId + "' style='color: #0aa3c3 !important'>修改密码</a></span>"
+                    "<span class='option-button option-huhao' data-userId='" + full.userId + "'><a href='changePassword.html?a=" + full.userId + "' style='color: #0aa3c3 !important'>修改密码</a></span>"
 
 
             }
@@ -177,7 +177,7 @@
         _thisID = $(this).attr('data-userid');
 
         //模态框
-        _moTaiKuang($('#create-Modal'), '提示', false, '' ,'', '保存');
+        _moTaiKuang($('#create-Modal'), '编辑账户', false, '' ,'', '保存');
 
         //绑定数据
         bind(_thisID);

@@ -2291,6 +2291,31 @@
 
                 }
 
+                var tipStr = '';
+
+                if(index == 0){
+
+                    //待投标
+                    tipStr = '暂时没有待投标的事件'
+
+                }else if(index == 1){
+
+                    //已投标
+                    tipStr = '暂时没有已投标的事件'
+
+                }else if(index == 2){
+
+                    //已中标
+                    tipStr = '暂时没有已中标的事件'
+
+                }
+
+                if(arr.length == 0){
+
+                    topTipBar(tipStr);
+
+                }
+
                 _jumpNow($('#table'),arr);
 
             },

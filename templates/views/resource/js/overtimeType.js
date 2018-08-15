@@ -3,7 +3,6 @@ $(function(){
     /*---------------------------------------------变量-------------------------------------------*/
 
     //类型vue对象
-
     var typeVue = new Vue({
 
         el:'#myApp33',
@@ -115,25 +114,6 @@ $(function(){
     /*----------------------------------------------表格初始化-------------------------------------*/
     var tableListCol = [
         {
-            title:'排序',
-            data:'sort'
-        },
-        //{
-        //    title:'id',
-        //    data:'id',
-        //    className:'typeId'
-        //},
-        {
-            title:'类型编号',
-            data:'type',
-            className:'Ttype',
-            render:function(data, type, full, meta){
-
-                return '<span data-num="' + full.id + '">' + data + '</span>'
-
-            }
-        },
-        {
             title:'类型名称',
             data:'name'
         },
@@ -147,13 +127,25 @@ $(function(){
             data:'money2'
         },
         {
+            title:'第三阶段补贴金额',
+            data:'money3'
+        },
+        {
+            title:'第四阶段补贴金额',
+            data:'money4'
+        },
+        {
             title: '操作',
             "targets": -1,
             "data": null,
             "className": 'noprint',
-            "defaultContent":
-            "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
-            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+            render:function(data, type, full, meta){
+
+                return  "<span class='data-option option-edit btn default btn-xs green-stripe' data-id='" + full.id + "'>编辑</span>" +
+                "<span class='data-option option-delete btn default btn-xs green-stripe' data-id='" + full.id + "'>删除</span>"
+
+            }
+
         }
 
     ];
@@ -320,7 +312,7 @@ $(function(){
     function optionButton(url,flag,successMeg,errorMeg){
 
         //非空验证
-        if(typeVue.typeNum == '' || typeVue.typeName == '' || typeVue.firstCost == '' || typeVue.secondCost == '' || typeVue.thirdCost == '' || typeVue.fourthCost == '' || typeVue.sort == '' ){
+        if(typeVue.typeName == '' || typeVue.firstCost == '' || typeVue.secondCost == '' || typeVue.thirdCost == '' || typeVue.fourthCost == ''){
 
             _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请填写红色必填项！', '');
 
@@ -352,7 +344,7 @@ $(function(){
                 var  prm = {
 
                     //编号类型
-                    type:typeVue.typeNum,
+                    //type:typeVue.typeNum,
                     //类型名称
                     name:typeVue.typeName,
                     //第一阶段补贴金额
@@ -364,7 +356,7 @@ $(function(){
                     //第四阶段金额
                     money4:typeVue.fourthCost,
                     //排序
-                    sort:typeVue.sort
+                    //sort:typeVue.sort
 
                 };
 
@@ -425,7 +417,7 @@ $(function(){
 
         $this.parents('tr').addClass('tables-hover');
 
-        _thisID = $this.parents('tr').children('.Ttype').children().attr('data-num');
+        _thisID = $this.attr('data-id');
 
         //遍历_allData,比较
         for(var i=0;i<_allData.length;i++){
@@ -435,7 +427,7 @@ $(function(){
                 //绑定数据
                 typeVue.id = _allData[i].id;
                 //编码
-                typeVue.typeNum = _allData[i].type;
+                //typeVue.typeNum = _allData[i].type;
                 //名称
                 typeVue.typeName = _allData[i].name;
                 //第一阶段补贴金额
@@ -447,7 +439,7 @@ $(function(){
                 //第四阶段金额
                 typeVue.fourthCost = _allData[i].money4;
                 //排序
-                typeVue.sort = _allData[i].sort;
+                //typeVue.sort = _allData[i].sort;
 
             }
 
