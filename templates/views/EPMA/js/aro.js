@@ -332,6 +332,8 @@ $(function(){
 
         }
 
+        $('.noDataTip').remove();
+
         //echarts数据
         $.ajax({
 
@@ -505,13 +507,39 @@ $(function(){
 
                     option.yAxis[0].interval = _interval;
 
-                    mychart.setOption(option,true);
-
                 }else{
+
+                    option.yAxis = [
+
+                        {
+                            name:'能耗',
+
+                            type:'value'
+                        }
+
+                    ]
+
+                    var tip = '';
+
+                    if(result.code == -1){
+
+                        tip = result.msg;
+
+                    }else{
+
+                        tip = '暂时没有获取到能耗数据';
+
+                    }
+
+                    var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
+
+                    $('#chartBlock').append(str);
 
                     console.log('异常错误(能耗分析):' + result.msg);
 
                 }
+
+                mychart.setOption(option,true);
 
             },
 

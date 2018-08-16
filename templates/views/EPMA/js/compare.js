@@ -110,7 +110,7 @@
             var tvLeft = ofstzTv.left - 240;
             var tvTop = ofstzTv.top - 90;
             $("#alreadyDT")
-                .css({ left: tvLeft + "px", top: tvTop - 12 + "px" })
+                .css({ left: 73 + "px", top: 33 + "px",'z-index':2 })
                 .slideDown("fast");
             $("body").bind("mousedown", onBodyDown);
             $("#ULDT").html("");
@@ -146,6 +146,9 @@
     }
     
     var getCompareEERChartViewDs = function (eType,mType,dTs) {
+
+        $('.noDataTip').remove();
+
         jQuery('#compareBusy').showLoading();
         mycv = echarts.init(document.getElementById('compareMain'));
         var url = sessionStorage.apiUrlPrefix + "CompareEER/GetCompareEERAnalysisDs";
@@ -156,6 +159,7 @@
             eType:eType,
             misc:sessionStorage.misc
         },function (res) {
+
             if(res.code===0){
                 var titleText = "多时间段能效对比分析";
                 var lgs = [];//图例
@@ -238,12 +242,31 @@
                 }
 
                 mycv.setOption(option,true);
+
                 jQuery('#compareBusy').hideLoading();
+
             }else if(res.code===-1){
+
+                var tip = res.msg;
+
+                var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
+
+                $('#compareMain').append(str);
+
                 console.log('异常错误(能效多时间段对比):' + res.msg);
+
                 jQuery('#compareBusy').hideLoading();
+
+
             }else{
                 jQuery('#compareBusy').hideLoading();
+
+                var tip = '暂时没有获取到能效数据';
+
+                var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
+
+                $('#compareMain').append(str);
+
             }
         })
     }

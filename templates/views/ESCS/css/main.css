@@ -36,19 +36,16 @@
 
 .main-top-left-left{
 
-    position: absolute;
-
-    left: 0;
-
-    top: 25%;
-
+    float: left;
 }
 
 .main-top-left-right{
 
-    margin-left: 80px;
+    margin-left: 60px;
 
-    margin-top: 15px;
+    margin-top: 11px;
+
+    margin-bottom: 0;
 
 }
 
@@ -85,6 +82,8 @@
     font-size: 12px;
 
     color: #3B3B3B;
+
+    margin-left: 5px;
 
 }
 
@@ -137,6 +136,22 @@
 
     float: right;
 
+    margin-bottom: 10px;
+
+    margin-right: 10px;
+
+}
+
+#EEEC p{
+
+    text-align: left;
+
+    text-indent: 10px;
+
+    margin:0;
+
+    line-height: 17px;
+
 }
 
 .actual-value-top{
@@ -185,7 +200,7 @@
 
 #chart-gug{
 
-    height: 204px;
+    height: 192px;
 }
 
 .main-tab{
@@ -267,6 +282,12 @@
 
 .main-top-left-right li{
 
-    margin-bottom: 27px;
+   /* margin-bottom: 27px;*/
+
+}
+
+.main-top-left-right-name img{
+
+    margin-right: 8px;
 
 }

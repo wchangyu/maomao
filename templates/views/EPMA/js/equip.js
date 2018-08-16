@@ -1,5 +1,8 @@
 $(function(){
 
+    //当前选中的id
+    var _id = '';
+
     /*---------------------------------事件插件-----------------------------------*/
 
     _timeYMDComponentsFun11($('.equipNewDT'));
@@ -17,306 +20,307 @@ $(function(){
         },
         {
             title:'设备标识',
-            data:'SBBS'
+            data:'0'
         },
         {
             title:'设备编号',
-            data:'SBBM'
+            data:'1'
         },
         {
 
             title:'设备名称',
-            data:'SBMC'
+            data:'2'
 
         },
         {
             title:'安装位置',
-            data:'AZWZ'
+            data:'3'
         },
         {
 
             title:'所属系统',
-            data:'SSXT'
+            data:'4'
 
         },
         {
             title:'型号',
-            data:'XH'
+            data:'5'
         },
         {
             title:'性能参数',
-            data:'XNCS'
+            data:'6'
         },
         {
             title:'品牌',
-            data:'PP'
+            data:'7'
         },
         {
             title:'厂家',
-            data:'CJ'
+            data:'8'
         },
         {
             title:'出厂编号',
-            data:'CCBH'
+            data:'9'
         },
         {
             title:'使用状态',
-            data:'SYZT'
+            data:'10'
         },
         {
             title:'出厂日期',
-            data:'CCRQ'
+            data:'11'
         },
         {
             title:'购入日期',
-            data:'GRRQ'
+            data:'12'
         },
         {
             title:'启用日期',
-            data:'QYRQ'
+            data:'13'
         },
         {
             title:'使用年限',
-            data:'SYNX'
+            data:'14'
         },
         {
             title:'免质保日期',
-            data:'MZBRQ'
+            data:'15'
         },
         {
             title:'免质保单位',
-            data:'MZBDW'
+            data:'16'
         },
         {
             title:'免质保电话',
-            data:'MZBDH'
+            data:'17'
         },
         {
             title:'付费保日期',
-            data:'FFBRQ'
+            data:'18'
         },
         {
             title:'付费保单位',
-            data:'FFBDW'
+            data:'19'
         },
         {
             title:'付费保电话',
-            data:'FFBDH'
+            data:'20'
         },
         {
             title:'归属部门',
-            data:'GSBM'
+            data:'21'
         },
         {
             title:'归属负责人',
-            data:'GSFZR'
+            data:'22'
         },
         {
             title:'负责人电话',
-            data:'FZRDH'
+            data:'23'
+        },
+        {
+            title:'绑定设备类型',
+            data:'24'
+        },
+        {
+            title:'绑定设备',
+            data:'25'
         },
         {
             title:'备注',
-            data:'BZ'
+            data:'26'
         }
 
     ];
 
     _tableInit($('#table'),col,2,false,'','','','','',true);
 
+
+    conditionSelect();
+
     /*--------------------------------按钮事件------------------------------------*/
 
-    //【新增】
-    $('#createBtn').click(function(){
+    //选中某条东西
+    $('#table tbody').on('click','tr',function(){
 
-        //初始化
-        modalInit();
+        var lengths = $(this).find('.checked').length;
 
-        //模态框
-        _moTaiKuang($('#option-Modal'), '设备信息管理', false, '' ,'', '保存设备数据');
+        $('#table tbody').children().removeClass('tables-hover');
 
-        //绑定数据
+        $('#table tbody').children().find('.checked').removeClass('checked');
 
-        //类
-        $('#option-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
+        if(lengths){
 
-    })
+            //去掉
+            $(this).removeClass('tables-hover');
 
-    //新增【确定】
-    $('#option-Modal').on('click','.dengji',function(){
+            $(this).find('input').parent().removeClass('checked');
 
+        }else{
 
+            //选中
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent().addClass('checked');
+
+        }
 
     })
 
     //【编辑】
     $('#editBtn').click(function(){
 
-        //初始化
-        modalInit();
+        //首先判断是否选中了
+        var lengths = $('#table tbody').find('.tables-hover').length;
 
-        //模态框
-        _moTaiKuang($('#option-Modal'), '设备信息管理', false, '' ,'', '保存设备数据');
+        var a = $('#table tbody').find('.tables-hover').children().eq(1).html();
 
-        //绑定数据
+        if(lengths == 0){
 
-        //类
-        $('#option-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择要编辑的设备','');
 
-    })
+        }else{
 
-    //编辑【确定】
-    $('#option-Modal').on('click','.bianji',function(){
+            window.location.href = 'equipNew.html?a='+ a ;
 
-
+        }
 
     })
 
     //【删除】
     $('#deleteBtn').click(function(){
 
-        //初始化
-        modalInit();
 
-        //模态框
-        _moTaiKuang($('#option-Modal'), '确定要删除吗？', false, '' ,'', '删除');
 
-        //绑定数据
+        //首先判断是否选中了
+        var lengths = $('#table tbody').find('.tables-hover').length;
 
-        //类
-        $('#option-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
+        _id = $('#table tbody').find('.tables-hover').children().eq(1).html();
+
+        //return false;
+
+        if(lengths == 0){
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择要删除的设备','');
+
+        }else{
+
+            //模态框
+            _moTaiKuang($('#tip-Modal'), '提示', false, true ,'确定要删除吗？', '删除');
+
+        }
 
     })
 
     //删除【确定】
-    $('#option-Modal').on('click','.shanchu',function(){
+    $('#tip-Modal').on('click','.btn-primary',function(){
 
+
+        var prm = {
+
+            id:_id
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url: sessionStorage.apiUrlPrefix + 'Opers/DeleteDCLedgerInfo',
+
+            beforeSend:function(){
+
+                $('#table').showLoading();
+
+            },
+
+            complete:function(){
+
+                $('#table').hideLoading();
+
+            },
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                console.log(result);
+
+                if(result.code == 0){
+
+                    conditionSelect()
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'删除失败','');
+
+                }
+
+
+            },
+
+            error:_errorFun1
+
+
+        })
 
 
     })
 
     /*--------------------------------其他方法-------------------------------------*/
 
-    //模态框初始化
-    function modalInit(){
+    //设备列表
+    function conditionSelect(){
 
-        var inputs = $('#option-Modal').find('.form-control');
+        var prm = {
+            "iDisplayStart": 1,
+            "iDisplayLength": 50,
+            "sSearch": sessionStorage.PointerID,
+            "sSearch_1": "",
+            "sSearch_5": "",
+            "bEscapeRegex": true
+        }
 
-        inputs.val('');
+        $.ajax({
+
+            type:'post',
+
+            url: sessionStorage.apiUrlPrefix + 'Opers/GetLedgerDs',
+
+            beforeSend:function(){
+
+                $('#table').showLoading();
+
+            },
+
+            complete:function(){
+
+                $('#table').hideLoading();
+
+            },
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                console.log(result);
+
+                _datasTable($('#table'),result.aaData);
+
+
+            },
+
+            error:_errorFun1
+
+
+        })
+
 
     }
 
-    //条件查询
-    var result = [
-
-        {
-            SBBS:'1',
-
-            SBBM:'2',
-
-            SBMC:'3',
-
-            AZWZ:'4',
-
-            SSXT:'5',
-
-            XH:'6',
-
-            XNCS:'7',
-
-            PP:'8',
-
-            CJ:'9',
-
-            CCBH:'10',
-
-            SYZT:'11',
-
-            CCRQ:'12',
-
-            GRRQ:'13',
-
-            QYRQ:'14',
-
-            SYNX:'15',
-
-            MZBRQ:'16',
-
-            MZBDW:'17',
-
-            MZBDH:'18',
-
-            FFBRQ:'19',
-
-            FFBDW:'20',
-
-            FFBDH:'21',
-
-            GSBM:'22',
-
-            GSFZR:'23',
-
-            FZRDH:'24',
-
-            BZ:'25'
-
-        },
-        {
-            SBBS:'01',
-
-            SBBM:'02',
-
-            SBMC:'03',
-
-            AZWZ:'04',
-
-            SSXT:'05',
-
-            XH:'06',
-
-            XNCS:'07',
-
-            PP:'08',
-
-            CJ:'09',
-
-            CCBH:'010',
-
-            SYZT:'011',
-
-            CCRQ:'012',
-
-            GRRQ:'013',
-
-            QYRQ:'014',
-
-            SYNX:'015',
-
-            MZBRQ:'016',
-
-            MZBDW:'017',
-
-            MZBDH:'018',
-
-            FFBRQ:'019',
-
-            FFBDW:'020',
-
-            FFBDH:'021',
-
-            GSBM:'022',
-
-            GSFZR:'023',
-
-            FZRDH:'024',
-
-            BZ:'025'
-
-        }
-
-    ]
-
-    //条件选择
-    //function
 
 })
