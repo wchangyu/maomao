@@ -190,8 +190,6 @@ $(function(){
     //【删除】
     $('#deleteBtn').click(function(){
 
-
-
         //首先判断是否选中了
         var lengths = $('#table tbody').find('.tables-hover').length;
 
@@ -266,6 +264,45 @@ $(function(){
 
         })
 
+
+    })
+
+    //导出
+    $('#excelBtn').on('click',function(){
+
+        var prm = {
+            "iDisplayStart": 1,
+            "iDisplayLength": 50,
+            "sSearch": sessionStorage.PointerID,
+            "sSearch_1": "",
+            "sSearch_5": "",
+            "bEscapeRegex": true
+        }
+
+        var url = sessionStorage.apiUrlPrefix + 'Opers/ExportAnalysisAroChartVie?iDisplayStart=1&iDisplayLength=50&sSearch=' + sessionStorage.PointerID + '&sSearch_1=&sSearch_5=&bEscapeRegex=true'
+
+        console.log(url);
+
+        $.ajax({
+
+            type:'get',
+
+            url: sessionStorage.apiUrlPrefix + 'Opers/ExportAnalysisAroChartVie',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                window.open(url, "_self", true);
+
+            },
+
+            error:_errorFun1
+
+
+        })
 
     })
 
