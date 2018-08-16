@@ -179,7 +179,6 @@ var Login = function() {
         });
     };
 
-
     //将用户权限转换成01的字符串
     var convertAuthTo01Str = function(hexstr){
         var arr = [];
@@ -240,6 +239,7 @@ var Login = function() {
 
     //根据用户名获取楼宇,存放到sessionstorage中
     var getPointersByUser = function(userId){
+
         if(userId) {
             var dataStr = {'': userId};
             $.ajax({
@@ -248,8 +248,12 @@ var Login = function() {
                     data:dataStr,
                     dataType:'json',
                     success:function(pointers){
-                        sessionStorage.pointers = JSON.stringify(pointers);
-                        sessionStorage.allPointers = JSON.stringify(pointers);
+
+                        var pointersArr =  JSON.stringify(pointers);
+                        sessionStorage.pointers = pointersArr;
+                        sessionStorage.allPointers = pointersArr;
+                        getAllUnitType(pointers);
+
                         _isPointersLoaded = true;
                         getEnterpriseList();
                         directToIndex();
@@ -392,7 +396,7 @@ var Login = function() {
             );
 
         }
-    }
+    };
 
     //获取配置文件，保存到存储区域
     var initConfig = function (src) {
@@ -412,6 +416,7 @@ var Login = function() {
                 type: 'get',
                 async:false,
                 success: function (data) {
+
                     //获取当前的接口地址
                     var apiUrlPrefix = data["apiUriPrefix"] || "";
                     sessionStorage.apiUrlPrefix = apiUrlPrefix;     //存储到暂存区，在本次session中使用
@@ -576,6 +581,28 @@ var Login = function() {
 
     };
 
+    //获取楼宇下全部单位类型
+    var getAllUnitType = function(pointerArr){
+
+        //存放全部单位类型
+        var allUnitType = [];
+
+        var _allUnitTypeArr = unique(pointerArr,'pointerClass');
+
+        $(_allUnitTypeArr).each(function(i,o){
+
+            var obj= {
+
+                className: o.className,
+                pointerClass: o.pointerClass
+            };
+
+            allUnitType.push(obj);
+        });
+
+        sessionStorage.allUnitType = JSON.stringify(allUnitType);
+
+    };
 
     var particle = function(){
         var div = document.getElementById("particles-js");
@@ -686,7 +713,33 @@ var Login = function() {
                 "retina_detect": true
             });
         }
-    }
+    };
+
+    //数组去重
+    function unique(a,attr) {
+
+        var res = [];
+
+        for (var i = 0, len = a.length; i < len; i++) {
+            var item = a[i];
+            for (var j = 0, jLen = res.length; j < jLen; j++) {
+                //console.log(i + '' + res);
+                if (res[j][attr] === item[attr]){
+                    //console.log(333);
+                    break;
+                }
+
+            }
+            if (j === jLen){
+
+                res.push(item);
+
+            }
+
+        }
+
+        return res;
+    };
 
     /*
     清除暂存信息，cookie sessionStorage
@@ -715,7 +768,7 @@ var Login = function() {
         //$.removeCookie("userpassword");
         //$.removeCookie("rememberme");
 
-    }
+    };
 
     return {
         //main function to initiate the module

@@ -49,6 +49,9 @@ var Rate=function () {
 
     //获取负荷数据
     var getRateDs = function () {
+
+        $('.noDataTip').remove();
+
         jQuery('#rateBusy').showLoading();
         mycv = echarts.init(document.getElementById('rateMain'));
         var sp = $('#spDT').val();
@@ -60,6 +63,7 @@ var Rate=function () {
             ep:ep,
             misc:sessionStorage.misc
         },function (res) {
+
             if(res.code===0){
                 var miscstr
                     //= 'KW/KW';
@@ -160,10 +164,28 @@ var Rate=function () {
                 mycv.setOption(option);
                 jQuery('#rateBusy').hideLoading();
             }else if(res.code===-1){
+
+                var tip = res.msg;
+
+                var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
+
+                $('#rateMain').append(str);
+
                 console.log('异常错误(负荷分析):' + res.msg);
+
                 jQuery('#rateBusy').hideLoading();
+
             }else{
+
                 jQuery('#rateBusy').hideLoading();
+
+                var tip = '暂时没有获取到负荷比重数据';
+
+                var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
+
+                $('#rateMain').append(str);
+
+
             }
         })
     }

@@ -87,7 +87,7 @@
             <!--右侧图片及统计-->
             <div class="right-picture-data">
 
-                <p class="right-picture-title">南京南站 <br/><span>（Nanjing South Railway Station）</span>
+                <p class="right-picture-title">南京南站 <br/><span>（nanjingnan Station）</span>
                 </p>
 
                 <p class="right-picture-statistics">接入系统：<span></span>个</p>
@@ -138,7 +138,7 @@
     <!--右侧主体内容-->
     <div class="inner-right-container">
         <!--头部标题-->
-        <h2 class="right-top-title">南京南站（Nanjing South Railway Station）</h2>
+        <h2 class="right-top-title">南京南站（nanjingnan Station）</h2>
 
         <!--右侧上方时间温度等信息-->
         <div class="right-top-message">
@@ -367,7 +367,7 @@
                     <a target="_blank" href="../passengerStation/passengerStation.html?sendUrl=new-yongnengguanli/energyMoney.html" style="font-size:14px;float:right;">点击查看详情</a>
 
                                               <span style="float:right;font-weight: 500;font-size: 14px;margin-right:40px">单位：
-                                        <b>kgce</b>
+                                        <b>元</b>
                                     </span>
 
                 </h3>
@@ -466,8 +466,8 @@
 
                                             </span>
                     能耗分项
-                                            <!--<span style="float:right;font-weight: 500;font-size: 14px;">单位：-->
-                                        <!--<b>元</b>-->
+                                            <span style="float:right;font-weight: 500;font-size: 14px;">单位：
+                                        <b>kgce</b>
                                     </span>
                 </h3>
 
@@ -493,6 +493,9 @@
 
                                             </span>
                     电耗分项
+                      <span style="float:right;font-weight: 500;font-size: 14px;">单位：
+                                        <b>kWh</b>
+                                    </span>
                     <!--<a target="_blank" href="../new-nenghaofenxi/energySubentry.html" style="font-size:14px;float:right;">查看详情</a>-->
                 </h3>
 
@@ -507,28 +510,40 @@
             </div>
 
             <!--车站单位面积能耗排名-->
-            <div class="content-main-middle-right main-right-oness main-right-oness-3 quota-data-bottom" style="padding-left: 0px;margin-bottom:0">
+            <div class="content-main-middle-right main-right-oness main-right-oness-3 quota-data-bottom" style="padding-left: 0px;margin-bottom:0;position: relative">
 
-                <h3 style="">
+                <h3 style="margin-bottom:30px;">
 
 
                                             <span class="left-patch">
 
                                             </span>
-                    车站单位客流能耗排名
+                    <!--车站单位客流能耗排名-->车站年度能耗对比
                     <a target="_blank" href="../new-yongnengguanli/energyRankingItem.html" style="font-size:14px;float:right;">点击查看详情</a>
 
                                               <span style="float:right;font-weight: 500;font-size: 14px;margin-right:40px">单位：
-                                        <b>kgce/人</b>
+                                        <b class="unit"></b>
                                     </span>
 
                 </h3>
 
+                <ul class="top-cut" style="position: absolute;left:15px;top:35px;">
+
+
+                </ul>
+
+                <ul class="legend">
+                    <li>
+                        本年<span class="colors"></span>
+                        去年<span class="colors colors1"></span>
+                    </li>
+                </ul>
+
                 <div class="row">
 
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 echarts-content1">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 echarts-content1" >
                         <!-- 车站单位面积能耗排名 -->
-                        <div id="bottom-right-one">
+                        <div id="bottom-right-one" style="height: 190px;">
 
                         </div>
 

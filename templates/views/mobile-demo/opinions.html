@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>意见建议</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0;" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="js/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+
+    <!--loading插件-->
+    <link rel="stylesheet" href="css/showLoading.css"/>
+    <script src="js/jquery-1.11.2.js"></script>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:"微软雅黑";
+        }
+
+        h1,h2,h3,h4,h5,p{
+            margin:0;
+        }
+
+        /*清除浮动*/
+        .clearfix{
+            clear:both;
+        }
+
+        .head-title{
+            font-size: 22px;
+            text-align: center;
+            background: #cdcdcd;
+            padding:15px 0px !important;
+            border-bottom: 1px solid #d9d9d9;
+            color: #666666;
+            font-weight: 600;
+            /*margin-bottom:10px;*/
+        }
+
+        .content-container{
+            text-align: center;
+            padding: 10px 5px;
+        }
+
+      .content-container textarea{
+          width: 100%;
+          height: 180px;
+          background: #eee;
+          resize: none;
+      }
+
+        .success-btn{
+            min-width: 100px;
+            border-radius: 5px;
+            background: darkorchid;
+            color:white;
+            height:40px;
+            line-height: 40px;
+            margin-top:10px;
+            margin-right:20px;
+            float: right;
+            border: none;
+            outline: none;
+        }
+
+
+    </style>
+
+</head>
+
+<body class="fixed_head ">
+
+<!--头部信息-->
+<h3 class="head-title">意见建议</h3>
+
+<!--具体内容-->
+<div class="content-container">
+
+    <!--评语内容-->
+    <textarea name="" id="opinions" placeholder="请输入您的意见或建议"></textarea>
+
+    <button class="success-btn" style="">确定</button>
+
+</div>
+
+<script src="js/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+
+<script src="js/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<!--loading插件-->
+<script src="js/jquery.showLoading.min.js"></script>
+
+<script>
+
+    //获取用户名
+    var  name1 =  window.location.href.split("userId=")[1];
+
+    var userName = "";
+
+    //获取登陆信息
+    getLoginMessage();
+
+
+    //获取登录信息
+    function getLoginMessage (){
+
+        //首先获取url根目录
+        var _Lurls = window.document.location.href.split('templates')[0];
+
+        //获取存放配置文件的地址
+        var configSrc =  _Lurls + "assets/local/configs/config.json?"+ Math.random();
+        loginPath = '';
+
+        $.ajax({
+            url: configSrc,
+            type: 'get',
+            async:false,
+            success: function(data){
+
+                apiUrlPrefix = data["apiUriPrefix"] || '';
+                sessionStorage.apiUrlPrefix = apiUrlPrefix;
+                //console.log(sessionStorage.loginPath)
+            },
+            error: function (xhr, res, err) {
+                //showAlertInfo(err);
+            }
+
+        });
+    };
+
+    //提交
+    $('.success-btn').on('click',function(){
+
+        var comment = $('#opinions').val();
+
+        //传递给后台的参数
+        var accParams =
+        {
+
+            "userName": userName,
+            "comment": comment,
+            "userId": name1
+        };
+
+        var url = sessionStorage.apiUrlPrefix + "HBYYG/EvaluateAdd";
+
+        //调用后台数据
+        $.ajax({
+            url:url,
+            type:"post",
+            data:accParams,
+            //async:true,
+            success:function(res){
+                console.log(res);
+
+                $('.fixed_head').hideLoading();
+
+                setTimeout(function(){
+
+                    //报错提示信息
+                    if(res.status == 3){
+
+                        alert(res.message);
+
+                    }else{
+
+                        alert('提交成功');
+                    }
+
+                },100);
+
+
+            },
+            error:function(xhr,res,err){
+
+                $('.fixed_head').hideLoading();
+            }
+        });
+
+    });
+
+
+
+</script>
+
+</body>
+</html>

@@ -90,13 +90,13 @@ var __systemConfigArr = [
             },
             {
                 statementName:"区域能耗报表",
-                jumpUrl: "areaEnergyDataStatement.html",
+                jumpUrl: "areaEnergyDataStatement2.html",
                 addClass:'statement-contain',
                 isShow:1
             },
             {
                 statementName:"部门能耗报表",
-                jumpUrl: "officeEnergyDataManagement.html",
+                jumpUrl: "officeEnergyDataManagement2.html",
                 addClass:'statement-contain1 statement-contain',
                 isShow:1
             },
@@ -169,7 +169,7 @@ var __systemConfigArr = [
         pageUrl :"new-nenghaofenxi/relevanAnalysData.html",
         pageId:2,
         //定义根据楼宇展示 还是院区展示 0为楼宇 1为院区
-        showDataType : 1
+        showDataType : 0
     },
     //运维中大屏展示页面配置信息
     {

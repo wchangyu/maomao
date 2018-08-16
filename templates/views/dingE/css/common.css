@@ -8,6 +8,10 @@ li{
     list-style-type: none;
 }
 
+.main-content{
+    min-height: 900px !important;
+}
+
 /*不能输入的背景色*/
 .can-not-import{
     background-color: rgb(235, 235, 228) !important;

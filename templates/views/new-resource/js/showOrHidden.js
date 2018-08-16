@@ -175,6 +175,7 @@ function _selectTime(dataType){
     $('.end-time-choose').show();
     //开始时间选框居中
     $('.start-time-choose').addClass('position-center');
+
     if(dataType == '日'){
 
         var curUrl = window.location.href;
@@ -247,6 +248,7 @@ function _selectTime(dataType){
 
         //如果是能耗查询页面
         if(curUrl.indexOf("new-nenghaoshuju/energyDemand-1.html") > -1){
+
             //展示选择展示类型的选框
             $('.chooseShowType').show();
 
@@ -273,7 +275,7 @@ function _selectTime(dataType){
 
                 //按分钟展示
             }else if(showType == 2){
-                console.log(44);
+                //console.log(44);
 
                 _timeComponentsFun1($('.datatimeblock'))
             }
@@ -525,6 +527,7 @@ function _searchPO(tip,pointerId,tips,officeId){
         var objSearch = new ObjectSearch();
         objSearch.initOfficeSearch($("#key"),tips,officeId);
     }
+
 }
 
 function _searchPO1(tips,officeId){

@@ -236,7 +236,10 @@ $(function(){
             "className": 'noprint',
             render:function(data, type, full, meta){
 
+                //判断两个审批人，只要有一个不为空，就不能审批 full.isexamine =1显示审批，反之不显示
                 if(full.isexamine == 1){
+
+                    //full.shenp1UserName == ''说明肯定没有审核过
 
                     if(full.shenp1UserName == ''){
 
@@ -247,9 +250,22 @@ $(function(){
 
                     }else{
 
-                        return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                            "<span class='data-option option-shenhe btn default btn-xs green-stripe'>审核</span>"+
-                            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                        //说明一级审批已过，显示二级审批
+
+                        if(full.shenp2UserName == ''){
+
+                            return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+
+                                "<span class='data-option option-shenhe btn default btn-xs green-stripe'>审核</span>"
+
+                        }else{
+
+                            //二级审核已过
+                            return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
+
+                        }
+
+
 
                     }
 
@@ -257,7 +273,7 @@ $(function(){
 
                 }else if(full.isexamine == 0){
 
-                    if(full.shenp1UserName == ''){
+                    if(full.shenp1UserName == '' ){
 
                         return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
                             "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
@@ -265,12 +281,9 @@ $(function(){
 
                     }else{
 
-                        return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                        return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
 
                     }
-
-
 
                 }
 

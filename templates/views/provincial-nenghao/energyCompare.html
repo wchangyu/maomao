@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>同比环比</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/css/common.css">
+    <link rel="stylesheet" href="../new-resource/css/nenghaoshuju/energyCompare.css">
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+                            <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                                <div class="content-main">
+                                    <div class="main-left-top1">
+                                        <div class="left-middle-header">能耗种类</div>
+                                        <div class="energy-types">
+
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="content-main">
+                                    <div class="main-left-middle">
+                                        <div class="left-middle-header">对象选择</div>
+                                        <div class="left-middle-main">
+                                            <div class="left-middle-content">
+                                                <div class="left-tab-contain">
+                                                    <div class="left-middle-tab left-middle-tab_aa_0 isChoose">区域位置</div>
+                                                    <!--<div class="left-middle-tab left-middle-tab_aa_0">用能单位</div>-->
+                                                    <!--<div class="left-middle-tab left-middle-tab_aa_0">支路</div>-->
+                                                </div>
+
+                                            </div>
+                                            <div class="tree-1 tree-3" style="display: none">
+                                                    <span class="allPointerOne">
+                                                        <div class="selectedRadio"></div>
+                                                    </span>
+                                                <div class="left-middle-input">
+                                                    <input type="text"  id="keys" class="empty form-control" placeholder="搜索...">
+                                                </div>
+                                                <div class="tipess"></div>
+                                                <ul class="allPointer ztree" id="allPointer">
+                                                </ul>
+                                            </div>
+                                            <div class="tree-1 tree-2"  style="display: none">
+                                                <div class="left-middle-input">
+                                                    <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
+                                                </div>
+                                                <div class="tipes"></div>
+                                                <ul class="allOffices ztree" id="allOffices">
+                                                </ul>
+                                            </div>
+                                            <div class="tree-1 tree-0" style="display: block">
+                                                <div class="left-middle-input">
+                                                    <input type="text"  id="keyss" class="empty form-control" placeholder="搜索...">
+                                                </div>
+                                                <div class="tipes"></div>
+                                                <ul class="allBranch ztree" id="allBranch">
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-main">
+                                    <div class="main-left-middle1">
+                                        <div class="left-middle-header">对比内容</div>
+                                        <div class="left-middle-main1">
+
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-main">
+                                    <div class="select-times">
+                                        <div class="left-middle-header">查询时间</div>
+                                        <div id='wrapper'>
+
+                                            <div class="time-options time-options-1">日</div>
+                                            <div class="time-options">周</div>
+                                            <div class="time-options">月</div>
+                                            <div class="time-options">年</div>
+                                            <div class="time-options">自定义</div>
+
+                                            <div style="height:100px;">
+                                                <div class="start-time-choose choose-time position-center">
+                                                    <label for="">选择时间：</label>
+                                                    <div class="input-blocked">
+                                                        <input type="text" class="datatimeblock min" name="min" id="datetimepicker">
+                                                    </div>
+                                                </div>
+                                                <div class="end-time-choose choose-time">
+                                                    <label for="">结束时间：</label>
+                                                    <div class="input-blocked">
+                                                        <input type="text" class="datatimeblock max" name="max" id="datetimepicker1">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="buttons">
+
+                                                <button class="btn btn-success">查询</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--右侧数据展示-->
+                            <div class="content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
+                                <div class="right-content">
+                                    <!--<div class="left-middle-header">-->
+                                    <!--<div class="header-one"></div>-->
+                                    <!--<div class="header-two"></div>-->
+                                    <!--<div class="header-three"></div>-->
+                                    <!--</div>-->
+                                    <div class="right-top">
+                                        <div class="right-header">
+                                            <!-- 标题 -->
+                                            <span class="right-header-title"></span>
+                                            <!-- 标题右边 -->
+                                            <ul class="right-header-right">
+                                                <!-- 单位 -->
+                                                <li class="header-right-lists">
+                                                    <label for="">单位：</label>
+                                                    <!--<select name="" id="unit"></select>-->
+                                                    <input type="text" style="width:80px;height:24px;" disabled="disabled" class="unit">
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <!--右侧数据展示-->
+                                        <div class="rheader-content-left comparisonOfHistograms" style="width:280px;float: right">
+                                            <div class="rheader-content-right">
+                                                <div class="rheader-content-rights">
+
+                                                    <span style="margin-left:20px" class="top-percent"></span>
+                                                    <div class="count1 count">
+                                                        本期累计
+                                                        <span></span>
+                                                    </div>
+
+                                                    <div class="count2 count">
+                                                        上年同期累计
+                                                        <span></span>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!--eChart图-->
+                                    <div class="rheader-content-left " id="rheader-content-16" style="margin-right:300px;">
+
+                                    </div>
+
+                                    <div class="right-header" style="margin-bottom:10px;">
+                                        <!-- 标题 -->
+                                        <span class="right-header-title1"></span>
+                                        <!-- 标题右边 -->
+                                    </div>
+
+                                    <!--右侧数据展示-->
+                                    <div class="rheader-content-left comparisonOfHistograms" style="width:280px;float: right">
+                                        <div class="rheader-content-right">
+                                            <div class="rheader-content-rights">
+
+                                                <span style="margin-left:20px" class="top-percent"></span>
+                                                <div class="count1 count">
+                                                    本期累计
+                                                    <span></span>
+                                                </div>
+
+                                                <div class="count2 count">
+                                                    上一期累计
+                                                    <span></span>
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    <!--eChart图-->
+                                    <div class="rheader-content-left " id="rheader-content-17" style="margin-right:300px;">
+
+                                    </div>
+
+
+
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../resource/js/alarm.js"></script>
+<script src="../new-resource/js/common.js"></script>
+<script src="js/common.js"></script>
+<script src="js/energyCompare.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

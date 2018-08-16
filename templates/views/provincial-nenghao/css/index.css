@@ -1,0 +1,191 @@
+
+.top-select-container {
+    padding-top: 10px;
+}
+
+.top-select-container li{
+    margin-bottom: 0px !important;
+}
+
+/*左侧边框*/
+.left-content-container{
+
+    width: 48%;
+    min-width: 600px;
+    float: left;
+    margin-right: 15px;
+}
+
+/*上方图片*/
+.top-img{
+    margin-bottom:20px;
+    border: 1px solid #cce5ff;
+
+}
+.top-choose-province{
+    position: absolute;
+    left:10px;
+    top:10px;
+    z-index: 1000;
+}
+
+.top-choose-province span{
+    display: inline-block;
+    margin-right:10px;
+    width:40px;
+    height:40px;
+    cursor: pointer;
+
+}
+.top-img-title{
+    position: absolute;
+    left:0;
+    top:-50px;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+}
+.top-choose-province .left-img{
+    background: url(../img/provincial.png) no-repeat ;
+
+    background-size: 100% 100%;
+}
+
+.top-choose-province .left-img1{
+    background: url(../img/provincial-check.png) no-repeat ;
+
+    background-size: 100% 100%;
+}
+
+.top-choose-province .right-img{
+    background: url(../img/province.png) no-repeat ;
+    background-size: 100% 100%;
+}
+
+.top-choose-province .right-img1{
+    background: url(../img/province-check.png) no-repeat ;
+    background-size: 100% 100%;
+}
+
+.top-img img{
+    width: 100%;
+}
+
+.left-bottom-table-container{
+    min-height: 380px;
+}
+
+
+/*右侧边框*/
+.right-content-container{
+
+    width: 50%;
+    min-width: 600px;
+    float: right;
+}
+
+.shadowEffect{
+
+    border:1px solid #B6D8F1;
+
+    border-radius: 5px !important;
+
+    padding-left:8px;
+    padding-top:10px;
+    margin-bottom:10px;
+}
+
+/*分类能耗*/
+.fenleinenghao{
+    width:33%;
+    padding:0 10px;
+    margin-top: 10px!important;
+    box-sizing: border-box;
+    float: left;
+    height: 120px;
+    border: none;
+    border-right: 1px solid #DCDCDC;
+}
+
+.fenleinenghao:nth-last-child(2){
+
+    /*border: none;*/
+
+}
+
+.fenleinenghao .title{
+    font-size:14px;
+    margin-bottom:10px !important;
+    color: #959595;
+}
+
+.fenleinenghao .data{
+    font-size:26px;
+    text-align: center;
+    color: #2B2B2B;
+
+}
+
+.fenleinenghao .child{
+    float:left;
+    width:50%;
+    padding-top:64px;
+    font-size:14px;
+    font-weight: 600;
+    text-align: center !important;
+    background: url(../../new-resource/img/tongbi0%25.png) no-repeat 38% 49% !important;
+    background-size: 43% 6% !important;
+}
+
+
+.fenleinenghao .up{
+
+    background: url(../../new-resource/img/zengzhang.png) no-repeat 38% 33% !important;
+    background-size: 26% 36%;
+}
+
+.fenleinenghao .up span{
+    margin-left:5px;
+    color:#F2285C;
+}
+
+.fenleinenghao .down{
+
+    background: url(../../new-resource/img/xiajiang.png) no-repeat 38% 33% !important;
+    background-size: 26% 36% !important;
+
+}
+
+.fenleinenghao .down span{
+    margin-left:5px;
+    color:#62A8DB;
+}
+.fenleinenghao .data{
+    margin-bottom:0px;
+    height: 38px;
+}
+
+/*右侧中间的月度对比*/
+.content-container{
+
+    border:1px solid #B6D8F1;
+
+    border-radius: 5px !important;
+
+    padding-left:8px;
+    padding-top:10px;
+
+    margin-bottom:10px;
+}
+
+#monthCompareEchart{
+    height: 250px;
+}
+
+#pie-energy{
+    height: 250px;
+}
+
+#pie-energy1{
+    height: 250px;
+}

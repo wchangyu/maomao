@@ -91,7 +91,8 @@ $(function(){
 
         $('.curEC .ec table').eq(index).show();
     })
-})
+
+});
 
 var _allPtEcDatas = [];      //存储所有楼宇的能耗数据，点击到某栋楼时候显示
 
@@ -178,6 +179,7 @@ function setPtData($divEC,data){
 
 //展示当前楼宇数据模块
 function setCurPtData(ptId,ptName){
+
     var $divCurEC = $(".curEC>.ec");
     var $curTitle = $(".curEC>.ecTitle");
     //$divCurEC.empty();

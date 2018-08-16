@@ -1,7 +1,7 @@
 {
   "allEnergyType": {
     "comment": "注释属性:全部能耗类型,三项分别为分项ID，分项名，分项单位,img:首页显示的类型小图片,color:首页显示的颜色,img2:各个功能页面用到的类型小图片,secondEnergy:标识二次能源，1为二次能源，0为非二次能源，isShowItem:是否启用该能源，1为启用，0为未启用",
-    "alltypes": [
+    "alltypes":[
       {
         "etid": "01",
         "ettype" : "100",
@@ -83,6 +83,7 @@
         "color":"#b1cade",
         "img2":"cold.png",
         "isShowItem":1,
+        "secondEnergy":1,
         "etunitZH":"兆焦"
       },
       {
@@ -165,10 +166,10 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.102/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.123/BEEWebAPI/api/",
+  "apiUriPrefix":"http://192.168.1.119:8989/api/",
+  "apiUriPrefixYW":"http://211.100.28.180/BeeWEBBank/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
-  "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
+  "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
   "isShowTitleEprName":"0",
   "isShowTitleEprNameComment":"是否在systemTitle的基础上追加企业名称",
@@ -186,9 +187,9 @@
   "alarmSongGradeComment":"报警等级达到当前级别时开启提示声音 1普通 2较急 3紧急 4特别紧急",
   "changeMenuByProcs":"1",
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
-  "gongdanInterval":"10",
+  "gongdanInterval":"0",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
-  "indexUrl":"../../ADRS/main.html",
+  "indexUrl":"../../news/manageNews.html",
   "loginUrl":"login_3.html",
   "loginComment":"设置跳转为哪个登录页",
   "gongdanIndustryType":"1",
@@ -203,9 +204,9 @@
   "bigScreenSetComment":"大屏首页人工配置数据开关",
   "bigScreenSwitch":"1",
   "bigScreenSwitchComment":"登陆时是否进行自动识别大屏的判断",
-  "dapinInterval":"30",
+  "dapinInterval":"3",
   "dapinIntervalComment":"大屏幕是否自动刷新，0为不刷新，单位分钟",
-  "loginPath":"../logins/chcmu/login_4.html",
+  "loginPath":"../logins/Precision_energy_efficiency_CN/login.html",
   "loginPathComment":"登录页面路径",
   "showstep":"1",
   "showstepComment":"是否显示折标能效",

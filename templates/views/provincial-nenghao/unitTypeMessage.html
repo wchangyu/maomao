@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+
+        .blues{
+            color:#1A7BC0;
+        }
+
+        .bottom-pie-container{
+
+            width:580px;
+            height:300px;
+            background:rgba(255,255,255,1);
+            border-radius:6px !important;
+            border:1px solid #B6D8F1;
+            padding-left:20px;
+        }
+
+        /*饼图大小*/
+        #pie-chart{
+            height:250px;
+            width:100%;
+        }
+
+    </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+
+                            <!--上方用户查询框-->
+                            <div class="top-select-container">
+
+                                <ul>
+                                    <li class="user-search">
+
+                                        <label for=""><span class=""></span>区域位置</label>
+                                        <div class="input-blockeds">
+                                            <!--<input type="text">-->
+                                            <!--<input type="text" class="filterInput" id="eprName">-->
+                                            <select name="" id="regional-position">
+
+                                            </select>
+
+                                        </div>
+                                    </li>
+
+                                    <li class="'user-search">
+                                        <button class="btn excelButton">导出</button>
+                                    </li>
+
+                                    <li class="right-choose-time" style="display: none">
+                                        <span class="day onClick">日</span>
+                                        <span class="month borders">月</span>
+                                        <span class="year">年</span>
+                                    </li>
+
+                                    <div class="clearfix"></div>
+
+                                </ul>
+
+                                <!--公共机构分析统计表-->
+                                <div class="bottom-content-container">
+
+                                    <div class="main-contents-table">
+                                            <h3 class="has-patch">
+                                                <span class="left-patch"></span>
+                                                单位分类统计表
+                                            </h3>
+
+                                            <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover table-fixation" cellspacing="0" width="100%">
+                                                <thead>
+                                                </thead>
+                                                <tbody class="scrollbar">
+                                                </tbody>
+                                            </table>
+                                    </div>
+
+                                    <!--各分类建筑数量占比-->
+                                    <div class="bottom-pie-container">
+
+                                        <h3 class="has-patch">
+                                            <span class="left-patch"></span>
+                                            各分类建筑数量占比
+                                        </h3>
+
+                                        <div class="bottom-pie" id="pie-chart">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init(true);
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../new-resource/js/common.js"></script>
+<script src="js/common.js"></script>
+<script src="js/unitTypeMessage.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

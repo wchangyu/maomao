@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <!--loading插件-->
+    <link rel="stylesheet" href="css/showLoading.css"/>
+    <link href="../resource/css/ALLDevice.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/css/common.css">
+    <style>
+        body{
+            margin:0;
+            font-family:"微软雅黑";
+        }
+
+        h1,h2,h3,h4,h5,p{
+            margin:0;
+        }
+
+        /*清除浮动*/
+        .clearfix{
+            clear:both;
+        }
+
+        .head-title{
+            font-size: 20px;
+            text-align: center;
+            background: #f1fdf9;
+            padding:15px 0px !important;
+            border-bottom: 1px solid #d9d9d9;
+            color: #7ac9b8;
+            /*margin-bottom:10px;*/
+        }
+
+        .content-container{
+            text-align: center;
+        }
+
+        .input-container{
+            width:95%;
+            border-bottom:1px solid #d9d9d9;
+            font-size: 20px;
+            display: inline-block;
+        }
+
+        .input-container .left-name,.input-container .right-input-data{
+
+            height:58px;
+            line-height: 58px;
+            width:220px !important;
+        }
+
+        .input-container .left-name{
+            float: left;
+            width:35%;
+            text-align: right;
+            padding-right: 10px;
+            box-sizing: border-box;
+        }
+
+        .input-container .right-input{
+            float: left;
+            width:65%;
+        }
+
+
+
+        .right-input-data::-webkit-input-placeholder{
+
+            color:#999;
+        }
+
+        .right-input-data::-moz-placeholder{
+
+            color:#999;
+        }
+
+        .right-input-data:-ms-input-placeholder{
+
+            color:#999;
+        }
+
+        .right-input-data::-moz-placeholder{
+
+            color:#999;
+        }
+
+        .right-input-data{
+            border: none;
+            outline: none;
+            font-size: 20px;
+        }
+
+        .left-name-picture{
+            padding-left:20px;
+            box-sizing: border-box;
+            background: url('img/asterisk.png') no-repeat left center;
+        }
+
+        .success-btn{
+            min-width: 100px;
+            border-radius: 5px !important;
+            background: darkorchid;
+            color:white;
+            height:40px;
+            line-height: 40px;
+            margin-top:10px;
+            margin-right:20px;
+            float: right;
+            border: none;
+            outline: none;
+        }
+        .showOrHidden{
+            display: none !important;
+        }
+    </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+<!-- BEGIN HEADER -->
+<div id="head-html"> </div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+
+                <div class="col-md-12">
+                    <!--<div class="button-block">-->
+                    <!--<button type="button" class="btn btn-success creatButton" onClick="window.location('news-1.html')"><a href="news-1.html" style="color: #ffffff">写新闻</a></button>-->
+                    <!--</div>-->
+                    <!--头部信息-->
+                    <h3 class="head-title">基本信息</h3>
+
+                    <!--输入内容-->
+                    <div class="content-container" style="width:800px !important;margin: 0 auto">
+
+                        <div class="input-container">
+
+                            <div class="left-name">
+                                <span class="left-name-picture">游泳馆</span>
+                            </div>
+
+                            <div class="right-input">
+
+                                <select  class="right-input-data " id="eprName">
+
+                                </select>
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="input-container">
+
+                            <div class="left-name">
+                                <span class="left-name-picture">游泳池</span>
+                            </div>
+
+                            <div class="right-input">
+                                <select type="text" placeholder="请输入PH值" class="right-input-data " id="f_IsApproval">
+                                </select>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="input-container">
+
+                            <div class="left-name">
+                                <span class="left-name-picture">PH值</span>
+                            </div>
+
+                            <div class="right-input">
+                                <input type="text" placeholder="请输入PH值" class="right-input-data phData">
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="input-container">
+
+                            <div class="left-name">
+                                <span class="left-name-picture">浊度</span>
+                            </div>
+
+                            <div class="right-input">
+                                <input type="text" placeholder="请输入浊度" class="right-input-data zhuDuData">
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="input-container">
+
+                            <div class="left-name">
+                                <span class="left-name-picture">余氯</span>
+                            </div>
+
+                            <div class="right-input">
+                                <input type="text" placeholder="请输入余氯" class="right-input-data yuLvData">
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="input-container">
+
+                            <div class="left-name">
+                                <span class="left-name-picture">ORP</span>
+                            </div>
+
+                            <div class="right-input">
+                                <input type="text" placeholder="请输入ORP值" class="right-input-data orpData">
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="input-container">
+
+                            <div class="left-name">
+                                <span class="left-name-picture">人数</span>
+                            </div>
+
+                            <div class="right-input">
+                                <input type="text" placeholder="请输入人数" class="right-input-data people-num">
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="input-container">
+
+                            <div class="left-name">
+                                <span class="left-name-picture">时间</span>
+                            </div>
+
+                            <div class="right-input">
+                                <input type="text" placeholder="请选择时间" class="right-input-data chooseDate">
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="input-container">
+
+                            <div class="left-name">
+
+                            </div>
+
+                            <div class="right-input">
+
+                                <button class="success-btn" style="">确定</button>
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<!--loading插件-->
+<script src="js/jquery.showLoading.min.js"></script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="js/computerImport.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+
+</html>

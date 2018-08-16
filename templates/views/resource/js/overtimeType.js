@@ -114,6 +114,27 @@ $(function(){
     /*----------------------------------------------表格初始化-------------------------------------*/
     var tableListCol = [
         {
+            title:'人员类型',
+            data:'type',
+            render:function(data, type, full, meta){
+
+                if(data == 1){
+
+                    return '登高人员'
+
+                }else if(data ==2){
+
+                    return '辅助人员'
+
+                }else if(data == 3){
+
+                    return '安全员'
+
+                }
+            }
+
+        },
+        {
             title:'类型名称',
             data:'name'
         },
@@ -289,7 +310,7 @@ $(function(){
     function datailInit(){
 
         //类型编码
-        typeVue.typeNum = '';
+        typeVue.typeNum = 1;
         //类型名称
         typeVue.typeName = '';
         //第一阶段补贴金额
@@ -344,7 +365,7 @@ $(function(){
                 var  prm = {
 
                     //编号类型
-                    //type:typeVue.typeNum,
+                    type:typeVue.typeNum,
                     //类型名称
                     name:typeVue.typeName,
                     //第一阶段补贴金额
@@ -427,7 +448,7 @@ $(function(){
                 //绑定数据
                 typeVue.id = _allData[i].id;
                 //编码
-                //typeVue.typeNum = _allData[i].type;
+                typeVue.typeNum = _allData[i].type;
                 //名称
                 typeVue.typeName = _allData[i].name;
                 //第一阶段补贴金额
@@ -455,12 +476,16 @@ $(function(){
 
         $('#myApp33').find('input').attr('readonly','readonly').addClass('disabled-block');
 
+        $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
+
     }
 
     //可操作
     function abledOption(){
 
         $('#myApp33').find('input').removeAttr('readonly','readonly').removeClass('disabled-block');
+
+        $('#myApp33').find('select').removeAttr('disabled',false).removeClass('disabled-block');
 
     }
 })
