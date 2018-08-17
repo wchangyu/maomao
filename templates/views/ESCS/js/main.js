@@ -13,12 +13,6 @@ $(function(){
         tooltip : {
             formatter: "{a} <br/>{b} : {c}%"
         },
-        toolbox: {
-            feature: {
-                restore: {},
-                saveAsImage: {}
-            }
-        },
         series: [
             {
                 axisLine: {
@@ -98,11 +92,11 @@ $(function(){
             bottom: '3%',
             containLabel: true
         },
-        toolbox: {
-            feature: {
-                saveAsImage: {}
-            }
-        },
+        //toolbox: {
+        //    feature: {
+        //        saveAsImage: {}
+        //    }
+        //},
         xAxis: {
             type: 'category',
             boundaryGap: false,
@@ -134,10 +128,6 @@ $(function(){
             //}
         ]
     };
-
-    //_chartEnergy.setOption(optionL,true);
-
-    //_chartEfficiency.setOption(optionL,true);
 
     //左上角室外温湿度
     WSD();
@@ -176,7 +166,7 @@ $(function(){
     //数据曲线tab切换
     $('.main-tab').on('click','span',function(){
 
-        $('.main-tab').children().removeClass('main-tab-active');
+        $('.main-tab').find('span').removeClass('main-tab-active');
 
         $(this).addClass('main-tab-active');
 

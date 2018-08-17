@@ -90,7 +90,7 @@ $(function(){
 
     }
     //二维码地址
-    var _erweimaPath = 'http://ip/ApService/showQR.aspx';
+    var _erweimaPath = sessionStorage["imgPath"].replace(/dimg/g,'showQR');
     //设置初始时间
     var _initStart = moment().format('YYYY-MM-DD');
     var _initEnd = moment().format('YYYY-MM-DD');

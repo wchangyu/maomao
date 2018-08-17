@@ -511,7 +511,7 @@ $(function(){
         {
             title:'操作',
             data:null,
-            defaultContent: "<span class='data-option option-issued btn default btn-xs green-stripe'>下发</span><span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>"
+            defaultContent: "<span class='data-option option-issued btn default btn-xs green-stripe'>下发</span><span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span><span class='data-option option-cancel btn default btn-xs green-stripe'>取消</span>"
         }
     ];
 
@@ -4409,6 +4409,14 @@ $(function(){
     //回退确定功能
     $('#Fallback-Modal').on('click','.btn-primary',function(){
 
+        if($('#returnDes').val() == ''){
+
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写回退原因', '');
+
+            return false;
+
+        }
+
         var htState = 0;
 
         if(_thisStateNum == 2){
@@ -4712,6 +4720,16 @@ $(function(){
 
     //取消确定按钮
     $('#Cancel-Modal').on('click','.btn-primary',function(){
+
+        //取消原因必填
+
+        if($('#cancelDes').val() == ''){
+
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写取消原因！', '');
+
+            return false;
+
+        }
 
         var gdInfo = {
             //工单号

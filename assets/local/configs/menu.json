@@ -1,15 +1,15 @@
 {
   "content": "type:0代表具体菜单,1代表上级菜单;content:显示文本;uri:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;",
-  "首页": {
+  "系统首页": {
     "type": "1",
-    "content": "首页",
+    "content": "系统首页",
     "iconclass": "icon-camcorder",
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
-      "首页": {
+      "数据总览": {
         "type": "0",
-        "content": "首页",
+        "content": "数据总览",
         "uri": "../ESCS/main.html",
         "uid": "",
         "arg": "",
@@ -28,7 +28,7 @@
       "数据曲线": {
         "type": "0",
         "content": "数据曲线",
-        "uri": "../new-nenghaoshuju/equipmentHistoryData.html?arg=1",
+        "uri": "../ESCS/equipmentHistoryData.html?arg=1",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -46,7 +46,7 @@
       "能耗分析": {
         "type": "0",
         "content": "能耗分析",
-        "uri": "../EPMA/aro.html",
+        "uri": "../ESCS/aro.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -64,7 +64,7 @@
       "能效日历": {
         "type": "0",
         "content": "能效日历",
-        "uri": "../EPMA/calendar.html",
+        "uri": "../ESCS/calendar.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -73,7 +73,7 @@
       "能效分析": {
         "type": "0",
         "content": "能效分析",
-        "uri": "../EPMA/compare.html",
+        "uri": "../ESCS/compare.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -82,7 +82,7 @@
       "负荷比重": {
         "type": "0",
         "content": "负荷比重",
-        "uri": "../EPMA/rate.html",
+        "uri": "../ESCS/rate.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -90,16 +90,16 @@
       }
     }
   },
-  "日诊断": {
+  "系统诊断": {
     "type": "1",
-    "content": "日诊断",
+    "content": "系统诊断",
     "iconclass": "icon-camcorder",
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
-      "日诊断": {
+      "系统诊断": {
         "type": "0",
-        "content": "日诊断",
+        "content": "系统诊断",
         "uri": "",
         "uid": "",
         "arg": "",
@@ -118,7 +118,7 @@
       "实时报警": {
         "type": "0",
         "content": "实时报警",
-        "uri": "../new-baojingyujing/realTimeAlarm.html",
+        "uri": "../ESCS/realTimeAlarm.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -127,7 +127,7 @@
       "报警查询": {
         "type": "0",
         "content": "报警查询",
-        "uri": "../new-baojingyujing/historicalAlarm.html",
+        "uri": "../ESCS/historicalAlarm.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -136,7 +136,7 @@
       "设备台账": {
         "type": "0",
         "content": "设备台账",
-        "uri": "../EPMA/equip.html",
+        "uri": "../ESCS/equip.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -169,6 +169,16 @@
         "iconclass": "",
         "arg2": ""
       }
+    }
+  },
+  "系统设置": {
+    "type": "1",
+    "content": "系统设置",
+    "iconclass": "icon-camcorder",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
+
     }
   }
 }

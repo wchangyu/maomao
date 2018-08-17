@@ -12,7 +12,6 @@ var ESCS = function () {
     }
 
     //切换楼宇的
-
     var onbodydownEpr = function (event) {
         if (!(event.target.id == "openeprBtn"
             || event.target.id == "eprBox"
@@ -341,6 +340,5 @@ var ESCS = function () {
             })
         }
     }
-
 
 }();

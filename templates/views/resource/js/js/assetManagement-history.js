@@ -220,7 +220,7 @@ $(function(){
     });
 
     //二维码地址
-    var _erweimaPath = 'http://ip/ApService/showQR.aspx';
+    var _erweimaPath = sessionStorage["imgPath"].replace(/dimg/g,'showQR');
 
     var stationsFlag = false;
 
