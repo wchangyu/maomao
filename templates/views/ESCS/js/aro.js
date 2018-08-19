@@ -274,7 +274,21 @@ $(function(){
         var zTreeObj = $.fn.zTree.init($("#treeView"), setting, treeArr);
 
 
-        //var node = zTreeObj.getNodes()[0];
+        var node = zTreeObj.getNodes()[0];
+
+        //console.log(node);
+        //
+        //if(node.children.length>0){
+        //
+        //    console.log(node.children[0]);
+        //
+        //
+        //
+        //}
+
+
+        //获取到第一个子节点的最后一级子节点
+
 
         //zTreeObj.setting.callback.onClick(null, zTreeObj.setting.treeId, node);
 
