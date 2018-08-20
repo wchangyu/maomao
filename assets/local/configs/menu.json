@@ -97,10 +97,10 @@
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
-      "系统诊断": {
+      "日诊断": {
         "type": "0",
-        "content": "系统诊断",
-        "uri": "",
+        "content": "日诊断",
+        "uri": "../ESCS/dx/dx_ri.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -163,7 +163,7 @@
       "冷站日志": {
         "type": "0",
         "content": "冷站日志",
-        "uri": "../new-baobiaoguanli/systemReport.html",
+        "uri": "../ESCS/coldStationReport.html",
         "uid": "",
         "arg": "",
         "iconclass": "",

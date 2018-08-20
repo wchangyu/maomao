@@ -76,13 +76,21 @@ $(function(){
 
     $('#equipnew-form').on('click','.dengji',function(){
 
-        sendData('Opers/CreateLedgerNew');
+        formatValidateUser(function(){
+
+            sendData('Opers/CreateLedgerNew');
+
+        })
 
     })
 
     $('#equipnew-form').on('click','.bianji',function(){
 
-        sendData('Opers/ModifyLedgerNew');
+        formatValidateUser(function(){
+
+            sendData('Opers/ModifyLedgerNew');
+
+        })
 
     })
 
@@ -228,6 +236,8 @@ $(function(){
     //登记/编辑flag(true)是编辑
     function sendData(url,flag){
 
+        //格式验证(设备编号、设备名称)
+
         $('#tip').hide();
 
         var prm = {
@@ -321,8 +331,6 @@ $(function(){
 
             success:function(result){
 
-                console.log(result);
-
                 if(result.code == 0){
 
                     window.location.href = 'equip.html'
@@ -340,6 +348,59 @@ $(function(){
 
 
         })
+
+    }
+
+    //格式验证
+    function formatValidateUser(fun){
+
+        //非空验证
+        if($('#equipNumber').val() == '' || $('#equipName').val() == '' ){
+
+            $('#theLoading').modal('hide');
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项','');
+
+        }else{
+
+            //验证错误
+            var error = $('#equipnew-form').find('.error');
+
+            if(error.length != 0){
+
+                var flag = true;
+
+                for(var i=0;i<error.length;i++){
+
+                    if(error.eq(i).css('display') != 'none'){
+
+                        flag = false;
+
+                        break;
+
+                    }
+
+                }
+
+                if(flag){
+
+                    fun();
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写正确格式','');
+
+                }
+
+            }else{
+
+                //验证通过
+                fun();
+
+            }
+
+
+        }
 
     }
 

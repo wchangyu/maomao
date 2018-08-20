@@ -21,7 +21,23 @@
     <!--my css-->
     <link rel="stylesheet" href="../ESCS/css/public.css">
 
+    <style>
 
+        #equipnew-form input~.error{
+
+            color: red;
+
+            width: 100% !important;
+
+            line-height: 30px;
+
+            margin: 0;
+
+            margin-top: 10px;
+
+        }
+
+    </style>
 
 </head>
 <!-- END HEAD -->
@@ -75,19 +91,22 @@
                                         <span class="caption-subject font-green-sharp bold uppercase">设备信息管理</span>
                                     </div>
                                     <div class="portlet-body">
-                                        <form id="equipnew-form" method="post" class="form-horizontal" novalidate="novalidate">
+                                        <form id="equipnew-form" method="post" class="form-horizontal">
+
+                                            <div id="tip" style="display: none;margin: 6px 0;" class="Metronic-alerts alert alert-danger fade in"><button type="button" class="close"></button><i class="fa-lg fa fa-warning"></i>  </div>
+
                                             <div class="form-group">
                                                 <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">设备标识</label>
                                                 <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
-                                                    <input type="text" class="form-control" disabled id="id" name="EquipId" placeholder="设备标识" aria-required="true" aria-invalid="false" aria-describedby="EquipId-error"><span class="error"><span id="EquipId-error" class="help-block"></span></span>
+                                                    <input type="text" class="form-control" disabled id="id" name="EquipId" placeholder="设备标识">
                                                 </div>
                                                 <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">设备编号</label>
                                                 <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
-                                                    <input type="text" class="form-control" id="equipNumber" name="equipNumber" placeholder="设备编号">
+                                                    <input type="text" class="form-control" id="equipNumber" name="equipNumber" placeholder="设备编号是必填字段">
                                                 </div>
                                                 <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">设备名称</label>
                                                 <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
-                                                    <input type="text" class="form-control" id="equipName" name="equipName" placeholder="设备名称">
+                                                    <input type="text" class="form-control" id="equipName" name="equipName" placeholder="设备名称是必填字段">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -130,7 +149,7 @@
                                                 <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">出厂日期</label>
                                                 <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
                                                     <div class="input-group date form_date">
-                                                        <input name="ExFactoryDate" id="exFactoryDate" class="form-control" size="16" type="text" value="" aria-invalid="false">
+                                                        <input name="ExFactoryDate" id="exFactoryDate" class="form-control equipNewDT" size="16" type="text" value="" aria-invalid="false">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -225,7 +244,7 @@
                                                 </div>
                                                 <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">绑定设备</label>
                                                 <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
-                                                    <select name="bindequipid" id="bindequipid" class="form-control" aria-invalid="false"><option value="16" selected="selected">高区1#机组</option><option value="17">高区2#机组</option><option value="18">低区1#机组</option><option value="19">低区2#机组</option></select>
+                                                    <select name="bindequipid" id="bindequipid" class="form-control" aria-invalid="false"></select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -244,9 +263,9 @@
                                                 <div class="col-md-10 col-sm-10"></div>
                                                 <div class="col-md-2 col-sm-2 clear pull-right">
 
-                                                    <button id="saveBtn" type="submit" class="btn yellow pull-left">
+                                                    <a id="saveBtn" class="btn yellow pull-left">
                                                         <i class="fa fa-save"></i> 保存设备数据
-                                                    </button>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </form>
@@ -265,7 +284,22 @@
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
 <div id="foot-html"></div>
-
+<!--所有提示-->
+<div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
 <!-- END FOOTER -->
 <script>

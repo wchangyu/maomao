@@ -201,8 +201,8 @@ $(function(){
         })
     };
 
-//根据设备类型获取设备名称及监测点类型
-    function getDevInfoCTypes(){
+//根据设备类型获取设备名称及监测点类型(flag=true时，是默认加载数据的)
+    function getDevInfoCTypes(flag){
 
         //获取设备
         var treeObj = $.fn.zTree.getZTreeObj("allPointer");
@@ -213,6 +213,7 @@ $(function(){
         var ecParams = {
 
             "pId": sessionStorage.PointerID,
+
             "itemId": nodes[0].item
         };
 
@@ -265,10 +266,15 @@ $(function(){
 
                 }
 
-                devTree(arr);
+                if(flag){
 
-                //获取设备列表
-                //getEquipmentZtree(equipmentArr,2,false,false,equipmentObj);
+                    devTree(arr,flag);
+
+                }else{
+
+                    devTree(arr);
+
+                }
 
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -287,7 +293,7 @@ $(function(){
     };
 
     //设备ztree
-    function devTree(arr){
+    function devTree(arr,flag){
 
         var setting = {
 
@@ -400,11 +406,39 @@ $(function(){
             obj.name = arr[i].name;
             obj.pId = arr[i].pid;
             obj.item = arr[i].item;
+
+            if(flag){
+
+                obj.checked = true;
+
+            }
+
             treeArr.push(obj);
         }
 
         var zTreeObj = $.fn.zTree.init($("#allDev"), setting, treeArr);
 
+        if(flag){
+
+            //获取到已选中节点
+            var treeObj = $.fn.zTree.getZTreeObj("allDev");
+
+            var nodes = treeObj.getCheckedNodes(true);
+
+            var str = '<div class="main-selected-list">' +
+                '<div class="main-selected-list1" attr-id="' + nodes[0].id + '">' + nodes[0].name +
+                '</div>' +
+                '<div class="remove-selected">x</div>' +
+                '</div>';
+
+            $('.main-selected-block').append(str);
+
+            //获取值
+            getLineData();
+
+            tableData();
+
+        }
 
     }
 
@@ -432,34 +466,50 @@ $(function(){
                 //这个是点击后边的文字选中的事件
                 onClick: function(e,treeId,treeNode){
 
-                    //初始化已选中的设备
-                    $('.main-selected-block').empty();
+                    if(treeNode.nocheck){
 
-                    $.fn.zTree.init($("#allDev"), setting, []);
+                        return false;
 
-                    $('.noData').empty();
+                    }else{
 
-                    //勾选当前选中的节点
-                    zTreeObj.checkNode(treeNode, !treeNode.checked, true);
+                        //初始化已选中的设备
+                        $('.main-selected-block').empty();
 
-                    //获取当前区域下的设备
-                    getDevInfoCTypes();
+                        $.fn.zTree.init($("#allDev"), setting, []);
 
+                        $('.noData').empty();
 
+                        //勾选当前选中的节点
+                        zTreeObj.checkNode(treeNode, !treeNode.checked, true);
+
+                        if(treeNode.checked){
+
+                            //获取当前区域下的设备
+                            getDevInfoCTypes();
+
+                        }
+
+                    }
                 },
                 onCheck:function(e,treeId,treeNode){
 
-                    $.fn.zTree.init($("#allDev"), setting, []);
+                    if(treeNode.nocheck){
 
-                    //初始化已选中的设备
-                    $('.main-selected-block').empty();
+                        return false;
 
-                    $('.noData').empty();
+                    }else{
 
-                    //获取当前区域下的设备
-                    getDevInfoCTypes();
+                        $.fn.zTree.init($("#allDev"), setting, []);
 
+                        //初始化已选中的设备
+                        $('.main-selected-block').empty();
 
+                        $('.noData').empty();
+
+                        //获取当前区域下的设备
+                        getDevInfoCTypes();
+
+                    }
                 }
             }
         };
@@ -472,10 +522,45 @@ $(function(){
             obj.name = arr[i].name;
             obj.pId = arr[i].pid;
             obj.item = arr[i].item;
+            obj.nocheck = false;
+            obj.open = true;
             treeArr.push(obj);
         }
 
         var zTreeObj = $.fn.zTree.init($("#allPointer"), setting, treeArr);
+
+        //只能选择最里边的，父元素都不能选择
+        var treeObj = $.fn.zTree.getZTreeObj("allPointer");
+
+        var nodes = treeObj.getCheckedNodes(false);
+
+        //用递归，将所有父节点的checked隐藏
+        for(var i=0;i<nodes.length;i++){
+
+            if(nodes[i].isParent){
+
+                nodes[i].nocheck = true;
+
+            }else if(nodes[i].pId == 0 || nodes[i].pId == null ){
+
+                nodes[i].nocheck = true;
+
+            }else{
+
+                treeObj.checkNode(nodes[i], true, true);
+
+                break;
+
+            }
+
+        }
+
+        //自动刷新ztree树
+        treeObj.refresh();
+
+        //获取设备
+        getDevInfoCTypes(true);
+
 
     }
 
