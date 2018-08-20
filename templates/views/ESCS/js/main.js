@@ -153,6 +153,21 @@ $(function(){
     //自动刷新
     setInterval(function(){
 
+        //左上角室外温湿度
+        WSD();
+
+        //获取实时时间
+        SSSJ();
+
+        //获取单位冷价
+        LJDJ();
+
+        //冷站输入功率
+        LZSRGL();
+
+        //热不平衡率
+        RBPHL();
+
         //能效曲线
         NXQX();
 
@@ -172,7 +187,7 @@ $(function(){
 
         $('.chart-line').css('z-index','1');
 
-        $('.chart-line').eq($(this).index()).css('z-index','2');
+        $('.chart-line').eq($(this).parent().index()).css('z-index','2');
 
     })
 
@@ -550,6 +565,9 @@ $(function(){
                     }
 
                     $('#real-time').html( realTime + ' ' + realWeeks );
+
+                    sessionStorage.sysDt = result.dt;
+
 
                 }else{
 
