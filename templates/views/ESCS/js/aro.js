@@ -268,6 +268,7 @@ $(function(){
             obj.name = arr[i].name;
             obj.pId = arr[i].pid;
             obj.item = arr[i].item;
+            obj.open = true;
             treeArr.push(obj);
         }
 
@@ -277,20 +278,24 @@ $(function(){
         var node = zTreeObj.getNodes()[0];
 
         //console.log(node);
-        //
-        //if(node.children.length>0){
-        //
-        //    console.log(node.children[0]);
-        //
-        //
-        //
-        //}
 
+        var node1 = '';
 
-        //获取到第一个子节点的最后一级子节点
+        getChildNodeFirst(node);
 
+        function getChildNodeFirst(node){
 
-        //zTreeObj.setting.callback.onClick(null, zTreeObj.setting.treeId, node);
+            if(node.isParent){
+
+                node1 = node.children[0];
+
+                getChildNodeFirst(node1);
+
+            }
+
+        }
+
+        zTreeObj.setting.callback.onClick(null, zTreeObj.setting.treeId, node1);
 
         //获取第一个元素下的所有节点，然后选中
 

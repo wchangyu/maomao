@@ -398,7 +398,7 @@ $(function(){
 
             type:'post',
 
-            url: sessionStorage.apiUrlPrefix + 'ZKMain/GetRunStateDs',
+            url: sessionStorage.apiUrlPrefix + 'Opers/GetEQsByEQTy',
 
             data:prm,
 
@@ -485,9 +485,9 @@ $(function(){
 
         }
 
-        if(arr.length ==0){
+        if(!arr){
 
-            return false;
+            return '';
 
         }
 
@@ -496,6 +496,10 @@ $(function(){
             if(arr[i][attrId] == val){
 
                 return arr[i][attrName]
+
+            }else{
+
+                return ''
 
             }
 

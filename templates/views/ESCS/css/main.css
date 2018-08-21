@@ -313,3 +313,15 @@
     margin-right: 8px;
 
 }
+
+.machine-on{
+
+    color: #74a7f6;
+
+    font-weight: bold;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+}
