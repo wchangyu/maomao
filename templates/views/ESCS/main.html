@@ -213,7 +213,7 @@
                                                 <span class="actual-value-top" id="cheVa">-</span>
                                                 <div>
                                                     <span class="actual-value-bottom" id="chpVa">-</span>
-                                                    <span>kW</span>
+                                                    <span>KW</span>
                                                 </div>
                                             </td>
                                             <td class="target-value" id="chTarV">-</td>
@@ -229,7 +229,7 @@
                                                 <span class="actual-value-top" id="chweVa">-</span>
                                                 <div>
                                                     <span class="actual-value-bottom" id="chwpVa">-</span>
-                                                    <span>kW</span>
+                                                    <span>KW</span>
                                                 </div>
                                             </td>
                                             <td class="target-value" id="chwTarV">-</td>
@@ -245,7 +245,7 @@
                                                 <span class="actual-value-top" id="cweVa">-</span>
                                                 <div>
                                                     <span class="actual-value-bottom" id="cwpVa">-</span>
-                                                    <span>kW</span>
+                                                    <span>KW</span>
                                                 </div>
                                             </td>
                                             <td class="target-value" id="cwTarV">-</td>
@@ -261,7 +261,7 @@
                                                 <span class="actual-value-top" id="cteVa">-</span>
                                                 <div>
                                                     <span class="actual-value-bottom" id="ctpVa">-</span>
-                                                    <span>kW</span>
+                                                    <span>KW</span>
                                                 </div>
                                             </td>
                                             <td class="target-value" id="ctTarV">-</td>
@@ -470,7 +470,7 @@
 
 <!--设备目标/报警值-->
 <div class='modal fade' id='devModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-    <div class='modal-dialog' style='width: 1000px;height: 500px;'>
+    <div class='modal-dialog' style='width: 776px;height: 500px;'>
         <div class='modal-content'>
             <div class='modal-header'>
                 <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
@@ -478,53 +478,52 @@
             </div>
             <div class='modal-body'>
 
-                <div class="row">
+                <div>
                     <form id="equipnew-form" method="post" class="form-horizontal">
 
                         <div id="tip" style="display: none;margin: 6px 0;" class="Metronic-alerts alert alert-danger fade in"><button type="button" class="close"></button><i class="fa-lg fa fa-warning"></i>  </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">冷水机组</label>
-                            <label class="col-md-1 col-sm-1 control-label" style="margin-bottom:10px;">目标值</label>
-                            <div class="col-md-3 col-sm-3" style="margin-bottom:10px;">
+                            <label class="form-type" style="margin-bottom:10px;">冷水机组</label>
+                            <label class="form-type" style="margin-bottom:10px;">目标值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
                                 <input type="text" class="form-control" id="chTarVModal" name="chTarVModal" placeholder="冷水机组目标值是必填字段">
                             </div>
-                            <label class="col-md-1 col-sm-1 control-label" style="margin-bottom:10px;">告警值</label>
-                            <div class="col-md-3 col-sm-3" style="margin-bottom:10px;">
+                            <label class="form-type" style="margin-bottom:10px;">告警值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
                                 <input type="text" class="form-control" id="chAlrVModal" name="chAlrVModal" placeholder="冷水机组告警值是必填字段">
                             </div>
-                            <div class="col-md-2 col-sm-2"></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">冷冻水泵</label>
-                            <label class="col-md-1 col-sm-1 control-label" style="margin-bottom:10px;">目标值</label>
-                            <div class="col-md-3 col-sm-3" style="margin-bottom:10px;">
+                            <label class="form-type" style="margin-bottom:10px;">冷冻水泵</label>
+                            <label class="form-type" style="margin-bottom:10px;">目标值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
                                 <input type="text" class="form-control" id="chwTarVModal" name="chwTarVModal" placeholder="冷冻水泵目标值是必填字段">
                             </div>
-                            <label class="col-md-1 col-sm-1 control-label" style="margin-bottom:10px;">告警值</label>
-                            <div class="col-md-3 col-sm-3" style="margin-bottom:10px;">
+                            <label class="form-type" style="margin-bottom:10px;">告警值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
                                 <input type="text" class="form-control" id="chwAlrVModal" name="chwAlrVModal" placeholder="冷冻水泵告警值是必填字段">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">冷却水泵</label>
-                            <label class="col-md-1 col-sm-1 control-label" style="margin-bottom:10px;">目标值</label>
-                            <div class="col-md-3 col-sm-3" style="margin-bottom:10px;">
+                            <label class="form-type" style="margin-bottom:10px;">冷却水泵</label>
+                            <label class="form-type" style="margin-bottom:10px;">目标值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
                                 <input type="text" class="form-control" id="cwTarVModal" name="cwTarVModal" placeholder="冷却水泵目标值是必填字段">
                             </div>
-                            <label class="col-md-1 col-sm-1 control-label" style="margin-bottom:10px;">告警值</label>
-                            <div class="col-md-3 col-sm-3" style="margin-bottom:10px;">
+                            <label class="form-type" style="margin-bottom:10px;">告警值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
                                 <input type="text" class="form-control" id="cwAlrVModal" name="cwAlrVModal" placeholder="冷却水泵告警值是必填字段">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">冷却塔</label>
-                            <label class="col-md-1 col-sm-1 control-label" style="margin-bottom:10px;">目标值</label>
-                            <div class="col-md-3 col-sm-3" style="margin-bottom:10px;">
+                            <label class="form-type" style="margin-bottom:10px;">冷却塔</label>
+                            <label class="form-type" style="margin-bottom:10px;">目标值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
                                 <input type="text" class="form-control" id="ctTarVModal" name="ctTarVModal" placeholder="冷却塔目标值是必填字段">
                             </div>
-                            <label class="col-md-1 col-sm-1 control-label" style="margin-bottom:10px;">告警值</label>
-                            <div class="col-md-3 col-sm-3" style="margin-bottom:10px;">
+                            <label class="form-type" style="margin-bottom:10px;">告警值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
                                 <input type="text" class="form-control" id="ctAlrVModal" name="ctAlrVModal" placeholder="冷却塔告警值是必填字段">
                             </div>
                         </div>
@@ -542,7 +541,7 @@
 
 <!--机器状态-->
 <div class='modal fade' id='machineModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-    <div class='modal-dialog' style='width: 1000px;height: 500px;'>
+    <div class='modal-dialog' style='width: 600px;height: 500px;'>
         <div class='modal-content'>
             <div class='modal-header'>
                 <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>

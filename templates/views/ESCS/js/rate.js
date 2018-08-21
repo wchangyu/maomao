@@ -22,12 +22,12 @@ var Rate=function () {
 
     //初始化时间控件
     var initdatetimepicker=function () {
-        var nowDt = new Date();
-        var year = nowDt.getFullYear();
-        var month = parseInt(nowDt.getMonth())+1;
-        var day = nowDt.getDate();
-        var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt= moment(dtstr);
+        //var nowDt = new Date();
+        //var year = nowDt.getFullYear();
+        //var month = parseInt(nowDt.getMonth())+1;
+        //var day = nowDt.getDate();
+        //var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+        var mt= moment(sessionStorage.sysDt);
         var nowDt=mt.format('YYYY-MM-DD');
         var startDt = mt.subtract(7, 'days').format('YYYY-MM-DD');
         $("#spDT").val(startDt);
@@ -127,6 +127,87 @@ var Rate=function () {
                     color: ['#007acc', '#c23531'],
                     tooltip: {
                         trigger: 'axis'
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            //dataZoom: {
+                            //    yAxisIndex: 'none'
+                            //},
+                            dataView: {
+
+                                readOnly: true,
+
+                                optionToContent: function(opt) {
+
+                                    //thead
+                                    var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
+
+                                    var tables = '</table>';
+
+                                    var thead = '<thead>';
+
+                                    var theads = '</thead>';
+
+                                    var tbody = '<tbody>';
+
+                                    var tbodys = '</tbody>';
+
+                                    //th
+                                    var thStr = '<tr><th>时间</th>';
+
+                                    for(var i=0;i<opt.series.length;i++){
+
+                                        thStr += '<th>';
+
+                                        thStr += opt.series[i].name;
+
+                                        thStr += '</th>'
+
+                                    }
+
+                                    thStr += '</tr>';
+
+                                    //td
+                                    var tdStr = '';
+
+                                    for(var i=0;i<opt.xAxis[0].data.length;i++){
+
+                                        tdStr += '<tr>';
+
+                                        //时间
+                                        tdStr += '<td>';
+
+                                        tdStr += opt.xAxis[0].data[i];
+
+                                        tdStr += '</td>';
+
+                                        for(var j=0;j<opt.series.length;j++){
+
+                                            tdStr += '<td>';
+
+                                            tdStr += opt.series[j].data[i].value;
+
+                                            tdStr += '</td>';
+
+                                        }
+
+                                        tdStr += '</tr>';
+
+
+                                    }
+
+                                    return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
+
+
+
+                                }
+
+                            },
+                            //magicType: { type: ['line', 'bar'] },
+                            //restore: {},
+                            //saveAsImage: {}
+                        }
                     },
                     legend: {
                         data: ['负荷比例(%)', '冷站能效(' + miscstr + ')']

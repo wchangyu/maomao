@@ -325,3 +325,29 @@
     cursor: pointer;
 
 }
+
+#devModal input{
+
+    width: 200px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+}
+
+.form-horizontal .form-group{
+
+    margin-right: 0 !important;
+
+    margin-left: 0 !important;
+
+}
+
+#devModal .form-type{
+
+    width: 100px;
+
+    text-align: center;
+
+}

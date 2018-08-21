@@ -4,11 +4,11 @@ $(function(){
 
     _timeYMDComponentsFun($('.abbrDT'));
 
-    var nowTime = moment().format('YYYY/MM/DD');
+    var nowTime = moment(sessionStorage.sysDt).format('YYYY/MM/DD');
 
-    $('#spDT').val(moment(nowTime).subtract('1','days').format('YYYY/MM/DD'));
+    $('#spDT').val(nowTime);
 
-    $('#epDT').val(nowTime);
+    $('#epDT').val(moment(nowTime).add(1,'d').format('YYYY/MM/DD'));
 
     /*-------------------------------表格初始化-------------------------------*/
 
@@ -69,6 +69,70 @@ $(function(){
         toolbox: {
             feature: {
                 dataView: {
+
+                    optionToContent: function(opt) {
+
+                        //thead
+                        var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
+
+                        var tables = '</table>';
+
+                        var thead = '<thead>';
+
+                        var theads = '</thead>';
+
+                        var tbody = '<tbody>';
+
+                        var tbodys = '</tbody>';
+
+                        //th
+                        var thStr = '<tr><th>时间</th>';
+
+                        for(var i=0;i<opt.series.length;i++){
+
+                            thStr += '<th>';
+
+                            thStr += opt.series[i].name;
+
+                            thStr += '</th></tr>'
+
+                        }
+
+                        //td
+                        var tdStr = '';
+
+                        for(var i=0;i<opt.xAxis[0].data.length;i++){
+
+                            tdStr += '<tr>';
+
+                            //时间
+                            tdStr += '<td>';
+
+                            tdStr += opt.xAxis[0].data[i];
+
+                            tdStr += '</td>';
+
+                            for(var j=0;j<opt.series.length;j++){
+
+                                tdStr += '<td>';
+
+                                tdStr += opt.series[j].data[i];
+
+                                tdStr += '</td>';
+
+                            }
+
+                            tdStr += '</tr>';
+
+
+                        }
+
+                        return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
+
+
+
+                    }
+
                 }
             }
         },
@@ -201,7 +265,7 @@ $(function(){
         })
     };
 
-//根据设备类型获取设备名称及监测点类型(flag=true时，是默认加载数据的)
+    //根据设备类型获取设备名称及监测点类型(flag=true时，是默认加载数据的)
     function getDevInfoCTypes(flag){
 
         //获取设备
@@ -620,7 +684,17 @@ $(function(){
                 $('#rheader-content-16').hideLoading();
 
                 //图例
-                option.legend.data = nodes[0].name;
+
+                var legendArr = [];
+
+                for(var i=0;i<nodes.length;i++){
+
+                    legendArr.push(nodes[i].name);
+
+                }
+
+                option.legend.data = legendArr;
+
 
                 //x轴
                 var dataX = [];
@@ -809,7 +883,7 @@ $(function(){
 
     }
 
-//表格数据
+    //表格数据
     function tableData(){
 
         //获取设备

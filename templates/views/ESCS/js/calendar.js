@@ -27,11 +27,14 @@
     }
 
     var dtnowstr=function () {
-        var nowDt = new Date();
-        var year = nowDt.getFullYear();
-        var month = parseInt(nowDt.getMonth())+1;
-        var day = nowDt.getDate();
-        var nowstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+        //var nowDt = new Date();
+        //var year = nowDt.getFullYear();
+        //var month = parseInt(nowDt.getMonth())+1;
+        //var day = nowDt.getDate();
+        //var nowstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+
+        var nowstr = sessionStorage.sysDt;
+
         return nowstr;
     }
 

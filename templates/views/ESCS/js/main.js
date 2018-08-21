@@ -480,63 +480,81 @@ $(function(){
         if(index == 0){
 
             //冷水机组
-            for(var i=0;i<_devObj.chRs.length;i++){
 
-                var obj = {};
+            if(_devObj.chRs){
 
-                obj.state = _devObj.chRs[i].f_RunState;
+                for(var i=0;i<_devObj.chRs.length;i++){
 
-                obj.name = _devObj.chRs[i].chillerName;
+                    var obj = {};
 
-                arr.push(obj);
+                    obj.state = _devObj.chRs[i].f_RunState;
+
+                    obj.name = _devObj.chRs[i].chillerName;
+
+                    arr.push(obj);
+
+                }
 
             }
 
         }else if(index == 1){
 
             //冷冻水泵
-            for(var i=0;i<_devObj.chwRs.length;i++){
 
-                var obj = {};
+            if(_devObj.chwRs){
 
-                obj.state = _devObj.chwRs[i].f_RunState;
+                for(var i=0;i<_devObj.chwRs.length;i++){
 
-                obj.name = _devObj.chwRs[i].pumpName;
+                    var obj = {};
 
-                arr.push(obj);
+                    obj.state = _devObj.chwRs[i].f_RunState;
+
+                    obj.name = _devObj.chwRs[i].pumpName;
+
+                    arr.push(obj);
+
+                }
 
             }
-
 
         }else if(index == 2){
 
             //冷却水泵
-            for(var i=0;i<_devObj.cwRs.length;i++){
 
-                var obj = {};
+            if(_devObj.cwRs){
 
-                obj.state = _devObj.cwRs[i].f_RunState;
+                for(var i=0;i<_devObj.cwRs.length;i++){
 
-                obj.name = _devObj.cwRs[i].pumpName;
+                    var obj = {};
 
-                arr.push(obj);
+                    obj.state = _devObj.cwRs[i].f_RunState;
+
+                    obj.name = _devObj.cwRs[i].pumpName;
+
+                    arr.push(obj);
+
+                }
 
             }
-
 
 
         }else if(index == 3){
 
             //冷却塔
-            for(var i=0;i<_devObj.ctRs.length;i++){
 
-                var obj = {};
+            if(_devObj.ctRs){
 
-                obj.state = _devObj.ctRs[i].f_RunState;
+                for(var i=0;i<_devObj.ctRs.length;i++){
 
-                obj.name = _devObj.ctRs[i].ctName;
+                    var obj = {};
 
-                arr.push(obj);
+                    obj.state = _devObj.ctRs[i].f_RunState;
+
+                    obj.name = _devObj.ctRs[i].ctName;
+
+                    arr.push(obj);
+
+                }
 
             }
         }
@@ -822,21 +840,21 @@ $(function(){
                     //温度
                     if(result.tsw == true){
 
-                        $('#ist').html(result.ist);
+                        $('#ist').html(Number(result.ist).toFixed(1));
 
                     }
 
                     //湿度
                     if(result.hsw == true){
 
-                        $('#ish').html(result.ish);
+                        $('#ish').html(Number(result.ish).toFixed(1));
 
                     }
 
                     //湿球
                     if(result.wbw == true){
 
-                        $('#iswbw').html(result.iswbw);
+                        $('#iswbw').html(Number(result.iswbw).toFixed(1));
 
                     }
 
@@ -1029,6 +1047,8 @@ $(function(){
 
                 }
 
+                optionL.legend.data = ['实时能效(KW/KW)'];
+
                 optionL.series[0] = obj;
 
                 _chartEfficiency.setOption(optionL,true);
@@ -1098,6 +1118,10 @@ $(function(){
 
                     aroMax = parseFloat(result.aroMaxVa);//能耗最大值
 
+                    //tip = result.legend;
+
+                    tip = ['冷量(RT)','冷机功率(KW)','散热量(RT)','热不平衡率(%)'];
+
                     for(var i=0;i<result.xs.length;i++){
 
                         dataX.push(result.xs[i]);
@@ -1108,7 +1132,7 @@ $(function(){
 
                         var obj = {};
 
-                        obj.name = result.lgs[i];
+                        obj.name = tip[i];
 
                         obj.type = 'line';
 
@@ -1135,8 +1159,6 @@ $(function(){
                         dataY.push(obj);
 
                     }
-
-                    tip = result.legend;
 
                     //两个坐标
                     optionL.yAxis = [

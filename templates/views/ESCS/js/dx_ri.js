@@ -13,12 +13,12 @@
 
     //初始化时间控件
     var initdatetimepicker = function () {
-        var nowDt = new Date();
-        var year = nowDt.getFullYear();
-        var month = parseInt(nowDt.getMonth()) + 1;
-        var day = nowDt.getDate();
-        var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt = moment(dtstr);
+        //var nowDt = new Date();
+        //var year = nowDt.getFullYear();
+        //var month = parseInt(nowDt.getMonth()) + 1;
+        //var day = nowDt.getDate();
+        //var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+        var mt = moment(sessionStorage.sysDt);
         var nowDt = mt.format('YYYY-MM-DD');
         var startDt = mt.subtract(7, 'days').format('YYYY-MM-DD');
         $("#spDT").val(startDt);
@@ -453,70 +453,71 @@
             if (res.code === 0) {
                 //1=已查询；0=未查询；
                 sessionStorage.DxNX = "1";
-                $('#eer_Text').html(ResponseModel.eer);
-                $('#chw_Text').html(ResponseModel.chw);
-                $('#cop_Text').html(ResponseModel.cop);
-                $('#cw_Text').html(ResponseModel.cw);
-                $('#ct_Text').html(ResponseModel.ct);
-                $('#nx_Text').html(ResponseModel.nx);
+
+                $('#eer_Text').html(res.eer);
+                $('#chw_Text').html(res.chw);
+                $('#cop_Text').html(res.cop);
+                $('#cw_Text').html(res.cw);
+                $('#ct_Text').html(res.ct);
+                $('#nx_Text').html(res.nx);
                 //(优良=b)蓝色77cdd0;(一般=y)黄色ffe699;(欠佳=r)红色f4b183
-                if (ResponseModel.eerQuo === 'b') {
+                if (res.eerQuo === 'b') {
                     $('#canvas_eer').css('background-color', '#77cdd0');
                 }
-                else if (ResponseModel.eerQuo === 'r') {
+                else if (res.eerQuo === 'r') {
                     $('#canvas_eer').css('background-color', '#f4b183');
                 }
-                else if (ResponseModel.eerQuo === 'y') {
+                else if (res.eerQuo === 'y') {
                     $('#canvas_eer').css('background-color', '#ffe699');
                 }
                 //冷源能效
-                if (ResponseModel.nxQuo === 'b') {
+                if (res.nxQuo === 'b') {
                     $('#canvas_nx').css('background-color', '#77cdd0');
                 }
-                else if (ResponseModel.nxQuo === 'r') {
+                else if (res.nxQuo === 'r') {
                     $('#canvas_nx').css('background-color', '#f4b183');
                 }
-                else if (ResponseModel.nxQuo === 'y') {
+                else if (res.nxQuo === 'y') {
                     $('#canvas_nx').css('background-color', '#ffe699');
                 }
                 //冷冻水输送系数
-                if (ResponseModel.chwQuo === 'b') {
+                if (res.chwQuo === 'b') {
                     $('#canvas_chw').css('background-color', '#77cdd0');
                 }
-                else if (ResponseModel.chwQuo === 'r') {
+                else if (res.chwQuo === 'r') {
                     $('#canvas_chw').css('background-color', '#f4b183');
                 }
-                else if (ResponseModel.chwQuo === 'y') {
+                else if (res.chwQuo === 'y') {
                     $('#canvas_chw').css('background-color', '#ffe699');
                 }
                 //综合冷机能效值
-                if (ResponseModel.copQuo === 'b') {
+                if (res.copQuo === 'b') {
                     $('#canvas_cop').css('background-color', '#77cdd0');
                 }
-                else if (ResponseModel.copQuo === 'r') {
+                else if (res.copQuo === 'r') {
                     $('#canvas_cop').css('background-color', '#f4b183');
                 }
-                else if (ResponseModel.copQuo === 'y') {
+                else if (res.copQuo === 'y') {
                     $('#canvas_cop').css('background-color', '#ffe699');
                 }
                 //冷却水输送系数
-                if (ResponseModel.cwQuo === 'b') {
+                if (res.cwQuo === 'b') {
                     $('#canvas_cw').css('background-color', '#77cdd0');
                 }
-                else if (ResponseModel.cwQuo === 'r') {
+                else if (res.cwQuo === 'r') {
                     $('#canvas_cw').css('background-color', '#f4b183');
                 }
-                else if (ResponseModel.cwQuo === 'y') {
+                else if (res.cwQuo === 'y') {
                     $('#canvas_cw').css('background-color', '#ffe699');
                 }
                 //冷却塔风机输送系数
-                if (ResponseModel.ctQuo === 'b') {
+                if (res.ctQuo === 'b') {
                     $('#canvas_ctc').css('background-color', '#77cdd0');
                 }
-                else if (ResponseModel.ctQuo === 'r') {
+                else if (res.ctQuo === 'r') {
                     $('#canvas_ctc').css('background-color', '#f4b183');
                 }
-                else if (ResponseModel.ctQuo === 'y') {
+                else if (res.ctQuo === 'y') {
                     $('#canvas_ctc').css('background-color', '#ffe699');
                 }
                 jQuery('#dxbusy').hideLoading();
@@ -531,12 +532,12 @@
 
     return {
         init: function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
+            //var pos = JSON.parse(sessionStorage.pointers);
+            //var po = pos[0];
+            //sessionStorage.PointerID = po.pointerID;
+            //sessionStorage.PointerName = po.pointerName;
+            //sessionStorage.EprID = po.enterpriseID;
+            //sessionStorage.EprName = po.eprName;
             //初始化时间控件
             initdatetimepicker();
             $('#DxriBtn').on('click', function () {
