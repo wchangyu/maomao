@@ -1,0 +1,249 @@
+.cockpit-cell{
+
+    height: 300px;
+
+    margin-bottom: 20px;
+
+    padding-right: 0;
+}
+
+.cockpit-cell:last-of-type{
+
+    padding-right: 15px;
+
+}
+
+.cockpit-cell>div{
+
+    width: 100%;
+
+    height: 100%;
+
+    border: 1px solid #333333;
+
+    background: #ffffff;
+
+}
+
+.ringHAVC{
+
+    position: absolute;
+
+    top: 30px;
+
+    left: 50px;
+
+    font-size: 20px;
+
+}
+
+.ringUPS{
+
+    position: absolute;
+
+    top: 30px;
+
+    right: 50px;
+
+    font-size: 20px;
+
+}
+
+.gaugeLeft{
+
+    position: absolute;
+
+    top: 50px;
+
+    left: 15%;
+
+    font-size: 20px;
+
+}
+
+.gaugeCenter{
+
+    position: absolute;
+
+    top: 20px;
+
+    left: 45%;
+
+    font-size: 20px;
+
+}
+
+.gaugeRight{
+
+    position: absolute;
+
+    top: 50px;
+
+    right: 15%;
+
+    font-size: 20px;
+
+}
+
+.emergency-sign{
+
+    width: 40%;
+
+    height: 100px;
+
+    float: left;
+
+    display: flex;
+
+}
+
+.emergency-sign img{
+
+    display: block;
+
+    width: 80px;
+
+    margin: auto;
+
+}
+
+.emergency-color{
+
+    width: 20%;
+
+    height: 100px;
+
+    float: left;
+
+    display: flex;
+
+}
+
+.emergency-color span{
+
+    display: inline-block;
+
+    width: 40px;
+
+    height:40px;
+
+    font-size: 20px;
+
+    text-align: center;
+
+    line-height: 40px;
+
+    border-radius: 50% !important;
+
+    margin: auto;
+
+    color: #ffffff ;
+
+}
+
+.loadTip{
+
+    width: 80px;
+
+    height: 100%;
+
+    float: left;
+
+    background: #ef3923;
+
+    position: relative;
+
+}
+
+.loadTip span{
+
+    font-size: 16px;
+
+    position: absolute;
+
+}
+.emergency-sign-word{
+
+    width: 40%;
+
+    font-size: 20px;
+
+    text-align: center;
+
+    float: left;
+
+    line-height: 100px;
+
+}
+
+.emergency-color-word{
+
+    box-sizing: border-box;
+
+    border: 3px;
+
+    width: 40px;
+
+    height: 40px;
+
+}
+
+.load-word{
+
+    font-size: 20px;
+
+    width: 30%;
+
+    text-align: center;
+
+    float: left;
+
+    line-height: 40px;
+
+}
+
+.load-bar{
+
+    width: 60%;
+
+    height: 40px;
+
+    float: left;
+
+    border: 3px solid #ef3923;
+
+}
+
+.load-color{
+
+    background: #ef3923;
+
+    width: 30px;
+
+    height: 100%;
+
+}
+
+.load-floor{
+
+    margin-top: 30px;
+}
+
+#ringChartL{
+
+    width: 50%;
+
+    height:100%;
+
+    float: left;
+}
+
+#ringChartR{
+
+    width: 50%;
+
+    height:100%;
+
+    float: left;
+
+}

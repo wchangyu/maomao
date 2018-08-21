@@ -1,0 +1,266 @@
+/*头部信息*/
+.content-header{
+    width:100%;
+    margin-bottom:10px;
+}
+.content-header img{
+   width:100%
+}
+
+/*诊断提示*/
+.diagnose-course .right-content font{
+    color:#2B2B2B;
+}
+
+/*能耗诊断图标*/
+.content-header .energy-diagnose{
+    width:100px;
+    height: 100px;
+    text-align: center;
+    position: absolute;
+    left:10%;
+    top:50%;
+    transform: translateY(-50%);
+    display: none;
+}
+
+
+
+.content-header .energy-diagnose .energy-diagnose-img{
+    width:80px;
+    height: 80px;
+    border-radius: 50% !important;
+    background: url('../../img/energy.png') no-repeat center center;
+    border:2px solid white;
+    margin:0 auto;
+}
+
+.content-header .energy-diagnose p{
+    height:30px;
+    line-height: 30px;
+    color:white;
+    font-size:14px;
+}
+/*白色横线*/
+.content-header .white-line{
+    width:15%;
+    height:1px;
+    border-top:1px solid white;
+    position: absolute;
+    left:22%;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+/*能效诊断图标*/
+.content-header .efficiency{
+    left:32%;
+}
+.content-header .energy-diagnose .energy-diagnose-img1{
+
+    background: url('../../img/efficiency.png') no-repeat center center;
+
+}
+
+/*.content-header .energy-diagnose{*/
+
+    /*background: url('../../img/1.gif') no-repeat center center;*/
+
+    /*background-size:200%;*/
+
+    /*background-color: skyblue;*/
+/*}*/
+
+
+/*子系统诊断图标*/
+.content-header .system{
+    left:54%;
+}
+.content-header .energy-diagnose .energy-diagnose-img2{
+
+    background: url('../../img/system.png') no-repeat center center;
+
+}
+
+/*环境品质诊断图标*/
+.content-header .environment{
+    left:76%;
+}
+.content-header .energy-diagnose .energy-diagnose-img3{
+
+    background: url('../../img/environment.png') no-repeat center center;
+
+}
+
+
+/*上方提示信息*/
+.top-hint{
+
+    color:#2B2B2B;
+    font-size:18px;
+    text-align: center;
+}
+/*诊断按钮*/
+.diagnose-btn{
+    margin-bottom:15px;
+}
+.diagnose-btn button{
+    width:180px;
+    height:60px;
+    background: #F2285C;
+    box-sizing: content-box;
+    color:white;
+    font-size:28px;
+    border-radius: 10px !important;
+    outline: none;
+    margin:0 auto;
+    display: block;
+    border:none;
+}
+/*诊断进程*/
+.diagnose-course p{
+    position: relative;
+    height:40px;
+    padding-left:40px;
+    box-sizing: border-box;
+}
+.diagnose-course span{
+
+    display: inline-block;
+    color:#666;
+}
+
+.diagnose-course .left-title{
+    height: 40px;
+    font-size:28px;
+    line-height: 40px;
+    color:#2B2B2B;
+    font-weight: 600;
+}
+.diagnose-course .right-content{
+    position: absolute;
+    left:190px;
+    top:0px;
+}
+.diagnose-course .right-content b{
+
+    color:#F2285C;
+    font-size:18px;
+    font-weight:500;
+}
+/*具体问题*/
+.specific-problem h3{
+    color:#66AADC;
+    font-size:20px;
+    font-weight: 600;
+    padding-left:80px;
+    box-sizing: border-box;
+    height:40px;
+    line-height: 40px;
+    border-bottom:1px solid #eee;
+}
+.specific-problem h3 span{
+    color:#666;
+    font-size:16px;
+    font-weight: 500;
+    margin-left:20px;
+}
+.energy-problem h3{
+
+    background: url('../img/energy-blue.png') no-repeat 30px center;
+    /*background-size:30px ;*/
+
+}
+.specific-problem .bottom-problem{
+    padding-left:20px;
+    padding-right:20px;
+    /*height:150px;*/
+    /*overflow-y: auto;*/
+}
+.specific-problem .bottom-problem ul{
+
+}
+.specific-problem .bottom-problem ul li{
+    font-size:16px;
+    line-height:26px;
+}
+
+
+/*能效诊断*/
+.efficiency-problem h3{
+
+    background: url('../img/efficiency-blue.png') no-repeat 30px center;
+    /*background-size:30px ;*/
+
+}
+
+#content-container .specific-problem:nth-child(2) h3{
+
+    background: url('../img/environment-blue.png') no-repeat 30px center !important;
+    color:#35DAAF
+}
+
+#content-container .specific-problem:nth-child(3) h3{
+
+    background: url('../img/child-system.png') no-repeat 30px center !important;
+    color:#F08348
+}
+
+#content-container .specific-problem:nth-child(4) h3{
+
+    background: url('../img/environment-blue1.png') no-repeat 30px center !important;
+    color:#62CC22
+}
+
+
+
+#content-container .specific-problem:nth-child(2) a:hover{
+   text-decoration: none !important;
+}
+
+#content-container .specific-problem:nth-child(2) a:active{
+    text-decoration: none !important;
+}
+#content-container .specific-problem:nth-child(2) a:visited{
+    text-decoration: none !important;
+}
+#content-container .specific-problem:nth-child(2) a:focus{
+    text-decoration: none !important;
+}
+/*字体颜色*/
+.bottom-problem li a{
+    color:#666;
+}
+
+/*定义动画时间*/
+* {
+    transition:All 0.3s ease-in-out;
+    -webkit-transition:All 0.3s ease-in-out;
+    -moz-transition:All 0.3s ease-in-out;
+    -o-transition:All 0.3s ease-in-out;
+}
+
+/*右侧箭头*/
+.specific-problem h3 .right-arrow{
+    float: right;
+    display: inline-block;
+    width:40px;
+    height:30px;
+    background: url('../img/down-arrow.png') no-repeat center center ;
+    background-size: 100% 100%;
+    margin-right:38px;
+    cursor: pointer;
+}
+
+.specific-problem h3 .up-arrow{
+    -moz-transform:rotate(180deg);
+
+    -webkit-transform:rotate(180deg);
+
+    -o-transform:rotate(180deg);
+
+    -ms-transform:rotate(180deg);
+
+    transform:rotate(180deg);
+}
+
