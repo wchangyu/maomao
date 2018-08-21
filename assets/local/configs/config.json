@@ -166,7 +166,7 @@
       }
     ]
   },
-  "apiUriPrefix":"http://211.100.28.180/BeeWEBBank/api/",
+  "apiUriPrefix":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixYW":"http://211.100.28.180/BeeWEBBank/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
@@ -189,7 +189,7 @@
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
   "gongdanInterval":"0",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
-  "indexUrl":"../../new-nengyuanzonglan/new-index1.html",
+  "indexUrl":"../../news/manageNews.html",
   "loginUrl":"login_3.html",
   "loginComment":"设置跳转为哪个登录页",
   "gongdanIndustryType":"1",
@@ -206,7 +206,7 @@
   "bigScreenSwitchComment":"登陆时是否进行自动识别大屏的判断",
   "dapinInterval":"3",
   "dapinIntervalComment":"大屏幕是否自动刷新，0为不刷新，单位分钟",
-  "loginPath":"../logins/chcmu/login_4.html",
+  "loginPath":"../logins/Precision_energy_efficiency_CN/login.html",
   "loginPathComment":"登录页面路径",
   "showstep":"1",
   "showstepComment":"是否显示折标能效",
