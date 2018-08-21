@@ -23,7 +23,7 @@
         var startDt = mt.subtract(7, 'days').format('YYYY-MM-DD');
         $("#spDT").val(startDt);
         $("#epDT").val(nowDt);
-        $('.abbrDT').datetimepicker({
+        $('.dxDT').datetimepicker({
             format: 'yyyy-mm-dd',
             language: 'zh-CN',
             weekStart: true,
@@ -64,7 +64,7 @@
             jQuery('#dxbusy').showLoading();
             $.ajax({
                 type: 'post',
-                url: sessionStorage.apiUrlPrefix + "Dx/GetDxChs",
+                url: sessionStorage.apiUrlPrefix + "ZKDx/GetDxChs",
                 data: {
                     pId: sessionStorage.PointerID,
                     sp: encodeURIComponent($('#spDT').val()),
@@ -74,6 +74,9 @@
                 dataType: 'json',
                 success: function (ResponseModel) {
                     if (ResponseModel.code === "0") {
+
+                        console.log(ResponseModel);
+
                         sessionStorage.DxCh = "1"; //1=已诊断；0=未诊断；
                         sessionStorage.DxChFHLTitle = ResponseModel.DxChFHLTitle;//冷机系统负荷率
                         sessionStorage.DxChFHLSte = ResponseModel.DxChFHLSte;
@@ -203,7 +206,7 @@
             jQuery('#dxbusy').showLoading();
             $.ajax({
                 type: 'post',
-                url: sessionStorage.apiUrlPrefix + "Dx/GetDxChws",
+                url: sessionStorage.apiUrlPrefix + "ZKDx/GetDxChws",
                 data: {
                     pId: sessionStorage.PointerID,
                     sp: encodeURIComponent($('#spDT').val()),
@@ -301,7 +304,7 @@
             jQuery('#dxbusy').showLoading();
             $.ajax({
                 type: 'post',
-                url: sessionStorage.apiUrlPrefix + "Dx/GetDxCWs",
+                url: sessionStorage.apiUrlPrefix + "ZKDx/GetDxCWs",
                 data: {
                     pId: sessionStorage.PointerID,
                     sp: encodeURIComponent($('#spDT').val()),
@@ -373,7 +376,7 @@
             jQuery('#dxbusy').showLoading();
             $.ajax({
                 type: 'post',
-                url: sessionStorage.apiUrlPrefix + "Dx/GetDxCTs",
+                url: sessionStorage.apiUrlPrefix + "ZKDx/GetDxCTs",
                 data: {
                     pId: sessionStorage.PointerID,
                     sp: encodeURIComponent($('#spDT').val()),
@@ -442,7 +445,7 @@
     //获取整体能效数据
     var getWholeNX = function () {
         jQuery('#dxbusy').showLoading();
-        var url = sessionStorage.apiUrlPrefix + "Dx/GetDxriWholeNXs";
+        var url = sessionStorage.apiUrlPrefix + "ZKDx/GetDxriWholeNXs";
         $.post(url, {
             pId: sessionStorage.PointerID,
             sp: encodeURIComponent($('#spDT').val())

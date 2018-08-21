@@ -84,7 +84,7 @@ $(function(){
     var _deng = false;
 
     //二维码地址
-    var _erweimaPath = 'http://ip/ApService/showQR.aspx';
+    var _erweimaPath = sessionStorage["imgPath"].replace(/dimg/g,'showQR');
 
     //获取车务段与车站对应的父子关系
     var _relativeArr2 = [];

@@ -141,6 +141,8 @@ $(function(){
             "className": 'noprint',
             render:function(data, type, full, meta){
 
+                //full.isexamine=1显示审批按钮
+
                 if(full.isexamine == 1){
 
                     if(full.shenpUserName == ''){
@@ -152,8 +154,8 @@ $(function(){
 
                     }else{
 
-                        return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                            "<span class='data-option option-shenhe btn default btn-xs green-stripe'>审核</span>"
+                        return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
+                            //"<span class='data-option option-shenhe btn default btn-xs green-stripe'>审核</span>"
 
                     }
 

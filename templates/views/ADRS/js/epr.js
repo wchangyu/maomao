@@ -86,7 +86,7 @@
 
                 if(full.eprType == 1){
 
-
+                    return '';
 
                 }else{
 

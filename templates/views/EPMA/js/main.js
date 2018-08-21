@@ -214,6 +214,7 @@
 
 
                 if(lzpV===0){
+
                     initEERArea(0.0,eerMinV,eerMaxV);
 
                     $('.GBEE').html('(0.00)');
