@@ -1,0 +1,4 @@
+/*隐藏铃铛*/
+#header_notification_bar{
+    display: none;
+}

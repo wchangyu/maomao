@@ -379,9 +379,9 @@ function GetAllBranches(flag,energy){
     var postPointerID = [];
 
     $(pts).each(function(i,o){
-        if(i < 10){
-            postPointerID.push(o.pointerID)
-        }
+        //if(i < 10){
+            postPointerID.push(o.pointerID);
+        //}
 
     });
 

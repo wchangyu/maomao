@@ -20,6 +20,15 @@ var BEE = (function(){
 
     var _loginSlash = "";
 
+    //logo跳转地址
+    var indexUrl = '';
+
+    if(sessionStorage.indexUrl){
+        indexUrl = '../' + sessionStorage.indexUrl.split('../').pop();
+    }
+
+
+
     //获取用户配置的登录页面
     getLoginHtml();
 
@@ -49,6 +58,7 @@ var BEE = (function(){
                     sessionStorage.loginPath = loginPath;
 
                 }
+
                 //console.log(sessionStorage.loginPath)
 
             },
@@ -67,34 +77,45 @@ var BEE = (function(){
     };
 
     //获取当前地址
-    if(window.document.location.href.indexOf('templates')>0)
+    if(window.document.location.href.indexOf('templates')>0){
 
         var _LurlLength;
 
         var url = window.document.location.href;
 
-            if(url.indexOf("?") != -1){
+        if(url.indexOf("?") != -1){
 
-                url = url.split("?")[0];
+            url = url.split("?")[0];
 
 
-            }
-
-    _LurlLength= url.split('templates')[1].split('/').length-1;
-
-    if(_LurlLength > 3){
-
-        for(var i=0; i < _LurlLength-3; i++){
-
-            _loginSlash += "../";
         }
 
-        _loginHtml = _loginSlash + _loginHtml;
+        _LurlLength= url.split('templates')[1].split('/').length-1;
 
-        sessionStorage.loginPath =  _loginHtml;
-        _assetsPath = '../../../../assets/';
+        if(_LurlLength > 3){
+
+            for(var i=0; i < _LurlLength-3; i++){
+
+                _loginSlash += "../";
+            }
+
+            _loginHtml = _loginSlash + _loginHtml;
+
+            sessionStorage.loginPath =  _loginHtml;
+            _assetsPath = '../../../../assets/';
+
+            indexUrl = _loginSlash + indexUrl;
+
+
+        }
 
     }
+
+
+
+
+    //logo跳转地址
+    $('.page-logo a').attr('href',indexUrl);
 
     //摄像头报警
     var _cameraAlarmCount = 0;
