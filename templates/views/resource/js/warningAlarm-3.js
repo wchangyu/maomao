@@ -428,19 +428,20 @@ $(function(){
 
                             return '无法创建'
 
-                        }else{
+                        }else {
 
-                            return  "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
+                            return "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
 
-                        //if(data == null || data == ''){
-                        //
-                        //    return '无法创建'
-                        //
-                        //}else{
-                        //
-                        //    return  "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
-                        //
-                        //}
+                            //if(data == null || data == ''){
+                            //
+                            //    return '无法创建'
+                            //
+                            //}else{
+                            //
+                            //    return  "<button class='btn btn-success creatGD' data-devNum = '" + data + "' data-pointer='" + row.pointerID + "' data-cdata='" + row.cdataID + "'>创建工单</button>";
+                            //
+                            //}
+                        }
                     }
 
                 }
@@ -899,10 +900,9 @@ $(function(){
 
             })
 
-        }
+
 
     })
-
 
 });
 

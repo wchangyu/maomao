@@ -1,0 +1,16 @@
+.main-left-middle .left-middle-content{
+    display: none;
+}
+
+.left-middle-input {
+    position: absolute;
+    top: 285px;
+    left: 50%;
+
+}
+
+.ztree {
+    height: 275px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

@@ -11,6 +11,15 @@ $(function(){
     //获取新闻列表
     conditionSelect();
 
+    //新闻跳转
+    $('.news-list-container').on('click','li',function(){
+
+        //获取当前跳转地址
+        var jumpUrl = $(this).find('.left-title a').attr('href');
+
+        window.location.href = jumpUrl;
+    });
+
 });
 
 var thisUrl = window.location.search;
@@ -35,6 +44,12 @@ var _userIdName = '';
 //游泳馆id
 var fkid = '';
 
+var html = '<img class="title-img" style="width: 100%"/>';
+
+$('.head-title').html(html);
+
+$('.head-title').css('cssText','padding:0 !important;');
+
 //管理员
 if(userRole == '1' || userRole == '2'|| userRole == '3'){
 
@@ -42,21 +57,25 @@ if(userRole == '1' || userRole == '2'|| userRole == '3'){
 
     type = getParam('Type');
 
+    var imgSrc = 'img/logo' + type + '.jpg';
+
+    $('.title-img').attr('src',imgSrc);
+
     if(type == 1){
 
-        $('.head-title').html('政策法规');
+        //$('.head-title').html('政策法规');
 
         document.title = '政策法规';
 
     }else if(type == 2){
 
-        $('.head-title').html('卫监动态及科普');
+        //$('.head-title').html('卫监动态及科普');
 
         document.title = '卫监动态及科普';
 
     }else if(type == 3){
 
-        $('.head-title').html('热线新闻');
+        //$('.head-title').html('热线新闻');
 
         document.title = '热线新闻';
     }
@@ -67,7 +86,9 @@ if(userRole == '1' || userRole == '2'|| userRole == '3'){
 
     fkid =  getParam('Eprid');
 
-    $('.head-title').html('新闻列表');
+    var imgSrc = 'img/logo' + type + '.jpg';
+
+    $('.title-img').attr('src',imgSrc);
 
     document.title = '新闻列表';
 
