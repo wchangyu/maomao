@@ -939,6 +939,7 @@ function getAllEnergyItemData(){
     var ecParams = {
         "startTime": startDate,
         "endTime": endDate,
+        "energyFlag": 1,  //1为标煤  0为能耗
         "pointerIDs":  pointerIdArr
     };
 

@@ -29,6 +29,10 @@ document.write('<link id="style_color" href="../../../assets/admin/layout/css/th
 
 document.write('<link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>');
 
+document.write('<link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">');
+
+
+
 //--------------页面标签前面的logo-------------------//
 document.write('<link rel="shortcut icon" href="../favicon.ico"/>');
 

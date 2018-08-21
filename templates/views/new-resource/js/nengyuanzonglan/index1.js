@@ -696,14 +696,16 @@ function getWeatherParam(){
 
             //无数据
             if(result == null || result.length == 0){
+
                 //隐藏温度 和湿度
-                $('.top-system-message .temperature').html(88 + "℃");
+                $('.top-system-message .temperature').html('');
 
                 //湿度
-                $('.top-system-message .humidity').html(66 + "%");
+                $('.top-system-message .humidity').html('');
 
                 return false;
             }
+
             //给页面中赋值
             //温度
             $('.top-system-message .temperature').html(result.temperatureData + "℃");

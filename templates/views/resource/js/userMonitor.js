@@ -1339,6 +1339,7 @@ var userMonitor = (function(){
                     $spanImg.width("100%");
                     $spanTxt.width(0);
 
+
                 }else if(curPRR){
 
                     //判断前台展示的类型，1为文本，2为图片，3为图片文本 ，4为视频
@@ -1382,6 +1383,23 @@ var userMonitor = (function(){
                         }else{
                             $spanDef.css("border-width",curPRR.borderThickness + "px");
                         }
+                    }
+
+                    //如果是超链接 点击跳转新页面
+                    if(curProcDef.cType >= 500 &&  curProcDef.cType <=600 && curProcDef.prcProcLnk && curProcDef.prcProcLnk.procLnkBase && curProcDef.prcProcLnk.procLnkBase.type == 501){
+                        //console.log(curProcDef);
+
+                        //获取当前跳转url地址
+                        var jumpUrl = curProcDef.prcProcLnk.procLnkBase.url;
+
+                        //跳转模式
+                        var jumpType = curProcDef.prcProcLnk.procLnkBase.startpos;
+
+                        var jumpArr = [jumpUrl,jumpType];
+
+                        $spanDef.css("cursor","pointer");
+                        $spanDef.on("click",(function(arr){return function(){ jumpNewPage(arr); }})(jumpArr));
+
                     }
 
                     $Txt.css("font-family",curPRR.fontName);        //字体设置
@@ -1517,6 +1535,29 @@ var userMonitor = (function(){
 
         //定时刷新
         refreshData();
+    };
+
+    //流程图小程序 501 页面跳转方法
+    var jumpNewPage = function(arr){
+
+
+        //跳转地址
+        var url = arr[0];
+
+        //跳转方式
+        var type = arr[1];
+
+
+        //当前页面打开
+        if(type == 3){
+
+            window.location.href = url;
+
+        }else{
+
+            window.open(url);
+        }
+
     };
 
     //在界面插入鹰眼模式开关
