@@ -237,15 +237,15 @@ $(function(){
 
         //console.log(e);
 
-        //if(targetDom.indexOf('ztree')>=0 ||$(e.target).parents('#treeView').length != 0 ){
-        //
-        //    return false;
-        //
-        //}else{
-        //
-        //    $('#treeCNT').slideUp();
-        //
-        //}
+        if(targetDom.indexOf('ztree')>=0 ||$(e.target).parents('#treeView').length != 0 ){
+
+            return false;
+
+        }else{
+
+            $('#treeCNT').slideUp();
+
+        }
 
     })
 
@@ -280,36 +280,6 @@ $(function(){
     })
 
     /*---------------------------------------其他方法----------------------------------*/
-
-
-    //日历插件
-    //function initdatetimepicker(){
-    //
-    //    var nowDt = new Date();
-    //    var year = nowDt.getFullYear();
-    //    var month = parseInt(nowDt.getMonth())+1;
-    //    var day = nowDt.getDate();
-    //    var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-    //    var mt= moment(dtstr);
-    //    var nowDt=mt.format('YYYY-MM-DD');
-    //    var startDt = mt.subtract(1, 'days').format('YYYY-MM-DD');
-    //    $("#spDT").val(startDt);
-    //    $("#epDT").val(nowDt);
-    //    $('.abbrDT').datetimepicker({
-    //        format: 'yyyy-mm-dd',
-    //        language: 'zh-CN',
-    //        weekStart: true,
-    //        todayBtn: true,
-    //        autoclose: true,
-    //        todayHighlight: true,
-    //        startView: 2,
-    //        minView: 2,
-    //        minuteStep: 10,
-    //        forceParse: 0,
-    //        pickerPosition: "bottom-left"
-    //    });
-    //
-    //}
 
     //日期格式化
     function addZeroToSingleNumber(num){

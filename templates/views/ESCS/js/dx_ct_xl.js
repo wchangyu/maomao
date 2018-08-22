@@ -110,8 +110,8 @@
             var data = [];
             for (var i = 0; i < dataXY.length; i++) {
                 var XY = [];
-                XY.push(dataXY[i].X);
-                XY.push(dataXY[i].Y);
+                XY.push(dataXY[i].x);
+                XY.push(dataXY[i].y);
                 data.push(XY);
             }
 

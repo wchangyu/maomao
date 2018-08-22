@@ -10,7 +10,11 @@
 
     //冷机负载率
     var INIT_FZL_ITEM = function (chsglm) {
-        var fzlUrl = "DxCoolerSGL/FZL?DxChSGLID=" + chsglm.DxChSGLID;
+
+        //var fzlUrl = "DxCoolerSGL/FZL?DxChSGLID=" + chsglm.DxChSGLID;
+
+        var fzlUrl = "dx_ch_sgl_fzl.html?DxChSGLID=" + chsglm.dxChSGLID;
+
         $('#dxchsgl_item_fzl_title').attr('href', fzlUrl);//地址
         $('#dxchsgl_item_fzl_ste').html();//状态
         if (chsglm.DxChSGLFZLSte === "1") {
@@ -25,7 +29,11 @@
 
     //冷冻出水温度
     var INIT_CSW_ITEM = function (chsglm) {
-        var cswUrl = "DxCoolerSGL/CSW?DxChSGLID=" + chsglm.DxChSGLID;
+
+        //var cswUrl = "DxCoolerSGL/CSW?DxChSGLID=" + chsglm.DxChSGLID;
+
+        var cswUrl = "dx_ch_sgl_csw.html?DxChSGLID=" + chsglm.dxChSGLID;
+
         $('#dxchsgl_item_csw_title').attr('href', cswUrl);//地址
         $('#dxchsgl_item_csw_ste').html();//状态
         if (chsglm.DxChSGLCSWSte === "1") {
@@ -35,12 +43,15 @@
             $('#dxchsgl_item_csw_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
         }
         $('#dxchsgl_item_csw_title').html();//标题
-        $('#dxchsgl_item_csw_title').html(chsglm.DxChSGLCSWTitle);
+        $('#dxchsgl_item_csw_title').html(chsglm.dxChSGLCSWTitle);
     }
 
     //冷却回水温度
     var INIT_HSW_ITEM = function (chsglm) {
-        var hswUrl = "DxCoolerSGL/HSW?DxChSGLID=" + chsglm.DxChSGLID;
+        //var hswUrl = "DxCoolerSGL/HSW?DxChSGLID=" + chsglm.DxChSGLID;
+
+        var hswUrl = "dx_ch_sgl_hsw.html?DxChSGLID=" + chsglm.dxChSGLID;
+
         $('#dxchsgl_item_hsw_title').attr('href', hswUrl); //地址
         $('#dxchsgl_item_hsw_ste').html();//状态
         if (chsglm.DxChSGLHSWSte === "1") {
@@ -55,7 +66,10 @@
 
     //蒸发器趋近温度
     var INIT_ZFQW_ITEM = function (chsglm) {
-        var zfqwUrl = "DxCoolerSGL/ZFQW?DxChSGLID=" + chsglm.DxChSGLID;
+        //var zfqwUrl = "DxCoolerSGL/ZFQW?DxChSGLID=" + chsglm.DxChSGLID;
+
+        var zfqwUrl = "dx_ch_sgl_zfqw.html?DxChSGLID=" + chsglm.dxChSGLID;
+
         $('#dxchsgl_item_zfqw_title').attr('href', zfqwUrl); //地址
         $('#dxchsgl_item_zfqw_ste').html();//状态
         if (chsglm.DxChSGLZFQWSte === "1") {
@@ -70,7 +84,10 @@
 
     //冷凝器趋近温度
     var INIT_LNQW_ITEM = function (chsglm) {
-        var lnqwUrl = "DxCoolerSGL/LNQW?DxChSGLID=" + chsglm.DxChSGLID;
+        //var lnqwUrl = "DxCoolerSGL/LNQW?DxChSGLID=" + chsglm.DxChSGLID;
+
+        var lnqwUrl = "dx_ch_sgl_lnqw.html?DxChSGLID=" + chsglm.dxChSGLID;
+
         $('#dxchsgl_item_lnqw_title').attr('href', lnqwUrl); //地址
         $('#dxchsgl_item_lnqw_ste').html();//状态
         if (chsglm.DxChSGLLNQWSte === "1") {
@@ -85,21 +102,48 @@
 
     //蒸发压力/温度
     var INIT_ZFYW_ITEM = function (chsglm) {
-        var zfywUrl = "DxCoolerSGL/ZFYW?DxChSGLID=" + chsglm.DxChSGLID;
+        //var zfywUrl = "DxCoolerSGL/ZFYW?DxChSGLID=" + chsglm.DxChSGLID;
+
+        var zfywUrl = "dx_ch_sgl_zfyw.html?DxChSGLID=" + chsglm.dxChSGLID;
+
         $('#dxchsgl_item_zfyw_title').attr('href', zfywUrl); //地址
     }
 
     //冷凝压力/温度
     var INIT_LNYW_ITEM = function (chsglm) {
-        var lnywUrl = "DxCoolerSGL/LNYW?DxChSGLID=" + chsglm.DxChSGLID;
+        //var lnywUrl = "DxCoolerSGL/LNYW?DxChSGLID=" + chsglm.DxChSGLID;
+
+        var lnywUrl = "dx_ch_sgl_lnyw.html?DxChSGLID=" + chsglm.dxChSGLID;
+
         $('#dxchsgl_item_lnyw_title').attr('href', lnywUrl);//地址
     }
 
     //油压差
     var INIT_YOYC_ITEM = function (chsglm) {
-        var yoycUrl = "DxCoolerSGL/YOYC?DxChSGLID=" + chsglm.DxChSGLID;
+        //var yoycUrl = "DxCoolerSGL/YOYC?DxChSGLID=" + chsglm.DxChSGLID;
+
+        var yoycUrl = "dx_ch_sgl_yoyc.html?DxChSGLID=" + chsglm.dxChSGLID;
+
         $('#dxchsgl_item_yoyc_title').attr('href', yoycUrl);
     }
+
+
+    function getQueryStr(name, ispe) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            var rs = r[2];
+            if (ispe) {
+                var pe = unescape(rs);
+                return pe;
+            }
+            else {
+                return rs;
+            }
+        }
+        return null;
+    }
+
 
     return {
 
@@ -111,7 +155,7 @@
 
             var chsgls = JSON.parse(sessionStorage.DxChSGLs);//单台冷机诊断集
 
-            var chsglms = _.where(chsgls, { DxChSGLID: chsgId });//单台冷机诊断结果
+            var chsglms = _.where(chsgls, { dxChSGLID: chsgId });//单台冷机诊断结果
 
             var chsglm = chsglms[0];
 
@@ -139,25 +183,25 @@
             //油压差
             INIT_YOYC_ITEM(chsglm);
 
-            $('#spanDxTitle').html(chsglm.DxChSGLNt + '能效诊断');
+            $('#spanDxTitle').html(chsglm.dxChSGLNt + '能效诊断');
 
-            $('#spansysDxTitle').html(chsglm.DxChSGLNt + '系统诊断');
+            $('#spansysDxTitle').html(chsglm.dxChSGLNt + '系统诊断');
 
-            $('#span_dxchsgl_item_cop_acv').html(chsglm.DxChSGLAcv);//实际值
+            $('#span_dxchsgl_item_cop_acv').html(chsglm.dxChSGLAcv);//实际值
 
-            $('#span_dxchsgl_item_cop_std').html(chsglm.DxChSGLStd);//理想值
+            $('#span_dxchsgl_item_cop_std').html(chsglm.dxChSGLStd);//理想值
 
             //偏差值=(实际值-理想值)/理想值*100
-            var ofs = (chsglm.DxChSGLAcv - chsglm.DxChSGLStd) / chsglm.DxChSGLStd * 100;
+            var ofs = (chsglm.dxChSGLAcv - chsglm.dxChSGLStd) / chsglm.dxChSGLStd * 100;
             $('#span_dxchsgl_item_cop_ofs').html(Math.round(ofs, 2));//偏差值
 
-            var dxchsgls = JSON.stringify(chsglm.DxChSGLDs);
+            var dxchsgls = JSON.stringify(chsglm.dxChSGLDs);
             var dataXY = JSON.parse(dxchsgls);
             var data = [];
             for (var i = 0; i < dataXY.length; i++) {
                 var XY = [];
-                XY.push(dataXY[i].X);
-                XY.push(dataXY[i].Y);
+                XY.push(dataXY[i].x);
+                XY.push(dataXY[i].y);
                 data.push(XY);
             }
             chart_View_Chiller_SGL_COP_Main = echarts.init(document.getElementById('chart_View_Chiller_SGL_COP_Main'));
@@ -187,14 +231,14 @@
                     right: 10,
                     pieces: [{
                         gt: 0,
-                        lte: parseFloat(chsglm.DxChSGLBadStd),
+                        lte: parseFloat(chsglm.dxChSGLBadStd),
                         color: '#ff9933'
                     }, {
-                        gt: parseFloat(chsglm.DxChSGLBadStd),
-                        lte: parseFloat(chsglm.DxChSGLWellStd),
+                        gt: parseFloat(chsglm.dxChSGLBadStd),
+                        lte: parseFloat(chsglm.dxChSGLWellStd),
                         color: '#ffde33'
                     }, {
-                        gt: parseFloat(chsglm.DxChSGLWellStd),
+                        gt: parseFloat(chsglm.dxChSGLWellStd),
                         color: '#096'
                     }],
                     outOfRange: {
@@ -210,9 +254,9 @@
                     markLine: {
                         silent: true,
                         data: [{
-                            yAxis: parseFloat(chsglm.DxChSGLBadStd)
+                            yAxis: parseFloat(chsglm.dxChSGLBadStd)
                         }, {
-                            yAxis: parseFloat(chsglm.DxChSGLWellStd)
+                            yAxis: parseFloat(chsglm.dxChSGLWellStd)
                         }]
                     }
                 }

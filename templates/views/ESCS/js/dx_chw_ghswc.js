@@ -15,6 +15,7 @@
 
     //统计ChartView
     var INIT_DX_CHW_GHSWC_ANALYSIS_CHARTVIEW = function() {
+
         var br = parseFloat(sessionStorage.DxChwGHSWCBadRatio).toFixed(2);//告警值
         var wr = parseFloat(sessionStorage.DxChwGHSWCWellRatio).toFixed(2);//正常值
         var or = parseFloat(100 - br - wr).toFixed(2);//一般值
@@ -109,8 +110,8 @@
             var data = [];
             for (var i = 0; i < dataXY.length; i++) {
                 var XY = [];
-                XY.push(dataXY[i].X);
-                XY.push(dataXY[i].Y);
+                XY.push(dataXY[i].x);
+                XY.push(dataXY[i].y);
                 data.push(XY);
             }
 

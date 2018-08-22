@@ -14,8 +14,8 @@
     };
 
     var INIT_DX_Ch_LNQW_ANALYSIS_CHARTVIEW = function (chsglm) {
-        var br = parseFloat(chsglm.DxChSGLLNQWBadRatio).toFixed(2);//告警值
-        var wr = parseFloat(chsglm.DxChSGLLNQWWellRatio).toFixed(2);//正常值
+        var br = parseFloat(chsglm.dxChSGLLNQWBadRatio).toFixed(2);//告警值
+        var wr = parseFloat(chsglm.dxChSGLLNQWWellRatio).toFixed(2);//正常值
         var or = parseFloat(100 - br - wr).toFixed(2);//一般值
         var dataAys = [];
         dataAys.push({ value: br, name: '告警(' + br + '%)' });
@@ -45,21 +45,40 @@
         chart_View_Ch_SGL_LNQW_Analysis_Main.setOption(option);
     }
 
+    function getQueryStr(name, ispe) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            var rs = r[2];
+            if (ispe) {
+                var pe = unescape(rs);
+                return pe;
+            }
+            else {
+                return rs;
+            }
+        }
+        return null;
+    }
+
     return {
 
         init: function () {
             $('#spanDxDT').html(sessionStorage.DxDT);
             var chsgId = getQueryStr("DxChSGLID", true);//单台冷机标记
             var chsgls = JSON.parse(sessionStorage.DxChSGLs);//单台冷机诊断集
-            var chsglms = _.where(chsgls, { DxChSGLID: chsgId });//单台冷机诊断结果
+            var chsglms = _.where(chsgls, { dxChSGLID: chsgId });//单台冷机诊断结果
             var chsglm = chsglms[0];
-            var backUrl = "DxCoolerSGL/Index?DxChSGLID=" + chsglm.DxChSGLID;
+
+            var backUrl = "dx_ch_sgl_index.html?DxChSGLID=" + chsglm.dxChSGLID;
+
             $('#LNQWBackToSGLBtn').attr('href', backUrl);
-            $('#spanDxTitle').html(chsglm.DxChSGLNt + '冷凝器趋近温度');
+
+            $('#spanDxTitle').html(chsglm.dxChSGLNt + '冷凝器趋近温度');
             //$('#span_dxchsgl_item_lnqw_std').html();//诊断值
             //$('#span_dxchsgl_item_lnqw_acv').html();//实际值
             //$('#span_dxchsgl_item_lnqw_ofs').html();//偏差值
-            if (chsglm.DxChSGLLNQWSte === "0")//异常
+            if (chsglm.dxChSGLLNQWSte === "0")//异常
             {
                 //$('#reasugBox').show();
                 $('.boxhgt').show();
@@ -73,13 +92,13 @@
                 $('.ellipse').css('background-color', '#1caf9a');
             }
             INIT_DX_Ch_LNQW_ANALYSIS_CHARTVIEW(chsglm);
-            var dxchsglLNQWs = JSON.stringify(chsglm.DxChSGLLNQWDs);
+            var dxchsglLNQWs = JSON.stringify(chsglm.dxChSGLLNQWDs);
             var dataXY = JSON.parse(dxchsglLNQWs);
             var data = [];
             for (var i = 0; i < dataXY.length; i++) {
                 var XY = [];
-                XY.push(dataXY[i].X);
-                XY.push(dataXY[i].Y);
+                XY.push(dataXY[i].x);
+                XY.push(dataXY[i].y);
                 data.push(XY);
             }
             chart_View_Chiller_SGL_LNQW_Main = echarts.init(document.getElementById('chart_View_Chiller_SGL_LNQW_Main'));
@@ -109,14 +128,14 @@
                     right: 10,
                     pieces: [{
                         gt: 0,
-                        lte: parseFloat(chsglm.DxChSGLLNQWWellStd),
+                        lte: parseFloat(chsglm.dxChSGLLNQWWellStd),
                         color: '#096'
                     }, {
-                        gt: parseFloat(chsglm.DxChSGLLNQWWellStd),
-                        lte: parseFloat(chsglm.DxChSGLLNQWBadStd),
+                        gt: parseFloat(chsglm.dxChSGLLNQWWellStd),
+                        lte: parseFloat(chsglm.dxChSGLLNQWBadStd),
                         color: '#ffde33'
                     }, {
-                        gt: parseFloat(chsglm.DxChSGLLNQWBadStd),
+                        gt: parseFloat(chsglm.dxChSGLLNQWBadStd),
                         color: '#ff9933'
                     }],
                     outOfRange: {
@@ -132,9 +151,9 @@
                     markLine: {
                         silent: true,
                         data: [{
-                            yAxis: parseFloat(chsglm.DxChSGLLNQWBadStd)
+                            yAxis: parseFloat(chsglm.dxChSGLLNQWBadStd)
                         }, {
-                            yAxis: parseFloat(chsglm.DxChSGLLNQWWellStd)
+                            yAxis: parseFloat(chsglm.dxChSGLLNQWWellStd)
                         }]
                     }
                 }

@@ -13,6 +13,7 @@
     //综合冷机效率
     var INIT_CHILLER_COP = function () {
         $('#spanDxDT').html(sessionStorage.DxDT);
+
         $('#span_dxch_item_cop_acv').html(sessionStorage.DxChAcv);//实际值
         $('#span_dxch_item_cop_std').html(sessionStorage.DxChStd);//理想值
         //偏差值=(实际值-理想值)/理想值*100
@@ -69,20 +70,19 @@
     //单台冷机效率诊断
     var INIT_ITEM_CHSGL = function () {
         if (oTable == null) {
+
             oTable = $("#chsglTable").DataTable({
                 "iDisplayLength": 20,
                 "bFilter": false,
                 "bLengthChange": false,
                 "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-                "paging": false,   //是否分页
-                "searching": false,
                 "paging": true,
                 "searching": false,
                 "ordering": false,
                 "bPaginate": true, //翻页功能
                 "bProcessing": true,
                 "bSort": false,
-                "sPaginationType": "bootstrap",
+                //"sPaginationType": "bootstrap",
                 "destroy": true,//还原初始化了的datatable
                 "oLanguage": {
                     "sLengthMenu": "每页显示 _MENU_ 条记录",
@@ -109,9 +109,14 @@
                     },
                     {
                         "aTargets": [1], "mRender": function (data, type, full) {//名称
+
                             var chillerSGLID = full[5];
+
                             //var url = sessionStorage.apiUrlPrefix + "DxCoolerSGL/Index?DxChSGLID=" + chillerSGLID;
-                            var url = "DxCoolerSGL/Index?DxChSGLID=" + chillerSGLID;
+                            //var url = "DxCoolerSGL/Index?DxChSGLID=" + chillerSGLID;
+
+                            var url = 'dx_ch_sgl_index.html?DxChSGLID=' + chillerSGLID;
+
                             return '<a href="' + url + '">' + data + '诊断' + '</a>';
                         }
                     },
@@ -137,15 +142,17 @@
         var chsglAry = [];
         for (var i = 0; i < chsgls.length; i++) {
             var ary = [];
-            ary.push(chsgls[i].DxChSGLSte);
-            ary.push(chsgls[i].DxChSGLNt);
-            ary.push(chsgls[i].DxChSGLWellStd);
-            ary.push(chsgls[i].DxChSGLBadStd);
+            ary.push(chsgls[i].dxChSGLSte);
+            ary.push(chsgls[i].dxChSGLNt);
+            ary.push(chsgls[i].dxChSGLWellStd);
+            ary.push(chsgls[i].dxChSGLBadStd);
             ary.push('');
-            ary.push(chsgls[i].DxChSGLID);
+            ary.push(chsgls[i].dxChSGLID);
             chsglAry.push(ary);
         }
         //清空一下table
+        oTable = $("#chsglTable").dataTable();
+
         oTable.fnClearTable();
         //想表格中添加东西数据o
         if (chsglAry.length > 0) {
@@ -211,11 +218,12 @@
             //}
 
             var dataXY = JSON.parse(sessionStorage.DxChDs);
+
             var data = [];
             for (var i = 0; i < dataXY.length; i++) {
                 var XY = [];
-                XY.push(dataXY[i].X);
-                XY.push(dataXY[i].Y);
+                XY.push(dataXY[i].x);
+                XY.push(dataXY[i].y);
                 data.push(XY);
             }
 
