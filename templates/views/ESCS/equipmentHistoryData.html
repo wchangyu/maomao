@@ -53,16 +53,6 @@
     <link rel="stylesheet" href="../new-resource/css/common.css">
     <link rel="stylesheet" href="../new-resource/css/nenghaoshuju/crosswiseCompare.css">
     <link rel="stylesheet" href="../new-resource/css/nenghaoshuju/equipmentHistoryData.css">
-    <link rel="stylesheet" href="css/public.css">
-
-    <style>
-        th{
-
-            border-top: none;
-
-        }
-    </style>
-
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -280,10 +270,17 @@
                             <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
                                 <div class="content-main">
                                     <div class="main-left-middle">
-                                        <div class="left-middle-header">区域选择</div>
+                                        <div class="left-middle-header">区域位置</div>
                                         <div class="left-middle-main">
                                             <div class="tree-1 tree-0">
-                                                <ul class="allPointer ztree" id="allPointer" style="overflow-x: auto">
+                                                    <span class="allPointerOne">
+                                                        <div class="selectedRadio"></div>
+                                                    </span>
+                                                <div class="left-middle-input" style="display: none">
+                                                    <input type="text"  id="keys" class="empty form-control" placeholder="搜索...">
+                                                </div>
+                                                <div class="tipess"></div>
+                                                <ul class="allPointer ztree scrollbar" id="allPointer">
                                                 </ul>
                                             </div>
                                         </div>
@@ -291,82 +288,70 @@
                                 </div>
                                 <div class="content-main">
                                     <div class="main-left-middle1">
-                                        <div class="left-middle-header">设备选择</div>
-
-                                        <div class="search-block">
-                                            <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
-                                            <div class="tipe" id="tip"></div>
-                                        </div>
-                                        <!--设备-->
-                                        <div class="left-middle-main" style="height: 200px;">
-                                            <div class="tree-1 tree-0" style="width: 100%">
-                                                <ul class="allDev ztree" id="allDev" style="overflow-y: auto;height: 100%">
+                                        <div class="left-middle-header">条件选择</div>
+                                        <div class="left-middle-main1">
+                                            <div style="height:45px;"></div>
+                                            <div class="tree-1 tree-0">
+                                                <h4>设备名称</h4>
+                                                    <span class="allPointerOne">
+                                                        <div class="selectedRadio"></div>
+                                                    </span>
+                                                <div class="left-middle-input" style="">
+                                                    <input type="text"  id="key0" class="empty form-control" placeholder="搜索...">
+                                                </div>
+                                                <div class="tipess0"></div>
+                                                <ul class="allPointer ztree scrollbar" id="allEquipment">
                                                 </ul>
                                             </div>
+
+                                            <div class="tree-1 tree-0">
+                                                <h4 style="margin-left:10px;">查询属性</h4>
+                                                    <span class="allPointerOne">
+                                                        <div class="selectedRadio"></div>
+                                                    </span>
+
+                                                <div class="tipess0"></div>
+                                                <ul class="allPointer ztree scrollbar" id="allNature">
+                                                </ul>
+                                            </div>
+
                                         </div>
+                                    </div>
+                                    <!--已选择设备框-->
+                                    <div class="bottom-select-equipment">
 
+                                        <h4 style="margin-left:10px; font-size:14px;margin-bottom:5px;">已选设备 <span class="clear-list">全清</span></h4>
+                                        <div class="select-equipment-container scrollbar scrollbar1">
+                                            <!--<p>-->
+                                            <!--<span class="select-equipment">PY/PF-B1-19-->
+                                            <!--<span class="select-nature">( <b>回路启停</b> <b>回路电流</b> )</span> <font></font>-->
+                                            <!--</span>-->
+                                            <!--</p>-->
 
-                                        <!--已选择的区域-->
-                                        <div class="dev-select">
-                                            <div>
-                                                <div class="selected-block">已选择设备</div>
-                                                <div class="empty-block">
-                                                    <button id="emptyAll">全清</button>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                                <div class="main-selected-block">
+                                        </div>
+                                    </div>
 
-                                                </div>
+                                    <div style="height:80px;text-align: center">
+                                        <div class="start-time-choose choose-time">
+                                            <label for="">选择时间：</label>
+                                            <div class="input-blocked">
+                                                <input type="text" class="datatimeblock min" name="min" id="datetimepicker">
                                             </div>
                                         </div>
-                                        <!--时间选择-->
-                                        <div class="choose-time position-center" style="text-align: center;">
-                                            <div style="margin-bottom: 10px;display: none;">
-                                                <label for="">开始时间：</label>
-                                                <div class="input-blocked">
-                                                    <input type="text" class="datatimeblock min" name="min" id="sp">
-                                                </div>
-                                            </div>
-                                            <div style="margin-bottom: 10px;display: none;">
-                                                <label for="">结束时间：</label>
-                                                <div class="input-blocked">
-                                                    <input type="text" class="datatimeblock min" name="min" id="ep">
-                                                </div>
+                                        <div class="end-time-choose choose-time">
+                                            <label for="">结束时间：</label>
+                                            <div class="input-blocked">
+                                                <input type="text" class="datatimeblock max" name="max" id="datetimepicker1">
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="content-main">
-                                    <div class="left-middle-header">时间选择</div>
-                                    <ul class="L-condition">
 
-                                        <li style="display: block;margin:15px auto;width: 255px;">
-                                            <label>开始时间</label>
-                                            <div class="time-tool-block">
-                                                <div class="input-group date form_date abbrDT">
-                                                    <input id="spDT" class="form-control" size="16" type="text" value="">
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
-                                                </div>
-                                            </div>
-                                        </li>
 
-                                        <li style="display: block;margin: auto;width: 255px;">
-                                            <label>结束时间</label>
-                                            <div class="time-tool-block">
-                                                <div class="input-group date form_date abbrDT">
-                                                    <input id="epDT" class="form-control" size="16" type="text" value="">
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
-                                                </div>
-                                            </div>
-                                        </li>
 
-                                    </ul>
-                                    <div style="margin-bottom: 20px;text-align: center">
-                                        <button type="button" class="btn btn-default" id="btn" style="background: #2170F4;color: #ffffff">查询</button>
+                                    <div class="buttons">
+
+                                        <button class="btn btn-success" style="background: #2170F4 !important;">查询</button>
+
                                     </div>
                                 </div>
                             </div>
@@ -383,13 +368,14 @@
 
                                         <!--下方对比表格-->
                                         <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" >
+                                            <p class="table-title"><span class="systemTitle">客运车站设备智能化管理系统</span>-<span class="curSystem"></span>-数据曲线 <span class="curTime"></span></p>
                                             <!--eChart图-->
                                             <div class="rheader-content-left " id="rheader-content-16" style="margin-right:300px;">
 
                                             </div>
 
 
-                                            <table class="table table-striped table-advance table-hover
+                                            <table class="table table-striped table-bordered table-advance table-hover
 " id="dateTables">
                                                 <thead>
                                                 <tr>
