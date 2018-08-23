@@ -185,7 +185,7 @@
   "alarmSong":"0",
   "alarmSongGrade":"2",
   "alarmSongGradeComment":"报警等级达到当前级别时开启提示声音 1普通 2较急 3紧急 4特别紧急",
-  "changeMenuByProcs":"0",
+  "changeMenuByProcs":"1",
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
   "gongdanInterval":"0",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",

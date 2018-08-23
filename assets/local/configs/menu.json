@@ -25,9 +25,9 @@
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
-      "流程图": {
+      "系统流程": {
         "type": "0",
-        "content": "流程图",
+        "content": "系统流程",
         "uri": "../yongnengjiance/energyMonitor.html?a=9",
         "uid": "",
         "arg": "1,8817007007",
