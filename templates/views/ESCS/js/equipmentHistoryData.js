@@ -960,7 +960,7 @@ function getZNodes2(EnItdata){
 
         var parentID = o.parentOBJID;
 
-        if(o.returnType < 3){
+        if(o.returnType < 4){
 
             zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:true,checked:false,nocheck :true,auxiliaryOBJID: o.auxiliaryOBJID});
 

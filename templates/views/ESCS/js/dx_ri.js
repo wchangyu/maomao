@@ -334,7 +334,7 @@
                         sessionStorage.DxCWGHSWCDs = JSON.stringify(ResponseModel.dxcwghswcDs);
                         sessionStorage.DxCWGHSWCWellStd = ResponseModel.dxcwghswcWellStd;
                         sessionStorage.DxCWGHSWCBadStd = ResponseModel.dxcwghswcBadStd;
-                        sessionStorage.DxCWGHSWCWellRatio = ResponseModel.dxCWGHSWCWellRatio;
+                        sessionStorage.DxCWGHSWCWellRatio = ResponseModel.dxcwghswcWellRatio;
                         sessionStorage.DxCWGHSWCBadRatio = ResponseModel.dxcwghswcBadRatio;
                         $('#dxcw_item_ghswc').html();
                         if (sessionStorage.DxCWGHSWCSte === "1") {
