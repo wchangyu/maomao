@@ -259,7 +259,7 @@
 
                                             tdStr += '<td>';
 
-                                            tdStr += opt.series[j].data[i];
+                                            tdStr += opt.series[j].data[i]==undefined?'-':opt.series[j].data[i];
 
                                             tdStr += '</td>';
 
@@ -521,6 +521,57 @@
             getCompareEERTableDs(eType, mType, dTs);
         })
     }
+
+    //导出数据
+    $('#exportBtn').click(function(){
+
+        var dTs = getDTs();
+        if (dTs.length === 0) {
+            console.log("提示(多时间段能效对比):请选择时间段分析能效对比");
+            return;
+        }
+        var eType = $("#eType").val();
+        var mType = $("#meterType").val();
+        var prm = {
+            pId:sessionStorage.PointerID,
+            dTs:dTs,
+            mType:mType,
+            eType:eType,
+            misc:sessionStorage.misc
+
+        }
+
+        var url = sessionStorage.apiUrlPrefix + 'ZKEERExport/ExportEERShow?pId=' + sessionStorage.PointerID +
+
+                '&dTs=' + dTs +
+
+                '&mType=' + mType +
+
+                '&eType=' + eType +
+
+                '&misc=' + sessionStorage.misc;
+
+        $.ajax({
+
+            type:'get',
+
+            url: sessionStorage.apiUrlPrefix + 'ZKEERExport/ExportEERShow',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+                window.open(url, "_self", true);
+
+            },
+
+            error:_errorFun1
+
+
+        })
+
+    })
 
     return {
         init: function () {

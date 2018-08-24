@@ -84,11 +84,13 @@ function _timeYMDComponentsFun11(el){
     el.datepicker({
         language:  'zh-CN',
         todayBtn: 1,
-        todayHighlight: 1,
+        todayHighlight: true,
         format: 'yyyy-mm-dd',
         forceParse: 0,
         autoclose: 1
+
     });
+
 }
 
 //datapicker时间插件初始化（年）
@@ -151,13 +153,26 @@ function _monthDay(el){
 //datatimepicker事件插件初始化（日月年时分秒）
 function _timeHMSComponentsFun(el,startView){
     el.datetimepicker({
-        language:  'zh-CN',//此处修改
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: startView,  //1时间  2日期  3月份 4年份
+        //language:  'zh-CN',//此处修改
+        //weekStart: 1,
+        //todayBtn:  1,
+        //autoclose: 1,
+        //todayHighlight: 1,
+        //startView: startView,  //1时间  2日期  3月份 4年份
+        //forceParse: 0,
+
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: true,
+        todayBtn: true,
+        autoclose: true,
+        todayHighlight: true,
+        startView: 2,
+        minView: 2,
+        minuteStep: 10,
         forceParse: 0,
+        pickerPosition: "bottom-left"
+
     });
 }
 

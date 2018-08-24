@@ -159,6 +159,9 @@ $(function(){
     //设备能效能耗
     devEEEC();
 
+    //报警
+    alarmData();
+
     //自动刷新
     setInterval(function(){
 
@@ -1586,6 +1589,81 @@ $(function(){
 
 
         }
+
+    }
+
+    //报警
+    function alarmData(){
+
+        var prm = {
+
+            //报警界面分类
+            alarmType:[[2],[2],[2]],
+
+            //楼宇ID集合
+            pointerIDs:[sessionStorage.PointerID],
+
+            //时间
+            startTime:sessionStorage.sysDt
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'ZKMain/GetAlarmCount',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            beforeSend:function(){
+
+                $('.alarm-block').showLoading();
+
+            },
+
+            complete:function(){
+
+                $('.alarm-block').hideLoading();
+
+            },
+
+            success:function(result){
+
+                //设备故障报警
+                var devNum = '-';
+                //运行参数报警
+                var runNum = '-';
+                //仪表故障报警
+                var meterNum = '-';
+
+                if(result.code == 0){
+
+                    //设备故障报警
+                    devNum = result.devideEERCount;
+                    //运行参数报警
+                    runNum = result.runEERCount;
+                    //仪表故障报警
+                    meterNum = result.meterEERCount;
+
+                }
+
+                //设备故障报警
+                $('#devideEERCount').html(devNum);
+                //运行参数报警
+                $('#runEERCount').html(runNum);
+                //仪表故障报警
+                $('#meterEERCount').html(meterNum);
+
+
+            },
+
+            error:_errorFun1
+
+        })
+
 
     }
 

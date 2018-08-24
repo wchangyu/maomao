@@ -168,15 +168,6 @@
         "arg": "",
         "iconclass": "",
         "arg2": ""
-      },
-      "能源参数": {
-        "type": "0",
-        "content": "能源参数",
-        "uri": "../ESCS/epgr.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "",
-        "arg2": ""
       }
     }
   },
@@ -205,7 +196,15 @@
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
-
+      "能源参数": {
+        "type": "0",
+        "content": "能源参数",
+        "uri": "../ESCS/epgr.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
+      }
     }
   }
 }

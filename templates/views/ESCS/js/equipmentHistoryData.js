@@ -391,8 +391,6 @@ function getDevAreaByType(){
         },
         success:function(result){
 
-            //console.log(result);
-
             //判断是否返回数据
             if(result == null || result.length == 0){
 
@@ -411,6 +409,51 @@ function getDevAreaByType(){
 
             getEquipmentZtree(dataArr,3,getZNodes2,"#allPointer",areaObj);
 
+            //只要是父元素就不允许选择
+            var treeObj = $.fn.zTree.getZTreeObj('allPointer');
+
+            var nodes =  treeObj.getNodes();
+
+            var childrenArr = [];
+
+            loop(nodes);
+
+            function loop(arr){
+
+                for(var i=0;i<arr.length;i++){
+
+                    if(arr[i].isParent){
+
+                        arr[i].nocheck = true;
+
+                        if(arr[i].children.length>0){
+
+                            loop(arr[i].children)
+
+                        }
+
+                    }else{
+
+                        childrenArr.push(arr[i]);
+
+
+                    }
+
+                }
+
+            }
+
+            //自动刷新ztree树
+            treeObj.refresh();
+
+            //选中第一个
+            var node = treeObj.getNodeByParam("id",childrenArr[0].id );
+
+            treeObj.checkNode(node,true);
+
+            //获取设备名称
+            getDevInfoCTypes(treeObj.getCheckedNodes()[0],true);
+
         },
         error:function(jqXHR, textStatus, errorThrown){
             myChartTopLeft.hideLoading();
@@ -425,10 +468,8 @@ function getDevAreaByType(){
     })
 };
 
-//根据设备类型获取设备名称及监测点类型
-function getDevInfoCTypes(equipObj){
-
-    //console.log(equipObj);
+//根据设备类型获取设备名称及监测点类型(flag为真表示默认加载)
+function getDevInfoCTypes(equipObj,flag){
 
     //获取当前选中名称及id
 
@@ -463,13 +504,11 @@ function getDevInfoCTypes(equipObj){
         success:function(result){
 
             $('.left-middle-main1').hideLoading();
-            // console.log(result);
 
-            //判断是否返回数据
-            if(result == null || result.length == 0){
+            if(result.arosList.length == 0 || result.code !=0){
 
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
-                return false;
+                console.log('暂时没有获取到设备');
+
             }
 
             //清空设备列表
@@ -493,6 +532,25 @@ function getDevInfoCTypes(equipObj){
 
             //获取设备列表
             getEquipmentZtree(equipmentArr,1,false,false,equipmentObj);
+
+            if(flag){
+
+                var treeObj = $.fn.zTree.getZTreeObj('allEquipment');
+
+                var nodes =  treeObj.getNodes();
+
+                //选中第一个
+                var node = treeObj.getNodeByParam("id",nodes[0].id );
+
+                treeObj.checkNode(node,true);
+
+                //自动获取属性
+                getNatureTree(nodes[0].id,true);
+
+            }
+
+
+
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -765,9 +823,13 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
                     //获取当前已选中的属性
                     var pts = treeObj.getCheckedNodes(true);
 
-                    console.log(pts[0]);
-
                     getDevInfoCTypes(pts[0]);
+
+                    //查询属性初始化
+                    getEquipmentZtree([],2,false,'#allNature',natureObj);
+
+                    //已选设备初始化
+                    $('.select-equipment-container').empty();
 
                 }
 
@@ -843,11 +905,13 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
     if(flag == 2){
         setting.check.chkStyle = 'checkbox';
     }
+
     var zNodes;
 
     if(!fun){
 
         zNodes = getZNodes1(EnItdata);
+
     }else{
 
         zNodes = fun(EnItdata);
@@ -857,6 +921,7 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
     if(node){
 
         treeObj = $.fn.zTree.init($(node), setting, zNodes);
+
     }else{
 
         treeObj = $.fn.zTree.init($("#allEquipment"), setting, zNodes);
@@ -956,9 +1021,12 @@ function getZNodes2(EnItdata){
 
         //获取楼宇ID
         var pointerID = o.returnOBJID;
+
         var ifOpen = false;
 
         var parentID = o.parentOBJID;
+
+        //zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,noCheck:false,title: o.returnOBJName,open:true,checked:false,auxiliaryOBJID: o.auxiliaryOBJID});
 
         if(o.returnType < 4){
 
@@ -967,11 +1035,11 @@ function getZNodes2(EnItdata){
         }else{
 
             if(o.returnType < 4){
-                zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false,nocheck :true,auxiliaryOBJID: o.auxiliaryOBJID});
+                zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:true,checked:false,nocheck :true,auxiliaryOBJID: o.auxiliaryOBJID});
 
             }else{
 
-                zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:ifOpen,checked:false,devTypeForAreaID: o.devTypeForAreaID,devTypeForAreaName: o.devTypeForAreaName,auxiliaryOBJID: o.auxiliaryOBJID});
+                zNodes.push({ id: pointerID, pId:parentID, name:o.returnOBJName,title: o.returnOBJName,open:true,checked:false,devTypeForAreaID: o.devTypeForAreaID,devTypeForAreaName: o.devTypeForAreaName,auxiliaryOBJID: o.auxiliaryOBJID});
 
             }
 
@@ -983,8 +1051,8 @@ function getZNodes2(EnItdata){
 
 };
 
-//获取当前设备下的属性集合
-function getNatureTree(equipID){
+//获取当前设备下的属性集合(flag为真表示默认数据加载)
+function getNatureTree(equipID,flag){
 
     //清空存放属性的集合
     natureArr.length = 0;
@@ -1020,6 +1088,32 @@ function getNatureTree(equipID){
 
     //获取属性列表
     getEquipmentZtree(natureArr,2,false,'#allNature',natureObj);
+
+    if(flag){
+
+        //自动选中全部
+        var treeObj = $.fn.zTree.getZTreeObj('allNature');
+
+        //默认选中第一个
+        var node = treeObj.getNodeByParam("id",natureArr[1].id );
+
+        treeObj.checkNode(node,true);
+
+        var attrNode = treeObj.getCheckedNodes(true);
+
+        //获取设备
+        var devTree = $.fn.zTree.getZTreeObj('allEquipment');
+
+        var devNodes = devTree.getCheckedNodes(true)[0];
+
+        //调用绘制设备列表的函数
+        drawEquipmentList(devNodes,attrNode);
+
+        getPointerData();
+
+    }
+
+
 };
 
 //从本地存储中获取楼宇ID列表

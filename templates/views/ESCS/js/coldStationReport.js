@@ -10,9 +10,18 @@ $(function(){
 
     conditionSelected();
 
+    $('#selected').click(function(){
+
+        conditionSelected();
+
+    })
+
     /*-----------------------------------------其他方法---------------------------------*/
 
     function conditionSelected(){
+
+        //初始化
+        tableInit();
 
         var prm = {
 
@@ -150,6 +159,34 @@ $(function(){
 
     }
 
+    //表格初始化
+    function tableInit(){
 
+        $('.table-titleH').html('');
+        //数据时间
+        $('.data-time').html('');
+        //导出时间
+        $('.derive-time').html('');
+        //冷站输入电量
+        $('#report_lzcs_srdl').html('');
+        //冷站输出冷量
+        $('#report_lzcs_scll').html('');
+        //系统散热量
+        $('#report_lzcs_xtsrl').html('');
+        //系统效率
+        $('#report_lzcs_xtxl').html('');
+        //主机电量
+        $('#report_fxdh_zjdl').html('');
+        //冷冻泵电量
+        $('#report_fxdh_ldbdl').html('');
+        //冷却泵电量
+        $('#report_fxdh_lqbdl').html('');
+        //冷却塔电量
+        $('#report_fxdh_lqtdl').html('');
+
+        $('.table').find('tbody').empty();
+
+
+    }
 
 })

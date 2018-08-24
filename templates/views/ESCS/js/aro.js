@@ -3,13 +3,15 @@ $(function(){
     /*--------------------------------------时间插件-----------------------------------*/
 
     //初始化时间控件
-    _timeYMDComponentsFun($('.abbrDT'));
+    //_timeYMDComponentsFun11($('.abbrDT'));
 
-    var nowTime = moment(sessionStorage.sysDt).format('YYYY/MM/DD');
+    _timeHMSComponentsFun($('.abbrDT'));
+
+    var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
 
     $('#spDT').val(nowTime);
 
-    $('#epDT').val(moment(nowTime).add(1,'d').format('YYYY/MM/DD'));
+    $('#epDT').val(moment(nowTime).add(1,'d').format('YYYY-MM-DD'));
 
     /*---------------------------------------表格初始化----------------------------------*/
 
@@ -163,7 +165,7 @@ $(function(){
 
                                 tdStr += '<td>';
 
-                                tdStr += opt.series[j].data[i];
+                                tdStr += opt.series[j].data[i]==undefined?'-':opt.series[j].data[i];
 
                                 tdStr += '</td>';
 
@@ -276,6 +278,86 @@ $(function(){
         var zTree_Menu = $.fn.zTree.getZTreeObj("treeView");
 
         zTree_Menu.checkAllNodes(false);
+
+    })
+
+    //导出数据
+    $('#exportBtn').click(function(){
+
+        //获取选中的节点
+        var arr = getCheckedNodeFun();
+
+        //勾选的id
+        var ids = '';
+
+        //勾选的名称
+        var names = '';
+
+        //用于echart赋值
+        var namesArr = [];
+
+        for(var i=0;i<arr.length;i++){
+
+            ids += arr[i].item + '(' + arr[i].name + ')' + ',';
+
+            names += arr[i].name + ',';
+
+            namesArr.push(arr[i].name);
+
+        }
+
+        var prm = {
+            //楼宇
+            pId:sessionStorage.PointerID,
+            //单位
+            misc:sessionStorage.misc,
+            //对象选择id
+            ids:ids,
+            //对象选择名称
+            ns:encodeURIComponent(names),
+            //开始事件
+            sp:$('#spDT').val(),
+            //结束事件
+            ep:$('#epDT').val(),
+            //时间间隔
+            eType:$('#eType').val()
+
+        }
+
+
+        var url = sessionStorage.apiUrlPrefix + 'AnalysisAro/ExportAnalysisAroChartVie?pId=' + sessionStorage.PointerID +
+
+            '&misc=' + sessionStorage.misc +
+
+            '&ids=' + ids +
+
+            '&ns=' + encodeURIComponent(names) +
+
+            '&sp=' + $('#spDT').val() +
+
+            '&ep=' + $('#epDT').val() +
+
+            '&eType=' + $('#eType').val()
+
+        $.ajax({
+
+            type:'get',
+
+            url: sessionStorage.apiUrlPrefix + 'AnalysisAro/ExportAnalysisAroChartVie',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+                window.open(url, "_self", true);
+
+            },
+
+            error:_errorFun1
+
+
+        })
 
     })
 
