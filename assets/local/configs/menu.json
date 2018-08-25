@@ -3,7 +3,7 @@
   "系统首页": {
     "type": "1",
     "content": "系统首页",
-    "iconclass": "icon-camcorder",
+    "iconclass": "icon-home",
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
@@ -13,7 +13,7 @@
         "uri": "../ESCS/main.html",
         "uid": "",
         "arg": "",
-        "iconclass": "",
+        "iconclass": "icon-speedometer",
         "arg2": ""
       }
     }
@@ -21,17 +21,17 @@
   "运行监控": {
     "type": "1",
     "content": "运行监控",
-    "iconclass": "icon-camcorder",
+    "iconclass": "icon-grid",
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
       "系统流程": {
         "type": "0",
         "content": "系统流程",
-        "uri": "../yongnengjiance/energyMonitor.html?a=9",
+        "uri": "../ESCS/energyMonitor.html?a=9",
         "uid": "",
         "arg": "1,8817007007",
-        "iconclass": "",
+        "iconclass": "icon-picture",
         "arg2": ""
       },
       "数据曲线": {
@@ -40,7 +40,7 @@
         "uri": "../ESCS/equipmentHistoryData.html?arg=1",
         "uid": "",
         "arg": "",
-        "iconclass": "",
+        "iconclass": "icon-graph",
         "arg2": ""
       },
       "开机搭配图": {
@@ -49,7 +49,7 @@
         "uri": "../ESCS/openingMatching.html",
         "uid": "",
         "arg": "",
-        "iconclass": "",
+        "iconclass": "icon-screen-desktop",
         "arg2": ""
       }
     }
@@ -57,7 +57,7 @@
   "能耗分析": {
     "type": "1",
     "content": "能耗分析",
-    "iconclass": "icon-camcorder",
+    "iconclass": "icon-pie-chart",
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
@@ -67,7 +67,7 @@
         "uri": "../ESCS/aro.html",
         "uid": "",
         "arg": "",
-        "iconclass": "",
+        "iconclass": "icon-calendar",
         "arg2": ""
       }
     }
@@ -75,7 +75,7 @@
   "能效分析": {
     "type": "1",
     "content": "能效分析",
-    "iconclass": "icon-camcorder",
+    "iconclass": "icon-note",
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
@@ -85,7 +85,16 @@
         "uri": "../ESCS/calendar.html",
         "uid": "",
         "arg": "",
-        "iconclass": "",
+        "iconclass": "icon-equalizer",
+        "arg2": ""
+      },
+      "能效查询": {
+        "type": "0",
+        "content": "能效查询",
+        "uri": "../ESCS/eercq.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "icon-bar-chart",
         "arg2": ""
       },
       "能效分析": {
@@ -94,7 +103,7 @@
         "uri": "../ESCS/compare.html",
         "uid": "",
         "arg": "",
-        "iconclass": "",
+        "iconclass": "icon-bar-chart",
         "arg2": ""
       },
       "负荷比重": {
@@ -103,7 +112,7 @@
         "uri": "../ESCS/rate.html",
         "uid": "",
         "arg": "",
-        "iconclass": "",
+        "iconclass": " icon-graph",
         "arg2": ""
       }
     }
@@ -111,7 +120,7 @@
   "系统诊断": {
     "type": "1",
     "content": "系统诊断",
-    "iconclass": "icon-camcorder",
+    "iconclass": "icon-check",
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
@@ -121,7 +130,7 @@
         "uri": "../ESCS/dx/dx_ri.html",
         "uid": "",
         "arg": "",
-        "iconclass": "",
+        "iconclass": "icon-ban",
         "arg2": ""
       }
     }
@@ -129,7 +138,7 @@
   "报警运维": {
     "type": "1",
     "content": "报警运维",
-    "iconclass": "icon-camcorder",
+    "iconclass": "icon-shield",
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
@@ -139,7 +148,7 @@
         "uri": "../ESCS/realTimeAlarm.html",
         "uid": "",
         "arg": "",
-        "iconclass": "",
+        "iconclass": "icon-volume-2",
         "arg2": ""
       },
       "报警查询": {
@@ -148,7 +157,7 @@
         "uri": "../ESCS/historicalAlarm.html",
         "uid": "",
         "arg": "",
-        "iconclass": "",
+        "iconclass": "icon-bell",
         "arg2": ""
       },
       "设备台账": {
@@ -157,16 +166,7 @@
         "uri": "../ESCS/equip.html",
         "uid": "",
         "arg": "",
-        "iconclass": "",
-        "arg2": ""
-      },
-      "仪表维护": {
-        "type": "0",
-        "content": "仪表维护",
-        "uri": "../ESCS/meter.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "",
+        "iconclass": "icon-list",
         "arg2": ""
       }
     }
@@ -174,7 +174,7 @@
   "报表管理": {
     "type": "1",
     "content": "报表管理",
-    "iconclass": "icon-camcorder",
+    "iconclass": "icon-printer",
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
@@ -184,7 +184,7 @@
         "uri": "../ESCS/coldStationReport.html",
         "uid": "",
         "arg": "",
-        "iconclass": "",
+        "iconclass": "icon-docs",
         "arg2": ""
       }
     }
@@ -192,7 +192,7 @@
   "系统设置": {
     "type": "1",
     "content": "系统设置",
-    "iconclass": "icon-camcorder",
+    "iconclass": "icon-settings",
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
@@ -202,7 +202,7 @@
         "uri": "../ESCS/epgr.html",
         "uid": "",
         "arg": "",
-        "iconclass": "",
+        "iconclass": "icon-credit-card",
         "arg2": ""
       }
     }

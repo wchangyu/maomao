@@ -218,7 +218,7 @@ $(function(){
 
     ]
 
-    _tableInit($('#table'),col,2,true,'','',true,'','',false);
+    _tableInit($('#table'),col,2,true,'','',true,'','',false,'','暂时没有开机的设备');
 
 
     /*-----------------------------------------------表单验证--------------------------------------------*/
@@ -594,7 +594,7 @@ $(function(){
 
             success:function(result){
 
-                var data = 0.0000;
+                var data = '-';
 
                 if(result.code == 0){
 
@@ -602,7 +602,15 @@ $(function(){
 
                 }
 
-                $('#spanEPrice').html(parseFloat(data).toFixed(4));
+                if(data == '-'){
+
+                    $('#spanEPrice').html('-');
+
+                }else{
+
+                    $('#spanEPrice').html(parseFloat(data).toFixed(4));
+
+                }
 
             },
 
@@ -651,13 +659,13 @@ $(function(){
             success:function(res){
 
                 //冷站输出冷量
-                var lznowlv = 0;
+                var lznowlv = '-';
 
                 //冷站散热量
-                var lzsrlv = 0;
+                var lzsrlv = '-';
 
                 //冷站输入功率
-                var lznowp = 0;
+                var lznowp = '-';
 
                 //热不平衡率（另外一个接口）
                 //var lzbphlv = 0;
@@ -862,6 +870,17 @@ $(function(){
                     }
 
 
+                }else{
+
+                    //温度
+                    $('#ist').html('-');
+
+                    //湿度
+                    $('#ish').html('-');
+
+                    //湿球
+                    $('#iswbw').html('-');
+
                 }
 
             },
@@ -885,6 +904,8 @@ $(function(){
         $.ajax({
 
             type:'get',
+
+            async:false,
 
             url:sessionStorage.apiUrlPrefix + 'Global/GetRealDt',
 
@@ -975,7 +996,7 @@ $(function(){
     //能效曲线
     function NXQX(){
 
-        $('.noDataTip').remove();
+        $('.noDataTipNX').remove();
 
         prm = {
 
@@ -1030,7 +1051,7 @@ $(function(){
 
                 }else{
 
-                    var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">暂时没有获取到能效数据</div>'
+                    var str = '<div class="noDataTipNX" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">暂时没有获取到能效数据</div>'
 
                     $('#chart-line-efficiency').append(str);
 
@@ -1067,7 +1088,7 @@ $(function(){
     //能源曲线
     function NYQX(){
 
-        $('.noDataTip').remove();
+        $('.noDataTipNY').remove();
 
         prm = {
 
@@ -1123,7 +1144,7 @@ $(function(){
 
                     //tip = result.legend;
 
-                    tip = ['冷量(RT)','冷机功率(KW)','散热量(RT)','热不平衡率(%)'];
+                    tip = ['冷量(KW)','冷机功率(KW)','散热量(KW)','热不平衡率(%)'];
 
                     for(var i=0;i<result.xs.length;i++){
 
@@ -1198,7 +1219,7 @@ $(function(){
 
                     ]
 
-                    var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">暂时没有获取到能效数据</div>'
+                    var str = '<div class="noDataTipNY" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">暂时没有获取到能效数据</div>'
 
                     $('#chart-line-energy').append(str);
 
@@ -1294,10 +1315,10 @@ $(function(){
                     $('#chpVa').html(result.chpVa);
 
                     //目标值
-                    $('#chTarV').html(result.chTarV);
+                    $('#chTarV').html(result.chTarV==''?'-':result.chTarV);
 
                     //告警值
-                    $('#chAlrV').html(result.chAlrV);
+                    $('#chAlrV').html(result.chAlrV==''?'-':result.chAlrV);
 
                     //冷冻水泵
                     //开机台数
@@ -1326,10 +1347,10 @@ $(function(){
                     $('#chwpVa').html(result.chwpVa);
 
                     //目标值
-                    $('#chwTarV').html(result.chwTarV);
+                    $('#chwTarV').html(result.chwTarV==''?'-':result.chwTarV);
 
                     //告警值
-                    $('#chwAlrV').html(result.chwAlrV);
+                    $('#chwAlrV').html(result.chwAlrV==''?'-':result.chwAlrV);
 
                     //冷却水泵
                     //开机台数
@@ -1358,10 +1379,10 @@ $(function(){
                     $('#cwpVa').html(result.cwpVa);
 
                     //目标值
-                    $('#cwTarV').html(result.cwTarV);
+                    $('#cwTarV').html(result.cwTarV==''?'-':result.cwTarV);
 
                     //告警值
-                    $('#cwAlrV').html(result.cwAlrV);
+                    $('#cwAlrV').html(result.cwAlrV==''?'-':result.cwAlrV);
 
                     //冷却塔
                     //开机台数
@@ -1390,10 +1411,10 @@ $(function(){
                     $('#ctpVa').html(result.ctpVa);
 
                     //目标值
-                    $('#ctTarV').html(result.ctTarV);
+                    $('#ctTarV').html(result.ctTarV==''?'-':result.ctTarV);
 
                     //告警值
-                    $('#ctAlrV').html(result.ctAlrV);
+                    $('#ctAlrV').html(result.ctAlrV==''?'-':result.ctAlrV);
 
                 }else{
 

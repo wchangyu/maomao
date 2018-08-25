@@ -1,0 +1,270 @@
+.content-main-left {
+    padding-left: 0px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    border: none;
+    background: rgba(255,255,255,1);
+}
+
+
+/*区域位置*/
+.main-left-middle {
+    width: 100%;
+    height: auto !important;
+}
+
+.main-left-middle .left-middle-main {
+    overflow-y: auto;
+    height: 250px !important;
+}
+
+/*清除全部按钮*/
+.clear-list{
+    float: right;
+    font-size:12px;
+    border:1px solid #ccc;
+    padding:2px;
+    margin-right:10px;
+    cursor: pointer;
+}
+
+/*条件选择*/
+.left-middle-main1 {
+    min-height: 110px;
+    max-height: 350px;
+    height: 275px;
+    overflow-y: auto;
+}
+
+/*搜索框*/
+.main-left-middle1 .left-middle-input {
+    position: absolute;
+    top: -35px;
+    left: 100%;
+    margin-left: -95px;
+    width: 205px;
+}
+
+.main-left-middle1 .tree-1 {
+    width: 50%;
+    position: relative;
+    margin:0;
+    background: none;
+    float: left;
+}
+
+/*标题*/
+.main-left-middle1 h4{
+    text-align: left;
+    font-size: 15px;
+}
+
+#allEquipment,#allNature{
+    /*background: #eeeeee;*/
+    height:180px;
+    background:rgba(249,249,249,1);
+}
+
+/*已选择设备容器*/
+.bottom-select-equipment{
+    width:100%;
+    border:1px solid #B4BED0;
+    height:110px;
+    margin-bottom:10px;
+    padding-left:8px;
+    box-sizing: border-box;
+}
+
+/*已选择设备*/
+.select-equipment{
+    /*width:100px;*/
+    display: inline-block;
+    font-size: 12px;
+    margin-bottom:2px;
+}
+.select-equipment font{
+    width:14px;
+    height:14px;
+    background: url("../img/chahao.png") no-repeat center center;
+    background-size: 100% 100%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left:5px;
+    cursor: pointer;
+}
+.select-equipment-container p{
+    margin-bottom:0px;
+}
+
+.select-equipment-container{
+    max-height: 75px;
+    overflow-y: auto;
+}
+
+.scrollbar1::-webkit-scrollbar{
+    width: 9px !important;
+    height: 9px !important;
+    background-color: #f5f5f5;
+}
+
+/*滚动条样式*/
+.scrollbar::-webkit-scrollbar-button{
+   display: none;
+}
+
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+.scrollbar::-webkit-scrollbar{
+    width: 12px;
+    height: 12px;
+    background-color: #f5f5f5;
+}
+/*定义滚动条的轨道，内阴影及圆角*/
+.scrollbar::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+/*定义滑块，内阴影及圆角*/
+.scrollbar::-webkit-scrollbar-thumb{
+    /*width: 10px;*/
+    height: 16px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+/*table居中*/
+.table thead tr th,.table tbody tr td{
+    text-align: center;
+}
+
+.ztree {
+
+    overflow-x: auto;
+}
+
+.ztree li {
+    margin: 0 10px;
+    width: auto;
+}
+
+/*右侧背景色*/
+.content-main-right {
+    min-height: 800px;
+    background: #F9F9F9;
+}
+
+.quota-data-bottom {
+    min-height: 700px;
+    background: rgba(255,255,255,1);
+    border-radius: 8px !important;
+    border: 1px solid #E2E9F2;
+    padding: 10px 15px;
+    box-sizing: border-box;
+}
+
+.table-title {
+    color: #3C3C3C;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/*隐藏选择每页展示多少条的选框*/
+.dataTables_length{
+    display: none;
+}
+
+
+#key {
+    width: 200px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.dev-select {
+    width: 80%;
+    min-height: 100px;
+    border: 1px solid #B4BED0;
+    margin: auto;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.selected-block {
+    float: left;
+}
+
+.empty-block {
+    float: right;
+}
+
+.main-selected-block {
+    padding-top: 10px;
+}
+
+#emptyAll {
+    padding: 2px 8px;
+    border: 1px solid #959595;
+    background: #ffffff;
+    border-radius: 2px !important;
+    outline: none;
+}
+
+.dev-select{
+
+    margin-top: 10px;
+
+}
+
+.main-selected-list1{
+
+    width: 100px;
+
+    display: inline-block;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    vertical-align: middle;
+
+}
+
+.remove-selected{
+
+    width: 12px;
+
+    height: 12px;
+
+    border: 1px solid #62A8DB;
+
+    border-radius: 50% !important;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    line-height: 7px;
+
+    text-align: center;
+
+    color: #62A8DB;
+
+    cursor: pointer;
+
+    margin-left: 5px;
+
+}
+
+#tip{
+
+    line-height: 30px;
+
+    color: red;
+
+    text-align: center;
+
+}

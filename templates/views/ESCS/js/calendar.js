@@ -43,6 +43,13 @@
         var nowDt = mt.format('YYYY-MM');
         $("#spDT").val(nowDt);
         $('.idxDT').datepicker({
+
+            //format: 'yyyy-mm',
+            //forceParse: 0,
+            //autoclose: true,
+            //startView: 1,
+            //language:  'zh-CN'//汉化
+
             autoclose: true,
             startView: 1,
             maxViewMode: 2,
@@ -50,11 +57,12 @@
             format: "yyyy-mm",
             language: "zh-CN" //汉化
         }).on('changeDate', function (ev) {
+
             select_year = ev.date.getFullYear();
             select_month = addZeroToSingleNumber(parseInt(ev.date.getMonth()) + 1);
             select_day = addZeroToSingleNumber(parseInt(ev.date.getDate()));
         });
-    }
+    };
 
     return {
         init: function () {

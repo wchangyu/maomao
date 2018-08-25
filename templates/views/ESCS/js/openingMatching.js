@@ -121,6 +121,8 @@ $(function(){
 
     function conditionSelected(){
 
+        $('.noDataTipKJ').hide();
+
         var prm = {
 
             //楼宇
@@ -151,8 +153,6 @@ $(function(){
             },
 
             success:function(result){
-
-                //console.log(result);
 
                 //图例
                 var legendArr = [];
@@ -213,6 +213,12 @@ $(function(){
 
                     }
 
+                }else{
+
+                    var str = '<div class="noDataTipKJ" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">暂时没有冷机</div>'
+
+                    $('#optionMatching').append(str);
+
                 }
 
                 //图例
@@ -223,8 +229,6 @@ $(function(){
 
                 //纵坐标
                 option.series = dataY;
-
-                console.log(option);
 
                 _mychart.setOption(option,true);
 

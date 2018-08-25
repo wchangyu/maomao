@@ -58,7 +58,7 @@ table = $('#alarm-datatables').DataTable({
     "ordering": false,
     // "scrollY": "300px",
     'language': {
-        'emptyTable': '没有数据',
+        'emptyTable': '暂时没有报警数据',
         'loadingRecords': '加载中...',
         'processing': '查询中...',
         'lengthMenu': '每页 _MENU_ 条',
@@ -143,7 +143,7 @@ table1 = $('#alarm-datatables1').DataTable({
     "ordering": false,
     // "scrollY": "300px",
     'language': {
-        'emptyTable': '没有数据',
+        'emptyTable': '暂时没有报警数据',
         'loadingRecords': '加载中...',
         'processing': '查询中...',
         'lengthMenu': '每页 _MENU_ 条',

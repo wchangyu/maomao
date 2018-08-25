@@ -62,7 +62,7 @@ $(function(){
 
     ];
 
-    _tableInit($('#table'),col,2,false,'','','','','',true);
+    _tableInit($('#table'),col,2,false,'','','','','',true,'','暂时没有设备');
 
 
     conditionSelect();

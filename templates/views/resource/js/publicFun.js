@@ -195,14 +195,18 @@ function _timeOneComponentsFun(el,startView,maxView,minView,format){
 //datatimepicker只显示日期
 function _dataComponentsFun(el){
     el.datetimepicker({
-        language:  'zh-CN',//此处修改
-        weekStart: 1,
-        todayHighlight: 1,
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: true,
+        todayBtn: true,
+        autoclose: true,
+        todayHighlight: true,
+        startView: 2,
+        minView: 2,
+        minuteStep: 10,
         forceParse: 0,
-        minView: "month",//设置只显示到月份
-        format : "yyyy-mm-dd",//日期格式
-        autoclose:true,//选中关闭
-        todayBtn: true//今日按钮
+        pickerPosition: "bottom-left"
+
     });
 }
 
@@ -223,8 +227,8 @@ function _timeComponentsFun(el){
 
 /*-----------------------dataTable---------------------------*/
 
-//基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页,导出列,每页显示列数,最后一个是否分页)；
-function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr,num,isPaging,headerCallback){
+//基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页,导出列,每页显示列数,最后一个是否分页,无数据提示)；
+function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr,num,isPaging,headerCallback,noDataTip){
 
     var buttonVisible = [
         {
@@ -285,6 +289,14 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
 
     }
 
+    var noDataStr = '没有数据';
+
+    if(noDataTip){
+
+        noDataStr = noDataTip
+
+    }
+
     var _tables = tableId.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": isPag,   //是否分页
@@ -294,7 +306,7 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
         "bProcessing":true,
         "iDisplayLength":length,//默认每页显示的条数
         'language': {
-            'emptyTable': '没有数据',
+            'emptyTable': noDataStr,
             'loadingRecords': '加载中...',
             'processing': '查询中...',
             'lengthMenu': '每页 _MENU_ 条',

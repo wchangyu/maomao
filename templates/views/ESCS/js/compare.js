@@ -464,6 +464,10 @@
     }
 
     var getCompareEERTableDs =function (eType,mType,dTs) {
+
+        //初始化表格
+        _datasTable($('#avg_table'),[]);
+
         var url = sessionStorage.apiUrlPrefix + "CompareEER/GetCompareEERTableDs";
         $.post(url,{
             pId:sessionStorage.PointerID,

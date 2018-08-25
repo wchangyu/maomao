@@ -84,6 +84,24 @@ var Login = function() {
                         url:url,
                         type:"post",
                         data:accParams,
+                        beforeSend:function(){
+
+                            $('.pull-right').attr('disabled',true);
+
+                            var str = '正在登录...'
+
+                            $('.pull-right').html(str);
+
+                        },
+                        complete:function(){
+
+                            $('.pull-right').attr('disabled',false);
+
+                            var str = '登录<i class="m-icon-swapright m-icon-white"></i>';
+
+                            $('.pull-right').html(str);
+
+                        },
                         //async:true,
                         success:function(res){
                             if(res.data == "2"){
@@ -518,6 +536,10 @@ var Login = function() {
                     //是否显示折标能效（数组）
                     var steps = data["steps"] || '';
                     sessionStorage.steps = steps;
+
+                    //右上角选择楼宇是单选还是多选
+                    var selectPointerType = data["selectPointerType"] || '';
+                    sessionStorage.selectPointerType = selectPointerType;
 
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}

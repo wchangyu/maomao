@@ -2,14 +2,17 @@ $(function(){
 
     /*--------------------------------------时间插件-----------------------------------*/
 
+    //初始化时间控件
+
+
     var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
 
     $('#spDT').val(nowTime);
 
     $('#epDT').val(moment(nowTime).add(1,'d').format('YYYY-MM-DD'));
 
-    //初始化时间控件
-    _timeYMDComponentsFun11($('.abbrDT'));
+    _dataComponentsFun($('.abbrDT'));
+
 
     /*---------------------------------------表格初始化----------------------------------*/
 
@@ -25,11 +28,11 @@ $(function(){
                 data:'kpiN'
             },
             {
-                title:'总值<span class="Lunite">(KWH/KWH)</span>',
+                title:'整体值',
                 data:'totalV'
             },
             {
-                title:'峰值<span class="Lunite">(KWH/KWH)</span>',
+                title:'平均值',
                 data:'maxV'
             },
             {
@@ -37,16 +40,12 @@ $(function(){
                 data:'maxDT'
             },
             {
-                title:'谷值<span class="Lunite">(KWH/KWH)</span>',
+                title:'10%最优平均值',
                 data:'minV'
             },
             {
-                title:'出现时间',
+                title:'	10%最差平均值',
                 data:'minDT'
-            },
-            {
-                title:'平均值<span class="Lunite">(KWH/KWH)</span>',
-                data:'averV'
             }
 
         ]
@@ -364,6 +363,8 @@ $(function(){
     //ztree树
     function devTree(arr){
 
+        console.log(arr);
+
         var setting = {
             check: {
                 enable: true,
@@ -566,15 +567,15 @@ $(function(){
             //单位
             misc:sessionStorage.misc,
             //对象选择id
-            ids:ids,
+            splitTagStr:ids,
             //对象选择名称
-            ns:encodeURIComponent(names),
+            splitNtStr:encodeURIComponent(names),
             //开始事件
             sp:$('#spDT').val(),
             //结束事件
             ep:$('#epDT').val(),
             //时间间隔
-            eType:$('#eType').val()
+            eTypeStr:$('#eType').val()
 
         }
 
@@ -587,7 +588,7 @@ $(function(){
 
             type:'post',
 
-            url:sessionStorage.apiUrlPrefix + 'AnalysisAro/GetAnalysisAroChartViewDs',
+            url:sessionStorage.apiUrlPrefix + 'ZKEERExport/GetEERcQDs',
 
             data:prm,
 
@@ -810,48 +811,48 @@ $(function(){
         })
 
         //表格数据
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'AnalysisAro/GetAnalysisAroTableDs',
-
-            timeout:_theTimes,
-
-            data:prm,
-
-            success:function(result){
-
-                $('#avg_table').hideLoading();
-
-                if(result.code == 0){
-
-                    _datasTable($('#avg_table'),result.tbs);
-
-                }else{
-
-                    console.log('异常错误(能耗分析):' + result.msg);
-
-                }
-
-            },
-
-            error:function(XMLHttpRequest, textStatus, errorThrown){
-
-                $('#avg_table').hideLoading();
-
-                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-
-                    console.log('请求超时')
-
-                }else{
-
-                    console.log('请求失败')
-
-                }
-
-            }
-        })
+        //$.ajax({
+        //
+        //    type:'post',
+        //
+        //    url:sessionStorage.apiUrlPrefix + 'AnalysisAro/GetAnalysisAroTableDs',
+        //
+        //    timeout:_theTimes,
+        //
+        //    data:prm,
+        //
+        //    success:function(result){
+        //
+        //        $('#avg_table').hideLoading();
+        //
+        //        if(result.code == 0){
+        //
+        //            _datasTable($('#avg_table'),result.tbs);
+        //
+        //        }else{
+        //
+        //            console.log('异常错误(能耗分析):' + result.msg);
+        //
+        //        }
+        //
+        //    },
+        //
+        //    error:function(XMLHttpRequest, textStatus, errorThrown){
+        //
+        //        $('#avg_table').hideLoading();
+        //
+        //        if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+        //
+        //            console.log('请求超时')
+        //
+        //        }else{
+        //
+        //            console.log('请求失败')
+        //
+        //        }
+        //
+        //    }
+        //})
 
     }
 
@@ -869,7 +870,7 @@ $(function(){
 
             type:'post',
 
-            url:sessionStorage.apiUrlPrefix + 'AnalysisAro/GetAroItemTVs',
+            url:sessionStorage.apiUrlPrefix + 'ZKEERExport/GetEEFTrv',
 
             timeout:_theTimes,
 
@@ -879,9 +880,9 @@ $(function(){
 
                 if(result.code == 0){
 
-                    if(result.tvs.length>0){
+                    if(result.eers.length>0){
 
-                        devTree(result.tvs);
+                        devTree(result.eers);
 
                     }
 

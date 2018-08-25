@@ -14,13 +14,13 @@ $(function(){
     _selectTime("自定义");
 
     //时间插件
-    _timeComponentsFunHour($('.datatimeblock'));
+    _timeComponentsFunHour($('.abbrDT'));
 
     var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM-DD HH:mm:ss');
 
-    $('.min').val(moment(nowTime).subtract('1','days').format("YYYY-MM-DD 00:00"));
+    $('#spDT').val(moment(nowTime).subtract('1','days').format("YYYY-MM-DD 00:00"));
 
-    $('.max').val(nowTime);
+    $('#epDT').val(nowTime);
 
     ////默认勾选前两个楼宇
     //var zTree = $.fn.zTree.getZTreeObj("allPointer");
@@ -371,6 +371,8 @@ $('.curSystem').html(devTypeName);
 //获取区域位置的数据
 function getDevAreaByType(){
 
+    $('.noDataTipQY').remove();
+
     var pointerArr = [sessionStorage.PointerID];
 
     var ecParams = {
@@ -391,68 +393,82 @@ function getDevAreaByType(){
         },
         success:function(result){
 
-            //判断是否返回数据
-            if(result == null || result.length == 0){
+            if(result != null ){
 
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
+                if(result.length>0){
 
-                return false;
-            }
+                    var dataArr = [];
 
-            var dataArr = [];
+                    $(result).each(function(i,o){
 
-            $(result).each(function(i,o){
+                        dataArr.push(o);
 
-                dataArr.push(o);
+                    });
 
-            });
+                    getEquipmentZtree(dataArr,3,getZNodes2,"#allPointer",areaObj);
 
-            getEquipmentZtree(dataArr,3,getZNodes2,"#allPointer",areaObj);
+                    //只要是父元素就不允许选择
+                    var treeObj = $.fn.zTree.getZTreeObj('allPointer');
 
-            //只要是父元素就不允许选择
-            var treeObj = $.fn.zTree.getZTreeObj('allPointer');
+                    var nodes =  treeObj.getNodes();
 
-            var nodes =  treeObj.getNodes();
+                    var childrenArr = [];
 
-            var childrenArr = [];
+                    loop(nodes);
 
-            loop(nodes);
+                    function loop(arr){
 
-            function loop(arr){
+                        for(var i=0;i<arr.length;i++){
 
-                for(var i=0;i<arr.length;i++){
+                            if(arr[i].isParent){
 
-                    if(arr[i].isParent){
+                                arr[i].nocheck = true;
 
-                        arr[i].nocheck = true;
+                                if(arr[i].children.length>0){
 
-                        if(arr[i].children.length>0){
+                                    loop(arr[i].children)
 
-                            loop(arr[i].children)
+                                }
+
+                            }else{
+
+                                childrenArr.push(arr[i]);
+
+
+                            }
 
                         }
 
-                    }else{
-
-                        childrenArr.push(arr[i]);
-
-
                     }
+
+                    //自动刷新ztree树
+                    treeObj.refresh();
+
+                    //选中第一个
+                    var node = treeObj.getNodeByParam("id",childrenArr[0].id );
+
+                    treeObj.checkNode(node,true);
+
+                    //获取设备名称
+                    getDevInfoCTypes(treeObj.getCheckedNodes()[0],true);
+
+                }else{
+
+                    //提示暂时没有获取到区域数据
+                    var str = '<div class="noDataTipQY" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">暂时没有获取到区域数据</div>'
+
+                    $('#allPointer').before(str);
 
                 }
 
+            }else{
+
+                //提示暂时没有获取到区域数据
+                var str = '<div class="noDataTipQY" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">暂时没有获取到区域数据</div>'
+
+                $('#allPointer').before(str);
+
             }
-
-            //自动刷新ztree树
-            treeObj.refresh();
-
-            //选中第一个
-            var node = treeObj.getNodeByParam("id",childrenArr[0].id );
-
-            treeObj.checkNode(node,true);
-
-            //获取设备名称
-            getDevInfoCTypes(treeObj.getCheckedNodes()[0],true);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -470,6 +486,8 @@ function getDevAreaByType(){
 
 //根据设备类型获取设备名称及监测点类型(flag为真表示默认加载)
 function getDevInfoCTypes(equipObj,flag){
+
+    $('.noDataTipSB').remove();
 
     //获取当前选中名称及id
 
@@ -507,7 +525,13 @@ function getDevInfoCTypes(equipObj,flag){
 
             if(result.arosList.length == 0 || result.code !=0){
 
-                console.log('暂时没有获取到设备');
+                //提示暂时没有获取到区域数据
+                var str = '<div class="noDataTipSB" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">暂时没有获取到区域数据</div>'
+
+                $('#allEquipment').before(str);
+
+                return
+
 
             }
 
@@ -572,6 +596,8 @@ function getDevInfoCTypes(equipObj,flag){
 //flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
 function getPointerData(){
 
+    $('.noDataTipMain').remove();
+
     //判断是否选择设备
     if($('.select-equipment-container p').length == 0){
 
@@ -592,9 +618,9 @@ function getPointerData(){
     }
 
     //获取查询时间
-    var startDate = $('.min').val();
+    var startDate = $('#spDT').val();
 
-    var endDate = moment($('.max').val()).add(1,'days').format("YYYY-MM-DD");
+    var endDate = moment($('#epDT').val()).add(1,'days').format("YYYY-MM-DD");
 
     //发送请求
     $.ajax({
@@ -615,14 +641,19 @@ function getPointerData(){
             myChartTopLeft.hideLoading();
 
             //判断是否返回数据
-            if(result == null || result.length == 0){
+            if(result == null || result.devInfoDatas.length == 0){
 
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
+                //提示暂时没有获取到区域数据
+                var str = '<div class="noDataTipMain" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">暂时没有获取到数据曲线</div>'
+
+                $('#rheader-content-16').append(str);
+
+
                 return false;
             }
 
             //改变头部日期
-            var date = startDate +" — " + $('.max').val();
+            var date = startDate +" — " + $('#epDT').val();
 
             $('.curTime').html(date);
 

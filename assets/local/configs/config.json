@@ -166,14 +166,14 @@
       }
     ]
   },
-  "apiUriPrefix":"http://localhost/BEEWebAPI/api/",
+  "apiUriPrefix":"http://192.168.1.119:8989/api/",
   "apiUriPrefixYW":"http://211.100.28.180/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
-  "systemTitle":"中国人民银行成都分行能源监管平台",
+  "systemTitle":"高效机房冷站控制系统",
   "isShowTitleEprName":"0",
   "isShowTitleEprNameComment":"是否在systemTitle的基础上追加企业名称",
-  "pageTitle":"能源管理系统",
+  "pageTitle":"高效机房冷站控制系统",
   "themeColor":"blue",
   "themecolors":"blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
   "refreshInterval":"0",
@@ -213,5 +213,7 @@
   "steps":"[8817180901,8817180801]",
   "misc":"1",
   "showChooseUnit":"0",
-  "showChooseUnitComment":"是否启用右上角选择单位功能 0为不启用 1为启用"
+  "showChooseUnitComment":"是否启用右上角选择单位功能 0为不启用 1为启用",
+  "selectPointerType":"0",
+  "selectPointerTypeComment":"右上角楼宇选择 0为单选 1为复选"
 }
