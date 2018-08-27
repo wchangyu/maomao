@@ -768,6 +768,7 @@ var userMonitor = (function(){
 
         if(proc){
             var imgWidth,imgHeight;
+
             if(proc.procStyle){
                 var $divMain = $("#content-main-right");
 
@@ -789,7 +790,6 @@ var userMonitor = (function(){
 
                     //实际宽度
                     var realWidth = norWidth - _leftWidth - 20;
-
 
                     //如果页面中定义了流程图的宽高
                     if(sessionStorage.monitorSize && sessionStorage.monitorSize != ''){
@@ -1331,7 +1331,7 @@ var userMonitor = (function(){
                         jumpPageHeight = defHeight;
 
                     //获取弹窗的页面地址
-                    var url = jumpUrl + "yongnengjiance/jumpEnergyMonitor.html?width="+defWidth+"height="+defHeight+"ckId="+id+"";
+                    var url = jumpUrl + "ESCS/jumpEnergyMonitor.html?width="+defWidth+"height="+defHeight+"ckId="+id+"";
 
                     var $monitor = '<iframe width="'+defWidth+'" scrolling="no" height="'+defHeight+'" frameborder="0" allowtransparency="true" src='+url+'></iframe>';
 
@@ -2121,7 +2121,7 @@ var userMonitor = (function(){
                 }
 
                 //获取弹窗的页面地址
-                var url = jumpUrl + "yongnengjiance/jumpEnergyMonitor.html?width="+jumpPageWidth+"height="+jumpPageHeight+"ckId="+id+"";
+                var url = jumpUrl + "ESCS/jumpEnergyMonitor.html?width="+jumpPageWidth+"height="+jumpPageHeight+"ckId="+id+"";
 
                 var html = '<div class="content-child-show" id="'+id+'">' +
                     '<div class="content-child-show-container">' +
@@ -2956,7 +2956,7 @@ var userMonitor = (function(){
                     setContextMenuVisible(false);
                     var curDef = JSON.parse(sessionStorage.historyData_ProcDef);
                     var iTop = (window.screen.availHeight - 600) / 2,iLeft = (window.screen.availWidth - 700) / 2;
-                    window.open("../yongnengjiance/MHisData.html?mflag=" + curDef.prDefId,"",
+                    window.open("../ESCS/MHisData.html?mflag=" + curDef.prDefId,"",
                         "height=600,width=700,top=" + iTop + ",left=" + iLeft + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
                 });
             }

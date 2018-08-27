@@ -790,7 +790,6 @@ var userMonitor = (function(){
                     //实际宽度
                     var realWidth = norWidth - _leftWidth - 20;
 
-
                     //如果页面中定义了流程图的宽高
                     if(sessionStorage.monitorSize && sessionStorage.monitorSize != ''){
 
@@ -838,6 +837,7 @@ var userMonitor = (function(){
                     setScaleSign(_scaleX,_scaleStep);
 
                     //右侧容器宽度
+
                     $('#right-container').width(realWidth);
 
                     //判断左侧操作栏是否存在

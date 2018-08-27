@@ -1,0 +1,371 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>驾驶舱</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+</head>
+
+<style >
+
+    .control-cell{
+
+        margin: 10px 50px;
+
+        width: 300px;
+
+        height: 300px;
+
+        background: #faf9f9;
+
+        display: inline-block;
+
+        vertical-align: middle;
+
+        cursor: pointer;
+
+    }
+
+    .control-left{
+
+        position: absolute;
+
+        left: 0;
+
+        top: 0;
+
+    }
+
+    .control-left-title{
+
+        font-size: 14px;
+
+        margin: 20px 0;
+
+    }
+
+    .control-right{
+
+        margin-left: 820px;
+
+        font-size: 14px;
+
+        padding-top: 72px;
+
+    }
+
+    .control-cell p{
+
+        margin-top: 170px;
+
+        text-align: center;
+
+        font-size: 16px;
+
+    }
+
+    .control-right-cell{
+
+        margin-bottom: 50px;
+
+    }
+
+    .control-right-cell p{
+
+        line-height: 30px;
+
+        font-size: 16px;
+
+    }
+
+    .right-cell-title{
+
+        font-size: 18px !important;
+
+    }
+
+    @media screen and (max-width: 1330px) {
+
+
+        .control-left{
+
+            position: static;
+
+        }
+
+        .control-right{
+
+            margin-left: 0;
+
+            width: 100%;
+
+        }
+
+
+    }
+
+
+</style>
+
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content" style="background: #ffffff !important;" >
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div style="position: relative;min-height: 768px;">
+                <!--左边固定 右边自适应-->
+                <!--左-->
+                <div class="control-left">
+                    <div class="control-left-title">
+
+                        <img src="img/quanzidong.png" alt="">
+
+                        全自动控制
+                    </div>
+                    <div>
+                        <div class="control-cell" data-attr="0" style="background: url('img/ai.png') no-repeat #faf9f9;background-position: center 38%">
+
+                            <p>AI模式</p>
+
+                        </div>
+
+                        <div class="control-cell" data-attr="1" style="background: url('img/zidong.png') no-repeat #faf9f9;background-position: center 38%">
+
+                            <p>自动模式</p>
+
+                        </div>
+
+                    </div>
+                    <div class="control-left-title">
+
+                        <img src="img/feiquanzidong.png" alt="">
+
+                        非全自动控制
+                    </div>
+                    <div>
+                        <div class="control-cell" data-attr="2" style="background: url('img/shoudong.png') no-repeat #faf9f9;background-position: center 38%">
+
+                            <p>手动模式</p>
+
+                        </div>
+
+                        <div class="control-cell" data-attr="3" style="background: url('img/quanju.png') no-repeat #faf9f9;background-position: center 38%">
+
+                            <p>全局设定</p>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!--右-->
+                <div class="control-right">
+                    <div class="control-right-cell">
+                        <p class="right-cell-title">AI模式</p>
+                        <p>采用内置专家节能算法，并通过自学习不断优化运行，无需用户干预，实现最大程度的节能。</p>
+                    </div>
+
+                    <div class="control-right-cell">
+                        <p class="right-cell-title">自动模式</p>
+                        <p>用户可自行设定目标参数，控制器接收设定值，并根据内置的优化算法进行控制，在满足用户需求的同时，实现很大程度的节能</p>
+                    </div>
+
+                    <div class="control-right-cell">
+                        <p class="right-cell-title">手动模式</p>
+                        <p>用户可手动单点启停设备，并且可以设定水泵电机频率等过程参数，控制器接收设定并执行命令</p>
+                    </div>
+
+                    <div class="control-right-cell">
+                        <p class="right-cell-title">全局设定</p>
+                        <p>设定最基础的控制参数，系统运行安全参数等，只能由专家权限才能进入并设置</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+        ESCS.init();
+    });
+
+</script>
+<script src="../resource/validation/jquery.validate.min.js"></script>
+
+<script src="../resource/validation/messages_zh.min.js"></script>
+
+<script src="../resource/js/commonJsResource.js"></script>
+
+<script src="js/ESCS.js"></script>
+
+<script src="js/controlStrategy.js" type="text/javascript"></script>
+<!-- END JAVASCRIPTS -->
+
+<!--设备目标/报警值-->
+<div class='modal fade' id='devModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog' style='width: 776px;height: 500px;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                <h4 class='modal-title' id='myModalLabel'>报警处理备注</h4>
+            </div>
+            <div class='modal-body'>
+
+                <div>
+                    <form id="equipnew-form" method="post" class="form-horizontal">
+
+                        <div id="tip" style="display: none;margin: 6px 0;" class="Metronic-alerts alert alert-danger fade in"><button type="button" class="close"></button><i class="fa-lg fa fa-warning"></i>  </div>
+
+                        <div class="form-group">
+                            <label class="form-type" style="margin-bottom:10px;">冷水机组</label>
+                            <label class="form-type" style="margin-bottom:10px;">目标值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
+                                <input type="text" class="form-control" id="chTarVModal" name="chTarVModal" placeholder="冷水机组目标值是必填字段">
+                            </div>
+                            <label class="form-type" style="margin-bottom:10px;">告警值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
+                                <input type="text" class="form-control" id="chAlrVModal" name="chAlrVModal" placeholder="冷水机组告警值是必填字段">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-type" style="margin-bottom:10px;">冷冻水泵</label>
+                            <label class="form-type" style="margin-bottom:10px;">目标值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
+                                <input type="text" class="form-control" id="chwTarVModal" name="chwTarVModal" placeholder="冷冻水泵目标值是必填字段">
+                            </div>
+                            <label class="form-type" style="margin-bottom:10px;">告警值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
+                                <input type="text" class="form-control" id="chwAlrVModal" name="chwAlrVModal" placeholder="冷冻水泵告警值是必填字段">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-type" style="margin-bottom:10px;">冷却水泵</label>
+                            <label class="form-type" style="margin-bottom:10px;">目标值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
+                                <input type="text" class="form-control" id="cwTarVModal" name="cwTarVModal" placeholder="冷却水泵目标值是必填字段">
+                            </div>
+                            <label class="form-type" style="margin-bottom:10px;">告警值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
+                                <input type="text" class="form-control" id="cwAlrVModal" name="cwAlrVModal" placeholder="冷却水泵告警值是必填字段">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-type" style="margin-bottom:10px;">冷却塔</label>
+                            <label class="form-type" style="margin-bottom:10px;">目标值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
+                                <input type="text" class="form-control" id="ctTarVModal" name="ctTarVModal" placeholder="冷却塔目标值是必填字段">
+                            </div>
+                            <label class="form-type" style="margin-bottom:10px;">告警值</label>
+                            <div style="margin-bottom:10px;display: inline-block;vertical-align: middle">
+                                <input type="text" class="form-control" id="ctAlrVModal" name="ctAlrVModal" placeholder="冷却塔告警值是必填字段">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class='modal-footer'>
+                <button type='button' class='btn btn-primary'>确定</button>
+                <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--机器状态-->
+<div class='modal fade' id='machineModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog' style='width: 600px;height: 500px;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                <h4 class='modal-title' id=''>报警处理备注</h4>
+            </div>
+            <div class='modal-body' style="height:400px;overflow-y: auto">
+
+                <table id="table" class="table table-striped table-advance table-hover">
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+            </div>
+            <div class='modal-footer'>
+                <button type='button' class='btn btn-primary'>确定</button>
+                <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<!-- END BODY -->
+</html>
