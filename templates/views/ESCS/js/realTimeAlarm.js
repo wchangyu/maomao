@@ -270,9 +270,6 @@ function getAlarmStation(){
 //获取后台报警数据 flag 0为设备报警 1为运行报警 2为能耗报警
 function getAlarmData(flag){
 
-    //定义传递给后台的参数
-    var ecParams = {};
-
     //获取车站
     //var pointerID = $('#alarm-station').val();
 
@@ -283,10 +280,32 @@ function getAlarmData(flag){
 
     var postUrl = 'ZKAlarm/GetDevAlarmInsData';
 
+    //确定报警类型设备报警 2 运行3 仪表1
+
+    var index = $('.top-tab-container-choose').index();
+
+    var alarmType = '';
+
+    if(index == 0){
+
+        //设备
+        alarmType = 2;
+
+    }else if(index == 1){
+
+        //运行报警
+        alarmType = 3;
+
+    }else if(index == 2){
+
+        //能耗报警
+        alarmType = 1;
+    }
+
     var prm = {
 
         //报警界面分类
-        alarmType:[2],
+        alarmType:[alarmType],
         //楼宇ID集合
         pointerIDs:[pointerID],
         //报警级别ID

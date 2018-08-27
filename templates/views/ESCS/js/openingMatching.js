@@ -2,8 +2,6 @@ $(function(){
 
     /*------------------------------------时间插件---------------------------------*/
 
-    _monthDate11($('.abbrDT'));
-
     //获取默认时间
     var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM');
 
@@ -11,14 +9,46 @@ $(function(){
 
     $('#spDT').val(nowTime);
 
+    _monthDate11($('.abbrDT'));
+
     /*---------------------------------echarts----------------------------------*/
 
     var _mychart = echarts.init(document.getElementById('optionMatching'));
 
-    var typePointArr = ['image://img/mi_yellow.png', 'image://img/mi_red.png', 'image://img/mi_green.png', 'image://img/mi_blue.png', 'image://img/round_yellow.png', 'image://img/round_red.png', 'image://img/round_green.png', 'image://img/round_blue.png','image://img/arrow_yellow.png', 'image://img/arrow_red.png', 'image://img/arrow_green.png', 'image://img/arrow_blue.png'];
+    var typePointArr = [
+                        'image://img/mi_yellow.png',
+                        'image://img/mi_red.png',
+                        'image://img/mi_green.png',
+                        'image://img/mi_blue.png',
+                        'image://img/round_yellow.png',
+                        'image://img/round_red.png',
+                        'image://img/round_green.png',
+                        'image://img/round_blue.png',
+                        'image://img/arrow_yellow.png',
+                        'image://img/arrow_red.png',
+                        'image://img/arrow_green.png',
+                        'image://img/arrow_blue.png',
+                        'image://img/square_yellow.png',
+                        'image://img/square_red.png',
+                        'image://img/square_green.png',
+                        'image://img/square_blue.png',
+                        'image://img/snow_yellow.png',
+                        'image://img/snow_red.png',
+                        'image://img/snow_green.png',
+                        'image://img/snow_blue.png',
+                        'image://img/start_yellow.png',
+                        'image://img/start_red.png',
+                        'image://img/start_green.png',
+                        'image://img/start_blue.png',
+                        ];
 
     var option = {
 
+        title:{
+
+            subtext:'能效（KW/KW）'
+
+        },
         grid: {
             left: '3%',
             right: '7%',
@@ -32,8 +62,8 @@ $(function(){
 
                 if (params.value.length > 1) {
                     return params.seriesName + ' :<br/>'
-                        + '冷量:'  + params.value[0] + 'KW<br/>'
-                        + '能效：' + params.value[1] + 'KW/KW';
+                        + '冷量:'  + params.value[0] + ' （KW）<br/>'
+                        + '能效：' + params.value[1] + ' （KW/KW）';
                 }
                 else {
                     return params.seriesName + ' :<br/>'
@@ -73,7 +103,7 @@ $(function(){
                 type : 'value',
                 //scale:true,
                 axisLabel : {
-                    formatter: '{value} KW'
+                    formatter: '{value}'
                 },
                 splitLine: {
                     show: false
@@ -86,7 +116,7 @@ $(function(){
                 type : 'value',
                 scale:true,
                 axisLabel : {
-                    formatter: '{value} KW/KW'
+                    formatter: '{value}'
                 },
                 splitLine: {
                     show: false
@@ -98,6 +128,7 @@ $(function(){
 
     //默认加载
     conditionSelected();
+
     /*----------------------------------按钮事件---------------------------------*/
 
     $('#aroBtn').click(function(){
@@ -165,8 +196,6 @@ $(function(){
 
                 if(result.code == 0){
 
-                    //legendArr = result.lgs;
-
                     for(var i=0;i<result.lgs.length;i++){
 
                         var obj = {};
@@ -174,8 +203,6 @@ $(function(){
                         obj.name = result.lgs[i];
 
                         obj.icon = typePointArr[i];
-
-                        //obj.fontSize = 20;
 
                         legendArr.push(obj);
 

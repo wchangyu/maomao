@@ -13,23 +13,14 @@ $(function(){
 
     _selectTime("自定义");
 
-    //时间插件
-    _timeComponentsFunHour($('.abbrDT'));
+    var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
 
-    var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM-DD HH:mm:ss');
-
-    $('#spDT').val(moment(nowTime).subtract('1','days').format("YYYY-MM-DD 00:00"));
+    $('#spDT').val(moment(nowTime).subtract('1','days').format("YYYY-MM-DD"));
 
     $('#epDT').val(nowTime);
 
-    ////默认勾选前两个楼宇
-    //var zTree = $.fn.zTree.getZTreeObj("allPointer");
-    //var nodes = zTree.getNodes();
-    //
-    //zTree.checkNode(nodes[0], false, false);  //父节点不被选中
-    //zTree.setChkDisabled(nodes[0], true); //父节点禁止勾选
-    //
-    //zTree.checkNode(nodes[0].children[0].children[0], true, true);
+    //时间插件
+    _timeYMDComponentsFun11($('.abbrDT'));
 
 
     /*---------------------------------buttonEvent------------------------------*/
@@ -129,82 +120,92 @@ $(function(){
 });
 
 /*---------------------------------table-----------------------------------*/
-//右上角楼宇table
-var table = $('#dateTables').DataTable({
-    "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
-    "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-    //是否分页
-    "destroy": false,//还原初始化了的datatable
-    "paging":true,
-    "bPaginate": false,
-    "ordering": false,
-    'searching':false,
-    'info':false,
-    //"scrollY": '400px', //支持垂直滚动
-    //"scrollCollapse": true,
-    'language': {
-        'emptyTable': '没有数据',
-        'loadingRecords': '加载中...',
-        'processing': '查询中...',
-        'lengthMenu': '每页 _MENU_ 件',
-        'zeroRecords': '没有数据',
-        'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
-        'paginate': {
-            'first':      '第一页',
-            'last':       '最后一页',
-            'next':       '下一页',
-            'previous':   '上一页'
-        },
-        'infoEmpty': ''
+
+var col = [
+
+    {
+        title:'对象',
+        class:'',
+        data:"returnOBJName"
     },
-    'buttons': [
-    ],
-    "dom":'B<"clear">lfrtip',
-    //数据源
-    'columns':[
-        {
-            title:'对象',
-            class:'',
-            data:"returnOBJName"
-        },
-        {
-            title:'单位',
-            data:"returnOBJUnit"
-        },
-        {
-            title:'峰值',
-            data:"maxMetaData",
-            render:function(data, type, full, meta){
+    {
+        title:'单位',
+        data:"returnOBJUnit"
+    },
+    {
+        title:'峰值',
+        data:"maxMetaData",
+        render:function(data, type, full, meta){
 
-                return data.toFixed(1);
-            }
-        },
-        {
-            title:'出现时间',
-            data:"maxMetaDataDT"
-        },
-        {
-            title:'谷值',
-            data:"minMetaData",
-            render:function(data, type, full, meta){
-
-                return data.toFixed(1);
-            }
-        },
-        {
-            title:'出现时间',
-            data:"minMetaDataDT"
-        },
-        {
-            title:'平均值',
-            data:"avgMetaData",
-            render:function(data, type, full, meta){
-
-                return data.toFixed(1);
-            }
+            return data.toFixed(1);
         }
-    ]
-});
+    },
+    {
+        title:'出现时间',
+        data:"maxMetaDataDT"
+    },
+    {
+        title:'谷值',
+        data:"minMetaData",
+        render:function(data, type, full, meta){
+
+            return data.toFixed(1);
+        }
+    },
+    {
+        title:'出现时间',
+        data:"minMetaDataDT"
+    },
+    {
+        title:'平均值',
+        data:"avgMetaData",
+        render:function(data, type, full, meta){
+
+            return data.toFixed(1);
+        }
+    }
+
+]
+
+//右上角楼宇table
+
+_tableInit($('#dateTables'),col,2,false,'','','','','','','','');
+
+//var table = $('#dateTables').DataTable({
+//    "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
+//    "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+//    //是否分页
+//    "destroy": false,//还原初始化了的datatable
+//    "paging":true,
+//    "bPaginate": false,
+//    "ordering": false,
+//    'searching':false,
+//    'info':false,
+//    //"scrollY": '400px', //支持垂直滚动
+//    //"scrollCollapse": true,
+//    'language': {
+//        'emptyTable': '没有数据',
+//        'loadingRecords': '加载中...',
+//        'processing': '查询中...',
+//        'lengthMenu': '每页 _MENU_ 件',
+//        'zeroRecords': '没有数据',
+//        'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+//        'paginate': {
+//            'first':      '第一页',
+//            'last':       '最后一页',
+//            'next':       '下一页',
+//            'previous':   '上一页'
+//        },
+//        'infoEmpty': ''
+//    },
+//    'buttons': [
+//    ],
+//    "dom":'B<"clear">lfrtip',
+//    //数据源
+//    'columns':[
+//
+//    ]
+//});
 
 /*---------------------------------echart-----------------------------------*/
 
@@ -214,36 +215,17 @@ var myChartTopLeft = echarts.init(document.getElementById('rheader-content-16'))
 var echartObj =  {name:'数据',
     type:'line',
     smooth:true,
-    //markPoint : {
-    //    data : [
-    //        {type : 'max', name: '最大值'},
-    //        {type : 'min', name: '最小值'}
-    //    ],
-    //    itemStyle : {
-    //        normal:{
-    //            color:'#019cdf'
-    //        }
-    //    },
-    //    label:{
-    //        normal:{
-    //            textStyle:{
-    //                color:'#d02268'
-    //            }
-    //        }
-    //    }
-    //},
-    //markLine : {
-    //    data : [
-    //        {type : 'average', name: '平均值'}
-    //
-    //
-    //    ]
-    //},
     data:[]
 };
 
 //折线图配置项
 var optionLine = {
+    title:{
+
+        subtext:'',
+        padding: [20,100]
+
+    },
     tooltip : {
         trigger: 'axis'
     },
@@ -598,6 +580,9 @@ function getPointerData(){
 
     $('.noDataTipMain').remove();
 
+    //表格初始化
+    _datasTable($('#dateTables'),[]);
+
     //判断是否选择设备
     if($('.select-equipment-container p').length == 0){
 
@@ -634,7 +619,20 @@ function getPointerData(){
         timeout:_theTimes,
         beforeSend:function(){
 
-            myChartTopLeft.showLoading();
+            //echart
+            $('#rheader-content-16').showLoading();
+
+            //table
+            $('#dateTables').showLoading();
+        },
+        complete:function(){
+
+            //echart
+            $('#rheader-content-16').hideLoading();
+
+            //table
+            $('#dateTables').hideLoading();
+
         },
         success:function(result){
 
@@ -669,6 +667,8 @@ function getPointerData(){
             });
 
             //echart柱状图
+            optionLine.title.subtext = result.devInfoDatas[0].returnOBJUnit;
+
             optionLine.xAxis[0].data = xArr;
 
             //清空optionLine
@@ -680,13 +680,14 @@ function getPointerData(){
                 var obj = {};
 
                 deepCopy(echartObj,obj);
-
                 //对象值初始化
                 obj.data.length = 0;
 
-                obj.name = o.returnOBJName;
+                var legendName = o.returnOBJName + '(' + o.returnOBJUnit + ')';
 
-                ledArr.push(o.returnOBJName);
+                obj.name = legendName;
+
+                ledArr.push(legendName);
 
                 var dataArr = [];
 
@@ -702,8 +703,59 @@ function getPointerData(){
 
             optionLine.legend.data = ledArr;
 
-
             myChartTopLeft.setOption(optionLine,true);
+
+            //console.log(col);
+
+            var unite = '(' + result.devInfoTables[0].returnOBJUnit + ')';
+
+            col = [
+
+                {
+                    title:'对象',
+                    class:'',
+                    data:"returnOBJName"
+                },
+                {
+                    title:'单位',
+                    data:"returnOBJUnit"
+                },
+                {
+                    title:'峰值' + unite,
+                    data:"maxMetaData",
+                    render:function(data, type, full, meta){
+
+                        return data.toFixed(1);
+                    }
+                },
+                {
+                    title:'出现时间',
+                    data:"maxMetaDataDT"
+                },
+                {
+                    title:'谷值' + unite,
+                    data:"minMetaData",
+                    render:function(data, type, full, meta){
+
+                        return data.toFixed(1);
+                    }
+                },
+                {
+                    title:'出现时间',
+                    data:"minMetaDataDT"
+                },
+                {
+                    title:'平均值' + unite,
+                    data:"avgMetaData",
+                    render:function(data, type, full, meta){
+
+                        return data.toFixed(1);
+                    }
+                }
+
+            ]
+
+            _tableInit($('#dateTables'),col,2,false,'','','','','','','','');
 
             //下方表格
             _datasTable($('#dateTables'),result.devInfoTables);
@@ -1162,23 +1214,6 @@ function getPointersId(){
     });
 
     return pointerIdArr;
-};
-
-//时间插件精确到小时
-function _timeComponentsFunHour(el){
-    el.datepicker('destroy');
-    el.datetimepicker({
-        language:  'zh-CN',//此处修改
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        format : "yyyy-mm-dd hh:00",//日期格式
-        startView: 2,  //1时间  2日期  3月份 4年份
-        forceParse: true,
-        minView : 1,
-        minuteStep:0
-    });
 };
 
 //搜索

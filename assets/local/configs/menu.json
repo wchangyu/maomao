@@ -25,12 +25,21 @@
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
-      "系统流程": {
+      "系统监控": {
         "type": "0",
-        "content": "系统流程",
+        "content": "系统监控",
         "uri": "../ESCS/energyMonitor.html?a=9",
         "uid": "",
         "arg": "1,8817007007",
+        "iconclass": "icon-picture",
+        "arg2": ""
+      },
+      "控制策略": {
+        "type": "0",
+        "content": "控制策略",
+        "uri": "../ESCS/controlStrategy.html",
+        "uid": "",
+        "arg": "",
         "iconclass": "icon-picture",
         "arg2": ""
       },

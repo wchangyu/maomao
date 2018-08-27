@@ -5,14 +5,14 @@ $(function(){
     //初始化时间控件
     //initdatetimepicker();
 
-    //初始化时间控件
-    _timeYMDComponentsFun11($('.abbrDT'));
-
     var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
 
     $('#spDT').val(nowTime);
 
     $('#epDT').val(moment(nowTime).add(1,'d').format('YYYY-MM-DD'));
+
+    //初始化时间控件
+    _timeYMDComponentsFun11($('.abbrDT'));
 
     /*---------------------------------------表格初始化----------------------------------*/
 

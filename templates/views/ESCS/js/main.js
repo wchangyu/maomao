@@ -1619,7 +1619,7 @@ $(function(){
         var prm = {
 
             //报警界面分类
-            alarmType:[[2],[2],[2]],
+            alarmType:[[2],[3],[1]],
 
             //楼宇ID集合
             pointerIDs:[sessionStorage.PointerID],

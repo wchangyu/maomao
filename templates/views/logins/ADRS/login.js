@@ -223,6 +223,14 @@ var Login = function(){
                     var changeMenuByProcs = data["changeMenuByProcs"] || "";
                     sessionStorage.changeMenuByProcs = changeMenuByProcs;     //存储到暂存区，在本次session中使用
 
+                    //获取当前系统名
+                    var systemTitle = data["systemTitle"] || "";
+                    sessionStorage.systemName = systemTitle;     //存储到暂存区，在本次session中使用
+
+                    //获取当前系统名
+                    var pageTitle = data["pageTitle"] || "";
+                    sessionStorage.pageTitle = pageTitle;     //存储到暂存区，在本次session中使用
+
                     //系统的theme
                     if(!localStorage.themeColor){
                         var themeColor = data["themeColor"];
@@ -233,6 +241,9 @@ var Login = function(){
                             localStorage.themeColor = "default";
                         }
                     }
+
+                    //每个页面的标题
+                    if(data["pageTitle"]) {sessionStorage.pageTitle = data["pageTitle"];}
 
                     handleLogin();      //获取到配置信息后，处理登录相关
                 },
