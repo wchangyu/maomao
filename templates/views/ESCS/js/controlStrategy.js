@@ -13,7 +13,7 @@ $(function(){
 
         var strSplit = background.split('.')
 
-        var newBackground = strSplit[0] + '_hover.' + strSplit[1];
+        var newBackground = strSplit[0].replace('rgb(250, 249, 249)','rgb(198, 215, 238)') + '_hover.' + strSplit[1];
 
         $(this).css('background',newBackground);
 
@@ -34,7 +34,7 @@ $(function(){
 
         var strSplit = background.split('_hover');
 
-        var newBackground = strSplit[0]  + strSplit[1];
+        var newBackground = strSplit[0].replace('rgb(198, 215, 238)','rgb(250, 249, 249)')  + strSplit[1];
 
         $(this).css('background',newBackground);
 

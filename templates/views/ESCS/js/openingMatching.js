@@ -5,8 +5,6 @@ $(function(){
     //获取默认时间
     var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM');
 
-    //console.log(nowTime);
-
     $('#spDT').val(nowTime);
 
     _monthDate11($('.abbrDT'));
@@ -39,7 +37,7 @@ $(function(){
                         'image://img/start_yellow.png',
                         'image://img/start_red.png',
                         'image://img/start_green.png',
-                        'image://img/start_blue.png',
+                        'image://img/start_blue.png'
                         ];
 
     var option = {
@@ -83,17 +81,10 @@ $(function(){
 
 
         },
-        //toolbox: {
-        //    feature: {
-        //        dataZoom: {},
-        //        brush: {
-        //            type: ['rect', 'polygon', 'clear']
-        //        }
-        //    }
-        //},
         brush: {
         },
         legend: {
+            itemWidth:15,
             data: [],
             left: 'center',
             top:20
@@ -146,7 +137,6 @@ $(function(){
         }
 
     }
-
 
     /*------------------------------------其他方法---------------------------------*/
 
@@ -228,7 +218,7 @@ $(function(){
 
                             arr.symbol = typePointArr[i];
 
-                            arr.symbolSize = 20;
+                            arr.symbolSize = 10;
 
                             data.push(arr);
 
