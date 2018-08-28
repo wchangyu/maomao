@@ -2,11 +2,11 @@ $(function(){
 
     /*-----------------------------------------时间插件---------------------------------*/
 
-    _timeYMDComponentsFun11($('.abbrDT'));
-
     var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
 
     $('#spDT').val(nowTime);
+
+    _timeYMDComponentsFun11($('.abbrDT'));
 
     conditionSelected();
 

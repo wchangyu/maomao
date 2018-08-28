@@ -101,6 +101,8 @@ var userMonitor = (function(){
         }else if(sessionStorage.menuArg){
 
             var args = sessionStorage.menuArg.split(",");
+
+
             if(args){
                 _configArg1 = args[0];
                 _configArg2 = args[1];

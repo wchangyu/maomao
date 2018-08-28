@@ -40,7 +40,7 @@
         "uri": "../ESCS/controlStrategy.html",
         "uid": "",
         "arg": "",
-        "iconclass": "icon-picture",
+        "iconclass": "icon-target",
         "arg2": ""
       },
       "数据曲线": {
@@ -52,9 +52,9 @@
         "iconclass": "icon-graph",
         "arg2": ""
       },
-      "开机搭配图": {
+      "搭配图": {
         "type": "0",
-        "content": "开机搭配图",
+        "content": "搭配图",
         "uri": "../ESCS/openingMatching.html",
         "uid": "",
         "arg": "",
@@ -100,7 +100,7 @@
       "能效查询": {
         "type": "0",
         "content": "能效查询",
-        "uri": "../ESCS/eercq.html",
+        "uri": "../ESCS/eerQuery.html",
         "uid": "",
         "arg": "",
         "iconclass": "icon-bar-chart",
