@@ -2,14 +2,16 @@ $(function(){
 
     /*--------------------------------------时间插件-----------------------------------*/
 
+    //初始化时间控件
+
     var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
 
     $('#spDT').val(nowTime);
 
     $('#epDT').val(moment(nowTime).add(1,'d').format('YYYY-MM-DD'));
 
-    //初始化时间控件
-    _timeYMDComponentsFun11($('.abbrDT'));
+    _dataComponentsFun($('.abbrDT'));
+
 
     /*---------------------------------------表格初始化----------------------------------*/
 
@@ -22,31 +24,23 @@ $(function(){
 
             {
                 title:'对象',
-                data:'kpiN'
+                data:'dtObj'
             },
             {
-                title:'总值<span class="Lunite">(KWH/KWH)</span>',
+                title:'整体值',
                 data:'totalV'
             },
             {
-                title:'峰值<span class="Lunite">(KWH/KWH)</span>',
-                data:'maxV'
+                title:'平均值',
+                data:'agv'
             },
             {
-                title:'出现时间',
-                data:'maxDT'
+                title:'10%最优平均值',
+                data:'meritAgV'
             },
             {
-                title:'谷值<span class="Lunite">(KWH/KWH)</span>',
-                data:'minV'
-            },
-            {
-                title:'出现时间',
-                data:'minDT'
-            },
-            {
-                title:'平均值<span class="Lunite">(KWH/KWH)</span>',
-                data:'averV'
+                title:'	10%最差平均值',
+                data:'inferiorAgV'
             }
 
         ]
@@ -188,9 +182,9 @@ $(function(){
             boundaryGap: false,
             data: []
         },
-        yAxis: [
-
-        ],
+        yAxis: {
+            type: 'value'
+        },
         series: [
 
         ]
@@ -296,7 +290,7 @@ $(function(){
 
         for(var i=0;i<arr.length;i++){
 
-            ids += arr[i].item + '(' + arr[i].name + ')' + ',';
+            ids += arr[i].tag + ',';
 
             names += arr[i].name + ',';
 
@@ -308,40 +302,40 @@ $(function(){
             //楼宇
             pId:sessionStorage.PointerID,
             //单位
-            misc:sessionStorage.misc,
+            //misc:sessionStorage.misc,
             //对象选择id
-            ids:ids,
+            splitTagStr:ids,
             //对象选择名称
-            ns:encodeURIComponent(names),
+            splitNtStr:names,
             //开始事件
             sp:$('#spDT').val(),
             //结束事件
             ep:$('#epDT').val(),
             //时间间隔
-            eType:$('#eType').val()
+            eTypeStr:$('#eType').val()
 
         }
 
 
-        var url = sessionStorage.apiUrlPrefix + 'AnalysisAro/ExportAnalysisAroChartVie?pId=' + sessionStorage.PointerID +
+        var url = sessionStorage.apiUrlPrefix + 'ZKEERcQ/ExportGetEERShow?pId=' + sessionStorage.PointerID +
 
-            '&misc=' + sessionStorage.misc +
+            //'&misc=' + sessionStorage.misc +
 
-            '&ids=' + ids +
+            '&splitTagStr=' + ids +
 
-            '&ns=' + encodeURIComponent(names) +
+            '&splitNtStr=' + encodeURIComponent(names) +
 
             '&sp=' + $('#spDT').val() +
 
             '&ep=' + $('#epDT').val() +
 
-            '&eType=' + $('#eType').val()
+            '&eTypeStr=' + $('#eType').val()
 
         $.ajax({
 
             type:'get',
 
-            url: sessionStorage.apiUrlPrefix + 'AnalysisAro/ExportAnalysisAroChartVie',
+            url: sessionStorage.apiUrlPrefix + 'ZKEERcQ/ExportGetEERShow',
 
             data:prm,
 
@@ -509,33 +503,18 @@ $(function(){
             obj.pId = arr[i].pid;
             obj.item = arr[i].item;
             obj.open = true;
+            obj.tag = arr[i].tag;
+
+            if(i == 0){
+
+                obj.checked = true;
+
+            }
+
             treeArr.push(obj);
         }
 
         var zTreeObj = $.fn.zTree.init($("#treeView"), setting, treeArr);
-
-
-        var node = zTreeObj.getNodes()[0];
-
-        //console.log(node);
-
-        var node1 = '';
-
-        getChildNodeFirst(node);
-
-        function getChildNodeFirst(node){
-
-            if(node.isParent){
-
-                node1 = node.children[0];
-
-                getChildNodeFirst(node1);
-
-            }
-
-        }
-
-        zTreeObj.setting.callback.onClick(null, zTreeObj.setting.treeId, node1);
 
         //获取第一个元素下的所有节点，然后选中
 
@@ -545,11 +524,6 @@ $(function(){
 
     //条件选择
     function conditionSelect(){
-
-        //loadding
-        $('.content-top').showLoading();
-
-        $('#avg_table').showLoading();
 
         //获取选中的节点
         var arr = getCheckedNodeFun();
@@ -565,7 +539,7 @@ $(function(){
 
         for(var i=0;i<arr.length;i++){
 
-            ids += arr[i].item + ',';
+            ids += arr[i].tag + ',';
 
             names += arr[i].name + ',';
 
@@ -580,15 +554,15 @@ $(function(){
             //单位
             misc:sessionStorage.misc,
             //对象选择id
-            ids:ids,
+            splitTagStr:ids,
             //对象选择名称
-            ns:encodeURIComponent(names),
+            splitNtStr:names,
             //开始事件
             sp:$('#spDT').val(),
             //结束事件
             ep:$('#epDT').val(),
             //时间间隔
-            eType:$('#eType').val()
+            eTypeStr:$('#eType').val()
 
         }
 
@@ -601,29 +575,35 @@ $(function(){
 
             type:'post',
 
-            url:sessionStorage.apiUrlPrefix + 'AnalysisAro/GetAnalysisAroChartViewDs',
+            url:sessionStorage.apiUrlPrefix + 'ZKEERcQ/GetEERcQDs',
 
             data:prm,
 
             timeout:_theTimes,
 
-            success:function(result){
+            beforeSend:function(){
 
-                //loadding
-                $('.content-top').hideLoading();
+                $('#chartBlock').showLoading();
+
+                $('#avg_table').showLoading();
+
+
+            },
+
+            complete:function(){
+
+                $('#chartBlock').hideLoading();
+
+                $('#avg_table').hideLoading();
+
+            },
+
+            success:function(result){
 
                 if(result.code == 0){
 
                     //确定legend(加单位)
-                    var nameUnite = [];
-
-                    for(var i=0;i<namesArr.length;i++){
-
-                        var str = namesArr[i] + '(' + result.aroMs[i] + ')';
-
-                        nameUnite.push(str);
-
-                    }
+                    var nameUnite = result.lgs;
 
                     option.legend.data = nameUnite;
 
@@ -641,133 +621,29 @@ $(function(){
                     //确定纵坐标
                     var dataY = [];
 
-                    //首先判断是否包含冷价(true的时候包含，并且取最后一条);
+                    for(var i=0;i<result.ys.length;i++){
 
-                    if(result.anyEPRc){
+                        var obj = {};
 
-                        //确定是双轴还是单轴
-                        var ZhouArr = [
+                        obj.name = nameUnite[i];
 
-                            {
-                                type: 'value',
-                                name: '能耗',
-                                min: 0,
-                                max: '',
-                                interval: '',
-                                axisLabel: {
-                                    formatter: '{value}'
-                                }
-                            },
-                            {
-                                type: 'value',
-                                name: '冷价',
-                                min: 0,
-                                max: 1,
-                                interval: 0.1,
-                                axisLabel: {
-                                    formatter: '{value}'
-                                }
-                            }
+                        obj.type = 'line';
 
-                        ];
+                        var yArr = [];
 
-                        for(var i=0;i<result.ys.length;i++){
+                        for(var j=0;j<result.ys[i].length;j++){
 
-                            var obj = {};
-
-                            obj.name = nameUnite[i];
-
-                            obj.type = 'line';
-
-                            if(i != result.ys.length-1){
-
-                                obj.yAxisIndex = 0;
-
-                            }else{
-
-                                obj.yAxisIndex = 1;
-
-                            }
-
-
-                            var yArr = [];
-
-                            for(var j=0;j<result.ys[i].length;j++){
-
-                                yArr.push(result.ys[i][j]);
-
-                            }
-
-                            obj.data = yArr;
-
-                            dataY.push(obj);
+                            yArr.push(result.ys[i][j]);
 
                         }
 
-                    }else{
+                        obj.data = yArr;
 
-                        //确定是双轴还是单轴
-                        var ZhouArr = [
-
-                            {
-                                type: 'value',
-                                name: '能耗',
-                                min: 0,
-                                max: '',
-                                interval: '',
-                                axisLabel: {
-                                    formatter: '{value}'
-                                }
-                            }
-
-                        ];
-
-                        for(var i=0;i<result.ys.length;i++){
-
-                            var obj = {};
-
-                            obj.name = nameUnite[i];
-
-                            obj.type = 'line';
-
-                            var yArr = [];
-
-                            for(var j=0;j<result.ys[i].length;j++){
-
-                                yArr.push(result.ys[i][j]);
-
-                            }
-
-                            obj.data = yArr;
-
-                            dataY.push(obj);
-
-                        }
+                        dataY.push(obj);
 
                     }
 
-                    option.yAxis = ZhouArr;
-
                     option.series = dataY;
-
-                    //根据最大值来确定纵坐标的间隔
-                    var _max = 0;
-
-                    var _interval = 0;
-
-                    var max = result.maxVa;
-
-                    var lengths = parseInt(max).toString().length -1;
-
-                    var first = Number(max.substr(0,1)) + Number(1);
-
-                    _max = first * Math.pow(10,lengths);
-
-                    _interval = _max / 10;
-
-                    option.yAxis[0].max = _max;
-
-                    option.yAxis[0].interval = _interval;
 
                 }else{
 
@@ -781,27 +657,27 @@ $(function(){
 
                     ]
 
-                    var tip = '';
-
-                    if(result.code == -1){
-
-                        tip = result.msg;
-
-                    }else{
-
-                        tip = '暂时没有获取到能耗数据';
-
-                    }
+                    var tip = '暂时没有获取到能效数据';
 
                     var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
 
                     $('#chartBlock').append(str);
 
-                    console.log('异常错误(能耗分析):' + result.msg);
+                    console.log('异常错误(能效分析):' + result.msg);
 
                 }
 
                 mychart.setOption(option,true);
+
+                var arr = [];
+
+                if(result.tbs != null && result.tbs.length>0){
+
+                    arr = result.tbs
+
+                }
+
+                _datasTable($('.table'),arr);
 
             },
 
@@ -821,50 +697,6 @@ $(function(){
 
             }
 
-        })
-
-        //表格数据
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'AnalysisAro/GetAnalysisAroTableDs',
-
-            timeout:_theTimes,
-
-            data:prm,
-
-            success:function(result){
-
-                $('#avg_table').hideLoading();
-
-                if(result.code == 0){
-
-                    _datasTable($('#avg_table'),result.tbs);
-
-                }else{
-
-                    console.log('异常错误(能耗分析):' + result.msg);
-
-                }
-
-            },
-
-            error:function(XMLHttpRequest, textStatus, errorThrown){
-
-                $('#avg_table').hideLoading();
-
-                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-
-                    console.log('请求超时')
-
-                }else{
-
-                    console.log('请求失败')
-
-                }
-
-            }
         })
 
     }
@@ -883,7 +715,7 @@ $(function(){
 
             type:'post',
 
-            url:sessionStorage.apiUrlPrefix + 'AnalysisAro/GetAroItemTVs',
+            url:sessionStorage.apiUrlPrefix + 'ZKEERcQ/GetEEFTrv',
 
             timeout:_theTimes,
 
@@ -893,9 +725,9 @@ $(function(){
 
                 if(result.code == 0){
 
-                    if(result.tvs.length>0){
+                    if(result.eers.length>0){
 
-                        devTree(result.tvs);
+                        devTree(result.eers);
 
                     }
 

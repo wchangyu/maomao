@@ -545,7 +545,7 @@
 
         }
 
-        var url = sessionStorage.apiUrlPrefix + 'ZKEERExport/ExportEERShow?pId=' + sessionStorage.PointerID +
+        var url = sessionStorage.apiUrlPrefix + 'ZKEERcQ/ExportEERShow?pId=' + sessionStorage.PointerID +
 
                 '&dTs=' + dTs +
 
@@ -559,11 +559,25 @@
 
             type:'get',
 
-            url: sessionStorage.apiUrlPrefix + 'ZKEERExport/ExportEERShow',
+            url: sessionStorage.apiUrlPrefix + 'ZKEERcQ/ExportEERShow',
 
             data:prm,
 
             timeout:_theTimes,
+
+            //发送数据之前
+            beforeSend:function(){
+
+                $('#exportBtn').html('导出中...').attr('disabled',true);
+
+            },
+
+            //发送数据完成之后
+            complete:function(){
+
+                $('#exportBtn').html('导出数据').attr('disabled',false);
+
+            },
 
             success:function(result){
                 window.open(url, "_self", true);
