@@ -673,7 +673,25 @@ $(function(){
 
                 if(result.tbs != null && result.tbs.length>0){
 
-                    arr = result.tbs
+                    //arr = result.tbs
+
+                    for(i=0;i<result.tbs.length;i++){
+
+                        var obj = {};
+
+                        obj.dtObj = result.tbs[i].dtObj==null?'-':result.tbs[i].dtObj;
+
+                        obj.totalV = result.tbs[i].totalV==null?'-':result.tbs[i].totalV;
+
+                        obj.agv = result.tbs[i].agv==null?'-':result.tbs[i].agv;
+
+                        obj.meritAgV = result.tbs[i].meritAgV==null?'-':result.tbs[i].meritAgV;
+
+                        obj.inferiorAgV = result.tbs[i].inferiorAgV==null?'-':result.tbs[i].inferiorAgV;
+
+                        arr.push(obj);
+
+                    }
 
                 }
 
