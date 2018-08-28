@@ -100,7 +100,7 @@
       "能效查询": {
         "type": "0",
         "content": "能效查询",
-        "uri": "../ESCS/eercq.html",
+        "uri": "../ESCS/eerQuery.html",
         "uid": "",
         "arg": "",
         "iconclass": "icon-bar-chart",

@@ -42,4 +42,17 @@ $(function(){
 
     })
 
+    $('.control-cell').click(function(){
+
+        var prm = $(this).attr('data-arg');
+
+        //将值传到session中
+        sessionStorage.arg1 = prm;
+
+        window.location.href = '../yongnengjiance/energyMonitor_ESCS.html?a=9&b='+prm;
+
+
+    })
+
+
 })

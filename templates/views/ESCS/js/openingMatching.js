@@ -13,34 +13,91 @@ $(function(){
 
     var _mychart = echarts.init(document.getElementById('optionMatching'));
 
-    var typePointArr = [
-                        'image://img/mi_yellow.png',
-                        'image://img/mi_red.png',
-                        'image://img/mi_green.png',
-                        'image://img/mi_blue.png',
-                        'image://img/round_yellow.png',
-                        'image://img/round_red.png',
-                        'image://img/round_green.png',
-                        'image://img/round_blue.png',
-                        'image://img/arrow_yellow.png',
-                        'image://img/arrow_red.png',
-                        'image://img/arrow_green.png',
-                        'image://img/arrow_blue.png',
-                        'image://img/square_yellow.png',
-                        'image://img/square_red.png',
-                        'image://img/square_green.png',
-                        'image://img/square_blue.png',
-                        'image://img/snow_yellow.png',
-                        'image://img/snow_red.png',
-                        'image://img/snow_green.png',
-                        'image://img/snow_blue.png',
-                        'image://img/start_yellow.png',
-                        'image://img/start_red.png',
-                        'image://img/start_green.png',
-                        'image://img/start_blue.png'
+    var color = [
+
+                '#f7efca','#b9a05e','#e4c269','#adbf47','#92b25f',
+                '#838f77','#a7c8bd','#3898a6','#5c92be','#91a4c5',
+                '#a62937','#d1816a','#d37327','#d2c4aa','#9b405f',
+                '#afa697','#b69c8d','#c1a8a1','#716676','#d0cc8d'
+
+                ];
+
+    var typePoint = [
+
+                        'circle', 'rect', 'roundRect', 'triangle', 'diamond'
+
+                        //'image://img/mi_yellow.png',
+                        //'image://img/mi_red.png',
+                        //'image://img/mi_green.png',
+                        //'image://img/mi_blue.png',
+                        //'image://img/round_yellow.png',
+                        //'image://img/round_red.png',
+                        //'image://img/round_green.png',
+                        //'image://img/round_blue.png',
+                        //'image://img/arrow_yellow.png',
+                        //'image://img/arrow_red.png',
+                        //'image://img/arrow_green.png',
+                        //'image://img/arrow_blue.png',
+                        //'image://img/square_yellow.png',
+                        //'image://img/square_red.png',
+                        //'image://img/square_green.png',
+                        //'image://img/square_blue.png',
+                        //'image://img/snow_yellow.png',
+                        //'image://img/snow_red.png',
+                        //'image://img/snow_green.png',
+                        //'image://img/snow_blue.png',
+                        //'image://img/start_yellow.png',
+                        //'image://img/start_red.png',
+                        //'image://img/start_green.png',
+                        //'image://img/start_blue.png'
                         ];
 
+    var pointerObj = [];
+
+    for(var i=0;i<typePoint.length;i++){
+
+        for(var j=0;j<color.length;j++){
+
+            var obj = {};
+
+            obj.color = color[j];
+
+            obj.point = typePoint[i];
+
+            pointerObj.push(obj);
+
+        }
+
+    }
+
+
+    var typeColorArr = [];
+
+    var typePointArr = [];
+
+    for(var i=0;i<pointerObj.length;i++){
+
+        typeColorArr.push(pointerObj[i].color);
+
+        typePointArr.push(pointerObj[i].point);
+
+    }
+
+
+    //for(var i=0;i<5;i++){
+    //
+    //    for(var j=0;j<color.length;j++){
+    //
+    //        typeColorArr.push(color[j]);
+    //
+    //    }
+    //
+    //}
+
+    //首先将形状和组合拼接
     var option = {
+
+        color:typeColorArr,
 
         title:{
 
@@ -194,6 +251,8 @@ $(function(){
 
                         obj.icon = typePointArr[i];
 
+                        //obj.textStyle = pointerArr[i].textStyle;
+
                         legendArr.push(obj);
 
                     }
@@ -218,7 +277,13 @@ $(function(){
 
                             arr.symbol = typePointArr[i];
 
-                            arr.symbolSize = 10;
+                            arr.symbolSize = 5;
+
+                            arr.itemStyle = {
+
+                                color:typeColorArr[i]
+
+                            }
 
                             data.push(arr);
 
