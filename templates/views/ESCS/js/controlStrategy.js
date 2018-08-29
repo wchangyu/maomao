@@ -11,9 +11,9 @@ $(function(){
 
         var background = $(this).css('background');
 
-        var strSplit = background.split('.')
+        var strSplit = background.split('.png')
 
-        var newBackground = strSplit[0].replace('rgb(250, 249, 249)','rgb(198, 215, 238)') + '_hover.' + strSplit[1];
+        var newBackground = strSplit[0].replace('rgb(250, 249, 249)','rgb(198, 215, 238)') + '_hover.png' + strSplit[1];
 
         $(this).css('background',newBackground);
 
