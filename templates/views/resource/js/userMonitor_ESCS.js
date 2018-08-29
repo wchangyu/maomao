@@ -100,9 +100,12 @@ var userMonitor = (function(){
 
         }else if(sessionStorage.menuArg){
 
-            sessionStorage.menuArg = sessionStorage.arg1;
+            if(sessionStorage.arg1){
 
-            sessionStorage.arg1 = '';
+                sessionStorage.menuArg = sessionStorage.arg1;
+
+                sessionStorage.arg1 = '';
+            }
 
             var args = sessionStorage.menuArg.split(",");
 
