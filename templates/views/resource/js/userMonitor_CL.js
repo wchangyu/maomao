@@ -1,3 +1,8 @@
+
+var arg1 = window.location.search.split('=')[1];
+
+sessionStorage.menuArg = arg1;
+
 /**
  * Created by went on 2016/8/2.
  * 2017/7/6 添加modbus支持
@@ -108,8 +113,6 @@ var userMonitor = (function(){
             }
 
             var args = sessionStorage.menuArg.split(",");
-
-            console.log(args);
 
             if(args){
                 _configArg1 = args[0];
