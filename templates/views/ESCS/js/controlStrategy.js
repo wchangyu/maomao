@@ -44,12 +44,9 @@ $(function(){
 
     $('.control-cell').click(function(){
 
-        var prm = $(this).attr('data-arg');
+        var prm = $(this).attr('data-arg').split(',')[1];
 
-        //将值传到session中
-        sessionStorage.arg1 = prm;
-
-        window.location.href = '../yongnengjiance/energyMonitor_CL.html?a=' + prm;
+        window.location.href = '../yongnengjiance/energyMonitor.html?procID=' + prm;
 
 
     })
