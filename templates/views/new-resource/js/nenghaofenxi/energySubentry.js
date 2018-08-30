@@ -90,6 +90,7 @@ var myChartTopLeft = echarts.init(document.getElementById('rheader-content-16'))
 
 // 指定图表的配置项和数据
 var option = {
+
     tooltip: {
         trigger: 'item',
         formatter: "{a} <br/>{b}: {c} ({d}%)"

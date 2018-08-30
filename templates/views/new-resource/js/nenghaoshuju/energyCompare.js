@@ -51,9 +51,9 @@ $(function(){
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
     $('.buttons').children('.btn-success').click(function(){
+
         //获得选择的能耗类型
         _ajaxEcType =_getEcTypeValue(_ajaxEcType);
-
 
         //先判断获取的是楼宇还是科室
         var o = $('.tree-0')[0].style.display;
@@ -201,7 +201,7 @@ var optionBar = {
     },
     legend: {
         data:['本期数据','比较数据'],
-        top:'20',
+        top:'20'
     },
     grid: {
         left: '10%',

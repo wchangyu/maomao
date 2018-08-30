@@ -413,13 +413,20 @@ $(function(){
         //确定支路id
         var nodes = branchTreeObj.getCheckedNodes(true);
 
-        console.log(nodes);
+        selectOBJID = nodes[0].id;
+
+        selectOBJType = nodes[0].type;
 
         //获取楼宇id
         var pts = [];
 
-            //获取省级平台下的全部楼宇
-        recursion(nodes,pts);
+        //存放企业id
+        var enterpriseIDs = [];
+
+            //获取省级平台下的全部企业
+        recursion(nodes,enterpriseIDs);
+
+        //console.log(enterpriseIDs);
 
 
         //获取时间维度
@@ -488,8 +495,17 @@ $(function(){
 
         var prm = {
 
+            "selectOBJID": selectOBJID,
+
+            "selectOBJType": selectOBJType,
+
+            "userID": _userIdNum,
+
             //取分项Id
             ecTypeId:ecTypeId,
+
+            //企业id
+            "enterpriseIDs": enterpriseIDs,
 
             //楼宇id
             pointerIds:pts,
@@ -508,7 +524,7 @@ $(function(){
         $.ajax({
 
             type:'post',
-            url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
+            url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndEnterprise',
             data:prm,
             beforeSend:function(){
 
@@ -528,7 +544,7 @@ $(function(){
             timeout:30000,
             success:function(result){
 
-                if(result){
+                if(result && result.length > 0){
 
                     //横坐标、纵坐标
                     var dataX = [],dataY = [];

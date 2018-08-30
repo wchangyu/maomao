@@ -131,6 +131,7 @@ $(function(){
     var $btn =$("#ctlBtn");//上传按钮
     var thumbnailWidth = 100;
     var thumbnailHeight = 100;
+
     //初始化设置
     var uploader = WebUploader.create({
         //选完文件是否上传
@@ -158,6 +159,7 @@ $(function(){
 
         // $list为容器jQuery实例
         $list.append( $li );
+
         //缩略图
         uploader.makeThumb( file, function( error, src ) {   //webuploader方法
             if ( error ) {
@@ -192,7 +194,7 @@ $(function(){
 
         var imgHeight = file._info.height;
 
-        console.log(imgWidth / imgHeight)
+        console.log(imgWidth / imgHeight);
 
         //if( imgWidth / imgHeight > 1.6 ||  imgWidth / imgHeight < 1.2){
         //
@@ -283,7 +285,8 @@ $(function(){
                 moTaiKuang($('#myModal'),info,'flag');
             }
         })
-    })
+    });
+
     //单选框选择
     $('.inpus').click(function(){
         $(this).parents('.input-blockeds').children('.radio').children('span').removeClass('checked');
@@ -297,7 +300,7 @@ $(function(){
             _uploaderPath = '';
             $('.big-mark').show();
         }
-    })
+    });
 
     //点击保存，发送数据
     $('#saveNews').click(function(){
@@ -385,7 +388,9 @@ $(function(){
                                     }
                                 }
                             })
+
                         }else{
+
                             var newsContent = {
                                 fK_Type_Content:$('#column').val(),
                                 f_NewsTypeName: $.trim($('#column').children('option:selected').html()),
@@ -445,7 +450,7 @@ $(function(){
 
         }
 
-    })
+    });
     $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
     })

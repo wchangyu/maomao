@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>驾驶舱</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+
+    <style>
+        .bpd-navigation{
+
+            background: url('img/gpd2.png') no-repeat ;
+            background-size: 100% 100%;
+            cursor: pointer;
+        }
+
+        .bpd-navigation1{
+
+            background: url('img/gpd1.png') no-repeat ;
+            background-size: 100% 100%;
+            cursor: pointer;
+
+        }
+
+        #right-container .content-main-right{
+            background: url('img/peizhi3.png') no-repeat ;
+            background-size: 100% 100%;
+        }
+
+        #right-container .content-main-right1{
+            background: url('img/peizhi-guzhang-gif.gif') no-repeat ;
+            background-size: 100% 100%;
+        }
+
+        /*鹰眼图遮罩*/
+        .bpd-shade{
+            width: 100%;
+            height: 50%;
+        }
+
+        /*机房切换平面图和系统图*/
+        .switchover{
+            width:24px;
+            height: 20px;
+            display: block;
+            position: absolute;
+            right:20px;
+            top:10px;
+            background: url('img/pd-xitongtu.png') no-repeat;
+            background-size: 100% 100%;
+            cursor: pointer;
+        }
+
+        .switchover1{
+
+            background: url('img/pd-pingmiantu.png') no-repeat;
+            background-size: 100% 100%;
+
+        }
+
+
+        #right-container .content-main-right-pingmian{
+
+            background: url('img/gaoya-pingmian.png') no-repeat ;
+            background-size: 100% 100%;
+        }
+
+        #right-container .content-main-right-pingmian1 {
+            background: url(img/pd-pingmian1.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        /*------------------------------冷站控制---------------------------------*/
+        .right-control .top-navigation{
+            background: url(img/kongzhi.png) no-repeat 10px center;
+            background-color: #687ea3;
+        }
+
+        .right-control .bottom-img-content{
+            padding-left:15px;
+            padding-top: 15px;
+            box-sizing: border-box;
+        }
+        .right-control-container .left-name{
+            display: inline-block;
+            width:100px;
+            color:#687EA2;
+            margin-right:10px;
+        }
+
+        .right-control-container{
+            margin-bottom:15px;
+        }
+        .right-control-container input{
+            width:80px;
+            height: 24px;
+            text-align: center;
+            outline: #687EA2;
+        }
+        .right-control-container .unit{
+            color:#687EA2;
+            margin-left:5px;
+
+        }
+
+
+        .content-child-show .bottom-monitor {
+            height: 250px;
+            background: url(img/upstanchu.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+    </style>
+
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left col-lg-8 col-md-8 col-sm-12 col-xs-12" style="padding-right: 0px;">
+
+                                <!--上方流程图-->
+                                <div class="left-diagram">
+
+                                    <span class="switchover" data-id="1"></span>
+
+                                    <h3 class="top-title left-title1">实时参数</h3>
+
+                                    <!-- 下方左侧流程图 -->
+                                    <div id="right-container">
+
+                                        <div class="content-main-right" id="content-main-right">
+
+                                            <!--浮动显示的控制按钮-->
+                                            <div class="content-ctrls-show" id="content-ctrls">
+
+                                            </div>
+
+                                            <div class="content-menu-hide" id="content-menu">
+
+                                                <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!--历史曲线-->
+                                <div class="left-history-bight" >
+
+                                    <h3 class="top-title history-title">历史曲线</h3>
+
+
+
+                                    <!--时间选择-->
+                                    <div class="choose-time-container">
+
+                                        <label for="">时间选择</label>
+                                        <select name="" id="">
+                                            <option value="-1">今天</option>
+                                            <option value="0">近24小时</option>
+                                            <option value="1">近7天</option>
+                                            <option value="2">近30天</option>
+                                        </select>
+
+                                    </div>
+
+                                    <!--下方echart-->
+                                    <div class="bottom-echart-content" id="left-bottom-cheart">
+
+
+                                    </div>
+
+                                </div>
+
+                                <!--交接班记录-->
+                                <div class="right-work-record" style="position: relative">
+
+                                    <h3 class="top-title record-title">交接班记录</h3>
+
+                                    <span class="right-white"></span>
+
+                                    <!--下方echart-->
+                                    <div class="bottom-record-content" >
+
+                                        <table class="bottom-record-table">
+
+                                            <thead>
+
+                                            <tr>
+                                                <th>时间</th>
+                                                <th>事件</th>
+                                                <th>关联设备</th>
+                                                <th>状态</th>
+                                                <th>操作人</th>
+                                            </tr>
+
+                                            </thead>
+
+                                            <tbody class="scrollbar1">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                    <span class="bottom-sure">确认</span>
+
+                                </div>
+
+                            </div>
+
+                            <!--右侧区域-->
+                            <div class="content-main-right1 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                                <!--机房导航-->
+                                <div class="right-navigation">
+
+                                    <h3 class="top-title top-navigation">变配电导航</h3>
+
+                                    <!--下方图片-->
+                                    <div class="bottom-img-content bpd-navigation">
+
+                                        <div class="bpd-shade" data-img="content-main-right" data-img1="bpd-navigation"></div>
+                                        <div class="bpd-shade" data-img="content-main-right1" data-img1="bpd-navigation1"></div>
+                                    </div>
+
+                                </div>
+
+                                <!--变配电温湿度报警统计-->
+                                <div class="right-alarm" style="position: relative;">
+
+                                    <!--图例-->
+                                    <div class="legend">
+
+                                        <span class="patch green" style="background: #31BEA4"></span>
+                                        <span>报警数</span>
+                                        <br />
+                                        <span class="patch yellow" style="background: #2A9FD0"></span>
+                                        <span>未处理数</span>
+
+                                    </div>
+
+                                    <h3 class="top-title bottom-statistics">变配电报警统计</h3>
+
+                                    <p class="bottom-statistics-title">本周</p>
+
+                                    <div class="flex-container">
+
+                                        <div class="bottom-echart-container">
+
+                                            <!--数据-->
+                                            <div class="bottom-content-data" >
+
+                                                <span class="">200</span><br>
+                                                <span class="">18</span><br>
+
+                                            </div>
+
+                                            <div class="bottom-equipment-chart-background"></div>
+
+                                            <!--下方echart-->
+                                            <div class="bottom-echart-content1" id="bottom-right-echart1">
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="bottom-echart-container bottom-echart-container1" >
+
+                                            <!--数据-->
+                                            <div class="bottom-content-data" >
+
+                                                <span class="">200</span><br>
+                                                <span class="">18</span><br>
+
+                                            </div>
+
+                                            <div class="bottom-equipment-chart-background"></div>
+
+                                            <!--下方echart-->
+                                            <div class="bottom-echart-content1" id="bottom-right-echart2">
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="bottom-echart-container bottom-echart-container1" >
+
+                                            <!--数据-->
+                                            <div class="bottom-content-data" >
+
+                                                <span class="">200</span><br>
+                                                <span class="">18</span><br>
+
+                                            </div>
+
+                                            <div class="bottom-equipment-chart-background"></div>
+
+                                            <!--下方echart-->
+                                            <div class="bottom-echart-content1" id="bottom-right-echart5">
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <p class="bottom-statistics-title">本月</p>
+
+                                    <div class="flex-container">
+
+                                        <div class="bottom-echart-container">
+
+                                            <!--数据-->
+                                            <div class="bottom-content-data" >
+
+                                                <span class="">200</span><br>
+                                                <span class="">18</span><br>
+
+                                            </div>
+
+                                            <div class="bottom-equipment-chart-background"></div>
+
+                                            <!--下方echart-->
+                                            <div class="bottom-echart-content1" id="bottom-right-echart3">
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="bottom-echart-container bottom-echart-container1">
+
+                                            <!--数据-->
+                                            <div class="bottom-content-data" >
+
+                                                <span class="">200</span><br>
+                                                <span class="">18</span><br>
+
+                                            </div>
+
+                                            <div class="bottom-equipment-chart-background"></div>
+
+                                            <!--下方echart-->
+                                            <div class="bottom-echart-content1" id="bottom-right-echart4">
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="bottom-echart-container bottom-echart-container1" >
+
+                                            <!--数据-->
+                                            <div class="bottom-content-data" >
+
+                                                <span class="">200</span><br>
+                                                <span class="">18</span><br>
+
+                                            </div>
+
+                                            <div class="bottom-equipment-chart-background"></div>
+
+                                            <!--下方echart-->
+                                            <div class="bottom-echart-content1" id="bottom-right-echart6">
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+<!--设备数据弹窗 UPS病历本-->
+<div class="equipment-data" style="display: none" >
+
+    <div class="content-child-show">
+
+        <div class="content-child-show-container">
+            <div class="close1">X</div>
+
+            <div class="child-show-bottom-data" >
+
+                <!--上方数据-->
+                <div class="top-equipment-data" style="margin-bottom: 20px;">
+
+                    <!--左侧流程图-->
+                    <div class="left-equipment-monitor" >
+
+                        <h3 class="equipment-title">UPS-A1</h3>
+
+                        <div class="equipment-rank">
+                            <span class="equipment-rank-data">综合排名：23/80</span>
+                            <span class="equipment-rank-data">健康值：89</span>
+
+                        </div>
+
+                        <!--下方流程图-->
+                        <div class="bottom-monitor">
+
+                        </div>
+
+
+                    </div>
+
+                    <!--右侧数据及曲线-->
+                    <div class="right-equipment-data">
+
+                        <h3 class="right-title">全生命周期分析</h3>
+
+                        <!--下方按钮-->
+                        <div class="the-choose-show-data-container">
+
+                            <p class="the-choose-show-data"  data-type="0" data-img="eq-dangan">设备档案</p>
+
+                            <p class="the-choose-show-data switch" data-id="0" data-type="1" data-img="eq-jilu" data-img1="eq-jilu1">维保记录</p>
+
+
+                            <p class="the-choose-show-data"  data-type="1" data-img="eq-zhishiku" data-img1="eq-zhishiku1">专家知识库</p>
+
+                            <p class="the-choose-show-data " data-type="0" data-img="eq-leida">性能雷达图</p>
+
+                            <p class="the-choose-show-data switch" data-id="2"   data-type="1" data-img="eq-fenxi" data-img1="eq-fenxi1">lcc经济分析</p>
+
+                            <p class="the-choose-show-data"  data-type="0" data-img="eq-quxian" >参数曲线图</p>
+
+                        </div>
+
+                        <!--下方数据-->
+                        <div class="bottom-equiptment-data">
+
+                            <table class="bottom-equiptment-table">
+
+                                <thead>
+
+                                <tr>
+                                    <th class="title">序号</th>
+                                    <th>建议内容</th>
+                                    <th>编辑时间</th>
+                                    <th class="title1">操作人</th>
+
+                                </tr>
+
+                                </thead>
+
+                                <tbody class="">
+
+                                </tbody>
+
+                            </table>
+
+                            <div class="bottom-equip-chart" id="economics-chart"></div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+
+                <!--下方数据-->
+                <div class="bottom-equipment-data">
+
+                    <!--控制设定-->
+                    <div class="right-navigation right-control" style="width:35%;float: left">
+
+                        <h3 class="top-title top-navigation">控制设定</h3>
+
+                        <!--下方图片-->
+                        <div class="bottom-img-content" style="position: relative;">
+
+
+                            <div class="right-control-container">
+
+                                <span class="left-name" >输入电压设定</span>
+
+                                <input name="" id="" class="" style="" value="220"/>
+                                <span class="unit">V</span>
+
+
+                            </div>
+
+                            <div class="right-control-container">
+
+                                <span class="left-name" >模式设定</span>
+
+                                <input name="" id="" class="" style="" value="自动"/>
+
+
+                            </div>
+
+                            <div class="right-control-container" style="margin-bottom:3px;">
+
+                                <span class="left-name" >可用状态</span>
+
+                                    <span class="right-on-off">
+
+                                    <font class="save-energy">ON</font><font class="save-energy save-energy1">OFF</font>
+
+                                            </span>
+
+
+                            </div>
+
+                                        <span class="bottom-sure" style="position: absolute;bottom:10px;
+                                        right:20px;">确定</span>
+
+
+                        </div>
+
+                    </div>
+
+                    <!--运行参数-->
+                    <div class="right-navigation right-control right-control1" style="width:62%;float: left;margin-left:3%;">
+
+                        <h3 class="top-title bottom-parameter">运行参数</h3>
+
+                        <!--下方图片-->
+                        <div class="bottom-img-content bottom-parameter-container" style="position: relative;">
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name  bottom-parameter-data-name1">运行状态:</span>
+
+                                <span class="bottom-parameter-data-value">ON</span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">输入电压</span>
+
+                                <span class="bottom-parameter-data-value">输出电压</span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">电池电压:</span>
+
+                                <span class="bottom-parameter-data-value ">2.36V</span>
+
+                            </div>
+
+                            <!--第二行-->
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name bottom-parameter-data-name1">手自动状态:</span>
+
+                                <span class="bottom-parameter-data-value">自动</span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">R:231</span>
+
+                                <span class="bottom-parameter-data-value">R:0</span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">电池温度:</span>
+
+                                <span class="bottom-parameter-data-value ">30℃</span>
+
+                            </div>
+
+                            <!--第三行-->
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name bottom-parameter-data-name1">故障状态:</span>
+
+                                <span class="bottom-parameter-data-value ">
+                                    <font class="ball red-ball"></font></span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">s:223</span>
+
+                                <span class="bottom-parameter-data-value">s:0</span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">旁路状态:</span>
+
+                                <span class="bottom-parameter-data-value ">闭合</span>
+
+                            </div>
+
+                            <!--第四行-->
+
+                            <div class="bottom-parameter-data-container ">
+
+                                <!--<span class="bottom-parameter-data-name bottom-parameter-data-name1">可用状态:</span>-->
+
+                                <!--<span class="bottom-parameter-data-value"><font class="impotart-data">1100</font>KPA</span>-->
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">T:230</span>
+
+                                <span class="bottom-parameter-data-value">T:0</span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <!--<span class="bottom-parameter-data-name">水流开关状态:</span>-->
+
+                                <!--<span class="bottom-parameter-data-value">ON</span>-->
+
+                            </div>
+
+                            <!--第五行-->
+
+                            <div class="bottom-parameter-data-container">
+
+                                <!--<span class="bottom-parameter-data-name bottom-parameter-data-name1">冷凝压力:</span>-->
+
+                                <!--<span class="bottom-parameter-data-value">-->
+                                    <!--<font class="normal">550</font>KPA-->
+                                <!--</span>-->
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name"></span>
+
+                                <span class="bottom-parameter-data-value">F:0HZ</span>
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init(true);
+        //获取对应流程图
+        //userMonitor.init("1200,698",false,1);
+    });
+
+</script>
+
+<script src="../resource/js/commonJsResource.js"></script>
+<!--<script src="../resource/js/userMonitor.js"></script>-->
+<script src="js/distribution-monitor1.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

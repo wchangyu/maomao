@@ -55,6 +55,8 @@ function _selectTime(dataType){
 
     $('.chooseDate').val('');
 
+    $('.end-time-choose').hide();
+
     if(dataType == '日' ){
 
         _timeYMDComponentsFun($('.chooseDate'));
@@ -62,6 +64,31 @@ function _selectTime(dataType){
         //获取昨天
         var date = moment().format('YYYY/MM/DD');
         $('.min').val(date);
+
+    }else if(dataType == '周'){
+
+        var curUrl = window.location.href;
+
+        //如果是能耗查询页面
+        if(curUrl.indexOf("new-nenghaoshuju/energyDemand-1.html") > -1){
+            $('.datatimeblock').datetimepicker('remove');
+        }
+
+        _initDate1();
+
+        $('.max').show();
+        $('.end-time-choose').show();
+
+        //改变提示信息
+        $('.start-time-choose label').html('开始时间：');
+        //获取上周
+        var date1 = moment().subtract('6','days').format('YYYY/MM/DD');
+        //获取昨天2
+        var date2 = moment().format('YYYY/MM/DD');
+        $('.min').val(date1);
+        $('.max').val(date2);
+        //取消开始时间选框居中
+        $('.start-time-choose').removeClass('position-center');
 
     }else if(dataType == '月'){
 
@@ -255,8 +282,9 @@ function GetProvincialEnterpriseTree(flag,fun,dom){
             userID:_userIdNum
         },
         success:function(result){
+
             //console.log(result);
-            getBranchZtree(result,flag,getProvincialZNodes,dom);
+            getBranchZtree(result.paralProvicncTree,flag,getProvincialZNodes,dom);
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -300,6 +328,9 @@ function getProvincialZNodes(EnItdata){
 
             theNum1 ++;
 
+        }else if(o.returnOBJID == 0){
+
+            ifOpen = true;
         }
 
         zNodes.push({ id:  o.returnOBJID, pId:o.parentOBJID, name:o.returnOBJName,title: o.returnOBJName,type: o.returnType,open:ifOpen,checked:ifCheck});
@@ -310,12 +341,12 @@ function getProvincialZNodes(EnItdata){
 
 }
 
-//获取省级平台下的全部楼宇
+//获取省级平台下的全部单位
 function recursion(dataArr,resultArr){
 
     $(dataArr).each(function(i,o) {
 
-        if(o.type == 3){
+        if(o.type == 2){
 
             resultArr.push(o.id);
         }
@@ -330,12 +361,12 @@ function recursion(dataArr,resultArr){
     })
 };
 
-//获取省级平台下的全部楼宇信息
+//获取省级平台下的全部单位信息
 function recursion1(dataArr,resultArr){
 
     $(dataArr).each(function(i,o) {
 
-        if(o.type == 3){
+        if(o.type == 2){
 
             var obj = {
 

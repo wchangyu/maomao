@@ -36,14 +36,17 @@ $(function(){
                     _uploaderPath = _uploadImg;
                 }
 
+                console.log(result)
+
                 //选择栏目
                 //console.log(result.fkid);
                 for(var i=0;i<$('#column').children('option').length;i++){
                     ////console.log($('#column').children('option').eq(i).val())
-                    if($('#column').children('option').eq(i).val() == result.fkid){
+                    if($('#column').children('option').eq(i).val() == result.type){
                         $('#column').children('option').eq(i).attr('selected',true);
                     }
                 }
+
                 //新闻标题
                 $('#newsTitle').val(result.title);
                 //内容描述

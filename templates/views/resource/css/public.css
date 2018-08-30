@@ -1,0 +1,102 @@
+td,th{
+
+    text-align: center;
+
+}
+
+li{
+
+    list-style: none;
+
+}
+
+*{
+
+    padding: 0;
+
+    margin: 0;
+
+}
+
+.row{
+
+    margin: 0 !important;
+
+}
+
+.shadowEffect{
+
+    box-shadow: 10px 10px 10px #eceff1;
+    -moz-box-shadow: 10px 10px 10px #eceff1;
+    -webkit-box-shadow: 10px 10px 10px #eceff1;
+    border-radius: 4px !important;
+    background: #ffffff;
+    border: none !important;
+
+}
+
+.loop-active{
+
+    border-bottom: 5px solid #2556a6 !important;
+
+    cursor: pointer;
+
+}
+
+.aHtml{
+
+    display: inline-block;
+
+    width:100%;
+
+    height: 100%;
+
+    color: #333333;
+
+    text-decoration: none;
+
+}
+
+.aHtml:hover{
+
+    color: #333333;
+
+    text-decoration: none;
+
+}
+
+.aHtml:link{
+
+    color: #333333;
+
+    text-decoration: none;
+
+}
+
+.aHtml:visited{
+
+    color: #333333;
+
+    text-decoration: none;
+
+}
+
+.aHtml:active{
+
+    color: #333333;
+
+    text-decoration: none;
+
+}
+
+.datatimeblock {
+    background: url(../img/clendar.png) no-repeat #ffffff !important;
+    background-size: 25px !important;
+    background-position: 100% center !important;
+    cursor: pointer !important;
+}
+
+.page-title{
+   display: none;
+}
+

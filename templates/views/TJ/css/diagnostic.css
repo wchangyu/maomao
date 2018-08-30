@@ -1,0 +1,70 @@
+/*上方选择诊断类型*/
+.top-choose-type-container .choose-type{
+    width:150px;
+    height: 40px;
+    line-height: 40px;
+    background: #adb9cb;
+    display: inline-block;
+    text-align: center;
+    margin-left:20px;
+    cursor: pointer;
+}
+
+.top-choose-type-container .choose{
+
+    background: #93d150;
+}
+
+/*下方诊断结果*/
+.bottom-result-container{
+   padding:20px 15px;
+    box-sizing: border-box;
+
+}
+.bottom-result-container .specific-result-container{
+
+    width: 30%;
+    float: left;
+    border:1px solid #7e7e7e;
+    margin-right:10px;
+    margin-bottom:15px;
+    border-radius: 5px !important;
+
+}
+
+.bottom-result-container .specific-result-container .result-title{
+    height:40px;
+    line-height: 40px;
+    background:  #687EA2;
+    text-indent: 15px;
+    color: white;
+}
+
+.bottom-result-container .specific-result-container .bottom-specific-result{
+    height: 250px;
+    padding:10px 5px;
+
+}
+.specific-result-container{
+    cursor: pointer;
+}
+
+.specific-result-container .red-result{
+    color:#ff3434;
+    font-weight: 600;
+}
+
+.specific-result-container .green-result{
+    color:#03b251;
+    font-weight: 600;
+}
+
+.specific-result-container .red-result .result-num{
+    margin-left:10px;
+}
+
+.specific-result-container p{
+    font-size: 16px;
+    margin-bottom:10px;
+}
+
