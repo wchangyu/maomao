@@ -166,7 +166,7 @@
       }
     ]
   },
-  "apiUriPrefix":"http://localhost/BEEWebAPI/api/",
+  "apiUriPrefix":"http://211.100.28.180/ESCSWebAPI/api/",
   "apiUriPrefixYW":"http://211.100.28.180/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
