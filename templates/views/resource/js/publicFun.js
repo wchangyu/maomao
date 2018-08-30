@@ -1525,6 +1525,346 @@ function _timeCompare(st,et){
 
 }
 
+/*---------------------------------------------------控制界面------------------------------------*/
+
+//获取表格结构
+function _getTemplate(instanceID,el,fun){
+
+    $.ajax({
+
+        type:'post',
+
+        url: sessionStorage.apiUrlPrefix + 'PRTb/GetPRTableDs',
+
+        data:{
+
+            instanceID:instanceID
+
+        },
+
+        timeout:_theTimes,
+
+        //发送数据之前
+        beforeSend:function(){
+
+            el.showLoading();
+
+        },
+
+        //发送数据完成之后
+        complete:function(){
+
+            el.hideLoading();
+
+        },
+
+        success:function(result){
+
+            //console.log(result);
+
+            fun(result)
+
+            //drawTable(result);
+
+        },
+
+        error:_errorFun
+
+    })
+
+}
+
+//获取到数据绘制表格
+function _drawTable(primaryArr,table,result){
+
+    primaryArr = []
+
+    //清空表格
+    table.find('thead').empty();
+
+    table.find('tbody').empty();
+
+    if(result.code == 0){
+
+        //绘表格
+
+        //表头
+        var theadStr = '<tr>';
+
+        for(var i=0;i<result.theads.length;i++){
+
+            theadStr += '<th>' + result.theads[i] + '</th>';
+
+        }
+
+        theadStr += '</tr>';
+
+        //插入表格
+        table.find('thead').append(theadStr);
+
+        //表格数据
+        for(var i=0;i<result.tbodys.length;i++){
+
+            var tbodyStr = '<tr>';
+
+            for(var j=0;j<result.theads.length;j++){
+
+                tbodyStr += '<td></td>';
+
+            }
+
+            tbodyStr += '</tr>';
+
+            table.find('tbody').append(tbodyStr);
+
+        }
+
+        //将返回的数组转化为对象
+        for(var i=0;i<result.tbodys.length;i++){
+
+            for(var j=0;j<result.tbodys[i].length;j++){
+
+                var obj = JSON.parse(result.tbodys[i][j])
+
+                primaryArr.push(obj);
+
+            }
+
+        }
+
+        //遍历属性，将值赋给单元格
+        for(var k=0;k<primaryArr.length;k++){
+
+            var tdValue = primaryArr[k];
+
+            var trNum = tdValue.rowid;
+
+            var tdNum = tdValue.colid;
+
+            var datetype = tdValue.datetype;
+
+            var trsDom = $('#table1 tbody').find('tr').eq(trNum).find('td').eq(tdNum);
+
+            if(datetype == 1){
+
+                if(tdValue.enums){
+
+                    var jsonEnums = eval('(' +tdValue.enums + ')');
+
+                    for(var z=0;z<jsonEnums.length;z++){
+
+                        trsDom.html(jsonEnums[z]['value']);
+
+                        //if(jsonEnums[z]['key'] == tdValue.value ){
+                        //
+                        //    trsDom.html(jsonEnums[z]['value']);
+                        //
+                        //}
+
+                    }
+
+                }
+
+            }else{
+
+                trsDom.html(tdValue.value);
+
+            }
+
+            //绑定属性
+            for(var z in tdValue){
+
+                trsDom.attr(z,tdValue[z]);
+
+            }
+
+        }
+
+    }else{
+
+        var meg = '';
+
+        if(result.msg == ''|| result.msg == null){
+
+            meg = '请求失败';
+
+        }else{
+
+            meg = result.msg;
+
+        }
+
+        //提示错误
+        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,meg, '');
+
+    }
+
+}
+
+//编辑表格方法
+function _editFun(instanceID,modifyArr,el,fun){
+
+    var prm = {
+
+        instanceID:instanceID,
+
+        modifycells:modifyArr
+
+    }
+
+    console.log(prm);
+
+    return false;
+
+    $.ajax({
+
+        type:'post',
+
+        url:sessionStorage.apiUrlPrefix + 'PRTb/ModifyPRTableCellText',
+
+        data:prm,
+
+        beforeSend:function(){
+
+            el.showLoading();
+
+        },
+
+        complete:function(){
+
+            el.hideLoading();
+
+        },
+
+        timeout:_theTimes,
+
+        success:function(result){
+
+            $('#theLoading').modal('hide');
+
+            if(result.code == 0){
+
+                //编辑成功
+                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'编辑成功！', '');
+
+                setTimeout(function(){
+
+                    //刷新数据
+                    //getTemplate();
+
+                    fun(result);
+
+                },500);
+
+            }else{
+
+                var meg = '';
+
+                if(result.msg == ''|| result.msg == null){
+
+                    meg = '请求失败';
+
+                }else{
+
+                    meg = result.msg;
+
+                }
+
+                //提示错误
+                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,meg, '');
+
+            }
+
+
+        },
+
+        error:_errorFun
+
+    })
+
+}
+
+//下发指令
+function _sendInstruction(instanceID,el,fun){
+
+    var prm = {
+
+        instanceID:instanceID
+
+    }
+
+    $.ajax({
+
+        //发送方式
+        type:'post',
+
+        //url
+        url:sessionStorage.apiUrlPrefix + 'PRTb/PRTbCtrlCOMM',
+
+        //timeout
+        timeout:_theTimes,
+
+        //参数
+        data:prm,
+
+        beforeSend:function(){
+
+            el.showLoading();
+
+        },
+
+        complete:function(){
+
+            el.hideLoading();
+
+        },
+
+        //成功
+        success:function(result){
+
+
+            if(result.code == 0){
+
+                //编辑成功
+                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'下发成功！', '');
+
+                setTimeout(function(){
+
+                    //刷新数据
+                    //getTemplate();
+                    fun(result);
+
+                },500);
+
+            }else{
+
+                var meg = '';
+
+                if(result.msg == ''|| result.msg == null){
+
+                    meg = '请求失败';
+
+                }else{
+
+                    meg = result.msg;
+
+                }
+
+                //提示错误
+                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,meg, '');
+
+            }
+
+
+        },
+
+        //失败
+        error: _errorFun
+
+    })
+
+}
+
 $(function(){
 
     //模态框中的提示关闭按钮

@@ -49,7 +49,7 @@ $(function(){
         //将值传到session中
         sessionStorage.arg1 = prm;
 
-        window.location.href = '../yongnengjiance/energyMonitor_ESCS.html?a=9'
+        window.location.href = '../yongnengjiance/energyMonitor_CL.html?a=' + prm;
 
 
     })

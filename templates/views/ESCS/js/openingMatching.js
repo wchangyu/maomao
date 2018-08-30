@@ -68,15 +68,15 @@ $(function(){
 
         color:color,
 
-        title:{
-
-            subtext:'能效（KW/KW）'
-
-        },
+        //title:{
+        //
+        //    subtext:'能效（KW/KW）'
+        //
+        //},
         grid: {
-            left: '3%',
+            left: '4%',
             right: '7%',
-            bottom: '3%',
+            bottom: '10%',
             containLabel: true
         },
         tooltip : {
@@ -117,6 +117,16 @@ $(function(){
         },
         xAxis : [
             {
+
+                name:'冷 站 供 冷 量 (KW)',
+                nameLocation:'center',
+                nameGap:30,
+                nameTextStyle:{
+
+                    fontSize:20,
+                    fontWeight:'bold',
+
+                },
                 type : 'value',
                 //scale:true,
                 axisLabel : {
@@ -137,7 +147,16 @@ $(function(){
                 },
                 splitLine: {
                     show: false
-                }
+                },
+                name:'冷 站 EER (KW/KW)',
+                nameLocation:'center',
+                nameGap:30,
+                nameTextStyle:{
+
+                    fontSize:20,
+                    fontWeight:'bold'
+
+                },
             }
         ],
         series : []
