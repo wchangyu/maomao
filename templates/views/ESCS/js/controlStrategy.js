@@ -46,7 +46,7 @@ $(function(){
 
         var prm = $(this).attr('data-arg').split(',')[1];
 
-        window.location.href = '../yongnengjiance/energyMonitor.html?procID=' + prm;
+        window.location.href = '../yongnengjiance/EnergyMonitor_ESCS.html?procID=' + prm;
 
 
     })
