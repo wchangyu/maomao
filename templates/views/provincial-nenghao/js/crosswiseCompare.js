@@ -64,7 +64,7 @@ $(function(){
 
         if(o != 'none'){
             //楼宇数据
-            getPointerData('EnergyQueryV2/GetPointerHorCompareData',1);
+            getPointerData('EnergyQueryV2/GetProvincialHorCompareData',1);
 
         }else if(a == 'block'){
             //分户数据
@@ -410,6 +410,9 @@ function getPointerData(url,flag){
     //存放要传的支路ID
     var serviceID = [];
 
+    //存放要传递的企业id
+    var enterpriseIDs = [];
+
     //存放要传递的指标类型
     var energyNormItemObj = {};
 
@@ -420,6 +423,10 @@ function getPointerData(url,flag){
     var f_AddSamAvg = 0;
 
     var branchUnit = '';
+
+    //存放选择对象id
+    var selectNormAreaItemsArr = [];
+
 
     if(normItemID){
         //在指标类型中寻找对应项
@@ -441,24 +448,35 @@ function getPointerData(url,flag){
         //确定支路id
         var nodes = branchTreeObj.getCheckedNodes(true);
 
-        // console.log(nodes);
+         console.log(nodes);
 
         var dataArr = [];
 
         //获取省级平台下的全部楼宇
         recursion1(nodes,dataArr);
 
-        //console.log(nodes);
-        //
-        //console.log(dataArr);
+        $(nodes).each(function(i,o){
 
-        $(dataArr).each(function(i,o){
+            var obj = {
 
-            postPointerID.push(o.id);
+                "selectOBJID": o.id,
+                "selectOBJType": o.type
+            };
 
             //页面上方展示信息
             areaName += o.name + " -- ";
+
+            selectNormAreaItemsArr.push(obj);
         });
+
+
+        //$(dataArr).each(function(i,o){
+        //
+        //    enterpriseIDs.push(o.id);
+        //
+        //    //页面上方展示信息
+        //    areaName += o.name + " -- ";
+        //});
 
         //分户数据
     }else if(flag == 2){
@@ -547,8 +565,11 @@ function getPointerData(url,flag){
 
     //定义获得数据的参数
     var ecParams = {
+        "selectNormAreaItems":selectNormAreaItemsArr,
+        "userID": _userIdNum,
         "energyNorm":energyNormItemObj ,
         "energyItemID": _ajaxEcType,
+        "enterpriseIDs":enterpriseIDs,
         "pointerIDs": postPointerID,
         "officeIDs": officeID,
         "serviceIDs": serviceID,

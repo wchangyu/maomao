@@ -1,0 +1,28 @@
+.main-contents-header-lists0{
+    height: 30px;
+    line-height: 30px;
+    color:white;
+    text-indent: 10px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.content-main-contents-header{
+    margin-bottom:15px;
+}
+
+.input-blocked select {
+
+    border: none !important;
+    width: 164px;
+    outline: none;
+    height: 26px !important;
+}
+
+li label {
+    display: inline-block;
+    width: 70px !important;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 14px;
+}

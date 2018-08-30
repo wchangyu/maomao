@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>驾驶舱</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <link rel="stylesheet" href="css/coldStation-monitor.css">
+    <link rel="stylesheet" href="../resource/css/public.css">
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+    <style>
+        .right-alarm {
+            background: white;
+            height: 480px !important;
+        }
+
+        .right-control .bottom-img-content {
+            height: 230px;
+        }
+
+        .right-control .top-choose-type{
+            margin-left:15px;
+            border:1px solid #88A4D4;
+            color:#687EA2;
+            padding:3px 8px;
+            margin-bottom:15px;
+            display: inline-block;
+        }
+
+        .right-control .choose{
+            color:#3E3E3E;
+            border:1px solid #4B85E5
+        }
+
+        .save-energy{
+            width:30px;
+            height:24px;
+            line-height: 24px;
+            display: inline-block;
+            color:white;
+            background: #5BDEB6 ;
+            border:1px solid #5BDEB6;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        .save-energy1{
+
+            color:white;
+            background: white ;
+
+        }
+        .cleaxfix{
+            clear: both;
+        }
+
+        .right-on-off{
+          padding:1px;
+        }
+
+        .top-choose-type{
+            cursor: pointer;
+        }
+
+        #right-container #content-main-right{
+            background: url('img/jingmi.png') no-repeat;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left col-lg-8 col-md-8 col-sm-12 col-xs-12" style="padding-right: 0px;">
+
+                                <!--上方流程图-->
+                                <div class="left-diagram">
+
+                                    <h3 class="top-title left-title1">
+                                        <span class="that-title" style="margin-left:0px;"><a href="../TJ/coldStation-monitor.html" >冷站</a></span>
+                                        <span class="this-title" style="margin-left:-5px;"><a href="../TJ/coldStation-monitor.html" >精密空调末端</a></span>
+                                    </h3>
+
+                                    <!-- 下方左侧流程图 -->
+                                    <div id="right-container">
+
+                                        <div class="content-main-right" id="content-main-right">
+
+                                            <!--浮动显示的控制按钮-->
+                                            <div class="content-ctrls-show" id="content-ctrls">
+
+                                            </div>
+
+                                            <div class="content-menu-hide" id="content-menu">
+
+                                                <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!--历史曲线-->
+                                <div class="left-history-bight" >
+
+                                    <h3 class="top-title history-title">历史曲线</h3>
+
+
+
+                                    <!--时间选择-->
+                                    <div class="choose-time-container">
+
+                                        <label for="">时间选择</label>
+                                        <select name="" id="">
+                                            <option value="-1">今天</option>
+                                            <option value="0">近24小时</option>
+                                            <option value="1">近7天</option>
+                                            <option value="2">近30天</option>
+                                        </select>
+
+                                    </div>
+
+                                    <!--下方echart-->
+                                    <div class="bottom-echart-content" id="left-bottom-cheart">
+
+
+                                    </div>
+
+                                </div>
+
+                                <!--交接班记录-->
+                                <div class="right-work-record" style="position: relative">
+                                    <h3 class="top-title record-title">交接班记录</h3>
+
+                                    <span class="right-white"></span>
+
+                                    <!--下方echart-->
+                                    <div class="bottom-record-content" >
+
+                                        <table class="bottom-record-table">
+
+                                            <thead>
+
+                                            <tr>
+                                                <th>时间</th>
+                                                <th>事件</th>
+                                                <th>关联设备</th>
+                                                <th>状态</th>
+                                                <th>操作人</th>
+                                            </tr>
+
+                                            </thead>
+
+                                            <tbody class="scrollbar1">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                    <span class="bottom-sure">确认</span>
+
+                                </div>
+
+                            </div>
+
+                            <!--右侧区域-->
+                            <div class="content-main-right1 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                                <!--精密空调控制-->
+                                <div class="right-navigation right-control">
+
+                                    <h3 class="top-title top-navigation">精密空调控制</h3>
+
+                                    <!--下方图片-->
+                                    <div class="bottom-img-content" style="position: relative">
+
+                                        <span class="top-choose-type choose">统一设定</span>
+
+                                        <span class="top-choose-type">单台设定</span>
+
+                                        <div class="right-control-container">
+
+                                            <span class="left-name" style="color:#3E3E3E;width:60px;margin-right:0px;">季节切换</span>
+
+                                            <select name="" id="" style="outline: #687EA2;margin-right:10px;">
+                                                <option value="0">夏季</option>
+                                                <option value="1">冬季</option>
+                                            </select>
+
+
+                                            <span class="left-name" style="color:#3E3E3E;width:60px;margin-right:0px">控制模式</span>
+
+                                            <select name="" id="" style="outline: #687EA2;margin-right:10px;">
+                                                <option value="0">全自动</option>
+                                                <option value="1">办自动</option>
+                                                <option value="2">手动</option>
+                                            </select>
+
+                                            <span class="left-name" style="color:#3E3E3E;width:60px;margin-right:0px">节能测量</span>
+                                            <span class="right-on-off">
+                                                <font class="save-energy">ON</font><font class="save-energy save-energy1">OFF</font>
+
+                                            </span>
+
+
+
+                                        </div>
+
+                                        <div class="right-control-container">
+
+                                            <span class="left-name" >冷冻供水温设定</span>
+
+                                            <input name="" id="" class="" style="" value="7"/>
+                                            <span class="unit">℃</span>
+
+
+                                        </div>
+
+                                        <div class="right-control-container">
+
+                                            <span class="left-name" >冷却回水温设定</span>
+
+                                            <input name="" id="" class="" style="" value="7"/>
+                                            <span class="unit">℃</span>
+
+
+                                        </div>
+
+                                        <div class="right-control-container" style="margin-bottom:3px;">
+
+                                            <span class="left-name" >末端压差设定</span>
+
+                                            <input name="" id="" class="" style="" value="15"/>
+                                            <span class="unit">kpa</span>
+
+
+                                        </div>
+
+                                       <span class="bottom-sure" style="position: absolute;bottom:10px;
+                                        right:20px;">确定</span>
+
+                                    </div>
+
+                                </div>
+
+                                <!--精密空调温湿度报警统计-->
+                                <div class="right-alarm" style="position: relative;">
+
+                                    <!--图例-->
+                                    <div class="legend">
+
+                                        <span class="patch green" style="background: #31BEA4"></span>
+                                        <span>报警数</span>
+                                        <br />
+                                        <span class="patch yellow" style="background: #2A9FD0"></span>
+                                        <span>未处理数</span>
+
+                                    </div>
+
+                                    <h3 class="top-title bottom-statistics">精密空调报警统计</h3>
+
+                                    <p class="bottom-statistics-title">本周</p>
+
+                                    <div class="flex-container">
+
+                                        <div class="bottom-echart-container" style="width:100%;">
+
+                                            <!--下方echart-->
+                                            <div class="bottom-echart-content1" id="bottom-right-echart1" >
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <p class="bottom-statistics-title" style="">本月</p>
+
+                                    <div class="flex-container" style="">
+
+                                        <div class="bottom-echart-container" style="width:100%;">
+
+                                            <!--下方echart-->
+                                            <div class="bottom-echart-content1" id="bottom-right-echart3" >
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init(true);
+        //获取对应流程图
+        //userMonitor.init("1200,698",false,1);
+    });
+
+</script>
+
+<script src="../resource/js/commonJsResource.js"></script>
+<!--<script src="../resource/js/userMonitor.js"></script>-->
+<script src="js/conditioner-monitor.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

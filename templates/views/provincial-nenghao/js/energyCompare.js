@@ -57,7 +57,7 @@ $(function(){
 
         if(o != 'none'){
             //楼宇数据
-            getPointerData('EnergyQueryV2/GetPointerCompareData',1);
+            getPointerData('EnergyQueryV2/GetProvincialCompareData',1);
 
         }else if(a == 'block'){
             //分户数据
@@ -440,6 +440,9 @@ function getPointerData(url,flag){
     //存放要传的楼宇集合
     var postPointerID = [];
 
+    //存放要传递的企业集合
+    var enterpriseIDs = [];
+
     //存放要传递的分户集合
     var officeID = [];
 
@@ -471,6 +474,13 @@ function getPointerData(url,flag){
     //获取名称
     var areaName = '';
 
+    //存放选择对象id
+    var selectOBJID;
+
+    //存放选择对象类型
+    var selectOBJType;
+
+
     //楼宇数据
     if(flag == 1){
 
@@ -479,8 +489,12 @@ function getPointerData(url,flag){
 
         // console.log(nodes);
 
+        selectOBJID = nodes[0].id;
+
+        selectOBJType = nodes[0].type;
+
         //获取省级平台下的全部楼宇
-        recursion(nodes,postPointerID);
+        recursion(nodes,enterpriseIDs);
 
         //页面上方展示信息
         areaName = $('.radio_true_full').next().html();
@@ -561,8 +575,12 @@ function getPointerData(url,flag){
 
     //定义获得数据的参数
     var ecParams = {
+        "selectOBJID": selectOBJID,
+        "selectOBJType": selectOBJType,
+        "userID": _userIdNum,
         "energyNorm":energyNormItemObj ,
         "energyItemID": _ajaxEcType,
+        "enterpriseIDs":enterpriseIDs,
         "pointerIDs": postPointerID,
         "officeIDs": officeID,
         "serviceIDs": serviceID,

@@ -911,3 +911,30 @@ body {
 .block-spinner-bar > div {
   background: #da594a;
 }
+
+
+/*新增加样式*/
+
+.page-sidebar-menu{
+  background: #364050 !important;
+}
+
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a, .page-sidebar .page-sidebar-menu > li.active > a, .page-sidebar .page-sidebar-menu > li.active.open > a {
+  background: #3674D9 !important;
+  border-top-color: transparent;
+  color: #ffffff;
+  border-left: 3px solid white;
+}
+
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a, .page-sidebar .page-sidebar-menu > li > a {
+  border-top: 1px solid #273140;
+  color: #d9d9d9;
+}
+
+body {
+  background-color: #364050 !important;
+}
+
+.page-title{
+  display: none;
+}

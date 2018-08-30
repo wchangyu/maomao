@@ -317,19 +317,28 @@ function getMainData(){
 
     selectDate = dateArr[5];
 
-    for(var i=0; i<2; i++){
 
-        if($('.time-radio').eq(i).is(":checked")) {
 
-            //按天展示
-            if(i ==0){
+    if($(".show-date").is(":hidden")){
 
-                dateSign = "小时";
 
-                selectDate = "日";
+    }else{
+
+        for(var i=0; i<2; i++){
+
+            if($('.time-radio').eq(i).is(":checked")) {
+
+                //按天展示
+                if(i ==0){
+
+                    dateSign = "小时";
+
+                    selectDate = "日";
+                }
+
             }
-
         }
+
     }
 
     //console.log(dateArr);

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>驾驶舱</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+    <style>
+        .right-navigation .bottom-img-content{
+            background: url('img/ups-pingmian.png') no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #right-container .content-main-right{
+            background: url('img/ups-peizhi.png') no-repeat;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left col-lg-8 col-md-8 col-sm-12 col-xs-12" style="padding-right: 0px;">
+
+                                <!--上方流程图-->
+                                <div class="left-diagram">
+
+                                    <h3 class="top-title left-title1">机房1</h3>
+
+                                    <!-- 下方左侧流程图 -->
+                                    <div id="right-container">
+
+                                        <div class="content-main-right" id="content-main-right">
+
+                                            <!--浮动显示的控制按钮-->
+                                            <div class="content-ctrls-show" id="content-ctrls">
+
+                                            </div>
+
+                                            <div class="content-menu-hide" id="content-menu">
+
+                                                <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!--历史曲线-->
+                                <div class="left-history-bight" >
+
+                                    <h3 class="top-title history-title">历史曲线</h3>
+
+
+
+                                    <!--时间选择-->
+                                    <div class="choose-time-container">
+
+                                        <label for="">时间选择</label>
+                                        <select name="" id="">
+                                            <option value="-1">今天</option>
+                                            <option value="0">近24小时</option>
+                                            <option value="1">近7天</option>
+                                            <option value="2">近30天</option>
+                                        </select>
+
+                                    </div>
+
+                                    <!--下方echart-->
+                                    <div class="bottom-echart-content" id="left-bottom-cheart">
+
+
+                                    </div>
+
+                                </div>
+
+                                <!--交接班记录-->
+                                <div class="right-work-record" style="position: relative">
+                                    <h3 class="top-title record-title">交接班记录</h3>
+
+                                    <span class="right-white"></span>
+
+                                    <!--下方echart-->
+                                    <div class="bottom-record-content" >
+
+                                        <table class="bottom-record-table">
+
+                                            <thead>
+
+                                            <tr>
+                                                <th>时间</th>
+                                                <th>事件</th>
+                                                <th>关联设备</th>
+                                                <th>状态</th>
+                                                <th>操作人</th>
+                                            </tr>
+
+                                            </thead>
+
+                                            <tbody class="scrollbar1">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                    <span class="bottom-sure">确认</span>
+
+                                </div>
+
+                            </div>
+
+                            <!--右侧区域-->
+                            <div class="content-main-right1 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                                <!--机房导航-->
+                                <div class="right-navigation">
+
+                                    <h3 class="top-title top-navigation">UPS1导航</h3>
+
+                                    <!--下方图片-->
+                                    <div class="bottom-img-content">
+
+                                    </div>
+
+                                </div>
+
+                                <!--UPS1温湿度报警统计-->
+                                <div class="right-alarm" style="position: relative;">
+
+                                    <!--图例-->
+                                    <div class="legend">
+
+                                        <span class="patch green" style="background: #31BEA4"></span>
+                                        <span>报警数</span>
+                                        <br />
+                                        <span class="patch yellow" style="background: #2A9FD0"></span>
+                                        <span>未处理数</span>
+
+                                    </div>
+
+                                    <h3 class="top-title bottom-statistics">UPS1报警统计</h3>
+
+                                    <p class="bottom-statistics-title">本周</p>
+
+                                    <div class="flex-container">
+
+                                        <div class="bottom-echart-container" style="width:100%;">
+
+                                            <!--下方echart-->
+                                            <div class="bottom-echart-content1" id="bottom-right-echart1" >
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <p class="bottom-statistics-title">本月</p>
+
+                                    <div class="flex-container" >
+
+                                        <div class="bottom-echart-container" style="width:100%;">
+
+                                            <!--下方echart-->
+                                            <div class="bottom-echart-content1" id="bottom-right-echart3" >
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+        //获取对应流程图
+        //userMonitor.init("1200,698",false,1);
+    });
+
+</script>
+
+<script src="../resource/js/commonJsResource.js"></script>
+<!--<script src="../resource/js/userMonitor.js"></script>-->
+<script src="js/ups-monitor.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

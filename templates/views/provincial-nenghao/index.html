@@ -50,7 +50,18 @@
             margin:0 auto;
         }
 
+        body
+        {
+            background-color: gray;
+        }
+        canvas
+        {
+            pointer-events: none;       /* make the canvas transparent to the mouse - needed since canvas is position infront of image */
+            position: absolute;
+        }
+
     </style>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -124,7 +135,12 @@
                                                 <span class="right-img" title="省直" data-id="right-img1" data-ptid="630000"></span>
                                             </div>
 
-                                            <img src="img/maps.jpg" alt="" usemap="#Map" class="mapper" style="width:660px !important; height: 395px !important;" id="provinceMap">
+                                            <div style="width:1289px;height:771px;">
+                                                <canvas id='myCanvas'></canvas>
+                                                <canvas id='myCanvas2'></canvas>
+                                                <img src="img/new-maps.jpg" alt="" usemap="#Map" class="mapper" style="width:660px !important; height: 404px !important;" id="provinceMap">
+
+                                            </div>
 
                                             <map name="Map" id="Map">
 
@@ -320,14 +336,18 @@
 
     $("area ").click(function(){
 
-        $('#provinceMap_image').attr("src","img/"+$(this).attr("zh-name")+".jpg");
+        var pointerid =$(this).attr("data-ptid");
+        var pointername = $(this).attr("data-ptname");
+
+        //地图某区域点击事件
+       showCurPtData(pointerid,pointername);
 
     });
 
 </script>
 <script src="../resource/js/commonJsResource.js"></script>
 <script src="../new-resource/js/common.js"></script>
-<script src="../resource/js/mapper.js"></script>
+<script src="../resource/js/mapper1.js"></script>
 <script src="js/common.js"></script>
 <script src="js/index.js"></script>
 <!-- END JAVASCRIPTS -->

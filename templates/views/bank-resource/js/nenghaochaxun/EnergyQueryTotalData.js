@@ -55,11 +55,13 @@ $(document).ready(function() {
     });
 
 });
+
 //存放查询对象
 var pointArr = [];
 
 //存放查询类型
 var typeArr = [];
+
 //获取能耗查询页面初始数据
 function getStartData(){
 
@@ -239,9 +241,9 @@ window.onresize = function () {
 
     }
 };
+
 //获取页面初始数据
 function getMainData(){
-
 
     var energyItemID = $('#energy-type').val();
 
@@ -264,6 +266,7 @@ function getMainData(){
     $(typeArr).each(function(i,o){
 
         if(energyItemID == o.f_EnergyItemID){
+
             unit = getUnit(o.f_EnergyItemType);
 
             unitName = getUnitName(o.f_EnergyItemType);
@@ -271,8 +274,6 @@ function getMainData(){
         }
 
     });
-
-
 
     $(pointArr).each(function(i,o){
 
@@ -287,8 +288,6 @@ function getMainData(){
     var title1 = $('#obj-type').find('option:selected').text();
 
     var title2 = $('#energy-type').find('option:selected').text();
-
-
 
     var postDate = $('#post-date').val();
 
@@ -306,19 +305,35 @@ function getMainData(){
 
     selectDate = dateArr[5];
 
-    for(var i=0; i<2; i++){
+    if($("#test").is(":hidden")){
 
-        if($('.time-radio').eq(i).is(":checked")) {
+        $("#test").show();
+        //如果元素为隐藏,则将它显现
+    }else{
 
-            //按天展示
-            if(i ==0){
+        $("#test").hide();     //如果元素为显现,则将其隐藏
+    }
 
-                dateSign = "小时";
+    if($(".show-date").is(":hidden")){
 
-                selectDate = "日";
+
+    }else{
+
+        for(var i=0; i<2; i++){
+
+            if($('.time-radio').eq(i).is(":checked")) {
+
+                //按天展示
+                if(i ==0){
+
+                    dateSign = "小时";
+
+                    selectDate = "日";
+                }
+
             }
-
         }
+
     }
 
     //console.log(dateArr);
@@ -345,6 +360,7 @@ function getMainData(){
             //$('#theLoading').modal('hide');
         },
         success: function (data) {
+
             $('#theLoading').modal('hide');
             //console.log(data);
 
@@ -383,6 +399,7 @@ function getMainData(){
                     xArr.push(o.dataDate.split('T')[0]);
                     sArr.push(o.data.toFixed(2));
                 });
+
             }
 
             option.series[0].data = sArr;
