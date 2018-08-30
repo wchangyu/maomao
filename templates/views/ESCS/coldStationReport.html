@@ -53,6 +53,9 @@
     <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/energyCollectStatement.css">
     <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/monitorStatement.css">
     <link rel="stylesheet" type="text/css" media="print" href="../new-resource/css/baobiaoguanli/energyEfficiencyReportH5Print.css" />
+
+    <link rel="stylesheet" href="../resource/jQuery-showLoading/css/showLoading.css"/>
+
     <style>
         .page-content {
             background-color: #fff;
@@ -86,6 +89,74 @@
             background-size: 15px;
 
         }
+
+        .L-condition .form-control{
+
+            display: inline-block !important;
+
+        }
+
+        .L-condition li{
+
+            display: inline-block;
+
+            margin:10px;
+
+            color: #757575;
+
+        }
+
+        .L-condition input{
+
+            width: 150px;
+
+        }
+
+        .L-condition select{
+
+            width: 150px;
+
+        }
+
+        .L-condition-button{
+
+            font-size: 16px;
+
+            background: #2170F4;
+
+            padding: 7px 17px;
+
+            color: #ffffff !important;
+
+            cursor: pointer;
+
+        }
+
+        .L-container {
+
+            min-height: 500px;
+
+            border: 1px solid #E2E9F2;
+
+            border-radius: 10px !important;
+
+            margin-top: 15px;
+
+            padding: 10px !important;
+
+            box-sizing: border-box;
+        }
+
+        .time-tool-block{
+
+            width: 190px;
+
+            display: inline-block;
+
+            vertical-align: middle;
+
+        }
+
     </style>
 </head>
 <!-- END HEAD -->
@@ -254,7 +325,7 @@
             </div>
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title">
+            <h3 class="page-title" style="display: block !important;">
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -294,39 +365,19 @@
                 <div class="col-md-12">
                     <div class="total-warp">
                         <div class="wrap container">
-                            <ul class="condition-query condition-query1 noprint">
-                                <li style="line-height: 26px;">
-                                    <label for="">车站：</label>
-                                    <div class="input-blocked">
-                                        <select id="pointer" style="width: 128px;height: 100%;width: 100%;border: none;outline: none"></select>
+                            <ul class="condition-query condition-query1 noprint L-condition">
+                                <li>
+                                    <label for="">时间</label>
+                                    <div class="time-tool-block">
+                                        <div class="input-group date form_date abbrDT">
+                                            <input id="spDT" class="form-control" size="16" type="text" value="">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                        </div>
                                     </div>
                                 </li>
-                                <li style="line-height: 26px;display: none;">
-                                    <label for="">报表类型：</label>
-                                    <div class="input-blocked">
-                                        <select id="dev-type" style="width: 128px;height: 100%;width: 100%;border: none;outline: none">
-                                            <option value="1">冷站运行日志</option>
-                                            <option value="2">溴理机系统数据</option>
-                                            <option value="3">地源热泵系统数据</option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li style="line-height: 26px;" id="areablock">
-                                    <label for="">区域：</label>
-                                    <div class="input-blocked">
-                                        <select id="area" style="width: 128px;height: 100%;width: 100%;border: none;outline: none">
-                                            <option value="EC">东冷站</option>
-                                            <option value="WC">西冷站</option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li style="line-height: 26px;">
-                                    <label for="">选择时间：</label>
-                                    <div class="input-blocked">
-                                        <input type="text" class="datatimeblock min form-control"/>
-                                    </div>
-                                </li>
-                                <li><button class="btn btn-success btn1" id="selected">查询</button></li>
+                                <li><button class="btn btn-success btn1" id="selected">查询数据</button></li>
                                 <!--<li class="excelButton"></li>-->
                                 <li style="float: right"><div class="excelButton" title="导出excel">↓</div></li>
                                 <li style="float: right"><img id="print" class="printButton" title="打印" src="../new-resource/img/printIcon.png" alt=""></li>
@@ -358,28 +409,68 @@
                                             </th>
                                         </tr>
                                         <tr>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" colspan="1" class="printBgColor">
+                                            </th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;"  colspan="8" class="printBgColor">冷站参数</th>
+                                            <th style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;"  colspan="7" class="printBgColor">分项电耗</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="2">
+                                                对象</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">冷站输入电量</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">冷站输出冷量</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">系统散热量</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">系统效率</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">主机电量</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">冷冻泵电量</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">冷却泵电量</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">冷却塔电量</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">kW/kW</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">
+                                                日数据</th>
+                                            <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_lzcs_srdl"></th>
+                                            <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_lzcs_scll"></th>
+                                            <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_lzcs_xtsrl"></th>
+                                            <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_lzcs_xtxl"></th>
+                                            <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_fxdh_zjdl"></th>
+                                            <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_fxdh_ldbdl"></th>
+                                            <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_fxdh_lqbdl"></th>
+                                            <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_fxdh_lqtdl"></th>
+                                        </tr>
+                                        <tr>
                                             <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;"></th>
                                             <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" colspan="2">逐时总能耗</th>
-                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" colspan="6">逐时分项能耗</th>
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" colspan="4">逐时分项能耗</th>
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" colspan="5">逐时分项效率</th>
                                             <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" colspan="4">逐时水温</th>
                                         </tr>
                                         <tr>
                                             <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" rowspan="2">时间</th>
-                                            <!--逐时能耗-->
+                                            <!--逐时总能耗-->
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">系统冷量</th>
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">系统电量</th>
+                                            <!--逐时分项能耗-->
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">主机电量</th>
-                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">一次冷冻泵</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷冻泵电量</th>
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷却泵电量</th>
-                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">二次泵电量（总）</th>
-                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷却塔电量（总）</th>
-                                            <!--逐时效率-->
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷却塔电量</th>
+                                            <!--逐时分项效率-->
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">系统效率</th>
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">主机效率</th>
-                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">一次冷冻泵输送系数</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷冻泵输送系数</th>
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷却泵输送系数</th>
-                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">二次泵输送系数（总）</th>
-                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷却塔输送系数（总）</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷却塔输送系数</th>
                                             <!--逐时水温-->
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷冻进水温度</th>
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷冻出水温度</th>
@@ -387,16 +478,15 @@
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷却出水温度</th>
                                         </tr>
                                         <tr>
-                                            <!--逐时能耗-->
+                                            <!--逐时总能耗-->
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kWh</th>
+                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kWh</th>
+                                            <!--逐时分项能耗-->
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kWh</th>
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kWh</th>
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kWh</th>
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kWh</th>
-                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kWh</th>
-                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kWh</th>
-                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kWh</th>
-                                            <!--逐时效率-->
-                                            <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kW/kW</th>
+                                            <!--逐时分项效率-->
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kW/kW</th>
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kW/kW</th>
                                             <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">kW/kW</th>
@@ -502,12 +592,19 @@
 <script src="../resource/js/publicFun.js"></script>
 <script src="../new-resource/js/common.js"></script>
 <script src="../new-resource/src/jquery.table2excel.js"></script>
+
+<script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
+
+<script src="js/ESCS.js"></script>
+<script src="js/coldStationReport.js"></script>
+
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         Demo.init(); // init demo features
         BEE.init();
+        ESCS.init();
     });
 </script>
 <!-- END JAVASCRIPTS -->

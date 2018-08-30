@@ -43,6 +43,84 @@
 
         }
 
+        .dev-select {
+            width: 300px;
+
+            min-height: 100px;
+
+            border: 1px solid #B4BED0;
+
+            margin: auto;
+
+            margin-bottom: 10px;
+
+            padding: 10px;
+        }
+
+        .selected-block {
+
+            float: left;
+
+        }
+
+        #emptyAll {
+
+            padding: 2px 8px;
+
+            border: 1px solid #959595;
+
+            background: #ffffff;
+
+            border-radius: 2px !important;
+
+            outline: none;
+        }
+
+        .empty-block{
+
+            float: right;
+
+        }
+
+        .main-selected-list1 {
+            width: 100px;
+
+            display: inline-block;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            vertical-align: middle;
+        }
+
+        .remove-selected {
+
+            width: 12px;
+
+            height: 12px;
+
+            border: 1px solid #62A8DB;
+
+            border-radius: 50% !important;
+
+            display: inline-block;
+
+            vertical-align: middle;
+
+            line-height: 7px;
+
+            text-align: center;
+
+            color: #62A8DB;
+
+            cursor: pointer;
+
+            margin-left: 5px;
+        }
+
     </style>
 
 </head>
@@ -98,12 +176,27 @@
                                             <i class="fa fa-angle-down pull-right" style="margin-top:3px;"></i>
                                         </a>
                                     </div>
-                                    <div id="treeCNT" style="position: absolute; left:0; top: 24px; display: none;" class="dropdown-menu">
+                                    <div id="treeCNT" style="max-height:500px;overflow-y:auto;position: absolute; left:0; top: 24px; display: none;" class="dropdown-menu">
 
-                                        <ul id="treeView" class="ztree">
+                                        <ul id="treeView" class="ztree" style="display: inline-block;vertical-align: top">
 
                                         </ul>
-                                    </div>
+
+                                        <div style="display: none;vertical-align: top;">
+
+                                            <div class="dev-select">
+                                                <div>
+                                                    <div class="selected-block">已选择设备</div>
+                                                    <div class="empty-block">
+                                                        <button id="emptyAll">全清</button>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <div class="main-selected-block"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                      </div>
                                 </li>
                                 <li>
                                     <label for="">开始时间</label>
@@ -133,12 +226,13 @@
                                         <option value="1" selected>十分钟</option>
                                         <option value="2">小时</option>
                                         <option value="3">日</option>
-                                        <option value="">月</option>
-                                        <option value="">年</option>
                                     </select>
                                 </li>
                                 <li>
                                     <div class="L-condition-button" id="aroBtn">查询数据</div>
+                                </li>
+                                <li>
+                                    <a id="exportBtn" class="L-condition-button">导出数据</a>
                                 </li>
                             </ul>
 

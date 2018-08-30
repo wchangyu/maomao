@@ -13,12 +13,12 @@
 
     //初始化时间控件
     var initdatetimepicker = function () {
-        var nowDt = new Date();
-        var year = nowDt.getFullYear();
-        var month = parseInt(nowDt.getMonth()) + 1;
-        var day = nowDt.getDate();
-        var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt = moment(dtstr);
+        //var nowDt = new Date();
+        //var year = nowDt.getFullYear();
+        //var month = parseInt(nowDt.getMonth()) + 1;
+        //var day = nowDt.getDate();
+        //var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+        var mt = moment(sessionStorage.sysDt);
         var nowDt = mt.format('YYYY-MM-DD');
         var startDt = mt.subtract(7, 'days').format('YYYY-MM-DD');
         $("#spDT").val(startDt);
@@ -60,6 +60,7 @@
 
     //获取综合冷机能效诊断数据
     var getDxCh = function () {
+
         if (sessionStorage.DxCh === "0" || sessionStorage.DxCh === undefined) {
             jQuery('#dxbusy').showLoading();
             $.ajax({
@@ -73,58 +74,60 @@
                 async: true,
                 dataType: 'json',
                 success: function (ResponseModel) {
-                    if (ResponseModel.code === "0") {
 
-                        console.log(ResponseModel);
+                    if (ResponseModel.code === 0) {
 
                         sessionStorage.DxCh = "1"; //1=已诊断；0=未诊断；
-                        sessionStorage.DxChFHLTitle = ResponseModel.DxChFHLTitle;//冷机系统负荷率
-                        sessionStorage.DxChFHLSte = ResponseModel.DxChFHLSte;
-                        sessionStorage.DxChFHLDs = JSON.stringify(ResponseModel.DxChFHLDs);
-                        sessionStorage.DxChFHLWellStd = ResponseModel.DxChFHLWellStd;
-                        sessionStorage.DxChFHLBadStd = ResponseModel.DxChFHLBadStd;
-                        sessionStorage.DxChFHLWellRatio = ResponseModel.DxChFHLWellRatio;
-                        sessionStorage.DxChFHLBadRatio = ResponseModel.DxChFHLBadRatio;
+                        sessionStorage.DxChFHLTitle = ResponseModel.dxChFHLTitle;//冷机系统负荷率
+
+                        sessionStorage.DxChFHLSte = ResponseModel.dxChFHLSte;
+                        sessionStorage.DxChFHLDs = JSON.stringify(ResponseModel.dxChFHLDs);
+                        sessionStorage.DxChFHLWellStd = ResponseModel.dxChFHLWellStd;
+                        sessionStorage.DxChFHLBadStd = ResponseModel.dxChFHLBadStd;
+                        sessionStorage.DxChFHLWellRatio = ResponseModel.dxChFHLWellRatio;
+                        sessionStorage.DxChFHLBadRatio = ResponseModel.dxChFHLBadRatio;
                         $('#dxch_item_FHL').html();
-                        if (sessionStorage.DxChFHLSte === "1") {
+
+                        if (sessionStorage.DxChFHLSte === '1') {
                             $('#dxch_item_FHL').html('1、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i> ' + sessionStorage.DxChFHLTitle + '');
                         }
                         else {
                             $('#dxch_item_FHL').html('1、<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i> ' + sessionStorage.DxChFHLTitle + '');
                         }
-                        sessionStorage.DxChCWHSWTitle = ResponseModel.DxChCWHSWTitle;//冷却回水[进水]温度
-                        sessionStorage.DxChCWHSWSte = ResponseModel.DxChCWHSWSte;
-                        sessionStorage.DxChCWHSWDs = JSON.stringify(ResponseModel.DxChCWHSWDs);
-                        sessionStorage.DxChCWHSWWellStd = ResponseModel.DxChCWHSWWellStd;
-                        sessionStorage.DxChCWSHWBadStd = ResponseModel.DxChCWSHWBadStd;
-                        sessionStorage.DxChCWHSWWellRatio = ResponseModel.DxChCWHSWWellRatio;
-                        sessionStorage.DxChCWHSWBadRatio = ResponseModel.DxChCWHSWBadRatio;
-                        if (sessionStorage.DxChCWHSWSte === "1") {
+                        sessionStorage.DxChCWHSWTitle = ResponseModel.dxChCWHSWTitle;//冷却回水[进水]温度
+                        sessionStorage.DxChCWHSWSte = ResponseModel.dxChCWHSWSte;
+                        sessionStorage.DxChCWHSWDs = JSON.stringify(ResponseModel.dxChCWHSWDs);
+                        sessionStorage.DxChCWHSWWellStd = ResponseModel.dxChCWHSWWellStd;
+                        sessionStorage.DxChCWSHWBadStd = ResponseModel.dxChCWSHWBadStd;
+                        sessionStorage.DxChCWHSWWellRatio = ResponseModel.dxChCWHSWWellRatio;
+                        sessionStorage.DxChCWHSWBadRatio = ResponseModel.dxChCWHSWBadRatio;
+                        if (sessionStorage.DxChCWHSWSte === '1') {
                             $('#dxch_item_hsw').html('3、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:0px;"></i> ' + sessionStorage.DxChCWHSWTitle + '');
                         } else {
                             $('#dxch_item_hsw').html('3、<i class="fa fa-circle-o" style="color:#c00000;margin-left:0px;"></i> ' + sessionStorage.DxChCWHSWTitle + '');
                         }
-                        sessionStorage.DxChChwCSWTitle = ResponseModel.DxChChwCSWTitle;//冷冻出水[供水]温度
-                        sessionStorage.DxChChwCSWSte = ResponseModel.DxChChwCSWSte;
-                        sessionStorage.DxChChwCSWDs = JSON.stringify(ResponseModel.DxChChwCSWDs);
-                        sessionStorage.DxChChwCSWWellStd = ResponseModel.DxChChwCSWWellStd;
-                        sessionStorage.DxChChwCSWBadStd = ResponseModel.DxChChwCSWBadStd;
-                        sessionStorage.DxChChwCSWWellRatio = ResponseModel.DxChChwCSWWellRatio;
-                        sessionStorage.DxChChwCSWBadRatio = ResponseModel.DxChChwCSWBadRatio;
+                        sessionStorage.DxChChwCSWTitle = ResponseModel.dxChChwCSWTitle;//冷冻出水[供水]温度
+                        sessionStorage.DxChChwCSWSte = ResponseModel.dxChChwCSWSte;
+                        sessionStorage.DxChChwCSWDs = JSON.stringify(ResponseModel.dxChChwCSWDs);
+                        sessionStorage.DxChChwCSWWellStd = ResponseModel.dxChChwCSWWellStd;
+                        sessionStorage.DxChChwCSWBadStd = ResponseModel.dxChChwCSWBadStd;
+                        sessionStorage.DxChChwCSWWellRatio = ResponseModel.dxChChwCSWWellRatio;
+                        sessionStorage.DxChChwCSWBadRatio = ResponseModel.dxChChwCSWBadRatio;
                         $('#dxch_item_csw').html();
-                        if (sessionStorage.DxChChwCSWSte === "1") {
+
+                        if (sessionStorage.DxChChwCSWSte === '1') {
                             $('#dxch_item_csw').html('2、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:0px;"></i> ' + sessionStorage.DxChChwCSWTitle + '');
                         }
                         else {
                             $('#dxch_item_csw').html('2、<i class="fa fa-circle-o" style="color:#c00000;margin-left:0px;"></i> ' + sessionStorage.DxChChwCSWTitle + '');
                         }
-                        sessionStorage.DxChStd = ResponseModel.DxChStd;//冷机COP效率
-                        sessionStorage.DxChAcv = ResponseModel.DxChAcv;
-                        sessionStorage.DxChDs = JSON.stringify(ResponseModel.DxChDs);
-                        sessionStorage.DxChWellStd = ResponseModel.DxChWellStd;
-                        sessionStorage.DxChBadStd = ResponseModel.DxChBadStd;
+                        sessionStorage.DxChStd = ResponseModel.dxChStd;//冷机COP效率
+                        sessionStorage.DxChAcv = ResponseModel.dxChAcv;
+                        sessionStorage.DxChDs = JSON.stringify(ResponseModel.dxChDs);
+                        sessionStorage.DxChWellStd = ResponseModel.dxChWellStd;
+                        sessionStorage.DxChBadStd = ResponseModel.dxChBadStd;
                         //单台冷机诊断集合
-                        var chsgls = ResponseModel.DxChSGLs;
+                        var chsgls = ResponseModel.dxChSGLs;
                         if (chsgls != undefined) {
                             sessionStorage.DxChSGLs = JSON.stringify(chsgls);
                             $('#chsglrow').html();
@@ -132,18 +135,18 @@
                             var chslgINDEX = 7;
                             for (var i = 0; i < chsgls.length; i++) {
                                 var chsgl = chsgls[i];
-                                if (chsgl.DxChSGLSte === "1") {//正常
-                                    chslgHTML += '<h5>' + chslgINDEX + '、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:0px;"></i> ' + chsgl.DxChSGLNt + '' + "诊断" + '</h5>';
+                                if (chsgl.DxChSGLSte === '1') {//正常
+                                    chslgHTML += '<h5>' + chslgINDEX + '、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:0px;"></i> ' + chsgl.dxChSGLNt + '' + "诊断" + '</h5>';
                                 }
                                 else {//异常
-                                    chslgHTML += '<h5>' + chslgINDEX + '、<i class="fa fa-circle-o" style="color:#c00000;margin-left:0px;"></i> ' + chsgl.DxChSGLNt + '' + "诊断" + '</h5>';
+                                    chslgHTML += '<h5>' + chslgINDEX + '、<i class="fa fa-circle-o" style="color:#c00000;margin-left:0px;"></i> ' + chsgl.dxChSGLNt + '' + "诊断" + '</h5>';
                                 }
                                 chslgINDEX += 1;
                             }
                             $('#chsglrow').html(chslgHTML)
                         }
                         jQuery('#dxbusy').hideLoading();
-                    } else if (ResponseModel.code === "-1") {
+                    } else if (ResponseModel.code === -1) {
                         var xe = ResponseModel.msg;
                         if (xe.length > 0) {
                             //alert(xe);
@@ -160,21 +163,22 @@
             });
         } else {
             $('#dxch_item_hsw').html();//冷却回水[进水]温度
-            if (sessionStorage.DxChCWHSWSte === "1") {
+            if (sessionStorage.DxChCWHSWSte === '1') {
                 $('#dxch_item_hsw').html('3、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:0px;"></i> ' + sessionStorage.DxChCWHSWTitle + '');
             }
             else {
                 $('#dxch_item_hsw').html('3、<i class="fa fa-circle-o" style="color:#c00000;margin-left:0px;"></i> ' + sessionStorage.DxChCWHSWTitle + '');
             }
             $('#dxch_item_csw').html();//冷冻出水[供水]温度
-            if (sessionStorage.DxChChwCSWSte === "1") {
+            if (sessionStorage.DxChChwCSWSte === '1') {
+
                 $('#dxch_item_csw').html('2、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:0px;"></i> ' + sessionStorage.DxChChwCSWTitle + '');
             }
             else {
                 $('#dxch_item_csw').html('2、<i class="fa fa-circle-o" style="color:#c00000;margin-left:0px;"></i> ' + sessionStorage.DxChChwCSWTitle + '');
             }
             $('#dxch_item_FHL').html();//冷机负荷率
-            if (sessionStorage.DxChFHLSte === "1") {
+            if (sessionStorage.DxChFHLSte === '1') {
                 $('#dxch_item_FHL').html('1、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i> ' + sessionStorage.DxChFHLTitle + '');
             }
             else {
@@ -185,13 +189,15 @@
                 $('#chsglrow').html();
                 var chslgHTML = '';
                 var chslgINDEX = 7;
+
                 for (var i = 0; i < chsgls.length; i++) {
                     var chsgl = chsgls[i];
-                    if (chsgl.DxChSGLSte === "1") {
-                        chslgHTML += '<h5>' + chslgINDEX + '、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:0px;"></i> ' + chsgl.DxChSGLNt + '' + "诊断" + '</h5>';
+
+                    if (chsgl.dxChSGLSte === 1) {
+                        chslgHTML += '<h5>' + chslgINDEX + '、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:0px;"></i> ' + chsgl.dxChSGLNt + '' + "诊断" + '</h5>';
                     }
                     else {
-                        chslgHTML += '<h5>' + chslgINDEX + '、<i class="fa fa-circle-o" style="color:#c00000;margin-left:0px;"></i> ' + chsgl.DxChSGLNt + '' + "诊断" + '</h5>';
+                        chslgHTML += '<h5>' + chslgINDEX + '、<i class="fa fa-circle-o" style="color:#c00000;margin-left:0px;"></i> ' + chsgl.dxChSGLNt + '' + "诊断" + '</h5>';
                     }
                     chslgINDEX += 1;
                 }
@@ -215,50 +221,55 @@
                 async: true,
                 dataType: 'json',
                 success: function (ResponseModel) {
-                    if (ResponseModel.code === "0") {
-                        sessionStorage.DxChw = "1"; //1=已诊断；0=未诊断；
-                        sessionStorage.DxChwGHSWCTitle = ResponseModel.DxChwGHSWCTitle;//冷冻泵供回水温差
-                        sessionStorage.DxChwGHSWCSte = ResponseModel.DxChwGHSWCSte;
-                        sessionStorage.DxChwGHSWCDs = JSON.stringify(ResponseModel.DxChwGHSWCDs);
-                        sessionStorage.DxChwGHSWCWellStd = ResponseModel.DxChwGHSWCWellStd;
-                        sessionStorage.DxChwGHSWCBadStd = ResponseModel.DxChwGHSWCBadStd;
-                        sessionStorage.DxChwGHSWCWellRatio = ResponseModel.DxChwGHSWCWellRatio;
-                        sessionStorage.DxChwGHSWCBadRatio = ResponseModel.DxChwGHSWCBadRatio;
+
+                    if (ResponseModel.code === 0) {
+                        sessionStorage.DxChw = '1'; //1=已诊断；0=未诊断；
+                        sessionStorage.DxChwGHSWCTitle = ResponseModel.dxChwGHSWCTitle;//冷冻泵供回水温差
+                        sessionStorage.DxChwGHSWCSte = ResponseModel.dxChwGHSWCSte;
+                        sessionStorage.DxChwGHSWCDs = JSON.stringify(ResponseModel.dxChwGHSWCDs);
+                        sessionStorage.DxChwGHSWCWellStd = ResponseModel.dxChwGHSWCWellStd;
+                        sessionStorage.DxChwGHSWCBadStd = ResponseModel.dxChwGHSWCBadStd;
+                        sessionStorage.DxChwGHSWCWellRatio = ResponseModel.dxChwGHSWCWellRatio;
+                        sessionStorage.DxChwGHSWCBadRatio = ResponseModel.dxChwGHSWCBadRatio;
                         $('#dxchw_item_ghswc').html();
-                        if (sessionStorage.DxChwGHSWCSte === "1") {
+
+                        if (sessionStorage.DxChwGHSWCSte === '1') {
+
                             $('#dxchw_item_ghswc').html('1、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i> ' + sessionStorage.DxChwGHSWCTitle + '');
                         }
-                        else if (sessionStorage.DxChwGHSWCSte === "0") {
+                        else if (sessionStorage.DxChwGHSWCSte === '0') {
+
                             $('#dxchw_item_ghswc').html('1、<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i> ' + sessionStorage.DxChwGHSWCTitle + '');
                         }
                         else {
+
                             $('#dxchw_item_ghswc').html('1、<i class="fa fa-question-circle" style="color:#c4c4c4;margin-left:2px;"></i> ' + sessionStorage.DxChwGHSWCTitle + '');
                         }
-                        sessionStorage.DxChwMDYCTitle = ResponseModel.DxChwMDYCTitle;//冷冻泵末端压差
-                        sessionStorage.DxChwMDYCSte = ResponseModel.DxChwMDYCSte;
-                        sessionStorage.DxChwMDYCDs = JSON.stringify(ResponseModel.DxChwMDYCDs);
-                        sessionStorage.DxChwMDYCWellStd = ResponseModel.DxChwMDYCWellStd;
-                        sessionStorage.DxChwMDYCBadStd = ResponseModel.DxChwMDYCBadStd;
-                        sessionStorage.DxChwMDYCWellRatio = ResponseModel.DxChwMDYCWellRatio;
-                        sessionStorage.DxChwMDYCBadRatio = ResponseModel.DxChwMDYCBadStd;
+                        sessionStorage.DxChwMDYCTitle = ResponseModel.dxChwMDYCTitle;//冷冻泵末端压差
+                        sessionStorage.DxChwMDYCSte = ResponseModel.dxChwMDYCSte;
+                        sessionStorage.DxChwMDYCDs = JSON.stringify(ResponseModel.dxChwMDYCDs);
+                        sessionStorage.DxChwMDYCWellStd = ResponseModel.dxChwMDYCWellStd;
+                        sessionStorage.DxChwMDYCBadStd = ResponseModel.dxChwMDYCBadStd;
+                        sessionStorage.DxChwMDYCWellRatio = ResponseModel.dxChwMDYCWellRatio;
+                        sessionStorage.DxChwMDYCBadRatio = ResponseModel.dxChwMDYCBadStd;
                         $('#dxchw_item_mdyc').html();
-                        if (sessionStorage.DxChwMDYCSte === "1") {
+                        if (sessionStorage.DxChwMDYCSte === '1') {
                             $('#dxchw_item_mdyc').html('2、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:0px;"></i> ' + sessionStorage.DxChwMDYCTitle + '');
                         }
-                        else if (sessionStorage.DxChwMDYCSte === "0") {
+                        else if (sessionStorage.DxChwMDYCSte === '0') {
                             $('#dxchw_item_mdyc').html('2、<i class="fa fa-circle-o" style="color:#c00000;margin-left:0px;"></i> ' + sessionStorage.DxChwMDYCTitle + '');
                         }
                         else {
                             $('#dxchw_item_mdyc').html('2、<i class="fa fa-question-circle" style="color:#c4c4c4;margin-left:0px;"></i> ' + sessionStorage.DxChwMDYCTitle + '');
                         }
-                        sessionStorage.DxChwStd = ResponseModel.DxChwStd;//冷冻泵输送系数
-                        sessionStorage.DxChwAcv = ResponseModel.DxChwAcv;
-                        sessionStorage.DxChwDs = JSON.stringify(ResponseModel.DxChwDs);
-                        sessionStorage.DxChwWellStd = ResponseModel.DxChwWellStd;
-                        sessionStorage.DxChwBadStd = ResponseModel.DxChwBadStd;
+                        sessionStorage.DxChwStd = ResponseModel.dxChwStd;//冷冻泵输送系数
+                        sessionStorage.DxChwAcv = ResponseModel.dxChwAcv;
+                        sessionStorage.DxChwDs = JSON.stringify(ResponseModel.dxChwDs);
+                        sessionStorage.DxChwWellStd = ResponseModel.dxChwWellStd;
+                        sessionStorage.DxChwBadStd = ResponseModel.dxChwBadStd;
                         jQuery('#dxbusy').hideLoading();
                     }
-                    else if (ResponseModel.code === "-2") {
+                    else if (ResponseModel.code === -2) {
                         jQuery('#dxbusy').hideLoading();
                     }
                     else {
@@ -277,19 +288,19 @@
         }
         else {
             $('#dxchw_item_ghswc').html();//冷冻泵供回水温差
-            if (sessionStorage.DxChwGHSWCSte === "1") {
+            if (sessionStorage.DxChwGHSWCSte === 1) {
                 $('#dxchw_item_ghswc').html('1、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i> ' + sessionStorage.DxChwGHSWCTitle + '');
             }
-            else if (sessionStorage.DxChwGHSWCSte === "0") {
+            else if (sessionStorage.DxChwGHSWCSte === 0) {
                 $('#dxchw_item_ghswc').html('1、<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i> ' + sessionStorage.DxChwGHSWCTitle + '');
             } else {
                 $('#dxchw_item_ghswc').html('1、<i class="fa fa-question-circle" style="color:#c4c4c4;margin-left:2px;"></i> ' + sessionStorage.DxChwGHSWCTitle + '');
             }
             $('#dxchw_item_mdyc').html();//冷冻泵末端压差
-            if (sessionStorage.DxChwMDYCSte === "1") {
+            if (sessionStorage.DxChwMDYCSte === 1) {
                 $('#dxchw_item_mdyc').html('2、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:0px;"></i> ' + sessionStorage.DxChwMDYCTitle + '');
             }
-            else if (sessionStorage.DxChwMDYCSte === "0") {
+            else if (sessionStorage.DxChwMDYCSte === 0) {
                 $('#dxchw_item_mdyc').html('2、<i class="fa fa-circle-o" style="color:#c00000;margin-left:0px;"></i> ' + sessionStorage.DxChwMDYCTitle + '');
             }
             else {
@@ -313,15 +324,18 @@
                 async: true,
                 dataType: 'json',
                 success: function (ResponseModel) {
-                    if (ResponseModel.code === "0") {
+
+                    console.log(ResponseModel);
+
+                    if (ResponseModel.code === 0) {
                         sessionStorage.DxCW = "1"; //1=已诊断；0=未诊断；
-                        sessionStorage.DxCWGHSWCTitle = ResponseModel.DxCWGHSWCTitle;
-                        sessionStorage.DxCWGHSWCSte = ResponseModel.DxCWGHSWCSte;
-                        sessionStorage.DxCWGHSWCDs = JSON.stringify(ResponseModel.DxCWGHSWCDs);
-                        sessionStorage.DxCWGHSWCWellStd = ResponseModel.DxCWGHSWCWellStd;
-                        sessionStorage.DxCWGHSWCBadStd = ResponseModel.DxCWGHSWCBadStd;
-                        sessionStorage.DxCWGHSWCWellRatio = ResponseModel.DxCWGHSWCWellRatio;
-                        sessionStorage.DxCWGHSWCBadRatio = ResponseModel.DxCWGHSWCBadRatio;
+                        sessionStorage.DxCWGHSWCTitle = ResponseModel.dxcwghswcTitle;
+                        sessionStorage.DxCWGHSWCSte = ResponseModel.dxcwghswcSte;
+                        sessionStorage.DxCWGHSWCDs = JSON.stringify(ResponseModel.dxcwghswcDs);
+                        sessionStorage.DxCWGHSWCWellStd = ResponseModel.dxcwghswcWellStd;
+                        sessionStorage.DxCWGHSWCBadStd = ResponseModel.dxcwghswcBadStd;
+                        sessionStorage.DxCWGHSWCWellRatio = ResponseModel.dxcwghswcWellRatio;
+                        sessionStorage.DxCWGHSWCBadRatio = ResponseModel.dxcwghswcBadRatio;
                         $('#dxcw_item_ghswc').html();
                         if (sessionStorage.DxCWGHSWCSte === "1") {
                             $('#dxcw_item_ghswc').html('1、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i> '+ sessionStorage.DxCWGHSWCTitle + '');
@@ -332,14 +346,14 @@
                         else {
                             $('#dxcw_item_ghswc').html('1、<i class="fa fa-question-circle" style="color:#c4c4c4;margin-left:2px;"></i> '+ sessionStorage.DxCWGHSWCTitle + '');
                         }
-                        sessionStorage.DxCWAcv = ResponseModel.DxCWAcv;
-                        sessionStorage.DxCWStd = ResponseModel.DxCWStd;
-                        sessionStorage.DxCWDs = JSON.stringify(ResponseModel.DxCWDs);
-                        sessionStorage.DxCWWellStd = ResponseModel.DxCWWellStd;
-                        sessionStorage.DxCWBadStd = ResponseModel.DxCWBadStd;
+                        sessionStorage.DxCWAcv = ResponseModel.dxcwAcv;
+                        sessionStorage.DxCWStd = ResponseModel.dxcwStd;
+                        sessionStorage.DxCWDs = JSON.stringify(ResponseModel.dxcwDs);
+                        sessionStorage.DxCWWellStd = ResponseModel.dxcwWellStd;
+                        sessionStorage.DxCWBadStd = ResponseModel.dxcwBadStd;
                         jQuery('#dxbusy').hideLoading();
                     }
-                    else if (ResponseModel.code === "-2") {
+                    else if (ResponseModel.code === -2) {
                         jQuery('#dxbusy').hideLoading();
                     }
                     else {
@@ -358,6 +372,7 @@
         }
         else {
             $('#dxcw_item_ghswc').html();
+
             if (sessionStorage.DxCWGHSWCSte === "1") {
                 $('#dxcw_item_ghswc').html('1、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i> ' + sessionStorage.DxCWGHSWCTitle + '');
             }
@@ -385,15 +400,18 @@
                 async: true,
                 dataType: 'json',
                 success: function (ResponseModel) {
-                    if (ResponseModel.code === "0") {
+
+                    console.log(ResponseModel)
+
+                    if (ResponseModel.code === 0) {
                         sessionStorage.DxCT = "1"; //1=已诊断；0=未诊断；
-                        sessionStorage.DxCTXLTitle = ResponseModel.DxCTXLTitle;
-                        sessionStorage.DxCTXLSte = ResponseModel.DxCTXLSte;
-                        sessionStorage.DxCTXLDs = JSON.stringify(ResponseModel.DxCTXLDs);
-                        sessionStorage.DxCTXLWellStd = ResponseModel.DxCTXLWellStd;
-                        sessionStorage.DxCTXLBadStd = ResponseModel.DxCTXLBadStd;
-                        sessionStorage.DxCTXLWellRatio = ResponseModel.DxCTXLWellRatio;
-                        sessionStorage.DxCTXLBadRatio = ResponseModel.DxCTXLBadRatio;
+                        sessionStorage.DxCTXLTitle = ResponseModel.dxctxlTitle;
+                        sessionStorage.DxCTXLSte = ResponseModel.dxctxlSte;
+                        sessionStorage.DxCTXLDs = JSON.stringify(ResponseModel.dxctxlDs);
+                        sessionStorage.DxCTXLWellStd = ResponseModel.dxctxlWellStd;
+                        sessionStorage.DxCTXLBadStd = ResponseModel.dxctxlBadStd;
+                        sessionStorage.DxCTXLWellRatio = ResponseModel.dxctxlWellRatio;
+                        sessionStorage.DxCTXLBadRatio = ResponseModel.dxctxlBadRatio;
                         $('#dxct_item_zsxl').html();
                         if (sessionStorage.DxCTXLSte === "1") {
                             $('#dxct_item_zsxl').html('1、<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i> '+ sessionStorage.DxCTXLTitle + '');
@@ -404,14 +422,14 @@
                         else {
                             $('#dxct_item_zsxl').html('1、<i class="fa fa-question-circle" style="color:#c4c4c4;margin-left:2px;"></i> '+ sessionStorage.DxCTXLTitle + '');
                         }
-                        sessionStorage.DxCTAcv = ResponseModel.DxCTAcv;
-                        sessionStorage.DxCTStd = ResponseModel.DxCTStd;
-                        sessionStorage.DxCTDs = JSON.stringify(ResponseModel.DxCTDs);
-                        sessionStorage.DxCTWellStd = ResponseModel.DxCTWellStd;
-                        sessionStorage.DxCTBadStd = ResponseModel.DxCTBadStd;
+                        sessionStorage.DxCTAcv = ResponseModel.dxctAcv;
+                        sessionStorage.DxCTStd = ResponseModel.dxctStd;
+                        sessionStorage.DxCTDs = JSON.stringify(ResponseModel.dxctDs);
+                        sessionStorage.DxCTWellStd = ResponseModel.dxctWellStd;
+                        sessionStorage.DxCTBadStd = ResponseModel.dxctBadStd;
                         jQuery('#dxbusy').hideLoading();
                     }
-                    else if (ResponseModel.code === "-2") {
+                    else if (ResponseModel.code === -2) {
                         jQuery('#dxbusy').hideLoading();
                     }
                     else {
@@ -453,70 +471,71 @@
             if (res.code === 0) {
                 //1=已查询；0=未查询；
                 sessionStorage.DxNX = "1";
-                $('#eer_Text').html(ResponseModel.eer);
-                $('#chw_Text').html(ResponseModel.chw);
-                $('#cop_Text').html(ResponseModel.cop);
-                $('#cw_Text').html(ResponseModel.cw);
-                $('#ct_Text').html(ResponseModel.ct);
-                $('#nx_Text').html(ResponseModel.nx);
+
+                $('#eer_Text').html(res.eer);
+                $('#chw_Text').html(res.chw);
+                $('#cop_Text').html(res.cop);
+                $('#cw_Text').html(res.cw);
+                $('#ct_Text').html(res.ct);
+                $('#nx_Text').html(res.nx);
                 //(优良=b)蓝色77cdd0;(一般=y)黄色ffe699;(欠佳=r)红色f4b183
-                if (ResponseModel.eerQuo === 'b') {
+                if (res.eerQuo === 'b') {
                     $('#canvas_eer').css('background-color', '#77cdd0');
                 }
-                else if (ResponseModel.eerQuo === 'r') {
+                else if (res.eerQuo === 'r') {
                     $('#canvas_eer').css('background-color', '#f4b183');
                 }
-                else if (ResponseModel.eerQuo === 'y') {
+                else if (res.eerQuo === 'y') {
                     $('#canvas_eer').css('background-color', '#ffe699');
                 }
                 //冷源能效
-                if (ResponseModel.nxQuo === 'b') {
+                if (res.nxQuo === 'b') {
                     $('#canvas_nx').css('background-color', '#77cdd0');
                 }
-                else if (ResponseModel.nxQuo === 'r') {
+                else if (res.nxQuo === 'r') {
                     $('#canvas_nx').css('background-color', '#f4b183');
                 }
-                else if (ResponseModel.nxQuo === 'y') {
+                else if (res.nxQuo === 'y') {
                     $('#canvas_nx').css('background-color', '#ffe699');
                 }
                 //冷冻水输送系数
-                if (ResponseModel.chwQuo === 'b') {
+                if (res.chwQuo === 'b') {
                     $('#canvas_chw').css('background-color', '#77cdd0');
                 }
-                else if (ResponseModel.chwQuo === 'r') {
+                else if (res.chwQuo === 'r') {
                     $('#canvas_chw').css('background-color', '#f4b183');
                 }
-                else if (ResponseModel.chwQuo === 'y') {
+                else if (res.chwQuo === 'y') {
                     $('#canvas_chw').css('background-color', '#ffe699');
                 }
                 //综合冷机能效值
-                if (ResponseModel.copQuo === 'b') {
+                if (res.copQuo === 'b') {
                     $('#canvas_cop').css('background-color', '#77cdd0');
                 }
-                else if (ResponseModel.copQuo === 'r') {
+                else if (res.copQuo === 'r') {
                     $('#canvas_cop').css('background-color', '#f4b183');
                 }
-                else if (ResponseModel.copQuo === 'y') {
+                else if (res.copQuo === 'y') {
                     $('#canvas_cop').css('background-color', '#ffe699');
                 }
                 //冷却水输送系数
-                if (ResponseModel.cwQuo === 'b') {
+                if (res.cwQuo === 'b') {
                     $('#canvas_cw').css('background-color', '#77cdd0');
                 }
-                else if (ResponseModel.cwQuo === 'r') {
+                else if (res.cwQuo === 'r') {
                     $('#canvas_cw').css('background-color', '#f4b183');
                 }
-                else if (ResponseModel.cwQuo === 'y') {
+                else if (res.cwQuo === 'y') {
                     $('#canvas_cw').css('background-color', '#ffe699');
                 }
                 //冷却塔风机输送系数
-                if (ResponseModel.ctQuo === 'b') {
+                if (res.ctQuo === 'b') {
                     $('#canvas_ctc').css('background-color', '#77cdd0');
                 }
-                else if (ResponseModel.ctQuo === 'r') {
+                else if (res.ctQuo === 'r') {
                     $('#canvas_ctc').css('background-color', '#f4b183');
                 }
-                else if (ResponseModel.ctQuo === 'y') {
+                else if (res.ctQuo === 'y') {
                     $('#canvas_ctc').css('background-color', '#ffe699');
                 }
                 jQuery('#dxbusy').hideLoading();
@@ -531,12 +550,12 @@
 
     return {
         init: function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
+            //var pos = JSON.parse(sessionStorage.pointers);
+            //var po = pos[0];
+            //sessionStorage.PointerID = po.pointerID;
+            //sessionStorage.PointerName = po.pointerName;
+            //sessionStorage.EprID = po.enterpriseID;
+            //sessionStorage.EprName = po.eprName;
             //初始化时间控件
             initdatetimepicker();
             $('#DxriBtn').on('click', function () {

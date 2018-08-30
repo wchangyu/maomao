@@ -1,0 +1,23 @@
+.left-middle-main1 p{
+    line-height: 16px;
+    height:16px;
+    font-size: 14px;
+    padding: 5px 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+}
+.left-middle-main1 .curChoose{
+    color:#5b9bd5
+}
+/*指标类型*/
+.left-middle-main1{
+    min-height: 110px ;
+    max-height: 150px;
+    overflow-y: auto;
+}
+/*右侧echarts图*/
+#rheader-content-16{
+    height: 500px;
+    margin-right: 0 !important;
+}

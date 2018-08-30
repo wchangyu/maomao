@@ -178,6 +178,7 @@ var ESCS = function () {
             $('.navbar-nav').prepend(str);
 
             if (sessionStorage.enterpriseID === undefined) {
+
                 //初始化默认界面
                 var pos = JSON.parse(sessionStorage.pointers);
                 var po = pos[0];

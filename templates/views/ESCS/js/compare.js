@@ -34,11 +34,14 @@
 
     //初始化默认起始时间
     var dtnowstr = function () {
-        var nowDt = new Date();
-        var year = nowDt.getFullYear();
-        var month = parseInt(nowDt.getMonth())+1;
-        var day = nowDt.getDate();
-        var nowstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+        //var nowDt = new Date();
+        //var year = nowDt.getFullYear();
+        //var month = parseInt(nowDt.getMonth())+1;
+        //var day = nowDt.getDate();
+        //var nowstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+
+        var nowstr = sessionStorage.sysDt;
+
         return nowstr;
     }
 
@@ -204,7 +207,76 @@
                             //dataZoom: {
                             //    yAxisIndex: 'none'
                             //},
-                            dataView: { readOnly: true },
+                            dataView: {
+
+                                readOnly: true,
+
+                                optionToContent: function(opt) {
+
+                                    //thead
+                                    var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
+
+                                    var tables = '</table>';
+
+                                    var thead = '<thead>';
+
+                                    var theads = '</thead>';
+
+                                    var tbody = '<tbody>';
+
+                                    var tbodys = '</tbody>';
+
+                                    //th
+                                    var thStr = '<tr><th>时间</th>';
+
+                                    for(var i=0;i<opt.series.length;i++){
+
+                                        thStr += '<th>';
+
+                                        thStr += opt.series[i].name;
+
+                                        thStr += '</th>'
+
+                                    }
+
+                                    thStr += '</tr>';
+
+                                    //td
+                                    var tdStr = '';
+
+                                    for(var i=0;i<opt.xAxis[0].data.length;i++){
+
+                                        tdStr += '<tr>';
+
+                                        //时间
+                                        tdStr += '<td>';
+
+                                        tdStr += opt.xAxis[0].data[i];
+
+                                        tdStr += '</td>';
+
+                                        for(var j=0;j<opt.series.length;j++){
+
+                                            tdStr += '<td>';
+
+                                            tdStr += opt.series[j].data[i]==undefined?'-':opt.series[j].data[i];
+
+                                            tdStr += '</td>';
+
+                                        }
+
+                                        tdStr += '</tr>';
+
+
+                                    }
+
+                                    return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
+
+
+
+                                }
+
+                            },
                             //magicType: { type: ['line', 'bar'] },
                             //restore: {},
                             //saveAsImage: {}
@@ -392,6 +464,10 @@
     }
 
     var getCompareEERTableDs =function (eType,mType,dTs) {
+
+        //初始化表格
+        _datasTable($('#avg_table'),[]);
+
         var url = sessionStorage.apiUrlPrefix + "CompareEER/GetCompareEERTableDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
@@ -449,6 +525,71 @@
             getCompareEERTableDs(eType, mType, dTs);
         })
     }
+
+    //导出数据
+    $('#exportBtn').click(function(){
+
+        var dTs = getDTs();
+        if (dTs.length === 0) {
+            console.log("提示(多时间段能效对比):请选择时间段分析能效对比");
+            return;
+        }
+        var eType = $("#eType").val();
+        var mType = $("#meterType").val();
+        var prm = {
+            pId:sessionStorage.PointerID,
+            dTs:dTs,
+            mType:mType,
+            eType:eType,
+            misc:sessionStorage.misc
+
+        }
+
+        var url = sessionStorage.apiUrlPrefix + 'ZKEERcQ/ExportEERShow?pId=' + sessionStorage.PointerID +
+
+                '&dTs=' + dTs +
+
+                '&mType=' + mType +
+
+                '&eType=' + eType +
+
+                '&misc=' + sessionStorage.misc;
+
+        $.ajax({
+
+            type:'get',
+
+            url: sessionStorage.apiUrlPrefix + 'ZKEERcQ/ExportEERShow',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            //发送数据之前
+            beforeSend:function(){
+
+                $('#exportBtn').html('导出中...').attr('disabled',true);
+
+            },
+
+            //发送数据完成之后
+            complete:function(){
+
+                $('#exportBtn').html('导出数据').attr('disabled',false);
+
+            },
+
+            success:function(result){
+                window.open(url, "_self", true);
+
+            },
+
+            error:_errorFun1
+
+
+        })
+
+    })
 
     return {
         init: function () {

@@ -2,8 +2,14 @@ $(function(){
 
     /*--------------------------------------时间插件-----------------------------------*/
 
+    var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
+
+    $('#spDT').val(nowTime);
+
+    $('#epDT').val(moment(nowTime).add(1,'d').format('YYYY-MM-DD'));
+
     //初始化时间控件
-    initdatetimepicker();
+    _timeYMDComponentsFun11($('.abbrDT'));
 
     /*---------------------------------------表格初始化----------------------------------*/
 
@@ -108,6 +114,72 @@ $(function(){
         toolbox: {
             feature: {
                 dataView: {
+
+                    optionToContent: function(opt) {
+
+                        //thead
+                        var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
+
+                        var tables = '</table>';
+
+                        var thead = '<thead>';
+
+                        var theads = '</thead>';
+
+                        var tbody = '<tbody>';
+
+                        var tbodys = '</tbody>';
+
+                        //th
+                        var thStr = '<tr><th>时间</th>';
+
+                        for(var i=0;i<opt.series.length;i++){
+
+                            thStr += '<th>';
+
+                            thStr += opt.series[i].name;
+
+                            thStr += '</th>'
+
+                        }
+
+                        thStr += '</tr>';
+
+                        //td
+                        var tdStr = '';
+
+                        for(var i=0;i<opt.xAxis[0].data.length;i++){
+
+                            tdStr += '<tr>';
+
+                            //时间
+                            tdStr += '<td>';
+
+                            tdStr += opt.xAxis[0].data[i];
+
+                            tdStr += '</td>';
+
+                            for(var j=0;j<opt.series.length;j++){
+
+                                tdStr += '<td>';
+
+                                tdStr += opt.series[j].data[i]==undefined?'-':opt.series[j].data[i];
+
+                                tdStr += '</td>';
+
+                            }
+
+                            tdStr += '</tr>';
+
+
+                        }
+
+                        return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
+
+
+
+                    }
+
                 }
             }
         },
@@ -163,6 +235,8 @@ $(function(){
 
         var targetDom = e.target.classList.value;
 
+        //console.log(e);
+
         if(targetDom.indexOf('ztree')>=0 ||$(e.target).parents('#treeView').length != 0 ){
 
             return false;
@@ -175,50 +249,131 @@ $(function(){
 
     })
 
+    //删除已选中设备
+    //删除每个的小按钮
+    $('.main-selected-block').on('click','.remove-selected',function(){
+
+        $(this).parent('.main-selected-list').remove();
+
+        var values = $(this).parent('.main-selected-list').children('.main-selected-list1').attr('attr-id')
+
+        var zTree_Menu = $.fn.zTree.getZTreeObj("treeView");
+
+        var node = zTree_Menu.getNodeByParam("id",values);
+
+        zTree_Menu.selectNode(node,false);
+
+        zTree_Menu.checkNode(node,false);
+
+
+    })
+
+    //全清
+    $('#emptyAll').click(function(){
+
+        $('.main-selected-block').empty();
+
+        var zTree_Menu = $.fn.zTree.getZTreeObj("treeView");
+
+        zTree_Menu.checkAllNodes(false);
+
+    })
+
+    //导出数据
+    $('#exportBtn').click(function(){
+
+        //获取选中的节点
+        var arr = getCheckedNodeFun();
+
+        //勾选的id
+        var ids = '';
+
+        //勾选的名称
+        var names = '';
+
+        //用于echart赋值
+        var namesArr = [];
+
+        for(var i=0;i<arr.length;i++){
+
+            ids += arr[i].item + '(' + arr[i].name + ')' + ',';
+
+            names += arr[i].name + ',';
+
+            namesArr.push(arr[i].name);
+
+        }
+
+        var prm = {
+            //楼宇
+            pId:sessionStorage.PointerID,
+            //单位
+            misc:sessionStorage.misc,
+            //对象选择id
+            ids:ids,
+            //对象选择名称
+            ns:encodeURIComponent(names),
+            //开始事件
+            sp:$('#spDT').val(),
+            //结束事件
+            ep:$('#epDT').val(),
+            //时间间隔
+            eType:$('#eType').val()
+
+        }
+
+
+        var url = sessionStorage.apiUrlPrefix + 'AnalysisAro/ExportAnalysisAroChartVie?pId=' + sessionStorage.PointerID +
+
+            '&misc=' + sessionStorage.misc +
+
+            '&ids=' + ids +
+
+            '&ns=' + encodeURIComponent(names) +
+
+            '&sp=' + $('#spDT').val() +
+
+            '&ep=' + $('#epDT').val() +
+
+            '&eType=' + $('#eType').val()
+
+        $.ajax({
+
+            type:'get',
+
+            url: sessionStorage.apiUrlPrefix + 'AnalysisAro/ExportAnalysisAroChartVie',
+
+            data:prm,
+
+            //发送数据之前
+            beforeSend:function(){
+
+                $('#exportBtn').html('导出中...').attr('disabled',true);
+
+            },
+
+            //发送数据完成之后
+            complete:function(){
+
+                $('#exportBtn').html('导出数据').attr('disabled',false);
+
+            },
+
+            timeout:_theTimes,
+
+            success:function(result){
+                window.open(url, "_self", true);
+
+            },
+
+            error:_errorFun1
+
+
+        })
+
+    })
+
     /*---------------------------------------其他方法----------------------------------*/
-
-    //日历插件
-    function initdatetimepicker(){
-
-        var nowDt = new Date();
-        var year = nowDt.getFullYear();
-        var month = parseInt(nowDt.getMonth())+1;
-        var day = nowDt.getDate();
-        var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt= moment(dtstr);
-        var nowDt=mt.format('YYYY-MM-DD');
-        var startDt = mt.subtract(1, 'days').format('YYYY-MM-DD');
-        $("#spDT").val(startDt);
-        $("#epDT").val(nowDt);
-        $('.abbrDT').datetimepicker({
-            format: 'yyyy-mm-dd',
-            language: 'zh-CN',
-            weekStart: true,
-            todayBtn: true,
-            autoclose: true,
-            todayHighlight: true,
-            startView: 2,
-            minView: 2,
-            minuteStep: 10,
-            forceParse: 0,
-            pickerPosition: "bottom-left"
-        });
-
-    }
-
-    //日期格式化
-    function addZeroToSingleNumber(num){
-
-        var curnum = "";
-        if (num < 10) {
-            curnum = "0" + num;
-        }
-        else {
-            curnum += num;
-        }
-        return curnum;
-
-    }
 
     //ztree树
     function devTree(arr){
@@ -246,17 +401,102 @@ $(function(){
                     //勾选当前选中的节点
                     zTreeObj.checkNode(treeNode, !treeNode.checked, true);
 
+                    //判断当前节点是否选中
+                    if(treeNode.checked){
+
+                        var arr = [];
+
+                        arr.push(treeNode);
+
+                        if(treeNode.isParent){
+
+                            for(var i=0;i<treeNode.children.length;i++){
+
+                                arr.push(treeNode.children[i]);
+
+                            }
+
+                        }
+
+                        var str = '';
+
+                        for(var i=0;i<arr.length;i++){
+
+                            str += '<div class="main-selected-list">' +
+                                '<div class="main-selected-list1" attr-id="' + arr[i].id + '">' + arr[i].name +
+                                '</div>' +
+                                '<div class="remove-selected">x</div>' +
+                                '</div>';
+
+                        }
+
+                        //选中,插入已选中的区域
+                        //放到已选择类型中
+                        $('.main-selected-block').append(str);
+
+
+                    }else{
+
+                        //未选中,从已选中的区域剔除
+                        var selectedArr = $('.main-selected-list');
+
+                        for(var i=0;i<selectedArr.length;i++){
+
+                            var id = selectedArr.eq(i).children('.main-selected-list1').attr('attr-id')
+
+                            if(treeNode.id == id){
+
+                                selectedArr.eq(i).remove();
+
+                            }
+
+
+                        }
+
+
+                    }
+
+
                 },
                 onCheck:function(e,treeId,treeNode){
 
-                    //点击前边的按钮选中事件
+                    //判断当前节点是否选中
+                    if(treeNode.checked){
+
+                        //选中,插入已选中的区域
+                        //放到已选择类型中
+                        var str = '<div class="main-selected-list">' +
+                            '<div class="main-selected-list1" attr-id="' + treeNode.id + '">' + treeNode.name +
+                            '</div>' +
+                            '<div class="remove-selected">x</div>' +
+                            '</div>';
+
+                        $('.main-selected-block').append(str);
+
+
+                    }else{
+
+                        //未选中,从已选中的区域剔除
+                        var selectedArr = $('.main-selected-list');
+
+                        for(var i=0;i<selectedArr.length;i++){
+
+                            var id = selectedArr.eq(i).children('.main-selected-list1').attr('attr-id')
+
+                            if(treeNode.id == id){
+
+                                selectedArr.eq(i).remove();
+
+                            }
+
+
+                        }
+
+
+                    }
 
 
                 }
-
-                //onClick:treenodeClick,
-
-                //onCheck:treenodeClick
             }
         };
 
@@ -268,6 +508,7 @@ $(function(){
             obj.name = arr[i].name;
             obj.pId = arr[i].pid;
             obj.item = arr[i].item;
+            obj.open = true;
             treeArr.push(obj);
         }
 
@@ -277,20 +518,24 @@ $(function(){
         var node = zTreeObj.getNodes()[0];
 
         //console.log(node);
-        //
-        //if(node.children.length>0){
-        //
-        //    console.log(node.children[0]);
-        //
-        //
-        //
-        //}
 
+        var node1 = '';
 
-        //获取到第一个子节点的最后一级子节点
+        getChildNodeFirst(node);
 
+        function getChildNodeFirst(node){
 
-        //zTreeObj.setting.callback.onClick(null, zTreeObj.setting.treeId, node);
+            if(node.isParent){
+
+                node1 = node.children[0];
+
+                getChildNodeFirst(node1);
+
+            }
+
+        }
+
+        zTreeObj.setting.callback.onClick(null, zTreeObj.setting.treeId, node1);
 
         //获取第一个元素下的所有节点，然后选中
 
@@ -349,6 +594,8 @@ $(function(){
 
         $('.noDataTip').remove();
 
+        _datasTable($('#avg_table'),[]);
+
         //echarts数据
         $.ajax({
 
@@ -372,7 +619,7 @@ $(function(){
 
                     for(var i=0;i<namesArr.length;i++){
 
-                        var str = namesArr[i] + result.aroMs[i];
+                        var str = namesArr[i] + '(' + result.aroMs[i] + ')';
 
                         nameUnite.push(str);
 

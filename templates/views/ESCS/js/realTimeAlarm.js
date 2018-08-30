@@ -58,7 +58,7 @@ table = $('#alarm-datatables').DataTable({
     "ordering": false,
     // "scrollY": "300px",
     'language': {
-        'emptyTable': '没有数据',
+        'emptyTable': '暂时没有报警数据',
         'loadingRecords': '加载中...',
         'processing': '查询中...',
         'lengthMenu': '每页 _MENU_ 条',
@@ -143,7 +143,7 @@ table1 = $('#alarm-datatables1').DataTable({
     "ordering": false,
     // "scrollY": "300px",
     'language': {
-        'emptyTable': '没有数据',
+        'emptyTable': '暂时没有报警数据',
         'loadingRecords': '加载中...',
         'processing': '查询中...',
         'lengthMenu': '每页 _MENU_ 条',
@@ -214,9 +214,12 @@ table1 = $('#alarm-datatables1').DataTable({
 $('.dataTables_wrapper').eq(1).hide();
 
 //定义开始结束时间
-var startTime = moment().format('YYYY-MM-DD');
 
-var endTime = moment().add(1,'d').format('YYYY-MM-DD');
+var nowTime = moment(sessionStorage.sysDt);
+
+var startTime = moment(nowTime).format('YYYY-MM-DD');
+
+var endTime = moment(nowTime).add(1,'d').format('YYYY-MM-DD');
 
 //获取报警等级
 function getAlarmLevel(){
@@ -267,47 +270,86 @@ function getAlarmStation(){
 //获取后台报警数据 flag 0为设备报警 1为运行报警 2为能耗报警
 function getAlarmData(flag){
 
-    //定义传递给后台的参数
-    var ecParams = {};
-
     //获取车站
-    var pointerID = $('#alarm-station').val();
+    //var pointerID = $('#alarm-station').val();
+
+    var pointerID = sessionStorage.PointerID;
 
     //获取报警级别
     var priorityID = $('#alarm-level').val();
 
-    var postUrl = 'Alarm/GetDevAlarmInsData';
+    var postUrl = 'ZKAlarm/GetDevAlarmInsData';
 
-    //如果是设备或运行报警
-    if(flag == 0 || flag ==  1){
+    //确定报警类型设备报警 2 运行3 仪表1
 
-        ecParams = {
-            "alarmDevgrade": flag,
-            "startTime": startTime,
-            "endTime": endTime,
-            "pointerIDs": [pointerID],
-            "priorityID": priorityID,
-            "devType": 0
+    var index = $('.top-tab-container-choose').index();
 
-        };
-    }else{
+    var alarmType = '';
 
-        postUrl = 'Alarm/GetEnergyAlarmInsData';
+    if(index == 0){
 
-        ecParams = {
-            "startTime": startTime,
-            "endTime": endTime,
-            "alarmName": "",
-            "priorityID": priorityID,
-            "pointerIDs": [pointerID]
-        };
+        //设备
+        alarmType = 2;
+
+    }else if(index == 1){
+
+        //运行报警
+        alarmType = 3;
+
+    }else if(index == 2){
+
+        //能耗报警
+        alarmType = 1;
+    }
+
+    var prm = {
+
+        //报警界面分类
+        alarmType:[alarmType],
+        //楼宇ID集合
+        pointerIDs:[pointerID],
+        //报警级别ID
+        priorityID:priorityID,
+        //设备类型，0表示全部 ,
+        devType:0,
+        //开始时间
+        startTime:startTime,
+        //结束时间
+        endTime:endTime
+
 
     }
+
+    //如果是设备或运行报警
+    //if(flag == 0 || flag ==  1){
+    //
+    //    ecParams = {
+    //        "alarmDevgrade": flag,
+    //        "startTime": startTime,
+    //        "endTime": endTime,
+    //        "pointerIDs": [pointerID],
+    //        "priorityID": priorityID,
+    //        "devType": 0
+    //
+    //    };
+    //}else{
+    //
+    //    postUrl = 'Alarm/GetEnergyAlarmInsData';
+    //
+    //    ecParams = {
+    //        "startTime": startTime,
+    //        "endTime": endTime,
+    //        "alarmName": "",
+    //        "priorityID": priorityID,
+    //        "pointerIDs": [pointerID]
+    //    };
+    //
+    //}
 
     $.ajax({
         type:'post',
         url:sessionStorage.apiUrlPrefix + postUrl,
-        data:ecParams,
+        data:prm,
         beforeSend:function(){
 
 
@@ -322,67 +364,73 @@ function getAlarmData(flag){
 
             $('#alarm-datatables1').hideLoading();
 
-            //获取一般报警
-            $('.left-top-alarm .alarm-data2').html(result.u3dAlarmNums[0].alarmNum);
+            if(result.code == 0){
 
-            //获取普通报警
-            $('.left-top-alarm .alarm-data1').html(result.u3dAlarmNums[1].alarmNum);
+                //获取一般报警
+                $('.left-top-alarm .alarm-data2').html(result.u3dAlarmNums[0].alarmNum);
 
-            //获取严重报警
-            $('.left-top-alarm .alarm-data0').html(result.u3dAlarmNums[2].alarmNum);
+                //获取普通报警
+                $('.left-top-alarm .alarm-data1').html(result.u3dAlarmNums[1].alarmNum);
 
-            //获取特急报警
-            $('.left-top-alarm .alarm-data00').html(result.u3dAlarmNums[3].alarmNum);
+                //获取严重报警
+                $('.left-top-alarm .alarm-data0').html(result.u3dAlarmNums[2].alarmNum);
 
-            //获取已处理报警
-            var dealDevAlarmDatas = result.dealAlarmDatas;
+                //获取特急报警
+                $('.left-top-alarm .alarm-data00').html(result.u3dAlarmNums[3].alarmNum);
 
-            //获取未处理报警
-            var noDealDevAlarmDatas = result.noDealAlarmDatas;
+                //获取已处理报警
+                var dealDevAlarmDatas = result.dealAlarmDatas;
 
-            //页面赋值
-            $('.bottom-main-table .dispose0 font').html(dealDevAlarmDatas.length);
+                //获取未处理报警
+                var noDealDevAlarmDatas = result.noDealAlarmDatas;
 
-            $('.bottom-main-table .dispose1 font').html(noDealDevAlarmDatas.length);
+                //页面赋值
+                $('.bottom-main-table .dispose0 font').html(dealDevAlarmDatas.length);
 
-            //获取当前是显示已处理数据还是未处理数据
-            var showDataArr = [];
+                $('.bottom-main-table .dispose1 font').html(noDealDevAlarmDatas.length);
 
-            if($('.choose-dispose').index() == 0){
+                //获取当前是显示已处理数据还是未处理数据
+                var showDataArr = [];
 
-                showDataArr = dealDevAlarmDatas;
-            }else{
+                if($('.choose-dispose').index() == 0){
 
-                showDataArr = noDealDevAlarmDatas;
+                    showDataArr = dealDevAlarmDatas;
+                }else{
+
+                    showDataArr = noDealDevAlarmDatas;
+                }
+
+                //获取当前展示的table
+                if(flag == 2){
+
+                    $('.dataTables_wrapper').eq(0).hide();
+
+                    $('.dataTables_wrapper').eq(1).show();
+
+                    $('#alarm-datatables1').show();
+
+                    $('#alarm-datatables').hide();
+
+                    _datasTable($('#alarm-datatables1'), showDataArr);
+
+
+
+                }else{
+
+                    $('.dataTables_wrapper').eq(1).hide();
+
+                    $('.dataTables_wrapper').eq(0).show();
+
+                    $('#alarm-datatables1').hide();
+
+                    $('#alarm-datatables').show();
+
+                    _datasTable($('#alarm-datatables'), showDataArr);
+                }
+
             }
 
-            //获取当前展示的table
-            if(flag == 2){
 
-                $('.dataTables_wrapper').eq(0).hide();
-
-                $('.dataTables_wrapper').eq(1).show();
-
-                $('#alarm-datatables1').show();
-
-                $('#alarm-datatables').hide();
-
-                _datasTable($('#alarm-datatables1'), showDataArr);
-
-
-
-            }else{
-
-                $('.dataTables_wrapper').eq(1).hide();
-
-                $('.dataTables_wrapper').eq(0).show();
-
-                $('#alarm-datatables1').hide();
-
-                $('#alarm-datatables').show();
-
-                _datasTable($('#alarm-datatables'), showDataArr);
-            }
 
 
         },

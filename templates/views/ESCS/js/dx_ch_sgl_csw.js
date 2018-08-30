@@ -15,8 +15,8 @@
 
 
     var INIT_DX_Ch_SGL_CSW_ANALYSIS_CHARTVIEW = function (chsglm) {
-        var br = parseFloat(chsglm.DxChSGLCSWBadRatio).toFixed(2);//告警值
-        var wr = parseFloat(chsglm.DxChSGLCSWWellRatio).toFixed(2);//正常值
+        var br = parseFloat(chsglm.dxChSGLCSWBadRatio).toFixed(2);//告警值
+        var wr = parseFloat(chsglm.dxChSGLCSWWellRatio).toFixed(2);//正常值
         var or = parseFloat(100 - br - wr).toFixed(2);//一般值
         var dataAys = [];
         dataAys.push({ value: br, name: '告警(' + br + '%)' });
@@ -46,7 +46,21 @@
         chart_View_Ch_SGL_CSW_Analysis_Main.setOption(option);
     }
 
-
+    function getQueryStr(name, ispe) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            var rs = r[2];
+            if (ispe) {
+                var pe = unescape(rs);
+                return pe;
+            }
+            else {
+                return rs;
+            }
+        }
+        return null;
+    }
 
     return {
 
@@ -58,14 +72,15 @@
 
             var chsgls = JSON.parse(sessionStorage.DxChSGLs);//单台冷机诊断集
 
-            var chsglms = _.where(chsgls, { DxChSGLID: chsgId });//单台冷机诊断结果
+            var chsglms = _.where(chsgls, { dxChSGLID: chsgId });//单台冷机诊断结果
 
             var chsglm = chsglms[0];
 
-            var backUrl = "DxCoolerSGL/Index?DxChSGLID=" + chsglm.DxChSGLID;
+            var backUrl = "dx_ch_sgl_index.html?DxChSGLID=" + chsglm.dxChSGLID;
+
             $('#CSWBackToSGLBtn').attr('href', backUrl);
 
-            $('#spanDxTitle').html(chsglm.DxChSGLNt + '冷冻出水温度');
+            $('#spanDxTitle').html(chsglm.dxChSGLNt + '冷冻出水温度');
 
             //$('#span_dxchsgl_item_CSW_std').html();//诊断值
 
@@ -73,7 +88,7 @@
 
             //$('#span_dxchsgl_item_CSW_ofs').html();//偏差值
 
-            if (chsglm.DxChSGLCSWSte === "0")//异常
+            if (chsglm.dxChSGLCSWSte === "0")//异常
             {
                 $('#reasugBox').show();
                 $('#spanDxSte').html('异常');
@@ -87,13 +102,13 @@
 
             INIT_DX_Ch_SGL_CSW_ANALYSIS_CHARTVIEW(chsglm);
 
-            var dxchsglCSWs = JSON.stringify(chsglm.DxChSGLCSWDs);
+            var dxchsglCSWs = JSON.stringify(chsglm.dxChSGLCSWDs);
             var dataXY = JSON.parse(dxchsglCSWs);
             var data = [];
             for (var i = 0; i < dataXY.length; i++) {
                 var XY = [];
-                XY.push(dataXY[i].X);
-                XY.push(dataXY[i].Y);
+                XY.push(dataXY[i].x);
+                XY.push(dataXY[i].y);
                 data.push(XY);
             }
 
@@ -125,14 +140,14 @@
                     right: 10,
                     pieces: [{
                         gt: 0,
-                        lte: parseFloat(chsglm.DxChSGLCSWBadStd),
+                        lte: parseFloat(chsglm.dxChSGLCSWBadStd),
                         color: '#ff9933'
                     }, {
-                        gt: parseFloat(chsglm.DxChSGLCSWBadStd),
-                        lte: parseFloat(chsglm.DxChSGLCSWWellStd),
+                        gt: parseFloat(chsglm.dxChSGLCSWBadStd),
+                        lte: parseFloat(chsglm.dxChSGLCSWWellStd),
                         color: '#ffde33'
                     }, {
-                        gt: parseFloat(chsglm.DxChSGLCSWWellStd),
+                        gt: parseFloat(chsglm.dxChSGLCSWWellStd),
                         color: '#096'
                     }],
                     outOfRange: {
@@ -148,9 +163,9 @@
                     markLine: {
                         silent: true,
                         data: [{
-                            yAxis: parseFloat(chsglm.DxChSGLCSWBadStd)
+                            yAxis: parseFloat(chsglm.dxChSGLCSWBadStd)
                         }, {
-                            yAxis: parseFloat(chsglm.DxChSGLCSWWellStd)
+                            yAxis: parseFloat(chsglm.dxChSGLCSWWellStd)
                         }]
                     }
                 }

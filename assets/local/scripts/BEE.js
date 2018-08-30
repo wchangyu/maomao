@@ -1493,6 +1493,19 @@ var BEE = (function(){
 
         var pushHtml = "";
 
+        var inputType = '';
+
+        //0 单选 1 多选
+        if(sessionStorage.selectPointerType == 0){
+
+            inputType = 'radio'
+
+        }else if(sessionStorage.selectPointerType == 1){
+
+            inputType = 'checkbox'
+
+        }
+
         pushHtml +=   '<p style="position: absolute;left:80px;top:5px;">'+
             '<button style="width:50px" class="btn-success train-depot">确定</button>'+
             '<button style="width:50px;margin-left:10px;" class="btn-danger">取消</button>'+
@@ -1501,7 +1514,10 @@ var BEE = (function(){
         $(_enterpriseArr).each(function(i,o){
 
             pushHtml += '  <li>'+
-                '<input type="checkbox" id="'+ o.enterpriseID+'">'+
+                //'<input type="checkbox" id="'+ o.enterpriseID+'">'+
+
+                '<input type="' + inputType + '" id="'+ o.enterpriseID+'" name="pointer">'+
+
                 '<label for="'+ o.enterpriseID+'" data-id="'+ o.enterpriseID+'" title="'+o.eprName+'">'+ o.eprName+'</label>'+
                 '</li>';
         });
@@ -1532,7 +1548,19 @@ var BEE = (function(){
         $('.add-select-company .btn-success').on('click',function(e){
 
             //获取到用户选择的单位数量
-            var depotNum = $(".add-select-company input[type='checkbox']").length;
+            //var depotNum = $(".add-select-company input[type='checkbox']").length;
+
+            var depotNum = '';
+
+            if(sessionStorage.selectPointerType == 0){
+
+                depotNum = $(".add-select-company input[type='radio']").length;
+
+            }else if(sessionStorage.selectPointerType == 1){
+
+                depotNum = $(".add-select-company input[type='checkbox']").length;
+
+            }
 
             var totalNum = 0;
 
@@ -1542,7 +1570,17 @@ var BEE = (function(){
 
                 var thisNum = false;
 
-                var dom = $(".add-select-company input[type='checkbox']").eq(i).prop('checked');
+                var dom = '';
+
+                if(sessionStorage.selectPointerType == 0){
+
+                    dom = $(".add-select-company input[type='radio']").eq(i).prop('checked');
+
+                }else if(sessionStorage.selectPointerType == 1){
+
+                    dom = $(".add-select-company input[type='checkbox']").eq(i).prop('checked');
+
+                }
 
                 if(dom == true){
 
@@ -1550,7 +1588,18 @@ var BEE = (function(){
 
                     thisNum = true;
 
-                    var enterpriseID = $(".add-select-company input[type='checkbox']").eq(i).attr('id');
+                    var enterpriseID = '';
+
+                    if(sessionStorage.selectPointerType == 0){
+
+                        enterpriseID = $(".add-select-company input[type='radio']").eq(i).attr('id');
+
+                    }else if(sessionStorage.selectPointerType == 1){
+
+                        enterpriseID = $(".add-select-company input[type='checkbox']").eq(i).attr('id');
+
+                    }
+
                     enterpriseIDArr.push(enterpriseID);
 
                 }
@@ -1558,11 +1607,36 @@ var BEE = (function(){
                 if(totalNum == 1 &&　thisNum){
 
                     //获取当前的企业名称及id
-                    var companyName = $(".add-select-company input[type='checkbox']").eq(i).parent().find('label').html();
+                    //var companyName = $(".add-select-company input[type='checkbox']").eq(i).parent().find('label').html();
+
+                    var companyName = '';
+
+                    if(sessionStorage.selectPointerType == 0){
+
+                        companyName = $(".add-select-company input[type='radio']").eq(i).parent().find('label').html();
+
+                    }else if(sessionStorage.selectPointerType == 1){
+
+                        companyName = $(".add-select-company input[type='checkbox']").eq(i).parent().find('label').html();
+
+                    }
 
                     $('.add-input-select0 span').html(companyName);
 
-                    var companyID = $(".add-select-company input[type='checkbox']").eq(i).attr('id');
+                    //var companyID = $(".add-select-company input[type='checkbox']").eq(i).attr('id');
+
+                    var companyID = '';
+
+                    if(sessionStorage.selectPointerType == 0){
+
+                        companyName = $(".add-select-company input[type='radio']").eq(i).attr('id');
+
+                    }else if(sessionStorage.selectPointerType == 1){
+
+                        companyName = $(".add-select-company input[type='checkbox']").eq(i).attr('id');
+
+                    }
+
 
                     $('.add-input-select0 span').attr('data-id',companyID);
                 }
@@ -1625,11 +1699,33 @@ var BEE = (function(){
 
 
             //获取到用户选择的单位数量
-            var depotNum = $(".add-select-company input[type='checkbox']").length;
+            //var depotNum = $(".add-select-company input[type='checkbox']").length;
+
+            var depotNum = '';
+
+            if(sessionStorage.selectPointerType == 0){
+
+                depotNum = $(".add-select-company input[type='radio']").length;
+
+            }else if(sessionStorage.selectPointerType == 1){
+
+                depotNum = $(".add-select-company input[type='checkbox']").length;
+
+            }
 
             for(var i=0; i<depotNum; i++){
 
-                $(".add-select-company input[type='checkbox']").eq(i).prop('checked',false);
+                if(sessionStorage.selectPointerType == 0){
+
+                    $(".add-select-company input[type='radio']").eq(i).prop('checked',false);
+
+                }else if(sessionStorage.selectPointerType == 1){
+
+                    $(".add-select-company input[type='checkbox']").eq(i).prop('checked',false);
+
+                }
+
+                //$(".add-select-company input[type='checkbox']").eq(i).prop('checked',false);
 
             }
 
@@ -1678,11 +1774,33 @@ var BEE = (function(){
         $('.add-select-company .btn-danger').on('click',function(e){
 
             //获取到用户选择的单位数量
-            var depotNum = $(".add-select-company input[type='checkbox']").length;
+            //var depotNum = $(".add-select-company input[type='checkbox']").length;
+
+            var depotNum = '';
+
+            if(sessionStorage.selectPointerType == 0){
+
+                depotNum = $(".add-select-company input[type='radio']").length;
+
+            }else if(sessionStorage.selectPointerType == 1){
+
+                depotNum = $(".add-select-company input[type='checkbox']").length;
+
+            }
 
             for(var i=0; i<depotNum; i++){
 
-                $(".add-select-company input[type='checkbox']").eq(i).prop('checked',false);
+                if(sessionStorage.selectPointerType == 0){
+
+                    $(".add-select-company input[type='radio']").eq(i).prop('checked',false);
+
+                }else if(sessionStorage.selectPointerType == 1){
+
+                    $(".add-select-company input[type='checkbox']").eq(i).prop('checked',false);
+
+                }
+
+                //$(".add-select-company input[type='checkbox']").eq(i).prop('checked',false);
 
             }
 
@@ -1717,7 +1835,18 @@ var BEE = (function(){
         }else{
 
             //获取到用户选择的单位数量
-            var depotNum = $(".add-select-company input[type='checkbox']").length;
+
+            var depotNum = '';
+
+            if(sessionStorage.selectPointerType == 0){
+
+                depotNum = $(".add-select-company input[type='radio']").length;
+
+            }else if(sessionStorage.selectPointerType == 1){
+
+                depotNum = $(".add-select-company input[type='checkbox']").length;
+
+            }
 
             if(_enterpriseArr1.length == 1 || sessionStorage.showChooseUnit == 0){
 
@@ -1726,9 +1855,29 @@ var BEE = (function(){
 
                 for(var i=0; i<depotNum; i++){
 
-                    if($(".add-select-company input[type='checkbox']").eq(i).attr('id') == eprId){
+                    var depotNumI = '';
 
-                        $(".add-select-company input[type='checkbox']").eq(i).prop('checked',true);
+                    if(sessionStorage.selectPointerType == 0){
+
+                        depotNumI = $(".add-select-company input[type='radio']").eq(i).attr('id');
+
+                    }else if(sessionStorage.selectPointerType == 1){
+
+                        depotNumI = $(".add-select-company input[type='checkbox']").eq(i).attr('id');
+
+                    }
+
+                    if(depotNumI == eprId){
+
+                        if(sessionStorage.selectPointerType == 0){
+
+                            $(".add-select-company input[type='radio']").eq(i).prop('checked',true);
+
+                        }else if(sessionStorage.selectPointerType == 1){
+
+                            $(".add-select-company input[type='checkbox']").eq(i).prop('checked',true);
+
+                        }
 
                         var dom = $('.add-select-company label').eq(i);
 
@@ -1751,7 +1900,17 @@ var BEE = (function(){
 
                 for(var i=0; i<depotNum; i++){
 
-                    var dom = $(".add-select-company input[type='checkbox']").eq(i);
+                    var dom = '';
+
+                    if(sessionStorage.selectPointerType == 0){
+
+                        dom = $(".add-select-company input[type='radio']").eq(i);
+
+                    }else if(sessionStorage.selectPointerType == 1){
+
+                        dom = $(".add-select-company input[type='checkbox']").eq(i);
+
+                    }
 
                     var thisID = dom.attr('id');
 

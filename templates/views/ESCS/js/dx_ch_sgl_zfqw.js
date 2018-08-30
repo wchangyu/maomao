@@ -14,8 +14,8 @@
     };
 
     var INIT_DX_Ch_ZFQW_ANALYSIS_CHARTVIEW = function (chsglm) {
-        var br = parseFloat(chsglm.DxChSGLZFQWBadRatio).toFixed(2);//告警值
-        var wr = parseFloat(chsglm.DxChSGLZFQWWellRatio).toFixed(2);//正常值
+        var br = parseFloat(chsglm.dxChSGLZFQWBadRatio).toFixed(2);//告警值
+        var wr = parseFloat(chsglm.dxChSGLZFQWWellRatio).toFixed(2);//正常值
         var or = parseFloat(100 - br - wr).toFixed(2);//一般值
         var dataAys = [];
         dataAys.push({ value: br, name: '告警(' + br + '%)' });
@@ -45,6 +45,22 @@
         chart_View_Ch_SGL_ZFQW_Analysis_Main.setOption(option);
     }
 
+    function getQueryStr(name, ispe) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            var rs = r[2];
+            if (ispe) {
+                var pe = unescape(rs);
+                return pe;
+            }
+            else {
+                return rs;
+            }
+        }
+        return null;
+    }
+
     return {
 
         init: function () {
@@ -56,14 +72,15 @@
             //单台冷机诊断集
             var chsgls = JSON.parse(sessionStorage.DxChSGLs);
             //单台冷机诊断结果
-            var chsglms = _.where(chsgls, { DxChSGLID: chsgId });
+            var chsglms = _.where(chsgls, { dxChSGLID: chsgId });
 
             var chsglm = chsglms[0];
-            var backUrl = "DxCoolerSGL/Index?DxChSGLID=" + chsglm.DxChSGLID;
+
+            var backUrl = "dx_ch_sgl_index.html?DxChSGLID=" + chsglm.dxChSGLID;
 
             $('#ZFQWBackToSGLBtn').attr('href', backUrl);
 
-            $('#spanDxTitle').html(chsglm.DxChSGLNt + '蒸发器趋近温度');
+            $('#spanDxTitle').html(chsglm.dxChSGLNt + '蒸发器趋近温度');
 
             //$('#span_dxchsgl_item_zfqw_std').html();//诊断值
 
@@ -71,7 +88,7 @@
 
             //$('#span_dxchsgl_item_zfqw_ofs').html();//偏差值
 
-            if (chsglm.DxChSGLZFQWSte === "0")//异常
+            if (chsglm.dxChSGLZFQWSte === "0")//异常
             {
                 //$('#reasugBox').show();
                 $('.boxhgt').show();
@@ -87,13 +104,13 @@
 
             INIT_DX_Ch_ZFQW_ANALYSIS_CHARTVIEW(chsglm);
 
-            var dxchsglZFQWs = JSON.stringify(chsglm.DxChSGLZFQWDs);
+            var dxchsglZFQWs = JSON.stringify(chsglm.dxChSGLZFQWDs);
             var dataXY = JSON.parse(dxchsglZFQWs);
             var data = [];
             for (var i = 0; i < dataXY.length; i++) {
                 var XY = [];
-                XY.push(dataXY[i].X);
-                XY.push(dataXY[i].Y);
+                XY.push(dataXY[i].x);
+                XY.push(dataXY[i].y);
                 data.push(XY);
             }
 
@@ -125,14 +142,14 @@
                     right: 10,
                     pieces: [{
                         gt: 0,
-                        lte: parseFloat(chsglm.DxChSGLZFQWWellStd),
+                        lte: parseFloat(chsglm.dxChSGLZFQWWellStd),
                         color: '#096'
                     }, {
-                        gt: parseFloat(chsglm.DxChSGLZFQWWellStd),
-                        lte: parseFloat(chsglm.DxChSGLZFQWBadStd),
+                        gt: parseFloat(chsglm.dxChSGLZFQWWellStd),
+                        lte: parseFloat(chsglm.dxChSGLZFQWBadStd),
                         color: '#ffde33'
                     }, {
-                        gt: parseFloat(chsglm.DxChSGLZFQWBadStd),
+                        gt: parseFloat(chsglm.dxChSGLZFQWBadStd),
                         color: '#ff9933'
                     }],
                     outOfRange: {

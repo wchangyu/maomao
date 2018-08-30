@@ -14,8 +14,8 @@
     };
 
     var INIT_DX_Ch_SGL_FZL_ANALYSIS_CHARTVIEW = function (chsglm) {
-        var br = parseFloat(chsglm.DxChSGLFZLBadRatio).toFixed(2);//告警值
-        var wr = parseFloat(chsglm.DxChSGLFZLWellRatio).toFixed(2);//正常值
+        var br = parseFloat(chsglm.dxChSGLFZLBadRatio).toFixed(2);//告警值
+        var wr = parseFloat(chsglm.dxChSGLFZLWellRatio).toFixed(2);//正常值
         var or = parseFloat(100 - br - wr).toFixed(2);//一般值
         var dataAys = [];
         dataAys.push({ value: br, name: '告警(' + br + '%)' });
@@ -45,6 +45,22 @@
         chart_View_Ch_SGL_FZL_Analysis_Main.setOption(option);
     }
 
+    function getQueryStr(name, ispe) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            var rs = r[2];
+            if (ispe) {
+                var pe = unescape(rs);
+                return pe;
+            }
+            else {
+                return rs;
+            }
+        }
+        return null;
+    }
+
     return {
 
         init: function () {
@@ -55,14 +71,15 @@
 
             var chsgls = JSON.parse(sessionStorage.DxChSGLs);//单台冷机诊断集
 
-            var chsglms = _.where(chsgls, { DxChSGLID: chsgId });//单台冷机诊断结果
+            var chsglms = _.where(chsgls, { dxChSGLID: chsgId });//单台冷机诊断结果
 
             var chsglm = chsglms[0];
 
-            var backUrl = "DxCoolerSGL/Index?DxChSGLID=" + chsglm.DxChSGLID;
+            var backUrl = "dx_ch_sgl_index.html?DxChSGLID=" + chsglm.dxChSGLID;
+
             $('#FZLBackToSGLBtn').attr('href', backUrl)
 
-            $('#spanDxTitle').html(chsglm.DxChSGLNt + '负载率诊断');
+            $('#spanDxTitle').html(chsglm.dxChSGLNt + '负载率诊断');
 
             //$('#span_dxchsgl_item_FZL_std').html();//诊断值
 
@@ -86,13 +103,14 @@
 
             INIT_DX_Ch_SGL_FZL_ANALYSIS_CHARTVIEW(chsglm);
 
-            var dxchsglFZLs = JSON.stringify(chsglm.DxChSGLFZLDs);
+            var dxchsglFZLs = JSON.stringify(chsglm.dxChSGLFZLDs);
+
             var dataXY = JSON.parse(dxchsglFZLs);
             var data = [];
             for (var i = 0; i < dataXY.length; i++) {
                 var XY = [];
-                XY.push(dataXY[i].X);
-                XY.push(dataXY[i].Y);
+                XY.push(dataXY[i].x);
+                XY.push(dataXY[i].y);
                 data.push(XY);
             }
 
@@ -124,14 +142,14 @@
                     right: 10,
                     pieces: [{
                         gt: 0,
-                        lte: parseFloat(chsglm.DxChSGLFZLBadStd),
+                        lte: parseFloat(chsglm.dxChSGLFZLBadStd),
                         color: '#ff9933'
                     }, {
-                        gt: parseFloat(chsglm.DxChSGLFZLBadStd),
-                        lte: parseFloat(chsglm.DxChSGLFZLWellStd),
+                        gt: parseFloat(chsglm.dxChSGLFZLBadStd),
+                        lte: parseFloat(chsglm.dxChSGLFZLWellStd),
                         color: '#ffde33'
                     }, {
-                        gt: parseFloat(chsglm.DxChSGLFZLWellStd),
+                        gt: parseFloat(chsglm.dxChSGLFZLWellStd),
                         color: '#096'
                     }],
                     outOfRange: {
@@ -147,9 +165,9 @@
                     markLine: {
                         silent: true,
                         data: [{
-                            yAxis: parseFloat(chsglm.DxChSGLFZLBadStd)
+                            yAxis: parseFloat(chsglm.dxChSGLFZLBadStd)
                         }, {
-                            yAxis: parseFloat(chsglm.DxChSGLFZLWellStd)
+                            yAxis: parseFloat(chsglm.dxChSGLFZLWellStd)
                         }]
                     }
                 }

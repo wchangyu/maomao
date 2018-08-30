@@ -28,6 +28,16 @@
 
 }
 
+.main-title-word a{
+
+    font-size: 16px;
+
+    color: #3c3c3c !important;
+
+    text-decoration: none !important;
+
+}
+
 .main-top-left-img{
 
     width: 100%;
@@ -298,7 +308,7 @@
 
 .alarm-block li{
 
-    margin-bottom: 41px;
+    margin-bottom: 23px;
 
 }
 
@@ -311,5 +321,43 @@
 .main-top-left-right-name img{
 
     margin-right: 8px;
+
+}
+
+.machine-on{
+
+    color: #74a7f6;
+
+    font-weight: bold;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+}
+
+#devModal input{
+
+    width: 200px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+}
+
+.form-horizontal .form-group{
+
+    margin-right: 0 !important;
+
+    margin-left: 0 !important;
+
+}
+
+#devModal .form-type{
+
+    width: 100px;
+
+    text-align: center;
 
 }

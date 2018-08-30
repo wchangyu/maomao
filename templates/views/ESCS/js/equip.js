@@ -62,7 +62,7 @@ $(function(){
 
     ];
 
-    _tableInit($('#table'),col,2,false,'','','','','',true);
+    _tableInit($('#table'),col,2,false,'','','','','',true,'','暂时没有设备');
 
 
     conditionSelect();
@@ -398,7 +398,7 @@ $(function(){
 
             type:'post',
 
-            url: sessionStorage.apiUrlPrefix + 'ZKMain/GetRunStateDs',
+            url: sessionStorage.apiUrlPrefix + 'Opers/GetEQsByEQTy',
 
             data:prm,
 
@@ -408,7 +408,7 @@ $(function(){
 
                 if(result.code == 0){
 
-                    _bindDevArr = result.dicParam;
+                    _bindDevArr = result;
 
                 }
 
@@ -445,7 +445,7 @@ $(function(){
         //冷机
         if(type == 'CH'){
 
-            arr = _bindDevArr['cpVa,2979.6,0'];
+            arr = _bindDevArr['chillerRs'];
 
             attrName = 'chillerName';
 
@@ -455,7 +455,7 @@ $(function(){
 
         }else if(type == 'CHW'){
 
-            arr = _bindDevArr['chwpVa,124.26,0'];
+            arr = _bindDevArr['chwRs'];
 
             attrName = 'pumpName';
 
@@ -464,7 +464,7 @@ $(function(){
             //冷却泵
         }else if(type == 'CW'){
 
-            arr = _bindDevArr['cwpVa,208.39,0'];
+            arr = _bindDevArr['cwRs'];
 
             attrName = 'pumpName';
 
@@ -473,7 +473,7 @@ $(function(){
             //冷却塔
         }else if(type == 'CT'){
 
-            arr = _bindDevArr['ctpVa,59.46,0'];
+            arr = _bindDevArr['ctRs'];
 
             attrName = 'ctName';
 
@@ -485,9 +485,9 @@ $(function(){
 
         }
 
-        if(arr.length ==0){
+        if(!arr){
 
-            return false;
+            return '';
 
         }
 
@@ -496,6 +496,10 @@ $(function(){
             if(arr[i][attrId] == val){
 
                 return arr[i][attrName]
+
+            }else{
+
+                return ''
 
             }
 

@@ -3,7 +3,16 @@ $(function(){
     /*--------------------------------------时间插件-----------------------------------*/
 
     //初始化时间控件
-    initdatetimepicker();
+    //initdatetimepicker();
+
+    var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
+
+    $('#spDT').val(nowTime);
+
+    $('#epDT').val(moment(nowTime).add(1,'d').format('YYYY-MM-DD'));
+
+    //初始化时间控件
+    _timeYMDComponentsFun11($('.abbrDT'));
 
     /*---------------------------------------表格初始化----------------------------------*/
 
@@ -113,33 +122,33 @@ $(function(){
     /*---------------------------------------其他方法----------------------------------*/
 
     //日历插件
-    function initdatetimepicker(){
-
-        var nowDt = new Date();
-        var year = nowDt.getFullYear();
-        var month = parseInt(nowDt.getMonth())+1;
-        var day = nowDt.getDate();
-        var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt= moment(dtstr);
-        var nowDt=mt.format('YYYY-MM-DD');
-        var startDt = mt.subtract(1, 'days').format('YYYY-MM-DD');
-        $("#spDT").val(startDt);
-        $("#epDT").val(nowDt);
-        $('.abbrDT').datetimepicker({
-            format: 'yyyy-mm-dd',
-            language: 'zh-CN',
-            weekStart: true,
-            todayBtn: true,
-            autoclose: true,
-            todayHighlight: true,
-            startView: 2,
-            minView: 2,
-            minuteStep: 10,
-            forceParse: 0,
-            pickerPosition: "bottom-left"
-        });
-
-    }
+    //function initdatetimepicker(){
+    //
+    //    var nowDt = new Date();
+    //    var year = nowDt.getFullYear();
+    //    var month = parseInt(nowDt.getMonth())+1;
+    //    var day = nowDt.getDate();
+    //    var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+    //    var mt= moment(dtstr);
+    //    var nowDt=mt.format('YYYY-MM-DD');
+    //    var startDt = mt.subtract(1, 'days').format('YYYY-MM-DD');
+    //    $("#spDT").val(startDt);
+    //    $("#epDT").val(nowDt);
+    //    $('.abbrDT').datetimepicker({
+    //        format: 'yyyy-mm-dd',
+    //        language: 'zh-CN',
+    //        weekStart: true,
+    //        todayBtn: true,
+    //        autoclose: true,
+    //        todayHighlight: true,
+    //        startView: 2,
+    //        minView: 2,
+    //        minuteStep: 10,
+    //        forceParse: 0,
+    //        pickerPosition: "bottom-left"
+    //    });
+    //
+    //}
 
     //日期格式化
     function addZeroToSingleNumber(num){

@@ -84,11 +84,13 @@ function _timeYMDComponentsFun11(el){
     el.datepicker({
         language:  'zh-CN',
         todayBtn: 1,
-        todayHighlight: 1,
+        todayHighlight: true,
         format: 'yyyy-mm-dd',
         forceParse: 0,
         autoclose: 1
+
     });
+
 }
 
 //datapicker时间插件初始化（年）
@@ -151,13 +153,26 @@ function _monthDay(el){
 //datatimepicker事件插件初始化（日月年时分秒）
 function _timeHMSComponentsFun(el,startView){
     el.datetimepicker({
-        language:  'zh-CN',//此处修改
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: startView,  //1时间  2日期  3月份 4年份
+        //language:  'zh-CN',//此处修改
+        //weekStart: 1,
+        //todayBtn:  1,
+        //autoclose: 1,
+        //todayHighlight: 1,
+        //startView: startView,  //1时间  2日期  3月份 4年份
+        //forceParse: 0,
+
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: true,
+        todayBtn: true,
+        autoclose: true,
+        todayHighlight: true,
+        startView: 2,
+        minView: 2,
+        minuteStep: 10,
         forceParse: 0,
+        pickerPosition: "bottom-left"
+
     });
 }
 
@@ -180,14 +195,18 @@ function _timeOneComponentsFun(el,startView,maxView,minView,format){
 //datatimepicker只显示日期
 function _dataComponentsFun(el){
     el.datetimepicker({
-        language:  'zh-CN',//此处修改
-        weekStart: 1,
-        todayHighlight: 1,
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: true,
+        todayBtn: true,
+        autoclose: true,
+        todayHighlight: true,
+        startView: 2,
+        minView: 2,
+        minuteStep: 10,
         forceParse: 0,
-        minView: "month",//设置只显示到月份
-        format : "yyyy-mm-dd",//日期格式
-        autoclose:true,//选中关闭
-        todayBtn: true//今日按钮
+        pickerPosition: "bottom-left"
+
     });
 }
 
@@ -208,8 +227,8 @@ function _timeComponentsFun(el){
 
 /*-----------------------dataTable---------------------------*/
 
-//基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页,导出列,每页显示列数,最后一个是否分页)；
-function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr,num,isPaging,headerCallback){
+//基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页,导出列,每页显示列数,最后一个是否分页,无数据提示)；
+function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr,num,isPaging,headerCallback,noDataTip){
 
     var buttonVisible = [
         {
@@ -270,6 +289,14 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
 
     }
 
+    var noDataStr = '没有数据';
+
+    if(noDataTip){
+
+        noDataStr = noDataTip
+
+    }
+
     var _tables = tableId.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": isPag,   //是否分页
@@ -279,7 +306,7 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
         "bProcessing":true,
         "iDisplayLength":length,//默认每页显示的条数
         'language': {
-            'emptyTable': '没有数据',
+            'emptyTable': noDataStr,
             'loadingRecords': '加载中...',
             'processing': '查询中...',
             'lengthMenu': '每页 _MENU_ 条',
@@ -1495,6 +1522,346 @@ function _timeCompare(st,et){
         return false;
 
     }
+
+}
+
+/*---------------------------------------------------控制界面------------------------------------*/
+
+//获取表格结构
+function _getTemplate(instanceID,el,fun){
+
+    $.ajax({
+
+        type:'post',
+
+        url: sessionStorage.apiUrlPrefix + 'PRTb/GetPRTableDs',
+
+        data:{
+
+            instanceID:instanceID
+
+        },
+
+        timeout:_theTimes,
+
+        //发送数据之前
+        beforeSend:function(){
+
+            el.showLoading();
+
+        },
+
+        //发送数据完成之后
+        complete:function(){
+
+            el.hideLoading();
+
+        },
+
+        success:function(result){
+
+            //console.log(result);
+
+            fun(result)
+
+            //drawTable(result);
+
+        },
+
+        error:_errorFun
+
+    })
+
+}
+
+//获取到数据绘制表格
+function _drawTable(primaryArr,table,result){
+
+    primaryArr = []
+
+    //清空表格
+    table.find('thead').empty();
+
+    table.find('tbody').empty();
+
+    if(result.code == 0){
+
+        //绘表格
+
+        //表头
+        var theadStr = '<tr>';
+
+        for(var i=0;i<result.theads.length;i++){
+
+            theadStr += '<th>' + result.theads[i] + '</th>';
+
+        }
+
+        theadStr += '</tr>';
+
+        //插入表格
+        table.find('thead').append(theadStr);
+
+        //表格数据
+        for(var i=0;i<result.tbodys.length;i++){
+
+            var tbodyStr = '<tr>';
+
+            for(var j=0;j<result.theads.length;j++){
+
+                tbodyStr += '<td></td>';
+
+            }
+
+            tbodyStr += '</tr>';
+
+            table.find('tbody').append(tbodyStr);
+
+        }
+
+        //将返回的数组转化为对象
+        for(var i=0;i<result.tbodys.length;i++){
+
+            for(var j=0;j<result.tbodys[i].length;j++){
+
+                var obj = JSON.parse(result.tbodys[i][j])
+
+                primaryArr.push(obj);
+
+            }
+
+        }
+
+        //遍历属性，将值赋给单元格
+        for(var k=0;k<primaryArr.length;k++){
+
+            var tdValue = primaryArr[k];
+
+            var trNum = tdValue.rowid;
+
+            var tdNum = tdValue.colid;
+
+            var datetype = tdValue.datetype;
+
+            var trsDom = $('#table1 tbody').find('tr').eq(trNum).find('td').eq(tdNum);
+
+            if(datetype == 1){
+
+                if(tdValue.enums){
+
+                    var jsonEnums = eval('(' +tdValue.enums + ')');
+
+                    for(var z=0;z<jsonEnums.length;z++){
+
+                        trsDom.html(jsonEnums[z]['value']);
+
+                        //if(jsonEnums[z]['key'] == tdValue.value ){
+                        //
+                        //    trsDom.html(jsonEnums[z]['value']);
+                        //
+                        //}
+
+                    }
+
+                }
+
+            }else{
+
+                trsDom.html(tdValue.value);
+
+            }
+
+            //绑定属性
+            for(var z in tdValue){
+
+                trsDom.attr(z,tdValue[z]);
+
+            }
+
+        }
+
+    }else{
+
+        var meg = '';
+
+        if(result.msg == ''|| result.msg == null){
+
+            meg = '请求失败';
+
+        }else{
+
+            meg = result.msg;
+
+        }
+
+        //提示错误
+        _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,meg, '');
+
+    }
+
+}
+
+//编辑表格方法
+function _editFun(instanceID,modifyArr,el,fun){
+
+    var prm = {
+
+        instanceID:instanceID,
+
+        modifycells:modifyArr
+
+    }
+
+    console.log(prm);
+
+    return false;
+
+    $.ajax({
+
+        type:'post',
+
+        url:sessionStorage.apiUrlPrefix + 'PRTb/ModifyPRTableCellText',
+
+        data:prm,
+
+        beforeSend:function(){
+
+            el.showLoading();
+
+        },
+
+        complete:function(){
+
+            el.hideLoading();
+
+        },
+
+        timeout:_theTimes,
+
+        success:function(result){
+
+            $('#theLoading').modal('hide');
+
+            if(result.code == 0){
+
+                //编辑成功
+                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'编辑成功！', '');
+
+                setTimeout(function(){
+
+                    //刷新数据
+                    //getTemplate();
+
+                    fun(result);
+
+                },500);
+
+            }else{
+
+                var meg = '';
+
+                if(result.msg == ''|| result.msg == null){
+
+                    meg = '请求失败';
+
+                }else{
+
+                    meg = result.msg;
+
+                }
+
+                //提示错误
+                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,meg, '');
+
+            }
+
+
+        },
+
+        error:_errorFun
+
+    })
+
+}
+
+//下发指令
+function _sendInstruction(instanceID,el,fun){
+
+    var prm = {
+
+        instanceID:instanceID
+
+    }
+
+    $.ajax({
+
+        //发送方式
+        type:'post',
+
+        //url
+        url:sessionStorage.apiUrlPrefix + 'PRTb/PRTbCtrlCOMM',
+
+        //timeout
+        timeout:_theTimes,
+
+        //参数
+        data:prm,
+
+        beforeSend:function(){
+
+            el.showLoading();
+
+        },
+
+        complete:function(){
+
+            el.hideLoading();
+
+        },
+
+        //成功
+        success:function(result){
+
+
+            if(result.code == 0){
+
+                //编辑成功
+                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'下发成功！', '');
+
+                setTimeout(function(){
+
+                    //刷新数据
+                    //getTemplate();
+                    fun(result);
+
+                },500);
+
+            }else{
+
+                var meg = '';
+
+                if(result.msg == ''|| result.msg == null){
+
+                    meg = '请求失败';
+
+                }else{
+
+                    meg = result.msg;
+
+                }
+
+                //提示错误
+                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,meg, '');
+
+            }
+
+
+        },
+
+        //失败
+        error: _errorFun
+
+    })
 
 }
 

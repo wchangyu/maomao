@@ -50,6 +50,9 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="../new-resource/css/commonHead.css">
     <link rel="stylesheet" href="css/historicalAlarm.css">
+
+    <link rel="stylesheet" href="css/public.css">
+
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style>
@@ -274,40 +277,62 @@
 
                             <!--存放查询条件-->
                             <ul class="demand-condition-container condition-query ">
-                                <li>
+                                <li style="display: none;">
                                     <label for="">车站</label>
-                                    <select name="" id="alarm-station" class="select-station">
+                                    <select name="" id="alarm-station" class="select-station table-group-action-input form-control" style="display: inline-block;height: auto;">
 
                                     </select>
                                 </li>
 
                                 <li>
                                     <label for="">报警级别</label>
-                                    <select name="" id="alarm-level" class="select-station">
+                                    <select name="" id="alarm-level" class="select-station table-group-action-input form-control" style="display: inline-block;height: auto;">
 
                                     </select>
                                 </li>
 
                                 <li>
                                     <label for="">设备类型</label>
-                                    <select name="" id="alarm-device-type" class="select-station">
+                                    <select name="" id="alarm-device-type" class="select-station table-group-action-input form-control" style="display: inline-block;height: auto;">
 
                                     </select>
                                 </li>
 
                                 <li>
                                     <label for="">报警名称</label>
-                                    <input name="" id="" class="alarm-incident" value=""/>
+                                    <input name="" id="" class="alarm-incident table-group-action-input form-control" value="" style="display: inline-block;height: auto;"/>
                                 </li>
                                 <li>
                                     <label for="">开始时间</label>
-                                    <input name="" id="" class=" datatimeblock min" value=""/>
+                                    <div class="time-tool-block">
+                                        <div class="input-group date form_date abbrDT">
+                                            <input id="spDT" class="form-control" size="16" type="text" value="">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                        </div>
+                                    </div>
                                 </li>
-
                                 <li>
                                     <label for="">结束时间</label>
-                                    <input name="" id="" class=" datatimeblock max" value=""/>
+                                    <div class="time-tool-block">
+                                        <div class="input-group date form_date abbrDT">
+                                            <input id="epDT" class="form-control" size="16" type="text" value="">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                        </div>
+                                    </div>
                                 </li>
+                                <!--<li>-->
+                                    <!--<label for="">开始时间</label>-->
+                                    <!--<input name="" id="" class=" datatimeblock min" value=""/>-->
+                                <!--</li>-->
+
+                                <!--<li>-->
+                                    <!--<label for="">结束时间</label>-->
+                                    <!--<input name="" id="" class=" datatimeblock max" value=""/>-->
+                                <!--</li>-->
 
                                 <li>
                                     <button class="demand-button btn btn-success">查询</button>

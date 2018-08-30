@@ -5,7 +5,7 @@
 $(function(){
 
     //时间插件初始化
-    _timeYMDComponentsFun($('.datatimeblock'));
+    _timeYMDComponentsFun11($('.abbrDT'));
 
     //获取全部车站
     getAlarmStation();
@@ -16,13 +16,16 @@ $(function(){
     //获取报警设备类型
     getAlarmDeviceType();
 
-    var _ajaxEndTime = moment().format("YYYY/MM/DD");
+    var nowTime = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
 
-    var _ajaxStartTime = moment().subtract(1,'d').format("YYYY/MM/DD");
+    var _ajaxEndTime = moment(nowTime).format("YYYY-MM-DD");
+
+    var _ajaxStartTime = moment(nowTime).subtract(1,'d').format("YYYY-MM-DD");
 
     //日期插件
-    $('.min').val(_ajaxStartTime);
-    $('.max').val(_ajaxEndTime);
+    $('#spDT').val(_ajaxStartTime);
+
+    $('#epDT').val(_ajaxEndTime);
 
     /*-----------------------按钮事件------------------------*/
     $('.btn-success').click(function(){
@@ -70,7 +73,7 @@ table = $('#alarm-datatables').DataTable({
     "ordering": false,
     // "scrollY": "300px",
     'language': {
-        'emptyTable': '没有数据',
+        'emptyTable': '暂时没有报警数据',
         'loadingRecords': '加载中...',
         'processing': '查询中...',
         'lengthMenu': '每页 _MENU_ 条',
@@ -300,12 +303,12 @@ function getAlarmDeviceType(){
 function alarmHistory(){
 
     //获取开始结束时间
-    var startTime = $('.min').val();
+    var startTime = $('#spDT').val();
 
-    var endTime = moment($('.max').val()).add('1','days').format('YYYY/MM/DD');
+    var endTime = moment($('#epDT').val()).add('1','days').format('YYYY-MM-DD');
 
     //获取车站
-    var pointerID = $('#alarm-station').val();
+    var pointerID = sessionStorage.PointerID;
 
     //获取报警级别
     var priorityID = $('#alarm-level').val();
