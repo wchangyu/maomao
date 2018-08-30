@@ -26,7 +26,7 @@ $(function(){
     GetProvincialEnterpriseTree(1);
 
 
-    getPointerData('EnergyQueryV2/GetPointerEnergyQuery',1);
+    getPointerData('EnergyQueryV2/GetEnterpriseEnergyQuery',1);
 
 
     //屏蔽右上角的元的数据
@@ -58,7 +58,7 @@ $(function(){
         if(o != 'none'){
 
             //楼宇数据
-            getPointerData('EnergyQueryV2/GetPointerEnergyQuery',1);
+            getPointerData('EnergyQueryV2/GetProvincialEnergyQuery',1);
 
         }else if(a == 'block'){
             //分户数据
@@ -318,8 +318,10 @@ function getPointerData(url,flag){
     var allDataY = [];
     var totalAllData = 0;
 
-    //存放要传的楼宇集合
     var postPointerID = [];
+
+    //存放要传的企业集合
+    var enterpriseIDArr = [];
 
     //存放要传的分户ID
     var officeID = '';
@@ -352,17 +354,26 @@ function getPointerData(url,flag){
 
     var branchUnit = '';
 
+    //存放选择对象id
+    var selectOBJID;
+
+    //存放选择对象类型
+    var selectOBJType;
+
     //楼宇数据
     if(flag == 1){
-
 
         //确定支路id
         var nodes = branchTreeObj.getCheckedNodes(true);
 
-       // console.log(nodes);
+        //console.log(nodes);
 
-        //获取省级平台下的全部楼宇
-        recursion(nodes,postPointerID);
+        selectOBJID = nodes[0].id;
+
+        selectOBJType = nodes[0].type;
+
+        //获取省级平台下的全部企业
+        recursion(nodes,enterpriseIDArr);
 
         areaName = $('.radio_true_full').next().attr('title');
 
@@ -403,7 +414,6 @@ function getPointerData(url,flag){
 
     //获取展示日期类型
     var showDateType = getShowDateType()[0];
-
 
 
     //获取用户选择日期类型
@@ -450,6 +460,9 @@ function getPointerData(url,flag){
 
     //定义获得数据的参数
     var ecParams = {
+        "selectOBJID": selectOBJID,
+        "selectOBJType": selectOBJType,
+        "userID": _userIdNum,
         "energyItemID": _ajaxEcType,
         "isBiaoMeiEnergy": isBiaoMeiEnergy,
         "pointerIDs": postPointerID,
@@ -461,7 +474,7 @@ function getPointerData(url,flag){
         "selectDateType": selectDateType,
         "startTime": startTime,
         "isPointerFlag": isPointerFlag,
-        "enterpriseID": enterpriseID,
+        "enterpriseID": enterpriseIDArr,
         "districtID": districtID,
         "endTime": endTime
     };

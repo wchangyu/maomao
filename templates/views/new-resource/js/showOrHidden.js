@@ -202,6 +202,7 @@ function _selectTime(dataType){
         }
 
         _initDate1();
+
         //改变提示信息
         $('.start-time-choose label').html('开始时间：');
         //获取上周
@@ -306,6 +307,7 @@ function _timeComponentsFun1(el){
         minView :0,
         minuteStep:0
     });
+
 };
 
 //时间插件精确到小时

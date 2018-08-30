@@ -62,7 +62,7 @@ $(function(){
         }
     };
 
-    setMapAreas("8397ff"); //设置每个楼宇的轮廓显示
+    //setMapAreas("8397ff"); //设置每个楼宇的轮廓显示
 
     //选择全省或者省直
     $('.top-choose-province span').on('click',function(){
@@ -78,7 +78,6 @@ $(function(){
 
         //改变当前区域id
         thisDistrictID = $(this).attr('data-ptid');
-
 
         //能耗监测数据汇总
         getAllEnergyData();

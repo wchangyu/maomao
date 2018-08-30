@@ -589,7 +589,7 @@ $(function(){
             if(tableHeight + height < 0){
                 $('#scrap-datatables').css({
                     top:0
-                })
+                });
                 i = -1;
             }else{
                 $('#scrap-datatables').css({

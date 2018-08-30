@@ -10,6 +10,7 @@ $(function(){
 });
     //时间选择
 $('.time-options').click(function(){
+
     $('.time-options').removeClass('time-options-1');
     $(this).addClass('time-options-1');
 
@@ -294,7 +295,9 @@ changeShowTimes('日');
 //加载默认能耗类型单位
 var html = '';
 $(unitArr1).each(function(i,o){
-    html += '<option value="'+ o.unitNum+'">'+ o.unitName+'</option>'
+
+    html += '<option value="'+ o.unitNum+'">'+ o.unitName+'</option>';
+
 });
 
 $('#unit').html(html);
@@ -322,6 +325,7 @@ function changeShowTimes(dataType){
 }
 
 $('#datetimepicker').on('changeDate',function(e){
+
     //获取到时间类型
     var dataType = $('.time-options-1').html();
 
@@ -333,6 +337,7 @@ $('#datetimepicker').on('changeDate',function(e){
         //给结束时间选框赋值
         $('.max').val(date);
     }
+
 });
 
 $('#datetimepicker1').on('changeDate',function(e){
@@ -767,27 +772,27 @@ function getPostTime(){
     if(dateType == '日'){
 
         startTime = startTime;
-        endTime = moment(startTime).add('1','days').format('YYYY-MM-DD');
+        endTime = moment(startTime).add('1','days').format('YYYY/MM/DD');
 
     }else if(dateType == '周'){
 
         startTime = startTime;
 
-        endTime = moment(startTime).add('7','days').format('YYYY-MM-DD');
+        endTime = moment(startTime).add('7','days').format('YYYY/MM/DD');
 
     }else if(dateType == '月'){
 
-        startTime = startTime + '-01';
-        endTime = moment(startTime).add('1','months').startOf('month').format('YYYY-MM-DD');
+        startTime = startTime + '/01';
+        endTime = moment(startTime).add('1','months').startOf('month').format('YYYY/MM/DD');
     }else if(dateType == '年'){
 
-        endTime = (parseInt(startTime) + 1) + '-01-01';
-        startTime = startTime + '-01-01';
+        endTime = (parseInt(startTime) + 1) + '/01/01';
+        startTime = startTime + '/01/01';
 
     }else if(dateType == '自定义'){
 
         startTime = startTime;
-        endTime = moment($('.max').val()).add('1','days').format('YYYY-MM-DD');
+        endTime = moment($('.max').val()).add('1','days').format('YYYY/MM/DD');
     }
 
     return [startTime,endTime]
@@ -795,6 +800,7 @@ function getPostTime(){
 
 //获取开始结束时间(本日，本月，本年)
 function getPostTime1(){
+
     //获取页面日期类型
     var dateType = $('.time-options-1').html();
 

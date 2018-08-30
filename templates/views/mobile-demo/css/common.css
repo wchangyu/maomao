@@ -2,3 +2,13 @@
 #header_notification_bar{
     display: none;
 }
+
+    .totalTitle {
+        font-size: 23px;
+        color: #fff;
+        line-height: 46px;
+        display: inline-block;
+         position: absolute !important;
+         left: 105px !important;
+         height: 46px !important;
+    }

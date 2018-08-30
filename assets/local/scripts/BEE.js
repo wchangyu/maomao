@@ -1268,7 +1268,7 @@ var BEE = (function(){
 
     };
 
-    //数组转化为对象
+    //对象转化为数组
     function transform(obj){
         var arr = [];
         for(var item in obj){

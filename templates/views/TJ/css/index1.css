@@ -1,0 +1,354 @@
+
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+
+/*背景色*/
+.container{
+    background: #1c2026;
+    min-height: 800px;
+    padding-top: 20px !important;
+}
+
+.module-content{
+    margin-bottom:15px;
+}
+
+.module-content-left .module-content{
+    margin-bottom:30px;
+}
+
+.module-content-container{
+    height:250px;
+    background: #2a323e;
+    overflow: hidden;
+
+}
+
+.module-content-container h3{
+    color: #9aa7b8;
+    border-bottom: 1px solid #2f3844;
+    font-size: 16px;
+    height: 36px;
+    line-height: 36px;
+    text-indent:10px
+}
+
+/*左上角介绍*/
+.top-introduce-container{
+    width:100%;
+    height:100%;
+    position: relative;
+    overflow:hidden;
+}
+
+.top-introduce-container p{
+    line-height: 20px;
+    position: absolute;
+    left: 0;
+    top:0;
+    width:100%
+}
+
+
+
+/*报警表格*/
+.real-time-alarm .module-content-container{
+    height: 220px;
+}
+.bottom-table{
+    width: 100%;
+
+}
+.bottom-table td{
+    color:white;
+    text-align: center !important;
+    height: 30px;
+}
+
+.module-content-container{
+    overflow-y: hidden;
+}
+
+.bottom-table tbody tr:nth-child(odd){
+
+    background: #343e4a;
+}
+
+.bottom-table th{
+    height: 30px;
+    color:#97a3b5;
+    text-align: center !important;
+}
+
+.red{
+    color:#b64c64 !important;
+}
+.blue{
+    color:  #4a85e5 !important;
+}
+
+/*固定表头*/
+.table-alarm tbody {
+    display:block;
+    position: absolute;
+}
+
+.table-alarm tbody tr td:nth-child(2){
+    width:150px;
+}
+
+.table-alarm thead tr th:nth-child(2){
+    width:150px;
+}
+
+.table-alarm thead{
+    position: relative;
+    z-index: 10000;
+    background: #2a323e;
+}
+
+.table-alarm{
+    position: relative;
+    overflow: hidden;
+    height: 180px;
+}
+
+.table-alarm thead,.table-alarm tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+.table-alarm thead {
+    width: 100%;
+}
+
+
+/*系统容量*/
+.system-capacity .module-content-container{
+    height: 170px;
+}
+
+.system-capacity .right-middle-content{
+    height:130px;
+    float: left;
+    width:25%;
+}
+
+/*图例legend*/
+.legend{
+    position: absolute;
+    right:10px;
+    top:10px;
+}
+.legend .patch{
+    width:12px;
+    height: 12px;
+
+}
+
+.legend span{
+    color:white;
+    font-size: 12px;
+    display: block;
+    float: left;
+    margin-right:5px;
+    line-height: 12px;
+}
+
+.legend .green{
+
+    background: #30bfa5;
+
+}
+
+.legend .blue{
+    background: #4a85e5;
+
+}
+
+.legend .yellow{
+
+    background: #c4a342;
+
+}
+
+.legend .red{
+    background: #ff4d77;
+
+}
+
+/*冗余统计*/
+.redundancy .module-content-container{
+    height: 190px;
+}
+
+.redundancy .right-middle-content{
+    height:170px;
+    float: left;
+    width:50%;
+}
+
+.center-message{
+    position: absolute;
+    left:21%;
+    top:90px;
+    color:white;
+    font-size: 15px;
+}
+
+.center-message1{
+    position: absolute;
+    left:71%;
+    top:90px;
+    color:white;
+    font-size: 15px;
+}
+
+.center-message p,.center-message1 p{
+    margin-bottom:0px;
+}
+
+/*运维统计*/
+.operation .module-content-container{
+    height: 190px;
+}
+
+.operation .right-middle-content{
+    height:170px;
+    float: left;
+    width:50%;
+}
+
+
+
+/*值班*/
+.on-duty .top-content{
+    padding:15px 15px;
+    color:white;
+    font-size: 14px;
+}
+
+.on-duty .bottom-content{
+    padding:15px 15px;
+    color:white;
+    font-size: 12px;
+    height: 80px;
+    overflow: hidden;
+}
+
+.on-duty .bottom-sure{
+    height:40px;
+    background: #363f4e;
+    text-align: center;
+    font-size: 14px;
+    color:white;
+    position: absolute;
+    width:100%;
+    bottom:0px;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+/*能耗统计*/
+#energy-left-echart{
+
+    height: 180px;
+    width:65%;
+    float: left;
+}
+
+#energy-right-echart{
+
+    height: 180px;
+    width:35%;
+    float: right;
+}
+
+/*实时温湿度*/
+.temperature{
+
+    background: #303B4A;
+    width:45%;
+    height:95px;
+    padding-left:5px;
+    box-sizing: border-box !important;
+    margin-left:5px;
+    float: left;
+    margin-bottom:5px;
+}
+
+.temperature p{
+    color:white;
+    margin:0;
+    padding:0
+}
+
+.temperature .top-temperature{
+
+    height:42px;
+    background: url('../img/wendu.png') no-repeat 8px center;
+    padding-left:35px;
+    box-sizing: border-box;
+
+}
+
+.temperature .bottom-temperature{
+
+    height:36px;
+    background: url('../img/shidu.png') no-repeat 8px center;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.bottom-temperature .unit{
+    position: absolute;
+    right:2%;
+    top:9px;
+}
+
+
+.temperature .temperature-data{
+    width:20px;
+    height:20px;
+    margin:0;
+    border: 1px solid #F25B72;
+    text-align: center;
+    line-height: 20px;
+    color:#B0BED0;
+}
+.temperature .temperature-data1{
+    margin-bottom:3px;
+    border: 1px solid #4B85E5;
+}
+
+.top-temperature .unit{
+
+    position: absolute;
+    right:2%;
+    top:10px;
+    color:#B0BED0;
+    font-size: 14px;
+}
+
+.bottom-temperature{
+    padding-top:6px;
+    box-sizing: border-box;
+}
+
+.bottom-temperature span{
+    color:#B0BED0;
+    font-size: 18px;
+}
+
+.bottom-temperature .data{
+    margin-left:35px;
+}
+
+.bottom-temperature .unit{
+    margin-left:5px;
+    font-size: 14px;
+}

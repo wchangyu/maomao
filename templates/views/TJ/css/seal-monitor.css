@@ -1,0 +1,862 @@
+/*背景色*/
+table th,table td{
+    text-align: center;
+}
+h3{
+    margin-top:0;
+}
+
+.container{
+    background: #e5ebf1;
+    min-height: 800px;
+    padding-top: 20px !important;
+}
+
+#right-container {
+    position: static !important;
+    background: #2a323e;
+    width: 100%;
+    height: 430px;
+    overflow: hidden;
+    max-height: 1097px;
+}
+
+.top-title{
+    color: white;
+    background-color: #687ea3;
+    font-size: 15px;
+    height: 40px;
+    line-height: 40px;
+    text-indent:45px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+
+}
+
+.btn-span{
+    padding: 0px 12px;
+    height: 20px;
+    border: 1px solid #3674D9;
+    line-height: 20px;
+    margin-right: 4px;
+    cursor: pointer;
+}
+
+.left-diagram{
+    margin-bottom:15px;
+}
+
+/*----------------------------------流程图------------------------------------*/
+
+/*遮罩*/
+.userMonitor-shade{
+
+    width:100%;
+    height: 50%;
+    cursor: pointer;
+}
+
+/*流程图弹窗*/
+.equipment-data{
+
+    position: absolute ;
+    left:20%;
+    top:15%;
+    width: 1000px;
+    background:rgba(54,64,80,0.9);
+    padding:15px;
+    box-sizing: border-box;
+}
+.content-child-show .child-show-bottom-data{
+    height: 560px;
+    width: 100%;
+}
+
+.content-child-show .close1{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    color: white;
+    font-size: 20px;
+    width:30px;
+    height:30px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 30px;
+    opacity: 0.8;
+    z-index: 10000;
+}
+
+.content-child-show .close1:hover{
+    background: orangered;
+}
+
+/*左上方流程图*/
+.content-child-show .left-equipment-monitor{
+
+    position: relative;
+    width:47%;
+    float: left;
+}
+
+/*弹窗标题*/
+.content-child-show .left-equipment-monitor .equipment-title{
+    color:white;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom:40px;
+}
+
+/*上方设备信息*/
+.content-child-show .left-equipment-monitor .equipment-rank{
+    position: absolute;
+    right:10px;
+    top:5px;
+
+}
+
+.content-child-show .left-equipment-monitor .equipment-rank .equipment-rank-data{
+
+    margin-right:10px;
+    color:white;
+    font-size: 16px;
+}
+
+.content-child-show .bottom-monitor{
+    height: 250px;
+    background: url('../img/equipment1.png') no-repeat;
+    background-size: 100% 100%;
+
+}
+
+/*右侧上方数据流程图*/
+.content-child-show .right-equipment-data{
+
+    position: relative;
+    width:50%;
+    float: left;
+    margin-left:3%;
+    padding-top:35px;
+    box-sizing: border-box;
+}
+
+.content-child-show .right-title{
+
+    color:white;
+    font-size: 16px;
+    margin-bottom:5px;
+}
+
+.content-child-show .the-choose-show-data-container{
+
+    display: -webkit-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color:#87a8c8;
+    font-size: 12px;
+    margin-bottom:30px;
+}
+
+.content-child-show .the-choose-show-data-container .the-choose-show-data{
+    background: url('../img/eq-dangan.png') no-repeat center 5px;
+    height:60px;
+    width:16%;
+    text-align: center;
+    line-height: 110px;
+    cursor: pointer;
+}
+
+.content-child-show .the-choose-show-data-container .onChoose{
+
+    color:white;
+}
+
+/*echart图*/
+.bottom-equiptment-data{
+    height: 190px;
+    overflow: hidden;
+}
+.equipment-data .bottom-equip-chart{
+
+    height:190px;
+    /*display: none;*/
+    width: 480px;
+}
+
+/*下方数据*/
+.bottom-equipment-data .bottom-img-content{
+    background: #586678;
+    opacity: 1 !important;
+
+}
+
+.bottom-equipment-data .right-control{
+    opacity: 1 !important;
+}
+
+.bottom-equipment-data .save-energy {
+    width: 30px;
+    height: 24px;
+    line-height: 24px;
+    display: inline-block;
+    color: white;
+    background: #5BDEB6;
+    border: 1px solid #5BDEB6;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.bottom-equipment-data .save-energy1 {
+    color: white;
+    background: white;
+}
+
+.bottom-equipment-data .left-name{
+    color:white !important;
+}
+
+.bottom-equipment-data .unit{
+    color:white !important;
+}
+
+.bottom-equipment-data .right-control .bottom-img-content {
+    height: 160px;
+}
+
+/*运行参数*/
+
+.bottom-equipment-data .bottom-parameter{
+    background: url(../img/jilu1.png) no-repeat 10px center;
+    background-color: #687ea3;
+}
+
+.bottom-equipment-data .bottom-parameter-container{
+    padding:10px;
+    box-sizing: border-box;
+}
+
+.bottom-equipment-data .bottom-parameter-data-container{
+
+    width:31%;
+    float: left;
+    margin-right:2%;
+    margin-bottom:10px;
+    min-height: 18px;
+}
+
+.bottom-equipment-data .bottom-parameter-data-name{
+
+    color:#A4BDE7;
+    width:105px;
+    margin-right:5px;
+    display: inline-block;
+}
+.bottom-equipment-data  .bottom-parameter-data-name1{
+
+    width:80px;
+}
+.bottom-equipment-data .bottom-parameter-data-value{
+    color:white;
+}
+
+.bottom-equipment-data .bottom-parameter-data-value .ball{
+    display: inline-block;
+    width:12px;
+    height:12px;
+    border-radius: 100%;
+}
+
+.bottom-equipment-data .bottom-parameter-data-value .green-ball{
+
+    background: #17E984;
+
+}
+
+.bottom-equipment-data .bottom-parameter-data-value .yellow-ball{
+
+    background: #DCA735;
+
+}
+
+.bottom-equipment-data .bottom-parameter-data-value .red-ball{
+
+    background: red;
+
+}
+
+.bottom-equipment-data .bottom-parameter-data-value .impotart-data{
+    color:#F25B72;
+    margin-right:5px;
+}
+
+.bottom-equipment-data .bottom-parameter-data-value .normal{
+    margin-right:5px;
+}
+
+
+/*-------------------------------------右侧导航------------------------------*/
+.bottom-img-content{
+
+    background: white;
+    height: 230px;
+
+    margin-bottom:15px;
+}
+
+.right-alarm{
+    background: white;
+    height: 480px;
+}
+
+.right-navigation .jifang{
+
+    background: url('../img/jifang.png') no-repeat 10px center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.right-navigation .jifang .the-shade{
+    width:50%;
+    height: 50%;
+    float: left;
+}
+
+/*历史曲线*/
+.left-history-bight{
+    position: relative;
+}
+
+.left-history-bight .choose-time-container{
+    position: absolute;
+    right:10px;
+    top:10px;
+}
+
+/*echart图*/
+.left-history-bight{
+    width: 48%;
+    float: left;
+}
+.bottom-echart-content {
+    background: white;
+    height: 220px;
+
+}
+
+.left-history-bight .choose-time-container label{
+    color:white;
+
+}
+
+.left-history-bight .choose-time-container select{
+    color:white;
+    outline: white;
+    background: none;
+}
+
+.left-history-bight .choose-time-container option{
+    background: #687ea3;
+}
+
+/*交接班记录*/
+.right-work-record{
+    width: 48%;
+    float: right;
+
+}
+.bottom-record-content {
+    background: white;
+    height: 220px;
+
+}
+
+.bottom-record-table{
+    width:100%;
+
+}
+
+.bottom-record-table th,.bottom-record-table td{
+    text-align: center;
+}
+
+.bottom-record-table th{
+    color:#687EA2;
+    height:40px;
+    line-height: 40px;
+}
+
+.bottom-record-table td{
+    height: 40px;
+}
+
+.bottom-record-table tbody {
+    display:block;
+    height:150px;
+    overflow-y:auto;
+}
+
+.bottom-record-table thead,.bottom-record-table tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+.bottom-record-table thead {
+    width: calc( 100% - 1em )
+}
+
+.bottom-record-table tbody tr:nth-child(odd){
+
+    background: #E9EEF4;
+}
+
+.bottom-record-table tbody tr:nth-child(even){
+
+    background: #DAE8ED;
+}
+
+/*确认按钮*/
+.bottom-sure{
+    position: absolute;
+    bottom:3px;
+    right:10px;
+    display: inline-block;
+    width:57px;
+    height:22px;
+    border:1px solid #3674D9;
+    text-align: center;
+    line-height: 22px;
+    cursor: pointer;
+}
+
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+.scrollbar1::-webkit-scrollbar{
+    width: 16px;
+    height: 16px;
+    background-color: #f5f5f5;
+    border-radius: 0 0 15px 0px;
+    border: none !important;
+}
+
+/*定义滚动条的轨道，内阴影及圆角*/
+.scrollbar1::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    border-radius: 0 0 13px 0px;
+    background-color: #E9EEF4;
+
+}
+
+/*定义滑块，内阴影及圆角*/
+.scrollbar1::-webkit-scrollbar-thumb{
+    /*width: 10px;*/
+    height: 20px;
+    border-radius: 0 0 15px 0px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #95A4B6;
+}
+
+/*标题背景图*/
+.left-title1{
+    background: url('../img/dangqian1.png') no-repeat 10px center;
+    background-color: #687ea3;
+}
+
+/*导航背景图*/
+.top-navigation{
+    background: url('../img/daohang1.png') no-repeat 10px center;
+    background-color: #687ea3;
+}
+
+/*温湿度报警统计*/
+.bottom-statistics{
+
+    background: url('../img/tongji1.png') no-repeat 10px center;
+    background-color: #687ea3;
+    margin-bottom:45px;
+}
+
+/*温湿度报警统计*/
+.bottom-statistics{
+
+    background: url('../img/tongji1.png') no-repeat 10px center;
+    background-color: #687ea3;
+}
+
+/*历史曲线*/
+.history-title{
+    background: url('../img/quxian1.png') no-repeat 10px center;
+    background-color: #687ea3;
+}
+
+/*交接班记录*/
+.record-title{
+    background: url('../img/jilu1.png') no-repeat 10px center;
+    background-color: #687ea3;
+}
+
+.right-white{
+    position: absolute;
+    right:15px;
+    top:4px;
+    width:30px;
+    height:30px;
+    cursor: pointer;
+    background: url('../img/bianji1.png') no-repeat center center;
+}
+
+/*------------------------机房温湿度报警统计------------------------------*/
+
+.bottom-echart-container{
+    width:160px;
+    height:170px;
+    /*float: left;*/
+    position: relative;
+}
+
+.right-alarm .top-alarm-num{
+    position: absolute;
+    left:20px;
+    top:50px;
+    color:#4B85E5 !important;
+}
+
+.bottom-echart-container1{
+
+    /*float: right;*/
+
+}
+.bottom-echart-content1{
+    height:160px;
+    width:100%;
+
+}
+
+.bottom-echart-container .bottom-equipment-chart-background {
+    width: 120px;
+    height: 120px;
+    border-radius: 50% !important;
+    border: 1px solid #eee;
+    position: absolute;
+    left: 20px;
+    top: 36px;
+}
+
+.bottom-echart-container .bottom-content-data{
+    position: absolute;
+    font-size: 12px;
+    right: 82px;
+    top: 34px;
+    line-height: 12px;
+    z-index: 1000;
+}
+
+.flex-container{
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.bottom-statistics-title{
+    font-size:16px;
+    color:#687EA2;
+    margin-bottom:0px;
+    text-indent: 15px;
+}
+
+/*图例legend*/
+.legend{
+    position: absolute;
+    right:10px;
+    top:60px;
+}
+.legend .patch{
+    width:12px;
+    height: 12px;
+
+}
+
+.legend span{
+    color:#687EA2;
+    font-size: 12px;
+    display: block;
+    float: left;
+    margin-right:15px;
+    line-height: 12px;
+
+}
+
+/*压差报警弹窗*/
+.alarm-container .modal-content {
+    width: 310px !important;
+    /* height: 500px; */
+    background: #ffffff;
+}
+
+.alarm-container .modal {
+    z-index: 10050;
+    outline: none;
+    overflow-y: hidden !important;
+}
+
+.alarm-container .modal-dialog{
+    width: 310px !important;
+    /* height: 500px; */
+    background: #ffffff;
+    margin: 180px auto;
+}
+
+.alarm-container .modal-body {
+     position: relative;
+     padding: 10px 0px;
+    padding-bottom:0px;
+ }
+
+.alarm-container span{
+
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.alarm-title{
+    background: #DCA735;
+    color:white;
+    font-size: 18px;
+    padding:10px;
+}
+
+.alarm-container .left-name{
+
+    width:40%;
+    text-indent: 35px;
+    color:#687EA2;
+}
+
+.alarm-container .right-data{
+    width:58%;
+    text-align: center;
+    color:#3E3E3E;
+
+}
+
+.alarm-container  ul li{
+
+    width:100%;
+    height:30px;
+    border-bottom:1px solid #E9EEF4;
+}
+
+.alarm-container  ul {
+    margin-bottom:0px;
+}
+
+.alarm-container .modal-body{
+
+}
+
+.choose-ways-container{
+    padding-top:15px;
+    padding-left:15px;
+    background: none;
+
+}
+
+.choose-ways-container span{
+    padding:0px 12px;
+    height:20px;
+    border:1px solid #3674D9;
+    line-height: 20px;
+    margin-right:4px;
+    cursor: pointer;
+}
+
+
+/*分派*/
+#assign-myModal .modal-dialog{
+
+    margin: 330px 300px;
+}
+
+#assign-myModal1 .modal-dialog{
+
+    margin: 330px 300px;
+}
+
+.alarm-container .right-data input{
+    height: 22px;
+    outline: #91AAD3;
+    width:60%;
+    border:1px solid #91AAD3;
+
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.alarm-container .right-data select{
+    height: 22px;
+    outline: #91AAD3;
+    width:60%;
+    border:1px solid #91AAD3;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.alarm-container .right-data textarea{
+     resize: none;
+    outline: #91AAD3;
+    height: 70px;
+
+}
+
+#assign-myModal .right-data{
+
+     text-align: left;
+
+ }
+
+#assign-myModal1 .right-data{
+    text-align: left;
+
+}
+
+.datatimeblock {
+
+    background: url(../../resource/img/clendar.png) no-repeat #ffffff !important;
+    background-size: 18px !important;
+    background-position: 100% center !important;
+    cursor: pointer !important;
+}
+
+/*延迟*/
+#delay-myModal .modal-dialog{
+
+    margin: 330px 300px;
+}
+
+#delay-myModal .right-data{
+    text-align: left;
+
+}
+
+/*温度报警弹窗*/
+#seal-myModal1 .alarm-title{
+    background: #F25B72;
+}
+
+#assign-myModal1 .alarm-title{
+    background: #F25B72;
+}
+
+#show-alarm-myModal .alarm-title{
+    background: #F25B72;
+}
+
+/*设备报警弹窗*/
+
+#seal-myModal2 .alarm-title{
+    background: #4B85E5;
+}
+
+#show-alarm-myModal1 .alarm-title{
+    background: #4B85E5;
+}
+
+#show-alarm-myModal1 .modal-content {
+    width: 810px !important;
+    /* height: 500px; */
+    background: #ffffff;
+}
+
+#show-alarm-myModal1 .modal-dialog{
+    width: 810px !important;
+    /* height: 500px; */
+    background: #ffffff;
+    margin: 180px auto;
+}
+
+
+.examine-monitor{
+
+    border:1px solid #3674D9;
+    cursor: pointer;
+    padding:0px 8px;
+}
+
+#show-alarm-myModal .modal-content {
+    width: 810px !important;
+    /* height: 500px; */
+    background: #ffffff;
+}
+
+#show-alarm-myModal .modal-dialog{
+    width: 810px !important;
+    /* height: 500px; */
+    background: #ffffff;
+    margin: 180px auto;
+}
+
+ .bottom-temperature-table{
+    width:100%;
+}
+
+.bottom-temperature-table th,.bottom-temperature-table td{
+    text-align: center;
+}
+
+.bottom-temperature-table th {
+    color: #687EA2;
+    height: 40px;
+    line-height: 40px;
+}
+
+.bottom-temperature-table td {
+   padding:10px 0px;
+}
+
+.bottom-temperature-table tbody tr:nth-child(odd) {
+    background: #E9EEF4;
+}
+
+.bottom-temperature-table tbody tr:nth-child(even) {
+    background: #DAE8ED;
+}
+
+/*弹窗中的表格*/
+.bottom-equiptment-table{
+    color:white;
+    width:100%;
+}
+.bottom-equiptment-table th{
+    background: #687EA2;
+    height: 30px;
+    color:#BDDEF6;
+}
+
+.bottom-equiptment-table td{
+    height: 40px;
+}
+
+.bottom-equiptment-table tbody tr:nth-child(odd) {
+    background: #586678;
+
+}
+
+.bottom-equiptment-table tbody tr:nth-child(even) {
+    background: #637184;
+
+}
+
+.bottom-equiptment-table .title{
+    min-width: 50px;
+}
+
+.bottom-equiptment-table .title1{
+    min-width: 48px;
+}
+
+

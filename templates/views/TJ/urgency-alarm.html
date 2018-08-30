@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>驾驶舱</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <link rel="stylesheet" href="../resource/css/ALLDevice.css">
+    <link rel="stylesheet" href="../resource/css/productionOrder.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <link rel="stylesheet" href="css/coldStation-monitor.css">
+
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+    <style>
+
+        .record-title {
+            background: url(img/jilu1.png) no-repeat 10px center;
+            background-color: #687ea3;
+        }
+
+        .content-main-right{
+            background: url('img/guzhang-peizhi.png') no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .bottom-echart-content {
+            background: white;
+            height: 160px;
+
+        }
+
+       /*.left-history-bight {*/
+            /*box-shadow: 10px 10px 10px white;*/
+        /*}*/
+
+        .bottom-echart-content .bottom-record-table{
+            width: 99%;
+            margin: 0 auto;
+
+        }
+
+        .bottom-echart-content .bottom-record-table td{
+            height: 80px;
+        }
+
+        /*右侧监控*/
+        .bottom-cold-data-container{
+            background:url('img/alarm-jiankong.png') no-repeat ;
+            background-size: 100% 100%;
+        }
+
+        /*下方流程*/
+        .right-control .bottom-record-table td{
+            height: 45px;
+        }
+
+        /*应急流程输入框*/
+        .theInput{
+            width:100px;
+
+        }
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left col-lg-8 col-md-8 col-sm-12 col-xs-12" style="padding-right: 0px;">
+
+                                <!--上方流程图-->
+                                <div class="left-diagram">
+
+                                    <h3 class="top-title left-title1">实时参数
+                                    </h3>
+
+                                    <!-- 下方左侧流程图 -->
+                                    <div id="right-container">
+
+                                        <div class="content-main-right" id="content-main-right">
+
+                                            <!--浮动显示的控制按钮-->
+                                            <div class="content-ctrls-show" id="content-ctrls">
+
+                                            </div>
+
+                                            <div class="content-menu-hide" id="content-menu">
+
+                                                <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!--下方表格-->
+                                <div class="left-history-bight" style="width:100%">
+
+                                    <h3 class="top-title history-title" style="background:#EE233F">紧急故障：2#10KV失电</h3>
+
+
+                                    <!--下方table-->
+                                    <div class="bottom-echart-content" id="left-bottom-cheart">
+
+                                        <table class="bottom-record-table">
+
+                                            <thead>
+
+                                            <tr>
+                                                <th>事件</th>
+                                                <th>发生时间</th>
+                                                <th>持续时间</th>
+                                                <th>应急流程</th>
+                                                <th>历史记录</th>
+                                            </tr>
+
+                                            </thead>
+
+                                            <tbody class="">
+                                                <tr>
+                                                    <td>2#10KV失电</td>
+                                                    <td class="the-times">08/25 17:35</td>
+                                                    <td>00:00:10</td>
+                                                    <td>
+                                                        <span class="btn-span">查看</span>
+                                                        <span class="btn-span">下载</span>
+                                                    </td>
+                                                    <td>无</td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                            <!--右侧区域-->
+                            <div class="content-main-right1 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                                <!--监控-->
+                                <div class="right-navigation">
+
+                                    <h3 class="top-title top-navigation">监控</h3>
+
+                                    <!--下方数据-->
+                                    <div class="bottom-img-content bottom-cold-data-container">
+
+
+
+                                    </div>
+
+                                </div>
+
+                                <!--应急流程-->
+                                <div class="right-navigation right-control">
+
+                                    <h3 class="top-title top-navigation">应急流程</h3>
+
+                                    <!--下方图片-->
+                                    <div class="bottom-img-content" style="padding:0px;height: 240px;">
+
+                                        <table class="bottom-record-table">
+
+                                            <thead>
+
+                                            <tr>
+                                                <th>顺序</th>
+                                                <th>操作步骤</th>
+                                                <th>操作人</th>
+                                                <th>是否完成</th>
+                                            </tr>
+
+                                            </thead>
+
+                                            <tbody class="" style="height: 200px">
+                                                <tr>
+                                                    <td>第1步</td>
+                                                    <td>逐一断开10KVП段所有馈线开关</td>
+                                                    <td>
+                                                        <input type="text" class="theInput">
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" >
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>第2步</td>
+                                                    <td>逐一断开10KVП段所有馈线开关</td>
+                                                    <td>
+                                                        <input type="text" class="theInput">
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" >
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>第3步</td>
+                                                    <td>逐一断开10KVП段所有馈线开关</td>
+                                                    <td>
+                                                        <input type="text" class="theInput">
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" >
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>第4步</td>
+                                                    <td>逐一断开10KVП段所有馈线开关</td>
+                                                    <td>
+                                                        <input type="text" class="theInput">
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" >
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+<!--编辑弹窗-->
+<div class="modal fade" id="coldStation-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">新增</h4>
+
+            </div>
+            <div class="modal-body">
+                <ul class="condition-query noprint">
+
+                    <li>
+                        <label for="">创建日期：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="datatimeblock min" name="min">
+                        </div>
+
+                    </li>
+
+                    <li><label for="">操作人：</label>
+                        <div class="input-blocked" id="">
+                            <input type="text" class="filterInput operation-people">
+                        </div>
+                    </li>
+
+                    <li><label for="">关联设备：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="filterInput equipment">
+                        </div>
+                    </li>
+
+                    <li><label for="">状态：</label>
+                        <div class="input-blocked" id="">
+                            <input type="text" class="filterInput state">
+                        </div>
+                    </li>
+
+                    <li><label for="">事件：</label>
+                        <div class="input-blocked" id="">
+                            <input type="text" class="filterInput things" style="width:400px">
+                        </div>
+                    </li>
+
+                    <div class="clearfix"></div>
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">添加</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+        //获取对应流程图
+        //userMonitor.init("1200,698",false,1);
+
+        //获取当前时间
+        var curTime = moment().format('MM/DD hh:mm');
+
+        $('.the-times').html(curTime);
+
+
+    });
+
+
+
+
+</script>
+
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../resource/js/userMonitor.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
