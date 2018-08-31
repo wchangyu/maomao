@@ -34,6 +34,9 @@
     .goodIndicator {
         background: url(../img/bcyw.png)no-repeat;
         background-position: center;
+
+        display: none!important;
+
     }
 
     .markindicator {

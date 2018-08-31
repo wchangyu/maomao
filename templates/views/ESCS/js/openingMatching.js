@@ -153,6 +153,7 @@ $(function(){
         },
         toolbox: {
             feature: {
+                saveAsImage:{},
                 dataView: {
 
                     optionToContent: function(opt) {
@@ -179,15 +180,13 @@ $(function(){
                         //遍历
                         for(var i=0;i<opt.series.length;i++){
 
-                            console.log(opt.series[i].data);
-
                             for(var j=0;j<opt.series[i].data.length;j++){
 
                                 tdStr += '<tr><td>' + opt.series[i].name + '</td>';
 
-                                tdStr += '<td>' + opt.series[i].data[j][1] + '</td>';
+                                tdStr += '<td>' + opt.series[i].data[j].value[1] + '</td>';
 
-                                tdStr += '<td>' + opt.series[i].data[j][0] + '</td>';
+                                tdStr += '<td>' + opt.series[i].data[j].value[0] + '</td>';
 
                                 tdStr += '</tr>'
 
@@ -205,8 +204,7 @@ $(function(){
                 }
             }
         },
-        brush: {
-        },
+
         legend: {
             itemWidth:15,
             data: [],
