@@ -151,6 +151,60 @@ $(function(){
 
 
         },
+        toolbox: {
+            feature: {
+                dataView: {
+
+                    optionToContent: function(opt) {
+
+                        //thead
+                        var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
+
+                        var tables = '</table>';
+
+                        var thead = '<thead>';
+
+                        var theads = '</thead>';
+
+                        var tbody = '<tbody>';
+
+                        var tbodys = '</tbody>';
+
+                        //th
+                        var thStr = '<tr><th>对象</th><th>能效(KW/KW)</th><th>能耗(KW)</th></tr>';
+
+                        //td
+                        var tdStr = '';
+
+                        //遍历
+                        for(var i=0;i<opt.series.length;i++){
+
+                            console.log(opt.series[i].data);
+
+                            for(var j=0;j<opt.series[i].data.length;j++){
+
+                                tdStr += '<tr><td>' + opt.series[i].name + '</td>';
+
+                                tdStr += '<td>' + opt.series[i].data[j][1] + '</td>';
+
+                                tdStr += '<td>' + opt.series[i].data[j][0] + '</td>';
+
+                                tdStr += '</tr>'
+
+                            }
+
+                        }
+
+
+                        return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
+
+
+
+                    }
+
+                }
+            }
+        },
         brush: {
         },
         legend: {
@@ -167,7 +221,6 @@ $(function(){
                 nameGap:30,
                 nameTextStyle:{
 
-                    fontSize:20,
                     fontWeight:'bold',
 
                 },
@@ -196,8 +249,6 @@ $(function(){
                 nameLocation:'center',
                 nameGap:30,
                 nameTextStyle:{
-
-                    fontSize:20,
                     fontWeight:'bold'
 
                 },
