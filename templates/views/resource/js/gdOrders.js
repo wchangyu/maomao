@@ -349,6 +349,9 @@ $(function(){
 
         $('.fdjImg').hide();
 
+        //协助不显示
+        $('#xzDes').hide();
+
         if( $(this).parents('.table').attr('id') == 'more-time' ){
 
             //数据绑定
@@ -395,6 +398,9 @@ $(function(){
         $('.bumen').hide();
 
         $('.fdjImg').hide();
+
+        //协助显示
+        $('#xzDes').show();
 
         if( $(this).parents('.table').attr('id') == 'more-time' ){
 

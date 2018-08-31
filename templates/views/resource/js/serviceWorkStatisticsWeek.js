@@ -359,7 +359,7 @@ $(function(){
 
                     name:'et',
 
-                    value:moment($('.datatimeblock').eq(1).val()).endOf('months').format('YYYY/MM/DD')
+                    value:moment($('.datatimeblock').eq(1).val()).format('YYYY/MM/DD')
 
                 }
 
