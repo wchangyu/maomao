@@ -111,16 +111,10 @@ $(function(){
     var option = {
 
         color:typeColorArr,
-
-        //title:{
-        //
-        //    subtext:'能效（KW/KW）'
-        //
-        //},
         grid: {
             left: '4%',
             right: '7%',
-            bottom: '10%',
+            bottom: '6%',
             containLabel: true
         },
         tooltip : {
@@ -155,6 +149,8 @@ $(function(){
             feature: {
                 saveAsImage:{},
                 dataView: {
+
+                    readOnly:true,
 
                     optionToContent: function(opt) {
 
@@ -201,15 +197,20 @@ $(function(){
 
                     }
 
-                }
+                },
+                brush:{
+
+                    show:false
+
+                },
             }
         },
-
         legend: {
             itemWidth:15,
             data: [],
             left: 'center',
-            top:20
+            top:20,
+            width:'80%'
         },
         xAxis : [
             {

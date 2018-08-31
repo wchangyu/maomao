@@ -234,7 +234,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,9]
+                range:[0,9],
+
+                numberFormatTarget:true
 
             },
             //冷水机组告警值
@@ -244,7 +246,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,9]
+                range:[0,9],
+
+                numberFormatAlarm:true
 
             },
             //冷冻水泵目标值
@@ -254,7 +258,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,70]
+                range:[0,70],
+
+                numberFormatTarget:true
 
             },
             //冷冻水泵告警值
@@ -264,7 +270,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,70]
+                range:[0,70],
+
+                numberFormatAlarm:true
 
             },
             //冷却水泵目标值
@@ -274,7 +282,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,70]
+                range:[0,70],
+
+                numberFormatTarget:true
 
             },
             //冷却水泵告警值
@@ -284,7 +294,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,70]
+                range:[0,70],
+
+                numberFormatAlarm:true
 
             },
             //冷却塔目标值
@@ -294,7 +306,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,250]
+                range:[0,250],
+
+                numberFormatTarget:true
 
             },
             //冷却塔告警值
@@ -304,7 +318,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,250]
+                range:[0,250],
+
+                numberFormatAlarm:true
 
             }
 
@@ -380,6 +396,60 @@ $(function(){
 
     })
 
+    //自定义验证KW/KW中，目标值要大于告警值
+    $.validator.addMethod("numberFormatTarget",function(value,element,params){
+
+        var BJValue = $(element).parent().next().next().children('input').val();
+
+        if(!Number(BJValue)){
+
+            return true
+
+        }else{
+
+            if(Number(value)>Number(BJValue)){
+
+                return true
+
+            }else {
+
+                return false;
+
+            }
+
+        }
+
+
+
+    },"目标值需大于告警值");
+
+    //自定义验证KW/KW中，目标值要大于告警值
+    $.validator.addMethod("numberFormatAlarm",function(value,element,params){
+
+        var BJValue = $(element).parent().prev().prev().children('input').val();
+
+        if(!Number(BJValue)){
+
+            return true
+
+        }else{
+
+            if(Number(value)<Number(BJValue)){
+
+                return true
+
+            }else {
+
+                return false;
+
+            }
+
+        }
+
+
+
+    },"告警值要小于目标值");
+
     /*-------------------------------------点击事件---------------------------------------------*/
 
     //数据曲线tab切换
@@ -410,6 +480,22 @@ $(function(){
 
     //设备目标、告警值
     $('#devOption').click(function(){
+
+        //首先要初始化
+        $('#equipnew-form').find('input').val('');
+
+        var label = $('#equipnew-form').find('label');
+
+        for(var i=0;i<label.length;i++){
+
+            if(label.eq(i).attr('class') == 'error'){
+
+                label.eq(i).hide();
+
+            }
+
+        }
+
 
         //根据目标值和告警值是否创建过了
 

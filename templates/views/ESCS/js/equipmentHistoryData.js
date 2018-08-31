@@ -243,7 +243,10 @@ var optionLine = {
     toolbox: {
         show : true,
         feature : {
+            //数据表格
             dataView : {
+
+                readOnly:true,
 
                 optionToContent: function(opt) {
 
@@ -309,6 +312,16 @@ var optionLine = {
 
 
                 }
+
+            },
+            //保存图片
+            saveAsImage:{},
+            //还原
+            restore:{},
+
+            magicType:{
+
+                type: ['bar','line']
 
             }
         }

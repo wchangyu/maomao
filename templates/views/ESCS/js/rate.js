@@ -204,9 +204,9 @@ var Rate=function () {
                                 }
 
                             },
-                            //magicType: { type: ['line', 'bar'] },
-                            //restore: {},
-                            //saveAsImage: {}
+                            magicType: { type: ['line', 'bar'] },
+                            restore: {},
+                            saveAsImage: {}
                         }
                     },
                     legend: {

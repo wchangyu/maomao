@@ -180,7 +180,19 @@ $(function(){
 
                     }
 
+                },
+
+                //保存图片
+                saveAsImage:{},
+                //还原
+                restore:{},
+
+                magicType:{
+
+                    type: ['bar','line']
+
                 }
+
             }
         },
         xAxis: {
