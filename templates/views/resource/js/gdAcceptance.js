@@ -2486,6 +2486,7 @@ $(function(){
                 //用户部门
                 "b_DepartNum": _userBM,
                 //协助说明
+                "remark":$('#xzDes').find('textarea').val()
             }
 
             $.ajax({

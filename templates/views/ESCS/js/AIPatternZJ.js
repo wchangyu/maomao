@@ -10,20 +10,18 @@ $(function(){
 
     }
 
-    prm = 'AI-01';
-
-    var instanceID = '';
+    var instanceID = prm;
 
     var objArr = [
 
         //主机搭配图
         {
-            id:'AI-01',
+            id:'1535701832',
             type:'AI'
         },
         //温度重设表
         {
-            id:'AI-02',
+            id:'1535707552',
             type:'AI'
         },
         //时间表
@@ -48,7 +46,7 @@ $(function(){
             //控制显示
             var type = objArr[i].type;
 
-            if(type == 'AI' || type == 'AI-time' ){
+            if(type == 'AI' || type == 'AITime' ){
 
                 //显示第一个菜单
 
@@ -88,7 +86,7 @@ $(function(){
                 }
 
 
-            }else if(type == 'auto' || type == 'auto-time'){
+            }else if(type == 'auto' || type == 'autoTime'){
 
                 //显示第二个菜单
                 $('#autoBar').show();
