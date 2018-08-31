@@ -174,19 +174,51 @@ $(function(){
                     $('#useState').val(res.useState);
 
                     //出厂日期
-                    $('#exFactoryDate').val(res.exFactoryDate);
+                    var exFactoryDate = res.exFactoryDate;
+
+                    if(exFactoryDate != ''){
+
+                        exFactoryDate = exFactoryDate.split(' ')[0];
+
+                    }
+
+                    $('#exFactoryDate').val(exFactoryDate);
 
                     //购入日期
-                    $('#purchaseDate').val(res.purchaseDate);
+                    var purchaseDate = res.purchaseDate;
+
+                    if(purchaseDate != ''){
+
+                        purchaseDate = purchaseDate.split(' ')[0];
+
+                    }
+
+                    $('#purchaseDate').val(purchaseDate);
 
                     //启用日期
-                    $('#enableDate').val(res.enableDate);
+                    var enableDate = res.enableDate;
+
+                    if(enableDate != ''){
+
+                        enableDate = enableDate.split(' ')[0];
+
+                    }
+
+                    $('#enableDate').val(enableDate);
 
                     //使用年限
                     $('#usefulyears').val(res.usefulyears);
 
                     //免质保截止日期
-                    $('#freeQAEndDate').val(res.freeQAEndDate);
+                    var freeQAEndDate = res.freeQAEndDate;
+
+                    if(freeQAEndDate != ''){
+
+                        freeQAEndDate = freeQAEndDate.split(' ')[0];
+
+                    }
+
+                    $('#freeQAEndDate').val(freeQAEndDate);
 
                     //免质保单位
                     $('#freeQAEnterprise').val(res.freeQAEnterprise);
@@ -195,7 +227,15 @@ $(function(){
                     $('#freeQAPhoneNumber').val(res.freeQAPhoneNumber);
 
                     //付费截止日期
-                    $('#payQAEndDate').val(res.payQAEndDate);
+                    var payQAEndDate = res.payQAEndDate;
+
+                    if(payQAEndDate != ''){
+
+                        payQAEndDate = payQAEndDate.split(' ')[0];
+
+                    }
+
+                    $('#payQAEndDate').val(payQAEndDate);
 
                     //付费单位
                     $('#payQAEnterprise').val(res.payQAEnterprise);

@@ -115,6 +115,8 @@ $(function(){
             feature: {
                 dataView: {
 
+                    readOnly:true,
+
                     optionToContent: function(opt) {
 
                         //thead
