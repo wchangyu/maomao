@@ -115,6 +115,8 @@ $(function(){
             feature: {
                 dataView: {
 
+                    readOnly:true,
+
                     optionToContent: function(opt) {
 
                         //thead
@@ -180,7 +182,19 @@ $(function(){
 
                     }
 
+                },
+
+                //保存图片
+                saveAsImage:{},
+                //还原
+                restore:{},
+
+                magicType:{
+
+                    type: ['bar','line']
+
                 }
+
             }
         },
         xAxis: {
@@ -508,36 +522,46 @@ $(function(){
             obj.name = arr[i].name;
             obj.pId = arr[i].pid;
             obj.item = arr[i].item;
-            obj.open = true;
+            //obj.open = true;
             treeArr.push(obj);
         }
 
         var zTreeObj = $.fn.zTree.init($("#treeView"), setting, treeArr);
 
 
-        var node = zTreeObj.getNodes()[0];
+        var node = zTreeObj.getNodes();
 
         //console.log(node);
 
         var node1 = '';
 
-        getChildNodeFirst(node);
+        //默认显示第一个子元素
 
-        function getChildNodeFirst(node){
-
-            if(node.isParent){
-
-                node1 = node.children[0];
-
-                getChildNodeFirst(node1);
-
-            }
-
-        }
-
-        zTreeObj.setting.callback.onClick(null, zTreeObj.setting.treeId, node1);
+        //getChildNodeFirst(node);
+        //
+        //function getChildNodeFirst(node){
+        //
+        //    if(node.isParent){
+        //
+        //        node1 = node.children[0];
+        //
+        //        getChildNodeFirst(node1);
+        //
+        //    }
+        //
+        //}
+        //
+        //zTreeObj.setting.callback.onClick(null, zTreeObj.setting.treeId, node1);
 
         //获取第一个元素下的所有节点，然后选中
+
+
+        //默认显示最外边的父元素
+        for(var i=0;i<node.length;i++){
+
+            zTreeObj.checkNode(node[i],true);
+
+        }
 
         conditionSelect();
 

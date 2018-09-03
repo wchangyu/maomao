@@ -111,16 +111,10 @@ $(function(){
     var option = {
 
         color:typeColorArr,
-
-        //title:{
-        //
-        //    subtext:'能效（KW/KW）'
-        //
-        //},
         grid: {
             left: '4%',
             right: '7%',
-            bottom: '10%',
+            bottom: '6%',
             containLabel: true
         },
         tooltip : {
@@ -151,13 +145,72 @@ $(function(){
 
 
         },
-        brush: {
+        toolbox: {
+            feature: {
+                saveAsImage:{},
+                dataView: {
+
+                    readOnly:true,
+
+                    optionToContent: function(opt) {
+
+                        //thead
+                        var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
+
+                        var tables = '</table>';
+
+                        var thead = '<thead>';
+
+                        var theads = '</thead>';
+
+                        var tbody = '<tbody>';
+
+                        var tbodys = '</tbody>';
+
+                        //th
+                        var thStr = '<tr><th>对象</th><th>能效(KW/KW)</th><th>能耗(KW)</th></tr>';
+
+                        //td
+                        var tdStr = '';
+
+                        //遍历
+                        for(var i=0;i<opt.series.length;i++){
+
+                            for(var j=0;j<opt.series[i].data.length;j++){
+
+                                tdStr += '<tr><td>' + opt.series[i].name + '</td>';
+
+                                tdStr += '<td>' + opt.series[i].data[j].value[1] + '</td>';
+
+                                tdStr += '<td>' + opt.series[i].data[j].value[0] + '</td>';
+
+                                tdStr += '</tr>'
+
+                            }
+
+                        }
+
+
+                        return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
+
+
+
+                    }
+
+                },
+                brush:{
+
+                    show:false
+
+                },
+            }
         },
         legend: {
             itemWidth:15,
             data: [],
             left: 'center',
-            top:20
+            top:20,
+            width:'80%'
         },
         xAxis : [
             {
@@ -167,7 +220,6 @@ $(function(){
                 nameGap:30,
                 nameTextStyle:{
 
-                    fontSize:20,
                     fontWeight:'bold',
 
                 },
@@ -196,8 +248,6 @@ $(function(){
                 nameLocation:'center',
                 nameGap:30,
                 nameTextStyle:{
-
-                    fontSize:20,
                     fontWeight:'bold'
 
                 },

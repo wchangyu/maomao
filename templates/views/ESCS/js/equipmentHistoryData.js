@@ -25,9 +25,16 @@ $(function(){
 
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
-    $('.buttons').children('.btn-success').click(function(){
+    $('.buttons').children('#selected').click(function(){
 
         getPointerData();
+
+    });
+
+    //数据导出
+    $('.buttons').children('#excelBtn').click(function(){
+
+
 
     });
 
@@ -236,10 +243,87 @@ var optionLine = {
     toolbox: {
         show : true,
         feature : {
-            dataView : {show: true, readOnly: false},
-            magicType : {show: true, type: ['bar', 'line']},
-            restore : {show: true},
-            saveAsImage : {show: true}
+            //数据表格
+            dataView : {
+
+                readOnly:true,
+
+                optionToContent: function(opt) {
+
+                    //thead
+                    var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
+
+                    var tables = '</table>';
+
+                    var thead = '<thead>';
+
+                    var theads = '</thead>';
+
+                    var tbody = '<tbody>';
+
+                    var tbodys = '</tbody>';
+
+                    //th
+                    var thStr = '<tr><th>时间</th>';
+
+                    for(var i=0;i<opt.series.length;i++){
+
+                        thStr += '<th>';
+
+                        thStr += opt.series[i].name;
+
+                        thStr += '</th>'
+
+                    }
+
+                    thStr += '</tr>';
+
+                    //td
+                    var tdStr = '';
+
+                    for(var i=0;i<opt.xAxis[0].data.length;i++){
+
+                        tdStr += '<tr>';
+
+                        //时间
+                        tdStr += '<td>';
+
+                        tdStr += opt.xAxis[0].data[i];
+
+                        tdStr += '</td>';
+
+                        for(var j=0;j<opt.series.length;j++){
+
+                            tdStr += '<td>';
+
+                            tdStr += opt.series[j].data[i]==undefined?'-':opt.series[j].data[i];
+
+                            tdStr += '</td>';
+
+                        }
+
+                        tdStr += '</tr>';
+
+
+                    }
+
+                    return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
+
+
+
+                }
+
+            },
+            //保存图片
+            saveAsImage:{},
+            //还原
+            restore:{},
+
+            magicType:{
+
+                type: ['bar','line']
+
+            }
         }
     },
     calculable : true,
@@ -683,7 +767,7 @@ function getPointerData(){
                 //对象值初始化
                 obj.data.length = 0;
 
-                var legendName = o.returnOBJName + '(' + o.returnOBJUnit + ')';
+                var legendName = o.returnOBJName;
 
                 obj.name = legendName;
 
@@ -707,7 +791,7 @@ function getPointerData(){
 
             //console.log(col);
 
-            var unite = '(' + result.devInfoTables[0].returnOBJUnit + ')';
+            //var unite = '(' + result.devInfoTables[0].returnOBJUnit + ')';
 
             col = [
 
@@ -721,7 +805,7 @@ function getPointerData(){
                     data:"returnOBJUnit"
                 },
                 {
-                    title:'峰值' + unite,
+                    title:'峰值',
                     data:"maxMetaData",
                     render:function(data, type, full, meta){
 
@@ -733,7 +817,7 @@ function getPointerData(){
                     data:"maxMetaDataDT"
                 },
                 {
-                    title:'谷值' + unite,
+                    title:'谷值',
                     data:"minMetaData",
                     render:function(data, type, full, meta){
 
@@ -745,7 +829,7 @@ function getPointerData(){
                     data:"minMetaDataDT"
                 },
                 {
-                    title:'平均值' + unite,
+                    title:'平均值',
                     data:"avgMetaData",
                     render:function(data, type, full, meta){
 

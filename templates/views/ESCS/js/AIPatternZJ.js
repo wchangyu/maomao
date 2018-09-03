@@ -2,13 +2,134 @@ $(function(){
 
     var href = window.location.search;
 
-    var instanceID = '';
+    var prm = '';
 
     if(href != ''){
 
-        instanceID = href.split('=')[1];
+        prm = href.split('=')[1];
 
     }
+
+    prm = 'AI-01';
+
+    var instanceID = '';
+
+    var objArr = [
+
+        //主机搭配图
+        {
+            id:'AI-01',
+            type:'AI'
+        },
+        //温度重设表
+        {
+            id:'AI-02',
+            type:'AI'
+        },
+        //时间表
+        {
+            id:'AI-03',
+            type:'AI-time'
+        },
+        //程序表
+        {
+            id:'auto-01',
+            type:'auto-time'
+        }
+
+    ]
+
+    //通过判断type 来确定是否显示
+    for(var i=0;i<objArr.length;i++){
+
+        if(prm == objArr[i].id){
+
+            //确定当前选中的是哪个表
+            //控制显示
+            var type = objArr[i].type;
+
+            if(type == 'AI' || type == 'AI-time' ){
+
+                //显示第一个菜单
+
+                $('#AIBar').show();
+
+                //显示当前的tab
+                var currentTab = $('#AIBar').children('li');
+
+                currentTab.removeClass('tab-bar-active');
+
+                for(var j=0;j<currentTab.length;j++){
+
+                    var id = '';
+
+                    if(currentTab.eq(j).attr('data-attr')){
+
+                        id = currentTab.eq(j).attr('data-attr');
+
+                        if(id == prm){
+
+                            currentTab.eq(j).addClass('tab-bar-active');
+
+                        }
+
+                    }
+
+                }
+
+                if(type == 'AI'){
+
+                    $('#time-table').hide();
+
+                }else if('AI-time'){
+
+                    $('#time-table').show();
+
+                }
+
+
+            }else if(type == 'auto' || type == 'auto-time'){
+
+                //显示第二个菜单
+                $('#autoBar').show();
+
+                ////显示当前的tab
+                var currentTab = $('#autoBar').children('li');
+
+                for(var j=0;j<currentTab.length;j++){
+
+                    var id = '';
+
+                    if(currentTab.eq(j).attr('data-attr')){
+
+                        id = currentTab.eq(j).attr('data-attr');
+
+                        if(id == prm){
+
+                            currentTab.eq(j).addClass('tab-bar-active');
+
+                        }
+
+                    }
+
+                }
+
+                if(type == 'auto'){
+
+                    $('#time-table').hide();
+
+                }else if('auto-time'){
+
+                    $('#time-table').show();
+
+                }
+
+            }
+
+        }
+
+    }
+
 
     /*------------------------------------------变量------------------------------------*/
 
@@ -258,6 +379,22 @@ $(function(){
     $('#confirm-button').click(function(){
 
         sendInstruction();
+
+    })
+
+    //选项
+    $('#AIBar').on('click','.ai-tab',function(){
+
+        $('#AIBar').find('.ai-tab').removeClass('tab-bar-active');
+
+        //样式修改
+        $(this).addClass('tab-bar-active');
+
+        //instancc修改
+
+        instanceID = $(this).attr('data-attr');
+
+        getTemplate();
 
     })
 

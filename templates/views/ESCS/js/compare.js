@@ -277,9 +277,9 @@
                                 }
 
                             },
-                            //magicType: { type: ['line', 'bar'] },
-                            //restore: {},
-                            //saveAsImage: {}
+                            magicType: { type: ['line', 'bar'] },
+                            restore: {},
+                            saveAsImage: {}
                         }
                     },
                     xAxis: {

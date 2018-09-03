@@ -69,15 +69,34 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <ul class="tab-bar">
+                    <!--AI-->
+                    <ul class="tab-bar" id="AIBar">
                         <a href="">主页</a>
-                        <li>时间表</li>
-                        <li>温度重设表</li>
-                        <li class="tab-bar-active">主机搭配表</li>
-                        <li>参数设置</li>
+                        <li data-attr="AI-03" class="ai-tab">时间表</li>
+                        <li data-attr="AI-02" class="ai-tab">温度重设表</li>
+                        <li data-attr="AI-01" class="ai-tab">主机搭配表</li>
+                        <li id="AI-FlowChart">参数设置</li>
                         <div class="clearfix"></div>
                     </ul>
+
+                    <!--自动-->
+
+                    <ul class="tab-bar" id="autoBar">
+                        <a href="">主页</a>
+                        <li data-attr="auto-01">程序表</li>
+                        <li id="auto-FlowChart">参数设置</li>
+                        <div class="clearfix"></div>
+                    </ul>
+
                     <div id="AI-content">
+
+                        <!--上半部分-->
+                        <ul id="time-table">
+                            <li>夏季-工作日</li>
+
+                            <li>节假日</li>
+
+                        </ul>
 
                         <ul class="L-condition" style="text-align: right">
                             <li>
