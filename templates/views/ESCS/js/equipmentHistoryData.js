@@ -32,8 +32,74 @@ $(function(){
     });
 
     //数据导出
-    $('.buttons').children('#excelBtn').click(function(){
+    $('.buttons').children('#exportBtn').click(function(){
 
+        //定义属性ID集合
+        var cNameTIDs = [];
+
+        //定义获得数据的参数
+        for(var i=0; i<$('.select-equipment-container p b').length; i++){
+
+            //设备ID
+            var devId = $('.select-equipment-container p b').eq(i).attr('id');
+
+            cNameTIDs.push(devId);
+        }
+
+        //获取查询时间
+        var startDate = $('#spDT').val();
+
+        var endDate = moment($('#epDT').val()).add(1,'days').format("YYYY-MM-DD");
+
+        var prm = {
+
+            //开始时间
+            sp:startDate,
+            //结束时间
+            ep:endDate,
+            //监测因子id集合
+            cNameTIDs:cNameTIDs
+        }
+
+        var url = sessionStorage.apiUrlPrefix + 'ZKDevicesShow/ExportDevHistoryData?sp=' + startDate
+
+            + '&ep=' + endDate
+
+            +'&cNameTIDs=' + cNameTIDs
+
+        $.ajax({
+
+            type:'get',
+
+            url: sessionStorage.apiUrlPrefix + 'ZKDevicesShow/ExportDevHistoryData',
+
+            data:prm,
+
+            //发送数据之前
+            beforeSend:function(){
+
+                $('#exportBtn').html('导出中...').attr('disabled',true);
+
+            },
+
+            //发送数据完成之后
+            complete:function(){
+
+                $('#exportBtn').html('导出数据').attr('disabled',false);
+
+            },
+
+            timeout:_theTimes,
+
+            success:function(result){
+                window.open(url, "_self", true);
+
+            },
+
+            error:_errorFun1
+
+
+        })
 
 
     });
@@ -681,7 +747,6 @@ function getPointerData(){
 
         //设备ID
         var devId = $('.select-equipment-container p b').eq(i).attr('id');
-
 
         cNameTIDs.push(devId);
     }

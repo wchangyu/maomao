@@ -271,6 +271,67 @@ var Rate=function () {
         })
     }
 
+    //导出数据
+    $('#exportBtn').click(function(){
+
+        var prm = {
+
+            //楼宇
+            pId:sessionStorage.PointerID,
+            //时间
+            sp:moment($('#spDT').val()).format('YYYY-MM-DD'),
+            //结束时间
+            ep:moment($('#epDT').val()).format('YYYY-MM-DD'),
+            //单位
+            misc:sessionStorage.misc
+
+        }
+
+        var url = sessionStorage.apiUrlPrefix + 'RateEER/ExportRateEERs?pId=' + sessionStorage.PointerID
+
+                + '&sp=' + moment($('#spDT').val()).format('YYYY-MM-DD')
+
+                + '&ep=' + moment($('#epDT').val()).format('YYYY-MM-DD')
+
+                +'&misc=' + sessionStorage.misc
+
+        $.ajax({
+
+            type:'get',
+
+            url: sessionStorage.apiUrlPrefix + 'RateEER/ExportRateEERs',
+
+            data:prm,
+
+            //发送数据之前
+            beforeSend:function(){
+
+                $('#exportBtn').html('导出中...').attr('disabled',true);
+
+            },
+
+            //发送数据完成之后
+            complete:function(){
+
+                $('#exportBtn').html('导出数据').attr('disabled',false);
+
+            },
+
+            timeout:_theTimes,
+
+            success:function(result){
+                window.open(url, "_self", true);
+
+            },
+
+            error:_errorFun1
+
+
+        })
+
+    })
+
+
     return {
         init: function () {
             //初始化时间控件

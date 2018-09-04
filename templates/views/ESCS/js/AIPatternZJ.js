@@ -10,31 +10,29 @@ $(function(){
 
     }
 
-    prm = 'AI-01';
-
-    var instanceID = '';
+    var instanceID = prm;
 
     var objArr = [
 
         //主机搭配图
         {
-            id:'AI-01',
+            id:'1535701832',
             type:'AI'
         },
         //温度重设表
         {
-            id:'AI-02',
+            id:'1535707552',
             type:'AI'
         },
         //时间表
         {
-            id:'AI-03',
-            type:'AI-time'
+            id:'1535773026',
+            type:'AITime'
         },
         //程序表
         {
-            id:'auto-01',
-            type:'auto-time'
+            id:'1535774601',
+            type:'autoTime'
         }
 
     ]
@@ -48,7 +46,7 @@ $(function(){
             //控制显示
             var type = objArr[i].type;
 
-            if(type == 'AI' || type == 'AI-time' ){
+            if(type == 'AI' || type == 'AITime' ){
 
                 //显示第一个菜单
 
@@ -77,18 +75,20 @@ $(function(){
 
                 }
 
+                $('.time-table').hide();
+
                 if(type == 'AI'){
 
-                    $('#time-table').hide();
+                    $('.time-table').hide();
 
                 }else if('AI-time'){
 
-                    $('#time-table').show();
+                    $('.time-table').eq(0).show();
 
                 }
 
 
-            }else if(type == 'auto' || type == 'auto-time'){
+            }else if(type == 'auto' || type == 'autoTime'){
 
                 //显示第二个菜单
                 $('#autoBar').show();
@@ -114,13 +114,15 @@ $(function(){
 
                 }
 
+                $('.time-table').hide();
+
                 if(type == 'auto'){
 
-                    $('#time-table').hide();
+                    $('.time-table').hide();
 
                 }else if('auto-time'){
 
-                    $('#time-table').show();
+                    $('.time-table').eq(1).show();
 
                 }
 
@@ -382,8 +384,16 @@ $(function(){
 
     })
 
-    //选项
+    //选项(AI)模式
     $('#AIBar').on('click','.ai-tab',function(){
+
+        $('.time-table').hide();
+
+        if($(this).html() == '时间表'){
+
+            $('.time-table').eq(0).show();
+
+        }
 
         $('#AIBar').find('.ai-tab').removeClass('tab-bar-active');
 

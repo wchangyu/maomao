@@ -3,7 +3,7 @@
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html lang="en" xmlns:v-validate="http://www.w3.org/1999/xhtml">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
@@ -53,22 +53,30 @@
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <link href="../resource/css/ALLDevice.css" rel="stylesheet" type="text/css"/>
-
+    <link rel="stylesheet" href="../resource/css/iconfont/iconfont.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
         .noprint{display : none }
     </style>
     <style>
-
+        #gzDesc{
+            border: 1px solid #ebebeb;
+            outline: none;
+        }
+        .dataTables_filter input {
+            width: 160px !important;
+            height: 30px;
+        }
         .dataTables_filter label {
             display: block;
         }
         .dataTables_filter{
             float: left !important;
         }
-        #fzr-list_length{
-            float:right !important;
+        .single-line{
+
+            overflow: visible !important;
         }
     </style>
 </head>
@@ -308,28 +316,30 @@
                                         </li>
                                         <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                         <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                        <!--<li>
+                                        <li>
                                             <div class="cont-col1">
                                                 <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
                                                     <i class="fa fa-plus" style="margin-right: 2px;"></i>报修
                                                 </div>
                                             </div>
-                                        </li>-->
+                                        </li>
                                         <li class="excelButton"></li>
                                         <div class="clearfix"></div>
                                     </ul>
-                                    <div class="table-title">
-                                        <span>待接单</span>
-                                        <span>历史工单</span>
-                                        <span id="assist">可协助</span>
-                                        <span id="assisted">已协助</span>
-                                        <span class="spanhover" style="color: red">超时工单</span>
-                                    </div>
                                     <!-- 表格 -->
+                                    <div class="table-title">
+                                        <span class="spanhover">全部</span>
+                                        <span>未受理</span>
+                                        <span>未接单</span>
+                                        <span>执行中</span>
+                                        <span>等待材料</span>
+                                        <span>待关单</span>
+                                        <span>已关单</span>
+                                    </div>
                                     <div style="overflow: hidden;border: 1px solid #cccccc;border-top: none;padding:20px;padding-top:0">
-                                        <div class="content-main-contents content-main-contents1 hide-block">
+                                        <div class="content-main-contents">
                                             <div class="main-contents-table">
-                                                <table id="waiting-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <table id="allState-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
                                                     </thead>
                                                     <tbody>
@@ -337,7 +347,27 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="content-main-contents content-main-contents1 hide-block">
+                                        <div class="content-main-contents hide-block">
+                                            <div class="main-contents-table">
+                                                <table id="missed-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="content-main-contents hide-block">
+                                            <div class="main-contents-table">
+                                                <table id="not-entertained" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="content-main-contents hide-block">
                                             <div class="main-contents-table">
                                                 <table id="in-execution" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
@@ -347,9 +377,9 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="content-main-contents content-main-contents1 hide-block">
+                                        <div class="content-main-contents hide-block">
                                             <div class="main-contents-table">
-                                                <table id="assist-execution" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <table id="waiting-material" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
                                                     </thead>
                                                     <tbody>
@@ -357,9 +387,9 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="content-main-contents content-main-contents1 hide-block">
+                                        <div class="content-main-contents hide-block">
                                             <div class="main-contents-table">
-                                                <table id="assisted-execution" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <table id="waiting-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
                                                     </thead>
                                                     <tbody>
@@ -367,9 +397,9 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="content-main-contents content-main-contents1">
+                                        <div class="content-main-contents hide-block">
                                             <div class="main-contents-table">
-                                                <table id="more-time" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <table id="closing-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
                                                     </thead>
                                                     <tbody>
@@ -453,20 +483,21 @@
         BEE.init();
     });
 </script>
-<script src="../resource/js/gdOrders.js"></script>
+<script src="../resource/js/gdOrderRepair_WX.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
+
 <!--模态框创建工单-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 676px;width: 1000px !important;">
-            <div class="modal-content" style="height: 676px;width: 1000px !important;">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 650px;width: 1000px !important;">
+            <div class="modal-content" style="height: 650px;width: 1000px !important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">创建工单</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="height:528px;">
                     <!--主体部分-->
-                    <div class="gongdanList" id="myApp33" style="height: 513px;overflow-y: scroll;font-size: 14px;overflow-x: hidden">
+                    <div class="gongdanList" id="myApp33" style="height: 500px;overflow-y: auto;font-size: 14px;overflow-x:hidden">
                         <validator name="validation">
                             <form novalidate>
                                 <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
@@ -475,67 +506,26 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                             <div class="single-labels starRed">报修人：</div>
                                             <div class="single-block">
-                                                <input v-model="bxren"v-validate:bxren= "['isEmpty']" initial='off' class="note-edit2">
+                                                <input v-model="bxren" readonly="readonly" class="disabled-block">
                                             </div>
                                             <span class="colorTip noteTip" v-show="$validation.bxren.isEmpty" style="display: none">请输入报修人</span>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line" style="display: none">
-                                            <div class="single-labels">楼栋：</div>
-                                            <div class="single-block">
-                                                <input v-model="pointer">
-                                            </div>
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                             <div class="single-labels starRed">报修电话：</div>
                                             <div class="single-block">
-                                                <input type="text" v-model="bxtel" v-validate:bxtel= "['isEmpty']" initial='off' class="note-edit2 bx-choose">
+                                                <input type="text" v-model="bxtel" class="fuzzy-input" v-validate:bxtel= "['isEmpty']" initial='off' @keyup="phoneInput()" @focus="phoneFocus()" readonly="readonly" class="disabled-block bx-choose">
+                                                <ul class="fuzzy-search"></ul>
                                             </div>
+                                            <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-phone'>
                                             <span class="colorTip noteTip" v-show="$validation.bxtel.isEmpty" style="display: none">请输入电话号码</span>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                             <div class="single-labels starRed">报修科室：</div>
                                             <div class="single-block">
-                                                <select v-model="bxkesh" style="margin: 0;height: 100% !important;" id="bxkesh" class="note-edit2"></select>
-                                            </div>
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
-                                    <div class="tipe-block">设备选择</div>
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                            <div class="single-labels">设备类型：</div>
-                                            <div class="single-block">
-                                                <select id="sbtype" style="margin: 0;height: 100% !important;" v-model="sbtype"></select>
-                                            </div>
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                            <div class="single-labels">设备编码：</div>
-                                            <div class="single-block">
-                                                <input type="text" v-model="sbnum" id="equip-num">
-                                            </div>
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                            <div class="single-labels">设备名称：</div>
-                                            <div class="single-block">
-                                                <input type="text" v-model="sbname" id="equip-name">
-                                            </div>
-                                            <!--点击图标-->
-                                            <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-equipment'>
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                            <div class="single-labels">安装地点：</div>
-                                            <div class="single-block">
-                                                <input type="text" v-model="azplace" id="equip-address">
+                                                <select v-model="bxkesh"  id="bxkesh" style="height: 100% !important;margin: 0" disabled class="disabled-block"></select>
                                             </div>
                                             <span class="colorTip noteTip"></span>
                                         </div>
@@ -547,140 +537,65 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line dj-time">
                                             <div class="single-labels starRed">报修时间：</div>
                                             <div class="single-block">
-                                                <input type="text" v-model="gztime" class="datatimeblock" @focus="time()" @blur="timeblur()">
+                                                <input type="text" v-model="gztime" class="datatimeblock" @focus="time()" @blur="timeblur()" >
                                             </div>
                                             <span class="colorTip noteTip"></span>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                            <div class="single-labels starRed">维修事项：</div>
+                                            <div class="single-labels starRed">维修项目：</div>
                                             <div class="single-block">
-                                                <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off' id="metter">
+                                                <input type="text" v-model="wxshx" class="fuzzy-input" v-validate:wxshx= "['isEmpty']" initial='off'  placeholder="请选择维修事项" id="matter" @focus="wxShiXFocus()" @keyup="wxShiXInput()">
+                                                <ul class="fuzzy-search"></ul>
                                             </div>
                                             <!--点击图标-->
                                             <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-building'>
-
+                                            <!--<i class="iconfont icon-fangdajing"></i>-->
                                             <span class="colorTip noteTip" v-show="$validation.wxshx.isEmpty">请输入维修事项</span>
+
                                             <!--<span class="moreDesc"></span>-->
                                         </div>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                            <div class="single-labels starRed">维修科室：</div>
+                                            <div class="single-block">
+                                                <select id="depWX"></select>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 single-line one-line">
                                             <div class="single-labels starRed">故障位置：</div>
-                                            <div class="single-block" style="width: 690px;">
-                                                <input type="text" v-model="gzplace" v-validate:gzplace= "['isEmpty']" initial='off' style="width: 688px;">
+                                            <div class="single-block">
+                                                <input type="text" class="fuzzy-input" @focus="gzwzFocus()" @keyup="gawzInput()" v-model="gzplace" v-validate:gzplace= "['isEmpty']" initial='off'>
+                                                <ul class="fuzzy-search"></ul>
                                             </div>
                                             <!--点击图标-->
                                             <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-area'>
-                                            <span class="colorTip noteTip" v-show="$validation.gzplace.isEmpty" style="display: none">请输入故障位置</span>
+                                            <span class="colorTip noteTip" v-show="$validation.gzplace.isEmpty" style="display: none;max-width: 320px !important;">请填写故障位置，例如：6号楼10层层流病房1床</span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 single-line one-line">
                                             <div class="single-labels">故障描述：</div>
                                             <div class="single-block" style="width: 690px;height: 62px;">
-                                                <textarea style="width: 100%;height:100% !important;text-indent:10px;line-height:30px;outline: none;" class="gzDesc"></textarea>
+                                                <textarea style="width: 100%;height:100%;line-height:30px;outline: none;text-indent: 10px;" class="gzDesc"></textarea>
                                             </div>
-                                            <span class="moreDesc"></span>
+                                            <!--<span class="moreDesc"></span>-->
                                         </div>
-                                    </div>
-                                    <div class="row wxnr">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 single-line one-line" >
-                                            <div class="single-labels starRed">维修内容：</div>
-                                            <div class="single-block" style="width: 690px;height: 62px;">
-                                                <textarea style="width: 100%;outline: none;" v-model="wxcontent" class="wxcontent" v-validate:wxcontent= "['isEmpty']" initial='off'></textarea>
-                                            </div>
-                                            <span class="colorTip noteTip" v-show="$validation.wxcontent.isEmpty">请填写维修内容</span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row" style="display:none;">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                        <div class="single-labels starRed">维修班组：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="wxbz"   id="wxbz">
-                                        </div>
-                                        <span class="colorTip noteTip" v-show="$validation.wxbz.isEmpty">请填写维修班组</span>
                                     </div>
                                 </div>
-
                             </form>
                         </validator>
-                        <!--协助原因-->
-                        <div id="xzDes" style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
-
-                            <div class="tipe-block">协助原因</div>
-
-                            <div class="single-block" style="width: 792px;height: 62px;margin-top: 10px;">
-                                <textarea style="width: 100%;height:100% !important;text-indent:10px;line-height:30px;outline: none;" class="xzDesc"></textarea>
-                            </div>
-
-                        </div>
-                        <!--表格-->
-                        <div class="tableHoverL" style="width: 100% !important;border: 1px solid #ebebeb;margin-top: 20px;position: relative">
-                            <div class="tipe-block">维修人选择</div>
-                            <div class="tableHover" style="padding-top: 10px;">
-                                <div class="bumen">
-                                    <div class="labels">选择部门</div>
-                                    <div class="input-blockeds" style="width: 300px;">
-                                        <select id="depart">
-                                            <option value="">水电科</option>
-                                            <option value="">设备科</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <table class="table table-hover" id="fzr-list">
-                                    <thead>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary dengji">确定</button>
+                    <button type="button" class="btn btn-primary">确定</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
-
-<!--选择设备弹窗-->
-<div class='modal fade' id='choose-equipment' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-    <div class='modal-dialog'style='width:430px;margin:8% auto'>
-        <div class='modal-content'>
-            <div class='modal-header'>
-                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">选择设备</div>
-
-                <div class="showCompany search-test-inner  search-test-inner0 row">
-                    <!-- 搜索框结构 -->
-                    <div class="col-sm-12 col-xs-12">
-
-                        <div class="main-content-table" style="overflow: auto;width:100%;">
-                            <table class="table table-striped left-th-table" id="choose-equip">
-                                <thead>
-
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-primary top-btn'>确定</button>
-                    <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!--选择维修事项弹窗-->
 <div class='modal fade' id='choose-building' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
@@ -694,7 +609,7 @@
                     <!-- 搜索框结构 -->
                     <div class="col-sm-12 col-xs-12">
 
-                        <div class="main-content-table" style="overflow: auto;width:100%;">
+                        <div class="main-content-table" style="overflow: auto;width:100%;position: relative">
                             <!--增加搜索框-->
                             <div class="add-searching-select" style="z-index:1000;position: absolute;left:240px;">
                                 <label for="">项目类别：</label>
@@ -703,7 +618,6 @@
                                 </select>
                                 <button class="btn btn-success btn1" id="selected1" style="margin-left:10px;">查询</button>
                             </div>
-
                             <table class="table table-striped left-th-table" id="choose-metter">
                                 <thead>
 
@@ -726,7 +640,6 @@
         </div>
     </div>
 </div>
-
 <!--选择故障位置弹窗-->
 <div class='modal fade' id='choose-area' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
     <div class='modal-dialog'style='width:430px;margin:10% auto'>
@@ -763,154 +676,200 @@
         </div>
     </div>
 </div>
-
-<!--快速创建-->
-<div class="modal fade modals" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 668px !important;">
-        <div class="modal-content" style="height: 668px !important;">
+<!--关闭工单-->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 895px;width: 1000px !important;">
+        <div class="modal-content" style="height: 895px;width: 1000px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">快速创建</h4>
+                <h4 class="modal-title">关闭工单</h4>
             </div>
             <div class="modal-body">
-                <div class="gongdanContent">
-                    <ul class="gongdanList" id="quickWork">
+                <!--主体部分-->
+                <div class="gongdanList" id="guanbi" style="font-size: 14px;">
+                    <div style="width: 470px;float: left" class="no-edit1">
                         <validator name="validation">
                             <form novalidate>
-                                <li class="floatLeft" style="line-height: 26px;">
-                                    <div class="labels">工单类型：</div>
-                                    <div class="input-blockeds">
-                                        <input type="radio" class="inpus" id="one1" value="1" v-model="picked" v-on:click="radios" disabled="disabled"><label for="one1">快速</label>
-                                        <input type="radio" class="inpus" id="two1" value="0" v-model="picked" v-on:click="radios" disabled="disabled"><label for="two1">普通</label>
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                    <div class="tipe-block">报修人信息</div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels starRed">报修电话：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="bxtel">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels starRed">报修科室：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="bxkesh">
+                                            </div>
+                                        </div>
                                     </div>
-                                </li>
-                                <li class="floatRight" style="line-height: 26px;">
-                                    <div class="labels">工单来源：</div>
-                                    <div class="input-blockeds">
-                                        <select v-model="gdly" class="gdly">
-                                            <option value="1">车站报修</option>
-                                            <option value="2">现场人员报修</option>
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels starRed">报修人：</div>
+                                            <div class="single-block">
+                                                <input v-model="bxren">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line" style="display: none;">
+                                            <div class="single-labels">楼栋：</div>
+                                            <div class="single-block">
+                                                <input v-model="pointer">
+                                            </div>
+                                            <div style="height: 30px;">
+                                                <span class="colorTip noteTip"></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </li>
-                                <li class="floatLeft" style="line-height: 26px;">
-                                    <div class="labels">任务级别：</div>
-                                    <div class="input-blockeds">
-                                        <select v-model="rwlx">
-                                            <option value="1">一级任务</option>
-                                            <option value="2">二级任务</option>
-                                            <option value="3">三级任务</option>
-                                            <option value="4">四级任务</option>
-                                        </select>
+                                </div>
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                    <div class="tipe-block">设备信息</div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels">设备类型：</div>
+                                            <div class="single-block">
+                                                <!--<select id="sbtype" v-model="sbtype"></select>-->
+                                                <input type="text" v-model="sbtype">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels">设备编码：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="sbnum">
+                                            </div>
+                                        </div>
                                     </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.persons" style="display: none">请输入电话号码</span></div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['persons']" initial='off'>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels">设备名称：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="sbname">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels">安装地点：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="azplace">
+                                            </div>
+                                        </div>
                                     </div>
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels colorTip">报修人信息 *：<span v-show="$validation.person.persons">报修人信息不能为空</span></div>
-                                    <div class="input-blockeds">
-                                        <input type="text"  v-model="person" v-validate:person= "['persons']" initial='off'>
+                                </div>
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                    <div class="tipe-block">故障信息</div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels starRed">报修时间：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="gztime" class="datatimeblock" @focus="time()" @blur="timeblur()">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels starRed">维修项目：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="wxshx">
+                                            </div>
+                                        </div>
                                     </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels colorTip">故障位置 *：<span v-show="$validation.place.persons">故障位置不能为空</span></div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="place"  v-validate:place="['persons']" initial='off'>
+                                    <div class="row autoFile">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels starRed">维修班组：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="wxbz">
+                                            </div>
+                                        </div>
                                     </div>
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels">线路：</div>
-                                    <div class="input-blockeds">
-                                        <select id="line-route1" v-model="lineRoute" @change="selectLine">
-
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 single-line">
+                                            <div class="single-labels starRed">故障位置：</div>
+                                            <div class="single-block" style="width: 442px;">
+                                                <input type="text" v-model="gzplace" style="width: 440px;">
+                                            </div>
+                                        </div>
                                     </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels colorTip">车站 *：</div>
-                                    <div class="input-blockeds">
-                                        <select class="cjz1" v-model="section"></select>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 single-line">
+                                            <div class="single-labels">故障描述：</div>
+                                            <div class="single-block" style="width: 442px;height: 62px;">
+                                                <textarea style="width: 100%;height:100%;text-indent:10px;line-height: 30px;outline: none;" class="gzDesc"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels colorTip">系统类型 *：</div>
-                                    <div class="input-blockeds">
-                                        <select class="xitong" v-model="matter"></select>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 single-line">
+                                            <div class="single-labels starRed">维修内容：</div>
+                                            <div class="single-block" style="width: 442px;height: 62px;">
+                                                <textarea style="width: 100%;outline: none;height:100%;line-height: 30px;" v-model="wxcontent" class="wxcontent"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels colorTip">维修班组 *：<span v-if="$validation.weixiukeshis.persons">维修班组不能为空</span></div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="weixiukeshis" v-validate:weixiukeshis="['persons']" initial='off' id="wxbm">
-                                    </div>
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels">维修设备：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="sbSelect">
-                                    </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels">设备编码：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="sbLX">
-                                    </div>
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels">设备名称：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="sbMC">
-                                    </div>
-                                </li>
+                                </div>
                             </form>
                         </validator>
-                        <li class="floatRight" style="line-height: 26px;">
-                            <div class="labels">发生时间：</div>
-                            <div class="input-blockeds">
-                                <input type="text" class="otimes">
-                            </div>
-                        </li>
-                        <div class="clearfix"></div>
-                        <div>
-                            <div class="labels">故障描述：</div>
-                            <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhus" class="remarkDes"></textarea>
+                    </div>
+                    <div style="width: 470px;float: right;">
+                        <!--表格-->
+                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                            <div class="tipe-block">执行人列表</div>
+                            <div class="tableHover" style="padding-top: 20px;">
+                                <div class="bumen">
+                                    <div class="labels" style="display: inline-block;vertical-align: middle">维修部门</div>
+                                    <div class="input-blockeds" style="width: 300px;display: inline-block;vertical-align: middle">
+                                        <select id="depart" style="margin: 0;">
+                                        </select>
+                                    </div>
+                                </div>
+                                <table class="table table-hover" id="fzr-list">
+                                    <thead>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
                         </div>
-                        <div>
-                            <div class="labels colorTip">维修内容 *：</div>
-                            <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="weixiuBZ" class="weixiuBZ"></textarea>
+                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                            <div class="tipe-block">维修材料清单</div>
+                            <div class="tableHover" style="padding-top: 20px;">
+                                <table class="table table-hover cl-table" id="cl-list">
+                                    <thead>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <div style="padding: 10px;"><label>工时费（元）&nbsp;&nbsp;&nbsp;:</label><input type="text" id="hourFee" style="outline: none;margin-left: 20px;text-indent: 10px;"></div>
+                                <div style="padding: 10px;"><label>合计金额（元）:</label><input type="text" id="total" style="outline: none;margin-left: 20px;text-indent: 10px;"></div>
                             </div>
                         </div>
-                        <div style="margin-top: 10px;">
-                            <button type="button" class="btn btn-info viewImage">查看图片</button>
-                            <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
-                        </div>
-                        <div class="table-block">
-                            <div class="table-title">
-                                <span class="spanhover">执行人员</span>
-                                <!--<span>维修材料</span>-->
-                            </div>
-                            <div>
-                                <div class="tableHover" style="z-index: 1">
-                                    <table class="table table-hover" id="personTable1">
-                                        <thead>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
+                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;" class="satisfaction-degree">
+                            <div class="tipe-block">满意度评价</div>
+                            <div class="tableHover" style="padding-top: 20px;">
+                                <div id="pingjia1">
+                                    <input type="radio" class="pjRadio" id="very-satisfied" checked data-attr="5" style="margin-left: -8px;"><label for="very-satisfied">很好</label>
+                                    <input type="radio" class="pjRadio" id="satisfied" data-attr="4" style="margin-left: -8px;"><label for="satisfied">好</label>
+                                    <input type="radio" class="pjRadio" id="commonly" data-attr="3" style="margin-left: -8px;"><label for="commonly">一般</label>
+                                    <input type="radio" class="pjRadio" id="difference" data-attr="2" style="margin-left: -8px;"><label for="difference">差</label>
+                                    <input type="radio" class="pjRadio" id="Poor" data-attr="1" style="margin-left: -8px;"><label for="Poor">很差</label>
+                                </div>
+                                <div style="width:440px;height:80px;border:1px solid #cccccc">
+                                    <textarea id="pingjia" style="width:100%;height: 100%;line-height: 30px;text-indent: 10px;outline: none;" cols="30" rows="10"></textarea>
                                 </div>
                             </div>
                         </div>
-                    </ul>
+                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;" class="reasons-appeal">
+                            <div class="tipe-block">申诉理由</div>
+                            <div class="tableHover" style="padding-top: 20px;">
+                                <div style="width:440px;height:80px;border:1px solid #cccccc">
+                                    <textarea id="reasons-appeal" style="width:100%;height: 100%;line-height: 30px;text-indent: 10px;outline: none;" cols="30" rows="10"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
+                <div class="clearfix"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary quickDengji">快速报障</button>
+                <button type="button" class="btn btn-primary dengji">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
@@ -933,6 +892,67 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<!--处理过程-->
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 500px;margin-top:120px;">
+        <div class="modal-content" style="height: 500px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">处理记录</h4>
+            </div>
+            <div class="modal-body" style="text-align: left">
+                <div class="right-content">
+                    <!--<p style="margin-bottom: 0">处理记录</p>-->
+                    <div class="processing-record" style="height: 350px;overflow-y: visible">
+                        <ul style="font-size: 13px; ">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--选择电话弹窗-->
+<div class='modal fade' id='choose-phone' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:430px;margin:10% auto'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">选择电话</div>
+
+                <div class="showCompany search-test-inner  search-test-inner0 row">
+                    <!-- 搜索框结构 -->
+                    <div class="col-sm-12 col-xs-12">
+
+                        <div class="main-content-table" style="overflow: auto;width:100%;position: relative">
+                            <table class="table table-striped left-th-table" id="choose-phone-table">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary top-btn'>确定</button>
+                    <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!--loading图-->
 <div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>

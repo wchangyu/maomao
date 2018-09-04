@@ -231,8 +231,11 @@ $(function(){
     //故障位置
     getArea();
 
-    //获取维修班组
+    //获取报修科室
+    bxKShiData();
 
+    //获取维修科室
+    wxKShiData();
 
     /*---------------------------------------------表格初始化----------------------------------------------*/
 
@@ -942,6 +945,8 @@ $(function(){
     $('#myModal').on('shown.bs.modal', function () {
 
         if(_isDeng){
+
+            console.log(_workerArr);
 
             //绑定报修人信息
             if(_workerArr.length > 0){
@@ -1841,6 +1846,8 @@ $(function(){
         gdObj.gzplace = '';
         gdObj.wxshx='';
         $('.gzDesc').val('');
+        //报修科室
+        $('#depWX').val('');
     }
 
     //车站数据(报修科室)
@@ -2010,7 +2017,7 @@ $(function(){
     function optionData(url,successMeg,errorMeg,flag){
 
         //验证非空
-        if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.bxren == '' || gdObj.gzplace == '' || gdObj.wxshx == ''){
+        if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.bxren == '' || gdObj.gzplace == '' || gdObj.wxshx == '' || $('#depWX').val() == ''){
             if(gdObj.bxkesh == ''){
                 $('.error1').show();
             }else{
@@ -2044,11 +2051,17 @@ $(function(){
                 'userName': _userIdName,
                 'b_UserRole':_userRole,
                 'gdSrc': 4,
-                'gdLeixing':4
+                'gdLeixing':4,
+                //维修科室
+                'wxKeshi':$('#depWX').children('option:checked').html(),
+                //num
+                'wxKeshiNum':$('#depWX').val()
             }
+
             if(flag){
                 prm.gdCode = _gdCode
             }
+
             $.ajax({
                 type:'post',
                 url:_urls + url ,
@@ -2469,5 +2482,37 @@ $(function(){
         $('.fuzzy-search').eq(2).hide();
 
     }
+
+    function wxKShiData(){
+
+        var prm = {
+            'departName':'',
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'isWx':'1'
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'RBAC/rbacGetDeparts',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+
+                    _allBXArr.push(result[i]);
+
+                    str += '<option value="' + result[i].departNum +
+                        '">' + result[i].departName + '</option>>';
+                }
+                $('#depWX').empty().append(str);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    };
 
 })

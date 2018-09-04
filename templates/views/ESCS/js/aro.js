@@ -135,7 +135,7 @@ $(function(){
                         //th
                         var thStr = '<tr><th>时间</th>';
 
-                        for(var i=0;i<opt.series.length;i++){
+                        for(var i=0;i<opt.series.length-1;i++){
 
                             thStr += '<th>';
 
@@ -161,7 +161,7 @@ $(function(){
 
                             tdStr += '</td>';
 
-                            for(var j=0;j<opt.series.length;j++){
+                            for(var j=0;j<opt.series.length-1;j++){
 
                                 tdStr += '<td>';
 

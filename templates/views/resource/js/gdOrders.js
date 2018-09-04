@@ -349,6 +349,9 @@ $(function(){
 
         $('.fdjImg').hide();
 
+        //协助不显示
+        $('#xzDes').hide();
+
         if( $(this).parents('.table').attr('id') == 'more-time' ){
 
             //数据绑定
@@ -396,17 +399,10 @@ $(function(){
 
         $('.fdjImg').hide();
 
-        if( $(this).parents('.table').attr('id') == 'more-time' ){
+        //协助显示
+        $('#xzDes').show();
 
-            //数据绑定
-            bindData($(this),$('#more-time'));
-
-        }else{
-
-            //数据绑定
-            bindData($(this),$('#assist-execution'));
-
-        }
+        bindData1($(this),$('#assist-execution'));
 
         //添加类
         $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('jiedan').addClass('xiezhu');
@@ -488,6 +484,7 @@ $(function(){
                 "b_UserRole": _userRole,
                 //用户部门
                 "b_DepartNum": _userBM
+
 
 
             }
@@ -1781,6 +1778,104 @@ $(function(){
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDGetDetail',
+            data:prm,
+            timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            success:function(result){
+
+                //赋值
+                gdObj.bxtel = result.bxDianhua;
+                gdObj.bxkesh = result.bxKeshiNum;
+                gdObj.bxren = result.bxRen;
+                //gdObj.pointer = '';
+                gdObj.gztime = result.gdFsShij;
+                gdObj.gzplace = result.wxDidian;
+                gdObj.wxshx=result.wxXm;
+                for(var i=0;i<_allXTArr.length;i++ ){
+
+                    if( $.trim(result.dcName) == $.trim(_allXTArr[i].dsName)){
+                        $('#sbtype').val(_allXTArr[i].dsNum);
+                    }
+
+                }
+                gdObj.sbnum = result.wxShebei;
+                gdObj.sbname = result.dName;
+                gdObj.azplace = result.installAddress;
+                $('.gzDesc').val(result.bxBeizhu);
+
+                //负责人信息
+                var arr = [];
+                _datasTable($('#fzr-list'),arr);
+
+                //绑定部门信息
+                $('#depart').val(result.wxKeshiNum);
+
+                //获取人员列表
+                var prm = {
+                    //'departNum':$('#depart').val(),
+                    'departNum':_userBM,
+                    'userID':_userIdNum,
+                    'userName':_userIdName
+                }
+                $.ajax({
+                    type:'post',
+                    url:_urls + 'YWGD/ywGetWXRens',
+                    data:prm,
+                    success:function(result){
+                        _fzrArr.length = 0;
+                        for(var i=0;i<result.length;i++){
+                            _fzrArr.push(result[i]);
+                        }
+                        _datasTable($('#fzr-list'),result);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR.responseText);
+                    }
+                })
+
+                //维修班组
+                $('#wxbz').val($('#depart').children('option:selected').html());
+
+                $('#wxbz').attr('data-bm',result.wxKeshiNum);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    function bindData1(num,tableId){
+        //样式
+        tableId.children('tbody').children('tr').removeClass('tables-hover');
+
+        num.parents('tr').addClass('tables-hover');
+
+        _gdCode = num.parents('tr').children('.gdCode').children('span').children('a').html();
+
+        _gdZht = num.parents('tr').children('.gdCode').children('span').attr('data-zht');
+
+        _gdCircle = num.parents('tr').children('.gdCode').children('span').attr('data-circle');
+
+        //请求数据
+        var prm = {
+            'gdCode':num.parents('tr').children('.gdCode').children('span').children('a').html(),
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
+            'gdCircle':num.parents('tr').children('.gdCode').children('span').attr('data-circle'),
+            'gdZht':num.parents('tr').children('.gdCode').children('span').attr('data-zht')
+        }
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDFZGetDetail',
             data:prm,
             timeout:_theTimes,
             beforeSend: function () {
