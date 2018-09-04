@@ -26,13 +26,13 @@ $(function(){
         },
         //时间表
         {
-            id:'AI-03',
-            type:'AI-time'
+            id:'1535773026',
+            type:'AITime'
         },
         //程序表
         {
-            id:'auto-01',
-            type:'auto-time'
+            id:'1535774601',
+            type:'autoTime'
         }
 
     ]
@@ -75,13 +75,15 @@ $(function(){
 
                 }
 
+                $('.time-table').hide();
+
                 if(type == 'AI'){
 
-                    $('#time-table').hide();
+                    $('.time-table').hide();
 
                 }else if('AI-time'){
 
-                    $('#time-table').show();
+                    $('.time-table').eq(0).show();
 
                 }
 
@@ -112,13 +114,15 @@ $(function(){
 
                 }
 
+                $('.time-table').hide();
+
                 if(type == 'auto'){
 
-                    $('#time-table').hide();
+                    $('.time-table').hide();
 
                 }else if('auto-time'){
 
-                    $('#time-table').show();
+                    $('.time-table').eq(1).show();
 
                 }
 
@@ -380,8 +384,16 @@ $(function(){
 
     })
 
-    //选项
+    //选项(AI)模式
     $('#AIBar').on('click','.ai-tab',function(){
+
+        $('.time-table').hide();
+
+        if($(this).html() == '时间表'){
+
+            $('.time-table').eq(0).show();
+
+        }
 
         $('#AIBar').find('.ai-tab').removeClass('tab-bar-active');
 

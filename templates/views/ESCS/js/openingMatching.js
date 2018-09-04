@@ -267,6 +267,58 @@ $(function(){
 
     })
 
+    //数据导出
+    $('#exportBtn').click(function(){
+
+        var prm = {
+
+            //楼宇
+            pId:sessionStorage.PointerID,
+            //时间
+            sp:moment($('#spDT').val()).format('YYYY-MM-DD')
+
+        }
+
+        var url = sessionStorage.apiUrlPrefix + 'OpenMachineGrps/ExportOpenMachineGrpScatterplots?pId=' + sessionStorage.PointerID +
+
+            '&sp=' + moment($('#spDT').val()).format('YYYY-MM-DD')
+
+        $.ajax({
+
+            type:'get',
+
+            url: sessionStorage.apiUrlPrefix + 'OpenMachineGrps/ExportOpenMachineGrpScatterplots',
+
+            data:prm,
+
+            //发送数据之前
+            beforeSend:function(){
+
+                $('#exportBtn').html('导出中...').attr('disabled',true);
+
+            },
+
+            //发送数据完成之后
+            complete:function(){
+
+                $('#exportBtn').html('导出数据').attr('disabled',false);
+
+            },
+
+            timeout:_theTimes,
+
+            success:function(result){
+                window.open(url, "_self", true);
+
+            },
+
+            error:_errorFun1
+
+
+        })
+
+    })
+
     window.onresize = function(){
 
         if(_mychart){

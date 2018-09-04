@@ -43,7 +43,7 @@ $(function(){
             title:'维修耗时',
             data:'wxShij',
             render:function(data, type, full, meta){
-                return data.toFixed(2)
+                return Number(data).toFixed(2)
             }
         }
 
@@ -77,7 +77,13 @@ $(function(){
     //导出
     $('.excelButton').click(function(){
 
+        //导出所有数据
+        _tableInit($('#scrap-datatables'),col,2,false,'','','','','',true);
+
         _FFExcel($('#scrap-datatables')[0]);
+
+        _tableInit($('#scrap-datatables'),col,2,false,'','','','','','');
+
 
     })
 
