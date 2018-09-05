@@ -18,10 +18,10 @@
         $('#dxchsgl_item_fzl_title').attr('href', fzlUrl);//地址
         $('#dxchsgl_item_fzl_ste').html();//状态
         if (chsglm.DxChSGLFZLSte === "1") {
-            $('#dxchsgl_item_fzl_ste').html('<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>');
+            $('#dxchsgl_item_fzl_ste').html('<i class="fa fa-roll-green" style="margin-left:2px;"></i>');
         }
         else {
-            $('#dxchsgl_item_fzl_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
+            $('#dxchsgl_item_fzl_ste').html('<i class="fa fa-roll-red" style="margin-left:2px;"></i>');
         }
         $('#dxchsgl_item_fzl_title').html();//标题
         $('#dxchsgl_item_fzl_title').html(chsglm.DxChSGLFZLTitle);
@@ -37,10 +37,10 @@
         $('#dxchsgl_item_csw_title').attr('href', cswUrl);//地址
         $('#dxchsgl_item_csw_ste').html();//状态
         if (chsglm.DxChSGLCSWSte === "1") {
-            $('#dxchsgl_item_csw_ste').html('<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>');
+            $('#dxchsgl_item_csw_ste').html('<i class="fa fa-roll-green" style="margin-left:2px;"></i>');
         }
         else {
-            $('#dxchsgl_item_csw_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
+            $('#dxchsgl_item_csw_ste').html('<i class="fa fa-roll-red" style="margin-left:2px;"></i>');
         }
         $('#dxchsgl_item_csw_title').html();//标题
         $('#dxchsgl_item_csw_title').html(chsglm.dxChSGLCSWTitle);
@@ -55,10 +55,10 @@
         $('#dxchsgl_item_hsw_title').attr('href', hswUrl); //地址
         $('#dxchsgl_item_hsw_ste').html();//状态
         if (chsglm.DxChSGLHSWSte === "1") {
-            $('#dxchsgl_item_hsw_ste').html('<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>');
+            $('#dxchsgl_item_hsw_ste').html('<i class="fa fa-roll-green" style="margin-left:2px;"></i>');
         }
         else {
-            $('#dxchsgl_item_hsw_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
+            $('#dxchsgl_item_hsw_ste').html('<i class="fa fa-roll-red" style="margin-left:2px;"></i>');
         }
         $('#dxchsgl_item_hsw_title').html();//标题
         $('#dxchsgl_item_hsw_title').html(chsglm.DxChSGLHSWTitle);
@@ -73,10 +73,10 @@
         $('#dxchsgl_item_zfqw_title').attr('href', zfqwUrl); //地址
         $('#dxchsgl_item_zfqw_ste').html();//状态
         if (chsglm.DxChSGLZFQWSte === "1") {
-            $('#dxchsgl_item_zfqw_ste').html('<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>');
+            $('#dxchsgl_item_zfqw_ste').html('<i class="fa fa-roll-green" style="margin-left:2px;"></i>');
         }
         else {
-            $('#dxchsgl_item_zfqw_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
+            $('#dxchsgl_item_zfqw_ste').html('<i class="fa fa-roll-red" style="margin-left:2px;"></i>');
         }
         $('#dxchsgl_item_zfqw_title').html();//标题
         $('#dxchsgl_item_zfqw_title').html(chsglm.DxChSGLZFQWTitle);
@@ -91,10 +91,10 @@
         $('#dxchsgl_item_lnqw_title').attr('href', lnqwUrl); //地址
         $('#dxchsgl_item_lnqw_ste').html();//状态
         if (chsglm.DxChSGLLNQWSte === "1") {
-            $('#dxchsgl_item_lnqw_ste').html('<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>');
+            $('#dxchsgl_item_lnqw_ste').html('<i class="fa fa-roll-green" style="margin-left:2px;"></i>');
         }
         else {
-            $('#dxchsgl_item_lnqw_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
+            $('#dxchsgl_item_lnqw_ste').html('<i class="fa fa-roll-red" style="margin-left:2px;"></i>');
         }
         $('#dxchsgl_item_lnqw_title').html();//标题
         $('#dxchsgl_item_lnqw_title').html(chsglm.DxChSGLLNQWTitle);
@@ -207,7 +207,15 @@
             chart_View_Chiller_SGL_COP_Main = echarts.init(document.getElementById('chart_View_Chiller_SGL_COP_Main'));
             option = {
                 title: {
-                    text: '冷机能效'
+                    text: '冷机能效',
+                    textStyle:{
+
+                        fontWeight:'normal',
+
+                        fontSize:16
+
+                    }
+
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -243,7 +251,8 @@
                     }],
                     outOfRange: {
                         color: '#999'
-                    }
+                    },
+                    orient:"horizontal"
                 },
                 series: {
                     name: '冷机能效',

@@ -25,7 +25,7 @@ $(function(){
     })
 
     //导出
-    $('.excelButton').click(function(){
+    $('#exportBtn').click(function(){
 
         _exportExecl($('.table-area'));
 

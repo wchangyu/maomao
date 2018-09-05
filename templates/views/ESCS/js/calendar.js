@@ -282,9 +282,9 @@
                 var idxG = parseInt(res.idxG);
                 $('#tableMark').children('tbody').children('tr').eq(0).children('td').addClass('color');
                 $('#tableMark').children('tbody').children('tr').eq(1).children('td').removeClass('goodIndicator').removeClass('markindicator');
-                $('#tableMark').children('tbody').children('tr').eq(0).children('td').eq(idxG).removeClass('color').html('标杆建筑');
+                $('#tableMark').children('tbody').children('tr').eq(0).children('td').eq(idxG).removeClass('color').html('标杆建筑').hide();
                 $('#tableMark').children('tbody').children('tr').eq(1).children('td').removeClass('goodIndicator');
-                $('#tableMark').children('tbody').children('tr').eq(1).children('td').eq(idxG).addClass('goodIndicator');
+                $('#tableMark').children('tbody').children('tr').eq(1).children('td').eq(idxG).addClass('goodIndicator').hide();
                 var idxK = parseInt(res.idxK);
                 $('#tableMark').children('tbody').children('tr').eq(0).children('td').eq(idxK).removeClass('color').html('当前楼(' + lzeerV + ')');
                 $('#tableMark').children('tbody').children('tr').eq(1).children('td').eq(idxK).addClass('markindicator');

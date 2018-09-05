@@ -114,7 +114,15 @@
 
             option = {
                 title: {
-                    text: '回水温度'
+                    text: '回水温度',
+                    textStyle:{
+
+                        fontWeight:'normal',
+
+                        fontSize:16
+
+                    }
+
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -165,7 +173,8 @@
                     }],
                     outOfRange: {
                         color: '#999'
-                    }
+                    },
+                    orient:"horizontal"
                 },
                 series: {
                     name: '回水温度',

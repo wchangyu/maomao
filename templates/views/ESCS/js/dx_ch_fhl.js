@@ -85,7 +85,14 @@
 
             option = {
                 title: {
-                    text: '负荷率'
+                    text: '负荷率',
+                    textStyle:{
+
+                        fontWeight:'normal',
+
+                        fontSize:16
+
+                    }
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -126,17 +133,21 @@
                         gt: 0,
                         lte: parseFloat(sessionStorage.DxChFHLBadStd),
                         color: '#ff9933'
+                        //color:'#6ad7db'
                     }, {
                         gt: parseFloat(sessionStorage.DxChFHLBadStd),
                         lte: parseFloat(sessionStorage.DxChFHLWellStd),
                         color: '#ffde33'
+                        //color: '#efc34e'
                     }, {
                         gt: parseFloat(sessionStorage.DxChFHLWellStd),
                         color: '#096'
+                        //color:'#f5587a'
                     }],
                     outOfRange: {
                         color: '#999'
-                    }
+                    },
+                    orient:"horizontal"
                 },
                 series: {
                     name: '负荷率',

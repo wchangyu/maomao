@@ -16,11 +16,11 @@
         //$('#dxct_item_zsxl_acv').html(sessionStorage.DxCTXLAcv);
         if (sessionStorage.DxCTXLSte === "1") {
             $('#dxct_item_zsxl_ste').html();
-            $('#dxct_item_zsxl_ste').html('<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>');
+            $('#dxct_item_zsxl_ste').html('<i class="fa fa-roll-green" style="margin-left:2px;"></i>');
         }
         else if (sessionStorage.DxCTXLSte === "0") {
             $('#dxct_item_zsxl_ste').html();
-            $('#dxct_item_zsxl_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
+            $('#dxct_item_zsxl_ste').html('<i class="fa fa-roll-red" style="margin-left:2px;"></i>');
         }
         else {
             $('#dxct_item_zsxl_ste').html();
@@ -141,7 +141,8 @@
                     }],
                     outOfRange: {
                         color: '#999'
-                    }
+                    },
+                    orient:"horizontal"
                 },
                 series: {
                     type: 'line',

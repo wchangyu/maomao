@@ -25,11 +25,11 @@ $(function(){
                 data:'kpiN'
             },
             {
-                title:'总值<span class="Lunite">(KWH/KWH)</span>',
+                title:'总值<span class="Lunite">(KWH)</span>',
                 data:'totalV'
             },
             {
-                title:'峰值<span class="Lunite">(KWH/KWH)</span>',
+                title:'峰值<span class="Lunite">(KWH)</span>',
                 data:'maxV'
             },
             {
@@ -37,7 +37,7 @@ $(function(){
                 data:'maxDT'
             },
             {
-                title:'谷值<span class="Lunite">(KWH/KWH)</span>',
+                title:'谷值<span class="Lunite">(KWH)</span>',
                 data:'minV'
             },
             {
@@ -45,7 +45,7 @@ $(function(){
                 data:'minDT'
             },
             {
-                title:'平均值<span class="Lunite">(KWH/KWH)</span>',
+                title:'平均值<span class="Lunite">(KWH)</span>',
                 data:'averV'
             }
 

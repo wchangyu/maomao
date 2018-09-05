@@ -362,7 +362,7 @@ var optionLine = {
 
                             tdStr += '<td>';
 
-                            tdStr += opt.series[j].data[i]==undefined?'-':opt.series[j].data[i];
+                            tdStr += opt.series[j].data[i]==undefined?'-':Number(opt.series[j].data[i]).toFixed(1);
 
                             tdStr += '</td>';
 

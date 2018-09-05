@@ -118,7 +118,15 @@
 
             option = {
                 title: {
-                    text: '负载率'
+                    text: '负载率',
+                    textStyle:{
+
+                        fontWeight:'normal',
+
+                        fontSize:16
+
+                    }
+
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -154,7 +162,9 @@
                     }],
                     outOfRange: {
                         color: '#999'
-                    }
+                    },
+
+                    orient:"horizontal"
                 },
                 series: {
                     name: '负载率',

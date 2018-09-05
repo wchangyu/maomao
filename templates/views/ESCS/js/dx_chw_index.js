@@ -23,11 +23,11 @@
         //$('#dxchw_item_ghswc_acv').html(sessionStorage.DxChwGHSWCAcv);
         if (sessionStorage.DxChwGHSWCSte === "1") {
             $('#dxchw_item_ghswc_ste').html();
-            $('#dxchw_item_ghswc_ste').html('<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>');
+            $('#dxchw_item_ghswc_ste').html('<i class="fa fa-roll-green" style="margin-left:2px;"></i>');
         }
         else if (sessionStorage.DxChwGHSWCSte === "0") {
             $('#dxchw_item_ghswc_ste').html();
-            $('#dxchw_item_ghswc_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
+            $('#dxchw_item_ghswc_ste').html('<i class="fa fa-roll-red" style="margin-left:2px;"></i>');
         }
         else {
             $('#dxchw_item_ghswc_ste').html();
@@ -42,11 +42,11 @@
         //$('#dxchw_item_mdyc_acv').html(sessionStorage.DxChwMDYCAcv);
         if (sessionStorage.DxChwMDYCSte === "1") {
             $('#dxchw_item_mdyc_ste').html();
-            $('#dxchw_item_mdyc_ste').html('<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>');
+            $('#dxchw_item_mdyc_ste').html('<i class="fa fa-roll-green" style="margin-left:2px;"></i>');
         }
         else if (sessionStorage.DxChwMDYCSte === "0") {
             $('#dxchw_item_mdyc_ste').html();
-            $('#dxchw_item_mdyc_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
+            $('#dxchw_item_mdyc_ste').html('<i class="fa fa-roll-red" style="margin-left:2px;"></i>');
         }
         else {
             $('#dxchw_item_mdyc_ste').html();
@@ -143,7 +143,8 @@
                     }],
                     outOfRange: {
                         color: '#999'
-                    }
+                    },
+                    orient:"horizontal"
                 },
                 series: {
                     type: 'line',

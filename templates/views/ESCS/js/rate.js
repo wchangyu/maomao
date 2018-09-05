@@ -331,6 +331,240 @@ var Rate=function () {
 
     })
 
+    //表格
+    var col = [
+
+        {
+            title:'名称',
+            data:'chillerName',
+            render:function(data, type, full, meta){
+                return '<span data-attr="' + full.chillerID + '">' + data + '</span>'
+            }
+
+        },
+        {
+            title:'额定值',
+            data:'f_Qmax',
+            className:'EDValue'
+        }
+
+
+    ]
+
+    _tableInit($('#tableED'),col,2,true,'','',true,'','',false);
+
+    //额定值
+    var tipName = '';
+
+    var _thisTD = '';
+
+    //额定负荷量设定
+    $('#devOption').click(function(){
+
+        //模态框
+        _moTaiKuang($('#option-Modal'), '额定负荷量设定', '', '' ,'', '确定');
+
+        //获取额定值
+        var prm = {
+
+            //楼宇
+            pId:sessionStorage.PointerID
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'RateEER/GetChillerQMaxVs',
+
+            timeout:_theTimes,
+
+            beforeSend:function(){
+
+                $('#tableED').showLoading();
+
+            },
+
+            complete:function(){
+
+                $('#tableED').hideLoading();
+
+            },
+
+            data:prm,
+
+            success:function(result){
+
+                var arr = [];
+
+                if(result.code == 0){
+
+                    if(result.chillerqmaxvs.length>0){
+
+                        arr = result.chillerqmaxvs;
+
+                    }
+
+                }
+
+                _datasTable($('#tableED'),arr);
+            },
+
+            error:function(){
+
+                _datasTable($('#tableED'),[]);
+
+            }
+
+        })
+
+    })
+
+    //点击修改额定值
+    $('#tableED tbody').on('click','.EDValue',function(){
+
+        tipName = $(this).prev().children('span').html();
+
+        var str = '修改' + '<span style="font-weight: 400">' + tipName + '</span>' + '定额';
+
+        //修改
+        _moTaiKuang($('#edit-Modal'), str, '', '' ,'', '确定');
+
+        //验证消息隐藏
+        $('#tipError').hide();
+
+        $('.editValue').val('');
+
+        $('.editValue').val($(this).html());
+
+        _thisTD = $(this);
+
+
+    })
+
+    //额定值输入验证
+    $('#edit-Modal').on('keyup','.editValue',function(){
+
+        $('#tipError').hide();
+
+        var reg= /^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$/;
+
+        var value = $(this).val();
+
+        if(!reg.test(value)){
+
+            $('#tipError').show();
+
+        }
+
+    })
+
+    //确定额定值
+    $('#edit-Modal').on('click','.btn-primary',function(){
+
+        //格式验证
+        var o = $('#tipError').css('display');
+
+        if(o == 'none'){
+
+            //验证通过
+            var value = $('.editValue').val();
+
+            _thisTD.html(value);
+
+            $('#edit-Modal').modal('hide');
+
+            _thisTD = '';
+
+        }
+
+    })
+
+    //点击确定修改
+    $('#option-Modal').on('click','.btn-primary',function(){
+
+        //获取数据
+        var trs = $('#tableED tbody').children('tr');
+
+        var arr = [];
+
+        for(var i=0;i<trs.length;i++){
+
+            var obj = {};
+
+            obj.f_ChillerID = trs.eq(i).children().eq(0).children().attr('data-attr');
+
+            obj.f_Qmax = trs.eq(i).children().eq(1).html();
+
+            arr.push(obj);
+
+        }
+
+        var prm = {
+
+            modifychillerqmaxvs:arr,
+
+            pId:sessionStorage.PointerID
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'RateEER/ModifyChillerQMaxVs',
+
+            timeout:_theTimes,
+
+            beforeSend:function(){
+
+                $('#tableED').showLoading();
+
+            },
+
+            complete:function(){
+
+                $('#tableED').hideLoading();
+
+            },
+
+            data:prm,
+
+            success:function(result){
+
+                if(result.code == 0){
+
+                    //console.log()
+
+                }
+
+                //var arr = [];
+                //
+                //if(result.code == 0){
+                //
+                //    if(result.chillerqmaxvs.length>0){
+                //
+                //        arr = result.chillerqmaxvs;
+                //
+                //    }
+                //
+                //}
+                //
+                //_datasTable($('#tableED'),arr);
+            },
+
+            error:function(){
+
+                _datasTable($('#tableED'),[]);
+
+            }
+
+        })
+
+
+    })
+
 
     return {
         init: function () {
