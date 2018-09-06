@@ -365,59 +365,7 @@ var Rate=function () {
         _moTaiKuang($('#option-Modal'), '额定负荷量设定', '', '' ,'', '确定');
 
         //获取额定值
-        var prm = {
-
-            //楼宇
-            pId:sessionStorage.PointerID
-
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'RateEER/GetChillerQMaxVs',
-
-            timeout:_theTimes,
-
-            beforeSend:function(){
-
-                $('#tableED').showLoading();
-
-            },
-
-            complete:function(){
-
-                $('#tableED').hideLoading();
-
-            },
-
-            data:prm,
-
-            success:function(result){
-
-                var arr = [];
-
-                if(result.code == 0){
-
-                    if(result.chillerqmaxvs.length>0){
-
-                        arr = result.chillerqmaxvs;
-
-                    }
-
-                }
-
-                _datasTable($('#tableED'),arr);
-            },
-
-            error:function(){
-
-                _datasTable($('#tableED'),[]);
-
-            }
-
-        })
+        DataED();
 
     })
 
@@ -535,23 +483,15 @@ var Rate=function () {
 
                 if(result.code == 0){
 
-                    //console.log()
+                    $('#option-Modal').modal('hide');
+
+                    _moTaiKuang($('#tip-myModal'),'提示',true,true,'修改额定负荷量成功','');
+
+                }else{
+
+                    _moTaiKuang($('#tip-myModal'),'提示',true,true,'修改额定负荷量失败','');
 
                 }
-
-                //var arr = [];
-                //
-                //if(result.code == 0){
-                //
-                //    if(result.chillerqmaxvs.length>0){
-                //
-                //        arr = result.chillerqmaxvs;
-                //
-                //    }
-                //
-                //}
-                //
-                //_datasTable($('#tableED'),arr);
             },
 
             error:function(){
@@ -564,6 +504,65 @@ var Rate=function () {
 
 
     })
+
+    //获取额定负荷量的
+    function DataED(){
+
+        var prm = {
+
+            //楼宇
+            pId:sessionStorage.PointerID
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'RateEER/GetChillerQMaxVs',
+
+            timeout:_theTimes,
+
+            beforeSend:function(){
+
+                $('#tableED').showLoading();
+
+            },
+
+            complete:function(){
+
+                $('#tableED').hideLoading();
+
+            },
+
+            data:prm,
+
+            success:function(result){
+
+                var arr = [];
+
+                if(result.code == 0){
+
+                    if(result.chillerqmaxvs.length>0){
+
+                        arr = result.chillerqmaxvs;
+
+                    }
+
+                }
+
+                _datasTable($('#tableED'),arr);
+            },
+
+            error:function(){
+
+                _datasTable($('#tableED'),[]);
+
+            }
+
+        })
+
+    }
 
 
     return {
