@@ -832,7 +832,7 @@ function getPointerData(){
                 //对象值初始化
                 obj.data.length = 0;
 
-                var legendName = o.returnOBJName;
+                var legendName = o.returnOBJName + '(' + o.returnOBJUnit + ')';
 
                 obj.name = legendName;
 
@@ -856,7 +856,7 @@ function getPointerData(){
 
             //console.log(col);
 
-            //var unite = '(' + result.devInfoTables[0].returnOBJUnit + ')';
+            var unite = '(' + result.devInfoTables[0].returnOBJUnit + ')';
 
             col = [
 
@@ -870,7 +870,7 @@ function getPointerData(){
                     data:"returnOBJUnit"
                 },
                 {
-                    title:'峰值',
+                    title:'峰值' + unite,
                     data:"maxMetaData",
                     render:function(data, type, full, meta){
 
@@ -882,7 +882,7 @@ function getPointerData(){
                     data:"maxMetaDataDT"
                 },
                 {
-                    title:'谷值',
+                    title:'谷值' + unite,
                     data:"minMetaData",
                     render:function(data, type, full, meta){
 
@@ -894,7 +894,7 @@ function getPointerData(){
                     data:"minMetaDataDT"
                 },
                 {
-                    title:'平均值',
+                    title:'平均值' + unite,
                     data:"avgMetaData",
                     render:function(data, type, full, meta){
 

@@ -22,39 +22,40 @@ $(function(){
     var scrapDatatablesCol = [
 
         {
-            title:'日期',
-            data:'gdDate'
-        },
-        {
             title:'楼宇名称',
             data:'building'
         },
         {
-            title:__names.office+'或楼层',
+            title:__names.office +'或楼层',
             data:'bxKeshi'
         },
         {
-            title:'通知发出时间',
+            title:'报修时间',
+            data:'GDShij'
+        },
+        {
+            title:'派单时间',
             data:'shoulShij'
         },
         {
-            title:'故障原因',
+            title:'故障描述',
             data:'BxBeizhu'
-        },
-        {
-            title:'执行班组',
-            data:'wxKeshi'
-        },
-        {
-            title:'任务完成时间',
-            data:'wangongShij'
         },
         {
             title:'值班人',
             data:'shouliRen'
         },
         {
-            title:'备注',
+            title:'执行班组',
+            data:'wxKeshi'
+        },
+        {
+            title:'完工时间',
+            data:'wangongShij'
+        },
+
+        {
+            title:'处理结果',
             data:'wxBeizhu'
         }
 
