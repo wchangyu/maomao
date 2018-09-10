@@ -29,11 +29,11 @@
         //$('#dxch_item_csw_acv').html(sessionStorage.DxChChwCSWAcv);
         if (sessionStorage.DxChChwCSWSte === "1") {
             $('#dxch_item_csw_ste').html();
-            $('#dxch_item_csw_ste').html('<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>');
+            $('#dxch_item_csw_ste').html('<i class="fa fa-roll-green" style="margin-left:2px;"></i>');
         }
         else {
             $('#dxch_item_csw_ste').html();
-            $('#dxch_item_csw_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
+            $('#dxch_item_csw_ste').html('<i class="fa fa-roll-red" style="margin-left:2px;"></i>');
         }
     }
 
@@ -45,11 +45,11 @@
         //$('#dxch_item_hsw_acv').html(sessionStorage.DxChCWHSWAcv);
         if (sessionStorage.DxChCWHSWSte === "1") {
             $('#dxch_item_hsw_ste').html();
-            $('#dxch_item_hsw_ste').html('<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>');
+            $('#dxch_item_hsw_ste').html('<i class="fa fa-roll-green" style="margin-left:2px;"></i>');
         }
         else {
             $('#dxch_item_hsw_ste').html();
-            $('#dxch_item_hsw_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
+            $('#dxch_item_hsw_ste').html('<i class="fa fa-roll-red" style="margin-left:2px;"></i>');
         }
     }
 
@@ -59,11 +59,11 @@
         $('#dxch_item_FHL_title').html(sessionStorage.DxChFHLTitle);
         if (sessionStorage.DxChFHLSte === "1") {
             $('#dxch_item_FHL_ste').html();
-            $('#dxch_item_FHL_ste').html('<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>');
+            $('#dxch_item_FHL_ste').html('<i class="fa fa-roll-green" style="margin-left:2px;"></i>');
         }
         else {
             $('#dxch_item_FHL_ste').html();
-            $('#dxch_item_FHL_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
+            $('#dxch_item_FHL_ste').html('<i class="fa fa-roll-red" style="margin-left:2px;"></i>');
         }
     }
 
@@ -103,8 +103,8 @@
                     {
                         "aTargets": [0], "mRender": function (data, type, full) {//状态
                             return data === "1"
-                                ? '<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>'
-                                : '<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>';
+                                ? '<i class="fa fa-roll-green" style="margin-left:2px;"></i>'
+                                : '<i class="fa fa-roll-red" style="margin-left:2px;"></i>';
                         }
                     },
                     {
@@ -233,6 +233,13 @@
                 tooltip: {
                     trigger: 'axis'
                 },
+                //legend:{
+                //
+                //    //orient:'horizontal'
+                //
+                //    show:false
+                //
+                //},
                 xAxis: {
                     axisLabel: {
                         rotate: 15,
@@ -280,7 +287,8 @@
                     }],
                     outOfRange: {
                         color: '#999'
-                    }
+                    },
+                    orient:"horizontal"
                 },
                 series: {
                     type: 'line',

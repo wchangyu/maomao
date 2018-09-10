@@ -24,67 +24,33 @@ $(function (){
     var _userIdName = sessionStorage.getItem('realUserName');
     /*-------------------------表格初始化--------------------------*/
     //页面表格
-    var _table = $('#scrap-datatables').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": true,
-        "ordering": false,
-        "pagingType":"full_numbers",
-        "iDisplayLength":50,//默认每页显示的条数
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            //"sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
-            'infoEmpty': '没有数据',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
-            }
+    var col = [
+
+        {
+            title:'姓名',
+            data:'shouliren'
         },
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '导出',
-                className:'saveAs',
-                header:true
-            }
-        ],
-        "dom":'t<"F"lip>',
-        "columns": [
-            {
-                title:'姓名',
-                data:'shouliren'
-            },
-            {
-                title:'接工量',
-                data:'gdNum'
-            },
-            {
-                title:'电话报修量',
-                data:'gdDh'
-            },
-            {
-                title:'自主登记量',
-                data:'gdZz'
-            },
-            {
-                title:'系统工单',
-                data:'gdXt'
-            }
-        ]
-    });
-    _table.buttons().container().appendTo($('.excelButton'),_table.table().container());
-    //报错时不弹出弹框
-    $.fn.dataTable.ext.errMode = function(s,h,m){
-        console.log('')
-    }
+        {
+            title:'接工量',
+            data:'gdNum'
+        },
+        {
+            title:'电话报修量',
+            data:'gdDh'
+        },
+        {
+            title:'自主登记量',
+            data:'gdZz'
+        },
+        {
+            title:'系统工单',
+            data:'gdXt'
+        }
+
+    ]
+
+    _tableInit($('#scrap-datatables'),col,2,false,'','','','','','');
+
     //给表格的标题赋时间
     $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + _initStart + '——' + _initEnd);
     /*------------------------echarts初始化-----------------------*/
@@ -227,6 +193,20 @@ $(function (){
     $('.confirm1').click(function(){
         $('#myModal2').modal('hide');
     })
+
+    //导出
+    $('.excelButton').click(function(){
+
+        //导出所有数据
+        _tableInit($('#scrap-datatables'),col,2,false,'','','','','',true);
+
+        _FFExcel($('#scrap-datatables')[0]);
+
+        _tableInit($('#scrap-datatables'),col,2,false,'','','','','','');
+
+
+    })
+
     /*-------------------------echarts图自适应------------------*/
     window.onresize = function () {
         if(myChart && myChart1){
@@ -297,7 +277,6 @@ $(function (){
                     //给饼图（只计算电话报修量总量、自主登记量总量）
                     var dhTotal = 0;
                     var zzTotal = 0;
-                    console.log(result);
                     for(var i=0;i<result.length;i++){
                         dhTotal += result[i].gdDh;
                         zzTotal += result[i].gdZz;

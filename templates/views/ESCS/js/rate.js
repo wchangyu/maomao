@@ -204,9 +204,9 @@ var Rate=function () {
                                 }
 
                             },
-                            //magicType: { type: ['line', 'bar'] },
-                            //restore: {},
-                            //saveAsImage: {}
+                            magicType: { type: ['line', 'bar'] },
+                            restore: {},
+                            saveAsImage: {}
                         }
                     },
                     legend: {
@@ -270,6 +270,300 @@ var Rate=function () {
             }
         })
     }
+
+    //导出数据
+    $('#exportBtn').click(function(){
+
+        var prm = {
+
+            //楼宇
+            pId:sessionStorage.PointerID,
+            //时间
+            sp:moment($('#spDT').val()).format('YYYY-MM-DD'),
+            //结束时间
+            ep:moment($('#epDT').val()).format('YYYY-MM-DD'),
+            //单位
+            misc:sessionStorage.misc
+
+        }
+
+        var url = sessionStorage.apiUrlPrefix + 'RateEER/ExportRateEERs?pId=' + sessionStorage.PointerID
+
+                + '&sp=' + moment($('#spDT').val()).format('YYYY-MM-DD')
+
+                + '&ep=' + moment($('#epDT').val()).format('YYYY-MM-DD')
+
+                +'&misc=' + sessionStorage.misc
+
+        $.ajax({
+
+            type:'get',
+
+            url: sessionStorage.apiUrlPrefix + 'RateEER/ExportRateEERs',
+
+            data:prm,
+
+            //发送数据之前
+            beforeSend:function(){
+
+                $('#exportBtn').html('导出中...').attr('disabled',true);
+
+            },
+
+            //发送数据完成之后
+            complete:function(){
+
+                $('#exportBtn').html('导出数据').attr('disabled',false);
+
+            },
+
+            timeout:_theTimes,
+
+            success:function(result){
+                window.open(url, "_self", true);
+
+            },
+
+            error:_errorFun1
+
+
+        })
+
+    })
+
+    //表格
+    var col = [
+
+        {
+            title:'名称',
+            data:'chillerName',
+            render:function(data, type, full, meta){
+                return '<span data-attr="' + full.chillerID + '">' + data + '</span>'
+            }
+
+        },
+        {
+            title:'额定值',
+            data:'f_Qmax',
+            className:'EDValue'
+        }
+
+
+    ]
+
+    _tableInit($('#tableED'),col,2,true,'','',true,'','',false);
+
+    //额定值
+    var tipName = '';
+
+    var _thisTD = '';
+
+    //额定负荷量设定
+    $('#devOption').click(function(){
+
+        //模态框
+        _moTaiKuang($('#option-Modal'), '额定负荷量设定', '', '' ,'', '确定');
+
+        //获取额定值
+        DataED();
+
+    })
+
+    //点击修改额定值
+    $('#tableED tbody').on('click','.EDValue',function(){
+
+        tipName = $(this).prev().children('span').html();
+
+        var str = '修改' + '<span style="font-weight: 400">' + tipName + '</span>' + '定额';
+
+        //修改
+        _moTaiKuang($('#edit-Modal'), str, '', '' ,'', '确定');
+
+        //验证消息隐藏
+        $('#tipError').hide();
+
+        $('.editValue').val('');
+
+        $('.editValue').val($(this).html());
+
+        _thisTD = $(this);
+
+
+    })
+
+    //额定值输入验证
+    $('#edit-Modal').on('keyup','.editValue',function(){
+
+        $('#tipError').hide();
+
+        var reg= /^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$/;
+
+        var value = $(this).val();
+
+        if(!reg.test(value)){
+
+            $('#tipError').show();
+
+        }
+
+    })
+
+    //确定额定值
+    $('#edit-Modal').on('click','.btn-primary',function(){
+
+        //格式验证
+        var o = $('#tipError').css('display');
+
+        if(o == 'none'){
+
+            //验证通过
+            var value = $('.editValue').val();
+
+            _thisTD.html(value);
+
+            $('#edit-Modal').modal('hide');
+
+            _thisTD = '';
+
+        }
+
+    })
+
+    //点击确定修改
+    $('#option-Modal').on('click','.btn-primary',function(){
+
+        //获取数据
+        var trs = $('#tableED tbody').children('tr');
+
+        var arr = [];
+
+        for(var i=0;i<trs.length;i++){
+
+            var obj = {};
+
+            obj.f_ChillerID = trs.eq(i).children().eq(0).children().attr('data-attr');
+
+            obj.f_Qmax = trs.eq(i).children().eq(1).html();
+
+            arr.push(obj);
+
+        }
+
+        var prm = {
+
+            modifychillerqmaxvs:arr,
+
+            pId:sessionStorage.PointerID
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'RateEER/ModifyChillerQMaxVs',
+
+            timeout:_theTimes,
+
+            beforeSend:function(){
+
+                $('#tableED').showLoading();
+
+            },
+
+            complete:function(){
+
+                $('#tableED').hideLoading();
+
+            },
+
+            data:prm,
+
+            success:function(result){
+
+                if(result.code == 0){
+
+                    $('#option-Modal').modal('hide');
+
+                    _moTaiKuang($('#tip-myModal'),'提示',true,true,'修改额定负荷量成功','');
+
+                }else{
+
+                    _moTaiKuang($('#tip-myModal'),'提示',true,true,'修改额定负荷量失败','');
+
+                }
+            },
+
+            error:function(){
+
+                _datasTable($('#tableED'),[]);
+
+            }
+
+        })
+
+
+    })
+
+    //获取额定负荷量的
+    function DataED(){
+
+        var prm = {
+
+            //楼宇
+            pId:sessionStorage.PointerID
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'RateEER/GetChillerQMaxVs',
+
+            timeout:_theTimes,
+
+            beforeSend:function(){
+
+                $('#tableED').showLoading();
+
+            },
+
+            complete:function(){
+
+                $('#tableED').hideLoading();
+
+            },
+
+            data:prm,
+
+            success:function(result){
+
+                var arr = [];
+
+                if(result.code == 0){
+
+                    if(result.chillerqmaxvs.length>0){
+
+                        arr = result.chillerqmaxvs;
+
+                    }
+
+                }
+
+                _datasTable($('#tableED'),arr);
+            },
+
+            error:function(){
+
+                _datasTable($('#tableED'),[]);
+
+            }
+
+        })
+
+    }
+
 
     return {
         init: function () {

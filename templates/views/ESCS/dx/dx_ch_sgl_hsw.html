@@ -32,7 +32,9 @@
     <!--SHOWLOADING START-->
     <link href="../../resource/jQuery-showLoading/css/showLoading.css" rel="stylesheet" type="text/css">
     <!--SHOWLOADING END-->
+    <link rel="stylesheet" href="../css/dx_ri.css">
     <link href="../css/dx_ri_chi.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../css/public.css">
     <link href="../../favicon.ico" rel="shortcut icon" />
 </head>
 <body class="page-header-fixed page-quick-sidebar-over-content">
@@ -173,17 +175,18 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="total-warp">
-                            <div class="row margin-top-20">
+                            <div class="row">
                                 <div class="col-xs-12">
-                                    <div class="portlet box yellow">
+                                    <div class="portlet light">
                                         <div class="portlet-title">
                                             <div class="caption">
                                                 <span id="spanDxTitle">冷却回水温度</span>
                                             </div>
-                                            <div class="tools">
+                                            <div class="tools toolsBack">
                                                 <!--href="@Url.Content("~/DxCoolerSGL/Index")"-->
                                                 <a id="HSWBackToSGLBtn" class="btn-small">
-                                                    <i class="fa fa-step-backward" style="color:#FFF;"></i> <span style="color:#FFF;">返回</span>
+                                                    <span class="fa fa-step-back"></span>
+                                                    <span class="fa-step-word">返回</span>
                                                 </a>
                                             </div>
                                         </div>
@@ -192,10 +195,11 @@
                                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                                     <div class="row">
                                                         <div class="col-xs-12">
-                                                            <div class="portlet blue box">
+                                                            <div class="portlet box">
                                                                 <div class="portlet-title">
                                                                     <div class="caption">
-                                                                        <span id="spanDxDT">-</span>
+                                                                        <i class="main-title"></i>
+                                                                        <span class="main-title-word" id="spanDxDT">-</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="portlet-body">
@@ -262,13 +266,14 @@
                                                 <div id="reasugBox" class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                                                     <div class="row">
                                                         <div class="col-xs-12">
-                                                            <div class="portlet blue box">
+                                                            <div class="portlet box">
                                                                 <div class="portlet-title">
                                                                     <div class="caption">
-                                                                        原因分析
+                                                                        <i class="main-title"></i>
+                                                                        <span class="main-title-word">原因分析</span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="portlet-body ">
+                                                                <div class="portlet-body portlet-body-border">
                                                                     <div class="boxhgt">
                                                                         <h5>1.冷却塔开启台数、频率不够；</h5>
                                                                         <h5>2.冷却塔效率不佳；（见冷却塔诊断）；</h5>
@@ -279,13 +284,14 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-12">
-                                                            <div class="portlet blue box">
+                                                            <div class="portlet box">
                                                                 <div class="portlet-title">
                                                                     <div class="caption">
-                                                                        建议措施
+                                                                        <i class="main-title"></i>
+                                                                        <span class="main-title-word">建议措施</span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="portlet-body ">
+                                                                <div class="portlet-body portlet-body-border">
                                                                     <div class="boxhgt">
                                                                         <h5>1.多开冷却塔或提高风机频率，增大散热量；</h5>
                                                                         <h5>2.在冷塔能效诊断那里查看冷塔效率，如果当前冷塔浅绿欠佳可切换一台高效冷却塔；</h5>
@@ -311,7 +317,7 @@
     </div>
     <div class="page-footer">
         <div class="page-footer-inner">
-            2016 &copy; Huaqin.
+            2018 &copy; Huaqin.
         </div>
         <div class="scroll-to-top">
             <i class="icon-arrow-up"></i>

@@ -2382,6 +2382,9 @@ $(function(){
         //初始化
         dataInit();
 
+        //可协助显示
+        $('#xzDes').show();
+
         //隐藏放大镜图标 不让用户选择
         $('.fdjImg').hide();
 
@@ -2481,7 +2484,9 @@ $(function(){
                 //用户角色
                 "b_UserRole": _userRole,
                 //用户部门
-                "b_DepartNum": _userBM
+                "b_DepartNum": _userBM,
+                //协助说明
+                "remark":$('#xzDes').find('textarea').val()
             }
 
             $.ajax({
@@ -2771,6 +2776,10 @@ $(function(){
 
         //清空负责人
         _fzrArr.length = 0;
+
+        //协助原因隐藏
+        $('#xzDes').hide();
+
     }
 
     //报修科室

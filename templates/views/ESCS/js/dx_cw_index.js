@@ -30,11 +30,11 @@ var dx_cw_index = function () {
         //$('#dxcw_item_ghswc_acv').html(sessionStorage.DxCWGHSWCAcv);
         if (sessionStorage.DxCWGHSWCSte === "1") {
             $('#dxcw_item_ghswc_ste').html();
-            $('#dxcw_item_ghswc_ste').html('<i class="fa fa-circle-o" style="color:#98dbd1;margin-left:2px;"></i>');
+            $('#dxcw_item_ghswc_ste').html('<i class="fa fa-roll-green" style="margin-left:2px;"></i>');
         }
         else if (sessionStorage.DxCWGHSWCSte === "0") {
             $('#dxcw_item_ghswc_ste').html();
-            $('#dxcw_item_ghswc_ste').html('<i class="fa fa-circle-o" style="color:#c00000;margin-left:2px;"></i>');
+            $('#dxcw_item_ghswc_ste').html('<i class="fa fa-roll-red" style="margin-left:2px;"></i>');
         }
         else {
             $('#dxcw_item_ghswc_ste').html();
@@ -145,7 +145,8 @@ var dx_cw_index = function () {
                     }],
                     outOfRange: {
                         color: '#999'
-                    }
+                    },
+                    orient:"horizontal"
                 },
                 series: {
                     type: 'line',

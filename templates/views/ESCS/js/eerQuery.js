@@ -109,6 +109,8 @@ $(function(){
             feature: {
                 dataView: {
 
+                    readOnly:true,
+
                     optionToContent: function(opt) {
 
                         //thead
@@ -157,7 +159,7 @@ $(function(){
 
                                 tdStr += '<td>';
 
-                                tdStr += opt.series[j].data[i]==undefined?'-':opt.series[j].data[i];
+                                tdStr += opt.series[j].data[i]==undefined?'-':Number(opt.series[j].data[i]).toFixed(1);
 
                                 tdStr += '</td>';
 
@@ -173,6 +175,17 @@ $(function(){
 
 
                     }
+
+                },
+
+                //保存图片
+                saveAsImage:{},
+                //还原
+                restore:{},
+
+                magicType:{
+
+                    type: ['bar','line']
 
                 }
             }

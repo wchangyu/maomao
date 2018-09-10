@@ -25,9 +25,82 @@ $(function(){
 
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
-    $('.buttons').children('.btn-success').click(function(){
+    $('.buttons').children('#selected').click(function(){
 
         getPointerData();
+
+    });
+
+    //数据导出
+    $('.buttons').children('#exportBtn').click(function(){
+
+        //定义属性ID集合
+        var cNameTIDs = [];
+
+        //定义获得数据的参数
+        for(var i=0; i<$('.select-equipment-container p b').length; i++){
+
+            //设备ID
+            var devId = $('.select-equipment-container p b').eq(i).attr('id');
+
+            cNameTIDs.push(devId);
+        }
+
+        //获取查询时间
+        var startDate = $('#spDT').val();
+
+        var endDate = moment($('#epDT').val()).add(1,'days').format("YYYY-MM-DD");
+
+        var prm = {
+
+            //开始时间
+            sp:startDate,
+            //结束时间
+            ep:endDate,
+            //监测因子id集合
+            cNameTIDs:cNameTIDs
+        }
+
+        var url = sessionStorage.apiUrlPrefix + 'ZKDevicesShow/ExportDevHistoryData?sp=' + startDate
+
+            + '&ep=' + endDate
+
+            +'&cNameTIDs=' + cNameTIDs
+
+        $.ajax({
+
+            type:'get',
+
+            url: sessionStorage.apiUrlPrefix + 'ZKDevicesShow/ExportDevHistoryData',
+
+            data:prm,
+
+            //发送数据之前
+            beforeSend:function(){
+
+                $('#exportBtn').html('导出中...').attr('disabled',true);
+
+            },
+
+            //发送数据完成之后
+            complete:function(){
+
+                $('#exportBtn').html('导出数据').attr('disabled',false);
+
+            },
+
+            timeout:_theTimes,
+
+            success:function(result){
+                window.open(url, "_self", true);
+
+            },
+
+            error:_errorFun1
+
+
+        })
+
 
     });
 
@@ -236,10 +309,87 @@ var optionLine = {
     toolbox: {
         show : true,
         feature : {
-            dataView : {show: true, readOnly: false},
-            magicType : {show: true, type: ['bar', 'line']},
-            restore : {show: true},
-            saveAsImage : {show: true}
+            //数据表格
+            dataView : {
+
+                readOnly:true,
+
+                optionToContent: function(opt) {
+
+                    //thead
+                    var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
+
+                    var tables = '</table>';
+
+                    var thead = '<thead>';
+
+                    var theads = '</thead>';
+
+                    var tbody = '<tbody>';
+
+                    var tbodys = '</tbody>';
+
+                    //th
+                    var thStr = '<tr><th>时间</th>';
+
+                    for(var i=0;i<opt.series.length;i++){
+
+                        thStr += '<th>';
+
+                        thStr += opt.series[i].name;
+
+                        thStr += '</th>'
+
+                    }
+
+                    thStr += '</tr>';
+
+                    //td
+                    var tdStr = '';
+
+                    for(var i=0;i<opt.xAxis[0].data.length;i++){
+
+                        tdStr += '<tr>';
+
+                        //时间
+                        tdStr += '<td>';
+
+                        tdStr += opt.xAxis[0].data[i];
+
+                        tdStr += '</td>';
+
+                        for(var j=0;j<opt.series.length;j++){
+
+                            tdStr += '<td>';
+
+                            tdStr += opt.series[j].data[i]==undefined?'-':Number(opt.series[j].data[i]).toFixed(1);
+
+                            tdStr += '</td>';
+
+                        }
+
+                        tdStr += '</tr>';
+
+
+                    }
+
+                    return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
+
+
+
+                }
+
+            },
+            //保存图片
+            saveAsImage:{},
+            //还原
+            restore:{},
+
+            magicType:{
+
+                type: ['bar','line']
+
+            }
         }
     },
     calculable : true,
@@ -597,7 +747,6 @@ function getPointerData(){
 
         //设备ID
         var devId = $('.select-equipment-container p b').eq(i).attr('id');
-
 
         cNameTIDs.push(devId);
     }

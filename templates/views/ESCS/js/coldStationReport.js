@@ -10,9 +10,24 @@ $(function(){
 
     conditionSelected();
 
+    //条件查询
     $('#selected').click(function(){
 
         conditionSelected();
+
+    })
+
+    //打印
+    $('#print').click(function(){
+
+        _printFun($('.table-area'))
+
+    })
+
+    //导出
+    $('#exportBtn').click(function(){
+
+        _exportExecl($('.table-area'));
 
     })
 
@@ -93,52 +108,52 @@ $(function(){
                             tdStr += '<tr>';
 
                             //时间
-                            tdStr += '<td>' + data[i].report_date + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_date + '</td>';
 
                             //系统冷量
-                            tdStr += '<td>' + data[i].report_xtc + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_xtc + '</td>';
 
                             //系统电量
-                            tdStr += '<td>' + data[i].report_xte + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_xte + '</td>';
 
                             //主机电量
-                            tdStr += '<td>' + data[i].report_zje + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_zje + '</td>';
 
                             //冷冻泵电量
-                            tdStr += '<td>' + data[i].report_ldb_e + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_ldb_e + '</td>';
 
                             //冷却泵电量
-                            tdStr += '<td>' + data[i].report_lqb_e + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_lqb_e + '</td>';
 
                             //冷却塔电量
-                            tdStr += '<td>' + data[i].report_lqt_e + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_lqt_e + '</td>';
 
                             //系统效率
-                            tdStr += '<td>' + data[i].report_xt_xl + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_xt_xl + '</td>';
 
                             //主机效率
-                            tdStr += '<td>' + data[i].report_zj_xl + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_zj_xl + '</td>';
 
                             //冷冻泵输送系数
-                            tdStr += '<td>' + data[i].report_ldb_xl + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_ldb_xl + '</td>';
 
                             //冷却泵输送系数
-                            tdStr += '<td>' + data[i].report_lqb_xl + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_lqb_xl + '</td>';
 
                             //冷却塔输送系数
-                            tdStr += '<td>' + data[i].report_lqt_xl + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_lqt_xl + '</td>';
 
                             //冷冻进水温度
-                            tdStr += '<td>' + data[i].report_ldjsw + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_ldjsw + '</td>';
 
                             //冷冻出水温度
-                            tdStr += '<td>' + data[i].report_ldcsw + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_ldcsw + '</td>';
 
                             //冷却进水温度
-                            tdStr += '<td>' + data[i].report_lqjsw + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_lqjsw + '</td>';
 
                             //冷却出水温度
-                            tdStr += '<td>' + data[i].report_lqcsw + '</td>';
+                            tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_lqcsw + '</td>';
 
                             tdStr += '</tr>';
 

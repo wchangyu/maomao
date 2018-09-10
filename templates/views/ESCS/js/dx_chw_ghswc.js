@@ -119,7 +119,15 @@
 
             option = {
                 title: {
-                    text: '供回水温差'
+                    text: '供回水温差',
+                    textStyle:{
+
+                        fontWeight:'normal',
+
+                        fontSize:16
+
+                    }
+
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -170,7 +178,8 @@
                     }],
                     outOfRange: {
                         color: '#999'
-                    }
+                    },
+                    orient:"horizontal"
                 },
                 series: {
                     name: '供回水温差',

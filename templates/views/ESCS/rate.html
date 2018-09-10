@@ -104,6 +104,15 @@
                                         <div class="L-condition-button" id="rateBtn">查询数据</div>
                                     </li>
 
+
+                                    <li>
+                                        <div class="L-condition-button" id="exportBtn">导出数据</div>
+                                    </li>
+
+                                    <div id="devOption" title="额定负荷量设定" style="cursor: pointer;float: right;margin-top:10px;display:inline-block;color:#3c3c3c;">
+                                        <img src="img/shezhi.png" alt="">
+                                    </div>
+
                                 </ul>
 
                                 <div class="row margin-top-20">
@@ -126,6 +135,70 @@
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
 <div id="foot-html"></div>
+
+
+<!--额定负荷量设定-->
+<div class="modal fade" id="option-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 500px;">
+        <div class="modal-content" style="height: 500px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body" style="height: 378px;overflow-y: auto">
+                <table id="tableED" class="table table-striped table-advance table-hover">
+
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--操作框-->
+<div class="modal fade" id="edit-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 250px;">
+        <div class="modal-content" style="height: 250px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">提示</h4>
+            </div>
+            <div class="modal-body" style="height: 127px;display: flex;">
+                <div style="margin: auto;width: 250px;">
+                    <label style="margin-right: 10px; ">定额</label>
+                    <input type="text"  class="form-control editValue" style="width: 200px;display: inline-block">
+                    <div id="tipError" style="text-align: center;color: orangered;line-height: 30px;">请输入大于0的数字</div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--提示框-->
+<div class="modal fade" id="tip-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
 
 <!-- END FOOTER -->

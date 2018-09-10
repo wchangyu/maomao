@@ -4,9 +4,6 @@
 
 $(function(){
 
-    //时间插件初始化
-    _timeYMDComponentsFun11($('.abbrDT'));
-
     //获取全部车站
     getAlarmStation();
 
@@ -26,6 +23,9 @@ $(function(){
     $('#spDT').val(_ajaxStartTime);
 
     $('#epDT').val(_ajaxEndTime);
+
+    //时间插件初始化
+    _timeYMDComponentsFun11($('.abbrDT'));
 
     /*-----------------------按钮事件------------------------*/
     $('.btn-success').click(function(){

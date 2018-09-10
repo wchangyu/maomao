@@ -22,7 +22,9 @@ $(function(){
             wxcontent:'',
             gzcontent:'',
             //协助科室
-            xzbz:''
+            xzbz:'',
+            //协助说明
+            xzRemark:''
         }
     });
 
@@ -84,6 +86,9 @@ $(function(){
 
     getMessageToShow();
 
+    //协助说明
+    xzRemarkInfo();
+
     //维修工时费表格
     var feeCol = [
 
@@ -139,6 +144,7 @@ $(function(){
             "userName":_userIdName,
             'gdCircle':_gdCircle
         };
+
         $.ajax({
             'type':'post',
             'url':_urls + 'YWGD/ywGDGetDetail',
@@ -328,6 +334,48 @@ $(function(){
         assistFun(_gdCode);
 
     };
+
+    //获取协助说明
+    function xzRemarkInfo(){
+
+        //从地址栏获取需要传递给后台的数据
+        var _prm = window.location.search;
+
+        var splitPrm = _prm.split('&');
+
+        //工单号
+        var _gdCode = splitPrm[0].split('=')[1];
+
+        //var _gdState = splitPrm[1].split('=')[1];
+        //工单重派值
+        var _gdCircle = splitPrm[1].split('=')[1];
+
+        //请求数据
+        var prm = {
+            'gdCode':_gdCode,
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
+            'gdCircle':_gdCircle,
+            'gdZht':''
+        }
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDFZGetDetail',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                gdObj.xzRemark = result.remark;
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+
+    }
 
     //获取日志信息（备件logType始终传2）
     function logInformation(logType){

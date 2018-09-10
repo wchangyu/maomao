@@ -13,70 +13,108 @@ $(function(){
 
     var _mychart = echarts.init(document.getElementById('optionMatching'));
 
-    var color = [
+    var typeColorArr = [
 
                 /*------------------------------------------------------------------------------------------------*/
 
-                '#f7efca','#b9a05e','#e4c269','#adbf47','#92b25f',
-                '#838f77','#a7c8bd','#3898a6','#5c92be','#91a4c5',
-                '#a62937','#d1816a','#d37327','#d2c4aa','#9b405f',
-                '#afa697','#b69c8d','#c1a8a1','#716676','#d0cc8d'
+                '#d8deea','#e8d9ae','#eceaf5','#738f9b','#b7e4c7','#f5b740','#66707a','#756389','#bed7de','#763634',
+
+                /*------------------------------------------------------------------------------------------------*/
+
+                '#76c5f0','#257fb3','#375078','#59b3b1','#57bdd6','#9eadca','#303787','#564975','#496e67','#875765',
+
+                /*-------------------------------------------------------------------------------------------------*/
+
+                '#ac88b8','#decad5','#a29783','#a9d61b','#5bb290','#38aa48','#d9f0de','#b6c8d2','#3c5e68','#9dcd43',
+
+                /*-------------------------------------------------------------------------------------------------*/
+
+                '#0aa971','#d75926','#e22043','#df3423','#914a5c','#d86234','#e9e719','#f3ae08','#fbab00','#e77830',
+
+                /*-------------------------------------------------------------------------------------------------*/
+
+                '#f3c567','#f7c318','#b95845','#ae8454','#cd9b44','#732a33','#b56331','#89752e','#724b2a','#b0461f',
+
+                /*------------------------------------------------------------------------------------------------*/
+
+                '#ba6d25','#d3692b','#d3692b','#74572b','#d5b177','#e49641','#877439','#d8bc03','#c18c3c','#b36a64',
+
+                /*------------------------------------------------------------------------------------------------*/
+
+                '#225765','#eddea7','#eeffcb','#99ccbb','#75ab87','#004677','#feff99','#ffffdb','#99ffcd','#59ca78',
+
+                /*------------------------------------------------------------------------------------------------*/
+
+                '#12111f','#423443','#ebddac','#dcbc89','#887976','#322455','#febd57','#a87766','#a8ab76','#549a78',
+
+                /*------------------------------------------------------------------------------------------------*/
+
+                '#dceef0','#a9bbbb','#549a9a','#004677','#b9eff1','#1fbeba','#212445','#676799','#eedfdc','#a8accf',
+
+                /*------------------------------------------------------------------------------------------------*/
+
+                '#0c59ab','#43abde','#bae0cb','#02007b','#0024cd','#009ef2','#ccffff','#a9bbbb','#768888','#bdbacb'
 
                 ];
 
-    var typePoint = [   'circle', 'rect', 'roundRect', 'triangle', 'diamond'
+    var typePoint = [
+
+        'circle', 'rect', 'roundRect', 'triangle', 'diamond'
 
                      ];
 
 
-    var pointerObj = [];
+    //var pointerObj = [];
+    //
+    //for(var i=0;i<typePoint.length;i++){
+    //
+    //    for(var j=0;j<color.length;j++){
+    //
+    //        var obj = {};
+    //
+    //        obj.color = color[j];
+    //
+    //        obj.point = typePoint[i];
+    //
+    //        pointerObj.push(obj);
+    //
+    //    }
+    //
+    //}
 
-    for(var i=0;i<typePoint.length;i++){
+    //首先将颜色打乱
 
-        for(var j=0;j<color.length;j++){
+    var typePointArr = [];
 
-            var obj = {};
+    for(var i=0;i<20;i++){
 
-            obj.color = color[j];
+        for(var j=0;j<typePoint.length;j++){
 
-            obj.point = typePoint[i];
-
-            pointerObj.push(obj);
+            typePointArr.push(typePoint[j]);
 
         }
 
     }
 
-    //首先将颜色打乱
 
-    var typeColorArr = [];
+    //pointerObj.sort(function(a,b){ return Math.random()>.5 ? -1 : 1;});
 
-    var typePointArr = [];
-
-    pointerObj.sort(function(a,b){ return Math.random()>.5 ? -1 : 1;});
-
-    for(var i=0;i<pointerObj.length;i++){
-
-        typeColorArr.push(pointerObj[i].color);
-
-        typePointArr.push(pointerObj[i].point);
-
-    }
+    //for(var i=0;i<pointerObj.length;i++){
+    //
+    //    typeColorArr.push(pointerObj[i].color);
+    //
+    //    typePointArr.push(pointerObj[i].point);
+    //
+    //}
 
     //首先将形状和组合拼接
     var option = {
 
-        color:color,
-
-        //title:{
-        //
-        //    subtext:'能效（KW/KW）'
-        //
-        //},
+        color:typeColorArr,
         grid: {
             left: '4%',
             right: '7%',
-            bottom: '10%',
+            bottom: '6%',
             containLabel: true
         },
         tooltip : {
@@ -107,13 +145,72 @@ $(function(){
 
 
         },
-        brush: {
+        toolbox: {
+            feature: {
+                saveAsImage:{},
+                dataView: {
+
+                    readOnly:true,
+
+                    optionToContent: function(opt) {
+
+                        //thead
+                        var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
+
+                        var tables = '</table>';
+
+                        var thead = '<thead>';
+
+                        var theads = '</thead>';
+
+                        var tbody = '<tbody>';
+
+                        var tbodys = '</tbody>';
+
+                        //th
+                        var thStr = '<tr><th>对象</th><th>能效(KW/KW)</th><th>能耗(KW)</th></tr>';
+
+                        //td
+                        var tdStr = '';
+
+                        //遍历
+                        for(var i=0;i<opt.series.length;i++){
+
+                            for(var j=0;j<opt.series[i].data.length;j++){
+
+                                tdStr += '<tr><td>' + opt.series[i].name + '</td>';
+
+                                tdStr += '<td>' + opt.series[i].data[j].value[1] + '</td>';
+
+                                tdStr += '<td>' + opt.series[i].data[j].value[0] + '</td>';
+
+                                tdStr += '</tr>'
+
+                            }
+
+                        }
+
+
+                        return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
+
+
+
+                    }
+
+                },
+                brush:{
+
+                    show:false
+
+                },
+            }
         },
         legend: {
             itemWidth:15,
             data: [],
             left: 'center',
-            top:20
+            top:20,
+            width:'80%'
         },
         xAxis : [
             {
@@ -123,7 +220,6 @@ $(function(){
                 nameGap:30,
                 nameTextStyle:{
 
-                    fontSize:20,
                     fontWeight:'bold',
 
                 },
@@ -152,8 +248,6 @@ $(function(){
                 nameLocation:'center',
                 nameGap:30,
                 nameTextStyle:{
-
-                    fontSize:20,
                     fontWeight:'bold'
 
                 },
@@ -170,6 +264,58 @@ $(function(){
     $('#aroBtn').click(function(){
 
         conditionSelected();
+
+    })
+
+    //数据导出
+    $('#exportBtn').click(function(){
+
+        var prm = {
+
+            //楼宇
+            pId:sessionStorage.PointerID,
+            //时间
+            sp:moment($('#spDT').val()).format('YYYY-MM-DD')
+
+        }
+
+        var url = sessionStorage.apiUrlPrefix + 'OpenMachineGrps/ExportOpenMachineGrpScatterplots?pId=' + sessionStorage.PointerID +
+
+            '&sp=' + moment($('#spDT').val()).format('YYYY-MM-DD')
+
+        $.ajax({
+
+            type:'get',
+
+            url: sessionStorage.apiUrlPrefix + 'OpenMachineGrps/ExportOpenMachineGrpScatterplots',
+
+            data:prm,
+
+            //发送数据之前
+            beforeSend:function(){
+
+                $('#exportBtn').html('导出中...').attr('disabled',true);
+
+            },
+
+            //发送数据完成之后
+            complete:function(){
+
+                $('#exportBtn').html('导出数据').attr('disabled',false);
+
+            },
+
+            timeout:_theTimes,
+
+            success:function(result){
+                window.open(url, "_self", true);
+
+            },
+
+            error:_errorFun1
+
+
+        })
 
     })
 

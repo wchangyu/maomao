@@ -104,7 +104,15 @@
             chart_View_Chiller_SGL_LNQW_Main = echarts.init(document.getElementById('chart_View_Chiller_SGL_LNQW_Main'));
             option = {
                 title: {
-                    text: '冷凝器趋近温度'
+                    text: '冷凝器趋近温度',
+                    textStyle:{
+
+                        fontWeight:'normal',
+
+                        fontSize:16
+
+                    }
+
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -140,7 +148,8 @@
                     }],
                     outOfRange: {
                         color: '#999'
-                    }
+                    },
+                    orient:"horizontal"
                 },
                 series: {
                     name: '冷凝器趋近温度',

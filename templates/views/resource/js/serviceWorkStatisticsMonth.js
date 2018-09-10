@@ -18,10 +18,6 @@ $(function(){
     var scrapDatatablesCol = [
 
         {
-            title:'日期',
-            data:'gdDate'
-        },
-        {
             title:'楼宇名称',
             data:'building'
         },
@@ -30,27 +26,32 @@ $(function(){
             data:'bxKeshi'
         },
         {
-            title:'通知发出时间',
+            title:'报修时间',
+            data:'GDShij'
+        },
+        {
+            title:'派单时间',
             data:'shoulShij'
         },
         {
-            title:'故障原因',
+            title:'故障描述',
             data:'BxBeizhu'
-        },
-        {
-            title:'执行班组',
-            data:'wxKeshi'
-        },
-        {
-            title:'任务完成时间',
-            data:'wangongShij'
         },
         {
             title:'值班人',
             data:'shouliRen'
         },
         {
-            title:'备注',
+            title:'执行班组',
+            data:'wxKeshi'
+        },
+        {
+            title:'完工时间',
+            data:'wangongShij'
+        },
+
+        {
+            title:'处理结果',
             data:'wxBeizhu'
         }
 
@@ -294,7 +295,67 @@ $(function(){
         //首先判断当前标签所对应的表格
         var index = $('.spanhover').index();
 
+        if(index == 0){
+
+            _tableInit($('#scrap-datatables'),scrapDatatablesCol,2,false,'','','','','',true);
+
+        }else if(index ==1){
+
+            _tableInit($('#wxContentByClassTable'),wxContentByClassCol,2,false,'','','','','',true);
+
+        }else if(index == 2){
+
+            _tableInit($('#wxContentByHouseTable'),wxContentByHouseCol,2,false,'','','','','',true);
+
+        }else if(index == 3){
+
+            _tableInit($('#wxContentOfHydroelectric'),wxContentOfHydroelectricCol,2,false,'','','','','',true);
+
+        }else if(index == 4){
+
+            _tableInit($('#wxContentByDepartment'),wxContentByDepartmentCol,2,false,'','','','','',true);
+
+        }else if(index == 5){
+
+            _tableInit($('#oneSectionTable'),allSectionCol,2,false,'','','','','',true);
+
+        }else if(index == 6){
+
+            _tableInit($('#oneSectionSummaryTable'),oneSectionSummaryCol,2,false,'','','','','',true);
+
+        }
+
         _FFExcel($('.table').eq(index)[0]);
+
+        if(index == 0){
+
+            _tableInit($('#scrap-datatables'),scrapDatatablesCol,2,false,'','','','',10,'');
+
+        }else if(index ==1){
+
+            _tableInit($('#wxContentByClassTable'),wxContentByClassCol,2,false,'','','','',10,'');
+
+        }else if(index == 2){
+
+            _tableInit($('#wxContentByHouseTable'),wxContentByHouseCol,2,false,'','','','',10,'');
+
+        }else if(index == 3){
+
+            _tableInit($('#wxContentOfHydroelectric'),wxContentOfHydroelectricCol,2,false,'','','','',10,'');
+
+        }else if(index == 4){
+
+            _tableInit($('#wxContentByDepartment'),wxContentByDepartmentCol,2,false,'','','','',10,'');
+
+        }else if(index == 5){
+
+            _tableInit($('#oneSectionTable'),allSectionCol,2,false,'','','','',10,'');
+
+        }else if(index == 6){
+
+            _tableInit($('#oneSectionSummaryTable'),oneSectionSummaryCol,2,false,'','','','',10,'');
+
+        }
 
     })
 

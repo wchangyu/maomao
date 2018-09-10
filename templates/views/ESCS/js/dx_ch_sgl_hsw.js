@@ -118,7 +118,15 @@
 
             option = {
                 title: {
-                    text: '冷却回水温度'
+                    text: '冷却回水温度',
+                    textStyle:{
+
+                        fontWeight:'normal',
+
+                        fontSize:16
+
+                    }
+
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -154,7 +162,8 @@
                     }],
                     outOfRange: {
                         color: '#999'
-                    }
+                    },
+                    orient:"horizontal"
                 },
                 series: {
                     name: '冷却回水温度',

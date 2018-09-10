@@ -119,7 +119,15 @@
 
             option = {
                 title: {
-                    text: '自身效率'
+                    text: '自身效率',
+                    textStyle:{
+
+                        fontWeight:'normal',
+
+                        fontSize:16
+
+                    }
+
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -170,7 +178,8 @@
                     }],
                     outOfRange: {
                         color: '#999'
-                    }
+                    },
+                    orient:"horizontal"
                 },
                 series: {
                     name: '自身效率',

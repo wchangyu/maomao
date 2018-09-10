@@ -234,7 +234,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,9]
+                range:[0,9],
+
+                numberFormatTarget:true
 
             },
             //冷水机组告警值
@@ -244,7 +246,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,9]
+                range:[0,9],
+
+                numberFormatAlarm:true
 
             },
             //冷冻水泵目标值
@@ -254,7 +258,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,70]
+                range:[0,70],
+
+                numberFormatTarget:true
 
             },
             //冷冻水泵告警值
@@ -264,7 +270,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,70]
+                range:[0,70],
+
+                numberFormatAlarm:true
 
             },
             //冷却水泵目标值
@@ -274,7 +282,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,70]
+                range:[0,70],
+
+                numberFormatTarget:true
 
             },
             //冷却水泵告警值
@@ -284,7 +294,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,70]
+                range:[0,70],
+
+                numberFormatAlarm:true
 
             },
             //冷却塔目标值
@@ -294,7 +306,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,250]
+                range:[0,250],
+
+                numberFormatTarget:true
 
             },
             //冷却塔告警值
@@ -304,7 +318,9 @@ $(function(){
 
                 number:true,
 
-                range:[0,250]
+                range:[0,250],
+
+                numberFormatAlarm:true
 
             }
 
@@ -380,6 +396,60 @@ $(function(){
 
     })
 
+    //自定义验证KW/KW中，目标值要大于告警值
+    $.validator.addMethod("numberFormatTarget",function(value,element,params){
+
+        var BJValue = $(element).parent().next().next().children('input').val();
+
+        if(!Number(BJValue)){
+
+            return true
+
+        }else{
+
+            if(Number(value)>Number(BJValue)){
+
+                return true
+
+            }else {
+
+                return false;
+
+            }
+
+        }
+
+
+
+    },"目标值需大于告警值");
+
+    //自定义验证KW/KW中，目标值要大于告警值
+    $.validator.addMethod("numberFormatAlarm",function(value,element,params){
+
+        var BJValue = $(element).parent().prev().prev().children('input').val();
+
+        if(!Number(BJValue)){
+
+            return true
+
+        }else{
+
+            if(Number(value)<Number(BJValue)){
+
+                return true
+
+            }else {
+
+                return false;
+
+            }
+
+        }
+
+
+
+    },"告警值要小于目标值");
+
     /*-------------------------------------点击事件---------------------------------------------*/
 
     //数据曲线tab切换
@@ -410,6 +480,22 @@ $(function(){
 
     //设备目标、告警值
     $('#devOption').click(function(){
+
+        //首先要初始化
+        $('#equipnew-form').find('input').val('');
+
+        var label = $('#equipnew-form').find('label');
+
+        for(var i=0;i<label.length;i++){
+
+            if(label.eq(i).attr('class') == 'error'){
+
+                label.eq(i).hide();
+
+            }
+
+        }
+
 
         //根据目标值和告警值是否创建过了
 
@@ -802,7 +888,7 @@ $(function(){
 
                 }
 
-                $('#lzbphlv').html(data);
+                $('#lzbphlv').html(Number(data).toFixed(2));
 
             },
 
@@ -1308,17 +1394,20 @@ $(function(){
 
                     $('#chRs').html(chRunNum);
 
+                    //目标值
+                    $('#chTarV').html(result.chTarV==''?'-':result.chTarV);
+
+                    //告警值
+                    $('#chAlrV').html(result.chAlrV==''?'-':result.chAlrV);
+
                     //实际值（能效）
                     $('#cheVa').html(result.cheVa);
 
                     //实际值（能耗）
                     $('#chpVa').html(result.chpVa);
 
-                    //目标值
-                    $('#chTarV').html(result.chTarV==''?'-':result.chTarV);
-
-                    //告警值
-                    $('#chAlrV').html(result.chAlrV==''?'-':result.chAlrV);
+                    //确定颜色
+                    returnColor($('#chTarV').html(),$('#chAlrV').html(),$('#cheVa').html(),$('#cheVa'));
 
                     //冷冻水泵
                     //开机台数
@@ -1352,6 +1441,10 @@ $(function(){
                     //告警值
                     $('#chwAlrV').html(result.chwAlrV==''?'-':result.chwAlrV);
 
+                    //确定颜色
+                    returnColor($('#chwTarV').html(),$('#chwAlrV').html(),$('#chweVa').html(),$('#chweVa'));
+
+
                     //冷却水泵
                     //开机台数
                     var cwRunNum = 0;
@@ -1372,9 +1465,6 @@ $(function(){
 
                     $('#cwRs').html(cwRunNum);
 
-                    //实际值（能效）
-                    $('#cweVa').html(result.cweVa);
-
                     //实际值（能耗）
                     $('#cwpVa').html(result.cwpVa);
 
@@ -1383,6 +1473,12 @@ $(function(){
 
                     //告警值
                     $('#cwAlrV').html(result.cwAlrV==''?'-':result.cwAlrV);
+
+                    //实际值（能效）
+                    $('#cweVa').html(result.cweVa);
+
+                    //确定颜色
+                    returnColor($('#cwTarV').html(),$('#cwAlrV').html(),$('#cweVa').html(),$('#cweVa'));
 
                     //冷却塔
                     //开机台数
@@ -1415,6 +1511,9 @@ $(function(){
 
                     //告警值
                     $('#ctAlrV').html(result.ctAlrV==''?'-':result.ctAlrV);
+
+                    //确定颜色
+                    returnColor($('#ctTarV').html(),$('#ctAlrV').html(),$('#cteVa').html(),$('#cteVa'));
 
                 }else{
 
@@ -1684,6 +1783,34 @@ $(function(){
             error:_errorFun1
 
         })
+
+
+    }
+
+    //显示颜色
+    function returnColor(targetNum,alarmNum,actualNum,el){
+
+        var target = Number(targetNum);
+
+        var alarm = Number(alarmNum);
+
+        var actual = Number(actualNum);
+
+        //高于目标值显示绿色，低于告警值显示红色，在两者之间显示蓝色
+
+        if(actual>target){
+
+            el.css({color:'rgba(28,193,90,1)'});
+
+        }else if(actual<alarm){
+
+            el.css({color:'rgba(255,69,0,1)'});
+
+        }else{
+
+            el.css({color:'rgba(116,167,246,1)'});
+
+        }
 
 
     }

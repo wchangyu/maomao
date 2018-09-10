@@ -4,6 +4,8 @@
 
     padding: 5px 0;
 
+    display: none;
+
 }
 
 .tab-bar li{
@@ -19,6 +21,8 @@
     color: #ffffff;
 
     padding: 5px 10px;
+
+    margin-right: 10px;
 
 }
 
@@ -40,12 +44,12 @@
 
     float: right;
 
-    margin-top: 3px;
-
     margin-right: 10px;
+
+    line-height: 30px;
 }
 
-#time-table li{
+.time-table li{
 
     float: left;
 
@@ -113,5 +117,23 @@
     text-align: center;
 
     color: red;
+
+}
+
+.tab-bar-title{
+
+    float: left;
+
+    font-size: 18px;
+
+    line-height: 30px;
+
+    cursor: pointer;
+
+    color: #ffffff;
+
+    padding: 5px 10px;
+
+    margin-right: 10px;
 
 }

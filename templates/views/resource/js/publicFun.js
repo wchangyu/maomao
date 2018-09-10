@@ -1192,6 +1192,20 @@ function _errorFun(XMLHttpRequest, textStatus, errorThrown){
 
 }
 
+function _errorFunNew(XMLHttpRequest, textStatus, errorThrown){
+
+    if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+        _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+    }else{
+
+        _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+    }
+
+}
+
 //失败方法2
 function _errorFun1(XMLHttpRequest, textStatus, errorThrown){
 
@@ -1277,7 +1291,73 @@ function _mainAjaxFunComplete(type,url,prm,successFun,beforeSendFun,errorFun){
         })
 }
 
+//ajaxerror方法2
+function _mainAjaxFunCompleteNew(type,url,prm,el,successFun){
 
+
+    $.ajax(
+        {
+
+            //发送方式
+            type:type,
+
+            //url
+            url:_urls + url,
+
+            //timeout
+            timeout:_theTimes,
+
+            //参数
+            data:prm,
+
+            //发送数据之前
+            beforeSend:function(){
+
+                if(el){
+
+                    el.showLoading();
+
+                }
+
+            },
+
+            //发送数据完成之后
+            complete:function(){
+
+                if(el){
+
+                    el.hideLoading();
+
+                }
+
+            },
+
+            //成功
+            success:successFun,
+
+            //失败
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+
+                if(el){
+
+                    el.hideLoading();
+
+                }
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+                }
+
+            }
+
+        })
+}
 //打印插件初始化
 function _printFun(table){
 
