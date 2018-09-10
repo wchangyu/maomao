@@ -6,6 +6,9 @@ $(function(){
     //获取菜单信息 并赋值到页面中
      getMenuToHtml();
 
+    //给iframe添加点击事件
+    addClickForIframe();
+
     //点击左侧主菜单
     $('.left-bottom-menu-container').on('click','.main-menu',function(){
 
@@ -125,6 +128,18 @@ $(function(){
         }
 
         event.stopPropagation();
+
+        //如果无三级菜单 直接跳转
+        if($(this).attr('data-id')){
+
+            //获取当前跳转地址
+            var jumpUrl = $(this).attr('data-id');
+
+            //改变iframe路径
+            $('#embed-page').attr('src',jumpUrl);
+
+        }
+
     });
 
     $('body').on('click',function(){
@@ -134,7 +149,27 @@ $(function(){
 
     });
 
+    $('.embed-page').on('click',function(){
+
+        $('.right-menu-inner-container .secondary-menu').addClass('hide-menu');
+    });
+
+    //点击三级菜单
+    $('.right-menu-inner-container').on('click','.third-menu-message',function(){
+
+        //获取当前跳转地址
+        var jumpUrl = $(this).attr('data-id');
+
+        //改变iframe路径
+        $('#embed-page').attr('src',jumpUrl);
+
+    });
+
+
 });
+
+//存放用户配置的首页路径
+var mainIndexUrl = '';
 
 //存放当前二级菜单的长度
 var _secondMenuLength = 0;
@@ -173,6 +208,11 @@ function getMenuToHtml(){
         //删除配置项中../ 方便下面进行遍历
         indexUrl = myFunc(sessionStorage.indexUrl,'../');
 
+        mainIndexUrl = '../'+ indexUrl;
+
+        //页面初始化
+        //改变iframe路径
+        $('#embed-page').attr('src',mainIndexUrl);
     }
 
     //改变menuArr的结构
@@ -441,7 +481,7 @@ function drawTopMenu(secondMenuArr,flag){
 
             $(o.childMenu).each(function(k,j){
 
-                thirdMenuHtml += '<li><a href="javascript:;" data-id="'+ j.uri+'">'+ j.content+'</a></li>';
+                thirdMenuHtml += '<li><a class="third-menu-message" href="javascript:;" data-id="'+ j.uri+'">'+ j.content+'</a></li>';
 
             });
 
@@ -559,3 +599,15 @@ function myFunc(a,b){
     return a;
 
 };
+
+//给iframe添加点击事件
+function addClickForIframe(){
+
+    var testiframe=document.getElementById("embed-page").contentWindow;
+    var doc=testiframe.document;
+    /*testiframe.scroll(0,doc.body.scrollHeight);*/
+    testiframe.addEventListener("click",function(e){
+        $('.right-menu-inner-container .secondary-menu').addClass('hide-menu');
+    },false);
+
+}

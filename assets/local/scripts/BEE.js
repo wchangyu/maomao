@@ -4,6 +4,19 @@
 
 var BEE = (function(){
 
+    //iframe只显示部分div
+
+    //获取当前的url
+    var curUrl = window.parent.location.href;
+
+    if( curUrl.indexOf('passengerStation.html') > -1 ||curUrl.indexOf('new-frame/new-frame.html') > -1){
+        //console.log($('.page-header'));
+
+        hideLeftMenu();
+
+    };
+
+
     var _assetsPath = '../../../assets/';
     var _localImgPath = 'local/img/';
     var _localCssPath = 'local/css/';
@@ -2268,17 +2281,6 @@ var BEE = (function(){
     };
 
 
-    //iframe只显示部分div
-
-    //获取当前的url
-    var curUrl = window.parent.location.href;
-
-    if( curUrl.indexOf('passengerStation.html') > -1 ){
-        //console.log($('.page-header'));
-
-        hideLeftMenu();
-
-    };
 
     function hideLeftMenu(){
 
@@ -2296,9 +2298,12 @@ var BEE = (function(){
 
         $('.toggler').hide();
 
+        $('.page-bar').height(0);
+
         if($('.page-header').length < 1){
 
             setTimeout(function(){
+
                 hideLeftMenu();
 
             },500)

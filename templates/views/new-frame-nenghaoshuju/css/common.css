@@ -1,0 +1,80 @@
+.showOrHidden{
+    display: none;
+}
+
+/*最外层容器*/
+.container{
+    background: #F0F3F6;
+
+}
+
+/*-------------------------------------上方选择条件---------------------------*/
+.top-choose-condition-container{
+    width: 100%;
+    height:200px;
+    background: url('../img/choose-background.png') no-repeat;
+    background-size: 100%;
+    padding-top:25px;
+    box-sizing: border-box;
+}
+
+/*里层容器*/
+.top-choose-condition-container .inner-condition-container{
+
+    width:98%;
+    margin:0 auto;
+    height: 120px;
+    background: white;
+    opacity:0.6;
+}
+
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+    position: absolute;
+    margin-top: 4px \9;
+    margin-left: -10px;
+}
+
+.left-chooose-energy-container{
+
+    float:left;
+    padding-left:40px;
+    padding-top:25px;
+    box-sizing: border-box;
+}
+
+.left-chooose-energy-container ul li{
+    padding-left:30px;
+    color:#5B69D2;
+    margin-bottom:10px;
+    font-size: 16px !important;
+}
+
+.left-chooose-energy-container ul{
+    padding-right:25px;
+    border-right:1px solid #999999;
+}
+
+.left-chooose-energy-container ul li label{
+
+    font-size: 16px !important;
+    line-height: 20px;
+}
+
+.left-chooose-energy-container ul .dian{
+     background: url('../img/dian.png') no-repeat;
+
+ }
+
+.left-chooose-energy-container ul .shui{
+    background: url('../img/shui.png') no-repeat;
+
+}
+
+/*---------------------------------------下方展示数据-------------------------*/
+.bottom-data-container{
+    min-height: 600px;
+
+}
+
+
+

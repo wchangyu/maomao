@@ -17,13 +17,13 @@
 }
 
 
-
 /*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
 .scrollbar::-webkit-scrollbar{
     width: 16px;
     height: 16px;
     background-color: #f5f5f5;
 }
+
 /*定义滚动条的轨道，内阴影及圆角*/
 .scrollbar::-webkit-scrollbar-track{
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
@@ -154,6 +154,7 @@
 .right-choose-energy span:last-child{
     border-right-width: 1px;
 }
+
 
 .right-choose-date{
 
@@ -341,9 +342,6 @@ h3 .left-patch {
     background-size: 26px;
 }
 
-
-
-
 /*右侧百分比*/
 .rights-up-value {
     color: #019cdf;
@@ -355,6 +353,7 @@ h3 .left-patch {
     display: inline-block;
     margin-left: 5px;
 }
+
 /*右侧同比数据*/
 .rights-up-name{
     position: absolute;
