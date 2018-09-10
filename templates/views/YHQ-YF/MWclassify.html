@@ -19,6 +19,7 @@
     <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
 
     <!--自定义样式-->
+    <link rel="stylesheet" href="../YHQ-resource/css/public.css">
 
     <link rel="stylesheet" href="../resource/css/conditionPublic.css">
 
@@ -104,30 +105,30 @@
 
     <!--创建-->
     <div class="modal fade" id="create-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 379px;width: 830px!important;">
-            <div class="modal-content" style="height: 379px;width: 830px!important;">
+        <div class="modal-dialog" style="height: 287px;width: 930px!important;">
+            <div class="modal-content" style="height: 287px;width: 930px!important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">提示</h4>
                 </div>
-                <div class="modal-body" style="overflow-y: auto;height: 257px;">
+                <div class="modal-body" style="overflow-y: auto;height: 165px;">
 
                     <form class="cmxform" id="commentForm" method="post" action="">
 
                         <ul class="modal-block">
                             <li>
                                 <label>名称：</label>
-                                <input type="text" class="table-group-action-input form-control" id="MW-classify-name1" placeholder="名字是必填字段">
+                                <input type="text" class="table-group-action-input form-control" id="MW-classify-name1" name="MW-classify-name1" placeholder="名字是必填字段">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>位置：</label>
-                                <input type="text" class="table-group-action-input form-control" id="MW-classify-orders">
+                                <label>顺序：</label>
+                                <input type="text" class="table-group-action-input form-control" id="MW-classify-orders" name="MW-classify-orders">
                                 <div class="modal-select"></div>
                             </li>
-                            <li style="display: none">
+                            <li>
                                 <label>价格：</label>
-                                <input type="text" class="table-group-action-input form-control" id="MW-classify-price">
+                                <input type="text" class="table-group-action-input form-control" id="MW-classify-price" name="MW-classify-price">
                                 <div class="modal-select"></div>
                             </li>
                         </ul>

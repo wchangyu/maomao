@@ -19,6 +19,7 @@
     <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
 
     <!--自定义样式-->
+    <link rel="stylesheet" href="../YHQ-resource/css/public.css">
 
     <link rel="stylesheet" href="../resource/css/conditionPublic.css">
 
@@ -65,11 +66,6 @@
                         <div class="total-warp L-container">
 
                             <ul class="L-condition">
-                                <!--<li>-->
-                                    <!--<label>医废名称</label>-->
-                                    <!--<input type="text" class="form-control" id="MWName">-->
-                                <!--</li>-->
-
                                 <li>
                                     <div class="cont-col1" id="createBtn">
                                         <div class="label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;cursor: pointer">
@@ -77,12 +73,6 @@
                                         </div>
                                     </div>
                                 </li>
-                                <!--<li>-->
-                                    <!--<div class="L-condition-button" id="selectBtn">查询数据</div>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<div id="resetBtn" class="L-condition-button">重置条件</div>-->
-                                <!--</li>-->
                             </ul>
 
                             <div class="row content-top">
@@ -105,8 +95,8 @@
 
     <!--创建-->
     <div class="modal fade" id="create-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 257px;width: 830px!important;">
-            <div class="modal-content" style="height: 257px;width: 830px!important;">
+        <div class="modal-dialog" style="height: 257px;width: 930px!important;">
+            <div class="modal-content" style="height: 257px;width: 930px!important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">提示</h4>
@@ -118,12 +108,12 @@
                         <ul class="modal-block">
                             <li>
                                 <label>名称：</label>
-                                <input type="text" class="table-group-action-input form-control" id="MW-source-name" placeholder="名字是必填字段">
+                                <input type="text" class="table-group-action-input form-control" id="MW-source-name" name="MW-source-name" placeholder="名字是必填字段">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
                                 <label>顺序：</label>
-                                <input type="text" class="table-group-action-input form-control" id="MW-source-order" placeholder="顺序是必填字段">
+                                <input type="text" class="table-group-action-input form-control" id="MW-source-order" name="MW-source-order">
                                 <div class="modal-select"></div>
                             </li>
                         </ul>

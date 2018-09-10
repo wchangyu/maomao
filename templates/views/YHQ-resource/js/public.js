@@ -24,14 +24,3 @@ function _YFstatus(value){
     }
 
 }
-
-//删除科室
-$('#removeDep').click(function(){
-
-    var inputBlock = $(this).prev();
-
-    inputBlock.val('');
-
-    inputBlock.removeAttr('data-id');
-
-})

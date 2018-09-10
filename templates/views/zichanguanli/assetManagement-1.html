@@ -14,6 +14,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta content="" name="description"/>
     <meta content="" name="author"/>
+    <Connector port="8282" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" URIEncoding="utf-8" />
     <!--MY STYLE-->
     <link rel="stylesheet" href="../resource/css/leftBat.css">
     <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
@@ -574,7 +575,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="labels">技术资料：</div>
+                        <div class="labels">技术资料：<a id="downButton" class="btn btn-default" href="" download="">下载</a></div>
                         <div class="lujing" style="height: 30px;border: 1px solid #ebebeb;margin-bottom: 10px;line-height: 30px;"></div>
                         <div id="uploader" class="wu-example">
                             <!--用来存放文件信息-->

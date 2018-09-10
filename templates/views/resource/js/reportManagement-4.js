@@ -74,10 +74,75 @@ $(function (){
             {
                 title:'未完工量',
                 data:'gdWwgNum'
+            },
+            {
+                title:'维修耗时',
+                data:'wxShij'
             }
         ],
-        "columnDefs": [ { "orderable": false, "targets": ['0'] }]
+        "columnDefs": [ { "orderable": false, "targets": ['0'] }],
+        "drawCallback":drawFn
     });
+
+    //重绘合计数据
+    function drawFn(){
+
+        var table = $('#scrap-datatables').DataTable();
+
+        //表格中的每一个tr
+        var tr = $('#scrap-datatables tbody').children('tr');
+
+        //报修量
+        var bxNum = 0;
+
+        //完工量
+        var wgNum = 0;
+
+        //未完工量
+        var wwgNum = 0;
+
+        //耗时
+        var time = 0;
+
+        //遍历行
+
+        if(tr.length == 1 && tr.children().attr('class') == 'dataTables_empty'){
+
+
+
+        }else{
+
+            for(var i=0;i<tr.length;i++){
+
+                //报修量
+                bxNum += Number(tr.eq(i).children().eq(1).html());
+
+                //完工量
+                wgNum += Number(tr.eq(i).children().eq(2).html());
+
+                //未完工量
+                wwgNum += Number(tr.eq(i).children().eq(3).html());
+
+                //维修耗时
+                time += Number(tr.eq(i).children().eq(4).html());
+
+            }
+
+        }
+
+        //报修量
+        $('#pageBXNum').html(bxNum);
+
+        //完工量
+        $('#pageWGNum').html(wgNum);
+
+        //未完工量
+        $('#pageWWGNum').html(wwgNum);
+
+        //耗时
+        $('#pageTime').html(time.toFixed(2));
+
+    };
 
     _table.buttons().container().appendTo($('.excelButton'),_table.table().container());
 
@@ -141,7 +206,7 @@ $(function (){
                 title:'维修耗时',
                 data:'wxShij',
                 render:function(data, type, full, meta){
-                    return data.toFixed(2);
+                    return Number(data).toFixed(2);
                 }
             }
         ],
@@ -153,8 +218,70 @@ $(function (){
             3,
             4,
             5
-        ]
+        ],
+        "drawCallback":drawFn1
     });
+
+    //重绘合计数据
+    function drawFn1(){
+
+        var table = $('#scrap-datatables1').DataTable();
+
+        //表格中的每一个tr
+        var tr = $('#scrap-datatables1 tbody').children('tr');
+
+        //报修量
+        var bxNum = 0;
+
+        //完工量
+        var wgNum = 0;
+
+        //未完工量
+        var wwgNum = 0;
+
+        //维修耗时
+        var time = 0;
+
+        //遍历行
+
+        if(tr.length == 1 && tr.children().attr('class') == 'dataTables_empty'){
+
+
+
+        }else{
+
+            for(var i=0;i<tr.length;i++){
+
+                //报修量
+                bxNum += Number(tr.eq(i).children().eq(1).html());
+
+                //完工量
+                wgNum += Number(tr.eq(i).children().eq(2).html());
+
+                //未完工量
+                wwgNum += Number(tr.eq(i).children().eq(3).html());
+
+                //耗时
+                time += Number(tr.eq(i).children().eq(5).html());
+
+            }
+
+        }
+
+        //报修量
+        $('#pageBXNum1').html(bxNum);
+
+        //完工量
+        $('#pageWGNum1').html(wgNum);
+
+        //未完工量
+        $('#pageWWGNum1').html(wwgNum);
+
+        //耗时
+        $('#pageTimeNum1').html(time.toFixed(2));
+
+    };
+
     //报错时不弹出弹框
     $.fn.dataTable.ext.errMode = function(s,h,m){
         console.log('')
@@ -212,6 +339,9 @@ $(function (){
         }
         realityStart = filterInput[0] + ' 00:00:00';
         realityEnd = moment(filterInput[1]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+
+        tableInit();
+
         var prm = {
             'gdSt':realityStart,
             'gdEt':realityEnd,
@@ -220,6 +350,9 @@ $(function (){
             'userID':_userIdNum,
             'userName':_userIdName
         }
+
+        tableInit();
+
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDRptBxKeshi',
@@ -227,8 +360,99 @@ $(function (){
             success:function(result){
                 //给表格赋值
                 if(result){
+
                     datasTable($("#scrap-datatables"),result.bxGd);
+
                     datasTable($("#scrap-datatables1"),result.bxwxGD);
+
+                    //表格1
+
+                    //报修量
+                    var bxNum = 0;
+
+                    //完工量
+                    var wgNum = 0;
+
+                    //未完工量
+                    var wwgNum = 0;
+
+                    //耗时
+                    var time = 0;
+
+                    for(var i=0;i<result.bxGd.length;i++){
+
+                        var data = result.bxGd[i];
+
+                        //报修量
+                        bxNum += Number(data.gdNum);
+
+                        //完工量
+                        wgNum += Number(data.gdWgNum);
+
+                        //未完工量
+                        wwgNum += Number(data.gdWwgNum);
+
+                        //超时
+                        time += Number(data.wxShij);
+
+                    }
+
+                    //报修量
+                    $('#dataBXNum').html(bxNum);
+
+                    //完工量
+                    $('#dataWGNum').html(wgNum);
+
+                    //未完工量
+                    $('#dataWWGNum').html(wwgNum);
+
+                    //耗时
+                    $('#dataTime').html(time.toFixed(2));
+
+
+                    //表格2
+                    //报修量
+                    var bxNum1 = 0;
+
+                    //完工量
+                    var wgNum1 = 0;
+
+                    //未完工量
+                    var wwgNum1 = 0;
+
+                    //耗时
+                    var time1 = 0;
+
+                    for(var i=0;i<result.bxwxGD.length;i++){
+
+                        var data = result.bxwxGD[i];
+
+                        //报修量
+                        bxNum1 += Number(data.gdNum);
+
+                        //完工量
+                        wgNum1 += Number(data.gdWgNum);
+
+                        //未完工量
+                        wwgNum1 += Number(data.gdWwgNum);
+
+                        //超时
+                        time1 += Number(data.wxShij);
+
+                    }
+
+                    //报修量
+                    $('#dataBXNum1').html(bxNum1);
+
+                    //完工量
+                    $('#dataWGNum1').html(wgNum1);
+
+                    //未完工量
+                    $('#dataWWGNum1').html(wwgNum1);
+
+                    //耗时
+                    $('#dataTimeNum1').html(time1.toFixed(2));
+
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -263,5 +487,27 @@ $(function (){
             table.fnAddData(arr);
             table.fnDraw();
         }
+    }
+
+    //表格初始化
+    function tableInit(){
+
+        $('.table').find('tfoot').find('td').html(0);
+
+        //表格1
+        $('.table').eq(0).find('tfoot').find('tr').eq(0).children().eq(0).html('小计');
+
+        $('.table').eq(0).find('tfoot').find('tr').eq(1).children().eq(0).html('合计');
+
+
+        //表格2
+        $('.table').eq(1).find('tfoot').find('tr').eq(0).children().eq(0).html('小计');
+
+        $('.table').eq(1).find('tfoot').find('tr').eq(1).children().eq(0).html('合计');
+
+        $('.table').eq(1).find('tfoot').find('tr').eq(0).children().eq(4).html('');
+
+        $('.table').eq(1).find('tfoot').find('tr').eq(1).children().eq(4).html('');
+
     }
 })

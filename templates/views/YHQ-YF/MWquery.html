@@ -74,9 +74,9 @@
                                     <label>来源</label>
                                     <select class="form-control" id="MW-source"></select>
                                 </li>
-                                <li style="position: relative;">
+                                <li class="condition-li">
                                     <label>科室</label>
-                                    <input type="text" class="form-control" id="MW-dep" readonly style="background: #ffffff">
+                                    <input type="text" class="form-control" id="MWDep" readonly style="background: #ffffff">
                                     <div id="removeDep" class="close"></div>
                                     <div class="modal-select modal-select-show select-dep"></div>
                                 </li>
@@ -120,10 +120,21 @@
                                     <input type="text" class="form-control" id="MW-bucket">
                                 </li>
                                 <li>
+                                    <label>是否超时</label>
+                                    <select id="MW-moreTime" class="form-control">
+                                        <option value="">全部</option>
+                                        <option value="1">是</option>
+                                        <option value="0">否</option>
+                                    </select>
+                                </li>
+                                <li>
                                     <div class="L-condition-button" id="selectBtn">查询数据</div>
                                 </li>
                                 <li>
                                     <div id="resetBtn" class="L-condition-button">重置条件</div>
+                                </li>
+                                <li>
+                                    <div id="cancelBtn" class="L-condition-button" style="background: #d64609">取消</div>
                                 </li>
                             </ul>
 
@@ -146,30 +157,16 @@
     </div>
 
     <!--科室-->
-    <div class="modal fade" id="dep-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 778px;width: 800px;">
-            <div class="modal-content" style="height: 778px;width: 800px;">
+    <div class="modal fade" id="dep-Modal-con" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 685px;width: 800px;">
+            <div class="modal-content" style="height: 685px;width: 800px;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">提示</h4>
                 </div>
-                <div class="modal-body" style="height: 656px;overflow-y: auto">
-                    <!--条件-->
-                    <ul class="L-condition">
-                        <li>
-                            <label>编号</label>
-                            <input type="text" class="form-control" id="modal-dep-num" >
-                        </li>
-                        <li>
-                            <label>名称</label>
-                            <input type="text" class="form-control" id="modal-dep-name" >
-                        </li>
-                        <li>
-                            <div class="L-condition-button" id="modal-select-dep">查询数据</div>
-                        </li>
-                    </ul>
+                <div class="modal-body" style="height: 563px;overflow-y: auto">
                     <!--表格-->
-                    <table id="dep-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                    <table id="dep-table-con" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
                         <thead>
                         </thead>
                         <tbody>
@@ -177,6 +174,23 @@
                     </table>
 
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--提示框-->
+    <div class="modal fade" id="cancel-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 168px;">
+            <div class="modal-content" style="height: 168px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="">提示</h4>
+                </div>
+                <div class="modal-body">请填写红色必填项</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary confirm">确定</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -212,6 +226,8 @@
 <!-- END FOOTER -->
 <script>
 
+    var _isClick = true;
+
     $('#head-html').load('../resource/html/commonHead.html');
 
     $('#menu-html').load('../resource/html/commonMenu.html');
@@ -235,6 +251,8 @@
 <script src="../resource/validation/messages_zh.min.js"></script>
 
 <script src="../YHQ-resource/js/public.js"></script>
+
+<script src="../YHQ-resource/js/YHQ-YF/conditionDep.js"></script>
 
 <script src="../YHQ-resource/js/YHQ-YF/MWquery.js"></script>
 

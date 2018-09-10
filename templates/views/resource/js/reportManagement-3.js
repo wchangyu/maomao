@@ -228,6 +228,9 @@ $(function (){
         }
         realityStart = filterInput[0] + ' 00:00:00';
         realityEnd = moment(filterInput[1]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+
+        tableInit();
+
         var prm = {
             'gdSt':realityStart,
             'gdEt':realityEnd,
@@ -261,13 +264,54 @@ $(function (){
                     var jgData = [];
                     var dhData = [];
                     var zzData = [];
+
+                    //表格
+                    //接单量
+                    var JGNum = 0;
+
+                    //电话报修量
+                    var phoneNum = 0;
+
+                    //自助登记量
+                    var ownNum = 0;
+
+                    //系统工单
+                    var systemNum = 0;
+
                     for(var i=0;i<result.length;i++){
                         xZhou.push(result[i].shouliren);
                         //接工量对象
                         jgData.push(result[i].gdNum);
                         dhData.push(result[i].gdDh);
                         zzData.push(result[i].gdZz);
+
+                        //接单量
+                        JGNum += Number(result[i].gdNum);
+
+                        //电话报修量
+                        phoneNum = Number(result[i].gdDh);
+
+                        //自助登记量
+                        ownNum = Number(result[i].gdZz);
+
+                        //系统工单
+                        systemNum = Number(result[i].gdXt);
+
                     }
+
+                    //接单量
+                    $('#dataJGNum').html(JGNum);
+
+                    //电话报修量
+                    $('#dataPhoneNum').html(phoneNum);
+
+                    //自助登记量
+                    $('#dataOwnNum').html(phoneNum);
+
+                    //系统工单
+                    $('#dataSystemNum').html(systemNum);
+
+
                     var yZhou = [jgData,dhData,zzData];
                     for(var i=0;i<yZhou.length;i++){
                         option.series[i].data = yZhou[i]
@@ -305,5 +349,17 @@ $(function (){
         var markBlockHeight = who.find('.modal-dialog').height();
         var markBlockTop = (markHeight - markBlockHeight)/2;
         who.find('.modal-dialog').css({'margin-top':markBlockTop});
+    }
+
+    //表格初始化
+    function tableInit(){
+
+        $('.table').find('tfoot').find('td').html(0);
+
+        $('.table').find('tfoot').find('tr').eq(0).find('td').eq(0).html('合计');
+
+        _datasTable($('.table'),[]);
+
+
     }
 })

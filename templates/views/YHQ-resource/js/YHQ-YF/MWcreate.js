@@ -8,11 +8,6 @@ $(function(){
     //获取医废来源
     MWSourceFun();
 
-    //科室
-    var _depArr = [];
-
-    MWDopFun();
-
     //运送人
     var _carryArr = [];
 
@@ -67,35 +62,6 @@ $(function(){
 
     /*--------------------------------表格初始化---------------------------------*/
 
-    //科室
-    var depCol = [
-
-        {
-            title:'选择',
-            "targets": -1,
-            "data": null,
-            render:function(data, type, full, meta){
-
-                return  '<div class="checker" data-id="' + full.departNum + '"><span><input type="checkbox"                                 value=""></span></div>'
-
-            }
-        },
-        {
-            title:'科室编码',
-            data:'departNum'
-        },
-        {
-            title:'科室名称',
-            data:'departName'
-        }
-
-    ]
-
-    _tableInit($('#dep-table'),depCol,'2','','','','','',10);
-
-    _tableInit($('#dep-table-con'),depCol,'2','','','','','',10);
-
-
     //运送人
     var carrierCol = [
 
@@ -128,7 +94,7 @@ $(function(){
 
     ]
 
-    _tableInit($('#carrier-table'),carrierCol,'2','','','','','',10);
+    _tableInitSearch($('#carrier-table'),carrierCol,'2','','','','','',10,'','','',true);
 
     //电子称
     var weighCol = [
@@ -158,7 +124,7 @@ $(function(){
 
     ]
 
-    _tableInit($('#weigh-table'),weighCol,'2','','','','','',10);
+    _tableInitSearch($('#weigh-table'),weighCol,'2','','','','','',10,'','','',true);
 
     //主表格
     var mainTable = [
@@ -240,96 +206,6 @@ $(function(){
 
     })
 
-    //选择【科室】
-    $('.modal-select-dep').click(function(){
-
-        //初始化
-        _datasTable($('#dep-table'),[]);
-
-        //数据
-        _datasTable($('#dep-table'),_depArr);
-
-        //模态框
-        _moTaiKuang($('#dep-Modal'),'科室列表','','','','选择');
-
-
-    })
-
-    //科室条件查询
-    $('#modal-select-dep').click(function(){
-
-        var prm = {
-
-            'departNum':$('#modal-dep-num').val(),
-
-            'departName':$('#modal-dep-name').val(),
-
-            'userID':_userIdNum,
-
-            'userName':_userIdName
-
-        }
-
-        _mainAjaxFunCompleteNew('post','RBAC/rbacGetDeparts',prm,$('#dep-Modal').find('.modal-dialog'),function(result){
-
-            _datasTable($('#dep-table'),result);
-
-        })
-
-    })
-
-    //表格单选
-    $('.table tbody').on('click','tr',function(){
-
-        if($(this).hasClass('tables-hover')){
-
-           $(this).parents('.table').find('tr').removeClass('tables-hover');
-
-            $(this).parents('.table').find('input').parent('span').removeClass('checked');
-
-            $(this).removeClass('tables-hover');
-
-            $(this).find('input').parent('span').removeClass('checked');
-
-        }else{
-
-            $(this).parents('.table').find('tr').removeClass('tables-hover');
-
-            $(this).parents('.table').find('input').parent('span').removeClass('checked');
-
-            $(this).addClass('tables-hover');
-
-            $(this).find('input').parent('span').addClass('checked');
-
-        }
-
-    })
-
-    //选择科室
-    $('#dep-Modal').on('click','.btn-primary',function(){
-
-        var currentTr = $('#dep-table tbody').find('.tables-hover');
-
-        if(currentTr.length >0){
-
-            var num = currentTr.find('.checker').attr('data-id');
-
-            var name = currentTr.children('td').eq(2).html();
-
-            $('#MW-dep').attr('data-id',num);
-
-            $('#MW-dep').val(name);
-
-            $('#dep-Modal').modal('hide');
-
-        }else{
-
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择科室','');
-
-        }
-
-    })
-
     //选择运送人
     $('.modal-select-carrier').click(function(){
 
@@ -366,33 +242,6 @@ $(function(){
             _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择科室','');
 
         }
-
-    })
-
-    //运送人条件查询
-    $('#modal-select-carrier').click(function(){
-
-        _datasTable($('#carrier-table'),[]);
-
-        var prm = {
-
-            //工号
-            userNum:$('#modal-carrier-num').val(),
-            //姓名
-            userName2:$('#modal-carrier-name').val(),
-            //部门
-            departNum:$('#modal-carrier-dep').val(),
-
-            'userID':_userIdNum,
-
-            'userName':_userIdName
-        }
-
-        _mainAjaxFunCompleteNew('post','RBAC/rbacGetUsers',prm,$('#carrier-Modal').find('.modal-dialog'),function(result){
-
-            _datasTable($('#carrier-table'),result);
-
-        })
 
     })
 
@@ -457,68 +306,6 @@ $(function(){
 
     })
 
-    //条件查询【科室】
-    $('.select-dep').click(function(){
-
-        //初始化
-        depConInit()
-
-        //模态框
-        _moTaiKuang($('#dep-Modal-con'),'科室列表','','','选择');
-
-        //赋值
-        _datasTable($('#dep-table-con'),_depArr)
-
-    })
-
-    //条件查询科室搜索
-    $('#modal-select-dep-con').click(function(){
-
-        var prm = {
-
-            'departNum':$('#modal-dep-num-con').val(),
-
-            'departName':$('#modal-dep-name-con').val(),
-
-            'userID':_userIdNum,
-
-            'userName':_userIdName
-
-        }
-
-        _mainAjaxFunCompleteNew('post','RBAC/rbacGetDeparts',prm,$('#dep-Modal-con').find('.modal-dialog'),function(result){
-
-            _datasTable($('#dep-table-con'),result);
-
-        })
-
-    })
-
-    //选择科室
-    $('#dep-Modal-con').on('click','.btn-primary',function(){
-
-        var currentTr = $('#dep-table-con tbody').find('.tables-hover');
-
-        if(currentTr.length >0){
-
-            var num = currentTr.find('.checker').attr('data-id');
-
-            var name = currentTr.children('td').eq(2).html();
-
-            $('#MWDep').attr('data-id',num);
-
-            $('#MWDep').val(name);
-
-            $('#dep-Modal-con').modal('hide');
-
-        }else{
-
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择科室','');
-
-        }
-
-    })
-
     /*-----------------------------其他方法--------------------------------------*/
 
     //条件选择
@@ -531,7 +318,7 @@ $(function(){
             //开始时间
             sendtimest:$('#spDT').val(),
             //结束时间
-            sendtimeet:$('#epDT').val(),
+            sendtimeet:moment($('#epDT').val()).add(1,'days').format('YYYY-MM-DD'),
             //科室
             keshinum:$('#MWDep').val() == ''?'':$('#MWDep').attr('data-id'),
             //登陆id
@@ -615,43 +402,6 @@ $(function(){
             }
 
             $('#MW-source').empty().append(str);
-
-        })
-
-
-    }
-
-    //科室选择
-    function MWDopFun(){
-
-        var prm = {
-
-            'userID':_userIdNum,
-
-            'userName':_userIdName
-
-        }
-
-        _mainAjaxFunCompleteNew('post','RBAC/rbacGetDeparts',prm,false,function(result){
-
-            _depArr.length = 0;
-
-            if(result){
-
-                var str = '<option value="">全部</option>'
-
-                for(var i=0;i<result.length;i++){
-
-                    str += '<option value="' + result[i].departNum + '">' + result[i].departName + '</option>'
-
-                    _depArr.push(result[i]);
-
-                }
-
-                $('#modal-carrier-dep').empty().append(str);
-
-            }
-
 
         })
 
@@ -846,17 +596,6 @@ $(function(){
         }
 
         _mainAjaxFunCompleteNew('post',url,prm,el,successFun);
-
-    }
-
-    //条件选择可是初始化
-    function depConInit(){
-
-        $('#modal-dep-num-con').val('');
-
-        $('#modal-dep-name-con').val('');
-
-        _datasTable($('#dep-table-con'),[]);
 
     }
 

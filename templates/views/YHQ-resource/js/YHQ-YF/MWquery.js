@@ -13,6 +13,9 @@ $(function(){
 
     MWDopFun();
 
+    //当前的医废
+    var _thisId = '';
+
     /*---------------------------------时间-----------------------------*/
 
     var nowTime = moment().format('YYYY-MM-DD');
@@ -28,7 +31,16 @@ $(function(){
 
     /*--------------------------------表格------------------------------*/
     var mainCol = [
+        {
+            title:'选择',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
 
+                return  '<div class="checker" data-id="' + full.id + '"><span><input type="checkbox"                                 value=""></span></div>'
+
+            }
+        },
         {
             title:'编号',
             data:'mwcode',
@@ -52,6 +64,7 @@ $(function(){
         {
             title:'状态',
             data:'mwstatus',
+            className:'status',
             render:function(data, type, full, meta){
 
                 return _YFstatus(data)
@@ -86,40 +99,16 @@ $(function(){
             title:'垃圾桶编号',
             data:'batchnum'
         },
+        {
+            title:'是否超时',
+            data:''
+        }
 
     ]
 
     _tableInit($('#table'),mainCol,'2','','','','','');
 
     conditionSelect();
-
-    //科室
-    var depCol = [
-
-        {
-            title:'选择',
-            "targets": -1,
-            "data": null,
-            render:function(data, type, full, meta){
-
-                return  '<div class="checker" data-id="' + full.departNum + '"><span><input type="checkbox"                                 value=""></span></div>'
-
-            }
-        },
-        {
-            title:'科室编码',
-            data:'departNum'
-        },
-        {
-            title:'科室名称',
-            data:'departName'
-        }
-
-    ]
-
-    _tableInit($('#dep-table'),depCol,'2','','','','','',10);
-
-
     /*--------------------------------按钮------------------------------*/
 
     //查询
@@ -160,33 +149,6 @@ $(function(){
 
     })
 
-    //表格单选
-    $('.table tbody').on('click','tr',function(){
-
-        if($(this).hasClass('tables-hover')){
-
-            $(this).parents('.table').find('tr').removeClass('tables-hover');
-
-            $(this).parents('.table').find('input').parent('span').removeClass('checked');
-
-            $(this).removeClass('tables-hover');
-
-            $(this).find('input').parent('span').removeClass('checked');
-
-        }else{
-
-            $(this).parents('.table').find('tr').removeClass('tables-hover');
-
-            $(this).parents('.table').find('input').parent('span').removeClass('checked');
-
-            $(this).addClass('tables-hover');
-
-            $(this).find('input').parent('span').addClass('checked');
-
-        }
-
-    })
-
     //选择科室
     $('#dep-Modal').on('click','.btn-primary',function(){
 
@@ -209,6 +171,46 @@ $(function(){
             _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择科室','');
 
         }
+
+    })
+
+    //取消
+    $('#cancelBtn').on('click',function(){
+
+        //看是否选中了
+        var currentTr = $('#table tbody').find('.tables-hover');
+
+        if(currentTr.length == 0){
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择要回退的医废单号','');
+
+            return false;
+
+        }
+
+        //如果是已取消的不能再次取消
+        if(currentTr.find('.status').html() == '取消'){
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'当前医废已取消','');
+
+            return false;
+
+
+        }
+
+        _thisId = currentTr.find('a').html();
+
+        var str = '确定要取消医废编号：' + _thisId + '吗？'
+
+        //通过(模态框)
+        _moTaiKuang($('#cancel-Modal'),'取消','',true,str,'确定');
+
+    })
+
+    //回退确定
+    $('#cancel-Modal').on('click','.btn-primary',function(){
+
+        cancelFun();
 
     })
 
@@ -326,9 +328,11 @@ $(function(){
             //开始时间
             sendtimest:$('#spDT').val(),
             //结束时间
-            sendtimeet:$('#epDT').val(),
+            sendtimeet:moment($('#epDT').val()).add(1,'days').format('YYYY-MM-DD'),
             //桶编号
             batchnum:$('#MW-bucket').val(),
+            //是否超时
+            isqueryexceedtime:$('#MW-moreTime').val(),
             //登陆id
             userID:_userIdNum,
             //登录名
@@ -350,12 +354,42 @@ $(function(){
 
             }
 
-            console.log(arr);
-
             _datasTable($('#table'),arr);
 
         })
 
+
+    }
+
+    //取消
+    function cancelFun(){
+
+        var prm = {
+            //单号
+            mwcode:_thisId,
+            //登陆id
+            userID:_userIdNum,
+            //登录名
+            userName:_userIdName,
+            //角色
+            b_UserRole:_userRole,
+            //部门
+            b_DepartNum:_userBM
+
+        }
+
+        _mainAjaxFunCompleteNew('post','MW/mwCancel',prm,$('#cancel-Modal').find('.modal-dialog'),function(result){
+
+            if(result.code == '99'){
+
+                $('#cancel-Modal').modal('hide');
+
+            }
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,result.message,'');
+
+
+        })
 
     }
 

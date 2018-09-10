@@ -118,6 +118,12 @@ table.dataTable thead th, table.dataTable thead td{
 
 }
 
+table.dataTable tfoot th, table.dataTable tfoot td{
+
+    border-top: 1px solid #ddd !important;
+
+}
+
 /*---------------模态输入框-------------------*/
 
 .modal-block input{
@@ -138,9 +144,11 @@ table.dataTable thead th, table.dataTable thead td{
 
     vertical-align: top;
 
-    margin-right: 20px;
+    margin-right: 54px;
 
     margin-bottom: 20px;
+
+    position: relative;
 
 }
 
@@ -171,6 +179,12 @@ table.dataTable thead th, table.dataTable thead td{
     display: inline-block;
 
     cursor: pointer;
+
+    position: absolute;
+
+    right: -45px;
+
+    top: 0px;
 
 }
 
@@ -280,4 +294,12 @@ table.dataTable thead th, table.dataTable thead td{
 
 .tab-active {
     border-top: 2px solid #1CAF9A !important;
+}
+
+.condition-li{
+
+    position: relative;
+
+    margin-right: 45px !important;
+
 }

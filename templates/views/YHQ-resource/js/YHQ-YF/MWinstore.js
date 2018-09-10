@@ -12,11 +12,6 @@ $(function(){
     //标识当前选择的桶
     var _currentBucket = '';
 
-    //科室
-    var _depArr = [];
-
-    MWDopFun();
-
     /*-------------------------------时间插件------------------------------------*/
 
     var nowTime = moment().format('YYYY-MM-DD');
@@ -84,7 +79,7 @@ $(function(){
             data:'wsname'
         },
         {
-            title:'重量',
+            title:'重量(kg)',
             data:'weight'
         },
         {
@@ -94,6 +89,10 @@ $(function(){
         {
             title:'称重时间',
             data:'sendtime'
+        },
+        {
+            title:'是否超时',
+            data:''
         },
         {
             title:'操作',
@@ -136,11 +135,15 @@ $(function(){
             data:'keshiname'
         },
         {
-            title:'打包重量',
+            title:'打包重量(kg)',
             data:'weight'
         },
         {
-            title:'入库重量',
+            title:'运送人',
+            data:'transusername'
+        },
+        {
+            title:'入库重量(kg)',
             data:'inweight'
         },
         {
@@ -160,7 +163,10 @@ $(function(){
             data:null,
             render:function(data, type, full, meta){
 
-                return '<span class="option-button option-edit option-out" data-attr="' + full.mwcode + '">' + '出库</span>'
+                return '<span class="option-button option-edit option-out" data-attr="' + full.mwcode + '">' + '出库</span>' +
+
+                    '<span class="option-button option-huhao option-back" data-attr="' + full.mwcode + '">' + '回退</span>'
+
             }
 
         }
@@ -291,11 +297,15 @@ $(function(){
             data:'keshiname'
         },
         {
-            title:'打包重量',
+            title:'打包重量(kg)',
             data:'weight'
         },
         {
-            title:'入库重量',
+            title:'运送人',
+            data:'transusername'
+        },
+        {
+            title:'入库重量(kg)',
             data:'inweight'
         },
         {
@@ -347,31 +357,63 @@ $(function(){
         "aoColumnDefs": [ { "orderable": false, "targets": [ 2,3,4,5,6,7] }]
     });
 
-    //科室
-    var depCol = [
+    //桶合计
+    var bucketCol = [
 
         {
-            title:'选择',
-            "targets": -1,
-            "data": null,
-            render:function(data, type, full, meta){
-
-                return  '<div class="checker" data-id="' + full.departNum + '"><span><input type="checkbox"                                 value=""></span></div>'
-
-            }
+            title:'桶编号',
+            data:'batchnum'
         },
         {
-            title:'科室编码',
-            data:'departNum'
-        },
-        {
-            title:'科室名称',
-            data:'departName'
+            title:'重量(kg)',
+            data:'inweight'
         }
-
     ]
 
-    _tableInit($('#dep-table'),depCol,'2','','','','','',10);
+    _tableInit($('#table-bucket'),bucketCol,'2','','',drawFn,'','','','','','','');
+
+    //重绘合计数据
+    function drawFn(){
+
+        var table = $('#table-bucket').DataTable();
+
+        //表格中的每一个tr
+        var tr = $('#table-bucket tbody').children('tr');
+
+        //表格中的每一个td（重量）
+        var weight = 0;
+
+        //桶小计
+        var bucketNum = 0;
+
+        //遍历行
+
+        if(tr.length == 1 && tr.children().attr('class') == 'dataTables_empty'){
+
+
+
+        }else{
+
+            for(var i=0;i<tr.length;i++){
+
+                //遍历列
+                var num = Number(tr.eq(i).children().eq(1).html());
+
+                weight = (Number(weight) + num)=='NaN'?'-':Number(weight) + num;
+
+                bucketNum ++;
+
+            }
+
+        }
+        //重量小计
+        $('#pageTotalWeight').html('重量小计：' + weight + '(kg)');
+
+        //桶小计
+        $('#pageTotalBucket').html('桶小计：' + bucketNum + '(个)');
+
+    };
+
 
     /*---------------------------------表格验证----------------------------------*/
 
@@ -738,95 +780,6 @@ $(function(){
 
     })
 
-    //表格单选
-    $('.table tbody').on('click','tr',function(){
-
-        if($(this).hasClass('tables-hover')){
-
-            $(this).parents('.table').find('tr').removeClass('tables-hover');
-
-            $(this).parents('.table').find('input').parent('span').removeClass('checked');
-
-            $(this).removeClass('tables-hover');
-
-            $(this).find('input').parent('span').removeClass('checked');
-
-        }else{
-
-            $(this).parents('.table').find('tr').removeClass('tables-hover');
-
-            $(this).parents('.table').find('input').parent('span').removeClass('checked');
-
-            $(this).addClass('tables-hover');
-
-            $(this).find('input').parent('span').addClass('checked');
-
-        }
-
-    })
-
-    //条件选择科室
-    $('.select-dep').click(function(){
-
-        //初始化
-        depConInit();
-        //模态框
-        _moTaiKuang($('#dep-Modal'),'科室列表','','','选择');
-
-        //赋值
-        _datasTable($('#dep-table'),_depArr)
-
-
-    })
-
-    //确定【科室】
-    $('#dep-Modal').on('click','.btn-primary',function(){
-
-        var currentTr = $('#dep-table tbody').find('.tables-hover');
-
-        if(currentTr.length >0){
-
-            var num = currentTr.find('.checker').attr('data-id');
-
-            var name = currentTr.children('td').eq(2).html();
-
-            $('#MWDep').attr('data-id',num);
-
-            $('#MWDep').val(name);
-
-            $('#dep-Modal').modal('hide');
-
-        }else{
-
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择科室','');
-
-        }
-
-    })
-
-    //条件查询科室搜索
-    $('#modal-select-dep').click(function(){
-
-        var prm = {
-
-            'departNum':$('#modal-dep-num').val(),
-
-            'departName':$('#modal-dep-name').val(),
-
-            'userID':_userIdNum,
-
-            'userName':_userIdName
-
-        }
-
-        _mainAjaxFunCompleteNew('post','RBAC/rbacGetDeparts',prm,$('#dep-Modal').find('.modal-dialog'),function(result){
-
-            _datasTable($('#dep-table'),result);
-
-        })
-
-    })
-
     //重置
     $('#resetBtn').click(function(){
 
@@ -842,6 +795,63 @@ $(function(){
 
     })
 
+    //桶显示bucket-Modal
+    $('#bucket-Modal').on('show.bs.modal',function(){
+
+        _isClick = false;
+
+    })
+
+    //桶消失
+    $('#bucket-Modal').on('hide.bs.modal',function(){
+
+        _isClick = true;
+
+    })
+
+    //秤显示
+    $('#weigh-Modal').on('show.bs.modal',function(){
+
+        _isClick = false;
+
+    })
+
+    //秤消失
+    $('#weigh-Modal').on('hide.bs.modal',function(){
+
+        _isClick = true;
+
+    })
+
+    //回退
+    $('#table1 tbody').on('click','.option-back',function(){
+
+        inStroageNum = $(this).attr('data-attr');
+
+        //初始化
+        backStroageInit();
+
+        //模态框
+        _moTaiKuang($('#back-Modal'),'回退','','','','确定');
+
+        //绑定数据
+        bindDataBack($(this));
+
+    })
+
+    $('#back-Modal').on('click','.btn-primary',function(){
+
+        backStroage();
+
+    })
+
+    //桶合计获取数据
+    $("#bucketNum").on('click',function(){
+
+        bucketNumFun();
+
+    })
+
     /*----------------------------其他方法-----------------------------*/
 
     //条件选择（运送中10，库存中20）
@@ -854,7 +864,7 @@ $(function(){
             //开始时间
             sendtimest:$('#spDT').val(),
             //结束时间
-            sendtimeet:$('#epDT').val(),
+            sendtimeet:moment($('#epDT').val()).add(1,'days').format('YYYY-MM-DD'),
             //科室
             keshinum:$('#MWDep').val(),
             //登陆id
@@ -1010,6 +1020,59 @@ $(function(){
 
     }
 
+    //数据绑定(回退)
+    function bindDataBack(el){
+
+        var num = el.attr('data-attr');
+
+        var prm = {
+
+            //编号
+            mwcode:num,
+            //登陆id
+            userID:_userIdNum,
+            //登录名
+            userName:_userIdName,
+            //角色
+            b_UserRole:_userRole,
+            //部门
+            b_DepartNum:_userBM
+
+        }
+
+        _mainAjaxFunCompleteNew('post','MW/mwGetDetail',prm,$('.content-top'),function(result){
+
+            //赋值
+            if(result.code == 99){
+
+                var current = result.data;
+                //医废分类
+                $('#MW-classify-back').val(current.wtname);
+                //医废来源
+                $('#MW-source-back').val(current.wsname);
+                //科室
+                $('#MW-dep-back').val(current.keshiname);
+                //医废处理人
+                $('#MW-person-back').val(current.sendusername);
+                //运送人
+                $('#MW-carrier-back').val(current.transusername);
+                //重量
+                $('#MW-weighNum-back').val(current.weight);
+                //打包时间
+                $('#MW-pack-back').val(current.sendtime);
+                //入库人
+                $('#MW-in-person-back').val(current.inusername);
+                //入库时间
+                $('#MW-in-stroage-back').val(current.insttime);
+                //桶编号
+                $('#MW-bucket-back').val(current.batchnum);
+
+            }
+
+        })
+
+    }
+
     //入库模态框初始化
     function inStroageInit(){
 
@@ -1033,6 +1096,15 @@ $(function(){
 
         //出库人默认
         $('#MW-person1-out').val(_userIdName)
+    }
+
+    //回退模态框初始化
+    function backStroageInit(){
+
+        $('#back-Modal').find('input').val('');
+
+        $('#back-Modal').find('select').val('');
+
     }
 
     //批量出库初始化
@@ -1242,6 +1314,40 @@ $(function(){
 
     }
 
+    //回退操作
+    function backStroage(){
+
+        var prm = {
+            //医废编号
+            mwcode:inStroageNum,
+            //登录id
+            userID:_userIdNum,
+            //登录名
+            userName:_userIdName,
+            //角色
+            b_UserRole:_userRole,
+            //部门
+            b_DepartNum:_userBM,
+
+        }
+
+        _mainAjaxFunCompleteNew('post','MW/mwBackToInstorage',prm,$('#back-Modal').find('.modal-dialog'),function(result){
+
+            if(result.code == 99){
+
+                $('#back-Modal').modal('hide');
+
+                conditionSelect();
+
+            }
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,result.message,'');
+
+
+        })
+
+    }
+
     //格式验证
     function formatValidateUser(fun){
 
@@ -1315,45 +1421,58 @@ $(function(){
         $('#selectedBucket').html(str);
     }
 
-    //科室选择
-    function MWDopFun(){
+    //桶合计数据
+    function bucketNumFun(){
 
         var prm = {
 
-            'userID':_userIdNum,
-
-            'userName':_userIdName
+            //医废编号
+            mwcode:$('#MWNum').val(),
+            //登陆id
+            userID:_userIdNum,
+            //登录名
+            userName:_userIdName,
+            //角色
+            b_UserRole:_userRole,
+            //部门
+            b_DepartNum:_userBM,
 
         }
 
-        _mainAjaxFunCompleteNew('post','RBAC/rbacGetDeparts',prm,false,function(result){
+        _mainAjaxFunCompleteNew('post','MW/ywGetStorageBinInfos',prm,$('#table-bucket'),function(result){
 
-            _depArr.length = 0;
+            //桶
+            var bucketNum = 0;
 
-            if(result){
+            //重量
+            var weight = 0;
 
-                for(var i=0;i<result.length;i++){
+            var arr = [];
 
-                    _depArr.push(result[i]);
+            if(result.code == 99){
+
+                arr = result.data;
+
+                //桶共计，重量共计
+                for(var i=0;i<arr.length;i++){
+
+                    bucketNum ++;
+
+                    weight += Number(arr[i].inweight);
 
                 }
 
             }
 
+            _datasTable($('#table-bucket'),arr);
+
+            //重量小计
+            $('#dataTotalWeight').html('重量合计：' + weight + '(kg)');
+
+            //桶小计
+            $('#dataTotalBucket').html('桶合计：' + bucketNum + '(个)');
 
         })
-
-
-    }
-
-    //条件选择可是初始化
-    function depConInit(){
-
-        $('#modal-dep-num').val('');
-
-        $('#modal-dep-name').val('');
-
-        _datasTable($('#dep-table'),[]);
 
     }
 })

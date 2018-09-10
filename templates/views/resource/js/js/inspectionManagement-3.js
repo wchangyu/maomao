@@ -194,9 +194,10 @@ $(function(){
     //当前的计划编码
     var _thisPlanBM = '';
 
-    /*------------------------------------------------表格初始化--------------------------------------------*/
+    //判断当前是否是停用状态
+    var _isTY = false;
 
-    //
+    /*------------------------------------------------表格初始化--------------------------------------------*/
 
     var col = [
         {
@@ -236,7 +237,7 @@ $(function(){
         },
         {
             title:'是否启用',
-            className:'isActive',
+            className:'isActive1',
             data:'isActive',
             render:function(data, type, full, meta){
                 if(data ==2){
@@ -270,6 +271,18 @@ $(function(){
 
 
     $('.main-contents-tables').find('.table').on('click', 'tr',function(e){
+
+        var _statusName = $(this).find('.isActive1').html();
+
+        if(_statusName == '停用'){
+
+            _isTY = true;
+
+        }else{
+
+            _isTY = false;
+
+        }
 
         if($(this).attr('class') == undefined || $(this).children().length == 1){
 
@@ -323,7 +336,15 @@ $(function(){
 
                             }
 
-                            row.child( format(arr) ).show();
+                            if(_isTY){
+
+                                row.child( format1(arr) ).show();
+
+                            }else{
+
+                                row.child( format(arr) ).show();
+
+                            }
 
                             tr.addClass('shown');
 
@@ -347,6 +368,46 @@ $(function(){
 
     function format ( d ) {
         var theader = '<table class="table">' +
+            '<thead><tr><td>设备编号</td><td>设备名称</td><td>是否下发</td><td>规格型号</td><td>安装地点</td><td>设备类型</td><td>操作</td></tr></thead>';
+        var theaders = '</table>';
+        var tbodyer = '<tbody>'
+
+        var str = '';
+
+        for(var i=0;i< d.length;i++){
+
+            //是否下发
+            var isstatus = '';
+
+            if(d[i].isActive == 0){
+
+                isstatus = '未下发'
+
+            }else{
+
+                isstatus = '已下发'
+
+            }
+
+            if(d[i].isActive == 0){
+
+                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + isstatus + '</td><td>' + d[i].spec + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td><td><span class="data-option Alone-assign btn default btn-xs green-stripe">下发任务</span></td></tr>'
+
+            }else{
+
+                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + isstatus + '</td><td>' + d[i].spec + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td></tr>'
+
+            }
+
+        }
+
+        var tbodyers = '</tbody>';
+
+        return theader + tbodyer + str + tbodyers + theaders;
+    }
+
+    function format1 ( d ) {
+        var theader = '<table class="table">' +
             '<thead><tr><td>设备编号</td><td>设备名称</td><td>规格型号</td><td>安装地点</td><td>设备类型</td><td>操作</td></tr></thead>';
         var theaders = '</table>';
         var tbodyer = '<tbody>'
@@ -355,15 +416,20 @@ $(function(){
 
         for(var i=0;i< d.length;i++){
 
+            //是否下发
+            var isstatus = '';
+
             if(d[i].isActive == 0){
 
-                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + d[i].spec + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td><td><span class="data-option Alone-assign btn default btn-xs green-stripe">下发任务</span></td></tr>'
+                isstatus = '未下发'
 
             }else{
 
-                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + d[i].spec + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td></tr>'
+                isstatus = '已下发'
 
             }
+
+            str +=  str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + isstatus + '</td><td>' + d[i].spec + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td></tr>'
 
         }
 

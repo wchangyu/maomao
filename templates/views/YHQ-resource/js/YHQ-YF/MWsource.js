@@ -42,6 +42,52 @@ $(function(){
 
     conditionSelect();
 
+    /*---------------------------------表格验证----------------------------------*/
+
+    $('#commentForm').validate({
+
+        rules:{
+
+            //名称
+            'MW-source-name':{
+
+                required:true
+
+            },
+
+            //顺序
+            'MW-source-order':{
+
+                number:true,
+                //整数
+                digits:true,
+
+                min:0
+
+            }
+        },
+        messages:{
+
+            //名称
+            'MW-source-name':{
+
+                required:'名称是必填项'
+
+            },
+
+            //顺序
+            'MW-source-order':{
+
+                number:'顺序需是数字',
+
+                digits:'需是大于0的整数'
+
+            },
+
+        }
+
+    });
+
     /*------------------------------按钮事件--------------------*/
 
     //【新增】
@@ -64,7 +110,11 @@ $(function(){
     //【登记】确定
     $('#create-Modal').on('click','.dengji',function(){
 
-        sendOption('MW/WasteSrcAdd');
+        formatValidateUser(function(){
+
+            sendOption('MW/WasteSrcAdd');
+
+        })
 
     })
 
@@ -96,7 +146,11 @@ $(function(){
     //【编辑】确定
     $('#create-Modal').on('click','.bianji',function(){
 
-        sendOption('MW/WasteSrcUpdate',_thisId);
+        formatValidateUser(function(){
+
+            sendOption('MW/WasteSrcUpdate',_thisId);
+
+        })
 
     })
 
@@ -278,6 +332,57 @@ $(function(){
         $('#create-Modal').find('input').attr('readOnly',true);
 
         $('#create-Modal').find('select').attr('disabled',true);
+
+    }
+
+    //验证
+    function formatValidateUser(fun){
+
+        //非空验证
+        if($('#MW-source-name').val() == '' ){
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项','');
+
+        }else{
+
+            //验证错误
+            var error = $('#commentForm').find('.error');
+
+            if(error.length != 0){
+
+                var flag = true;
+
+                for(var i=0;i<error.length;i++){
+
+                    if(error.eq(i).css('display') != 'none'){
+
+                        flag = false;
+
+                        break;
+
+                    }
+
+                }
+
+                if(flag){
+
+                    fun();
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写正确格式','');
+
+                }
+
+            }else{
+
+                //验证通过
+                fun();
+
+            }
+
+
+        }
 
     }
 
