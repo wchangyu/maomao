@@ -133,7 +133,7 @@
 .right-choose-energy{
 
     float: right !important;
-    background: #AEBFD4;
+    /*background: #AEBFD4;*/
     overflow: hidden;
     border-radius: 4px !important;
 }
@@ -141,11 +141,18 @@
 .right-choose-energy span{
     width:26px;
     height:26px;
-    color:white;
+    color:rgba(117,117,117,1);
     font-size:16px;
     display: inline-block;
     text-align: center;
     cursor: pointer;
+    font-weight:400;
+    background: white;
+    border: 1px solid rgba(98, 168, 219, 1);
+    border-right-width: 0px;
+}
+.right-choose-energy span:last-child{
+    border-right-width: 1px;
 }
 
 .right-choose-date{
@@ -156,28 +163,37 @@
     border-radius: 4px !important;
     z-index: 1000;
     position: relative;
+    font-size:0px;
 }
 
 .right-choose-date span{
     width:26px;
     height:26px;
-    color:white;
+    color:rgba(117,117,117,1);
     font-size:16px;
     display: inline-block;
     text-align: center;
     cursor: pointer;
+    font-weight:400;
+    background: white;
+    border: 1px solid rgba(98, 168, 219, 1);
+    border-right-width: 0px;
+}
+
+.right-choose-date span:last-child{
+    border-right-width: 1px;
 }
 
 .right-choose-date .onClick{
 
-    background: white;
-    color:#F2285C;
+    background: rgba(98,168,219,1);
+    color:rgba(255,255,255,1);
 }
 
 .right-choose-energy .onClick{
 
-    background: white;
-    color:#F2285C;
+    background: rgba(98,168,219,1);
+    color:rgba(255,255,255,1);
 }
 
 .btn-success{

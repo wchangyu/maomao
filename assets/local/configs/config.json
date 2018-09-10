@@ -166,8 +166,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.107/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.107/BEEWebAPI/api/",
+  "apiUriPrefix":"http://localhost/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
   "systemTitle":"高效机房冷站控制系统",
@@ -215,7 +215,7 @@
   "showChooseUnit":"0",
   "showChooseUnitComment":"是否启用右上角选择单位功能 0为不启用 1为启用",
   "selectPointerType":"0",
-  "selectPointerTypeComment":"右上角楼宇选择 0为单选 1为复选"
+  "selectPointerTypeComment":"右上角楼宇选择 0为单选 1为复选",
   "stationTabType":"1",
   "stationTabTypeComment":"车站大屏导航栏模式 0为南京南模式 1为上海虹桥模式"
 }
