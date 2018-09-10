@@ -335,12 +335,17 @@ var Login = function() {
             dataType:'json',
             data:{"PointerID":0,"userID":userId},
             success:function(offices){
+
                 sessionStorage.offices = JSON.stringify(offices);
+                sessionStorage.allOffices = JSON.stringify(offices);
+
                 _isOfficesLoaded = true;
                 directToIndex();
+
             }
         });
     };
+
 
     //获取到所有分项，list结构，需要时候转成对应的树状结构
     var getAllEnergyItems = function(){
@@ -540,6 +545,10 @@ var Login = function() {
                     //右上角选择楼宇是单选还是多选
                     var selectPointerType = data["selectPointerType"] || '';
                     sessionStorage.selectPointerType = selectPointerType;
+
+                    //车站大屏导航栏模式
+                    var stationTabType = data["stationTabType"] || '';
+                    sessionStorage.stationTabType = stationTabType;
 
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}

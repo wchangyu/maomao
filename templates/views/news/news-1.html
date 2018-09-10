@@ -241,6 +241,16 @@
                         <div class="content-header"></div>
                         <form action="" id="form-content" target="nm_iframe">
                             <ul class="form-content">
+
+                                <li style="line-height: 26px;" class="choose-unit">
+                                    <div class="labels"><span style="color:red;font-size:22px;vertical-align: middle;margin-right: 10px;">*</span>选择单位 ：</div>
+                                    <div class="input-blockeds">
+                                        <select name="" id="unit-select" style="height: 40px;">
+                                        </select>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+
                                 <li style="line-height: 26px;">
                                     <div class="labels"><span style="color:red;font-size:22px;vertical-align: middle;margin-right: 10px;">*</span>选择栏目 ：</div>
                                     <div class="input-blockeds">
@@ -249,6 +259,7 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
+
                                 <li style="line-height: 26px;">
                                     <div class="labels"><span style="color:red;font-size:22px;vertical-align: middle;margin-right:10px; ">*</span>新闻标题 ：</div>
                                     <div class="input-blockeds">
@@ -395,7 +406,6 @@
 <script type="text/javascript" charset="utf-8" src="validate/jquery.validate.js"></script>
 <script type="text/javascript" charset="utf-8" src="validate/jquery.metadata.js"></script>
 <script type="text/javascript" charset="utf-8" src="validate/messages_zh.min.js"></script>
-<script src="js/news-1.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -405,6 +415,7 @@
 
     });
 </script>
+<script src="js/news-1.js"></script>
 
 <!-- END JAVASCRIPTS -->
 <!--提示模态框-->

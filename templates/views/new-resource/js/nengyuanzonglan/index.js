@@ -3,6 +3,12 @@
  */
 $(function(){
 
+    //获取全部楼宇ID列表
+    pointerIdArr = getPointersId();
+
+//获取全部分户ID列表
+     officeIdArr = getOfficesId();
+
     //获取页面左上角新闻轮播图
     getNewsCarousel();
 
@@ -124,20 +130,21 @@ $(function(){
 
 });
 
-//定义初始的楼宇ID
-if(!sessionStorage.PointerID || sessionStorage.PointerID == 'undefined'){
 
-
-    if(sessionStorage.pointers){
-
-        var pos = JSON.parse(sessionStorage.pointers);
-        var po = pos[0];
-        sessionStorage.PointerID = po.pointerID;
-        sessionStorage.PointerName = po.pointerName;
-
-        console.log(sessionStorage.PointerID)
-    }
-}
+////定义初始的楼宇ID
+//if(!sessionStorage.PointerID || sessionStorage.PointerID == 'undefined'){
+//
+//
+//    if(sessionStorage.pointers){
+//
+//        var pos = JSON.parse(sessionStorage.pointers);
+//        var po = pos[0];
+//        sessionStorage.PointerID = po.pointerID;
+//        sessionStorage.PointerName = po.pointerName;
+//
+//        console.log(sessionStorage.PointerID)
+//    }
+//}
 
 //------------------------------------定义变量-----------------------------------//
 
@@ -297,8 +304,16 @@ var option2 = {
         type: 'value',
         boundaryGap: [0, 0.01]
     },
+
     yAxis: {
         type: 'category',
+        axisLabel: {
+            interval:0,
+            margin:80,
+            textStyle: {
+                align: 'left'
+            }
+        },
         data: ['灼伤大楼','转化医学研究院','儿童住院部','门诊和急诊','外科楼','内科楼']
     },
     series: [
@@ -393,10 +408,10 @@ var option4 = {
 };
 
 //获取全部楼宇ID列表
-var pointerIdArr = getPointersId();
+var pointerIdArr = [];
 
 //获取全部分户ID列表
-var officeIdArr = getOfficesId();
+var officeIdArr = [];
 
 //------------------------------------页面主体方法-----------------------------------//
 
@@ -467,10 +482,37 @@ function getRankingDataByConfig(){
 //获取页面左上角新闻轮播图
 function getNewsCarousel(){
 
+    //存放当前选中的企业id集合
+    var enterpriseIdArr = getEnterprise();
+
+    var postType = 'get';
+
+    var postUrl = 'News/GetRecommendNews';
+
+    //传递给后台的参数
+    var prm = {
+
+    };
+
+    //如果是可选择企业的模式
+    if(sessionStorage.showChooseUnit == 1){
+
+        postType = 'post';
+
+        postUrl = 'News/GetRecommendNewsByEnterpriseID';
+
+        //传递给后台的参数
+        prm = {
+            "":  enterpriseIdArr
+
+        };
+    }
+
     //获取推荐轮播图块
     $.ajax({
-        type:'get',
-        url:sessionStorage.apiUrlPrefix + 'News/GetRecommendNews',
+        type:postType,
+        url:sessionStorage.apiUrlPrefix + postUrl,
+        data:prm,
         success:function(result){
 
             //console.log(result);
@@ -537,33 +579,53 @@ function getNewsCarousel(){
 
 //获取左侧医院统计数据
 function getTopPageData(){
+
+    var pointerArr = JSON.parse(sessionStorage.pointers);
+
+
+    var _enterpriseArr = unique(pointerArr,'enterpriseID');
+
+    //传递给后台的企业id集合
+    var postEnterArr = [];
+
+    $(_enterpriseArr).each(function(i,o){
+
+        postEnterArr.push(o.enterpriseID);
+    });
+
+    //console.log(postEnterArr);
+
     //传递给后台的数据
     var ecParams = {
-
+        "" : postEnterArr
     };
+
     //发送请求
     $.ajax({
-        type:'get',
-        url:sessionStorage.apiUrlPrefix+'EnergyTopPageV2/GetTopPageDataStatist',
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'EnergyTopPageV2/GetTopPageDataStatistExt',
         data:ecParams,
         timeout:_theTimes,
         beforeSend:function(){
 
-
         },
         success:function(result){
+
+            //console.log(result);
 
             //console.log(result);
             //给页面中赋值
             var html = '';
             $(result).each(function(i,o){
 
-                html += '<p>'+ o.statistName+':<span>'+ o.statistValue+'</span></p>'
+                html += '<p>'+ o.statistName+':<span>'+ o.statistValue+'</span> '+ o.statistUnit+'</p>'
             });
+
             //清除浮动
              html += '<div class="clearfix"></div>';
 
             $('.left-middle-main1').html(html);
+
         },
         error:function(jqXHR, textStatus, errorThrown){
             //错误提示信息
@@ -1091,10 +1153,13 @@ function getFirstEnergyItemData(){
                 //给图例中存储数据
                 legendArr.push(o.energyItemName);
             });
+
             //图例赋值
             option1.legend.data = legendArr;
+
             //数据赋值
             option1.series[0].data = dataArr;
+
             //重绘title
             option1.title.text = '电耗分项';
 
@@ -1564,10 +1629,43 @@ function getProjectRankData(){
             var sArr = [];
 
             $(result).each(function(i,o){
+
                 //取前五名展示
                 if(i < 5){
+
+                    var nameArr = o.returnOBJName.split('');
+
+                    //console.log(nameArr);
+
+                    var rowN = nameArr.length;
+
+                    var showName = "";
+
+
+                    if( rowN > 6){
+
+                       $(nameArr).each(function(k,j){
+
+                          if(k != 0 && k % 6 == 0){
+
+                              showName += '\n'+j;
+
+                          }else{
+
+                              showName += j;
+                          }
+
+                       });
+
+                    }else{
+
+                        showName = o.returnOBJName
+
+                    }
+
                     //重绘Y轴
-                    yArr.push(o.returnOBJName);
+                    yArr.push(showName);
+
                     //添加数据
                     sArr.push(o.currentEnergyData.toFixed(1));
                 }
@@ -1907,16 +2005,17 @@ function getWeatherParam1(){
             //无数据
             if(result == null || result.length == 0){
 
-                //温度
-                $('.left-middle-main0 p span').eq(0).html('32' + '℃');
-
-                //湿度
-                $('.left-middle-main0 p span').eq(1).html('41' + "%");
+                ////温度
+                //$('.left-middle-main0 p span').eq(0).html('32' + '℃');
+                //
+                ////湿度
+                //$('.left-middle-main0 p span').eq(1).html('41' + "%");
 
                 return false;
             }
 
             //给页面中赋值
+
             //温度
             $('.left-middle-main0 p span').eq(0).html(result.temperatureData + '℃');
 
@@ -1936,4 +2035,75 @@ function getWeatherParam1(){
         }
     })
 };
+
+//获取企业id列表
+function getEnterprise(){
+
+        //从session中获取全部企业信息
+        var strPointers = sessionStorage.pointers;
+        var tempAllPointers = [];
+
+        if(strPointers){
+            tempAllPointers = JSON.parse(strPointers);
+        }
+
+        var html = "";
+
+        //获取企业列表
+        var _enterpriseArr = unique(tempAllPointers,'enterpriseID');
+
+        $(_enterpriseArr).each(function(i,o){
+
+            html += '<option value="'+ o.enterpriseID+'">'+ o.eprName+'</option>'
+
+        });
+
+        //页面赋值
+        $('#unit-select').html(html);
+
+        //如果不是可选择企业的模式
+        if(sessionStorage.showChooseUnit == 0){
+
+            //隐藏选择框
+            $('.choose-unit').hide();
+
+        }
+
+        //存放企业id集合
+        var _enterpriseIdArr = [];
+
+        $(_enterpriseArr).each(function(i,o){
+
+            _enterpriseIdArr.push(o.enterpriseID);
+        });
+
+        return _enterpriseIdArr;
+
+    };
+
+//数组去重
+function unique(a,attr) {
+
+        var res = [];
+
+        for (var i = 0, len = a.length; i < len; i++) {
+            var item = a[i];
+            for (var j = 0, jLen = res.length; j < jLen; j++) {
+                //console.log(i + '' + res);
+                if (res[j][attr] === item[attr]){
+                    //console.log(333);
+                    break;
+                }
+
+            }
+            if (j === jLen){
+
+                res.push(item);
+
+            }
+
+        }
+
+        return res;
+    };
 

@@ -112,8 +112,6 @@ var BEE = (function(){
     }
 
 
-
-
     //logo跳转地址
     $('.page-logo a').attr('href',indexUrl);
 
@@ -141,6 +139,7 @@ var BEE = (function(){
 
                 getHTMLFromMenu(string1, $sidebar);
                 sessionStorage.curMenuStr = JSON.stringify(string1);
+
             }else{
 
                 getHTMLFromMenu(JSON.parse(str), $sidebar);
@@ -181,6 +180,7 @@ var BEE = (function(){
             var curType = menu[p]["type"];
             if(curType){
                 if(curType=="0"){
+
                     //具体菜单操作
                     if( menu[p]["uri"]){
 
@@ -236,6 +236,7 @@ var BEE = (function(){
                             }
                         }
                     }
+
                     if(menu[p]["iconclass"]){
                         li += '<i class="' + menu[p]["iconclass"] +'"></i>';
                     }else {
@@ -279,6 +280,7 @@ var BEE = (function(){
 
     //设置header中信息
     var setHeaderInfo = function(){
+
         if(sessionStorage.pageTitle) { document.title = sessionStorage.pageTitle; }
         var username = sessionStorage.realUserName || "未登录";
         $('.username').html(username);
@@ -1982,12 +1984,28 @@ var BEE = (function(){
         var strPointers = sessionStorage.allPointers;
         var tempAllPointers = [];
 
+        //用能单位
+        var strOffice = sessionStorage.allOffices;
+        var tempAllOffice = [];
+
         if(strPointers){
+
             tempAllPointers = JSON.parse(strPointers);
         }
 
+        if( strOffice){
+
+            tempAllOffice = JSON.parse(strOffice);
+        }
+
+        //console.log( enterpriseIDArr);
+
+
         //改变session中缓存的楼宇
         var curPointersArr = [];
+
+        //改变session中缓存的单位
+        var curOfficeArr = [];
 
         $(enterpriseIDArr).each(function(k,j){
 
@@ -2000,17 +2018,28 @@ var BEE = (function(){
                     curPointersArr.push(o);
                 }
             });
+
+            $(tempAllOffice).each(function(i,o){
+
+                if(o.f_GroupID == enterpriseID){
+
+                    curOfficeArr.push(o);
+                }
+            });
+
         });
+
+        //console.log( curOfficeArr)
+
 
         if(sessionStorage.showChooseUnit == 0){
 
+            //楼宇ztree树
             sessionStorage.pointers = JSON.stringify(curPointersArr);
 
-            //楼宇ztree树
             _getPointerZtree($("#allSelectPointer"),1);
 
             sessionStorage.pointers = sessionStorage.allPointers;
-
 
         }else{
 
@@ -2020,6 +2049,20 @@ var BEE = (function(){
             _getPointerZtree($("#allSelectPointer"),1);
 
             _getPointerZtree($("#allPointer"),1);
+
+
+            //单位ztree树
+
+            sessionStorage.offices = JSON.stringify(curOfficeArr);
+
+            if(curOfficeArr.length > 0){
+
+                _getOfficeZtree($("#allOffices"),1);
+
+            }else{
+
+                   $('#allOffices').html('');
+            }
 
         }
 
@@ -2063,7 +2106,6 @@ var BEE = (function(){
             zTree.setChkDisabled(nodes[0].children[0], true); //父节点禁止勾选
 
             zTree.checkNode(nodes[0].children[0].children[thisNum], true, true);
-
 
 
         }else{
@@ -2210,6 +2252,8 @@ var BEE = (function(){
                 _getPointerZtree($("#allPointer"),1);
             }
 
+            window.history.go(0);
+
         });
 
     };
@@ -2237,7 +2281,6 @@ var BEE = (function(){
     };
 
     function hideLeftMenu(){
-
 
         $('.page-header').hide();
 

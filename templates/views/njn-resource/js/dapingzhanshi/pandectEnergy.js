@@ -2992,7 +2992,9 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
                     $('#'+ echartsID).prev('.bottom-content-data').find('span').eq(i).html(thisData+'%');
 
             }else{
+
                 $('#'+ echartsID).prev('.bottom-content-data').find('span').eq(i).html(thisData+unit);
+
             }
 
 
@@ -3663,6 +3665,7 @@ function getDevFaultAlarmPropData(condition){
                 $('#trouble-message .bottom-table-data-container ').showLoading();
 
             },500);
+
         },
         success:function(result){
 

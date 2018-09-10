@@ -5,7 +5,7 @@
 $(function(){
 
     //左上方介绍的滚动效果
-     scollIntroduce();
+     //scollIntroduce();
 
     //给实时报警赋值
     alarmData();
@@ -254,7 +254,7 @@ var option0 = {
         text: '制冷系统(kw)',
         //sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
         left: 'center',
-        top: '110',
+        bottom: '10',
         //itemGap: -5,
         textBaseline:'middle',
         textStyle : {
@@ -428,7 +428,7 @@ var option1 = {
         text: '制冷系统(kw)',
         sublink: ' /n 良好',
         left: 'center',
-        top: '135',
+        bottom: '10',
         //itemGap: -5,
         textBaseline:'middle',
         textStyle : {

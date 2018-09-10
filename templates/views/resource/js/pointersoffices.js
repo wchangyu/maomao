@@ -403,7 +403,13 @@ var ObjectSelection = function(){
     this.initOffices = function($ulOffices,multiSelectionMode){
         this._$ulOffices = $ulOffices;
         this.getSessionStorageOffices();
+        //if(!this._allOffices || this._allOffices.length ==0 ){
+        //
+        //    return;
+        //}
+
         if(!this._allOffices || this._allOffices.length ==0 ){
+
             return;
         }
         var zTreeOffice;
@@ -817,7 +823,6 @@ function unique(a,attr) {
 //获取要传递给后台的楼宇列表
 function getPostPointerID(treeObj,selectType){
 
-
     //获取到选中的节点
     var nodes = treeObj.getCheckedNodes(true);
 
@@ -837,7 +842,7 @@ function getPostPointerID(treeObj,selectType){
                 postPointerID.push(obj);
             }
 
-        })
+        });
     //    如果是单选框
     }else{
 
@@ -862,6 +867,7 @@ function getPostPointerID(treeObj,selectType){
                 })
 
             }
+
             //如果勾选企业节点
             if(o.nodeType == 1){
                 //获取3级节点
@@ -875,6 +881,7 @@ function getPostPointerID(treeObj,selectType){
                 })
 
             }
+
             //如果勾选楼宇节点
             if(o.nodeType == 2){
 

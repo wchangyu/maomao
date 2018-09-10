@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <!--框架中的css-->
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+
+    <!--能耗查询公共css-->
+    <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link rel="stylesheet" href="../new-resource/css/common.css">
+
+    <!--ztree css-->
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+
+    <!--datepicker css-->
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
+
+    <!--本页面css-->
+    <link rel="stylesheet" href="css/new-frame.css">
+
+</head>
+<body>
+
+<!--最外层容器-->
+<div class="out-frame-container">
+
+    <!--左侧菜单栏-->
+    <div class="left-menu-container">
+
+        <!--上方logo-->
+        <div class="left-munu-top-logo"></div>
+
+        <!--中间登录人员信息-->
+        <div class="left-people-message">
+
+            <!--登录图片-->
+            <div class="left-people-message-img-container">
+
+                <img src="img/touxiang.png" alt="" class="left-people-message-img">
+
+            </div>
+
+            <!--登录人姓名-->
+            <p class="person-name">Fank</p>
+
+            <!--登录时间信息-->
+            <p class="last-log-time">上次登录: <span class="last-log-time-data">2018-08-19 15:30</span></p>
+
+            <!--下方操作按钮-->
+            <div class="bottom-operation-button">
+
+                <span class="left-person left-person1"></span>
+                <span class="left-person left-person2"></span>
+                <span class="left-person left-person3"></span>
+
+            </div>
+
+        </div>
+
+        <!--下方主菜单-->
+        <div class="left-bottom-menu-container">
+
+            <!--单个主体菜单-->
+            <div class="main-menu onChoose">
+
+                <!--左侧图片-->
+                <img src="img/shebei.png" alt="" class="left-main-menu-img">
+
+                <!--右侧名称-->
+                <span class="right-mian-menu-name">设备管理</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--右侧数据栏-->
+    <div class="right-data-container">
+
+
+        <!--上方菜单-->
+        <div class="right-menu-container">
+
+            <!--左右箭头-->
+            <a class="carousel-control left" data-id="1" style="" href="javascript:;" data-slide="prev">‹</a>
+
+            <!--左侧遮罩-->
+            <div class="the-shade left-shade"></div>
+
+            <a class="carousel-control right" data-id="2" style="" href="javascript:;" data-slide="next">›</a>
+
+            <!--右侧遮罩-->
+            <div class="the-shade right-shade"></div>
+
+            <div class="right-menu-inner-container">
+
+                <!--单个二级菜单-->
+                <div class="secondary-menu onChoose onChoose1">
+                    能耗查询
+
+                    <!--三级菜单-->
+                    <div class="thirdary-menu">
+
+                        <ul>
+                            <li><a href="">能耗查询</a></li>
+                            <li><a href="">能耗指标</a></li>
+                            <li><a href="">横向对比</a></li>
+                            <li><a href="">同比环比</a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <!--清除浮动-->
+                <div class="clearfix"></div>
+
+            </div>
+
+
+        </div>
+
+        <!--下方主体内容-->
+        <div class="right-bottom-container">
+
+
+        </div>
+
+    </div>
+
+    <div class="clearfix"></div>
+
+</div>
+
+</body>
+<script src="../resource/js/jquery-1.11.2.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        //Metronic.init(); // init metronic core components
+        //Layout.init(); // init current layout
+        //Demo.init(); // init demo features
+        BEE.init(true);
+    });
+</script>
+
+<!--js-->
+<script src="../resource/js/moment.js"></script>
+<script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+
+<!--echarts-->
+<script src="../resource/js/echarts.min.js"></script>
+<script src="../resource/js/moment.js"></script>
+
+<!--ztree js-->
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<script src="../resource/js/pointersoffices.js"></script>
+<script src="../resource/js/etSelection.js"></script>
+<script src="../new-resource/js/showOrHidden.js"></script>
+<script src="../new-resource/js/common.js"></script>
+<script src="js/new-frame.js"></script>
+</html>

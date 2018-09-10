@@ -210,7 +210,16 @@ var carouselTime = 5;
 $('.left-tab-data-container span font').html(0);
 
 //绘制页面上方的跳转选项卡
-drawRightTab();
+
+if(!sessionStorage.stationTabType || sessionStorage.stationTabType == 0){
+    //南京南模式
+    drawRightTab();
+
+}else{
+    //上海虹桥模式
+    drawRightTab1();
+}
+
 
 //页面右侧上方选项卡
 function drawRightTab(){
@@ -292,6 +301,65 @@ function drawRightTab(){
     if(pageUrl.indexOf('stationBuilding.html') > -1 || pageUrl.indexOf('platform.html') > -1){
 
         $('.inner-right-container .right-tab-container .right-tab').eq(4).addClass('right-tab-choose1');
+    }
+
+};
+
+//页面右侧上方选项卡 用于上海虹桥
+function drawRightTab1(){
+
+    var tabHtml = '<span class="right-tab right-tab1"><a href="pandectEnergy1.html">总览</a></span>' +
+        '<span class="right-tab right-tab2 " ><a href="coldHeatSource1.html">冷热站</a></span>' +
+        '<span class="right-tab right-tab2"><a href="elevator.html">电梯系统</a></span>' +
+        '<span class="right-tab right-tab2" jump-data="0"><a href="javascript:;">照明系统</a></span>' +
+        '<span class="right-tab right-tab2"><a href="sealHead.html">动环系统</a></span>' +
+        '<span class="right-tab right-tab2 "><a href="airConditioner.html">空调箱</a></span>' +
+            //'<span class="right-tab right-tab2"><a href="platform.html">站台照明</a></span>' +
+            '<span class="right-tab right-tab2 "><a href="exhaustAir.html">送排风</a></span>' +
+        '<span class="right-tab right-tab2"><a href="supDraWater.html">给排水</a></span>' +
+
+        '<span class="right-tab right-tab3 "><a href="energyManagement.html">能源管理</a></span>';
+
+    //插入页面中
+    $('.inner-right-container .right-tab-container').html(tabHtml);
+
+
+    var html1 = "<div class='jump-container jump-container1 jump-container1-new'>" +
+        "<span><a href='stationBuilding.html'>站房照明</a></span>" +
+        "<span><a href='platform.html'>站台照明</a></span>" +
+        "</div>";
+
+    //插入页面中
+    $('.inner-right-container .right-tab-container').append(html1);
+
+
+    //获取当前页面url
+    var pageUrl = window.location.href;
+
+    //给当前页面的span 添加对应的选中类名
+    for(var i=0; i<$('.inner-right-container .right-tab-container span').length; i++){
+
+        //获取当前a标签中跳转地址
+        var jumpUrl = $('.inner-right-container .right-tab-container span').eq(i).find('a').attr('href');
+
+        //判断是否是要添加类名的页面
+        if(pageUrl.indexOf(jumpUrl) > -1 && jumpUrl != ''){
+
+            if(i != $('.inner-right-container .right-tab-container .right-tab').length -1){
+
+                $('.inner-right-container .right-tab-container .right-tab').eq(i).addClass('right-tab-choose1');
+
+            }else{
+                $('.inner-right-container .right-tab-container .right-tab').eq(i).addClass('right-tab-choose2');
+            }
+
+        }
+    }
+
+    //如果是照明系统
+    if(pageUrl.indexOf('stationBuilding.html') > -1 || pageUrl.indexOf('platform.html') > -1){
+
+        $('.inner-right-container .right-tab-container .right-tab').eq(3).addClass('right-tab-choose1');
     }
 
 };
@@ -587,7 +655,16 @@ var pointerIdArr = getPointersId();
 $('.left-data-container .left-specific-data1').html( pointerIdArr.length);
 
 //当前楼宇ID
-var curPointerIDArr = ['3101800201'];
+var curPointerIDArr = [];
+if(sessionStorage.pointers){
+
+    var pos = JSON.parse(sessionStorage.pointers);
+    var po = pos[0];
+
+    var curPointerID = po.pointerID;
+
+}
+curPointerIDArr = [curPointerID];
 
 //获取全部分户ID列表
 var officeIdArr = getOfficesId();

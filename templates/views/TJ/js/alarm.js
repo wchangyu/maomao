@@ -3,6 +3,25 @@ $(function(){
     //设备历史数据
     var _devHistoryArr = [];
 
+    //点击表格中操作中下拉按钮
+    $('#table').on('click','.button-switch',function(){
+
+        var dom = $(this).parent().find('.hide-button').eq(0);
+
+        if(dom.is(":hidden")){
+
+            $(this).html('↑');
+
+        }else{
+
+            $(this).html('↓');
+        }
+
+        $(this).parent().find('.hide-button').toggle();
+
+
+    });
+
     /*-----------------------------------------表格初始化----------------------------------------------*/
 
     //报警表格
@@ -38,7 +57,20 @@ $(function(){
         },
         {
             title:'报警等级',
-            data:'BJDJ'
+            data:'BJDJ',
+            render:function(data, type, row, meta){
+
+                if(data == '紧急'){
+
+                    return '<a class="urgency-alarm" href="../TJ/urgency-alarm.html">'+data+'</a>';
+
+                }else{
+
+                    return data;
+                }
+
+
+            }
         },
         {
             title:'处理状态',
@@ -54,15 +86,17 @@ $(function(){
 
                     "<span class='data-option option-GD btn default btn-xs green-stripe'>分派</span>" +
 
-                    "<span class='data-option option-modify btn default btn-xs green-stripe'>修改范围</span>" +
+                    "<span class='button-switch'>↓</span>"+
 
-                    "<span class='data-option option-delay btn default btn-xs green-stripe'>延迟报警</span>"
+                    "<br/><span class='data-option option-modify btn default btn-xs green-stripe hide-button'>修改范围</span>" +
+
+                    "<span class='data-option option-delay btn default btn-xs green-stripe hide-button'>延迟报警</span>"
 
             }
 
         }
 
-    ]
+    ];
 
     _tableInit($('#table'),col,1,true,'','','','');
 
@@ -98,7 +132,7 @@ $(function(){
             data:'ZXR'
         }
 
-    ]
+    ];
 
     _tableInit($('#devTable'),queryCol,1,true,'','',true,'');
 
@@ -107,7 +141,6 @@ $(function(){
 
     //设备历史数据
     devHistory();
-
     /*-----------------------------------------按钮事件-----------------------------------------------*/
 
     //【确认】
@@ -118,15 +151,13 @@ $(function(){
 
         //初始化
 
-
-
         $('#theLoading').modal('show');
 
         _moTaiKuang($('#confirm-myModal'), '确认报警', false, false ,false, '确认');
 
         $('#theLoading').modal('hide');
 
-    })
+    });
 
     //确认【确认】按钮
     $('#confirm-myModal').on('click','.btn-primary',function(){
@@ -141,7 +172,7 @@ $(function(){
         //提示
         _moTaiKuang($('#tip-myModal'), '提示', true, true ,'确认成功！', '');
 
-    })
+    });
 
     //【查询】
     $('#table').on('click','.option-query',function(){
@@ -151,7 +182,6 @@ $(function(){
 
         //初始化
 
-
         $('#theLoading').modal('show');
 
         _moTaiKuang($('#query-myModal'), '查询报警历史', true, false ,false, '');
@@ -160,7 +190,7 @@ $(function(){
 
         $('#theLoading').modal('hide');
 
-    })
+    });
 
     //【分派】
     $('#table').on('click','.option-GD',function(){
@@ -174,7 +204,7 @@ $(function(){
 
         $('#theLoading').modal('hide');
 
-    })
+    });
 
     //分派【确认】按钮
     $('#create-myModal').on('click','.btn-primary',function(){
@@ -189,7 +219,7 @@ $(function(){
         //提示
         _moTaiKuang($('#tip-myModal'), '提示', true, true ,'创建成功！', '');
 
-    })
+    });
 
     //【修改范围】
     $('#table').on('click','.option-modify',function(){
@@ -206,7 +236,7 @@ $(function(){
 
         $('#theLoading').modal('hide');
 
-    })
+    });
 
     //修改范围【确定】按钮
     $('#range-myModal').on('click','.btn-primary',function(){
@@ -221,7 +251,7 @@ $(function(){
         //提示
         _moTaiKuang($('#tip-myModal'), '提示', true, true ,'修改成功！', '');
 
-    })
+    });
 
     //【延迟】
     $('#table').on('click','.option-delay',function(){
@@ -231,14 +261,13 @@ $(function(){
 
         //初始化
 
-
         $('#theLoading').modal('show');
 
         _moTaiKuang($('#delay-myModal'), '延迟报警', false, false ,false, '延迟');
 
         $('#theLoading').modal('hide');
 
-    })
+    });
 
     //延迟【确定按钮】
     $('#delay-myModal').on('click','.btn-primary',function(){
@@ -253,7 +282,7 @@ $(function(){
         //提示
         _moTaiKuang($('#tip-myModal'), '提示', true, true ,'延迟成功！', '');
 
-    })
+    });
 
     /*------------------------------------------其他方法-----------------------------------------------*/
 
@@ -274,7 +303,7 @@ $(function(){
 
         })
 
-    }
+    };
 
     //查询数据表格
     function devHistory(){
@@ -299,7 +328,7 @@ $(function(){
 
         })
 
-    }
+    };
 
     //样式修改
     function cssChange(tr){
@@ -308,7 +337,7 @@ $(function(){
 
         tr.parents('tr').addClass('tables-hover');
 
-    }
+    };
 
 
-})
+});

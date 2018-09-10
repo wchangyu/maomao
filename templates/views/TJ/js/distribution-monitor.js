@@ -6,6 +6,23 @@
  */
 $(function(){
 
+    //图片页面加载
+    for(var i=0; i<6; i++){
+
+        //获取当前的dom
+        var dom = $('.equipment-data .the-choose-show-data').eq(i);
+
+        //获取当前的图片
+        var thisImg = 'img/' + dom.attr('data-img') + '.png';
+
+        dom.css({
+
+            'background':'url("'+thisImg+'") no-repeat center 5px'
+        });
+
+    };
+
+
     //按分钟初始化时间
     _timeComponentsFun1($('.datatimeblock'));
 
@@ -17,6 +34,9 @@ $(function(){
 
     //机房报警echart页面赋值
     bottomRightEchart();
+
+    //弹窗表格数据页面赋值
+    tableData1();
 
     //点击鹰眼图
     $('.bpd-navigation .bpd-shade').on('click',function(){
@@ -34,6 +54,7 @@ $(function(){
 
             //echart页面赋值
             showEchart();
+
         }else{
 
             //表格数据页面赋值
@@ -107,6 +128,86 @@ $(function(){
         }
 
     });
+
+    //-----------------------------设备弹窗 病历本功能--------------------------------//
+
+    $('#content-main-right').on('click',function(){
+
+        $('.equipment-data').show();
+
+    });
+
+    $('.equipment-data .close1').on('click',function(){
+
+        $('.equipment-data').hide();
+    });
+
+    //点击控制中确定按钮
+    $('.right-control .bottom-sure').on('click',function(){
+
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'设置成功', '');
+
+    });
+
+
+    //切换状态
+    $('.right-on-off .save-energy').on('click',function(){
+
+        $(this).parent('.right-on-off').find('.save-energy').addClass('save-energy1');
+
+        $(this).removeClass('save-energy1');
+
+    });
+
+    //弹窗中全生命周期
+    $('.equipment-data .the-choose-show-data').on('click',function(){
+
+        //判断当前类型
+        var type = $(this).attr('data-type');
+
+        if(type == 0){
+
+            return false;
+        }
+
+        $('.equipment-data .the-choose-show-data').removeClass('onChoose');
+
+        $(this).addClass('onChoose');
+
+        for(var i=0; i<6; i++){
+
+            //获取当前的dom
+            var dom = $('.equipment-data .the-choose-show-data').eq(i);
+
+            //获取当前的图片
+            var thisImg = 'img/' + dom.attr('data-img') + '.png';
+
+            dom.css({
+
+                'background':'url("'+thisImg+'") no-repeat center 5px'
+            });
+
+        }
+
+        var dom1 = $(this);
+
+        if(type == 1){
+
+            //获取当前的图片
+            thisImg = 'img/' + dom1.attr('data-img1') + '.png';
+
+        }
+
+        dom1.css({
+
+            'background':'url("'+thisImg+'") no-repeat center 5px'
+        });
+
+    });
+
+    //点击知识库
+    $('.equipment-data .the-choose-show-data').eq(2).click();
 
 
     window.onresize = function () {
@@ -635,6 +736,54 @@ function bottomRightEchart(){
 
     });
 
+};
+
+//-----------------------------弹窗中知识库数据展示--------------------------//
+
+var tableArr1 = [
+    {
+
+        "time":"08-20",
+        "thing":"定期检查UPS蓄电池电压",
+        "area":"5#风扇启动器损坏，已更换",
+        "state":"已完成",
+        "people":"李强"
+    },
+    {
+
+        "time":"08-20",
+        "thing":"定期检查更换UPS输入及蓄电池保险丝",
+        "area":"断路器掉电，重启",
+        "state":"已完成",
+        "people":"李强"
+    },
+    {
+
+        "time":"08-15",
+        "thing":"需要保持UPS柜门过滤网的干净",
+        "area":"蒸发器清洗",
+        "state":"已完成",
+        "people":"李强"
+    }
+];
+
+//弹窗表格数据页面赋值
+function tableData1(){
+
+    var html = "";
+
+    $(tableArr1).each(function(i,o){
+
+        html += "<tr>" +
+            "<td class='title'>"+ (i+1)+"</td>"+
+            "<td>"+ o.thing+"</td>"+
+            "<td class='title'>"+ o.time+"</td>"+
+            "<td class='title1'>"+ o.people+"</td>"+
+            "</tr>";
+
+    });
+
+    $('.bottom-equiptment-table tbody').html(html);
 };
 
 
