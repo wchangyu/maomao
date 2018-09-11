@@ -2041,6 +2041,20 @@ var BEE = (function(){
             $('#eprBox .add-input-select1 span').attr('data-id',pId);
             $('#eprBox .add-input-select1 span').html(pNt);
 
+            //通过比较所有楼宇获取pubclassId
+            var arr = JSON.parse(sessionStorage.pointers)
+
+            for(var i=0;i<arr.length;i++){
+
+                if(pId == arr[i].pointerID){
+
+                    sessionStorage.pubClassID = arr[i].pubClassID;
+
+                }
+
+            }
+
+
             //获取当前勾选的是第几个楼宇
             var thisNum = -1;
 
@@ -2064,8 +2078,6 @@ var BEE = (function(){
 
             zTree.checkNode(nodes[0].children[0].children[thisNum], true, true);
 
-
-
         }else{
 
             //右上角默认勾选第一个
@@ -2088,9 +2100,26 @@ var BEE = (function(){
                 $('#eprBox .add-input-select1 span').html(nodes.name);
 
                 $('#eprBox .add-input-select1 span').attr('data-id',nodes.id)
+
+                //通过比较所有楼宇获取pubclassId
+                var arr = JSON.parse(sessionStorage.pointers)
+
+                for(var i=0;i<arr.length;i++){
+
+                    if(nodes.id == arr[i].pointerID){
+
+                        sessionStorage.pubClassID = arr[i].pubClassID;
+
+                    }
+
+                }
+
             }
 
         }
+
+
+
 
     };
 
@@ -2200,6 +2229,17 @@ var BEE = (function(){
                 }
 
             });
+
+            //通过比较再次确定pubclassId
+            for(var i=0;i<pointerArr.length;i++){
+
+                if(pointerArr[i].pointerID == sessionStorage.PointerID){
+
+                    sessionStorage.pubClassID = pointerArr[i].pubClassID
+
+                }
+
+            }
 
             $('#eprBox').hide();
 

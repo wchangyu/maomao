@@ -332,7 +332,7 @@ var ObjectSelection = function(){
 
             zTreePointer  = $.fn.zTree.init(this._$ulPointers,setting1,this._allPointers);
             var nodes = zTreePointer.getNodes();
-            console.log(nodes);
+            //console.log(nodes);
             //console.log(nodes);
             var dataArr = nodes[0].children;
             //console.log(nodes);

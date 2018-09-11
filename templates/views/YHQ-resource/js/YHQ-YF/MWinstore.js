@@ -852,6 +852,13 @@ $(function(){
 
     })
 
+    //查询
+    $('#selectBtn').click(function(){
+
+        conditionSelect();
+
+    })
+
     /*----------------------------其他方法-----------------------------*/
 
     //条件选择（运送中10，库存中20）
@@ -866,7 +873,7 @@ $(function(){
             //结束时间
             sendtimeet:moment($('#epDT').val()).add(1,'days').format('YYYY-MM-DD'),
             //科室
-            keshinum:$('#MWDep').val(),
+            keshinum:$('#MWDep').val() == ''?'':$('#MWDep').attr('data-id'),
             //登陆id
             userID:_userIdNum,
             //登录名

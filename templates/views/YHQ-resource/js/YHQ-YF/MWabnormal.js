@@ -9,8 +9,6 @@ $(function(){
 
     /*----------------------------------------时间插件-------------------------------------*/
 
-    /*-------------------------------时间插件------------------------------------*/
-
     var nowTime = moment().format('YYYY-MM-DD');
 
     var st = moment(nowTime).subtract(7,'days').format('YYYY-MM-DD');
@@ -50,7 +48,7 @@ $(function(){
             data:'keshiname'
         },
         {
-            title:'打包重量',
+            title:'打包重量(kg)',
             data:'weight'
         },
         {
@@ -58,7 +56,7 @@ $(function(){
             data:'transusername'
         },
         {
-            title:'入库重量',
+            title:'入库重量(kg)',
             data:'inweight'
         },
         {
