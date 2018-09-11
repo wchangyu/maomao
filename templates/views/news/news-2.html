@@ -320,8 +320,6 @@
 <script type="text/javascript" charset="utf-8" src="validate/jquery.validate.js"></script>
 <script type="text/javascript" charset="utf-8" src="validate/jquery.metadata.js"></script>
 <script type="text/javascript" charset="utf-8" src="validate/messages_zh.min.js"></script>
-<script src="../bank-resource/js/common.js"></script>
-<script src="js/news-2.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -331,19 +329,21 @@
 
     });
 </script>
+<script src="../bank-resource/js/common.js"></script>
+<script src="js/news-2.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!--新增-->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 700px;height: 192px !important;">
-        <div class="modal-content" style="width: 700px;height: 192px !important;">
+    <div class="modal-dialog" style="width: 700px;height: 230px !important;">
+        <div class="modal-content" style="width: 700px;height: 230px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">提示</h4>
             </div>
             <div class="modal-body">
                     <ul class="form-content">
-                        <li>
+                        <li style="margin-bottom:10px;">
                             <div class="labels">栏目名称 ：</div>
                             <span class="colorTip">最大长度为50</span>
                             <div class="input-blockeds" style="width: 100%">
@@ -351,6 +351,17 @@
                             </div>
                             <div class="clearfix"></div>
                         </li>
+
+                        <li class="choose-unit">
+                            <div class="labels">选择单位 ：</div>
+                            <div class="input-blockeds" style="width: 100%">
+                                <select name="" id="unit-select" style="width:300px;border: 1px solid #e5e5e5;outline: none;line-height: 30px;height: 30px;">
+
+                                </select>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                        <!---->
                     </ul>
             </div>
             <div class="modal-footer">

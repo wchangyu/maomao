@@ -64,7 +64,6 @@ $(function(){
 
         $(this).addClass('curChoose');
 
-
         //判断页面中是否存在能耗类型选项
         if(typeof _energyTypeSel!="undefined" ){
 
@@ -314,7 +313,15 @@ var table = $('#dateTables').DataTable({
             data:"returnOBJName",
             render:function(data, type, full, meta){
 
-                return '<span title="'+data+'">'+data.substring(0,4)+'</span>'
+                if(data.length > 5){
+
+                    return '<span title="'+data+'">'+data.substring(0,5)+'..</span>'
+                }else{
+
+                    return '<span title="'+data+'">'+data+'</span>'
+                }
+
+
             }
         },
         {

@@ -1,23 +1,67 @@
 $(function(){
     var _url = sessionStorage.getItem('apiUrlPrefix');
+
+    //存放当前选中的企业id集合
+    var enterpriseIdArr = getEnterprise();
+
     /*------------------------------------获取新闻栏目------------------------------------*/
     conditionSelect();
 
+    //改变单位
+    $('#unit-select').on('change',function(){
+
+        //获取新闻栏目
+        conditionSelect();
+    });
+
     //获取所有新闻条目
     function conditionSelect(){
+
+        var postType = 'get';
+
+        var postUrl = 'News/GetAllNewsType';
+
+        //传递给后台的参数
+        var prm = {
+
+        };
+
+        //如果是可选择企业的模式
+        if(sessionStorage.showChooseUnit == 1){
+
+            postType = 'post';
+
+            postUrl = 'News/GetAllNewsTypeByEnterpriseID';
+
+            //传递给后台的参数
+            prm = {
+                "enterpriseIDs":  $('#unit-select').val(),
+                "isEmptyEnterpriseNewsType": 0 //是否获取新闻栏目的企业ID为空的，0为不获取，1为获取为空的
+
+            };
+        }
+
         $.ajax({
-            type:'get',
-            url:_url + 'News/GetAllNewsType',
+            type:postType,
+            url:_url + postUrl,
             async:false,
+            data:prm,
             success:function(result){
 
                 if(result.length == 0){
-                    moTaiKuang($('#columnModal'),'请先添加栏目！');
+
+                    $('#column').html('');
+
+                    moTaiKuang($('#columnModal'),'点击确定按钮前去添加栏目！');
                 }
 
                 var str = '';
                 for(var i=0;i<result.length;i++){
-                    str += '<option value="'+ result[i].pK_NewsType+ '" >' + result[i].f_NewsTypeName +'</option>'
+
+
+                        str += '<option value="'+ result[i].pK_NewsType+ '" >' + result[i].f_NewsTypeName +'</option>'
+
+
                 }
 
                 $('#column').append(str);
@@ -479,4 +523,77 @@ $(function(){
             who.find('.btn-primary').show();
         }
     }
-})
+
+
+    //获取企业id列表
+    function getEnterprise(){
+
+        //从session中获取全部企业信息
+        var strPointers = sessionStorage.pointers;
+        var tempAllPointers = [];
+
+        if(strPointers){
+            tempAllPointers = JSON.parse(strPointers);
+        }
+
+        var html = "";
+
+        //获取企业列表
+        var _enterpriseArr = unique(tempAllPointers,'enterpriseID');
+
+        $(_enterpriseArr).each(function(i,o){
+
+            html += '<option value="'+ o.enterpriseID+'">'+ o.eprName+'</option>'
+
+        });
+
+        //页面赋值
+        $('#unit-select').html(html);
+
+        //如果不是可选择企业的模式
+        if(sessionStorage.showChooseUnit == 0){
+
+            //隐藏选择框
+            $('.choose-unit').hide();
+
+        }
+
+        //存放企业id集合
+        var _enterpriseIdArr = [];
+
+        $(_enterpriseArr).each(function(i,o){
+
+            _enterpriseIdArr.push(o.enterpriseID);
+        });
+
+        return _enterpriseIdArr;
+
+    };
+
+    //数组去重
+    function unique(a,attr) {
+
+        var res = [];
+
+        for (var i = 0, len = a.length; i < len; i++) {
+            var item = a[i];
+            for (var j = 0, jLen = res.length; j < jLen; j++) {
+                //console.log(i + '' + res);
+                if (res[j][attr] === item[attr]){
+                    //console.log(333);
+                    break;
+                }
+
+            }
+            if (j === jLen){
+
+                res.push(item);
+
+            }
+
+        }
+
+        return res;
+    };
+
+});

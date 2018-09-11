@@ -88,6 +88,47 @@
             background-size: 100% 100%;
         }
 
+
+        /*------------------------------冷站控制---------------------------------*/
+        .right-control .top-navigation{
+            background: url(img/kongzhi.png) no-repeat 10px center;
+            background-color: #687ea3;
+        }
+
+        .right-control .bottom-img-content{
+            padding-left:15px;
+            padding-top: 15px;
+            box-sizing: border-box;
+        }
+        .right-control-container .left-name{
+            display: inline-block;
+            width:100px;
+            color:#687EA2;
+            margin-right:10px;
+        }
+
+        .right-control-container{
+            margin-bottom:15px;
+        }
+        .right-control-container input{
+            width:80px;
+            height: 24px;
+            text-align: center;
+            outline: #687EA2;
+        }
+        .right-control-container .unit{
+            color:#687EA2;
+            margin-left:5px;
+
+        }
+
+
+        .content-child-show .bottom-monitor {
+            height: 250px;
+            background: url(img/upstanchu.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
     </style>
 
     <!--<link rel="stylesheet" href="../news/css/news.css">-->
@@ -243,7 +284,7 @@
                                     <!--下方图片-->
                                     <div class="bottom-img-content bpd-navigation">
 
-                                        <div class="bpd-shade" data-img="content-main-right" data-img1="bpd-navigation"></div>
+                                        <div class="bpd-shade isChoosed" data-img="content-main-right" data-img1="bpd-navigation"></div>
                                         <div class="bpd-shade" data-img="content-main-right1" data-img1="bpd-navigation1"></div>
                                     </div>
 
@@ -406,6 +447,295 @@
 <!-- BEGIN QUICK SIDEBAR -->
 <div id="foot-html"></div>
 
+<!--设备数据弹窗 UPS病历本-->
+<div class="equipment-data" style="display: none" >
+
+    <div class="content-child-show">
+
+        <div class="content-child-show-container">
+            <div class="close1">X</div>
+
+            <div class="child-show-bottom-data" >
+
+                <!--上方数据-->
+                <div class="top-equipment-data" style="margin-bottom: 20px;">
+
+                    <!--左侧流程图-->
+                    <div class="left-equipment-monitor" >
+
+                        <h3 class="equipment-title">UPS-A1</h3>
+
+                        <div class="equipment-rank">
+                            <span class="equipment-rank-data">综合排名：23/80</span>
+                            <span class="equipment-rank-data">健康值：89</span>
+
+                        </div>
+
+                        <!--下方流程图-->
+                        <div class="bottom-monitor">
+
+                        </div>
+
+
+                    </div>
+
+                    <!--右侧数据及曲线-->
+                    <div class="right-equipment-data">
+
+                        <h3 class="right-title">全生命周期分析</h3>
+
+                        <!--下方按钮-->
+                        <div class="the-choose-show-data-container">
+
+                            <p class="the-choose-show-data"  data-type="0" data-img="eq-dangan">设备档案</p>
+
+                            <p class="the-choose-show-data switch" data-id="0" data-type="1" data-img="eq-jilu" data-img1="eq-jilu1">维保记录</p>
+
+
+                            <p class="the-choose-show-data"  data-type="1" data-img="eq-zhishiku" data-img1="eq-zhishiku1">专家知识库</p>
+
+                            <p class="the-choose-show-data " data-type="0" data-img="eq-leida">性能雷达图</p>
+
+                            <p class="the-choose-show-data switch" data-id="2"   data-type="1" data-img="eq-fenxi" data-img1="eq-fenxi1">lcc经济分析</p>
+
+                            <p class="the-choose-show-data"  data-type="0" data-img="eq-quxian" >参数曲线图</p>
+
+                        </div>
+
+                        <!--下方数据-->
+                        <div class="bottom-equiptment-data">
+
+                            <table class="bottom-equiptment-table">
+
+                                <thead>
+
+                                <tr>
+                                    <th class="title">序号</th>
+                                    <th>建议内容</th>
+                                    <th>编辑时间</th>
+                                    <th class="title1">操作人</th>
+
+                                </tr>
+
+                                </thead>
+
+                                <tbody class="">
+
+                                </tbody>
+
+                            </table>
+
+                            <div class="bottom-equip-chart" id="economics-chart"></div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+
+                <!--下方数据-->
+                <div class="bottom-equipment-data">
+
+                    <!--控制设定-->
+                    <div class="right-navigation right-control" style="width:35%;float: left">
+
+                        <h3 class="top-title top-navigation">控制设定</h3>
+
+                        <!--下方图片-->
+                        <div class="bottom-img-content" style="position: relative;">
+
+
+                            <div class="right-control-container">
+
+                                <span class="left-name" >输入电压设定</span>
+
+                                <input name="" id="" class="" style="" value="220"/>
+                                <span class="unit">V</span>
+
+
+                            </div>
+
+                            <div class="right-control-container">
+
+                                <span class="left-name" >模式设定</span>
+
+                                <input name="" id="" class="" style="" value="自动"/>
+
+
+                            </div>
+
+                            <div class="right-control-container" style="margin-bottom:3px;">
+
+                                <span class="left-name" >可用状态</span>
+
+                                    <span class="right-on-off">
+
+                                    <font class="save-energy">ON</font><font class="save-energy save-energy1">OFF</font>
+
+                                            </span>
+
+
+                            </div>
+
+                                        <span class="bottom-sure" style="position: absolute;bottom:10px;
+                                        right:20px;">确定</span>
+
+
+                        </div>
+
+                    </div>
+
+                    <!--运行参数-->
+                    <div class="right-navigation right-control right-control1" style="width:62%;float: left;margin-left:3%;">
+
+                        <h3 class="top-title bottom-parameter">运行参数</h3>
+
+                        <!--下方图片-->
+                        <div class="bottom-img-content bottom-parameter-container" style="position: relative;">
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name  bottom-parameter-data-name1">运行状态:</span>
+
+                                <span class="bottom-parameter-data-value">ON</span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">输入电压</span>
+
+                                <span class="bottom-parameter-data-value">输出电压</span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">电池电压:</span>
+
+                                <span class="bottom-parameter-data-value ">2.36V</span>
+
+                            </div>
+
+                            <!--第二行-->
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name bottom-parameter-data-name1">手自动状态:</span>
+
+                                <span class="bottom-parameter-data-value">自动</span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">R:231</span>
+
+                                <span class="bottom-parameter-data-value">R:0</span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">电池温度:</span>
+
+                                <span class="bottom-parameter-data-value ">30℃</span>
+
+                            </div>
+
+                            <!--第三行-->
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name bottom-parameter-data-name1">故障状态:</span>
+
+                                <span class="bottom-parameter-data-value ">
+                                    <font class="ball red-ball"></font></span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">s:223</span>
+
+                                <span class="bottom-parameter-data-value">s:0</span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">旁路状态:</span>
+
+                                <span class="bottom-parameter-data-value ">闭合</span>
+
+                            </div>
+
+                            <!--第四行-->
+
+                            <div class="bottom-parameter-data-container ">
+
+                                <!--<span class="bottom-parameter-data-name bottom-parameter-data-name1">可用状态:</span>-->
+
+                                <!--<span class="bottom-parameter-data-value"><font class="impotart-data">1100</font>KPA</span>-->
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name">T:230</span>
+
+                                <span class="bottom-parameter-data-value">T:0</span>
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <!--<span class="bottom-parameter-data-name">水流开关状态:</span>-->
+
+                                <!--<span class="bottom-parameter-data-value">ON</span>-->
+
+                            </div>
+
+                            <!--第五行-->
+
+                            <div class="bottom-parameter-data-container">
+
+                                <!--<span class="bottom-parameter-data-name bottom-parameter-data-name1">冷凝压力:</span>-->
+
+                                <!--<span class="bottom-parameter-data-value">-->
+                                <!--<font class="normal">550</font>KPA-->
+                                <!--</span>-->
+
+                            </div>
+
+                            <div class="bottom-parameter-data-container">
+
+                                <span class="bottom-parameter-data-name"></span>
+
+                                <span class="bottom-parameter-data-value">F:0HZ</span>
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <!-- END FOOTER -->
 <script>

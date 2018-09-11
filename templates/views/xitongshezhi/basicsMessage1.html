@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../new-resource/css/common.css">
+    <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/monitorStatement.css">
+    <link rel="stylesheet" href="../new-resource/css/xitongshezhi/basicsMessage.css">
+    <style>
+
+    </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap">
+
+                            <!--上方选择楼宇-->
+                            <ul class="demand-condition-container condition-query ">
+                                <li>
+                                    <label for="">车站</label>
+                                    <select name="" id="alarm-station" class="select-station">
+
+                                    </select>
+                                </li>
+
+                                <div class="clearfix"></div>
+                            </ul>
+
+                            <div class="row out-body-container">
+
+                                <!--左侧信息-->
+                                <div class="left-body-container col-lg-6 col-md-6 col-sm-12">
+                                    <!--上方图片-->
+                                    <img src="../new-resource/img/njn-basics.png" alt="" class="left-top-picture">
+
+                                    <!--下方标题-->
+                                    <h3 class="left-terrace-name">客站设备智能化管理平台</h3>
+
+                                    <!--下方介绍-->
+                                    <p class="left-terrace-describe">客站设备智能化管理平台，将暖通空调、给排水、电扶梯、站台/站房照明、变配电、能耗计量、消防、售检票等8大项设备系统的监测、控制、管理集成在一个平台上，从而实现“保证安全运行”、“降低运行能耗”“减少人工成本”等目标。
+                                    </p>
+
+                                    <div style="height: 20px;"></div>
+
+                                    <!--下方表格-->
+                                    <table id="alarm-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid #DCDCDC;">
+                                        <thead style="text-align:center">
+                                        <tr style="text-align:center">
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid #DCDCDC;width:140px;">客站名称</th>
+                                            <th colspan=""  style="text-align:center;background: #ffffff;border:1px solid #DCDCDC" class="pointer-name "></th>
+
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid #DCDCDC;width:140px;">客站等级</th>
+                                            <th colspan=""  style="text-align:center;background: #ffffff;border:1px solid #DCDCDC" class="pointer-grade"></th>
+                                        </tr>
+
+                                        <tr style="text-align:center">
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid #DCDCDC;width:140px;">建筑面积(㎡)</th>
+                                            <th colspan=""  style="text-align:center;background: #ffffff;border:1px solid #DCDCDC" class="building-area "></th>
+
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid #DCDCDC;width:140px;">站台规模</th>
+                                            <th colspan=""  style="text-align:center;background: #ffffff;border:1px solid #DCDCDC" class="platform-scale"></th>
+                                        </tr>
+
+                                        <tr style="text-align:center">
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid #DCDCDC;width:140px;">空调面积(㎡)</th>
+                                            <th colspan=""  style="text-align:center;background: #ffffff;border:1px solid #DCDCDC" class="air-area "></th>
+
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid #DCDCDC;width:140px;">投用时间</th>
+                                            <th colspan=""  style="text-align:center;background: #ffffff;border:1px solid #DCDCDC" class="use-time"></th>
+                                        </tr>
+
+                                        <tr style="text-align:center">
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid #DCDCDC;width:140px;">地理位置</th>
+                                            <th colspan=""  style="text-align:center;background: #ffffff;border:1px solid #DCDCDC" class="position"></th>
+
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid #DCDCDC;width:140px;">气候带</th>
+                                            <th colspan=""  style="text-align:center;background: #ffffff;border:1px solid #DCDCDC" class="climatic"></th>
+                                        </tr>
+                                        </thead>
+
+
+                                    </table>
+
+
+
+                                </div>
+
+                                <!--右侧表格-->
+                                <div class="right-body-container col-lg-6 col-md-6 col-sm-12">
+
+                                    <!--下方表格-->
+                                    <table id="system-datatables" class="table currentOptionTable" cellspacing="0" width="100%" style="text-align:center;border: 1px solid #DCDCDC;">
+
+                                        <thead style="text-align:center">
+
+                                        <tr style="text-align:center">
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid #DCDCDC;" colspan="2">子系统名称</th>
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid #DCDCDC;">设备数量</th>
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid #DCDCDC;">信息点位</th>
+                                        </tr>
+
+                                        </thead>
+
+                                        <tbody>
+
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--页面js-->
+<script src="../new-resource/js/common.js"></script>
+<script src="../new-resource/js/xitongshezhi/basicsMessage1.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

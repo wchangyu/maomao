@@ -755,6 +755,13 @@
     top:36px;
 }
 
+.jump-container1-new{
+
+    position: absolute;
+    left:280px !important;
+    top:36px;
+}
+
 .jump-container1 span{
     margin-right:28px;
 }
