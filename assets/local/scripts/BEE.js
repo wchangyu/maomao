@@ -2135,6 +2135,8 @@ var BEE = (function(){
             zTree.checkNode(nodes[0].children[0].children[thisNum], true, true);
 
 
+
+
         }else{
 
             //右上角默认勾选第一个
