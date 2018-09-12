@@ -34,6 +34,8 @@
 
 	vertical-align: middle;
 
+	text-align: left;
+
 }
 
 .main-top-left-left img{
@@ -45,6 +47,8 @@
 .main-left-word{
 
 	margin-bottom: 6px;
+
+	margin-left: 5%;
 
 }
 
@@ -308,8 +312,156 @@
 
 }
 
-.markindicator{
+.excellentR{
 
+	background: url(../img/01.png)no-repeat;
 
+	background-position: center;
+
+}
+
+.excellentRLeft{
+
+	background: url(../img/01.png)no-repeat;
+
+	background-position: left;
+
+}
+
+.excellentRRight{
+
+	background: url(../img/01.png)no-repeat;
+
+	background-position: right;
+
+}
+
+.greatR{
+
+	background: url(../img/02.png)no-repeat;
+
+	background-position: center;
+
+}
+
+.greatRLeft{
+
+	background: url(../img/02.png)no-repeat;
+
+	background-position: left;
+
+}
+
+.greatRRight{
+
+	background: url(../img/02.png)no-repeat;
+
+	background-position: right;
+
+}
+
+.commonR{
+
+	background: url(../img/03.png)no-repeat;
+
+	background-position: center;
+
+}
+
+.commonRLeft{
+
+	background: url(../img/03.png)no-repeat;
+
+	background-position: left;
+
+}
+
+.commonRRight{
+
+	background: url(../img/03.png)no-repeat;
+
+	background-position: right;
+
+}
+
+.badR{
+
+	background: url(../img/04.png)no-repeat;
+
+	background-position: center;
+
+}
+
+.badRLeft{
+
+	background: url(../img/04.png)no-repeat;
+
+	background-position: left;
+
+}
+
+.badRRight{
+
+	background: url(../img/04.png)no-repeat;
+
+	background-position: right;
+
+}
+
+.noBG{
+
+	background: #ffffff !important;
+
+}
+
+.tableInfo p{
+
+	width: 66px !important;
+
+}
+
+.RBPHL-tip{
+
+	width: 80%;
+
+	margin: auto;
+
+	height: 80px;
+
+	position: relative;
+
+}
+
+#RBPHL-tip{
+
+	width: 20px;
+
+	height: 52px;
+
+	position: absolute;
+
+	top:30px;
+
+}
+
+#RBPHL-word{
+
+	position: absolute;
+
+	top: 0;
+
+	font-weight: bold;
+
+}
+
+#nvTip{
+
+	position: absolute;
+
+}
+
+.showTip{
+
+	position: relative;
 
 }

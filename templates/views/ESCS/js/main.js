@@ -26,6 +26,124 @@ $(function(){
     //仪器状态
     instrumentStatus();
 
+    //能效标尺
+    NXBC();
+
+    //能效曲线
+    NXQX();
+
+    //能源曲线
+    NYQX();
+
+    //报警
+    alarmData();
+
+    //运行参数
+    YXCS();
+
+    //十分钟刷新一次
+    setInterval(function(){
+
+        //左上角室外温湿度
+        WSD();
+
+        //获取实时时间
+        SSSJ();
+
+        //设备能效能耗
+        devEEEC();
+
+        //冷站
+        LZData();
+
+        //热不平衡率
+        RBPHL();
+
+        //仪器状态
+        instrumentStatus();
+
+        //能效标尺
+        NXBC();
+
+        //能效曲线
+        NXQX();
+
+        //能源曲线
+        NYQX();
+
+        //报警
+        alarmData();
+
+        //运行参数
+        YXCS();
+
+    },1000*60*10)
+
+    /*-----------------------------------------------chart---------------------------------------------*/
+
+    //数据曲线折线图
+
+    //能源曲线
+    var _chartEnergy = echarts.init(document.getElementById('chart-line-energy'));
+
+    //能效曲线
+    var _chartEfficiency = echarts.init(document.getElementById('chart-line-efficiency'));
+
+    var colorArr = ['#5793f3', '#d14a61', '#675bba', '#ffa500'];
+
+    var optionL = {
+
+        //color:['#5793f3', '#d14a61', '#675bba', '#ffa500'],
+
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data:[]
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        //toolbox: {
+        //    feature: {
+        //        saveAsImage: {}
+        //    }
+        //},
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: [],
+            axisLabel:{
+                interval:2,
+                rotate:45,//倾斜度 -90 至 90 默认为0
+                margin:12
+            },
+        },
+        yAxis: [
+
+            {
+                name:'能效',
+                type:'value'
+            },
+            //{
+            //    name:'平衡率',
+            //    type:'value'
+            //}
+
+        ],
+        series: [
+            //{
+            //    name:'邮件营销',
+            //    type:'line',
+            //    stack: '总量',
+            //    data:['']
+            //}
+        ]
+    };
+
     /*-----------------------------------------------表单验证--------------------------------------------*/
 
     $('#equipnew-form').validate({
@@ -336,6 +454,29 @@ $(function(){
 
     })
 
+    //数据曲线tab切换
+    $('.main-tab').on('click','span',function(){
+
+        $('.main-tab').find('span').removeClass('main-tab-active');
+
+        $(this).addClass('main-tab-active');
+
+        $('.chart-line').css('z-index','1');
+
+        $('.chart-line').eq($(this).parent().index()).css('z-index','2');
+
+    })
+
+    //chart图自适应
+    window.onresize = function () {
+
+        if (_chartEnergy && _chartEfficiency) {
+
+            _chartEnergy.resize();
+
+            _chartEfficiency.resize();
+        }
+    }
 
     /*---------------------------------其他方法----------------------------------*/
 
@@ -841,6 +982,9 @@ $(function(){
         //初始化
         RBPHLInit();
 
+        //标尺初始化
+        RPHBC();
+
         //参数
         var prm = {
 
@@ -854,15 +998,19 @@ $(function(){
 
         _mainAjaxFunCompleteNew('post','Main/GetUBRVNowData',prm,false,function(result){
 
-            var data = 0.0000;
+            //整体能效的值
+            var data = '-';
 
             if(result.code == 0){
 
                 data = result.ubrVa;
 
-            }
+                $('#lzbphlv').html(Number(data).toFixed(2));
 
-            $('#lzbphlv').html(Number(data).toFixed(2));
+                //热不平衡标尺
+                RBPHBC(Number(data).toFixed(2));
+
+            }
 
         })
 
@@ -1080,8 +1228,748 @@ $(function(){
     //能效标尺
     function NXBC(){
 
+        //初始化
+        NXBCInit();
+
+        //参数
+        var prm = {
+
+            //楼宇
+            pId:sessionStorage.PointerID,
+            //日期
+            sp:moment(sessionStorage.sysDt).format('YYYY-MM-DD'),
+            //日数据
+            dType:'D',
+            //单位
+            misc:sessionStorage.misc
+
+        }
+
+        _mainAjaxFunCompleteNew('post','CalendarEER/GetCalendarEERAnalysisExpDs',prm,$('#tableMark'),function(res){
+
+            //能效值
+            var lzeerV = 0;
+
+            if (typeof (res.lzeerVa) == "undefined") {
+
+                lzeerV = 0;
+
+            }
+            else {
+
+                lzeerV = parseFloat(res.lzeerVa).toFixed(2);
+
+                tableIcon(lzeerV)
+
+
+            }
+
+        })
 
 
     }
+
+    //能效标尺初始化
+    function NXBCInit(){
+
+        //$('#tableMark tbody').children('tr').eq(1).children('td').addClass('noBG');
+
+        $('#tableMark tbody').children('tr').eq(0).children('td').addClass('color');
+
+        $('#aa').remove();
+
+    }
+
+    //热平衡标尺
+    function RPHBC(){
+
+        $('#RBPHL-tip').hide();
+
+    }
+
+    //能效标尺确定图标
+    function tableIcon(data){
+
+        var classN = '';
+
+        var indexN = '';
+
+        if(data<2.9){
+
+            classN =  'badRRight';
+
+            indexN = 8;
+
+        }else if(data == 2.9){
+
+            classN =  'badR';
+
+            indexN = 8;
+
+        }else if(data>2.9 && data<=3.05){
+
+            classN =  'badRLeft';
+
+            indexN = 7
+
+        }else if(data>3.05&& data<3.2){
+
+            classN =  'badRRight';
+
+            indexN = 7
+
+        }else if(data == 3.2){
+
+            classN =  'badR';
+
+            indexN = 7
+
+        }else if(data>3.2 && data<=3.35){
+
+            classN =  'badRLeft';
+
+            indexN = 7
+
+
+        }else if(data>3.35 && data<3.5){
+
+            classN = 'badRRight'
+
+            indexN = 6
+
+        }else if(data == 3.5){
+
+            classN = 'commonR';
+
+            indexN = 6
+
+        }else if(data>3.5 && data<=3.7){
+
+            classN = 'commonRLeft';
+
+            indexN = 6
+
+        }else if(data>3.7 && data<3.9){
+
+            classN = 'commonRRight';
+
+            indexN = 5
+
+        }else if(data == 3.9){
+
+            classN = 'commonR';
+
+            indexN = 5
+
+        }else if(data>3.9 && data<=4.15){
+
+            classN = 'commonRLeft';
+
+            indexN = 5;
+
+
+        }else if(data>4.15&&data<4.4){
+
+            classN = 'greatRRight';
+
+            indexN = 4;
+
+        }else if(data == 4.4){
+
+            classN = 'greatR';
+
+            indexN = 4
+
+        }else if(data >4.4 && data<=4.7){
+
+            classN = 'greatRLeft';
+
+            indexN = 4;
+
+        }else if(data>4.7 && data<5.0){
+
+            classN = 'greatRRight'
+
+            indexN = 3
+
+        }else if(data == 5.0){
+
+            classN = 'excellentRRight'
+
+            indexN = 3
+
+        }else if(data>5.0&&data<=5.45){
+
+            classN = 'excellentRLeft'
+
+            indexN = 3
+
+        }else if(data>5.45&&data<5.9){
+
+            classN = 'excellentRRight'
+
+            indexN = 3
+
+        }else if(data == 5.9){
+
+            classN = 'excellentR'
+
+            indexN = 2
+
+        }else if(data>5.9&&data<=6.45){
+
+            classN =  'excellentRLeft'
+
+            indexN = 2
+
+        }else if(data>6.45&&data<7.0){
+
+            classN =  'excellentRRight'
+
+            indexN = 1
+
+        }else if(data == 7){
+
+            classN = 'excellentR'
+
+            indexN = 1
+
+        }else if(data>7){
+
+            classN = 'excellentRLeft';
+
+            indexN = 1
+
+        }
+
+        $('#tableMark').children('tbody').children('tr').eq(1).children('td').eq(indexN).removeClass('noBG').addClass(classN).addClass('showTip');
+
+        //$('#tableMark').children('tbody').children('tr').eq(0).children('td').eq(indexN).removeClass('color').html('当前楼(' + data + ')');
+
+        //判断在左还是在右
+
+        var valueA = '当前楼(' + data + ')';
+
+        var locationL = $('.showTip').attr('class').indexOf('Left');
+
+        var locationR = $('.showTip').attr('class').indexOf('Right');
+
+        var str = '<span id="aa" style="position: absolute;top: -20px;font-size: 14px;width: 123px;left: -20px;font-weight: bold">' + valueA +'</span>';
+
+        //说明在左边
+        if(locationL>-1){
+
+            str = '<span id="aa" style="position: absolute;top: -20px;font-size: 14px;width: 123px;left:-49px;font-weight: bold">' + valueA +'</span>';
+
+        }
+
+        //说明在右边
+        if(locationR>-1){
+
+            str = '<span id="aa" style="position: absolute;top: -20px;font-size: 14px;width: 123px;left:0px;font-weight: bold">' + valueA +'</span>';
+
+        }
+
+        $('.showTip').append(str);
+
+        //颜色
+        if(data<3.5){
+
+            $('#aa').css('color','#ef5286');
+
+        }else if(data>=3.5 && data<4.15){
+
+            $('#aa').css('color','#e5bb3c');
+
+        }else if(data>=4.15 && data<5){
+
+            $('#aa').css('color','#3dd7c1');
+
+        }else if(data>=5){
+
+            $('#aa').css('color','#528ced');
+
+        }
+    }
+
+    //热不平衡标尺的位置
+    function RBPHBC(data){
+
+        var classN = '';
+
+        var left = 0;
+
+        var color = '';
+
+        if(data == 0){
+
+            left = $('.RBPHL-tip').width() * 0.5 - 20;
+
+        }else if(data == 5){
+
+            left = $('.RBPHL-tip').width() * 0.675 - 20;
+
+        }else if(data == 10){
+
+            left = $('.RBPHL-tip').width() * 0.85 - 20;
+
+        }else if(data == -5){
+
+            left = $('.RBPHL-tip').width() * 0.34 - 20;
+
+        }else if(data == -10){
+
+            left = $('.RBPHL-tip').width() * 0.18 - 20;
+
+        }else if(data>0&&data<=2.5){
+
+            left = $('.RBPHL-tip').width() * 0.58 - 20;
+
+        }else if(data>2.5&&data<5){
+
+            left = $('.RBPHL-tip').width() * 0.6 - 20;
+
+        }else if(data>5&&data<=7.5){
+
+            left = $('.RBPHL-tip').width() * 0.75 - 20;
+
+        }else if(data>7.5&&data<10){
+
+            left = $('.RBPHL-tip').width() * 0.8 - 20;
+
+        }else if(data<-2.5&&data>-5){
+
+            left = $('.RBPHL-tip').width() * 0.4 - 20;
+
+        }else if(data<-5&&data>-7.5){
+
+            left = $('.RBPHL-tip').width() * 0.24 - 20;
+
+        }else if(data<-7.5&&data>-10){
+
+            left = $('.RBPHL-tip').width() * 0.18 - 20;
+
+        }else if(data<-10&&data>-12.5){
+
+            left = $('.RBPHL-tip').width() * 0.1 - 20;
+
+        }else if(data<-12.5&&data>-15){
+
+            left = $('.RBPHL-tip').width() * 0.05 - 20;
+
+        }
+
+        $('#RBPHL-tip').css('left',left);
+
+        if(data>-5 && data<5){
+
+            classN = 'greatR'
+
+            color = '#3dd7c1'
+
+        }else if(data>=5&&data<10){
+
+            classN = 'commonR'
+
+            color = '#e5bb3c'
+
+        }else if(data>=10){
+
+            classN = 'badR'
+
+            color = '#ef5286'
+
+        }else if(data<=-5 && data>-10){
+
+            classN = 'commonR'
+
+            color = '#e5bb3c'
+
+        }else if(data<=-10){
+
+            classN = 'badR'
+
+            color = '#ef5286'
+        }
+
+        $('#RBPHL-tip').addClass(classN).show();
+
+        $('#RBPHL-word').css({'left':left-40,'color':color}).html('当前楼（'+ data + '%' + ')');
+
+
+    }
+
+    //能效曲线
+    function NXQX(){
+
+        $('.noDataTipNX').remove();
+
+        prm = {
+
+            //楼宇
+            pId:sessionStorage.PointerID,
+            // 实时数据
+            sysrealDt:sessionStorage.sysDt,
+            //换算单位
+            misc:sessionStorage.misc,
+            //是否折标 0=不显示;1=显示
+            stp:0
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'Main/GetEERNowChartViewDs',
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            success:function(result){
+
+                //横坐标
+                var dataX = [];
+
+                //纵坐标
+                var dataY = [];
+
+                if(result.code == 0){
+
+                    for(var i=0;i<result.xs.length;i++){
+
+                        dataX.push(result.xs[i]);
+
+                    }
+
+                    for(var i=0;i<result.ys[0].length;i++){
+
+                        dataY.push(result.ys[0][i]);
+
+                    }
+
+                    //颜色
+                    optionL.color = ['#c43c38'];
+
+                    //图例
+                    //optionL.legend.data[0] = '实时能效(KW/KW)';
+
+                }else{
+
+                    var str = '<div class="noDataTipNX" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">暂时没有获取到能效数据</div>'
+
+                    $('#chart-line-efficiency').append(str);
+
+                }
+
+                //横坐标
+                optionL.xAxis.data = dataX;
+
+                //纵坐标
+                var obj = {
+
+                    name:'实时能效(KW/KW)',
+
+                    data:dataY,
+
+                    type:'line'
+
+                }
+
+                optionL.legend.data = ['实时能效(KW/KW)'];
+
+                optionL.series[0] = obj;
+
+                _chartEfficiency.setOption(optionL,true);
+
+            },
+
+            error:_errorFun1
+
+        })
+
+    }
+
+    //能源曲线
+    function NYQX(){
+
+        $('.noDataTipNY').remove();
+
+        prm = {
+
+            //楼宇
+            pId:sessionStorage.PointerID,
+            // 实时数据
+            sysrealDt:sessionStorage.sysDt,
+            //换算单位
+            misc:sessionStorage.misc
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'Main/GetUBRVNowChartViewDs',
+
+            timeout:_theTimes,
+
+            data:prm,
+
+            beforeSend:function(){
+
+                $('#chart-line-energy').showLoading();
+
+            },
+
+            complete:function(){
+
+                $('#chart-line-energy').hideLoading();
+
+            },
+
+            success:function(result){
+
+                //横坐标
+                var dataX = [];
+
+                //纵坐标
+
+                var dataY = [];
+
+                //图例
+                var tip = [];
+
+                //最大值
+                var aroMax = 0 //能耗最大值
+
+                if(result.code == 0){
+
+                    aroMax = parseFloat(result.aroMaxVa);//能耗最大值
+
+                    //tip = result.legend;
+
+                    tip = ['冷量(KW)','冷机功率(KW)','散热量(KW)','热不平衡率(%)'];
+
+                    for(var i=0;i<result.xs.length;i++){
+
+                        dataX.push(result.xs[i]);
+
+                    }
+
+                    for(var i=0;i<result.ys.length;i++){
+
+                        var obj = {};
+
+                        obj.name = tip[i];
+
+                        obj.type = 'line';
+
+                        obj.itemStyle = {
+
+                            normal:{
+
+                                color:colorArr[i]
+
+                            }
+
+                        };
+
+                        obj.data = result.ys[i];
+
+                        obj.yAxisIndex = 0;
+
+                        if(i==result.ys.length){
+
+                            obj.yAxisIndex = 1;
+
+                        }
+
+                        dataY.push(obj);
+
+                    }
+
+                    //两个坐标
+                    optionL.yAxis = [
+
+                        {
+                            name:'能耗',
+                            type:'value',
+                            min:0,
+                            max:aroMax,
+                            interval:((parseInt(aroMax) + 1) / 5)
+                        },
+                        {
+                            name:'平衡率',
+                            type:'value',
+                            min:0,
+                            max:100,
+                            interval:20
+                        }
+
+                    ]
+
+                }else{
+
+                    optionL.yAxis = [
+
+                        {
+                            name:'能耗',
+                            type:'value'
+                        },
+                        {
+                            name:'平衡率',
+                            type:'value'
+                        }
+
+                    ]
+
+                    var str = '<div class="noDataTipNY" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">暂时没有获取到能效数据</div>'
+
+                    $('#chart-line-energy').append(str);
+
+                }
+
+                //图例
+                optionL.legend.data = tip;
+
+                //横坐标
+                optionL.xAxis.data = dataX;
+
+                optionL.series = dataY;
+
+                _chartEnergy.setOption(optionL,true);
+
+            },
+
+            error:_errorFun1
+
+        })
+
+    }
+
+    //报警
+    function alarmData(){
+
+        var prm = {
+
+            //报警界面分类
+            alarmType:[[2],[3],[1]],
+
+            //楼宇ID集合
+            pointerIDs:[sessionStorage.PointerID],
+
+            //时间
+            startTime:sessionStorage.sysDt
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:sessionStorage.apiUrlPrefix + 'ZKMain/GetAlarmCount',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            beforeSend:function(){
+
+                $('.alarm-block').showLoading();
+
+            },
+
+            complete:function(){
+
+                $('.alarm-block').hideLoading();
+
+            },
+
+            success:function(result){
+
+                //设备故障报警
+                var devNum = '-';
+                //运行参数报警
+                var runNum = '-';
+                //仪表故障报警
+                var meterNum = '-';
+
+                if(result.code == 0){
+
+                    //设备故障报警
+                    devNum = result.devideEERCount;
+                    //运行参数报警
+                    runNum = result.runEERCount;
+                    //仪表故障报警
+                    meterNum = result.meterEERCount;
+
+                }
+
+                //设备故障报警
+                $('#devideEERCount').html(devNum);
+                //运行参数报警
+                $('#runEERCount').html(runNum);
+                //仪表故障报警
+                $('#meterEERCount').html(meterNum);
+
+
+            },
+
+            error:_errorFun1
+
+        })
+
+
+    }
+
+    //系统运行参数
+    function YXCS(){
+
+        //初始化
+        YXCSInit();
+
+        var prm = {
+
+            //楼宇
+            pId:sessionStorage.PointerID,
+            //系统实时时间
+            sysrealDt:sessionStorage.sysDt
+
+        }
+
+        _mainAjaxFunCompleteNew('post','ZKMain/GetSysRparWts',prm,$('.YXCS'),function(result){
+
+            if(result.code == 0){
+
+                //冷冻水温差
+                $('#chwOutWt').html(Number(result.chwOutWt).toFixed(1));
+                //冷却水温差
+                $('#cwInWt').html(Number(result.cwInWt).toFixed(1));
+                //冷冻供水温度
+                $('#chwInWt').html(Number(result.chwInWt).toFixed(1));
+                //冷却回水温度
+                $('#cwOutWt').html(Number(result.cwOutWt).toFixed(1));
+            }
+
+        })
+
+    }
+
+    //运行参数初始化
+    function YXCSInit(){
+
+        //冷冻水温差
+        $('#chwOutWt').html('-');
+        //冷却水温差
+        $('#cwInWt').html('-');
+        //冷冻供水温度
+        $('#chwInWt').html('-');
+        //冷却回水温度
+        $('#cwOutWt').html('-');
+
+    }
+
 
 })
