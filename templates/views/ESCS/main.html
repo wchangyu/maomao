@@ -102,7 +102,7 @@
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <div class="row">
+            <div class="row" style="margin-right: 0">
                 <div class="col-md-12">
                     <!--上半部分-->
                     <div class="row row-1" >
@@ -217,7 +217,7 @@
                                 <div class="portlet-title">
                                     <div class="caption" >
                                         <i class="main-title"></i>
-                                        <span class="main-title-word"><a href="energyMonitor.html?a=9">设备能效能耗</a></span>
+                                        <span class="main-title-word"><a href="../yongnengjiance/EnergyMonitor_ESCS.html?a=9">设备能效能耗</a></span>
                                     </div>
                                     <div id="devOption" title="设备目标值/告警值" style="cursor: pointer;float: right;margin-top:10px;display:inline-block;color:#3c3c3c;">
                                         <img src="img/shezhi.png" alt="">
@@ -380,7 +380,7 @@
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="main-title"></i>
-                                        <span class="main-title-word"><a href="EnergyMonitor_ESCS.html?a=9">系统运行参数</a></span>
+                                        <span class="main-title-word"><a href="../yongnengjiance/EnergyMonitor_ESCS.html?a=9">系统运行参数</a></span>
                                     </div>
                                 </div>
                                 <div class="portlet-body YXCS">
@@ -445,7 +445,7 @@
                                 <div class="portlet-body" style="">
                                     <div style="min-height: 197px;position: relative;">
                                         <div id="nvTip"></div>
-                                        <table id="tableMark" class="table table-bordered" style="width:80%;margin:0 auto;margin-top:0px;border:none">
+                                        <table id="tableMark" class="table table-bordered" style="width:80%;margin:0 auto;margin-top:12px;border:none">
                                             <tbody>
                                             <tr style="height:20px;font-weight: bold">
                                                 <td class="borderNull color">0.0</td>
@@ -532,80 +532,14 @@
                                         <span class="main-title-word"><a href="rate.html">热平衡标尺</a></span>
                                     </div>
                                 </div>
-                                <div class="portlet-body" style="height: 205px;">
-                                    <div style="min-height: 183px;">
+                                <div class="portlet-body RBPHL" style="height: 217px;">
 
-                                        <div class="RBPHL-tip">
-                                            <div class="RBPHL-tip-block">
-                                                <span id="RBPHL-word"></span>
-                                                <div id="RBPHL-tip">
-                                                </div>
-                                            </div>
-                                            <div class="RBPHL-tip-block">
-                                                <div style=""></div>
-                                            </div>
-                                        </div>
-
-                                        <table id="tableMarkR" class="table table-bordered" style="width:80%;margin:0 auto;margin-top:0px;border:none">
-                                            <tbody>
-                                            <tr style="color: #ffffff">
-                                                <td colspan="5" class="textAlign borderNull" style="background:#EF5286;height: 34px;"></td>
-                                                <td colspan="5" class="textAlign borderNull" style="background:#E5BB3C"></td>
-                                                <td colspan="5" class="textAlign borderNull" style="background:#3DD7C1"></td>
-                                                <td colspan="5" class="textAlign borderNull" style="background:#3DD7C1"></td>
-                                                <td colspan="5" class="textAlign borderNull" style="background:#E5BB3C"></td>
-                                                <td colspan="5" class="textAlign borderNull" style="background:#EF5286"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull borders"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull borders"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull borders"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull borders"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull borders"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                                <td class="borderNull"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="textAlign borderNull"></td>
-                                                <td colspan="5" class="textAlign borderNull">-10%</td>
-                                                <td colspan="5" class="textAlign borderNull">-5%</td>
-                                                <td colspan="10" class="textAlign borderNull">0</td>
-                                                <td colspan="5" class="textAlign borderNull">+5%</td>
-                                                <td colspan="5" class="textAlign borderNull">+10%</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </div>
+                                    <div id="RBPHChart" style="height: 200px;width: 80%;margin: auto"></div>
                             </div>
                         </div>
                     </div>
                     <!--下半部分-->
-                    <div class="row">
+                    <div class="row" >
                         <!--左-->
                         <div class="col-lg-8 col-md-8 col-sm-12 child-block">
                             <div class="portlet light">

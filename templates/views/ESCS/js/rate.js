@@ -28,23 +28,30 @@ var Rate=function () {
         //var day = nowDt.getDate();
         //var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
         var mt= moment(sessionStorage.sysDt);
-        var nowDt=mt.format('YYYY-MM-DD');
-        var startDt = mt.subtract(7, 'days').format('YYYY-MM-DD');
-        $("#spDT").val(startDt);
-        $("#epDT").val(nowDt);
-        $('.rateDT').datetimepicker({
-            format: 'yyyy-mm-dd',
-            language: 'zh-CN',
-            weekStart: true,
-            todayBtn: true,
-            autoclose: true,
-            todayHighlight: true,
-            startView: 2,
-            minView: 2,
-            minuteStep: 10,
-            forceParse: 0,
-            pickerPosition: "bottom-left"
-        });
+        //var nowDt=mt.format('YYYY-MM-DD');
+        //var startDt = mt.subtract(7, 'days').format('YYYY-MM-DD');
+        //$("#spDT").val(startDt);
+        //$("#epDT").val(nowDt);
+
+        var nowDt = mt.format('YYYY-MM');
+
+        $('#spDT').val(nowDt);
+
+        _monthDate11($('.rateDT'));
+
+        //$('.rateDT').datetimepicker({
+        //    format: 'yyyy-mm-dd',
+        //    language: 'zh-CN',
+        //    weekStart: true,
+        //    todayBtn: true,
+        //    autoclose: true,
+        //    todayHighlight: true,
+        //    startView: 2,
+        //    minView: 2,
+        //    minuteStep: 10,
+        //    forceParse: 0,
+        //    pickerPosition: "bottom-left"
+        //});
     }
 
     //获取负荷数据
@@ -54,8 +61,13 @@ var Rate=function () {
 
         jQuery('#rateBusy').showLoading();
         mycv = echarts.init(document.getElementById('rateMain'));
-        var sp = $('#spDT').val();
-        var ep = $('#epDT').val();
+        //var sp = $('#spDT').val();
+        //var ep = $('#epDT').val();
+
+        var sp = moment($('#spDT').val()).startOf('Month').format('YYYY-MM-DD');
+
+        var ep = moment($('#spDT').val()).endOf('Month').format('YYYY-MM-DD');
+
         var url = sessionStorage.apiUrlPrefix + "RateEER/GetRateEERs";
         $.post(url,{
             pId:sessionStorage.PointerID,

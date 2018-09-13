@@ -1,84 +1,5 @@
 $(function(){
 
-    /*------------------------------变量--------------------------------------*/
-
-    //是否创建过目标值和告警值
-    var _isCreate = false;
-
-    //将获取到的设备目标值对象保存
-    var _devObj = {};
-
-    //左上角室外温湿度
-    WSD();
-
-    //获取实时时间
-    SSSJ();
-
-    //设备能效能耗
-    devEEEC();
-
-    //冷站
-    LZData();
-
-    //热不平衡率
-    RBPHL();
-
-    //仪器状态
-    instrumentStatus();
-
-    //能效标尺
-    NXBC();
-
-    //能效曲线
-    NXQX();
-
-    //能源曲线
-    NYQX();
-
-    //报警
-    alarmData();
-
-    //运行参数
-    YXCS();
-
-    //十分钟刷新一次
-    setInterval(function(){
-
-        //左上角室外温湿度
-        WSD();
-
-        //获取实时时间
-        SSSJ();
-
-        //设备能效能耗
-        devEEEC();
-
-        //冷站
-        LZData();
-
-        //热不平衡率
-        RBPHL();
-
-        //仪器状态
-        instrumentStatus();
-
-        //能效标尺
-        NXBC();
-
-        //能效曲线
-        NXQX();
-
-        //能源曲线
-        NYQX();
-
-        //报警
-        alarmData();
-
-        //运行参数
-        YXCS();
-
-    },1000*60*10)
-
     /*-----------------------------------------------chart---------------------------------------------*/
 
     //数据曲线折线图
@@ -143,6 +64,282 @@ $(function(){
             //}
         ]
     };
+
+    //热不平衡
+    var RBPHChart = echarts.init(document.getElementById('RBPHChart'));
+
+    var optionRe = {
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            top: 80,
+            bottom: 90
+        },
+        xAxis: {
+            type : 'value',
+            position: 'bottom',
+            data:['-10','-5',0,'5','10'],
+            axisLabel:{
+
+                formatter:'{value} %',
+
+                margin:20
+
+            },
+            axisTick:{
+
+                lineStyle:{
+
+                    color:'#dddddd'
+
+                },
+
+                length:10
+
+            }
+        },
+        yAxis: {
+            type : 'category',
+            axisLine: {show: false},
+            axisLabel: {show: false},
+            axisTick: {show: false},
+            splitLine: {show: false},
+            data : []
+        },
+        series : [
+            {
+                name: '直接访问',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'insideRight'
+                    }
+                },
+                data: [
+
+                    {
+                        value:5,
+
+                        itemStyle:{
+
+                            color:'#3DD7C1'
+
+                        }
+                    }
+
+
+                ],
+                barWidth:34
+            },
+            {
+                name: '直接访问',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'insideRight'
+                    }
+                },
+                data: [
+
+                    {
+                        value:5,
+
+                        itemStyle:{
+
+                            color:'#E5BB3C'
+
+                        }
+                    }
+
+                ]
+            },
+            {
+                name: '直接访问',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'insideRight'
+                    }
+                },
+                data: [
+
+                    {
+                        value:15,
+
+                        itemStyle:{
+
+                            color:'#EF5286'
+
+                        }
+                    }
+
+                ]
+            },
+            {
+                name: '直接访问',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'insideRight'
+                    }
+                },
+                data: [
+
+                    {
+                        value:-5,
+
+                        itemStyle:{
+
+                            color:'#3DD7C1'
+
+                        }
+                    }
+
+                ]
+            },
+            {
+                name: '直接访问',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'insideRight'
+                    }
+                },
+                data: [
+
+                    {
+                        value:-5,
+
+                        itemStyle:{
+
+                            color:'#E5BB3C'
+
+                        }
+                    }
+
+                ]
+            },
+            {
+                name: '直接访问',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'insideRight'
+                    }
+                },
+                data: [
+
+                    {
+                        value:-15,
+
+                        itemStyle:{
+
+                            color:'#EF5286'
+
+                        }
+                    }
+
+                ]
+            }
+        ]
+    };
+
+    /*------------------------------变量--------------------------------------*/
+
+    //是否创建过目标值和告警值
+    var _isCreate = false;
+
+    //将获取到的设备目标值对象保存
+    var _devObj = {};
+
+    //左上角室外温湿度
+    WSD();
+
+    //获取实时时间
+    SSSJ();
+
+    //设备能效能耗
+    devEEEC();
+
+    //冷站
+    LZData();
+
+    //热不平衡率
+    RBPHL();
+
+    //仪器状态
+    instrumentStatus();
+
+    //能效标尺
+    //NXBC();
+
+    //能效曲线
+    NXQX();
+
+    //能源曲线
+    NYQX();
+
+    //报警
+    alarmData();
+
+    //运行参数
+    YXCS();
+
+    //十分钟刷新一次
+    setInterval(function(){
+
+        //左上角室外温湿度
+        WSD();
+
+        //获取实时时间
+        SSSJ();
+
+        //设备能效能耗
+        devEEEC();
+
+        //冷站(能效标尺)
+        LZData();
+
+        //热不平衡率
+        RBPHL();
+
+        //仪器状态
+        instrumentStatus();
+
+        //能效标尺
+        //NXBC();
+
+        //能效曲线
+        NXQX();
+
+        //能源曲线
+        NYQX();
+
+        //报警
+        alarmData();
+
+        //运行参数
+        YXCS();
+
+    },1000*60*10)
+
+
 
     /*-----------------------------------------------表单验证--------------------------------------------*/
 
@@ -470,11 +667,13 @@ $(function(){
     //chart图自适应
     window.onresize = function () {
 
-        if (_chartEnergy && _chartEfficiency) {
+        if (_chartEnergy && _chartEfficiency && RBPHChart) {
 
             _chartEnergy.resize();
 
             _chartEfficiency.resize();
+
+            RBPHChart.resize();
         }
     }
 
@@ -896,6 +1095,9 @@ $(function(){
         //初始化
         LZDataInit();
 
+        //能效标尺初始化
+        NXBCInit();
+
         //参数
         var prm = {
 
@@ -907,55 +1109,106 @@ $(function(){
             misc:sessionStorage.misc
         }
 
-        _mainAjaxFunCompleteNew('post','Main/GetECPItemizeNowDs',prm,$('.XTLL'),function(res){
+        $.ajax({
 
-            //冷站输出冷量
-            var lznowlv = '-';
+            type:'post',
 
-            //冷站散热量
-            var lzsrlv = '-';
+            url:_urls + 'Main/GetECPItemizeNowDs',
 
-            //冷站输入功率
-            var lznowp = '-';
+            timeout:_theTimes,
 
-            //冷站效率
-            var eerV = '-';
+            data:prm,
 
-            if(res.code == 0){
+            //发送数据之前
+            beforeSend:function(){
+
+                $('.XTLL').showLoading();
+
+                //能效标尺loadding
+                $('#tableMark').showLoading();
+
+            },
+
+            //发送数据完成之后
+            complete:function(){
+
+                $('.XTLL').hideLoading();
+
+                //能效标尺loadding
+                $('#tableMark').hideLoading();
+
+            },
+
+            success:function(res){
+
+                //冷站输出冷量
+                var lznowlv = '-';
 
                 //冷站散热量
-                lzsrlv = res.srlVa;
-
-                //冷站实时功率
-                var lzpV = (parseFloat((res.cpVa == null)?0:res.cpVa) + parseFloat((res.chwpVa == null)?0:res.chwpVa) + parseFloat((res.cwpVa == null)?0:res.cwpVa) + parseFloat((res.ctpVa == null)?0:res.ctpVa));
+                var lzsrlv = '-';
 
                 //冷站输入功率
-                lznowp = lzpV.toFixed(1);
-
-                //冷站实时冷量
-                var lzlV = parseFloat(res.lVa);
-
-                //冷战输出冷量
-                lznowlv = lzlV;
+                var lznowp = '-';
 
                 //冷站效率
-                eerV = parseFloat(lzlV / lzpV).toFixed(3);
+                var eerV = '-';
+
+                if(res.code == 0){
+
+                    //冷站散热量
+                    lzsrlv = res.srlVa;
+
+                    //冷站实时功率
+                    var lzpV = (parseFloat((res.cpVa == null)?0:res.cpVa) + parseFloat((res.chwpVa == null)?0:res.chwpVa) + parseFloat((res.cwpVa == null)?0:res.cwpVa) + parseFloat((res.ctpVa == null)?0:res.ctpVa));
+
+                    //冷站输入功率
+                    lznowp = lzpV.toFixed(1);
+
+                    //冷站实时冷量
+                    var lzlV = parseFloat(res.lVa);
+
+                    //冷战输出冷量
+                    lznowlv = lzlV;
+
+                    //冷站效率
+                    eerV = parseFloat(lzlV / lzpV).toFixed(3);
+
+                    //能效标尺
+                    tableIcon(eerV);
+
+                }
+
+                //冷站输出冷量(系统冷量)
+                $('#lznowlv').html(lznowlv);
+
+                //冷站散热量
+                $('#lzsrlv').html(lzsrlv);
+
+                //冷站输入功率
+                $('#lznowp').html(lznowp);
+
+                //冷站效率
+                $('#LZXLNum').html(eerV);
+
+            },
+
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+                }
 
             }
 
-            //冷站输出冷量(系统冷量)
-            $('#lznowlv').html(lznowlv);
-
-            //冷站散热量
-            $('#lzsrlv').html(lzsrlv);
-
-            //冷站输入功率
-            $('#lznowp').html(lznowp);
-
-            //冷站效率
-            $('#LZXLNum').html(eerV);
-
         })
+
 
     }
 
@@ -996,7 +1249,7 @@ $(function(){
             misc:sessionStorage.misc
         }
 
-        _mainAjaxFunCompleteNew('post','Main/GetUBRVNowData',prm,false,function(result){
+        _mainAjaxFunCompleteNew('post','Main/GetUBRVNowData',prm,$('.RBPHL'),function(result){
 
             //整体能效的值
             var data = '-';
@@ -1008,7 +1261,84 @@ $(function(){
                 $('#lzbphlv').html(Number(data).toFixed(2));
 
                 //热不平衡标尺
-                RBPHBC(Number(data).toFixed(2));
+                //RBPHBC(Number(data).toFixed(2));
+
+                //确定图标
+                var img = '';
+
+                //字体颜色
+                var color = '';
+
+                var ReData = Number(data).toFixed(2);
+
+                if(ReData>-5 && ReData<5){
+
+                    img = 'image://img/02.png';
+
+                    color = '#3dd7c1'
+
+                }else if(ReData>=5 && ReData<10){
+
+                    img = 'image://img/03.png';
+
+                    color = '#e5bb3c'
+
+                }else if(ReData<=-5 && ReData>-10){
+
+                    img = 'image://img/03.png';
+
+                    color = '#e5bb3c'
+
+                }else if(ReData<=-10){
+
+                    img = 'image://img/04.png'
+
+                    color = '#ef5286'
+
+                }else if(ReData>=10){
+
+                    img = 'image://img/04.png'
+
+                    color = '#ef5286'
+
+                }
+
+                var markPoint = {
+
+                    data : [
+                        {name : '年最高', value : ReData, xAxis: ReData, y: 50,
+
+                            symbol:img,
+
+                            symbolSize:[20,32],
+
+                            label:{
+
+                                position:'top',
+
+                                show:true,
+
+                                color:color,
+
+                                fontSize:14,
+
+                                fontWeight:'bold',
+
+                                formatter:function (params,ticket,callback){
+
+                                    return '当前楼：(' + params.data.value + '%)'
+
+                                }
+
+                            }
+
+                        }
+                    ]
+                }
+
+                optionRe.series[0].markPoint = markPoint;
+
+                RBPHChart.setOption(optionRe,true);
 
             }
 
@@ -1226,48 +1556,48 @@ $(function(){
     }
 
     //能效标尺
-    function NXBC(){
-
-        //初始化
-        NXBCInit();
-
-        //参数
-        var prm = {
-
-            //楼宇
-            pId:sessionStorage.PointerID,
-            //日期
-            sp:moment(sessionStorage.sysDt).format('YYYY-MM-DD'),
-            //日数据
-            dType:'D',
-            //单位
-            misc:sessionStorage.misc
-
-        }
-
-        _mainAjaxFunCompleteNew('post','CalendarEER/GetCalendarEERAnalysisExpDs',prm,$('#tableMark'),function(res){
-
-            //能效值
-            var lzeerV = 0;
-
-            if (typeof (res.lzeerVa) == "undefined") {
-
-                lzeerV = 0;
-
-            }
-            else {
-
-                lzeerV = parseFloat(res.lzeerVa).toFixed(2);
-
-                tableIcon(lzeerV)
-
-
-            }
-
-        })
-
-
-    }
+    //function NXBC(){
+    //
+    //    //初始化
+    //    NXBCInit();
+    //
+    //    //参数
+    //    var prm = {
+    //
+    //        //楼宇
+    //        pId:sessionStorage.PointerID,
+    //        //日期
+    //        sp:moment(sessionStorage.sysDt).format('YYYY-MM-DD'),
+    //        //日数据
+    //        dType:'D',
+    //        //单位
+    //        misc:sessionStorage.misc
+    //
+    //    }
+    //
+    //    _mainAjaxFunCompleteNew('post','CalendarEER/GetCalendarEERAnalysisExpDs',prm,$('#tableMark'),function(res){
+    //
+    //        //能效值
+    //        var lzeerV = 0;
+    //
+    //        if (typeof (res.lzeerVa) == "undefined") {
+    //
+    //            lzeerV = 0;
+    //
+    //        }
+    //        else {
+    //
+    //            lzeerV = parseFloat(res.lzeerVa).toFixed(2);
+    //
+    //            tableIcon(lzeerV)
+    //
+    //
+    //        }
+    //
+    //    })
+    //
+    //
+    //}
 
     //能效标尺初始化
     function NXBCInit(){
@@ -1283,7 +1613,7 @@ $(function(){
     //热平衡标尺
     function RPHBC(){
 
-        $('#RBPHL-tip').hide();
+        RBPHChart.setOption(optionRe,true);
 
     }
 
@@ -1472,24 +1802,34 @@ $(function(){
 
         $('.showTip').append(str);
 
+        var color = '#666666';
+
         //颜色
         if(data<3.5){
 
-            $('#aa').css('color','#ef5286');
+            color = '#ef5286';
 
         }else if(data>=3.5 && data<4.15){
 
-            $('#aa').css('color','#e5bb3c');
+            color = '#e5bb3c';
 
         }else if(data>=4.15 && data<5){
 
-            $('#aa').css('color','#3dd7c1');
+            color = '#3dd7c1';
 
         }else if(data>=5){
 
-            $('#aa').css('color','#528ced');
+            color = '#528ced';
 
         }
+
+        $('#aa').css('color',color);
+
+        //整体能效冷站能效也要修改
+        $('.LZXL').css('borderColor',color);
+
+        $('#LZXLNum').css('color',color);
+
     }
 
     //热不平衡标尺的位置
