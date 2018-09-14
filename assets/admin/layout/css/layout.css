@@ -1,18 +1,84 @@
 /*2018/06/05 修改的重要样式*/
 
-.page-content-wrapper .page-content-nest {
-  margin-left: 0px !important;
-  margin-top: 0px;
-  min-height: 600px;
-  padding: 25px 20px 10px 20px;
-}
-
-/*.page-content-wrapper .page-content {*/
-  /*margin-left: 0px;*/
+/*.page-content-wrapper .page-content-nest {*/
+  /*margin-left: 0px !important;*/
   /*margin-top: 0px;*/
   /*min-height: 600px;*/
   /*padding: 25px 20px 10px 20px;*/
 /*}*/
+
+/*2018/09/13 重要样式修改 菜单及头部信息默认隐藏*/
+.page-header{
+
+  display: none !important;
+}
+
+.page-header0{
+
+  display: block !important;
+}
+
+.page-sidebar-menu{
+  display: none;
+}
+
+.page-footer{
+  display: none;
+}
+
+.toggler{
+  display: none;
+}
+
+.page-bar{
+  height: 0;
+  overflow: hidden;
+}
+
+.page-breadcrumb{
+  display: none;
+}
+
+.page-container{
+
+  margin-top:0 !important;
+}
+
+.page-container1{
+
+  margin-top:46px !important;
+}
+
+#menu-html{
+  display: none;
+}
+
+.menu-html1{
+  display: block !important;
+}
+
+.page-content-wrapper .page-content{
+
+  margin-left: 0px !important;
+  margin-top: 0px !important;
+  min-height: 600px;
+  padding: 25px 20px 10px 20px;
+
+}
+
+@media (min-width: 992px){
+
+  .page-content-wrapper .page-content-nest {
+
+    margin-left: 235px !important;
+    margin-top: 0px !important;
+    min-height: 600px;
+    padding: 10px 20px 10px 20px !important;
+
+  }
+
+}
+
 
 /*---------------------完------------------*/
 

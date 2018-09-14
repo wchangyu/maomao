@@ -9,11 +9,16 @@ var BEE = (function(){
     //获取当前的url
     var curUrl = window.parent.location.href;
 
-    if( curUrl.indexOf('passengerStation.html') > -1 ||curUrl.indexOf('new-frame/new-frame.html') > -1){
+    console.log(curUrl);
+
+    if( curUrl.indexOf('passengerStation.html') == -1 && curUrl.indexOf('new-frame/new-frame.html') == -1){
         //console.log($('.page-header'));
 
-        hideLeftMenu();
+        showLeftMenu();
 
+    }else{
+
+        $('html body').css("cssText","background-color:#fff !important");
     };
 
 
@@ -2326,29 +2331,32 @@ var BEE = (function(){
 
 
 
-    function hideLeftMenu(){
+    function showLeftMenu(){
 
-        $('.page-header').hide();
+        $('.page-header').addClass('page-header0');
 
-        $('.page-sidebar-menu').hide();
+        $('.page-sidebar-menu').show();
 
-        $('.page-container').css({'margin-top':0});
+        $('.page-container').addClass('page-container1');
 
-        $('.page-footer').hide();
+        $('.page-footer').show();
 
         $('.page-content').addClass('page-content-nest');
 
-        $('body').css({background:'#ffffff'});
+        $('#menu-html').addClass('menu-html1');
 
-        $('.toggler').hide();
 
-        $('.page-bar').height(0);
+        $('.toggler').show();
+
+        $('.page-bar').height(36);
+
+        $('.page-breadcrumb').show();
 
         if($('.page-header').length < 1){
 
             setTimeout(function(){
 
-                hideLeftMenu();
+                showLeftMenu();
 
             },500)
 

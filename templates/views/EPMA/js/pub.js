@@ -74,7 +74,7 @@ var EPMA = function () {
             }
         })
         return eprs;
-    }
+    };
 
     //初始化eprbox控件
     var initeprBox = function () {

@@ -63,10 +63,10 @@ $(function(){
     $('.min').val(moment().format('YYYY'));
 
 
-
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
     $('.buttons').children('.btn-success').click(function(){
+
         //获得选择的能耗类型
         _ajaxEcType =_getEcTypeValue(_ajaxEcType);
 
@@ -109,6 +109,7 @@ $(function(){
 
         //判断页面中是否存在能耗类型选项
         if(typeof _energyTypeSel!="undefined" ){
+
             if($(this).attr('data-id') == 5){
 
                 //清空上方能耗种类

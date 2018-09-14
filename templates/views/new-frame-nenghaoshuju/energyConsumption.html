@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <!--<link rel="stylesheet" href="../new-resource/css/common.css">-->
+    <!--<link rel="stylesheet" href="../new-resource/css/nenghaoshuju/energyDemand.css">-->
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        #unit {
+            width: 90px;
+        }
+    </style>
+</head>
+
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+
+                            <!--上方选择查询条件-->
+                            <div class="top-choose-condition-container">
+
+                                <!--里层容器-->
+                                <div class="inner-condition-container">
+
+                                    <!--左侧选择水电-->
+                                    <div class="left-choose-energy-container">
+
+                                        <ul>
+                                            <li class="choose-energy dian" data-img="dian.png">
+                                                <label for="radio1" class="input-label1" style="padding-left: 0">电</label>
+                                                <input class="time-radio" id="radio1" type="radio" name="choose-radio" value="day" checked="checked" data-id="01" data-id1="4" data-type="100">
+
+                                            </li>
+
+                                            <li class="choose-energy shui" data-img="shui.png">
+
+                                                <label for="radio2" class="input-label1" style="padding-left: 0">水</label>
+
+                                                <input class="time-radio" id="radio2" type="radio" name="choose-radio" value="time" data-id="211" data-id1="5" data-type="200">
+
+                                            </li>
+
+                                        </ul>
+
+                                    </div>
+
+                                    <!--右侧选择其他信息-->
+                                    <div class="right-choose-condition-container">
+
+                                        <!--对象选择-->
+                                        <span class="choose-object1 choose-custom-select" style="width:auto">
+                                            <font>区域位置</font><b></b>
+
+                                            <!--对象选择下拉框-->
+                                            <div class="choose-object-select choose-custom-select-container">
+
+                                                <ul>
+                                                    <li class="the-select-message the-object-type onChoose" data-id="1">区域位置</li>
+                                                    <li class="the-select-message the-object-type" data-id="2">用能单位</li>
+                                                </ul>
+
+                                            </div>
+
+                                        </span>
+
+                                        <!--指标选择-->
+                                        <span class="choose-target choose-custom-select" style="width:auto">
+                                            <font></font><b></b>
+
+                                            <!--对象选择下拉框-->
+                                            <div class="choose-target-select choose-custom-select-container">
+
+                                                <ul>
+
+                                                </ul>
+
+                                            </div>
+
+                                        </span>
+
+
+                                        <!--时间选择-->
+                                        <span class="choose-time choose-custom-select">
+                                            <font>月</font><b></b>
+
+                                            <!--时间选择下拉框-->
+                                            <div class="choose-time-select choose-custom-select-container">
+
+                                                <ul>
+                                                    <li class="the-select-message the-time-type onChoose">月</li>
+                                                    <li class="the-select-message the-time-type">年</li>
+
+                                                </ul>
+
+                                            </div>
+
+                                        </span>
+
+                                        <!--开始时间-->
+                                        <span class="start-time the-times">
+                                            <input type="text" class="min datetime" placeholder="开始时间"><b></b>
+
+                                        </span>
+
+                                        <!--结束时间-->
+                                        <span class="end-time the-times">
+                                            <input type="text" class="max datetime" placeholder="结束时间"><b></b>
+
+                                        </span>
+
+                                        <!--查询按钮-->
+                                        <button class="demand">查询</button>
+
+                                    </div>
+
+
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                            </div>
+
+                            <!--下方数据-->
+                            <div class="bottom-data-container">
+
+                                <div class="right-content">
+
+                                    <div class="right-top">
+                                        <div class="right-header">
+                                            <!-- 标题 -->
+                                            <span class="right-header-title"></span>
+                                            <!-- 标题右边 -->
+                                            <ul class="right-header-right">
+                                                <!-- 单位 -->
+                                                <li class="header-right-lists">
+                                                    <label for="">单位：</label>
+                                                    <select name="" id="unit"></select>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                        <!--eChart图-->
+                                        <div class="rheader-content-left " id="rheader-content-16" style="margin-right:100px;">
+
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+
+<!-- END FOOTER -->
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../new-resource/js/common.js"></script>
+<script src="js/common.js"></script>
+<script src="js/energyConsumption.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
