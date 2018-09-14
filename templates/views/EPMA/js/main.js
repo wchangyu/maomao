@@ -410,8 +410,6 @@
         },function (res) {
             if(res.code===0){
 
-                console.log(res);
-
                 //返回的数据中，第一个是实时能效曲线值，第二个是折标能效值；
 
                 var name = '';

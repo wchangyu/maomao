@@ -16,6 +16,8 @@
     <meta content="" name="author"/>
     <!--MY STYLE-->
 
+
+
     <link rel="stylesheet" href="../resource/css/leftBat.css">
     <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
@@ -563,29 +565,6 @@
                         <thead></thead>
                         <tbody></tbody>
                     </table>
-                    <div style="display: inline-block;vertical-align: middle">
-                        <div class="labels">当前状态：</div>
-                        <div class="input-blockeds" style="height: auto;width: 240px;">
-                            <input type="text" class="nowState" style="width: 238px;">
-                        </div>
-                    </div>
-                    <div style="display: inline-block;vertical-align: middle">
-                        <div class="labels colorTip">操作类型 *：</div>
-                        <div class="input-blockeds" style="height: auto;width: 240px;">
-                            <select id="stateConstant" style="outline: none;width: 238px;"></select>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="labels">备注：</div>
-                        <div class="input-blockeds" style="height: auto;width: 372px;">
-                            <textarea id="bjremark" style="height: 50px;outline: none"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="divBlock bjpicture" style="margin-top: 10px;width: 611px;">
-                        <button type="button" class="btn btn-info" id="viewBJImage">备件图片</button>
-                        <div class="bjImg" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
-                    </div>
                 </div>
                 <div style="width: 235px;background: #ffffff;float: right">
                     <div class="deal-with">处理记录</div>
@@ -745,6 +724,22 @@
 
     </div>
 </div>
+<!--是否生成出库单-->
+<div class="modal fade" id="OutStroage-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
@@ -812,7 +807,7 @@
 </script>
 <script src="../resource/js/publicFun.js"></script>
 <script src="../../../assets/local/configs/setNames.js"></script>
-<script src="../resource/js/productionOrder-11.js"></script>
+<script src="../resource/js/productionOrder-12.js"></script>
 <script src="../resource/js/publicGD.js"></script>
 <script src="../resource/station/chooseStation.js"></script>
 <!-- END JAVASCRIPTS -->

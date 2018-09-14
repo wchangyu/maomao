@@ -52,7 +52,7 @@ $(function(){
 
     ];
 
-    _tableInit($('.table'),col,2,false,'','','','',10,'',drawHreaer);
+    _tableInit($('.table'),col,2,false,'',drawFnByClass,'','',10,'',drawHreaer);
 
     var tableI = 0;
 
@@ -70,6 +70,49 @@ $(function(){
         tableI++;
 
     }
+
+    //重绘合计数据
+    function drawFnByClass(){
+
+        //表格中的每一个tr
+        var tr = $('#all-reporting tbody').children('tr');
+
+        var tFoot = $('#all-reporting tfoot').children('tr').eq(0);
+
+        //遍历列，再遍历行
+        var colNum = tFoot.children('td').length;
+
+        var rowNum = tr.length;
+
+        //遍历行
+
+        if(tr.length == 1 && tr.children().attr('class') == 'dataTables_empty'){
+
+
+        }else{
+
+            //遍历列，再遍历行
+            for(var i=1;i<colNum;i++){
+
+                var num = 0;
+
+                for(var j=0;j<rowNum;j++){
+
+                    num += Number(tr.eq(j).children('td').eq(i).html())
+
+                }
+
+                $(tFoot).children('td').eq(i).html(num.toFixed(2));
+
+
+            }
+
+        }
+
+        //项次
+        //$('#pageNumWXBZ').html(num);
+
+    };
 
     /*-------------------------------------按钮事件------------------------------------*/
 
@@ -166,6 +209,27 @@ $(function(){
                         var dataArr = _packagingTableData(result[1]);
 
                         _jumpNow($('.table'),dataArr.reverse());
+
+                        //计算合计
+                        var td = $('#all-reporting tfoot').children('tr').eq(1);
+
+                        var china = ['起数(m3)','止数(m3)','实际数(m3)','转换重量(吨)','过磅重量(吨)','转换立方数'];
+
+                        for(var j=0;j<china.length;j++){
+
+                            var num = 0;
+
+                            for(var i=0;i<dataArr.length;i++){
+
+                                num += Number(dataArr[i][china[j]]);
+
+                            }
+
+                            td.children('td').eq(j+1).html(num.toFixed(2));
+
+                        }
+
+
 
                     }
 

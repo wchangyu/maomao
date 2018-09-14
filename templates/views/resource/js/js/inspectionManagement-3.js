@@ -261,7 +261,47 @@ $(function(){
                         "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>" +
                         "<span class='data-option option-assign btn default btn-xs green-stripe' title='下发任务'>下发任务</span>"
                 }if(data !=0){
-                    return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
+
+                    //已下发
+
+                    //再次判断是否是召回状态
+                    if(full.status == 1){
+
+                        //已召回
+
+                        //继续判断是否可删除
+
+                        if(full.isdelete == 0){
+
+                            //0 可以删除
+                            return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+
+                                "<span class='data-option option-edite btn default btn-xs green-stripe'>编辑</span>" +
+
+                                "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>" +
+
+                                "<span class='data-option option-assignAgain btn default btn-xs green-stripe'>再次下发</span>"
+
+                        }else{
+
+                            //1 不可删除
+                            return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+
+                                "<span class='data-option option-edite btn default btn-xs green-stripe'>编辑</span>" +
+
+                                "<span class='data-option option-assignAgain btn default btn-xs green-stripe'>再次下发</span>"
+
+                        }
+
+
+                    }else{
+
+                        //未召回
+                        return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+
+                            "<span class='data-option option-recall btn default btn-xs green-stripe'>召回</span>"
+
+                    }
                 }
             }
         }
@@ -976,7 +1016,14 @@ $(function(){
     //下发（确定按钮）
     $('#myModal').on('click','.fenpei',function(){
 
-        editRegister('YWDevIns/YWDIPAssignTask',true,'下发成功！','下发失败！');
+        editRegister('YWDevIns/YWDIPAssignTask',true,'下发成功！','下发失败！',true);
+
+    })
+
+    //再次下发
+    $('#myModal').on('click','.fenpeiAga',function(){
+
+        editRegister('YWDevIns/DIPlanCXXF',true,'再次下发成功！','再次下发失败！',true);
 
     })
 
@@ -1030,7 +1077,7 @@ $(function(){
             _shebeiBM = $.trim($this.find('.bianma').html());
             ckOrBj($(this),false);
             //确定按钮显示，并且添加bianji类
-            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('fenpei').addClass('bianji');
+            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('fenpei').removeClass('fenpeiAga').addClass('bianji');
             //新增按钮显示
             $('.addButton').show();
 
@@ -1077,7 +1124,7 @@ $(function(){
             _shebeiBM = $.trim($this.find('.bianma').children().attr('data-num'));
             ckOrBj($(this),true);
             //确定按钮显示，并且添加分配类
-            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').addClass('fenpei');
+            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').removeClass('fenpeiAga').addClass('fenpei');
 
             disabledBlock();
 
@@ -1210,6 +1257,60 @@ $(function(){
             $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').addClass('fenpei').html('启动任务巡检');
 
         })
+        .on('click','.option-recall',function(e){
+
+            //样式
+            var $thisTable = $(this).parents('.main-contents-tables').find('.table');
+
+            var $thiss = $(this).parents('tr');
+
+            $thisTable.find('tr').removeClass('tables-hover');
+
+            $thiss.addClass('tables-hover');
+
+            $thisTable.children('tbody').children('tr').children('.checkeds').find('span').removeClass('checked');
+
+            $thiss.children('.checkeds').find('span').addClass('checked');
+
+            _moTaiKuang($('#recall-myModal'), '确定要召回吗？', '', '' ,'', '确定');
+
+            var $thisBM = $(this).parents('tr').children().eq(2).html();
+
+            var $thisMC = $(this).parents('tr').children().eq(1).html();
+
+            $('#xjtmbmR').val($thisBM);
+
+            $('#xjtmmcR').val($thisMC);
+
+            e.stopPropagation();
+
+        })
+        .on('click','.option-assignAgain',function(e){
+
+            //初始化
+            detailedInit();
+
+            var $this = $(this);
+
+            _shebeiMC = $.trim($this.find('.bianma').next().next().html());
+
+            _shebeiBM = $.trim($this.find('.bianma').children().attr('data-num'));
+
+            ckOrBj($(this),true);
+
+            //确定按钮显示，并且添加分配类
+            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').removeClass('fenpei').addClass('fenpeiAga');
+
+            disabledBlock();
+
+            //启用状态显示
+            $('.QY').show();
+
+            e.stopPropagation();
+
+            _moTaiKuang($('#myModal'), '再次下发任务', '', '' ,'', '启动任务巡检');
+
+        })
 
     //主表格选择
     var _table = $('.main-contents-tables').find('.table');
@@ -1243,6 +1344,47 @@ $(function(){
         AllSelectThead($(this),$(this).parents('table'));
 
     });
+
+    //【召回】确定按钮
+    $('#recall-myModal').on('click','.btn-primary',function(){
+
+        var prm = {
+
+            //巡检计划编号
+            dipNum:$('#xjtmbmR').val()
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWDevIns/DIPlanRecall',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                if(result.code == 99){
+
+                    $('#recall-myModal').modal('hide');
+
+                    conditionSelect(stationsFlag,wxBanzusFlag);
+
+                }
+
+                _moTaiKuang($('#myModal5'),'提示',true,true,result.message,'');
+
+            },
+
+            error:_errorFun
+
+        })
+
+
+    })
 
     //设备---------------------------------------------------------
 
@@ -2165,8 +2307,8 @@ $(function(){
         return res;
     }
 
-    //登记、编辑
-    function editRegister(url,flag,successMeg,errorMeg){
+    //登记、编辑(下发的时候，执行人不能为空)
+    function editRegister(url,flag,successMeg,errorMeg,isXF){
 
         //判断必填项
 
@@ -2267,13 +2409,18 @@ $(function(){
 
                     }
 
-                    if( personArr.length == 0 ){
+                    if(isXF){
 
-                        isRun = false;
+                        if( personArr.length == 0 ){
 
-                        _moTaiKuang($('#myModal5'),'提示','flag','istap','执行人不能为空！','提示');
+                            isRun = false;
+
+                            _moTaiKuang($('#myModal5'),'提示','flag','istap','执行人不能为空！','提示');
+
+                        }
 
                     }
+
 
                     if(isRun){
 

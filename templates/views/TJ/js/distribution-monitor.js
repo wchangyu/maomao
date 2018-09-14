@@ -508,7 +508,7 @@ function tableData(){
 
         html += "<tr>" +
             "<td>"+ o.time+"</td>"+
-            "<td>"+ o.thing+"</td>"+
+            "<td style='text-align: left!important;text-indent:20px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width: 150px;cursor: pointer' title='" + o.thing + "'>"+ o.thing+"</td>"+
             "<td>"+ o.area+"</td>"+
             "<td>"+ o.state1+"</td>"+
             "<td>"+ o.people+"</td>"+

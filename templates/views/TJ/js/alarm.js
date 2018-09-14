@@ -62,7 +62,7 @@ $(function(){
 
                 if(data == '紧急'){
 
-                    return '<a class="urgency-alarm" href="../TJ/urgency-alarm.html">'+data+'</a>';
+                    return '<img src="img/timg.gif" alt="" style="width: 15px;vertical-align: middle;margin-top: -2px;margin-left: 5px;"><a class="urgency-alarm" href="../TJ/urgency-alarm.html">'+data+'</a>';
 
                 }else{
 
