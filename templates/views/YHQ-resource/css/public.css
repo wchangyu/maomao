@@ -1,0 +1,37 @@
+#removeDep{
+
+    position: absolute;
+
+    left: 91%;
+
+    top: 6px;
+
+    width: 10px;
+
+    height: 10px;
+
+}
+
+.dataTables_filter input{
+
+    border: 1px solid #ddd !important;
+
+    text-indent: 4px;
+
+    outline: none;
+
+}
+
+.showOrHidden{
+
+    display: none !important;
+
+}
+
+.label-warning{
+
+    font-size: 16px !important;
+
+    font-weight: normal;
+
+}

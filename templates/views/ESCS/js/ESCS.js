@@ -42,6 +42,7 @@ var ESCS = function () {
     //重组epr格式
     var initeprs = function () {
         var orgs = JSON.parse(sessionStorage.pointers);
+
         var eprs = [];
         _.each(orgs, function (e, i) {
             var epr = {};
@@ -71,6 +72,7 @@ var ESCS = function () {
                 e.pos.push(po);
             }
         })
+
         return eprs;
     }
 
@@ -182,6 +184,7 @@ var ESCS = function () {
                 //初始化默认界面
                 var pos = JSON.parse(sessionStorage.pointers);
                 var po = pos[0];
+
                 sessionStorage.PointerID = po.pointerID;
                 sessionStorage.PointerName = po.pointerName;
                 sessionStorage.enterpriseID = po.enterpriseID;
@@ -258,6 +261,7 @@ var ESCS = function () {
                 //sessionStorage.PointerName = pNt;
 
                 onhidemenuEpr();
+
                 $.get(realDtUrl, {
                     pId: sessionStorage.PointerID
                 }, function (res) {

@@ -1,76 +1,6 @@
 $(function(){
 
-    //是否创建过目标值和告警值
-    var _isCreate = false;
-
-    //将获取到的设备目标值对象保存
-    var _devObj = {};
-
-    /*-------------------------------------整体能效仪表盘--------------------------------------*/
-
-    //整体能效仪表盘
-
-    var _chartG = echarts.init(document.getElementById('chart-gug'));
-
-    var cc = [[0.38, '#ff4500'], [0.46, 'orange'], [0.55, 'skyblue'], [1, 'lightgreen']];
-
-    var _optionG = {
-
-        tooltip : {
-            formatter: "{a} <br/>{b} : {c}%"
-        },
-        series: [
-            {
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: cc,
-                        width: 5
-                    }
-                },
-                name: '实时能效',
-                type: 'gauge',
-                z: 3,
-                min: 0,
-                max: 0,
-                splitNumber: 10,
-                radius: '90%',
-                axisTick: {            // 坐标轴小标记
-                    length: 10,        // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle控制线条样式
-                        color: 'auto'
-                    }
-                },
-                splitLine: {           // 分隔线
-                    length: 15,         // 属性length控制线长
-                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-                        color: 'auto'
-                    }
-                },
-                title: {
-                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                        fontWeight: 'bolder',
-                        fontSize: 16,
-                        fontStyle: 'normal'
-                    }
-                },
-                detail: {
-                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                        fontWeight: 'bolder',
-                        fontSize:22
-                    }
-                },
-                pointer:{
-
-                    length:'50%',
-                    width:6
-
-                },
-                data: [{ value: 0.5, name: 'KW/KW' }]
-            }
-        ]
-
-    }
+    /*-----------------------------------------------chart---------------------------------------------*/
 
     //数据曲线折线图
 
@@ -135,20 +65,229 @@ $(function(){
         ]
     };
 
+    //热不平衡
+    var RBPHChart = echarts.init(document.getElementById('RBPHChart'));
+
+    var optionRe = {
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            top: 80,
+            bottom: 90
+        },
+        xAxis: {
+            type : 'value',
+            position: 'bottom',
+            data:['-10','-5',0,'5','10'],
+            axisLabel:{
+
+                formatter:'{value} %',
+
+                margin:20
+
+            },
+            axisTick:{
+
+                lineStyle:{
+
+                    color:'#dddddd'
+
+                },
+
+                length:10
+
+            }
+        },
+        yAxis: {
+            type : 'category',
+            axisLine: {show: false},
+            axisLabel: {show: false},
+            axisTick: {show: false},
+            splitLine: {show: false},
+            data : []
+        },
+        series : [
+            {
+                name: '直接访问',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'insideRight'
+                    }
+                },
+                data: [
+
+                    {
+                        value:5,
+
+                        itemStyle:{
+
+                            color:'#3DD7C1'
+
+                        }
+                    }
+
+
+                ],
+                barWidth:34
+            },
+            {
+                name: '直接访问',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'insideRight'
+                    }
+                },
+                data: [
+
+                    {
+                        value:5,
+
+                        itemStyle:{
+
+                            color:'#E5BB3C'
+
+                        }
+                    }
+
+                ]
+            },
+            {
+                name: '直接访问',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'insideRight'
+                    }
+                },
+                data: [
+
+                    {
+                        value:15,
+
+                        itemStyle:{
+
+                            color:'#EF5286'
+
+                        }
+                    }
+
+                ]
+            },
+            {
+                name: '直接访问',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'insideRight'
+                    }
+                },
+                data: [
+
+                    {
+                        value:-5,
+
+                        itemStyle:{
+
+                            color:'#3DD7C1'
+
+                        }
+                    }
+
+                ]
+            },
+            {
+                name: '直接访问',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'insideRight'
+                    }
+                },
+                data: [
+
+                    {
+                        value:-5,
+
+                        itemStyle:{
+
+                            color:'#E5BB3C'
+
+                        }
+                    }
+
+                ]
+            },
+            {
+                name: '直接访问',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'insideRight'
+                    }
+                },
+                data: [
+
+                    {
+                        value:-15,
+
+                        itemStyle:{
+
+                            color:'#EF5286'
+
+                        }
+                    }
+
+                ]
+            }
+        ]
+    };
+
+    /*------------------------------变量--------------------------------------*/
+
+    //是否创建过目标值和告警值
+    var _isCreate = false;
+
+    //将获取到的设备目标值对象保存
+    var _devObj = {};
+
     //左上角室外温湿度
     WSD();
 
     //获取实时时间
     SSSJ();
 
-    //获取单位冷价
-    LJDJ();
+    //设备能效能耗
+    devEEEC();
 
-    //冷站输入功率
-    LZSRGL();
+    //冷站
+    LZData();
 
     //热不平衡率
     RBPHL();
+
+    //仪器状态
+    instrumentStatus();
+
+    //能效标尺
+    //NXBC();
 
     //能效曲线
     NXQX();
@@ -156,13 +295,13 @@ $(function(){
     //能源曲线
     NYQX();
 
-    //设备能效能耗
-    devEEEC();
-
     //报警
     alarmData();
 
-    //自动刷新
+    //运行参数
+    YXCS();
+
+    //十分钟刷新一次
     setInterval(function(){
 
         //左上角室外温湿度
@@ -171,54 +310,35 @@ $(function(){
         //获取实时时间
         SSSJ();
 
-        //获取单位冷价
-        LJDJ();
+        //设备能效能耗
+        devEEEC();
 
-        //冷站输入功率
-        LZSRGL();
+        //冷站(能效标尺)
+        LZData();
 
         //热不平衡率
         RBPHL();
+
+        //仪器状态
+        instrumentStatus();
+
+        //能效标尺
+        //NXBC();
 
         //能效曲线
         NXQX();
 
         //能源曲线
         NYQX();
-        //设备能效能耗
-        devEEEC();
+
+        //报警
+        alarmData();
+
+        //运行参数
+        YXCS();
 
     },1000*60*10)
 
-    /*-----------------------------------------------表格初始化-------------------------------------------*/
-
-    var col = [
-
-        {
-            title:'状态',
-            data:'state',
-            render:function(data, type, full, meta){
-
-                if(data == 0){
-
-                    return '<span style="display: inline-block;width: 10px;height: 10px;border-radius: 10px !important;background: #ff4500;margin-right: 10px;"></span>' + '未开启'
-
-                }else if(data == 1){
-
-                    return '<span style="display:inline-block;width: 10px;height: 10px;border-radius: 10px !important;background: #1cc19f;margin-right: 10px;"></span>' + '开启'
-
-                }
-            }
-
-        },
-        {
-            title:'设备',
-            data:'name'
-        }
-
-    ]
-
-    _tableInit($('#table'),col,2,true,'','',true,'','',false,'','暂时没有开机的设备');
 
 
     /*-----------------------------------------------表单验证--------------------------------------------*/
@@ -450,33 +570,7 @@ $(function(){
 
     },"告警值要小于目标值");
 
-    /*-------------------------------------点击事件---------------------------------------------*/
-
-    //数据曲线tab切换
-    $('.main-tab').on('click','span',function(){
-
-        $('.main-tab').find('span').removeClass('main-tab-active');
-
-        $(this).addClass('main-tab-active');
-
-        $('.chart-line').css('z-index','1');
-
-        $('.chart-line').eq($(this).parent().index()).css('z-index','2');
-
-    })
-
-    //chart图自适应
-    window.onresize = function () {
-
-        if (_chartG && _chartEnergy && _chartEfficiency) {
-
-            _chartG.resize();
-
-            _chartEnergy.resize();
-
-            _chartEfficiency.resize();
-        }
-    }
+    /*---------------------------------按钮事件----------------------------------*/
 
     //设备目标、告警值
     $('#devOption').click(function(){
@@ -557,159 +651,454 @@ $(function(){
 
     })
 
-    //查看设备状态
-    $('#EEEC').on('click','.machine-on',function(){
+    //数据曲线tab切换
+    $('.main-tab').on('click','span',function(){
 
-        _moTaiKuang($('#machineModal'),'开机状态',true,false,false,false);
+        $('.main-tab').find('span').removeClass('main-tab-active');
 
-        var index = $(this).parent('tr').index();
+        $(this).addClass('main-tab-active');
 
-        var arr = [];
+        $('.chart-line').css('z-index','1');
 
-        if(index == 0){
-
-            //冷水机组
-
-            if(_devObj.chRs){
-
-                for(var i=0;i<_devObj.chRs.length;i++){
-
-                    var obj = {};
-
-                    obj.state = _devObj.chRs[i].f_RunState;
-
-                    obj.name = _devObj.chRs[i].chillerName;
-
-                    arr.push(obj);
-
-                }
-
-            }
-
-        }else if(index == 1){
-
-            //冷冻水泵
-
-            if(_devObj.chwRs){
-
-                for(var i=0;i<_devObj.chwRs.length;i++){
-
-                    var obj = {};
-
-                    obj.state = _devObj.chwRs[i].f_RunState;
-
-                    obj.name = _devObj.chwRs[i].pumpName;
-
-                    arr.push(obj);
-
-                }
-
-            }
-
-        }else if(index == 2){
-
-            //冷却水泵
-
-            if(_devObj.cwRs){
-
-                for(var i=0;i<_devObj.cwRs.length;i++){
-
-                    var obj = {};
-
-                    obj.state = _devObj.cwRs[i].f_RunState;
-
-                    obj.name = _devObj.cwRs[i].pumpName;
-
-                    arr.push(obj);
-
-                }
-
-            }
-
-
-        }else if(index == 3){
-
-            //冷却塔
-
-            if(_devObj.ctRs){
-
-                for(var i=0;i<_devObj.ctRs.length;i++){
-
-                    var obj = {};
-
-                    obj.state = _devObj.ctRs[i].f_RunState;
-
-                    obj.name = _devObj.ctRs[i].ctName;
-
-                    arr.push(obj);
-
-                }
-
-            }
-        }
-
-
-        _datasTable($('#table'),arr);
+        $('.chart-line').eq($(this).parent().index()).css('z-index','2');
 
     })
 
-    /*------------------------------------其他方法----------------------------------------------*/
+    //chart图自适应
+    window.onresize = function () {
 
-    //冷量单价
-    function LJDJ(){
+        if (_chartEnergy && _chartEfficiency && RBPHChart) {
 
+            _chartEnergy.resize();
+
+            _chartEfficiency.resize();
+
+            RBPHChart.resize();
+        }
+    }
+
+    /*---------------------------------其他方法----------------------------------*/
+
+    //获取楼宇的室外温湿度
+    function WSD(){
+
+        //初始化
+        WSDInit();
+
+        //参数
         var prm = {
 
             //楼宇ID
             pId:sessionStorage.PointerID,
-            //日期
-            sysrealDt:sessionStorage.sysDt,
-            //换算单位
-            misc:sessionStorage.misc
+
         }
 
-        $.ajax({
+        _mainAjaxFunCompleteNew('get','Global/GetTHW',prm,false,function(result){
 
-            type:'post',
+            if(result.code == 0){
 
-            url:sessionStorage.apiUrlPrefix + 'Main/GetElePriceColdNowDs',
+                //温度
+                if(result.tsw == true){
 
-            timeout:_theTimes,
-
-            data:prm,
-
-            success:function(result){
-
-                var data = '-';
-
-                if(result.code == 0){
-
-                    data = result.ePrCoVa;
+                    $('#ist').html(Number(result.ist).toFixed(1));
 
                 }
 
-                if(data == '-'){
+                //湿度
+                if(result.hsw == true){
 
-                    $('#spanEPrice').html('-');
-
-                }else{
-
-                    $('#spanEPrice').html(parseFloat(data).toFixed(4));
+                    $('#ish').html(Number(result.ish).toFixed(1));
 
                 }
 
-            },
+                //湿球
+                if(result.wbw == true){
 
-            error:_errorFun1
+                    $('#iswbw').html(Number(result.iswbw).toFixed(1));
+
+                }
+
+
+            }else{
+
+                //温度
+                $('#ist').html('-');
+
+                //湿度
+                $('#ish').html('-');
+
+                //湿球
+                $('#iswbw').html('-');
+
+            }
 
         })
 
+    }
+
+    //温度初始化
+    function WSDInit(){
+
+        //室外温度
+        $('#ist').val('-');
+        //相对湿度
+        $('#ish').val('-');
+        //湿球温度
+        $('#iswbw').val('-');
 
     }
 
-    //冷站输入功率
-    function LZSRGL(){
+    //获取实时时间
+    function SSSJ(){
 
+        //初始化时间
+        SSSJInit();
+
+        //参数
+        var prm = {
+
+            //楼宇ID
+            pId:sessionStorage.PointerID,
+
+        }
+
+        _mainAjaxFunCompleteNew('get','Global/GetRealDt',prm,$('.GSKJ'),function(result){
+
+            //显示
+            if(result.code == 0){
+
+                var date = result.dt;
+
+                //日期
+                var realDate = date.split(' ')[0].replace(/-/g,'.')
+
+                $('#real-date').html(realDate);
+
+                //时间
+                var realTime = date.split(' ')[1].slice(0,5);
+
+                var realWeeks = moment(date.split(' ')[0]).format('d');
+
+                if(realWeeks == 0){
+
+                    realWeeks = '星期日';
+
+                }else if(realWeeks == 1){
+
+                    realWeeks = '星期一';
+
+                }else if(realWeeks == 2){
+
+                    realWeeks = '星期二';
+
+                }else if(realWeeks == 3){
+
+                    realWeeks = '星期三';
+
+                }else if(realWeeks == 4){
+
+                    realWeeks = '星期四';
+
+                }else if(realWeeks == 5){
+
+                    realWeeks = '星期五';
+
+                }else if(realWeeks == 6){
+
+                    realWeeks = '星期六';
+
+                }
+
+                $('#real-time').html( realTime + ' ' + realWeeks );
+
+                sessionStorage.sysDt = result.dt;
+
+
+            }else{
+
+                $('#real-date').html('-');
+
+                $('#real-time').html('-');
+
+            }
+
+        })
+
+    }
+
+    //实时时间初始化
+    function SSSJInit(){
+
+        //日期
+        $('#real-date').html('-');
+
+        //时间
+        $('#real-time').html('-');
+
+    }
+
+    //设备能效能耗
+    function devEEEC(){
+
+        //初始化
+        devEEECInit();
+
+        //参数
+        var prm = {
+
+            //楼宇ID
+            pId:sessionStorage.PointerID,
+            //系统实时时间
+            sysrealDt:sessionStorage.sysDt
+        }
+
+        _mainAjaxFunCompleteNew('post','ZKMain/GetEPTAsByEQ',prm,$('#EEEC'),function(result){
+
+            if(result.code == 0){
+
+                if(result.chTarV == null || result.chTarV == ''){
+
+                    _isCreate = true;
+
+                }
+
+                _devObj = result;
+
+                //冷水机组
+                //开机台数
+                var chRunNum = 0;
+
+                if(result.chRs != null){
+
+                    for(var i=0;i<result.chRs.length;i++){
+
+                        if(result.chRs[i].f_RunState == 1){
+
+                            chRunNum ++;
+
+                        }
+
+                    }
+
+                }
+
+                $('#chRs').html(chRunNum);
+
+                //目标值
+                $('#chTarV').html(result.chTarV==''?'-':result.chTarV);
+
+                //告警值
+                $('#chAlrV').html(result.chAlrV==''?'-':result.chAlrV);
+
+                //实际值（能效）
+                $('#cheVa').html(result.cheVa);
+
+                //实际值（能耗）
+                $('#chpVa').html(result.chpVa);
+
+                //确定颜色
+                returnColor($('#chTarV').html(),$('#chAlrV').html(),$('#cheVa').html(),$('#cheVa'));
+
+                //冷冻水泵
+                //开机台数
+                var chwRunNum = 0;
+
+                if(result.chwRs != null){
+
+                    for(var i=0;i<result.chwRs.length;i++){
+
+                        if(result.chwRs[i].f_RunState == 1){
+
+                            chwRunNum ++;
+
+                        }
+
+                    }
+
+                }
+
+                $('#chwRs').html(chwRunNum);
+
+                //实际值（能效）
+                $('#chweVa').html(result.chweVa);
+
+                //实际值（能耗）
+                $('#chwpVa').html(result.chwpVa);
+
+                //目标值
+                $('#chwTarV').html(result.chwTarV==''?'-':result.chwTarV);
+
+                //告警值
+                $('#chwAlrV').html(result.chwAlrV==''?'-':result.chwAlrV);
+
+                //确定颜色
+                returnColor($('#chwTarV').html(),$('#chwAlrV').html(),$('#chweVa').html(),$('#chweVa'));
+
+
+                //冷却水泵
+                //开机台数
+                var cwRunNum = 0;
+
+                if(result.cwRs != null){
+
+                    for(var i=0;i<result.cwRs.length;i++){
+
+                        if(result.cwRs[i].f_RunState == 1){
+
+                            cwRunNum ++;
+
+                        }
+
+                    }
+
+                }
+
+                $('#cwRs').html(cwRunNum);
+
+                //实际值（能耗）
+                $('#cwpVa').html(result.cwpVa);
+
+                //目标值
+                $('#cwTarV').html(result.cwTarV==''?'-':result.cwTarV);
+
+                //告警值
+                $('#cwAlrV').html(result.cwAlrV==''?'-':result.cwAlrV);
+
+                //实际值（能效）
+                $('#cweVa').html(result.cweVa);
+
+                //确定颜色
+                returnColor($('#cwTarV').html(),$('#cwAlrV').html(),$('#cweVa').html(),$('#cweVa'));
+
+                //冷却塔
+                //开机台数
+                var ctRunNum = 0;
+
+                if(result.ctRs != null){
+
+                    for(var i=0;i<result.ctRs.length;i++){
+
+                        if(result.ctRs[i].f_RunState == 1){
+
+                            ctRunNum ++;
+
+                        }
+
+                    }
+
+                }
+
+                $('#ctRs').html(ctRunNum);
+
+                //实际值（能效）
+                $('#cteVa').html(result.cteVa);
+
+                //实际值（能耗）
+                $('#ctpVa').html(result.ctpVa);
+
+                //目标值
+                $('#ctTarV').html(result.ctTarV==''?'-':result.ctTarV);
+
+                //告警值
+                $('#ctAlrV').html(result.ctAlrV==''?'-':result.ctAlrV);
+
+                //确定颜色
+                returnColor($('#ctTarV').html(),$('#ctAlrV').html(),$('#cteVa').html(),$('#cteVa'));
+
+            }else{
+
+                //冷水机组
+                $('#chwRs').html('-');
+
+                //实际值（能效）
+                $('#chweVa').html('-');
+
+                //实际值（能耗）
+                $('#chwpVa').html('-');
+
+                //目标值
+                $('#chwTarV').html('-');
+
+                //告警值
+                $('#chwAlrV').html('-');
+
+                //冷冻水泵
+                $('#chwRs').html('-');
+
+                //实际值（能效）
+                $('#chweVa').html('-');
+
+                //实际值（能耗）
+                $('#chwpVa').html('-');
+
+                //目标值
+                $('#chwTarV').html('-');
+
+                //告警值
+                $('#chwAlrV').html('-');
+
+                //冷却水泵
+                $('#cwRs').html('-');
+
+                //实际值（能效）
+                $('#cweVa').html('-');
+
+                //实际值（能耗）
+                $('#cwpVa').html('-');
+
+                //目标值
+                $('#cwTarV').html('-');
+
+                //告警值
+                $('#cwAlrV').html('-');
+
+                //冷却塔
+                $('#ctRs').html('-');
+
+                //实际值（能效）
+                $('#cteVa').html('-');
+
+                //实际值（能耗）
+                $('#ctpVa').html('-');
+
+                //目标值
+                $('#ctTarV').html('-');
+
+                //告警值
+                $('#ctAlrV').html('-');
+
+            }
+
+        })
+
+    }
+
+    //设备能效能耗初始化
+    function devEEECInit(){
+
+        //实际值
+        $('#EEEC').find('.actual-value-top').html('-');
+
+        //目标值
+        $('#EEEC').find('.target-value').html('-');
+
+        //告警值
+        $('#EEEC').find('.alarm-value').html('-');
+
+        //设备电耗值
+        $('#EEEC').find('.actual-value-top-DH').html('-');
+    }
+
+    //冷站效率
+    function LZData(){
+
+        //初始化
+        LZDataInit();
+
+        //能效标尺初始化
+        NXBCInit();
+
+        //参数
         var prm = {
 
             //楼宇ID
@@ -724,21 +1113,29 @@ $(function(){
 
             type:'post',
 
-            url:sessionStorage.apiUrlPrefix + 'Main/GetECPItemizeNowDs',
+            url:_urls + 'Main/GetECPItemizeNowDs',
 
             timeout:_theTimes,
 
             data:prm,
 
+            //发送数据之前
             beforeSend:function(){
 
-                $('.ZTNX').showLoading();
+                $('.XTLL').showLoading();
+
+                //能效标尺loadding
+                $('#tableMark').showLoading();
 
             },
 
+            //发送数据完成之后
             complete:function(){
 
-                $('.ZTNX').hideLoading();
+                $('.XTLL').hideLoading();
+
+                //能效标尺loadding
+                $('#tableMark').hideLoading();
 
             },
 
@@ -753,8 +1150,8 @@ $(function(){
                 //冷站输入功率
                 var lznowp = '-';
 
-                //热不平衡率（另外一个接口）
-                //var lzbphlv = 0;
+                //冷站效率
+                var eerV = '-';
 
                 if(res.code == 0){
 
@@ -767,75 +1164,21 @@ $(function(){
                     //冷站输入功率
                     lznowp = lzpV.toFixed(1);
 
-                    //仪表盘数值
-                    var eerV = 0;
-
-                    //仪表盘最大值
-                    var eerMinV = 0;
-
-                    //仪表盘最小值
-                    var eerMaxV = 0;
-
                     //冷站实时冷量
                     var lzlV = parseFloat(res.lVa);
 
                     //冷战输出冷量
                     lznowlv = lzlV;
 
-                    if (lzlV === 0) {
+                    //冷站效率
+                    eerV = parseFloat(lzlV / lzpV).toFixed(3);
 
-                        eerV = 0;
-                    }
-
-                    if(lzpV===0){
-
-
-
-                    }else{
-
-                        //KW/KW
-
-                        eerMinV=0;
-
-                        eerMaxV=9;
-
-                        eerV = parseFloat(lzlV / lzpV).toFixed(3);
-
-                        if (eerV > 15) {
-
-                            eerV = 15;
-                        }
-
-                    }
-
-                    //最大值
-                    _optionG.series[0].max = eerMaxV;
-
-                    //最小值
-                    _optionG.series[0].min = eerMinV;
-
-                    //能效
-                    _optionG.series[0].data[0].value = eerV;
-
-                    _chartG.setOption(_optionG,true);
-
-
-                }else{
-
-                    //最大值
-                    _optionG.series[0].max = 0;
-
-                    //最小值
-                    _optionG.series[0].min = 9;
-
-                    //能效
-                    _optionG.series[0].data[0].value = 0;
-
-                    _chartG.setOption(_optionG,true);
+                    //能效标尺
+                    tableIcon(eerV);
 
                 }
 
-                //冷站输出冷量
+                //冷站输出冷量(系统冷量)
                 $('#lznowlv').html(lznowlv);
 
                 //冷站散热量
@@ -844,20 +1187,58 @@ $(function(){
                 //冷站输入功率
                 $('#lznowp').html(lznowp);
 
-                //热不平衡率
-                //$('#lzbphlv').html(lzbphlv);
+                //冷站效率
+                $('#LZXLNum').html(eerV);
 
             },
 
-            error:_errorFun1
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+
+                }else{
+
+                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+
+                }
+
+            }
 
         })
+
+
+    }
+
+    //冷站初始化
+    function LZDataInit(){
+
+        //冷站效率
+        $('#LZXLNum').html('-');
+
+        //冷站输出冷量(系统冷量)
+        $('#lznowlv').html('-');
+
+        //冷站散热量
+        $('#lzsrlv').html('-');
+
+        //冷站输入功率(电量)
+        $('#lznowp').html('-');
 
     }
 
     //热不平衡率
     function RBPHL(){
 
+        //初始化
+        RBPHLInit();
+
+        //标尺初始化
+        RPHBC();
+
+        //参数
         var prm = {
 
             //楼宇ID
@@ -868,51 +1249,222 @@ $(function(){
             misc:sessionStorage.misc
         }
 
+        _mainAjaxFunCompleteNew('post','Main/GetUBRVNowData',prm,$('.RBPHL'),function(result){
+
+            //整体能效的值
+            var data = '-';
+
+            if(result.code == 0){
+
+                data = result.ubrVa;
+
+                $('#lzbphlv').html(Number(data).toFixed(2));
+
+                //热不平衡标尺
+                //RBPHBC(Number(data).toFixed(2));
+
+                //确定图标
+                var img = '';
+
+                //字体颜色
+                var color = '';
+
+                var ReData = Number(data).toFixed(2);
+
+                if(ReData>-5 && ReData<5){
+
+                    img = 'image://img/02.png';
+
+                    color = '#3dd7c1'
+
+                }else if(ReData>=5 && ReData<10){
+
+                    img = 'image://img/03.png';
+
+                    color = '#e5bb3c'
+
+                }else if(ReData<=-5 && ReData>-10){
+
+                    img = 'image://img/03.png';
+
+                    color = '#e5bb3c'
+
+                }else if(ReData<=-10){
+
+                    img = 'image://img/04.png'
+
+                    color = '#ef5286'
+
+                }else if(ReData>=10){
+
+                    img = 'image://img/04.png'
+
+                    color = '#ef5286'
+
+                }
+
+                var markPoint = {
+
+                    data : [
+                        {name : '年最高', value : ReData, xAxis: ReData, y: 50,
+
+                            symbol:img,
+
+                            symbolSize:[20,32],
+
+                            label:{
+
+                                position:'top',
+
+                                show:true,
+
+                                color:color,
+
+                                fontSize:14,
+
+                                fontWeight:'bold',
+
+                                formatter:function (params,ticket,callback){
+
+                                    return '当前楼：(' + params.data.value + '%)'
+
+                                }
+
+                            }
+
+                        }
+                    ]
+                }
+
+                optionRe.series[0].markPoint = markPoint;
+
+                RBPHChart.setOption(optionRe,true);
+
+            }
+
+        })
+
+    }
+
+    //热不平衡率初始化
+    function RBPHLInit(){
+
+        $('#lzbphlv').html('-')
+
+    }
+
+    //显示颜色
+    function returnColor(targetNum,alarmNum,actualNum,el){
+
+        var target = Number(targetNum);
+
+        var alarm = Number(alarmNum);
+
+        var actual = Number(actualNum);
+
+        //高于目标值显示绿色，低于告警值显示红色，在两者之间显示蓝色
+
+        if(actual>target){
+
+            el.css({color:'rgba(28,193,90,1)'});
+
+        }else if(actual<alarm){
+
+            el.css({color:'rgba(255,69,0,1)'});
+
+        }else{
+
+            el.css({color:'rgba(116,167,246,1)'});
+
+        }
+
+
+    }
+
+    //格式验证
+    function formatValidateUser(fun){
+
+        $('#tip').hide();
+
+        //非空验证
+        if($('#chTarVModal').val() == '' || $('#chAlrVModal').val() == '' || $('#chwTarVModal').val() == '' || $('#chwAlrVModal').val() == '' || $('#cwTarVModal').val() == '' || $('#cwAlrVModal').val() == '' || $('#ctTarVModal').val() == '' || $('#ctAlrVModal').val() == '' ){
+
+            _topTipBar('请填写必填项')
+
+        }else{
+
+            //验证错误
+            var error = $('#equipnew-form').find('.error');
+
+            if(error.length != 0){
+
+                var flag = true;
+
+                for(var i=0;i<error.length;i++){
+
+                    if(error.eq(i).css('display') != 'none'){
+
+                        flag = false;
+
+                        break;
+
+                    }
+
+                }
+
+                if(flag){
+
+                    fun();
+
+                }else{
+
+                    _topTipBar('请填写正确格式')
+
+                }
+
+            }else{
+
+                //验证通过
+                fun();
+
+            }
+
+
+        }
+
+    }
+
+    //登记/编辑
+    function sendOption(url){
+
+        var prm = {
+
+            //楼宇ID
+            pId:sessionStorage.PointerID,
+            //冷机目标值
+            chTarV:$('#chTarVModal').val(),
+            //冷机告警值
+            chAlrV:$('#chAlrVModal').val(),
+            //冷冻泵目标值
+            chwTarV:$('#chwTarVModal').val(),
+            //冷冻泵告警值
+            chwAlrV:$('#chwAlrVModal').val(),
+            //冷却泵目标值
+            cwTarV:$('#cwTarVModal').val(),
+            //冷却泵告警值
+            cwAlrV:$('#cwAlrVModal').val(),
+            //冷却塔目标值
+            ctTarV:$('#ctTarVModal').val(),
+            //冷却塔告警值
+            ctAlrV:$('#ctAlrVModal').val()
+
+        }
+
         $.ajax({
 
             type:'post',
 
-            url:sessionStorage.apiUrlPrefix + 'Main/GetUBRVNowData',
-
-            timeout:_theTimes,
-
-            data:prm,
-
-            success:function(result){
-
-                var data = 0.0000;
-
-                if(result.code == 0){
-
-                    data = result.ubrVa;
-
-                }
-
-                $('#lzbphlv').html(Number(data).toFixed(2));
-
-            },
-
-            error:_errorFun1
-
-        })
-
-    }
-
-    //获取楼宇的室外温湿度
-    function WSD(){
-
-        var prm = {
-
-            //楼宇ID
-            pId:sessionStorage.PointerID,
-
-        }
-
-        $.ajax({
-
-            type:'get',
-
-            url:sessionStorage.apiUrlPrefix + 'Global/GetTHW',
+            url:sessionStorage.apiUrlPrefix + url,
 
             timeout:_theTimes,
 
@@ -920,13 +1472,17 @@ $(function(){
 
             beforeSend:function(){
 
-                $('.main-time').showLoading();
+                var str = '<i class="fa fa-save"></i>正在保存...'
+
+                $('#saveBtn').html(str).attr('disabled',true);
 
             },
 
             complete:function(){
 
-                $('.main-time').hideLoading();
+                var str = '<i class="fa fa-save"></i>保存设备数据'
+
+                $('#saveBtn').html(str).attr('disabled',false);
 
             },
 
@@ -934,38 +1490,9 @@ $(function(){
 
                 if(result.code == 0){
 
-                    //温度
-                    if(result.tsw == true){
+                    $('#devModal').modal('hide');
 
-                        $('#ist').html(Number(result.ist).toFixed(1));
-
-                    }
-
-                    //湿度
-                    if(result.hsw == true){
-
-                        $('#ish').html(Number(result.ish).toFixed(1));
-
-                    }
-
-                    //湿球
-                    if(result.wbw == true){
-
-                        $('#iswbw').html(Number(result.iswbw).toFixed(1));
-
-                    }
-
-
-                }else{
-
-                    //温度
-                    $('#ist').html('-');
-
-                    //湿度
-                    $('#ish').html('-');
-
-                    //湿球
-                    $('#iswbw').html('-');
+                    devEEEC();
 
                 }
 
@@ -974,108 +1501,441 @@ $(function(){
             error:_errorFun1
 
         })
+
 
     }
 
-    //获取实时时间
-    function SSSJ(){
+    //获取数据采集仪状态
+    function instrumentStatus(){
 
+        //初始化
+        instrumentStatusInit();
+
+        //参数
         var prm = {
 
+            //分类标记
+            pubClass:sessionStorage.pubClassID,
+            //企业ID
+            eprId:sessionStorage.enterpriseID,
             //楼宇ID
-            pId:sessionStorage.PointerID,
+            pId:sessionStorage.PointerID
 
         }
 
-        $.ajax({
+        _mainAjaxFunCompleteNew('post','ZKMain/GetChannlesType',prm,false,function(result){
 
-            type:'get',
+            if(result.code == 0){
 
-            async:false,
+                $('#instrumentStatus').html(result.onoff);
 
-            url:sessionStorage.apiUrlPrefix + 'Global/GetRealDt',
+                if(result.onoff == 'OFF'){
 
-            beforeSend:function(){
+                    $('#instrumentStatus').css({'color':'red'})
 
-                $('.main-date').showLoading();
+                }else if(result.onoff == 'ON'){
 
-            },
-
-            complete:function(){
-
-                $('.main-date').hideLoading();
-
-            },
-
-            timeout:_theTimes,
-
-            data:prm,
-
-            success:function(result){
-
-                //显示
-                if(result.code == 0){
-
-                    var date = result.dt;
-
-                    //日期
-                    var realDate = date.split(' ')[0].replace(/-/g,'.')
-
-                    $('#real-date').html(realDate);
-
-                    //时间
-                    var realTime = date.split(' ')[1].slice(0,5);
-
-                    var realWeeks = moment(date.split(' ')[0]).format('d');
-
-                    if(realWeeks == 0){
-
-                        realWeeks = '星期日';
-
-                    }else if(realWeeks == 1){
-
-                        realWeeks = '星期一';
-
-                    }else if(realWeeks == 2){
-
-                        realWeeks = '星期二';
-
-                    }else if(realWeeks == 3){
-
-                        realWeeks = '星期三';
-
-                    }else if(realWeeks == 4){
-
-                        realWeeks = '星期四';
-
-                    }else if(realWeeks == 5){
-
-                        realWeeks = '星期五';
-
-                    }else if(realWeeks == 6){
-
-                        realWeeks = '星期六';
-
-                    }
-
-                    $('#real-time').html( realTime + ' ' + realWeeks );
-
-                    sessionStorage.sysDt = result.dt;
-
-
-                }else{
-
-                    $('#real-date').html('-');
-
-                    $('#real-time').html('-');
+                    $('#instrumentStatus').css({'color':'#3DD7C1'})
 
                 }
 
-            },
 
-            error:_errorFun1
+            }
+
 
         })
+
+
+    }
+
+    //采集仪状态初始化
+    function instrumentStatusInit(){
+
+        $('#instrumentStatus').html('-');
+
+    }
+
+    //能效标尺
+    //function NXBC(){
+    //
+    //    //初始化
+    //    NXBCInit();
+    //
+    //    //参数
+    //    var prm = {
+    //
+    //        //楼宇
+    //        pId:sessionStorage.PointerID,
+    //        //日期
+    //        sp:moment(sessionStorage.sysDt).format('YYYY-MM-DD'),
+    //        //日数据
+    //        dType:'D',
+    //        //单位
+    //        misc:sessionStorage.misc
+    //
+    //    }
+    //
+    //    _mainAjaxFunCompleteNew('post','CalendarEER/GetCalendarEERAnalysisExpDs',prm,$('#tableMark'),function(res){
+    //
+    //        //能效值
+    //        var lzeerV = 0;
+    //
+    //        if (typeof (res.lzeerVa) == "undefined") {
+    //
+    //            lzeerV = 0;
+    //
+    //        }
+    //        else {
+    //
+    //            lzeerV = parseFloat(res.lzeerVa).toFixed(2);
+    //
+    //            tableIcon(lzeerV)
+    //
+    //
+    //        }
+    //
+    //    })
+    //
+    //
+    //}
+
+    //能效标尺初始化
+    function NXBCInit(){
+
+        //$('#tableMark tbody').children('tr').eq(1).children('td').addClass('noBG');
+
+        $('#tableMark tbody').children('tr').eq(0).children('td').addClass('color');
+
+        $('#aa').remove();
+
+    }
+
+    //热平衡标尺
+    function RPHBC(){
+
+        RBPHChart.setOption(optionRe,true);
+
+    }
+
+    //能效标尺确定图标
+    function tableIcon(data){
+
+        var classN = '';
+
+        var indexN = '';
+
+        if(data<2.9){
+
+            classN =  'badRRight';
+
+            indexN = 8;
+
+        }else if(data == 2.9){
+
+            classN =  'badR';
+
+            indexN = 8;
+
+        }else if(data>2.9 && data<=3.05){
+
+            classN =  'badRLeft';
+
+            indexN = 7
+
+        }else if(data>3.05&& data<3.2){
+
+            classN =  'badRRight';
+
+            indexN = 7
+
+        }else if(data == 3.2){
+
+            classN =  'badR';
+
+            indexN = 7
+
+        }else if(data>3.2 && data<=3.35){
+
+            classN =  'badRLeft';
+
+            indexN = 7
+
+
+        }else if(data>3.35 && data<3.5){
+
+            classN = 'badRRight'
+
+            indexN = 6
+
+        }else if(data == 3.5){
+
+            classN = 'commonR';
+
+            indexN = 6
+
+        }else if(data>3.5 && data<=3.7){
+
+            classN = 'commonRLeft';
+
+            indexN = 6
+
+        }else if(data>3.7 && data<3.9){
+
+            classN = 'commonRRight';
+
+            indexN = 5
+
+        }else if(data == 3.9){
+
+            classN = 'commonR';
+
+            indexN = 5
+
+        }else if(data>3.9 && data<=4.15){
+
+            classN = 'commonRLeft';
+
+            indexN = 5;
+
+
+        }else if(data>4.15&&data<4.4){
+
+            classN = 'greatRRight';
+
+            indexN = 4;
+
+        }else if(data == 4.4){
+
+            classN = 'greatR';
+
+            indexN = 4
+
+        }else if(data >4.4 && data<=4.7){
+
+            classN = 'greatRLeft';
+
+            indexN = 4;
+
+        }else if(data>4.7 && data<5.0){
+
+            classN = 'greatRRight'
+
+            indexN = 3
+
+        }else if(data == 5.0){
+
+            classN = 'excellentRRight'
+
+            indexN = 3
+
+        }else if(data>5.0&&data<=5.45){
+
+            classN = 'excellentRLeft'
+
+            indexN = 3
+
+        }else if(data>5.45&&data<5.9){
+
+            classN = 'excellentRRight'
+
+            indexN = 3
+
+        }else if(data == 5.9){
+
+            classN = 'excellentR'
+
+            indexN = 2
+
+        }else if(data>5.9&&data<=6.45){
+
+            classN =  'excellentRLeft'
+
+            indexN = 2
+
+        }else if(data>6.45&&data<7.0){
+
+            classN =  'excellentRRight'
+
+            indexN = 1
+
+        }else if(data == 7){
+
+            classN = 'excellentR'
+
+            indexN = 1
+
+        }else if(data>7){
+
+            classN = 'excellentRLeft';
+
+            indexN = 1
+
+        }
+
+        $('#tableMark').children('tbody').children('tr').eq(1).children('td').eq(indexN).removeClass('noBG').addClass(classN).addClass('showTip');
+
+        //$('#tableMark').children('tbody').children('tr').eq(0).children('td').eq(indexN).removeClass('color').html('当前楼(' + data + ')');
+
+        //判断在左还是在右
+
+        var valueA = '当前楼(' + data + ')';
+
+        var locationL = $('.showTip').attr('class').indexOf('Left');
+
+        var locationR = $('.showTip').attr('class').indexOf('Right');
+
+        var str = '<span id="aa" style="position: absolute;top: -20px;font-size: 14px;width: 123px;left: -20px;font-weight: bold">' + valueA +'</span>';
+
+        //说明在左边
+        if(locationL>-1){
+
+            str = '<span id="aa" style="position: absolute;top: -20px;font-size: 14px;width: 123px;left:-49px;font-weight: bold">' + valueA +'</span>';
+
+        }
+
+        //说明在右边
+        if(locationR>-1){
+
+            str = '<span id="aa" style="position: absolute;top: -20px;font-size: 14px;width: 123px;left:0px;font-weight: bold">' + valueA +'</span>';
+
+        }
+
+        $('.showTip').append(str);
+
+        var color = '#666666';
+
+        //颜色
+        if(data<3.5){
+
+            color = '#ef5286';
+
+        }else if(data>=3.5 && data<4.15){
+
+            color = '#e5bb3c';
+
+        }else if(data>=4.15 && data<5){
+
+            color = '#3dd7c1';
+
+        }else if(data>=5){
+
+            color = '#528ced';
+
+        }
+
+        $('#aa').css('color',color);
+
+        //整体能效冷站能效也要修改
+        $('.LZXL').css('borderColor',color);
+
+        $('#LZXLNum').css('color',color);
+
+    }
+
+    //热不平衡标尺的位置
+    function RBPHBC(data){
+
+        var classN = '';
+
+        var left = 0;
+
+        var color = '';
+
+        if(data == 0){
+
+            left = $('.RBPHL-tip').width() * 0.5 - 20;
+
+        }else if(data == 5){
+
+            left = $('.RBPHL-tip').width() * 0.675 - 20;
+
+        }else if(data == 10){
+
+            left = $('.RBPHL-tip').width() * 0.85 - 20;
+
+        }else if(data == -5){
+
+            left = $('.RBPHL-tip').width() * 0.34 - 20;
+
+        }else if(data == -10){
+
+            left = $('.RBPHL-tip').width() * 0.18 - 20;
+
+        }else if(data>0&&data<=2.5){
+
+            left = $('.RBPHL-tip').width() * 0.58 - 20;
+
+        }else if(data>2.5&&data<5){
+
+            left = $('.RBPHL-tip').width() * 0.6 - 20;
+
+        }else if(data>5&&data<=7.5){
+
+            left = $('.RBPHL-tip').width() * 0.75 - 20;
+
+        }else if(data>7.5&&data<10){
+
+            left = $('.RBPHL-tip').width() * 0.8 - 20;
+
+        }else if(data<-2.5&&data>-5){
+
+            left = $('.RBPHL-tip').width() * 0.4 - 20;
+
+        }else if(data<-5&&data>-7.5){
+
+            left = $('.RBPHL-tip').width() * 0.24 - 20;
+
+        }else if(data<-7.5&&data>-10){
+
+            left = $('.RBPHL-tip').width() * 0.18 - 20;
+
+        }else if(data<-10&&data>-12.5){
+
+            left = $('.RBPHL-tip').width() * 0.1 - 20;
+
+        }else if(data<-12.5&&data>-15){
+
+            left = $('.RBPHL-tip').width() * 0.05 - 20;
+
+        }
+
+        $('#RBPHL-tip').css('left',left);
+
+        if(data>-5 && data<5){
+
+            classN = 'greatR'
+
+            color = '#3dd7c1'
+
+        }else if(data>=5&&data<10){
+
+            classN = 'commonR'
+
+            color = '#e5bb3c'
+
+        }else if(data>=10){
+
+            classN = 'badR'
+
+            color = '#ef5286'
+
+        }else if(data<=-5 && data>-10){
+
+            classN = 'commonR'
+
+            color = '#e5bb3c'
+
+        }else if(data<=-10){
+
+            classN = 'badR'
+
+            color = '#ef5286'
+        }
+
+        $('#RBPHL-tip').addClass(classN).show();
+
+        $('#RBPHL-word').css({'left':left-40,'color':color}).html('当前楼（'+ data + '%' + ')');
+
 
     }
 
@@ -1329,389 +2189,6 @@ $(function(){
 
     }
 
-    //设备能效能耗
-    function devEEEC(){
-
-        var prm = {
-
-            //楼宇ID
-            pId:sessionStorage.PointerID,
-            //系统实时时间
-            sysrealDt:sessionStorage.sysDt
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + 'ZKMain/GetEPTAsByEQ',
-
-            timeout:_theTimes,
-
-            data:prm,
-
-            beforeSend:function(){
-
-                $('#EEEC').showLoading();
-
-            },
-
-            complete:function(){
-
-                $('#EEEC').hideLoading();
-
-            },
-
-            success:function(result){
-
-                if(result.code == 0){
-
-                    if(result.chTarV == null || result.chTarV == ''){
-
-                        _isCreate = true;
-
-                    }
-
-                    _devObj = result;
-
-                    //冷水机组
-                    //开机台数
-                    var chRunNum = 0;
-
-                    if(result.chRs != null){
-
-                        for(var i=0;i<result.chRs.length;i++){
-
-                            if(result.chRs[i].f_RunState == 1){
-
-                                chRunNum ++;
-
-                            }
-
-                        }
-
-                    }
-
-                    $('#chRs').html(chRunNum);
-
-                    //目标值
-                    $('#chTarV').html(result.chTarV==''?'-':result.chTarV);
-
-                    //告警值
-                    $('#chAlrV').html(result.chAlrV==''?'-':result.chAlrV);
-
-                    //实际值（能效）
-                    $('#cheVa').html(result.cheVa);
-
-                    //实际值（能耗）
-                    $('#chpVa').html(result.chpVa);
-
-                    //确定颜色
-                    returnColor($('#chTarV').html(),$('#chAlrV').html(),$('#cheVa').html(),$('#cheVa'));
-
-                    //冷冻水泵
-                    //开机台数
-                    var chwRunNum = 0;
-
-                    if(result.chwRs != null){
-
-                        for(var i=0;i<result.chwRs.length;i++){
-
-                            if(result.chwRs[i].f_RunState == 1){
-
-                                chwRunNum ++;
-
-                            }
-
-                        }
-
-                    }
-
-                    $('#chwRs').html(chwRunNum);
-
-                    //实际值（能效）
-                    $('#chweVa').html(result.chweVa);
-
-                    //实际值（能耗）
-                    $('#chwpVa').html(result.chwpVa);
-
-                    //目标值
-                    $('#chwTarV').html(result.chwTarV==''?'-':result.chwTarV);
-
-                    //告警值
-                    $('#chwAlrV').html(result.chwAlrV==''?'-':result.chwAlrV);
-
-                    //确定颜色
-                    returnColor($('#chwTarV').html(),$('#chwAlrV').html(),$('#chweVa').html(),$('#chweVa'));
-
-
-                    //冷却水泵
-                    //开机台数
-                    var cwRunNum = 0;
-
-                    if(result.cwRs != null){
-
-                        for(var i=0;i<result.cwRs.length;i++){
-
-                            if(result.cwRs[i].f_RunState == 1){
-
-                                cwRunNum ++;
-
-                            }
-
-                        }
-
-                    }
-
-                    $('#cwRs').html(cwRunNum);
-
-                    //实际值（能耗）
-                    $('#cwpVa').html(result.cwpVa);
-
-                    //目标值
-                    $('#cwTarV').html(result.cwTarV==''?'-':result.cwTarV);
-
-                    //告警值
-                    $('#cwAlrV').html(result.cwAlrV==''?'-':result.cwAlrV);
-
-                    //实际值（能效）
-                    $('#cweVa').html(result.cweVa);
-
-                    //确定颜色
-                    returnColor($('#cwTarV').html(),$('#cwAlrV').html(),$('#cweVa').html(),$('#cweVa'));
-
-                    //冷却塔
-                    //开机台数
-                    var ctRunNum = 0;
-
-                    if(result.ctRs != null){
-
-                        for(var i=0;i<result.ctRs.length;i++){
-
-                            if(result.ctRs[i].f_RunState == 1){
-
-                                ctRunNum ++;
-
-                            }
-
-                        }
-
-                    }
-
-                    $('#ctRs').html(ctRunNum);
-
-                    //实际值（能效）
-                    $('#cteVa').html(result.cteVa);
-
-                    //实际值（能耗）
-                    $('#ctpVa').html(result.ctpVa);
-
-                    //目标值
-                    $('#ctTarV').html(result.ctTarV==''?'-':result.ctTarV);
-
-                    //告警值
-                    $('#ctAlrV').html(result.ctAlrV==''?'-':result.ctAlrV);
-
-                    //确定颜色
-                    returnColor($('#ctTarV').html(),$('#ctAlrV').html(),$('#cteVa').html(),$('#cteVa'));
-
-                }else{
-
-                    //冷水机组
-                    $('#chwRs').html('-');
-
-                    //实际值（能效）
-                    $('#chweVa').html('-');
-
-                    //实际值（能耗）
-                    $('#chwpVa').html('-');
-
-                    //目标值
-                    $('#chwTarV').html('-');
-
-                    //告警值
-                    $('#chwAlrV').html('-');
-
-                    //冷冻水泵
-                    $('#chwRs').html('-');
-
-                    //实际值（能效）
-                    $('#chweVa').html('-');
-
-                    //实际值（能耗）
-                    $('#chwpVa').html('-');
-
-                    //目标值
-                    $('#chwTarV').html('-');
-
-                    //告警值
-                    $('#chwAlrV').html('-');
-
-                    //冷却水泵
-                    $('#cwRs').html('-');
-
-                    //实际值（能效）
-                    $('#cweVa').html('-');
-
-                    //实际值（能耗）
-                    $('#cwpVa').html('-');
-
-                    //目标值
-                    $('#cwTarV').html('-');
-
-                    //告警值
-                    $('#cwAlrV').html('-');
-
-                    //冷却塔
-                    $('#ctRs').html('-');
-
-                    //实际值（能效）
-                    $('#cteVa').html('-');
-
-                    //实际值（能耗）
-                    $('#ctpVa').html('-');
-
-                    //目标值
-                    $('#ctTarV').html('-');
-
-                    //告警值
-                    $('#ctAlrV').html('-');
-
-                }
-
-            },
-
-            error:_errorFun1
-
-        })
-
-
-    }
-
-    //登记/编辑
-    function sendOption(url){
-
-        var prm = {
-
-            //楼宇ID
-            pId:sessionStorage.PointerID,
-            //冷机目标值
-            chTarV:$('#chTarVModal').val(),
-            //冷机告警值
-            chAlrV:$('#chAlrVModal').val(),
-            //冷冻泵目标值
-            chwTarV:$('#chwTarVModal').val(),
-            //冷冻泵告警值
-            chwAlrV:$('#chwAlrVModal').val(),
-            //冷却泵目标值
-            cwTarV:$('#cwTarVModal').val(),
-            //冷却泵告警值
-            cwAlrV:$('#cwAlrVModal').val(),
-            //冷却塔目标值
-            ctTarV:$('#ctTarVModal').val(),
-            //冷却塔告警值
-            ctAlrV:$('#ctAlrVModal').val()
-
-        }
-
-        $.ajax({
-
-            type:'post',
-
-            url:sessionStorage.apiUrlPrefix + url,
-
-            timeout:_theTimes,
-
-            data:prm,
-
-            beforeSend:function(){
-
-                var str = '<i class="fa fa-save"></i>正在保存...'
-
-                $('#saveBtn').html(str).attr('disabled',true);
-
-            },
-
-            complete:function(){
-
-                var str = '<i class="fa fa-save"></i>保存设备数据'
-
-                $('#saveBtn').html(str).attr('disabled',false);
-
-            },
-
-            success:function(result){
-
-                if(result.code == 0){
-
-                    $('#devModal').modal('hide');
-
-                    devEEEC();
-
-                }
-
-            },
-
-            error:_errorFun1
-
-        })
-
-
-    }
-
-    //格式验证
-    function formatValidateUser(fun){
-
-        $('#tip').hide();
-
-        //非空验证
-        if($('#chTarVModal').val() == '' || $('#chAlrVModal').val() == '' || $('#chwTarVModal').val() == '' || $('#chwAlrVModal').val() == '' || $('#cwTarVModal').val() == '' || $('#cwAlrVModal').val() == '' || $('#ctTarVModal').val() == '' || $('#ctAlrVModal').val() == '' ){
-
-            _topTipBar('请填写必填项')
-
-        }else{
-
-            //验证错误
-            var error = $('#equipnew-form').find('.error');
-
-            if(error.length != 0){
-
-                var flag = true;
-
-                for(var i=0;i<error.length;i++){
-
-                    if(error.eq(i).css('display') != 'none'){
-
-                        flag = false;
-
-                        break;
-
-                    }
-
-                }
-
-                if(flag){
-
-                    fun();
-
-                }else{
-
-                    _topTipBar('请填写正确格式')
-
-                }
-
-            }else{
-
-                //验证通过
-                fun();
-
-            }
-
-
-        }
-
-    }
-
     //报警
     function alarmData(){
 
@@ -1787,32 +2264,52 @@ $(function(){
 
     }
 
-    //显示颜色
-    function returnColor(targetNum,alarmNum,actualNum,el){
+    //系统运行参数
+    function YXCS(){
 
-        var target = Number(targetNum);
+        //初始化
+        YXCSInit();
 
-        var alarm = Number(alarmNum);
+        var prm = {
 
-        var actual = Number(actualNum);
-
-        //高于目标值显示绿色，低于告警值显示红色，在两者之间显示蓝色
-
-        if(actual>target){
-
-            el.css({color:'rgba(28,193,90,1)'});
-
-        }else if(actual<alarm){
-
-            el.css({color:'rgba(255,69,0,1)'});
-
-        }else{
-
-            el.css({color:'rgba(116,167,246,1)'});
+            //楼宇
+            pId:sessionStorage.PointerID,
+            //系统实时时间
+            sysrealDt:sessionStorage.sysDt
 
         }
 
+        _mainAjaxFunCompleteNew('post','ZKMain/GetSysRparWts',prm,$('.YXCS'),function(result){
+
+            if(result.code == 0){
+
+                //冷冻水温差
+                $('#chwOutWt').html(Number(result.chwOutWt).toFixed(1));
+                //冷却水温差
+                $('#cwInWt').html(Number(result.cwInWt).toFixed(1));
+                //冷冻供水温度
+                $('#chwInWt').html(Number(result.chwInWt).toFixed(1));
+                //冷却回水温度
+                $('#cwOutWt').html(Number(result.cwOutWt).toFixed(1));
+            }
+
+        })
 
     }
+
+    //运行参数初始化
+    function YXCSInit(){
+
+        //冷冻水温差
+        $('#chwOutWt').html('-');
+        //冷却水温差
+        $('#cwInWt').html('-');
+        //冷冻供水温度
+        $('#chwInWt').html('-');
+        //冷却回水温度
+        $('#cwOutWt').html('-');
+
+    }
+
 
 })

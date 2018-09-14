@@ -168,7 +168,7 @@ $(function(){
                         var tbodys = '</tbody>';
 
                         //th
-                        var thStr = '<tr><th>对象</th><th>能效(KW/KW)</th><th>能耗(KW)</th></tr>';
+                        var thStr = '<tr><th>对象</th><th>冷量(KW)</th><th>能效(KW/KW)</th></tr>';
 
                         //td
                         var tdStr = '';
@@ -180,9 +180,9 @@ $(function(){
 
                                 tdStr += '<tr><td>' + opt.series[i].name + '</td>';
 
-                                tdStr += '<td>' + opt.series[i].data[j].value[1] + '</td>';
-
                                 tdStr += '<td>' + opt.series[i].data[j].value[0] + '</td>';
+
+                                tdStr += '<td>' + opt.series[i].data[j].value[1] + '</td>';
 
                                 tdStr += '</tr>'
 

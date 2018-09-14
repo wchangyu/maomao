@@ -46,7 +46,7 @@ $(function (){
 
     ]
 
-    _tableInit($('#scrap-datatables'),col,2,false,'','','','','','');
+    _tableInit($('#scrap-datatables'),col,2,false,'','','','','',true);
 
     //给表格的标题赋时间
     $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + _initStart  + '——' + _initEnd );
@@ -181,6 +181,10 @@ $(function (){
         }
         realityStart = filterInput[0] + ' 00:00:00';
         realityEnd = moment(filterInput[1]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+
+        //表格初始化
+        tableDataInit();
+
         var prm = {
             'gdSt':realityStart,
             'gdEt':realityEnd,
@@ -201,24 +205,58 @@ $(function (){
                     //echarts不显示，显示暂无数据
                     $('#echarts').hide();
                 }else{
+
                     var table = $("#scrap-datatables").dataTable();
+
                     table.fnClearTable();
+
                     table.fnAddData(result);
+
                     table.fnDraw();
-                    //echarts赋值
-                    $('#echarts').show();
+
+                    //合计
+                    //接工量
+                    var jgNum = 0;
+                    //完工两
+                    var wgNum = 0;
+                    //未完工
+                    var wwgNum = 0;
+
                     //给柱状图赋值
                     var xZhou = [];
                     var jgData = [];
                     var dhData = [];
                     var zzData = [];
                     for(var i=0;i<result.length;i++){
+
+                        //表格数据
+                        jgNum += Number(result[i].gdNum);
+
+                        //完工量
+                        wgNum += Number(result[i].gdWgNum);
+
+                        //未完工
+                        wwgNum += Number(result[i].gdWwgNum);
+
+
                         xZhou.push(result[i].wxKeshi);
+
                         //接工量对象
                         jgData.push(result[i].gdNum);
+
                         dhData.push(result[i].gdWgNum);
+
                         zzData.push(result[i].gdWwgNum);
                     }
+
+                    $('#jgNum').html(jgNum);
+
+                    $('#wgNum').html(wgNum);
+
+                    $('#wwgNum').html(wwgNum);
+
+                    //echarts赋值
+                    $('#echarts').show();
                     var yZhou = [jgData,dhData,zzData];
                     for(var i=0;i<yZhou.length;i++){
                         option.series[i].data = yZhou[i]
@@ -258,5 +296,16 @@ $(function (){
             table.fnAddData(arr);
             table.fnDraw();
         }
+    }
+
+    //表格合计初始化
+    function tableDataInit(){
+
+        $('.table').find('tfoot').find('td').html(0);
+
+        $('.table').find('tfoot').find('td').eq(0).html('合计');
+
+        _datasTable($('#scrap-datatables'),[]);
+
     }
 })

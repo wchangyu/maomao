@@ -166,11 +166,11 @@
       }
     ]
   },
-  "apiUriPrefix":"http://218.70.30.134:32537/BEEWebAPI/api/",
+  "apiUriPrefix":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixYW":"http://218.70.30.134:32537/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
-  "systemTitle":"高效机房冷站控制系统",
+  "systemTitle":"高效机房控制系统",
   "isShowTitleEprName":"0",
   "isShowTitleEprNameComment":"是否在systemTitle的基础上追加企业名称",
   "pageTitle":"高效机房冷站控制系统",

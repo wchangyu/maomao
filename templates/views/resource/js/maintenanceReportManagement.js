@@ -82,8 +82,43 @@ $(function (){
                 title:'备注',
                 data:'wxxmMemo'
             }
-        ]
+        ],
+        "drawCallback":drawFn
     });
+
+    //重绘合计数据
+    function drawFn(){
+
+        var table = $('#scrap-datatables').DataTable();
+
+        //表格中的每一个tr
+        var tr = $('#scrap-datatables tbody').children('tr');
+
+        //数量
+        var num = 0;
+
+        //遍历行
+
+        if(tr.length == 1 && tr.children().attr('class') == 'dataTables_empty'){
+
+
+
+        }else{
+
+            for(var i=0;i<tr.length;i++){
+
+                //报修量
+                num += Number(tr.eq(i).children().eq(2).html());
+
+            }
+
+        }
+
+        //数量
+        $('#pageNum').html(num);
+
+    };
+
     _table.buttons().container().appendTo($('.excelButton'),_table.table().container());
     //报错时不弹出弹框
     $.fn.dataTable.ext.errMode = function(s,h,m){
@@ -140,6 +175,8 @@ $(function (){
         realityStart = filterInput[0] + ' 00:00:00';
         realityEnd = moment(filterInput[1]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
 
+        tableDataInit();
+
         //获取维修科室id
         var id = $('#depart').val();
 
@@ -158,7 +195,18 @@ $(function (){
             success:function(result){
                 //console.log(result);
 
-                datasTable($("#scrap-datatables"),result)
+                datasTable($("#scrap-datatables"),result);
+
+                var num = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    num += Number(result[i].cnt);
+
+                }
+
+                $('#dataNum').html(num);
+
             },
             error:function(jqXHR, textStatus, errorThrown){
                 var info = JSON.parse(jqXHR.responseText).message;
@@ -230,4 +278,12 @@ $(function (){
             table.fnDraw();
         }
     }
+
+    //表格数据初始化
+    function tableDataInit(){
+
+        $('.table').find('tfoot').children('tr').eq(1).find('#dataNum').html(0);
+
+    }
+
 })

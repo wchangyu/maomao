@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+
+    <link rel="stylesheet" href="../resource/css/conditionPublic.css">
+
+    <link rel="stylesheet" href="../YHQ-resource/css/YHQ-YF/MWdetails.css">
+
+</head>
+<!-- END HEAD -->
+
+<body style="background: #ffffff">
+
+<div class="gd-wrap">
+    <div class="gd-title">
+        <h1>医废详情</h1>
+    </div>
+    <div class="gongdanContent">
+        <!--左边详情-->
+        <div style="float: left">
+            <!--<div class="tipe-block">工单基本信息</div>-->
+            <div id="gdDetail">
+                <div style="margin:15px 0;">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">医废单号：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="YFnum">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">当前状态：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="YFstatus">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-cell">
+                    <div class="tipe-block">打包详情</div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">医废分类：</div>
+                            <div class="single-block">
+                                <input id="MW-classify" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels "> 医废来源：</div>
+                            <div class="single-block">
+                                <input id="MW-source" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">科室：</div>
+                            <div class="single-block">
+                                <input id="MW-dep" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">医废处理人：</div>
+                            <div class="single-block">
+                                <input id="MW-person" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">运送人：</div>
+                            <div class="single-block">
+                                <input id="MW-carrier" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">秤：</div>
+                            <div class="single-block">
+                                <input id="MW-weigh" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">重量：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="MW-weighNum">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">打包时间：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="MW-creat-time">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-cell">
+                    <div class="tipe-block">入库暂存</div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">秤：</div>
+                            <div class="single-block">
+                                <input id="MW-in-weigh" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">入库重量：</div>
+                            <div class="single-block">
+                                <input id="MW-in-weight" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels "> 桶编号：</div>
+                            <div class="single-block">
+                                <input id="MW-in-bucket" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">入库人：</div>
+                            <div class="single-block">
+                                <input id="MW-in-person" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels "> 入库时间：</div>
+                            <div class="single-block">
+                                <input id="MW-in-time" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-cell">
+                    <div class="tipe-block">出库</div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">处理公司：</div>
+                            <div class="single-block">
+                                <input id="MW-out-company" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">运输车牌号：</div>
+                            <div class="single-block">
+                                <input id="MW-out-car" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">出库人：</div>
+                            <div class="single-block">
+                                <input id="MW-out-person" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">出库时间：</div>
+                            <div class="single-block">
+                                <input id="MW-out-time" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--右边log日志-->
+        <div style="float: right">
+
+            <div class="details-cell">
+                <div class="tipe-block">日志</div>
+                <ul class="MW-log"></ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<!--提示框-->
+<div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--my js-->
+<script src="../YHQ-resource/js/public.js"></script>
+<script src="../YHQ-resource/js/YHQ-YF/MWdetails.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

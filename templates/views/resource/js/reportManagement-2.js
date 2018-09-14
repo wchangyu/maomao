@@ -49,7 +49,68 @@ $(function(){
 
     ]
 
-    _tableInit($('#scrap-datatables'),col,2,false,'','','','','','');
+    _tableInit($('#scrap-datatables'),col,2,false,'',drawFn,'','','','');
+
+    //重绘合计数据
+    function drawFn(){
+
+        var table = $('#scrap-datatables').DataTable();
+
+        //表格中的每一个tr
+        var tr = $('#scrap-datatables tbody').children('tr');
+
+        //表格中的每一个td（接工量）
+        var jgNum = 0;
+
+        //完工量
+        var wgNum = 0;
+
+        //未完工量
+        var wwgNum = 0;
+
+        //维修耗时
+        var time = 0;
+
+        //遍历行
+
+        if(tr.length == 1 && tr.children().attr('class') == 'dataTables_empty'){
+
+
+
+        }else{
+
+            for(var i=0;i<tr.length;i++){
+
+                //遍历列
+                //接工量
+                jgNum += Number(tr.eq(i).children().eq(2).html());
+
+                //完工量
+                wgNum += Number(tr.eq(i).children().eq(3).html());
+
+                //未完工量
+                wwgNum += Number(tr.eq(i).children().eq(4).html());
+
+                //维修耗时
+                time += Number(tr.eq(i).children().eq(5).html());
+
+            }
+
+        }
+
+        //接工量
+        $('#pageJdNum').html(jgNum);
+
+        //完工量
+        $('#pageWGNum').html(wgNum);
+
+        //未完工量
+        $('#pageWWGNum').html(wwgNum);
+
+        //维修耗时
+        $('#pageTime').html(time.toFixed(2));
+
+    };
 
     //加载部门
     getWxDep();
@@ -152,6 +213,8 @@ $(function(){
     //条件查询
     function conditionSelect(){
 
+        tableDataInit();
+
         var prm = {
 
             //开始时间
@@ -196,6 +259,48 @@ $(function(){
 
                 _jumpNow($('#scrap-datatables'),result);
 
+                //接工量
+                var jgNum = 0;
+
+                //完工量
+                var wgNum = 0;
+
+                //未完工量
+                var wwgNum = 0;
+
+                //维修耗时
+                var time = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    var data = result[i];
+
+                    //接工量
+                    jgNum += Number(data.gdNum);
+
+                    //完工量
+                    wgNum += Number(data.gdWgNum);
+
+                    //未完工量
+                    wwgNum += Number(data.gdWwgNum);
+
+                    //超时
+                    time += Number(data.wxShij.toFixed(2));
+
+                }
+
+                //接工量
+                $('#dataJdNum').html(jgNum);
+
+                //完工量
+                $('#dataWGNum').html(wgNum);
+
+                //未完工量
+                $('#dataWWGNum').html(wwgNum);
+
+                //维修耗时
+                $('#dataTime').html(time.toFixed(2));
+
             },
 
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -215,6 +320,16 @@ $(function(){
             }
 
         })
+
+    }
+
+    function tableDataInit(){
+
+        $('.table').find('tfoot').find('td').html(0);
+
+        $('.table').find('tfoot').find('tr').eq(1).find('td').eq(0).html('合计');
+
+        _datasTable($('#scrap-datatables'),[]);
 
     }
 })

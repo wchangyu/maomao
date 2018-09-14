@@ -122,6 +122,8 @@ $(function(){
 
     getSelectContent('YWDev/GetDevSysGroupClass', _relativeArr1);
 
+    //根据id绑定数据
+
     /*--------------------------------------------------表格初始化-----------------------------------------------*/
 
     //表格
@@ -187,9 +189,15 @@ $(function(){
             "targets": -1,
             "data": null,
             "class":'caozuo',
-            "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-            "<span class='data-option option-edite btn default btn-xs green-stripe'>编辑</span>" +
-            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+            render:function(data, type, full, meta){
+
+               return "<span class='data-option option-see btn default btn-xs green-stripe' data-attr='" + full.id+  "'>查看</span>" +
+                "<span class='data-option option-edite btn default btn-xs green-stripe' data-attr='" + full.id + "'>编辑</span>" +
+                "<span class='data-option option-delete btn default btn-xs green-stripe' data-attr='" + full.id + "'>删除</span>"
+
+            }
+
+            //"defaultContent":
         }
 
     ];
@@ -798,6 +806,18 @@ $(function(){
         $('#miaoshu').val('');
         //查看二维码
         $('.QRcode').hide();
+        //路径
+        $('.lujing').html('');
+
+        //下载按钮隐藏
+        $('#downButton').hide();
+
+        //上传提示窗口消失
+        $('#thelist').hide();
+
+        $('#thelist').empty();
+
+
 
     }
 
@@ -951,6 +971,18 @@ $(function(){
                     pathName = pathArr[j]
                 }
                 $('.lujing').html(pathName);
+                //给下载附上链接
+                $('#downButton').attr('href',_allDateArr[i].docPath);
+
+                if(_allDateArr[i].docPath != ''){
+
+                    $('#downButton').show();
+
+                }
+
+                $('#downButton').attr('download',pathName);
+
+
             }
 
         }
@@ -1238,6 +1270,12 @@ $(function(){
 
     $btn.click(function(){
         uploader.upload();
+    })
+
+    $('#picker').click(function(){
+
+        $('#thelist').show();
+
     })
 
 })

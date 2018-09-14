@@ -81,7 +81,38 @@ $(function(){
 
     ]
 
-    _tableInit($('#wxContentByClassTable'),wxContentByClassCol,2,false,'','','','',10,'');
+    _tableInit($('#wxContentByClassTable'),wxContentByClassCol,2,false,'',drawFnByClass,'','',10,'');
+
+    //重绘合计数据
+    function drawFnByClass(){
+
+        //表格中的每一个tr
+        var tr = $('#wxContentByClassTable tbody').children('tr');
+
+        //项次
+        var num = 0;
+
+        //遍历行
+
+        if(tr.length == 1 && tr.children().attr('class') == 'dataTables_empty'){
+
+
+
+        }else{
+
+            for(var i=0;i<tr.length;i++){
+
+                //项次
+                num += Number(tr.eq(i).children().eq(2).html());
+
+            }
+
+        }
+
+        //项次
+        $('#pageNumWXBZ').html(num);
+
+    };
 
     //按房屋表格
     var wxContentByHouseCol = [
@@ -105,7 +136,38 @@ $(function(){
 
     ]
 
-    _tableInit($('#wxContentByHouseTable'),wxContentByHouseCol,2,false,'','','','',10,'');
+    _tableInit($('#wxContentByHouseTable'),wxContentByHouseCol,2,false,'',drawFnByHouse,'','',10,'');
+
+    //重绘合计数据
+    function drawFnByHouse(){
+
+        //表格中的每一个tr
+        var tr = $('#wxContentByHouseTable tbody').children('tr');
+
+        //项次
+        var num = 0;
+
+        //遍历行
+
+        if(tr.length == 1 && tr.children().attr('class') == 'dataTables_empty'){
+
+
+
+        }else{
+
+            for(var i=0;i<tr.length;i++){
+
+                //项次
+                num += Number(tr.eq(i).children().eq(2).html());
+
+            }
+
+        }
+
+        //项次
+        $('#pageNumPointer').html(num);
+
+    };
 
     //水电班按工作内容
     var wxContentOfHydroelectricCol = [
@@ -133,7 +195,38 @@ $(function(){
 
     ]
 
-    _tableInit($('#wxContentOfHydroelectric'),wxContentOfHydroelectricCol,2,false,'','','','',10,'');
+    _tableInit($('#wxContentOfHydroelectric'),wxContentOfHydroelectricCol,2,false,'',drawFnByHydroelectric,'','',10,'');
+
+    //重绘合计数据
+    function drawFnByHydroelectric(){
+
+        //表格中的每一个tr
+        var tr = $('#wxContentOfHydroelectric tbody').children('tr');
+
+        //项次
+        var num = 0;
+
+        //遍历行
+
+        if(tr.length == 1 && tr.children().attr('class') == 'dataTables_empty'){
+
+
+
+        }else{
+
+            for(var i=0;i<tr.length;i++){
+
+                //项次
+                num += Number(tr.eq(i).children().eq(2).html());
+
+            }
+
+        }
+
+        //项次
+        $('#pageNumWXXM').html(num);
+
+    };
 
     var wxContentByDepartmentCol =[
 
@@ -156,7 +249,38 @@ $(function(){
 
     ]
 
-    _tableInit($('#wxContentByDepartment'),wxContentByDepartmentCol,2,false,'','','','',10,'');
+    _tableInit($('#wxContentByDepartment'),wxContentByDepartmentCol,2,false,'',drawFnByDepartment,'','',10,'');
+
+    //重绘合计数据
+    function drawFnByDepartment(){
+
+        //表格中的每一个tr
+        var tr = $('#wxContentByDepartment tbody').children('tr');
+
+        //项次
+        var num = 0;
+
+        //遍历行
+
+        if(tr.length == 1 && tr.children().attr('class') == 'dataTables_empty'){
+
+
+
+        }else{
+
+            for(var i=0;i<tr.length;i++){
+
+                //项次
+                num += Number(tr.eq(i).children().eq(2).html());
+
+            }
+
+        }
+
+        //项次
+        $('#pageNumBXKS').html(num);
+
+    };
 
     //某科室费用明细
     var allSectionCol = [
@@ -212,7 +336,74 @@ $(function(){
 
     ]
 
-    _tableInit($('#oneSectionTable'),allSectionCol,2,false,'','','','',10,'');
+    _tableInit($('#oneSectionTable'),allSectionCol,2,false,'',drawFnallSection,'','',10,'');
+
+    //重绘合计数据
+    function drawFnallSection(){
+
+        //表格中的每一个tr
+        var tr = $('#oneSectionTable tbody').children('tr');
+
+        //数量
+        var num = 0;
+
+        //单价
+        var prince = 0;
+
+        //合计金额
+        var Amount = 0;
+
+        //工时费
+        var fee = 0;
+
+        //总计金额
+        var money = 0;
+
+        //遍历行
+
+        if(tr.length == 1 && tr.children().attr('class') == 'dataTables_empty'){
+
+
+
+        }else{
+
+            for(var i=0;i<tr.length;i++){
+
+                //数量
+                num += Number(tr.eq(i).children().eq(4).html());
+
+                //合计金额
+                Amount += Number(tr.eq(i).children().eq(6).html());
+
+                //单价
+                prince += Number(tr.eq(i).children().eq(5).html());
+
+                //工时费
+                fee += Number(tr.eq(i).children().eq(7).html());
+
+                //总计金额
+                money += Number(tr.eq(i).children().eq(8).html());
+
+            }
+
+        }
+
+        //数量
+        $('#pageKSFeeNum').html(num);
+
+        //单价
+        $('#pageKSFeePrince').html(prince.toFixed(2));
+
+        //合计金额
+        $('#pageKSFeeAmount').html(Amount.toFixed(2));
+
+        //工时费
+        $('#pageKSFeeWork').html(fee.toFixed(2));
+
+        //总计金额
+        $('#pageKSFeeAllMomey').html(money.toFixed(2));
+
+    };
 
     //各科室总汇
     var oneSectionSummaryCol = [
@@ -231,7 +422,7 @@ $(function(){
         },
         {
             title:'工时合计',
-            data:'gongshiFee'
+            data:'workFee'
         },
         {
             title:__names.office +'总计',
@@ -240,7 +431,57 @@ $(function(){
 
     ]
 
-    _tableInit($('#oneSectionSummaryTable'),oneSectionSummaryCol,2,false,'','','','',10,'');
+    _tableInit($('#oneSectionSummaryTable'),oneSectionSummaryCol,2,false,'',drawFnBySectionSummary,'','',10,'');
+
+    //重绘合计数据
+    function drawFnBySectionSummary(){
+
+        //表格中的每一个tr
+        var tr = $('#oneSectionSummaryTable tbody').children('tr');
+
+        //材料合计
+        var CLFee = 0;
+
+        //工时合计
+        var GSFee = 0;
+
+        //单位总计
+        var ZJFee = 0;
+
+        //遍历行
+
+        if(tr.length == 1 && tr.children().attr('class') == 'dataTables_empty'){
+
+
+
+        }else{
+
+            for(var i=0;i<tr.length;i++){
+
+                //材料合计
+                CLFee += Number(tr.eq(i).children().eq(2).html());
+
+                //工时合计
+                GSFee += Number(tr.eq(i).children().eq(3).html());
+
+                //单位总计
+                ZJFee += Number(tr.eq(i).children().eq(4).html());
+
+            }
+
+        }
+
+        //材料合计
+        $('#pageFeeCL').html(CLFee.toFixed(2));
+
+        //工时合计
+        $('#pageFeeGS').html(GSFee.toFixed(2));
+
+        //单位总计
+        $('#pageFeeZJ').html(ZJFee.toFixed(2));
+
+    };
+
 
     var prmArr = ['1001','1002','1003','1004','1005','1007','1006'];
 
@@ -262,6 +503,7 @@ $(function(){
 
         $('.table-title').next().children().eq($(this).index()).removeClass('hide-block');
 
+
     })
 
     //查询事件
@@ -281,6 +523,9 @@ $(function(){
 
         //首先判断当前标签所对应的表格
         var index = $('.spanhover').index();
+
+        //表格初始化
+        _datasTable($('.table').eq(index),[]);
 
         //当前发送哪个数据
         conditionSelect(prmArr[index],$('.table').eq(index));
@@ -378,6 +623,9 @@ $(function(){
     //条件查询
     function conditionSelect(num,table){
 
+        //表格初始化
+        tableDataInit();
+
         //设置表头
 
         var title = '后勤服务热线' + $('.datatimeblock').val().split('/')[1] + '月' + $('.spanhover').html();
@@ -466,6 +714,134 @@ $(function(){
 
                         _jumpNow(table,dataArr.reverse());
 
+                        if(num == '1002'){
+
+                            var Num = 0;
+
+                            //按维修班组
+                            for(var i=0;i<dataArr.length;i++){
+
+                                Num += Number(dataArr[i].gdNum);
+
+                            }
+
+                            $('#dataNumWXBZ').html(Num);
+
+
+                        }else if(num == '1003' ){
+
+                            //按楼宇
+                            var Num = 0;
+
+                            //按维修班组
+                            for(var i=0;i<dataArr.length;i++){
+
+                                Num += Number(dataArr[i].gdNum);
+
+                            }
+
+                            $('#dataNumPointer').html(Num);
+
+                        }else if(num == '1004'){
+
+                            //按维修项目
+                            var Num = 0;
+
+                            //按维修班组
+                            for(var i=0;i<dataArr.length;i++){
+
+                                Num += Number(dataArr[i].gdNum);
+
+                            }
+
+                            $('#dataNumWXXM').html(Num);
+
+                        }else if(num == '1005'){
+
+                            //按报修科室
+                            var Num = 0;
+
+                            for(var i=0;i<dataArr.length;i++){
+
+                                Num += Number(dataArr[i].gdNum);
+
+                            }
+
+                            $('#dataNumBXKS').html(Num);
+
+                        }else if(num == '1007'){
+
+                            //按科室明细
+                            //数量
+                            var Num = 0;
+                            //单价
+                            var prince = 0;
+                            //合计
+                            var amount = 0;
+                            //工时
+                            var fee = 0;
+                            //总计
+                            var momey = 0;
+
+                            for(var i=0;i<dataArr.length;i++){
+
+                                var data = dataArr[i];
+
+                                //数量
+                                Num += Number(data.clShul);
+                                //单价
+                                prince += Number(data.wxClPrice);
+                                //合计
+                                amount += Number(data.clFee);
+                                //工时
+                                fee += Number(data.gongshiFee);
+                                //总计金额
+                                momey += Number(data.gdFee);
+                            }
+
+                            //数量
+                            $('#dataKSFeeNum').html(Num);
+                            //单价
+                            $('#dataKSFeePrince').html(prince.toFixed(2));
+                            //合计
+                            $('#dataKSFeeAmount').html(amount.toFixed(2));
+                            //工时
+                            $('#dataKSFeeWork').html(fee.toFixed(2));
+                            //总计金额
+                            $('#dataKSFeeAllMomey').html(momey.toFixed(2));
+
+
+                        }else if(num == '1006'){
+
+
+                            //按科室总汇
+                            //材料
+                            var CLFee = 0;
+                            //工时
+                            var GSFee = 0;
+                            //总计
+                            var ZJFee = 0;
+
+                            for(var i=0;i<dataArr.length;i++){
+
+                                CLFee += Number(dataArr[i].clFee);
+
+                                GSFee += Number(dataArr[i].workFee);
+
+                                ZJFee += Number(dataArr[i].gdFee);
+
+                            }
+
+                            //材料
+                            $('#dataFeeCL').html(CLFee.toFixed(2));
+                            //工时
+                            $('#dataFeeGS').html(GSFee.toFixed(2));
+                            //总计
+                            $('#dataFeeZJ').html(ZJFee.toFixed(2));
+
+                        }
+
+
                     }
 
                 }
@@ -541,6 +917,67 @@ $(function(){
             }
 
         })
+
+    }
+
+    //表格初始化
+    function tableDataInit(){
+
+        //按维修班组
+
+        $('.table').find('#pageNumWXBZ').html(0);
+
+        $('.table').find('#dataNumWXBZ').html(0);
+
+        //按楼宇
+        $('.table').find('#pageNumPointer').html(0);
+
+        $('.table').find('#dataNumPointer').html(0);
+
+        //按维修项目
+        $('.table').find('#pageNumWXXM').html(0);
+
+        $('.table').find('#dataNumWXXM').html(0);
+
+        //按报修科室
+        $('.table').find('#pageNumBXKS').html(0);
+
+        $('.table').find('#dataNumBXKS').html(0);
+
+        //单位费用
+        $('.table').find('#pageKSFeeNum').html(0);
+
+        $('.table').find('#pageKSFeeAmount').html(0);
+
+        $('.table').find('#pageKSFeeWork').html(0);
+
+        $('.table').find('#pageKSFeeAllMomey').html(0);
+
+        $('.table').find('#dataKSFeeNum').html(0);
+
+        $('.table').find('#dataKSFeeAmount').html(0);
+
+        $('.table').find('#dataKSFeeWork').html(0);
+
+        $('.table').find('#dataKSFeeAllMomey').html(0);
+
+        $('.table').find('#pageKSFeePrince').html(0);
+
+        $('.table').find('#dataKSFeePrince').html(0);
+
+        //费用总汇
+        $('.table').find('#pageFeeCL').html(0);
+
+        $('.table').find('#pageFeeGS').html(0);
+
+        $('.table').find('#pageFeeZJ').html(0);
+
+        $('.table').find('#dataFeeCL').html(0);
+
+        $('.table').find('#dataFeeGS').html(0);
+
+        $('.table').find('#dataFeeZJ').html(0);
+
 
     }
 
