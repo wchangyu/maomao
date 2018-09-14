@@ -32,10 +32,10 @@
         "type": "2",
         "content": "能耗数据"
       },
-      "能耗查询": {
+      "能耗查询1": {
         "type": "0",
         "content": "能耗查询",
-        "uri": "../new-nenghaoshuju/energyDemand-1.html",
+        "uri": "../new-frame-nenghaoshuju/energyDemand.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -44,7 +44,7 @@
       "能耗指标": {
         "type": "0",
         "content": "能耗指标",
-        "uri": "../new-nenghaoshuju/energyConsumption.html",
+        "uri": "../new-frame-nenghaoshuju/energyConsumption.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -53,7 +53,7 @@
       "横向对比": {
         "type": "0",
         "content": "横向对比",
-        "uri": "../new-nenghaoshuju/crosswiseCompare.html",
+        "uri": "../new-frame-nenghaoshuju/crosswiseCompare.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -62,7 +62,7 @@
       "同比环比": {
         "type": "0",
         "content": "同比环比",
-        "uri": "../new-nenghaoshuju/energyCompare.html",
+        "uri": "../new-frame-nenghaoshuju/energyCompare.html",
         "uid": "",
         "arg": "",
         "iconclass": "",

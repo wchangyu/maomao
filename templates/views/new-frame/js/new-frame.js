@@ -6,8 +6,8 @@ $(function(){
     //获取菜单信息 并赋值到页面中
      getMenuToHtml();
 
-    //给iframe添加点击事件
-    addClickForIframe();
+    ////给iframe添加点击事件
+    //addClickForIframe();
 
     //点击左侧主菜单
     $('.left-bottom-menu-container').on('click','.main-menu',function(){
@@ -146,12 +146,12 @@ $(function(){
 
         $('.right-menu-inner-container .secondary-menu').addClass('hide-menu');
 
-
     });
 
     $('.embed-page').on('click',function(){
 
         $('.right-menu-inner-container .secondary-menu').addClass('hide-menu');
+
     });
 
     //点击三级菜单
@@ -164,7 +164,6 @@ $(function(){
         $('#embed-page').attr('src',jumpUrl);
 
     });
-
 
 });
 
@@ -213,10 +212,13 @@ function getMenuToHtml(){
         //页面初始化
         //改变iframe路径
         $('#embed-page').attr('src',mainIndexUrl);
+
+        iframeClick();
+
     }
 
     //改变menuArr的结构
-    _menuArr = changeOriginalMenu(_menuArr,indexUrl);
+menuArr = changeOriginalMenu(_menuArr,indexUrl);
 
     _newSimpleMenuArr = _menuArr;
 
@@ -405,6 +407,7 @@ function drawLeftMenu(menuArr){
 
             //给当前显示的二级菜单列表赋值
             _theSecondMenuArr = o.newChildMenu;
+
         }
 
         if(o['icon-img']){
@@ -600,14 +603,18 @@ function myFunc(a,b){
 
 };
 
-//给iframe添加点击事件
-function addClickForIframe(){
+//iframe点击事件
+function iframeClick(){
 
-    var testiframe=document.getElementById("embed-page").contentWindow;
-    var doc=testiframe.document;
-    /*testiframe.scroll(0,doc.body.scrollHeight);*/
-    testiframe.addEventListener("click",function(e){
-        $('.right-menu-inner-container .secondary-menu').addClass('hide-menu');
-    },false);
+    var iframe = document.getElementById('embed-page');
+
+    iframe.onload = function() {
+        iframe.contentDocument.onclick = function () {
+
+            //console.log(55);
+            $('.right-menu-inner-container .secondary-menu').addClass('hide-menu');
+
+        };
+    };
 
 }

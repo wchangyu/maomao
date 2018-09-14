@@ -1,67 +1,36 @@
+/**
+ * Created by admin on 2018/9/14.
+ */
 $(function(){
 
-    //时间插件
-    _timeYMDComponentsFun($('.datatimeblock'));
-
-    //时间初始化
-    $('.time-options-1').click();
-
-    //记录页面
-    _energyTypeSel = new ETSelection();
-
-    //读取能耗种类
-    _getEcType('initPointers');
-
-    //默认选中第一个能耗
-    $('.selectedEnergy').addClass('blueImg0');
-
-    _getEcTypeWord();
-
-    //默认能耗种类
-    _ajaxEcType =_getEcTypeValue();
-
-    _ajaxEcTypeWord = _getEcTypeWord();
+    //日期初始化
+    _timeYMDComponentsFun($('.min'));
 
     //获取区域位置二级结构
     getBranchZtree(0,0,getPointerTree);
 
-    //显示隐藏左侧时
-    $('.showOrHidden').click(function(){
 
-        window.onresize();
-    });
+    //页面初始化
+    $('.choose-object-windows .sure').click();
 
-    //加载初始数据
-    getPointerData('EnergyAnalyzeV2/GetEnergyItemByCode',1);
+    //点击页面查询按钮
+    $('.demand').on('click',function(){
 
+        //获取页面中选择的能耗类型
+        var _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
 
-    /*---------------------------------buttonEvent------------------------------*/
-    //查询按钮
-    $('.buttons').children('.btn-success').click(function(){
-        //获得选择的能耗类型
-        _ajaxEcType =_getEcTypeValue(_ajaxEcType);
+        if(_ajaxEcType != '211'){
 
-        //获取能耗类型名称
-        var ecTypeName = $('.selectedEnergy').attr('value');
-
-        //如果不是查询水的分项
-        if(ecTypeName != 200){
-
-            getPointerData('EnergyAnalyzeV2/GetEnergyItemByCode',1);
+            getContentData(1);
 
         }else{
 
-            getPointerData('EnergyAnalyzeV2/GetEnergyItemBySecond',2);
+            getContentData(2);
         }
 
     });
 
-    //能耗选择
-    $('.typee').click(function(){
-        $('.typee').removeClass('selectedEnergy');
-        $(this).addClass('selectedEnergy');
-
-    });
+    $('.demand').click();
 
 
     //chart图自适应
@@ -72,6 +41,9 @@ $(function(){
     };
 
 });
+
+var _pointerZtree;
+var _officeZtree;
 
 //记录能耗种类
 var _ajaxEcType = '';
@@ -121,8 +93,9 @@ var option = {
             name:'一级分项',
             type:'pie',
             selectedMode: 'single',
-            radius: [0, '30%'],
-            center:['60%','50%'],
+            radius: [0, '35%'],
+            center:['55%','50%'],
+            color:['#9F56C0','#8D41B8','#6E2AA2','#404AC4','#557BF5','#28AEC2','#2EC4DB','#26D8CE','#45E6C2','#5DAD22','#95C418','#E8CE55'],
             label: {
                 normal: {
                     position: 'inner'
@@ -133,7 +106,6 @@ var option = {
                     show: false
                 }
             },
-
             data:[
 
             ],
@@ -150,11 +122,13 @@ var option = {
         {
             name:'二级分项',
             type:'pie',
-            radius: ['50%', '75%'],
-            center:['60%','50%'],
+            radius: ['55%', '85%'],
+            center:['55%','50%'],
+            color:['#9F56C0','#8D41B8','#6E2AA2','#404AC4','#557BF5','#28AEC2','#2EC4DB','#26D8CE','#45E6C2','#5DAD22','#95C418','#E8CE55'],
             label: {
                 normal: {
-                    position: 'inner'
+                    position: 'inner',
+                    show:false
                 }
             },
             data:[
@@ -163,7 +137,7 @@ var option = {
             itemStyle:{
                 normal:{
                     label:{
-        
+
                         formatter: '{b}'
                     },
                     labelLine :{show:true}
@@ -202,11 +176,12 @@ var option1 = {
         {
             name:'一级分项',
             type:'pie',
-            radius: ['50%', '75%'],
+            radius: ['55%', '85%'],
             data:[
 
             ],
-            center:['60%','50%'],
+            color:['#9F56C0','#8D41B8','#6E2AA2','#404AC4','#557BF5','#28AEC2','#2EC4DB','#26D8CE','#45E6C2','#5DAD22','#95C418','#E8CE55'],
+            center:['55%','50%'],
             itemStyle:{
                 normal:{
                     label:{
@@ -224,9 +199,22 @@ var option1 = {
 
 var totalArr = [];
 
-//获取数据
-//flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
-function getPointerData(url,flag){
+
+//获取页面具体数据
+//flag = 1 不是水的分项 flag = 2 水分项
+function getContentData(flag){
+
+    //存放访问后台的地址
+    var url = '';
+
+    if(flag == 1){
+
+        url = 'EnergyAnalyzeV2/GetEnergyItemByCode';
+
+    }else if(flag == 2){
+
+        url = 'EnergyAnalyzeV2/GetEnergyItemBySecond';
+    }
 
     var totalAllData = 0;
 
@@ -256,16 +244,29 @@ function getPointerData(url,flag){
         areaName += o.name;
     });
 
+    _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
+
+    _ajaxEcTypeWord = getEtName(_ajaxEcType);
+
+
     //判断是否标煤
     if($('.selectedEnergy p').html() == '标煤'){
+
         _ajaxEcType = -2;
+
+        //标煤
+        isBiaoMeiEnergy = 1;
     }
 
-    //获取开始时间
-    var startTime = getPostTime()[0];
+    //获取当前时间类型
+    var dateType = $('.choose-time-select .onChoose').html();
 
     //获取开始时间
-    var endTime = getPostTime()[1];
+    var startTime = getCurPostTime(dateType)[0];
+
+    //获取开始时间
+    var endTime = getCurPostTime(dateType)[1];
+
 
     //定义获得数据的参数
     var ecParams = {
@@ -276,6 +277,13 @@ function getPointerData(url,flag){
         "endTime": endTime
     };
 
+    if(startTime == "" || endTime == ""){
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请输入时间', '');
+        return false;
+    }
+
+    //发送请求
     //发送请求
     $.ajax({
         type:'post',
@@ -303,7 +311,7 @@ function getPointerData(url,flag){
             }
 
             //改变头部日期
-            var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');
+            var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY/MM/DD');
 
             $('.right-header-title').html('' + energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
 
@@ -450,8 +458,8 @@ var table = $('#dateTables').DataTable({
     //数据源
     'columns':[
         {
-            title:'',
-            class:'',
+            title:'名称',
+            class:'energy-name',
             data:"energyItemName",
             render:function(data, type, full, meta){
 
@@ -480,6 +488,7 @@ var table = $('#dateTables').DataTable({
 
     ]
 });
+
 //水分项
 var table1 = $('#dateTables1').DataTable({
     "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
@@ -513,7 +522,7 @@ var table1 = $('#dateTables1').DataTable({
     //数据源
     'columns':[
         {
-            title:'',
+            title:'名称',
             data:"energyItemName"
 
         },
@@ -560,13 +569,13 @@ $('#dateTables tbody').on('click', '.details-control', function () {
         // Open this row
         row.child( format(historyArr) ).show();
         tr.addClass('shown');
-        $('.shown').next('tr').addClass('on-show');
     }
 } );
 
 //显示隐藏
 function format ( d ) {
-    var theader = '<table class="table">' +
+
+    var theader = '<table class="table child-table">' +
         '<thead><tr><td>二级分项</td><td>总量</td><td>占比（%）</td></tr></thead>';
     var theaders = '</table>';
     var tbodyer = '<tbody>'
@@ -585,9 +594,3 @@ function format ( d ) {
     }
     return theader + tbodyer + str + tbodyers + theaders;
 }
-
-
-
-
-
-

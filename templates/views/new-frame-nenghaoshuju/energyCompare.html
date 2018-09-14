@@ -23,6 +23,29 @@
     <!--<link rel="stylesheet" href="../new-resource/css/common.css">-->
     <!--<link rel="stylesheet" href="../new-resource/css/nenghaoshuju/energyDemand.css">-->
     <link rel="stylesheet" href="css/common.css">
+    <style>
+        .unit{
+            height:20px;
+            width:70px;
+        }
+
+        #dateTables th{
+            background-color: #aeb4c9;
+            color:white;
+        }
+
+        #dateTables td{
+            color:#666666;
+        }
+
+        #rheader-content-16 {
+            height: 300px;
+        }
+
+        #rheader-content-17 {
+            height: 300px;
+        }
+    </style>
 </head>
 
 <!-- END HEAD -->
@@ -167,16 +190,31 @@
                                         <span class="has-choosed-object">
 
                                             <!--<p class="has-choosed-message">-->
-                                                <!--<b></b><font>1号楼1号变压器</font>-->
+                                            <!--<b></b><font>1号楼1号变压器</font>-->
                                             <!--</p>-->
 
-                                             <!--<p class="has-choosed-message">-->
-                                                 <!--<b></b><font>2号楼2号变压器</font>-->
-                                             <!--</p>-->
+                                            <!--<p class="has-choosed-message">-->
+                                            <!--<b></b><font>2号楼2号变压器</font>-->
+                                            <!--</p>-->
 
-                                             <!--<p class="has-choosed-message">-->
-                                                 <!--<b></b><font>3号楼3号变压器</font>-->
-                                             <!--</p>-->
+                                            <!--<p class="has-choosed-message">-->
+                                            <!--<b></b><font>3号楼3号变压器</font>-->
+                                            <!--</p>-->
+
+                                        </span>
+
+                                        <!--对比内容-->
+                                        <span class="choose-target choose-custom-select" style="width:auto">
+                                            <font></font><b></b>
+
+                                            <!--对象选择下拉框-->
+                                            <div class="choose-target-select choose-custom-select-container">
+
+                                                <ul>
+
+                                                </ul>
+
+                                            </div>
 
                                         </span>
 
@@ -242,58 +280,75 @@
                                                 <!-- 单位 -->
                                                 <li class="header-right-lists">
                                                     <label for="">单位：</label>
-                                                    <select name="" id="unit"></select>
+                                                    <input name="" id="unit" class="unit" type="text" readonly="readonly"/>
                                                 </li>
                                             </ul>
                                         </div>
 
-                                        <div class="rheader-content">
-                                            <!--右侧数据展示-->
-                                            <div class="rheader-content-left comparisonOfHistograms" style="width:280px;float: right">
-                                                <div class="rheader-content-right">
-                                                    <div class="rheader-content-rights">
-                                                        <!-- 累计耗电标题 -->
-                                                        <span class="total-power-consumption">累计能耗</span>
-                                                        <!-- 耗电数值 -->
-													<span class="total-power-consumption-value">
-														<label id="consumption-value-number"></label>
-                                                        <!-- 单位  -->
-														<span class="the-cumulative-power-unit"></span>
-													</span>
-                                                        <!-- 与上年同期相比 -->
-													<span class="compared-with-last-time">上年同期<br>
-														<label class="the-show-data"></label>
-                                                        <!--<span class="the-cumulative-power-unit">kWh</span>-->
-													</span>
-                                                        <!-- 上升还是下降的箭头 -->
-                                                        <div class="rights-up" ></div>
 
-                                                        <!-- 上升或下降的百分比 -->
-                                                        <span class="rights-up-name">同比</span><br/>
-                                                        <span class="rights-up-value"></span>
+                                        <!--右侧数据展示-->
+                                        <div class="rheader-content-left comparisonOfHistograms" style="width:280px;float: right">
+                                            <div class="rheader-content-right">
+                                                <div class="rheader-content-rights" style="margin-top: 5%">
 
-                                                        <!-- 与上一时段相比 -->
-                                                        <span class="compared-with-last-time compared-with-last-time1">上一期<br>
-                                                        <label class="the-show-data"></label>
-                                                        <!--<span class="the-cumulative-power-unit">kWh</span>-->
-                                                        </span>
-                                                        <!-- 上升还是下降的箭头 -->
-                                                        <div class="rights-up rights-up1 " ></div>
-                                                        <!-- 上升或下降的百分比 -->
-                                                        <span class="rights-up-name rights-up-name1">环比</span><br/>
-                                                        <span class="rights-up-value rights-up-value1"></span>
+                                                    <span style="margin-left:20px" class="top-percent"></span>
+                                                    <div class="count1 count">
+                                                        本期累计
+                                                        <span></span>
+                                                    </div>
+
+                                                    <div class="count2 count">
+                                                        上年同期累计
+                                                        <span></span>
                                                     </div>
 
 
                                                 </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!--eChart图-->
+                                    <div class="rheader-content-left " id="rheader-content-16" style="margin-right:300px;">
+
+                                    </div>
+
+                                    <div class="right-header" style="margin-bottom:10px;">
+                                        <!-- 标题 -->
+                                        <span class="right-header-title right-header-title1"></span>
+                                        <!-- 标题右边 -->
+                                    </div>
+
+                                    <!--右侧数据展示-->
+                                    <div class="rheader-content-left comparisonOfHistograms" style="width:280px;float: right">
+                                        <div class="rheader-content-right">
+                                            <div class="rheader-content-rights" style="margin-top: 0">
+
+                                                <span style="margin-left:20px" class="top-percent"></span>
+                                                <div class="count1 count">
+                                                    本期累计
+                                                    <span></span>
+                                                </div>
+
+                                                <div class="count2 count">
+                                                    上一期累计
+                                                    <span></span>
+                                                </div>
+
+
                                             </div>
 
-                                        </div>
-
-                                        <!--eChart图-->
-                                        <div class="rheader-content-left " id="rheader-content-16" style="margin-right:300px;">
 
                                         </div>
+                                    </div>
+
+                                    <!--eChart图-->
+                                    <div class="rheader-content-left " id="rheader-content-17" style="margin-right:300px;">
+
+                                    </div>
 
                                         <div class="clearfix"></div>
                                     </div>
@@ -314,7 +369,6 @@
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
 <div id="foot-html"></div>
-
 
 
 <!-- END FOOTER -->
@@ -338,7 +392,7 @@
 <script src="../resource/js/commonJsResource.js"></script>
 <script src="../new-resource/js/common.js"></script>
 <script src="js/common.js"></script>
-<script src="js/energyDemand.js"></script>
+<script src="js/energyCompare.js"></script>
 
 <!-- END JAVASCRIPTS -->
 </body>

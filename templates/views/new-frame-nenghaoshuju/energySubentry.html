@@ -23,6 +23,44 @@
     <!--<link rel="stylesheet" href="../new-resource/css/common.css">-->
     <!--<link rel="stylesheet" href="../new-resource/css/nenghaoshuju/energyDemand.css">-->
     <link rel="stylesheet" href="css/common.css">
+    <style>
+        #dateTables th{
+            text-align: center;
+            background: #aeb4c9;
+            border: none;
+            color:white;
+        }
+
+        #dateTables td{
+            text-align: center;
+        }
+
+        #dateTables .energy-name{
+            text-align: left;
+        }
+
+        #dateTables .details-control{
+            color:#5B69D2;
+            font-weight: bold;
+        }
+
+        #dateTables .odd,#dateTables .even{
+
+            background: #f4f8fd;
+        }
+
+        table.dataTable tbody th, table.dataTable tbody td {
+            padding: 12px 10px;
+        }
+
+        .child-table td, .child-table th{
+            padding: 8px 10px !important;
+        }
+
+        .child-table thead{
+            display: none;
+        }
+    </style>
 </head>
 
 <!-- END HEAD -->
@@ -119,31 +157,13 @@
                                                             <div class="left-middle-content">
                                                                 <div class="left-tab-contain">
                                                                     <div class="left-middle-tab left-middle-tab_aa_0 onChoose">区域位置</div>
-                                                                    <div class="left-middle-tab left-middle-tab_aa_0">用能单位</div>
-                                                                    <div class="left-middle-tab left-middle-tab_aa_0">支路</div>
+
                                                                 </div>
 
                                                             </div>
-                                                            <div class="tree-1 tree-0">
-                                                    <span class="allPointerOne">
-                                                        <div class="selectedRadio"></div>
-                                                    </span>
-                                                                <div class="left-middle-input">
-                                                                    <input type="text"  id="keys" class="empty form-control" placeholder="搜索...">
-                                                                </div>
-                                                                <div class="tipess"></div>
-                                                                <ul class="allPointer ztree scrollbar" id="allPointer">
-                                                                </ul>
-                                                            </div>
-                                                            <div class="tree-1 tree-2"  style="display: none">
-                                                                <div class="left-middle-input">
-                                                                    <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
-                                                                </div>
-                                                                <div class="tipes"></div>
-                                                                <ul class="allOffices ztree scrollbar" id="allOffices">
-                                                                </ul>
-                                                            </div>
-                                                            <div class="tree-1 tree-3" style="display: none">
+
+
+                                                            <div class="tree-1 tree-3" style="display: block">
                                                                 <div class="left-middle-input">
                                                                     <input type="text"  id="keyss" class="empty form-control" placeholder="搜索...">
                                                                 </div>
@@ -167,16 +187,16 @@
                                         <span class="has-choosed-object">
 
                                             <!--<p class="has-choosed-message">-->
-                                                <!--<b></b><font>1号楼1号变压器</font>-->
+                                            <!--<b></b><font>1号楼1号变压器</font>-->
                                             <!--</p>-->
 
-                                             <!--<p class="has-choosed-message">-->
-                                                 <!--<b></b><font>2号楼2号变压器</font>-->
-                                             <!--</p>-->
+                                            <!--<p class="has-choosed-message">-->
+                                            <!--<b></b><font>2号楼2号变压器</font>-->
+                                            <!--</p>-->
 
-                                             <!--<p class="has-choosed-message">-->
-                                                 <!--<b></b><font>3号楼3号变压器</font>-->
-                                             <!--</p>-->
+                                            <!--<p class="has-choosed-message">-->
+                                            <!--<b></b><font>3号楼3号变压器</font>-->
+                                            <!--</p>-->
 
                                         </span>
 
@@ -247,52 +267,40 @@
                                             </ul>
                                         </div>
 
-                                        <div class="rheader-content">
-                                            <!--右侧数据展示-->
-                                            <div class="rheader-content-left comparisonOfHistograms" style="width:280px;float: right">
-                                                <div class="rheader-content-right">
-                                                    <div class="rheader-content-rights">
-                                                        <!-- 累计耗电标题 -->
-                                                        <span class="total-power-consumption">累计能耗</span>
-                                                        <!-- 耗电数值 -->
-													<span class="total-power-consumption-value">
-														<label id="consumption-value-number"></label>
-                                                        <!-- 单位  -->
-														<span class="the-cumulative-power-unit"></span>
-													</span>
-                                                        <!-- 与上年同期相比 -->
-													<span class="compared-with-last-time">上年同期<br>
-														<label class="the-show-data"></label>
-                                                        <!--<span class="the-cumulative-power-unit">kWh</span>-->
-													</span>
-                                                        <!-- 上升还是下降的箭头 -->
-                                                        <div class="rights-up" ></div>
+                                        <div class="row">
 
-                                                        <!-- 上升或下降的百分比 -->
-                                                        <span class="rights-up-name">同比</span><br/>
-                                                        <span class="rights-up-value"></span>
+                                            <!--eChart图-->
+                                            <div class="rheader-content-left col-lg-7 col-md-12 col-sm-12 col-xs-12 " id="rheader-content-16" style="">
 
-                                                        <!-- 与上一时段相比 -->
-                                                        <span class="compared-with-last-time compared-with-last-time1">上一期<br>
-                                                        <label class="the-show-data"></label>
-                                                        <!--<span class="the-cumulative-power-unit">kWh</span>-->
-                                                        </span>
-                                                        <!-- 上升还是下降的箭头 -->
-                                                        <div class="rights-up rights-up1 " ></div>
-                                                        <!-- 上升或下降的百分比 -->
-                                                        <span class="rights-up-name rights-up-name1">环比</span><br/>
-                                                        <span class="rights-up-value rights-up-value1"></span>
-                                                    </div>
-
-
-                                                </div>
                                             </div>
 
-                                        </div>
+                                            <!--右侧数据框-->
+                                            <div style="" class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                                                <h3 style="margin-top:10px;">一级分项：</h3>
+                                                <table class="table table-striped table-bordered table-advance table-hover
+" id="dateTables">
+                                                    <thead>
 
-                                        <!--eChart图-->
-                                        <div class="rheader-content-left " id="rheader-content-16" style="margin-right:300px;">
+                                                    </thead>
+                                                    <tbody>
 
+                                                    </tbody>
+                                                </table>
+
+
+                                                <table class="table table-striped table-bordered table-advance table-hover
+" id="dateTables1" style="display: none">
+                                                    <thead>
+
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+
+
+
+                                            </div>
                                         </div>
 
                                         <div class="clearfix"></div>
@@ -338,7 +346,7 @@
 <script src="../resource/js/commonJsResource.js"></script>
 <script src="../new-resource/js/common.js"></script>
 <script src="js/common.js"></script>
-<script src="js/energyDemand.js"></script>
+<script src="js/energySubentry.js"></script>
 
 <!-- END JAVASCRIPTS -->
 </body>

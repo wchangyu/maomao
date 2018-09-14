@@ -109,6 +109,7 @@ var ObjectSelection = function(){
                 obj.id = tempAllOffice[i].f_OfficeID;
                 obj.pId = tempAllOffice[i].f_ParentID;
                 obj.f_OfficeName = tempAllOffice[i].f_OfficeName;
+                obj.name = tempAllOffice[i].f_OfficeName;
                 if(i == 0){
                    obj.open = true;
                 }

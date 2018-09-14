@@ -205,12 +205,14 @@ function _selectTime(dataType){
 
         //改变提示信息
         $('.start-time-choose label').html('开始时间：');
+
         //获取上周
         var date1 = moment().subtract('6','days').format('YYYY-MM-DD');
         //获取昨天2
         var date2 = moment().format('YYYY-MM-DD');
         $('.min').val(date1);
         $('.max').val(date2);
+
         //取消开始时间选框居中
         $('.start-time-choose').removeClass('position-center');
 
@@ -243,6 +245,7 @@ function _selectTime(dataType){
         //获取上年
         var date = moment().format('YYYY');
         $('.min').val(date);
+
     }else{
 
         var curUrl = window.location.href;
@@ -283,8 +286,11 @@ function _selectTime(dataType){
 
 
         }else{
+
             _initDate1();
+
         }
+
         //改变提示信息
         $('.start-time-choose label').html('开始时间：');
         $('.min').val('');
@@ -393,11 +399,11 @@ function _setEnergyInfo(){
 
 //获取能耗种类参数方法
 function _getEcTypeValue(){
+
     var aaa =[];
 
     //获取是楼宇还是分户
     var index = $('.left-tab-contain .isChoose').index();
-
 
     var jsonText;
 
