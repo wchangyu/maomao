@@ -3,6 +3,9 @@ $(function(){
     //设备历史数据
     var _devHistoryArr = [];
 
+    //当前报警
+    var _allData = [];
+
     //点击表格中操作中下拉按钮
     $('#table').on('click','.button-switch',function(){
 
@@ -21,6 +24,8 @@ $(function(){
 
 
     });
+
+    _timeYMDComponentsFun11($('.datatimeblock'))
 
     /*-----------------------------------------表格初始化----------------------------------------------*/
 
@@ -62,7 +67,7 @@ $(function(){
 
                 if(data == '紧急'){
 
-                    return '<img src="img/timg.gif" alt="" style="width: 15px;vertical-align: middle;margin-top: -2px;margin-left: 5px;"><a class="urgency-alarm" href="../TJ/urgency-alarm.html">'+data+'</a>';
+                    return '<a class="urgency-alarm" href="../TJ/urgency-alarm.html" style="color: #ffffff;text-decoration: dashed">'+data+'</a>';
 
                 }else{
 
@@ -80,17 +85,17 @@ $(function(){
             title:'操作',
             render:function(data, type, full, meta){
 
-                return "<span class='data-option option-confirm btn default btn-xs green-stripe'>确认</span>" +
+                return "<span class='data-option option-confirm default btn-xs green-stripe' data-id='" + full.id + "' title='确认'></span>" +
 
-                    "<span class='data-option option-query btn default btn-xs green-stripe'>查询</span>" +
+                    "<span class='data-option option-query default btn-xs green-stripe'data-id='" + full.id + "'title='查询'></span>" +
 
-                    "<span class='data-option option-GD btn default btn-xs green-stripe'>分派</span>" +
+                    "<span class='data-option option-GD default btn-xs green-stripe'data-id='" + full.id + "'title='分派'></span>" +
 
-                    "<span class='button-switch'>↓</span>"+
+                    //"<span class='button-switch'>↓</span>"+
 
-                    "<br/><span class='data-option option-modify btn default btn-xs green-stripe hide-button'>修改范围</span>" +
+                    "<span class='data-option option-modify default btn-xs green-stripe'data-id='" + full.id + "'title='修改范围'></span>" +
 
-                    "<span class='data-option option-delay btn default btn-xs green-stripe hide-button'>延迟报警</span>"
+                    "<span class='data-option option-delay default btn-xs green-stripe'data-id='" + full.id + "'title='延迟报警'></span>"
 
             }
 
@@ -98,7 +103,41 @@ $(function(){
 
     ];
 
-    _tableInit($('#table'),col,1,true,'','','','');
+    _tableInit($('#table'),col,1,true,rowDraw,'','','');
+
+    //绘制完行回调
+    function rowDraw(row, data, index){
+
+        //"createdRow"
+
+        var classN = '';
+
+        if(data.BJDJ == '特急'){
+
+            classN = 'extraUrgent';
+
+        }else if(data.BJDJ == '紧急'){
+
+            classN = 'urgent'
+
+        }else if(data.BJDJ == '较急'){
+
+            classN = 'moreUrgent'
+
+        }else if(data.BJDJ == '普通'){
+
+            classN = 'ordinary'
+
+        }else{
+
+            classN = '';
+
+        }
+
+
+        $(row).addClass(classN);
+
+    }
 
     //查询表格
     var queryCol = [
@@ -146,14 +185,17 @@ $(function(){
     //【确认】
     $('#table').on('click','.option-confirm',function(){
 
-        //样式修改
-        cssChange($(this));
-
         //初始化
+        $('#seal-myModal').find('.right-data').html('');
+
+        //样式修改
+        cssChange($(this),$(this).attr('data-id'));
 
         $('#theLoading').modal('show');
 
-        _moTaiKuang($('#confirm-myModal'), '确认报警', false, false ,false, '确认');
+        $('#seal-myModal').modal('show');
+
+        //_moTaiKuang($('#confirm-myModal'), '确认报警', false, false ,false, '确认');
 
         $('#theLoading').modal('hide');
 
@@ -178,15 +220,17 @@ $(function(){
     $('#table').on('click','.option-query',function(){
 
         //样式修改
-        cssChange($(this));
+        LS($(this).attr('data-id'));
 
         //初始化
 
         $('#theLoading').modal('show');
 
-        _moTaiKuang($('#query-myModal'), '查询报警历史', true, false ,false, '');
+        $('#show-alarm-myModal').modal('show');
 
-        _datasTable($('#devTable'),_devHistoryArr);
+        //_moTaiKuang($('#query-myModal'), '查询报警历史', true, false ,false, '');
+
+        //_datasTable($('#devTable'),_devHistoryArr);
 
         $('#theLoading').modal('hide');
 
@@ -196,11 +240,13 @@ $(function(){
     $('#table').on('click','.option-GD',function(){
 
         //样式修改
-        cssChange($(this));
+        FP($(this).attr('data-id'));
 
         $('#theLoading').modal('show');
 
-        _moTaiKuang($('#create-myModal'), '创建工单', false, false ,false, '创建');
+        $('#assign-myModal').modal('show');
+
+        //_moTaiKuang($('#create-myModal'), '创建工单', false, false ,false, '创建');
 
         $('#theLoading').modal('hide');
 
@@ -225,14 +271,13 @@ $(function(){
     $('#table').on('click','.option-modify',function(){
 
         //样式修改
-        cssChange($(this));
+        FW($(this).attr('data-id'));
 
         //初始化
 
-
         $('#theLoading').modal('show');
 
-        _moTaiKuang($('#range-myModal'), '修改范围', false, false ,false, '保存');
+        $('#range-myModal').modal('show');
 
         $('#theLoading').modal('hide');
 
@@ -257,13 +302,13 @@ $(function(){
     $('#table').on('click','.option-delay',function(){
 
         //样式修改
-        cssChange($(this));
+        YC($(this).attr('data-id'))
 
         //初始化
 
         $('#theLoading').modal('show');
 
-        _moTaiKuang($('#delay-myModal'), '延迟报警', false, false ,false, '延迟');
+        $('#delay-myModal').modal('show');
 
         $('#theLoading').modal('hide');
 
@@ -297,7 +342,10 @@ $(function(){
 
             success:function(result){
 
-                _datasTable($('#table'),result)
+                _datasTable($('#table'),result);
+
+                _allData = result;
+
 
             }
 
@@ -331,13 +379,195 @@ $(function(){
     };
 
     //样式修改
-    function cssChange(tr){
+    function cssChange(tr,id){
 
         $('#table tbody').children('tr').removeClass('tables-hover');
 
         tr.parents('tr').addClass('tables-hover');
 
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].id == id){
+
+                var ele = $('#seal-myModal').find('.right-data');
+
+                //赋值
+                ele.eq(0).html(_allData[i].id);
+
+                ele.eq(1).html(_allData[i].BJSJ);
+
+                ele.eq(2).html(_allData[i].LYMC);
+
+                ele.eq(3).html(_allData[i].SB);
+
+                var color = '';
+
+                if(_allData[i].BJDJ == '特急'){
+
+                    color = 'extraUrgent'
+
+                }else if(_allData[i].BJDJ == '紧急'){
+
+                    color = 'urgent'
+
+                }else if(_allData[i].BJDJ == '较急'){
+
+                    color = 'moreUrgent'
+
+                }else if(_allData[i].BJDJ == '普通'){
+
+                    color = 'ordinary'
+
+                }
+
+                $('#seal-myModal').find('.modal-title').html(_allData[i].BJLX);
+
+                $('#seal-myModal').find('.modal-header').removeClass('extraUrgent').removeClass('urgent').removeClass('moreUrgent').removeClass('ordinary').addClass(color);;
+
+            }
+
+        }
+
     };
 
+    //分派弹窗
+    function FP(id){
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].id == id){
+
+                var color = '';
+
+                if(_allData[i].BJDJ == '特急'){
+
+                    color = 'extraUrgent'
+
+                }else if(_allData[i].BJDJ == '紧急'){
+
+                    color = 'urgent'
+
+                }else if(_allData[i].BJDJ == '较急'){
+
+                    color = 'moreUrgent'
+
+                }else if(_allData[i].BJDJ == '普通'){
+
+                    color = 'ordinary'
+
+                }
+
+                $('#assign-myModal').find('.modal-header').removeClass('extraUrgent').removeClass('urgent').removeClass('moreUrgent').removeClass('ordinary').addClass(color);;
+
+            }
+
+        }
+
+    }
+
+    //延迟报警
+    function YC(id){
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].id == id){
+
+                var color = '';
+
+                if(_allData[i].BJDJ == '特急'){
+
+                    color = 'extraUrgent'
+
+                }else if(_allData[i].BJDJ == '紧急'){
+
+                    color = 'urgent'
+
+                }else if(_allData[i].BJDJ == '较急'){
+
+                    color = 'moreUrgent'
+
+                }else if(_allData[i].BJDJ == '普通'){
+
+                    color = 'ordinary'
+
+                }
+
+                $('#delay-myModal').find('.modal-header').removeClass('extraUrgent').removeClass('urgent').removeClass('moreUrgent').removeClass('ordinary').addClass(color);;
+
+            }
+
+        }
+
+    }
+
+    //修改范围
+    function FW(id){
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].id == id){
+
+                var color = '';
+
+                if(_allData[i].BJDJ == '特急'){
+
+                    color = 'extraUrgent'
+
+                }else if(_allData[i].BJDJ == '紧急'){
+
+                    color = 'urgent'
+
+                }else if(_allData[i].BJDJ == '较急'){
+
+                    color = 'moreUrgent'
+
+                }else if(_allData[i].BJDJ == '普通'){
+
+                    color = 'ordinary'
+
+                }
+
+                $('#range-myModal').find('.modal-header').removeClass('extraUrgent').removeClass('urgent').removeClass('moreUrgent').removeClass('ordinary').addClass(color);;
+
+            }
+
+        }
+
+    }
+
+    //修改范围
+    function LS(id){
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].id == id){
+
+                var color = '';
+
+                if(_allData[i].BJDJ == '特急'){
+
+                    color = 'extraUrgent'
+
+                }else if(_allData[i].BJDJ == '紧急'){
+
+                    color = 'urgent'
+
+                }else if(_allData[i].BJDJ == '较急'){
+
+                    color = 'moreUrgent'
+
+                }else if(_allData[i].BJDJ == '普通'){
+
+                    color = 'ordinary'
+
+                }
+
+                $('#show-alarm-myModal').find('.modal-header').removeClass('extraUrgent').removeClass('urgent').removeClass('moreUrgent').removeClass('ordinary').addClass(color);;
+
+            }
+
+        }
+
+    }
 
 });

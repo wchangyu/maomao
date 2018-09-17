@@ -188,7 +188,8 @@
                 pId : sessionStorage.PointerID ,
                 cIds : cIds,
                 sp : sp,
-                ep : ep
+                ep : ep,
+                eType:$('#eType').val()
             },function (res) {
                 if(res.code === 0){
                     var covST = Format(convertDate(sp), "MM月dd日");

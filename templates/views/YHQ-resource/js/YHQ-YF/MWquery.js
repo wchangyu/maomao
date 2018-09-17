@@ -65,9 +65,17 @@ $(function(){
             title:'状态',
             data:'mwstatus',
             className:'status',
-            render:function(data, type, full, meta){
+            render:function(data, type, full, meta) {
 
-                return _YFstatus(data)
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return moment(data).format('YYYY-MM-DD HH:mm')
+
+                }
 
             }
         },
@@ -81,7 +89,20 @@ $(function(){
         },
         {
             title:'称重时间',
-            data:'sendtime'
+            data:'sendtime',
+            render:function(data, type, full, meta) {
+
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return moment(data).format('YYYY-MM-DD HH:mm')
+
+                }
+
+            }
         },
         {
             title:'入库重量',
@@ -89,7 +110,20 @@ $(function(){
         },
         {
             title:'入库时间',
-            data:'insttime'
+            data:'insttime',
+            render:function(data, type, full, meta) {
+
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return moment(data).format('YYYY-MM-DD HH:mm')
+
+                }
+
+            }
         },
         {
             title:'入库人',

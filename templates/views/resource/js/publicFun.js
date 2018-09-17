@@ -654,15 +654,21 @@ function _tableInitScroll(tableId,col,buttons,flag,fnRowCallback,drawCallback,do
 
 //表格赋值
 function _datasTable(tableId,arr){
+
     var table = tableId.dataTable();
+
     if(arr.length == 0){
+
         table.fnClearTable();
+
         table.fnDraw();
 
     }else{
 
         table.fnClearTable();
+
         table.fnAddData(arr);
+
         table.fnDraw();
     }
 };

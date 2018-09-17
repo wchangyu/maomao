@@ -88,7 +88,23 @@ $(function(){
         },
         {
             title:'称重时间',
-            data:'sendtime'
+            data:'sendtime',
+            render:function(data, type, full, meta){
+
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return moment(data).format('YYYY-MM-DD HH:mm')
+
+                }
+
+
+
+            }
+
         },
         {
             title:'是否超时',
@@ -148,7 +164,20 @@ $(function(){
         },
         {
             title:'称重时间',
-            data:'insttime'
+            data:'insttime',
+            render:function(data, type, full, meta){
+
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return moment(data).format('YYYY-MM-DD HH:mm')
+
+                }
+
+            }
         },
         {
             title:'入库人',
@@ -310,7 +339,20 @@ $(function(){
         },
         {
             title:'称重时间',
-            data:'insttime'
+            data:'insttime',
+            render:function(data, type, full, meta){
+
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return moment(data).format('YYYY-MM-DD HH:mm')
+
+                }
+
+            }
         }
 
     ]
@@ -965,7 +1007,7 @@ $(function(){
                 //重量
                 $('#MW-weighNum').val(current.weight);
                 //打包时间
-                $('#MW-pack').val(current.sendtime);
+                $('#MW-pack').val(current.sendtime == ''?'':moment(current.sendtime).format('YYYY-MM-DD HH:mm'));
 
 
             }
@@ -1013,11 +1055,11 @@ $(function(){
                 //重量
                 $('#MW-weighNum-out').val(current.weight);
                 //打包时间
-                $('#MW-pack-out').val(current.sendtime);
+                $('#MW-pack-out').val(current.sendtime==''?'':moment(current.sendtime).format('YYYY-MM-DD HH:mm'));
                 //入库人
                 $('#MW-in-person-out').val(current.inusername);
                 //入库时间
-                $('#MW-in-stroage-out').val(current.insttime);
+                $('#MW-in-stroage-out').val(current.insttime==''?'':moment(current.insttime).format('YYYY-MM-DD HH:mm'));
                 //桶编号
                 $('#MW-bucket-out').val(current.batchnum);
 
@@ -1066,11 +1108,11 @@ $(function(){
                 //重量
                 $('#MW-weighNum-back').val(current.weight);
                 //打包时间
-                $('#MW-pack-back').val(current.sendtime);
+                $('#MW-pack-back').val(current.sendtime==''?'':moment(current.sendtime).format('YYYY-MM-DD HH:mm'));
                 //入库人
                 $('#MW-in-person-back').val(current.inusername);
                 //入库时间
-                $('#MW-in-stroage-back').val(current.insttime);
+                $('#MW-in-stroage-back').val(current.insttime==''?'':moment(current.insttime).format('YYYY-MM-DD HH:mm'));
                 //桶编号
                 $('#MW-bucket-back').val(current.batchnum);
 

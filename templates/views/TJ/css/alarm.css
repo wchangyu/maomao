@@ -9,3 +9,88 @@
     text-indent: 20px;
 
 }
+
+.extraUrgent{
+
+    background: #ee233f !important;
+
+    color: #ffffff;
+
+}
+
+.urgent{
+
+    background: #f25b72 !important;
+
+    color: #ffffff;
+
+}
+
+.moreUrgent{
+
+    background: #dca735 !important;
+
+    color: #ffffff;
+
+}
+
+.ordinary{
+
+    background: #5a8fe3 !important;
+
+    color: #ffffff;
+
+}
+
+.data-option{
+
+    width: 15px;
+
+    height: 15px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    margin: 0 3px;
+}
+
+.option-confirm{
+
+    background: url("../img/querenOption.png") no-repeat;
+
+    background-size: 13px;
+
+}
+
+.option-query{
+
+    background: url("../img/chaxunOption.png") no-repeat;
+
+    background-size: 13px;
+
+}
+
+.option-GD{
+
+    background: url("../img/fenpeiOption.png") no-repeat;
+
+    background-size: 13px;
+
+}
+
+.option-modify{
+
+    background: url("../img/xiugiaOption.png") no-repeat;
+
+    background-size: 13px;
+
+}
+
+.option-delay{
+
+    background: url("../img/yanshiOption.png") no-repeat;
+
+    background-size: 13px;
+
+}

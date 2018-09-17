@@ -370,7 +370,7 @@ $(function(){
 
                 }else if(row.inType == 3){
 
-                    return '<a href="godownEntry1.html?orderNum=' + row.orderNum +
+                    return '<a class="rukuBM" href="godownEntry1.html?orderNum=' + row.orderNum +
                         '" target="_blank">' + row.orderNum + '</a>'
 
                 }else{
@@ -966,7 +966,7 @@ $(function(){
 
             $this.addClass('tables-hover');
 
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').find('.rukuBM').html();
+            var $thisDanhao = $(this).parents('tr').find('.rukuBM').html();
 
             _ruCode = $thisDanhao;
 
@@ -1049,7 +1049,7 @@ $(function(){
 
             $this.addClass('tables-hover');
 
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').find('.rukuBM').html();
+            var $thisDanhao = $(this).parents('tr').find('.rukuBM').html();
 
             _ruCode = $thisDanhao;
 
@@ -1186,7 +1186,7 @@ $(function(){
 
             $this.addClass('tables-hover');
 
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').find('.rukuBM').html();
+            var $thisDanhao = $(this).parents('tr').find('.rukuBM').html();
 
             _ruCode = $thisDanhao;
 
@@ -1279,7 +1279,7 @@ $(function(){
 
             $this.addClass('tables-hover');
 
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').find('.rukuBM').html();
+            var $thisDanhao = $(this).parents('tr').find('.rukuBM').html();
 
             _ruCode = $thisDanhao;
 

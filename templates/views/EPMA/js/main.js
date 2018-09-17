@@ -64,6 +64,54 @@
         return realdatetime;
     }
 
+    //获取实时时间
+    function realTime(){
+
+        var prm = {
+
+            //楼宇ID
+            pId:sessionStorage.PointerID,
+
+        }
+
+        $.ajax({
+
+            type:'get',
+
+            url:sessionStorage.apiUrlPrefix + 'Global/GetRealDt',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                if(result.code == 0){
+
+                    sessionStorage.sysDt = result.dt;
+
+                }
+
+            },
+
+            error:function(){
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    console.log('获取实时时间：' + '请求超时')
+
+                }else{
+
+                    console.log('获取实时时间：' + '请求失败')
+
+                }
+
+            }
+
+        })
+
+    }
+
     //能效区间表盘
     var myEERAreaMain = null;
     var initEERArea=function (eerVa,minVa,maxVa) {
@@ -404,7 +452,7 @@
         var url = sessionStorage.apiUrlPrefix+"Main/GetEERNowChartViewDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            //SysrealDt:encodeURIComponent(sessionStorage.sysDt),
             misc:sessionStorage.misc,
             stp:sessionStorage.showstep
         },function (res) {
@@ -1306,6 +1354,11 @@
     return {
         init: function () {
 
+            //系统实时时间
+            //sysrealdatetime();
+
+            realTime();
+
             var eerVa=0.0;
             //切换实时数据曲线
             changeTab();
@@ -1357,6 +1410,9 @@
 
             //十分钟自动刷新
             setInterval(function(){
+                //系统实时时间
+                realTime();
+
                 var eerVa=0.0;
                 //切换实时数据曲线
                 changeTab();
