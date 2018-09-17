@@ -32,7 +32,7 @@
         "type": "2",
         "content": "能耗数据"
       },
-      "能耗查询1": {
+      "能耗查询": {
         "type": "0",
         "content": "能耗查询",
         "uri": "../new-frame-nenghaoshuju/energyDemand.html",
@@ -76,7 +76,7 @@
       "能耗分项": {
         "type": "0",
         "content": "能耗分项",
-        "uri": "../new-nenghaofenxi/energySubentry.html",
+        "uri": "../new-frame-nenghaoshuju/energySubentry.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -85,7 +85,7 @@
       "关联分析": {
         "type": "0",
         "content": "关联分析",
-        "uri": "../new-nenghaofenxi/relevanAnalysData.html",
+        "uri": "../new-frame-nenghaoshuju/relevanAnalysData.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -94,7 +94,7 @@
       "趋势预测": {
         "type": "0",
         "content": "趋势预测",
-        "uri": "../new-nenghaofenxi/energyTendConfig.html",
+        "uri": "../new-frame-nenghaoshuju/energyTendConfig.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -104,7 +104,7 @@
       "昼夜分析": {
         "type": "0",
         "content": "昼夜分析",
-        "uri": "../yongnengfenxi/energyAnalysis-5.html",
+        "uri": "../new-frame-nenghaoshuju/dayNightData.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -160,7 +160,7 @@
       "能耗排名": {
         "type": "0",
         "content": "能耗排名",
-        "uri": "../new-yongnengguanli/energyRankingItem.html",
+        "uri": "../new-frame-nenghaoshuju/energyRankingItem.html",
         "uid": "",
         "arg": "",
         "iconclass": "",

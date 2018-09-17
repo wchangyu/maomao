@@ -207,6 +207,8 @@ function getMenuToHtml(){
         //删除配置项中../ 方便下面进行遍历
         indexUrl = myFunc(sessionStorage.indexUrl,'../');
 
+        indexUrl = myFunc(indexUrl,'./');
+
         mainIndexUrl = '../'+ indexUrl;
 
         //页面初始化
@@ -218,7 +220,7 @@ function getMenuToHtml(){
     }
 
     //改变menuArr的结构
-menuArr = changeOriginalMenu(_menuArr,indexUrl);
+    menuArr = changeOriginalMenu(_menuArr,indexUrl);
 
     _newSimpleMenuArr = _menuArr;
 
@@ -375,6 +377,17 @@ function checkedIndexUrl(menuObj,indexUrl){
     //获取当前url
     var curUrl = menuObj.uri;
 
+    if(curUrl){
+
+        curUrl =  curUrl.toLowerCase()
+    }
+
+    if(indexUrl){
+
+        indexUrl = indexUrl.toLowerCase();
+    }
+
+
     if(curUrl.indexOf(indexUrl) > -1){
 
         return true;
@@ -470,12 +483,23 @@ function drawTopMenu(secondMenuArr,flag){
                 if(i == 0){
 
                     indexClass = 'onChoose1';
+
+                    //获取当前地址
+                    var thisUrl = o.childMenu[0].uri;
+
+                    //页面初始化
+                    //改变iframe路径
+                    $('#embed-page').attr('src',thisUrl);
+
+                    iframeClick();
+
                 }
 
                 //如果包含首页 则当前选中
             }else if(o.indexUrl == 1){
 
                 indexClass = 'onChoose1';
+
             }
 
 
@@ -509,6 +533,16 @@ function drawTopMenu(secondMenuArr,flag){
                 if(i == 0){
 
                     indexClass = 'onChoose';
+
+
+                    //获取当前地址
+                    var thisUrl = o.uri;
+
+                    //页面初始化
+                    //改变iframe路径
+                    $('#embed-page').attr('src',thisUrl);
+
+                    iframeClick();
                 }
 
                 //如果包含首页 则当前选中
@@ -558,11 +592,15 @@ function changeMainMenuImg(dom,flag){
         //获取到之前选中的菜单的图片
         var imgUrl = dom.find('.left-main-menu-img').attr('src');
 
-        //选中图片变成未选中图片
-        var newImgUrl = imgUrl.split('1')[0] + imgUrl.split('1')[1];
+        if(imgUrl){
 
-        //新图片赋值
-        dom.find('.left-main-menu-img').attr('src',newImgUrl);
+            //选中图片变成未选中图片
+            var newImgUrl = imgUrl.split('1')[0] + imgUrl.split('1')[1];
+
+            //新图片赋值
+            dom.find('.left-main-menu-img').attr('src',newImgUrl);
+
+        }
 
     }
 
@@ -572,11 +610,15 @@ function changeMainMenuImg(dom,flag){
         //获取到之前选中的菜单的图片
         var imgUrl = dom.find('.left-main-menu-img').attr('src');
 
-        //选中图片变成未选中图片
-        var newImgUrl = imgUrl.split('.')[0] + '1.'+imgUrl.split('.')[1];
+        if(imgUrl){
 
-        //新图片赋值
-        dom.find('.left-main-menu-img').attr('src',newImgUrl);
+            //选中图片变成未选中图片
+            var newImgUrl = imgUrl.split('.')[0] + '1.'+imgUrl.split('.')[1];
+
+            //新图片赋值
+            dom.find('.left-main-menu-img').attr('src',newImgUrl);
+
+        }
 
     }
 }

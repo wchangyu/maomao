@@ -166,7 +166,7 @@
       }
     ]
   },
-  "apiUriPrefix":"http://localhost/BEEWebAPI/api/",
+  "apiUriPrefix":"http://218.70.30.134:32537/BEEWebAPI/api/",
   "apiUriPrefixYW":"http://218.70.30.134:32537/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
@@ -217,5 +217,7 @@
   "selectPointerType":"0",
   "selectPointerTypeComment":"右上角楼宇选择 0为单选 1为复选",
   "stationTabType":"1",
-  "stationTabTypeComment":"车站大屏导航栏模式 0为南京南模式 1为上海虹桥模式"
+  "stationTabTypeComment":"车站大屏导航栏模式 0为南京南模式 1为上海虹桥模式",
+  "useNewIframe":"0",
+  "useNewIframeComment":"是否启用新框架 0不启用 1启用"
 }

@@ -105,6 +105,7 @@ $(function(){
 
     //新增知识库
     $('.btn22').click(function(){
+
         $('#myModal').modal('show');
         $('#thelist').html('');
         _postKnowLedgeFileArr = [];
@@ -189,6 +190,7 @@ $(function(){
 
                         //重新获取后台数据
                         getShowKnowledgeData('');
+
                         //对表格进行重绘
                         ajaxSuccess1(_knowledgeDataArr);
                     }
@@ -403,9 +405,10 @@ $(function(){
                 //创建文件信息对象
                 var obj = {};
                 //文件大小
-                obj.f_FileSize = $('#thelist0 .thumbnail').eq(i).attr('size')
+                obj.f_FileSize = $('#thelist0 .thumbnail').eq(i).attr('size');
                 //文件id
                 obj.pK_KnowledgeFileID = $('#thelist0 .thumbnail').eq(i).attr('id');
+
                 //文件扩展名
                 obj.f_FileExtension = $('#thelist0 .thumbnail').eq(i).attr('ext');
                 //文件路径
@@ -737,6 +740,7 @@ uploader.on( 'uploadProgress', function( file, percentage ) {
 
 //文件成功，失败处理
 uploader.on( 'uploadSuccess', function( file,response ) {
+
     _currentPath = response;
     //创建文件信息对象
     var obj = {};
@@ -744,6 +748,7 @@ uploader.on( 'uploadSuccess', function( file,response ) {
     obj.f_FileSize = file.size;
     //文件id
     obj.pK_KnowledgeFileID = file.id;
+
     //文件扩展名
     obj.f_FileExtension = file.ext;
     //文件路径
