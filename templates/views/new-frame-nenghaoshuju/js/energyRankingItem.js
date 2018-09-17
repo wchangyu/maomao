@@ -557,9 +557,12 @@ function getContentData(flag){
         data:ecParams,
         timeout:_theTimes,
         beforeSend:function(){
+
             myChartTopLeft.showLoading();
+
         },
         success:function(result){
+
             myChartTopLeft.hideLoading();
 
             //console.log(result);

@@ -384,7 +384,6 @@ function getCurShowDateType(dateType){
 //获取开始结束时间
 function getCurPostTime(dateType){
 
-
     //定义开始时间
     var startTime = '';
 
@@ -442,22 +441,6 @@ function getEtName(num){
 };
 
 //获取能耗单位
-function getEtUnit(num){
-
-    var  num1 = num;
-
-    var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
-
-    var txt = unitObj.alltypes;
-    for(var i=0; i < txt.length; i++){
-        if(num1 == txt[i].etid){
-            return txt[i].etunit;
-        }
-    }
-
-};
-
-//获取单位能耗
 function getEtUnit(num){
 
     var  num1 = num;
