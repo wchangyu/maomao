@@ -31,6 +31,7 @@
     padding-top:30px;
     box-sizing: border-box;
     border-bottom: 1px solid #1A1D2C;
+    display: none;
 
 }
 
@@ -165,6 +166,9 @@
     /*!*overflow-x:auto ;*!*/
     /*overflow-y: visible !important;*/
     position: relative;
+
+    background: #303842;
+
 }
 
 /*二级菜单左右侧遮罩*/
@@ -175,7 +179,7 @@
     left:0;
     top:0;
     z-index: 900;
-    background: #F0F3F6;
+    background: #303842;
 }
 
 .right-data-container .right-menu-container .right-menu-inner-container{
@@ -191,32 +195,36 @@
     width:145px;
     height:48px;
     line-height: 48px;
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
     cursor: pointer;
     position: relative;
-    font-weight: bold;
     float: left;
     margin-right:15px;
-    color:#5B69D2;
+    color: #95A4B6;
 }
 
 .right-data-container .right-menu-container .onChoose{
-    color:white;
-    background:rgba(91,105,210,1);
+
+    background: url("../img/nav-hover1.png")no-repeat;
+
+    color:#81AEE8;
+
 }
 
 .right-data-container .right-menu-container .onChoose1{
-    background: url('../img/sanjixiala.png') no-repeat 125px center;
-    background-color:#5B69D2;
-    color:white;
+    /*background: url('../img/sanjixiala1.png') no-repeat 125px center;*/
+    color:#81AEE8;
+    /*border-bottom: 1px solid #81AEE8;*/
+    background: url("../img/nav-hover.png")no-repeat;
+    
 }
 
 /*三级菜单*/
 .right-data-container .right-menu-container .thirdary-menu{
 
     position: absolute;
-    background-color:#5764C8;
+    background-color:#364050;
     color:white;
     font-size: 14px;
     width: 100%;
@@ -232,13 +240,13 @@
 
 .right-data-container .right-menu-container .thirdary-menu li{
 
-    padding-left:50px;
+    padding-left:30px;
     box-sizing: border-box;
     text-align: left;
     height: 35px;
     font-weight: bold;
     line-height: 35px;
-    background: url('../img/yuandian.png') no-repeat 30px center;
+    background: url('../img/yuandian1.png') no-repeat 14px center;
 }
 
 .right-data-container .right-menu-container .thirdary-menu{
@@ -254,7 +262,21 @@
     display: none !important;
 }
 
+.thirdary-menu ul{
 
+    padding-top: 10px;
+
+    background: rgba(54, 64, 80, 0.1);
+
+}
+
+.third-menu-message{
+
+    font-size: 16px;
+
+    font-weight: normal;
+
+}
 
 /*----------------------------------------------右侧下方数据--------------------------------*/
 .right-data-container  .right-bottom-container{
