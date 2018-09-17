@@ -23,69 +23,7 @@
     <!--<link rel="stylesheet" href="../new-resource/css/common.css">-->
     <!--<link rel="stylesheet" href="../new-resource/css/nenghaoshuju/energyDemand.css">-->
     <link rel="stylesheet" href="css/common.css">
-    <style>
-        #dateTables th{
-            text-align: center;
-            background: #aeb4c9;
-            border: none;
-            color:white;
-        }
 
-        #dateTables td{
-            text-align: center;
-        }
-
-        #dateTables .energy-name{
-            text-align: left;
-        }
-
-        #dateTables .details-control{
-            color:#5B69D2;
-            font-weight: bold;
-        }
-
-        #dateTables .odd,#dateTables .even{
-
-            background: #f4f8fd;
-        }
-
-        table.dataTable tbody th, table.dataTable tbody td {
-            padding: 12px 10px;
-        }
-
-        .child-table td, .child-table th{
-            padding: 8px 10px !important;
-        }
-
-        /*.child-table thead{*/
-            /*display: none;*/
-        /*}*/
-
-        .child-table{
-            margin-bottom:0px !important;
-        }
-
-        .child-table thead td{
-            background: #aeb4c9;
-            border: none !important;
-            color: white
-        }
-
-        .child-table thead tr{
-            background: #aeb4c9 !important;
-        }
-
-        .child-table tbody td{
-            background: #f4f8fd;
-            color:#666;
-        }
-
-        .child-table {
-            border: 1px solid #ddd;
-            background: #aeb4c9 !important;
-        }
-
-    </style>
 </head>
 
 <!-- END HEAD -->
@@ -234,10 +172,9 @@
 
                                                 <ul>
                                                     <li class="the-select-message the-time-type onChoose">日</li>
-                                                    <li class="the-select-message the-time-type">周</li>
                                                     <li class="the-select-message the-time-type">月</li>
                                                     <li class="the-select-message the-time-type">年</li>
-                                                    <li class="the-select-message the-time-type">自定义</li>
+
                                                 </ul>
 
                                             </div>
@@ -260,8 +197,6 @@
                                         <button class="demand">查询</button>
 
                                     </div>
-
-
 
                                     <div class="clearfix"></div>
 
@@ -287,45 +222,14 @@
                                                 <!-- 单位 -->
                                                 <li class="header-right-lists">
                                                     <label for="">单位：</label>
-                                                    <select name="" id="unit"></select>
+                                                    <input name="" id="" disabled="disabled" readonly="readonly" class="the-unit"/>
                                                 </li>
                                             </ul>
                                         </div>
 
-                                        <div class="row">
+                                        <!--eChart图-->
+                                        <div class="rheader-content-left " id="rheader-content-16" style="">
 
-                                            <!--eChart图-->
-                                            <div class="rheader-content-left col-lg-7 col-md-12 col-sm-12 col-xs-12 " id="rheader-content-16" style="">
-
-                                            </div>
-
-                                            <!--右侧数据框-->
-                                            <div style="" class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
-                                                <h3 style="margin-top:10px;">一级分项：</h3>
-                                                <table class="table table-striped table-bordered table-advance table-hover
-" id="dateTables">
-                                                    <thead>
-
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-
-
-                                                <table class="table table-striped table-bordered table-advance table-hover
-" id="dateTables1" style="display: none">
-                                                    <thead>
-
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-
-
-
-                                            </div>
                                         </div>
 
                                         <div class="clearfix"></div>
@@ -342,13 +246,9 @@
     </div>
 </div>
 
-
-
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
 <div id="foot-html"></div>
-
-
 
 <!-- END FOOTER -->
 <!-- END FOOTER -->
@@ -371,7 +271,7 @@
 <script src="../resource/js/commonJsResource.js"></script>
 <script src="../new-resource/js/common.js"></script>
 <script src="js/common.js"></script>
-<script src="js/energySubentry.js"></script>
+<script src="js/relevanAnalysData.js"></script>
 
 <!-- END JAVASCRIPTS -->
 </body>

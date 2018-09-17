@@ -30,8 +30,7 @@ $(function(){
     //branchesType = 2 支路复选框
     branchesType = 2;
 
-    //页面初始化
-    $('.choose-object-windows .sure').click();
+
 
     //点击页面查询按钮
     $('.demand').on('click',function(){
@@ -87,6 +86,43 @@ $(function(){
 
     });
 
+    //点击对象弹窗中的确定按钮
+    $('.choose-object-windows .sure').on('click',function(){
+
+        //console.log(511);
+
+        //变更当前用户选择的对象类型
+        onChooseObjectType = $('.choose-object-windows .left-tab-contain .onChoose').index();
+
+        //获取当前选择的信息
+        var nodes = getMessageByType(0).concat(getMessageByType(1));
+
+        if(branchTreeObj){
+
+            nodes = nodes.concat(getMessageByType(2));
+
+        }
+
+        var html = '';
+
+        $(nodes).each(function(i,o){
+
+            html += '<p class="has-choosed-message">'+
+                '<b></b><font title="'+ o.name+'">'+o.name+'</font>'+
+                '</p>'
+        });
+
+        //页面赋值
+        $('.has-choosed-object').html(html);
+
+        ////隐藏模态框
+        $('#my-object').modal('hide');
+
+    });
+
+    //页面初始化
+    $('.choose-object-windows .sure').click();
+
     //chart图自适应
     window.onresize = function () {
         if(myChartTopLeft){
@@ -115,7 +151,7 @@ var allDataX = [];
 var allDataY = [];
 
 //echart图颜色
-var echartColorArr = ['#F2285C','#7DC79B'];
+var echartColorArr = ['#F2285C','#7DC79B','#5b69d2','#57c8d5','#e1b359'];
 
 var echartObj =  {name:'数据',
     type:'line',
@@ -373,7 +409,7 @@ var optionLine = {
 function getContentData(flag){
 
     //存放访问后台的地址
-    var url = '';
+    var url = 'EnergyQueryV2/GetMixtureHorCompareData';
 
     var totalAllData = 0;
 
@@ -427,9 +463,8 @@ function getContentData(flag){
     var areaName = '';
 
     //楼宇数据
-    if(flag == 1){
 
-        url = 'EnergyQueryV2/GetPointerHorCompareData';
+        //url = 'EnergyQueryV2/GetPointerHorCompareData';
 
         //确定楼宇id
         var pts = _pointerZtree.getSelectedPointers();
@@ -449,15 +484,13 @@ function getContentData(flag){
             areaName += o.pointerName + " -- ";
         });
 
-        //分户数据
-    }else if(flag == 2){
 
-        url = 'EnergyQueryV2/GetOfficeHorCompareData';
+
+        //url = 'EnergyQueryV2/GetOfficeHorCompareData';
 
         //确定分户id
         var ofs = _officeZtree.getSelectedOffices();
 
-        console.log(ofs);
         //比较对象不能超过三个
         //if(ofs.length > 3){
         //    _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
@@ -473,55 +506,56 @@ function getContentData(flag){
             areaName += o.f_OfficeName+ " -- ";
         });
 
-    }else if(flag == 3){
 
-        url = 'EnergyQueryV2/GetBranchHorCompareData';
+        //url = 'EnergyQueryV2/GetBranchHorCompareData';
 
         //确定支路id
-        var nodes = branchTreeObj.getCheckedNodes(true);
+        var nodes;
+        if( branchTreeObj){
 
-        ////比较对象不能超过三个
-        //if(nodes.length > 3){
-        //    _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
-        //
-        //    return false;
-        //}
-        f_AddSamAvg = nodes[0].f_AddSamAvg;
+            nodes= branchTreeObj.getCheckedNodes(true);
 
-        branchUnit = nodes[0].unit;
+            if(nodes.length > 0){
 
-        var isComare = true;
 
-        $( nodes).each(function(i,o){
+                f_AddSamAvg = nodes[0].f_AddSamAvg;
 
-            serviceID.push(o.id);
+                branchUnit = nodes[0].unit;
 
-            //页面上方展示信息
-            areaName += o.name+ " -- ";
+                var isComare = true;
 
-            if(o.f_AddSamAvg != f_AddSamAvg || o.unit != branchUnit){
+                $( nodes).each(function(i,o){
 
-                isComare = false;
+                    serviceID.push(o.id);
 
-                return false;
+                    //页面上方展示信息
+                    areaName += o.name+ " -- ";
+
+                    if(o.f_AddSamAvg != f_AddSamAvg || o.unit != branchUnit){
+
+                        isComare = false;
+
+                        return false;
+
+                    }
+
+                });
+
+                if(!isComare){
+
+                    _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'不同类型支路无法比较', '');
+                    return false;
+                }
+
+                //本地构建energyNormItemObj对象
+                energyNormItemObj.energyItemID = _ajaxEcType;
+
+                energyNormItemObj.energyNormFlag = 1;
 
             }
 
-        });
-
-        if(!isComare){
-
-            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'不同类型支路无法比较', '');
-            return false;
         }
 
-        //本地构建energyNormItemObj对象
-        energyNormItemObj.energyItemID = _ajaxEcType;
-
-        energyNormItemObj.energyNormFlag = 1;
-
-
-    }
 
     //判断是否标煤
     if($('.selectedEnergy p').html() == '标煤'){
@@ -659,7 +693,7 @@ function getContentData(flag){
                 //对象值初始化
                 obj.data.length = 0;
 
-                obj.color = [echartColorArr[i]];
+                obj.color = [echartColorArr[i % 5]];
 
                 var data = [];
 

@@ -139,6 +139,9 @@ $(function(){
         //获取当前能耗种类
         var _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
 
+        //获取当前单位
+        var unit = getEtUnit(_ajaxEcType);
+
         //改变右上角单位
         var html = '';
 
@@ -150,13 +153,17 @@ $(function(){
 
         }else{
 
-            //获取当前单位
-            var unit = getEtUnit(_ajaxEcType);
 
             html += '<option value="'+ 0+'">'+ unit+'</option>'
         }
 
         $('#unit').html(html);
+
+        if($('.the-unit').length > 0){
+
+
+            $('.the-unit').val(unit);
+        }
 
 
         //获取对应能耗类型下的支路
@@ -465,7 +472,6 @@ function getEtUnit(num){
     }
 
 };
-
 
 
 //简单递归

@@ -1,23 +1,19 @@
+/**
+ * Created by admin on 2018/9/15.
+ */
+
 $(function(){
 
-    //时间插件
-    _timeYMDComponentsFun($('.datatimeblock'));
+    //日期初始化
+    _timeYMDComponentsFun($('.min'));
 
-    //记录页面
-    _energyTypeSel = new ETSelection();
+    //获取当前能耗种类
+    var _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
 
-    //读取能耗种类
-    _getEcType('initPointers');
+    //获取当前单位
+    var unit = getEtUnit(_ajaxEcType);
 
-    //默认选中第一个能耗
-    $('.selectedEnergy').addClass('blueImg0');
-
-    _getEcTypeWord();
-
-    //默认能耗种类
-    _ajaxEcType =_getEcTypeValue();
-
-    _ajaxEcTypeWord = _getEcTypeWord();
+    $('.the-unit').val(unit);
 
     //楼宇ztree树
     _pointerZtree = _getPointerZtree($("#allPointer"),1);
@@ -31,57 +27,60 @@ $(function(){
     //获取支路
     GetAllBranches();
 
-    //默认加载数据
-    getPointerData('EnergyAnalyzeV2/GetPointerEnergyTendData',1);
+    //默认勾选第一个楼宇
+    var zTree = $.fn.zTree.getZTreeObj("allPointer");
+    var nodes = zTree.getNodes();
 
-    /*---------------------------------buttonEvent------------------------------*/
-    //查询按钮
-    $('.buttons').children('.btn-success').click(function(){
+    zTree.checkNode(nodes[0], false, false);  //父节点不被选中
 
-        //获得选择的能耗类型
-        _ajaxEcType =_getEcTypeValue(_ajaxEcType);
+    zTree.checkNode(nodes[0].children[0].children[0], true, true);
 
-        //先判断获取的是楼宇还是科室
-        var o = $('.tree-0')[0].style.display;
-        //科室状态
-        var a = $('.tree-2')[0].style.display;
-        //分户状态
-        var s = $('.tree-3')[0].style.display;
+    //页面初始化
+    $('.choose-object-windows .sure').click();
+
+    //点击页面查询按钮
+    $('.demand').on('click',function(){
+
+        //获取页面中具体数据
+        var flag = onChooseObjectType + 1;
+
+        getContentData(flag);
+
+    });
+
+    $('.demand').click();
 
 
-        if(o != 'none'){
-            //楼宇数据
-            getPointerData('EnergyAnalyzeV2/GetPointerEnergyTendData',1);
+    //右上角用能趋势的切换
+    $('.header-right-btn span').on('click',function(){
 
-        }else if(a == 'block'){
-            //分户数据
-            getPointerData('EnergyAnalyzeV2/GetOfficeEnergyTendData',2);
+        $('.header-right-btn span').removeClass('cur-on-choose');
 
-        }else if(s == 'block'){
-            //支路数据
-            getPointerData('EnergyAnalyzeV2/GetBranchEnergyTendData',3);
+        $(this).addClass('cur-on-choose');
 
+        //获取用能趋势标识
+        var index = $('.header-right-btn .cur-on-choose').index();
+
+        //动态改变右上角注释
+        if(index == 0){
+            $('.text-content').html(tendencyHelpInfo.tendencyHelpInfo12);
+        }else{
+            $('.text-content').html(tendencyHelpInfo.tendencyHelpInfo52);
         }
+
+        $('.demand').click();
+
     });
 
-    //能耗选择
-    $('.energy-types').on('click','div',function(){
+    //点击改变能耗种类
+    $('.left-choose-energy-container .time-radio').on('change',function(){
 
-        //获取能耗选择名称
-        var energyName = $(this).find('p').html();
+        //获取当前能耗名称
+        var energyName = $('.left-choose-energy-container .time-radio:checked').parents('.choose-energy').find('label').html();
 
         //给右侧上方用能趋势切换按钮赋值
         $('.header-right-btn font').html(energyName);
-    });
 
-    //对象选择
-    $('.left-middle-tab').on('click',function(){
-
-        //获取能耗选择名称
-        var energyName = $('.selectedEnergy').find('p').html();
-
-        //给右侧上方用能趋势切换按钮赋值
-        $('.header-right-btn font').html(energyName);
     });
 
     //右上角注释图标
@@ -94,27 +93,6 @@ $(function(){
 
     });
 
-    //右上角用能趋势的切换
-    $('.header-right-btn span').on('click',function(){
-
-        $('.header-right-btn span').removeClass('cur-on-choose');
-
-        $(this).addClass('cur-on-choose');
-
-        //获取用能趋势标识
-        var index = $('.header-right-btn .cur-on-choose').index();
-        //动态改变右上角注释
-        if(index == 0){
-            $('.text-content').html(tendencyHelpInfo.tendencyHelpInfo12);
-        }else{
-            $('.text-content').html(tendencyHelpInfo.tendencyHelpInfo52);
-        }
-
-        $('.buttons').children('.btn-success').click();
-    });
-
-
-
     //chart图自适应
     window.onresize = function () {
         if(myChartTopLeft){
@@ -122,30 +100,23 @@ $(function(){
         }
     };
 
-    var zoomSize = 6;
-    myChartTopLeft.on('click', function (params) {
-        console.log(allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-        myChartTopLeft.dispatchAction({
-            type: 'dataZoom',
-            startValue: allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)],
-            endValue: allDataX[Math.min(params.dataIndex + zoomSize / 2, allDataY.length - 1)]
-        });
-    });
-
 });
 
-//记录能耗种类
-var _ajaxEcType = '';
-
-//记录能耗种类名称
-var _ajaxEcTypeWord = '';
-
+var _pointerZtree;
+var _officeZtree;
 //记录右上角提示信息
 var tendencyHelpInfo = {};
 
 var allData = [];
 var allDataX = [];
 var allDataY = [];
+
+
+//记录能耗种类
+var _ajaxEcType = '';
+
+//记录能耗种类名称
+var _ajaxEcTypeWord = '';
 
 /*---------------------------------echart-----------------------------------*/
 //折线图
@@ -166,10 +137,11 @@ option = {
         data:['用能趋势','折线']
     },
     grid: {
-        left: '3%',
+        left: '2%',
         right: '4%',
         bottom: '3%',
-        containLabel: true
+        containLabel: true,
+        borderColor:'#DCDCDC'
     },
     dataZoom: [
         {
@@ -190,12 +162,24 @@ option = {
     xAxis : [
         {
             type : 'category',
+            axisLine:{
+                lineStyle:{
+                    color:'#666',
+                    width:1//这里是为了突出显示加上的
+                }
+            },
             data : []
         }
     ],
     yAxis : [
         {
             type : 'value',
+            axisLine:{
+                lineStyle:{
+                    color:'#666',
+                    width:1//这里是为了突出显示加上的
+                }
+            },
             axisLabel : {
                 formatter: '{value} °C'
             }
@@ -205,7 +189,6 @@ option = {
         {
             name:'用能趋势',
             type:'bar',
-            data:[],
             smooth:true,
             stack:  '总量',
             label: {
@@ -216,13 +199,14 @@ option = {
             },
             itemStyle: {
                 normal: {
-                    color: '#9dc541'
+                    color: '#5B69D2'
                 },
                 emphasis: {
                     barBorderColor: 'rgba(0,0,0,0.5)',
                     color: '#9dc541'
                 }
             },
+            color:['#5B69D2'],
             data: [],
             barMaxWidth: '60'
 
@@ -232,20 +216,24 @@ option = {
             type:'line',
             itemStyle : {  /*设置折线颜色*/
                 normal : {
-                    color:'#9dc541'
+                    color:'#7dc79b'
                 }
             },
+            color:['#7dc79b'],
             smooth:true,
             data:[]
         }
     ]
 };
 
-/*---------------------------------otherFunction------------------------------*/
 
-//获取数据
+//获取页面具体数据
 //flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
-function getPointerData(url,flag){
+function getContentData(flag){
+
+    //存放访问后台的地址
+    var url = '';
+
     //定义存放返回数据的数组（本期 X Y）
 
     var totalAllData = 0;
@@ -264,6 +252,9 @@ function getPointerData(url,flag){
 
     //楼宇数据
     if(flag == 1){
+
+        url = 'EnergyAnalyzeV2/GetPointerEnergyTendData';
+
         //确定楼宇id
         var pts = _pointerZtree.getSelectedPointers(),pointerID;
 
@@ -275,6 +266,9 @@ function getPointerData(url,flag){
 
         //分户数据
     }else if(flag == 2){
+
+        url = 'EnergyAnalyzeV2/GetOfficeEnergyTendData';
+
         //确定分户id
         var ofs = _officeZtree.getSelectedOffices();
 
@@ -283,6 +277,9 @@ function getPointerData(url,flag){
         areaName = ofs[0].f_OfficeName;
         //支路数据
     }else if(flag == 3){
+
+        url = 'EnergyAnalyzeV2/GetBranchEnergyTendData';
+
         //确定支路id
         var nodes = branchTreeObj.getCheckedNodes(true);
 
@@ -292,6 +289,23 @@ function getPointerData(url,flag){
         areaName = nodes[0].name;
     }
 
+    //当前选中的能耗类型
+    if(flag != 2){
+
+        _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
+
+    }else{
+
+        _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id1');
+
+    }
+
+    var commonEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
+
+
+    _ajaxEcTypeWord = getEtName(commonEcType);
+
+
     //判断是否标煤
     if($('.selectedEnergy p').html() == '标煤'){
         _ajaxEcType = -2;
@@ -299,9 +313,11 @@ function getPointerData(url,flag){
         isBiaoMeiEnergy = 1;
     }
 
+    //获取当前时间类型
+    var dateType = $('.choose-time-select .onChoose').html();
 
     //获取开始时间
-    var startTime = getPostTime()[0];
+    var startTime = getCurPostTime(dateType)[0];
 
     //获取用能趋势标识
     var tendencyFlag = $('.header-right-btn .cur-on-choose').index();
@@ -335,7 +351,7 @@ function getPointerData(url,flag){
                 return false;
             }
             //改变头部显示信息
-            var energyName = $('.selectedEnergy p').html() + '耗';
+            var energyName = $('.left-choose-energy-container .time-radio:checked').parents('.choose-energy').find('label').html() + '耗';
 
             //头部用能趋势信息
             var energyFlag = $('.header-right-btn .cur-on-choose').html();
@@ -384,6 +400,7 @@ function getPointerData(url,flag){
             option.xAxis[0].data = allDataX;
             option.series[0].data = allDataY;
             option.series[1].data = allDataY;
+
             //单位
             var unit = $('#unit').find("option:selected").text();
 
@@ -429,4 +446,3 @@ function getEnergyTendConfig(){
     })
 
 };
-

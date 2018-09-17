@@ -9,16 +9,16 @@ var BEE = (function(){
     //获取当前的url
     var curUrl = window.parent.location.href;
 
-    console.log(curUrl);
+    //console.log(curUrl);
 
     if( curUrl.indexOf('passengerStation.html') == -1 && curUrl.indexOf('new-frame/new-frame.html') == -1){
-        //console.log($('.page-header'));
 
         showLeftMenu();
 
     }else{
 
         $('html body').css("cssText","background-color:#fff !important");
+
     };
 
 
