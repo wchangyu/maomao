@@ -456,7 +456,7 @@
 
         }else if(num == 2){
 
-            return '鼓励型';
+            return '激励型';
 
         }
 

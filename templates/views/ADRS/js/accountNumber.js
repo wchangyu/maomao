@@ -258,35 +258,34 @@ var Account = function(){
     })
 
     //【创建账户】
-    $('#creatUser').click(function(){
-
-        //loadding
-        $('#theLoading').modal('show');
-
-        //初始化
-        createInit();
-
-        //模态框
-        _moTaiKuang($('#create-Modal'), '提示', false, '' ,'', '创建');
-
-        //loadding
-        $('#theLoading').modal('hide');
-
-        //类
-        $('#create-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
-
-        //是否可编辑（都可编辑）
-        $('#create-Modal').find('input').attr('disabled',false);
-
-        $('#create-Modal').find('select').attr('disabled',false);
-
-        $('#create-Modal').find('textarea').attr('disabled',false);
-
-        //选择区域显示
-        $('.select-district').show();
-
-
-    })
+    //$('#creatUser').click(function(){
+    //
+    //    //loadding
+    //    $('#theLoading').modal('show');
+    //
+    //    //初始化
+    //    createInit();
+    //
+    //    //模态框
+    //    _moTaiKuang($('#create-Modal'), '提示', false, '' ,'', '创建');
+    //
+    //    //loadding
+    //    $('#theLoading').modal('hide');
+    //
+    //    //类
+    //    $('#create-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
+    //
+    //    //是否可编辑（都可编辑）
+    //    $('#create-Modal').find('input').attr('disabled',false);
+    //
+    //    $('#create-Modal').find('select').attr('disabled',false);
+    //
+    //    $('#create-Modal').find('textarea').attr('disabled',false);
+    //
+    //    //选择区域显示
+    //    $('.select-district').show();
+    //
+    //})
 
     //创建账户【确定按钮】
     $('#create-Modal').on('click','.dengji',function(){
@@ -449,6 +448,7 @@ var Account = function(){
         })
 
     })
+
     //【选择区域】
     $('.select-district').click(function(){
 

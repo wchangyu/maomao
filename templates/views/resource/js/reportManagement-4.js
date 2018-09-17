@@ -77,7 +77,12 @@ $(function (){
             },
             {
                 title:'维修耗时',
-                data:'wxShij'
+                data:'wxShij',
+                render:function(data, type, full, meta){
+
+                    return Number(data).toFixed(2)
+                }
+
             }
         ],
         "columnDefs": [ { "orderable": false, "targets": ['0'] }],

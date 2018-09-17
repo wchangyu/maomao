@@ -1,5 +1,7 @@
 ﻿var Main = function () {
 
+    var _DYHNum = 0;
+
     /*-------------------------------------echart-------------------------------------------*/
     var optionLine = {
         tooltip: {
@@ -322,6 +324,9 @@
 
             timeout:_theTimes,
 
+            //同步，只有获取到用户响应才能计算聚合商
+            async:false,
+
             success:function(result){
 
                 $('.role-answer').hideLoading();
@@ -334,7 +339,10 @@
 
                         str += '<p>' + i + '<span>' + result.uRoleSGVs[i] + '</span>' + '</p>'
 
+                        _DYHNum = result.uRoleSGVs[i];
+
                     }
+
 
                 }else if(result.code == -1){
 
@@ -401,13 +409,23 @@
 
                 var str = '';
 
+                //将聚合商响应能力添加到角色响应中
+                var totalNum = 0;
+
                 if(result.code == 0){
 
                     for(var i in result.agencySGVs){
 
+                        totalNum += Number(result.agencySGVs[i]);
+
                         str += '<p>' + i + '<span>' + result.agencySGVs[i] + '</span>' + '</p>'
 
                     }
+
+                    var JHSStr = '<p>' + '聚合商响应能力'+ '<span>' + (totalNum - Number(_DYHNum))  + '</span>' + '</p>';
+
+                    $('.role-answer').append(JHSStr);
+
 
                 }else if(result.code == -1){
 

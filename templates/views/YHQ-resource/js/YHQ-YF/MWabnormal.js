@@ -61,7 +61,20 @@ $(function(){
         },
         {
             title:'称重时间',
-            data:'insttime'
+            data:'insttime',
+            render:function(data, type, full, meta){
+
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return moment(data).format('YYYY-MM-DD HH:mm')
+
+                }
+
+            }
         },
         {
             title:'入库人',
@@ -249,7 +262,7 @@ $(function(){
                 //打包重量
                 $('#MW-weighNum').val(data.weight);
                 //打包时间
-                $('#MW-pack').val(data.sendtime);
+                $('#MW-pack').val(data.sendtime == ''?'':moment(data.sendtime).format('YYYY-MM-DD HH:mm'));
                 //入库人
                 $('#MW-in-person').val(data.inusername);
                 //称

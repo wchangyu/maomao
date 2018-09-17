@@ -41,7 +41,21 @@ $(function(){
         },
         {
             title:'时间',
-            data:'sendtime'
+            data:'sendtime',
+            render:function(data, type, full, meta){
+
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return moment(data).format('YYYY-MM-DD HH:mm')
+
+                }
+
+            }
+
         },
         {
             title:'打包重量(kg)',

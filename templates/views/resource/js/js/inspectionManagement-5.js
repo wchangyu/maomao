@@ -92,20 +92,6 @@ $(function(){
     var inspectionMissionCol = [
 
         {
-            title:'是否启用',
-            className:'isActive',
-            data:'isActive',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '未启用'
-                }if(data == 1){
-                    return '启用'
-                }if(data ==2){
-                    return '停用'
-                }
-            }
-        },
-        {
             title:'任务单号',
             data:'itkNum',
             className:'bianma'
@@ -123,6 +109,66 @@ $(function(){
             data:'dNum'
         },
         {
+            title:'责任单位部门',
+            data:'dipKeshi'
+        },
+        {
+            title:'责任人',
+            data:'manager'
+        },
+        {
+            title:'执行人',
+            data:'itkRen'
+        },
+        {
+            title:'时间',
+            data:'tkTime',
+            render:function(data, type, full, meta){
+
+                if(full.status == 0 || full.status == 1){
+
+                    //判断日期颜色
+                    var now = moment().format('YYYY-MM-DD');
+
+                    //时间tkTime小于今天的  日期变成红色
+
+                    if(_timeCompare(data,now)){//第一个小于第二个返回true
+
+                        if(data == ''){
+
+                            return ''
+
+                        }else{
+
+                            return '<span style="color: red">' + moment(data).format("YYYY-MM-DD") + '</span>'
+
+                        }
+
+
+
+                    }
+
+
+                }else{
+
+                    if(data == ''){
+
+                        return ''
+
+                    }else{
+
+                        return moment(data).format('YYYY-MM-DD')
+
+                    }
+
+                }
+
+
+
+            }
+
+        },
+        {
             title:'状态',
             data:'status',
             render:function(data, type, full, meta){
@@ -138,18 +184,6 @@ $(function(){
 
                 }
             }
-        },
-        {
-            title:'责任单位部门',
-            data:'dipKeshi'
-        },
-        {
-            title:'责任人',
-            data:'manager'
-        },
-        {
-            title:'执行人',
-            data:'itkRen'
         },
         {
             title:'操作',
@@ -932,7 +966,9 @@ $(function(){
             ditET:moment(filterInput[7]).add(1,'d').format('YYYY/MM/DD'),
             isAllData:1,
             status:$('#zht').val(),
-            userID:_userIdName
+            userID:_userIdNum,
+            //是否超时
+            istimeout:$('#istimeout').val()
         }
         $.ajax({
             type:'post',

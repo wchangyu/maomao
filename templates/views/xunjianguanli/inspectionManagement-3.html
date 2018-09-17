@@ -867,7 +867,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-
 <!--批量删除-->
 <div class="modal fade" id="Batch-DEL-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
@@ -1074,6 +1073,38 @@
             </div>
             <div class="modal-body">
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--召回提示框-->
+<div class="modal fade" id="recall-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 211px;">
+        <div class="modal-content" style="height: 211px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">确定要删除吗？</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li class="floatLeft" style="line-height: 26px;">
+                        <div class="labels">计划编码 ：</div>
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" readonly="readonly" id="xjtmbmR" class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="floatRight" style="line-height: 26px;">
+                        <div class="labels">计划名称 ：</div>
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" readonly="readonly" id="xjtmmcR" class="disabled-block">
+                        </div>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">确定</button>
