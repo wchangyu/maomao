@@ -562,6 +562,10 @@ var Login = function() {
                     var useNewIframe = data["useNewIframe"] || '';
                     sessionStorage.useNewIframe = useNewIframe;
 
+                    //页面颜色风格
+                    var colorStyle = data["colorStyle"] || '';
+                    sessionStorage.colorStyle = colorStyle;
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 

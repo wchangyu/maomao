@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
     <link rel="stylesheet" href="../njn-resource/css/dapingzhanshi/exhaustAir.css">
     <link rel="stylesheet" href="../njn-resource/css/dapingzhanshi/pendectEnergy.css">
-
     <style>
 
         .loading-indicator-overlay,.loading-indicator {
@@ -95,7 +94,7 @@
                         <span class="left-tab left-tab3" unit-type="2011" style="padding-left:50px;">汽</span>
                     </div>
 
-                    <div style="float:right">
+                    <div style="float:right" class="time-block">
                         <font class="year small-times"></font>
                         <span class="right-tab ">年</span>
                         <font class="month  small-times"></font>
@@ -146,11 +145,11 @@
 
             <!--室外温度-->
 
-                <p class="top-message">26℃</p>
+                <p class="top-message top-message-temperature">26℃</p>
 
             <!--相对湿度-->
 
-                <p class="top-message">56%</p>
+                <p class="top-message top-message-humidity">56%</p>
 
         </div>
 
@@ -434,7 +433,7 @@
 
                     <h4 class="equipment-title platform-title"><a class="" href="rdsp-bs-js:{'fcfid':'2','type':'2'}">消防系统</a></h4>
                     <!--下方echarts图-->
-                    <div class="right-bottom-equipment-content">
+                    <div class="right-bottom-equipment-content right-bottom-equipment-contentH">
 
                         <!--左侧电量-->
                         <div class="bottom-equipment-chart-container">
@@ -487,7 +486,7 @@
 
                     <h4 class="equipment-title station-title"><a href="supDraWater.html">给排水</a></h4>
                     <!--下方echarts图-->
-                    <div class="right-bottom-equipment-content">
+                    <div class="right-bottom-equipment-content right-bottom-equipment-contentH">
 
                         <!--左侧电量-->
                         <div class="bottom-equipment-chart-container">
@@ -547,7 +546,7 @@
                     </div>
 
                     <!--下方echarts图-->
-                    <div class="right-bottom-equipment-content">
+                    <div class="right-bottom-equipment-content right-bottom-equipment-contentH">
 
                         <!--左侧电量-->
                         <div class="bottom-equipment-chart-container">
@@ -600,7 +599,7 @@
 
                     <h4 class="equipment-title water-title"><a href="energyManagement.html">能源管理</a></h4>
                     <!--下方echarts图-->
-                    <div class="right-bottom-equipment-content">
+                    <div class="right-bottom-equipment-content right-bottom-equipment-contentH">
 
                         <!--左侧电量-->
                         <div class="bottom-equipment-chart-container">
@@ -712,7 +711,7 @@
 
                     </div>
 
-                    <div style="float:right;display: none ">
+                    <div style="float:right;display: none;font-size: 0 ">
                         <font class="year small-times"></font>
                         <span class="right-tab ">年</span>
                         <font class="month  small-times"></font>
@@ -1655,7 +1654,6 @@
     </div>
 </div>
 
-
 <!-- END FOOTER -->
 <script>
 
@@ -1672,6 +1670,9 @@
 <script src="../new-resource/js/common.js"></script>
 <script src="../njn-resource/js/common.js"></script>
 <script src="../njn-resource/js/dapingzhanshi/pandectEnergy.js"></script>
+
+
+
 
 </body>
 </html>

@@ -1,7 +1,49 @@
 /**
  * Created by admin on 2018/1/12.
  */
+
+if(sessionStorage.colorStyle == 0){
+
+
+}else if(sessionStorage.colorStyle == 1){
+
+    document.write('<link rel="stylesheet" href="../njn-resource/css/dapingzhanshi/pendectEnergy1.css">');
+
+}
+
 $(function(){
+
+    //更改页面标题
+    var pageTitleCN = '';
+
+    var pageTitleEN = '';
+
+    if(_colorLocation == 0){
+
+        pageTitleCN = '南京南站';
+
+        pageTitleEN = '（nanjingnan Station）';
+
+        $('.right-bottom-energyment0').find('.left-tab-container').children('div').eq(1).hide();
+
+
+    }else if(_colorLocation == 1){
+
+        pageTitleCN = '虹桥站';
+
+        pageTitleEN = '（hongqiao station）';
+
+        $('.right-bottom-energyment0').find('.left-tab-container').children('div').eq(1).show();
+
+    }
+
+    $('.right-picture-title').html(pageTitleCN + '<br>' + '<span>' + pageTitleEN + '</span>');
+
+    if($('.right-top-title')){
+
+        $('.right-top-title').html(pageTitleCN + pageTitleEN);
+
+    }
 
     //获取页面左侧站点数据
     getStationInfo();
@@ -368,8 +410,21 @@ function drawRightTab1(){
 //左侧下方柱状图
 var leftBottomChart1 = echarts.init(document.getElementById('echarts-left-bottom1'));
 
+var _colorLocation = sessionStorage.colorStyle;
+
+if(_colorLocation == 0){
+
+    var colorBar = '#3398DB'
+
+}else if(_colorLocation == 1){
+
+    var colorBar = '#F4A85A'
+
+}
+
+
 var option00 = {
-    color: ['#3398DB'],
+    color: [colorBar],
     tooltip : {
         trigger: 'axis',
         axisPointer : {            // 坐标轴指示器，坐标轴触发有效

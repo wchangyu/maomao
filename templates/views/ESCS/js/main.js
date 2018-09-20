@@ -5,65 +5,65 @@ $(function(){
     //数据曲线折线图
 
     //能源曲线
-    var _chartEnergy = echarts.init(document.getElementById('chart-line-energy'));
+    //var _chartEnergy = echarts.init(document.getElementById('chart-line-energy'));
 
     //能效曲线
-    var _chartEfficiency = echarts.init(document.getElementById('chart-line-efficiency'));
+    //var _chartEfficiency = echarts.init(document.getElementById('chart-line-efficiency'));
 
-    var colorArr = ['#5793f3', '#d14a61', '#675bba', '#ffa500'];
+    //var colorArr = ['#5793f3', '#d14a61', '#675bba', '#ffa500'];
 
-    var optionL = {
-
-        //color:['#5793f3', '#d14a61', '#675bba', '#ffa500'],
-
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {
-            data:[]
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        //toolbox: {
-        //    feature: {
-        //        saveAsImage: {}
-        //    }
-        //},
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: [],
-            axisLabel:{
-                interval:2,
-                rotate:45,//倾斜度 -90 至 90 默认为0
-                margin:12
-            },
-        },
-        yAxis: [
-
-            {
-                name:'能效',
-                type:'value'
-            },
-            //{
-            //    name:'平衡率',
-            //    type:'value'
-            //}
-
-        ],
-        series: [
-            //{
-            //    name:'邮件营销',
-            //    type:'line',
-            //    stack: '总量',
-            //    data:['']
-            //}
-        ]
-    };
+    //var optionL = {
+    //
+    //    //color:['#5793f3', '#d14a61', '#675bba', '#ffa500'],
+    //
+    //    tooltip: {
+    //        trigger: 'axis'
+    //    },
+    //    legend: {
+    //        data:[]
+    //    },
+    //    grid: {
+    //        left: '3%',
+    //        right: '4%',
+    //        bottom: '3%',
+    //        containLabel: true
+    //    },
+    //    //toolbox: {
+    //    //    feature: {
+    //    //        saveAsImage: {}
+    //    //    }
+    //    //},
+    //    xAxis: {
+    //        type: 'category',
+    //        boundaryGap: false,
+    //        data: [],
+    //        axisLabel:{
+    //            interval:2,
+    //            rotate:45,//倾斜度 -90 至 90 默认为0
+    //            margin:12
+    //        },
+    //    },
+    //    yAxis: [
+    //
+    //        {
+    //            name:'能效',
+    //            type:'value'
+    //        },
+    //        //{
+    //        //    name:'平衡率',
+    //        //    type:'value'
+    //        //}
+    //
+    //    ],
+    //    series: [
+    //        //{
+    //        //    name:'邮件营销',
+    //        //    type:'line',
+    //        //    stack: '总量',
+    //        //    data:['']
+    //        //}
+    //    ]
+    //};
 
     //热不平衡
     var RBPHChart = echarts.init(document.getElementById('RBPHChart'));
@@ -290,13 +290,13 @@ $(function(){
     //NXBC();
 
     //能效曲线
-    NXQX();
+    //NXQX();
 
     //能源曲线
-    NYQX();
+    //NYQX();
 
     //报警
-    alarmData();
+    //alarmData();
 
     //运行参数
     YXCS();
@@ -326,13 +326,13 @@ $(function(){
         //NXBC();
 
         //能效曲线
-        NXQX();
+        //NXQX();
 
         //能源曲线
-        NYQX();
+        //NYQX();
 
         //报警
-        alarmData();
+        //alarmData();
 
         //运行参数
         YXCS();
@@ -667,11 +667,7 @@ $(function(){
     //chart图自适应
     window.onresize = function () {
 
-        if (_chartEnergy && _chartEfficiency && RBPHChart) {
-
-            _chartEnergy.resize();
-
-            _chartEfficiency.resize();
+        if (RBPHChart) {
 
             RBPHChart.resize();
         }

@@ -1,0 +1,33 @@
+.add-input-block{
+
+    border-color: #e5e5e5;
+
+    background: #ffffff;
+
+}
+
+.add-input{
+
+    height: 32px;
+
+    line-height: 32px;
+
+    text-indent: 12px;
+
+}
+
+button.dt-button, div.dt-button, a.dt-button{
+
+    border: none !important;
+
+    padding: 7px 17px;
+
+    margin-right: 0 !important;
+
+}
+
+.dt-buttons{
+
+    height: 36px;
+
+}

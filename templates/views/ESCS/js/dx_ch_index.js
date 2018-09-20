@@ -25,6 +25,9 @@
     var INIT_ITEM_LDCSW = function () {
         $('#dxch_item_csw_title').html();
         $('#dxch_item_csw_title').html(sessionStorage.DxChChwCSWTitle);
+
+        console.log(sessionStorage.DxChChwCSWSte);
+
         //$('#dxch_item_csw_acv').html();
         //$('#dxch_item_csw_acv').html(sessionStorage.DxChChwCSWAcv);
         if (sessionStorage.DxChChwCSWSte === "1") {

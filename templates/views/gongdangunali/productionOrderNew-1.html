@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>能效分析</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--my css-->
+    <link rel="stylesheet" href="../resource/css/public.css">
+
+    <link rel="stylesheet" href="../resource/css/conditionPublic.css">
+
+    <!--车站选择-->
+    <link rel="stylesheet" href="../resource/station/chooseStation.css">
+
+    <link rel="stylesheet" href="../resource/css/GDpublicStyle.css">
+
+    <style type="text/css" media=print>
+
+        .noprint{display : none }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp L-container">
+                        <div class="wrap">
+                            <!-- 标题 -->
+                            <div class="content-main-contents content-main-right">
+                                <ul class="condition-query L-condition noprint">
+                                    <li><label>工单号：</label>
+                                        <input type="text" class="form-control gdCodeCon">
+                                    </li>
+                                    <li>
+
+                                        <label><span class="user-defined-department"></span>：</label>
+                                        <select id="bumen"></select>
+                                    </li>
+                                    <li>
+                                        <label>报修日期</label>
+                                        <div class="time-tool-block">
+                                            <div class="input-group date form_date abbrDT">
+                                                <input id="spDT" class="form-control min" size="16" type="text" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label>到</label>
+                                        <div class="time-tool-block">
+                                            <div class="input-group date form_date abbrDT">
+                                                <input id="epDT" class="form-control max" size="16" type="text" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="L-condition-button" id="selected">查询数据</div>
+                                    </li>
+                                    <li>
+                                        <div class="L-condition-button resites">重置条件</div>
+                                    </li>
+                                    <li>
+                                        <div class="cont-col1">
+                                            <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 16px;">
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>登记
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="cont-col1">
+                                            <div class="quickCreat label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 16px;">
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>快速报障
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="L-condition-button resites" onclick="javascript:window.print();">打印</div>
+                                    </li>
+                                    <li class="excelButton">
+                                    </li>
+                                    <div class="clearfix"></div>
+                                </ul>
+                                <!-- 表格 -->
+                                <div class="content-main-contents">
+                                    <div class="main-contents-table">
+                                        <table id="scrap-datatables" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                                            <thead>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+<!--模态框创建工单-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 676px;width: 1000px;">
+        <div class="modal-content" style="height: 676px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">创建工单</h4>
+            </div>
+            <div class="modal-body">
+                <!--主体部分-->
+                <form class="cmxform" id="commentForm" method="post" action="">
+                    <ul class="gongdanList modal-block" style="height: 512px;overflow-y: auto">
+                        <li class="default-filling">
+                            <label>工单号</label>
+
+                            <input type="text" class="table-group-action-input form-control" id="gdCode" name="gdCode" disabled placeholder="自动生成">
+
+                            <div class="modal-select"></div>
+
+                        </li>
+                        <li class="default-filling">
+                            <label>工单状态</label>
+
+                            <input type="text" class="table-group-action-input form-control" id="gdState" name="gdState" disabled placeholder="自动生成">
+
+                            <div class="modal-select"></div>
+
+                        </li>
+                        <li>
+                            <label>工单类型</label>
+                            <div id="gdJJ" style="width: 250px;display: inline-block">
+                                <input type="radio" class="inpus" name="inpus" id="ones" value="1" disabled><label>快速</label>
+
+                                <input type="radio" class="inpus" name="inpus" id="twos" value="0" disabled><label>普通</label>
+                            </div>
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>工单来源</label>
+
+                            <select class="table-group-action-input form-control" id="gdResource">
+
+                                <option value="1">车站报修</option>
+
+                                <option value="2">现场人员报修</option>
+
+                            </select>
+
+                            <div class="modal-select"></div>
+
+                        </li>
+                        <li>
+                            <label>任务级别</label>
+                            <select class="table-group-action-input form-control" id="gdGrade">
+                                <option value="1" selected>一级任务</option>
+                                <option value="2">二级任务</option>
+                                <option value="3">三级任务</option>
+                                <option value="4">四级任务</option>
+                            </select>
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>报修电话</label>
+                            <input type="text" id="gdTel" name="gdTel" class="form-control" placeholder="报修电话是必填字段">
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>报修人信息</label>
+                            <input type="text"  id="gdBXRen" name="gdBXRen" class="form-control" placeholder="报修人信息是必填字段">
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>故障位置</label>
+                            <input type="text" id="gdPlace" name="gdPlace" class="form-control" placeholder="故障位置是必填字段">
+                            <div class="modal-select"></div>
+                        </li>
+                        <li class="routeShow">
+                            <label>线路</label>
+                            <select id="line-route" class="line-route form-control">
+
+                            </select>
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label><span class="user-defined-department"></span></label>
+                            <select class="cjz form-control" id="gdSection" name="gdSection"></select>
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>系统类型</label>
+                            <select class="xitong form-control" id="gdMatter" name="gdMatter"></select>
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>设备编码</label>
+                            <input class="form-control" type="text" id="sbSelect" disabled>
+                            <div class="modal-select modal-select-show" id="select-Dev"></div>
+                        </li>
+                        <li>
+                            <label>设备名称</label>
+
+                            <input class="form-control" type="text" id="sbMC" disabled>
+
+                            <div class="modal-select"></div>
+
+                        </li>
+                        <li>
+                            <label>故障发生时间</label>
+                            <div class="time-tool-block">
+                                <div class="input-group date form_date otime">
+                                    <input id="otime" class="form-control max" size="16" type="text" value="" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="default-filling">
+                            <label>工单登记时间</label>
+                            <div class="time-tool-block">
+                                <div class="input-group date form_date dtime">
+                                    <input id="dtime" class="form-control max" size="16" type="text" value="" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                </div>
+                            </div>
+
+                        </li>
+                        <li class="text-block">
+
+                            <label>故障描述</label>
+
+                            <textarea style="height: 34px;outline: none" class="form-control remarkDes"></textarea>
+
+                        </li>
+                        <div class="divBlock bxpicture" style="margin-top: 10px;width: 611px;display: none">
+                            <button type="button" class="btn btn-info viewImage" id="viewImage">查看图片</button>
+                            <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
+                        </div>
+                    </ul>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary dengji">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--快速创建-->
+<div class="modal fade modals" id="quick-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 668px !important;width: 1000px !important;">
+        <div class="modal-content" style="height: 668px !important;width: 1000px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">快速创建</h4>
+            </div>
+            <div class="modal-body">
+                <form class="cmxform" id="commentFormQ" method="post" action="">
+                    <ul class="gongdanList modal-block" id="quickWork" style="height: 512px;overflow-y: auto">
+                        <li>
+                            <label>工单类型</label>
+                            <div style="width: 250px;display: inline-block">
+                                <input type="radio" id="one1" value="1" disabled="disabled"><label for="one1">快速</label>
+                                <input type="radio" id="two1" value="0" disabled="disabled"><label for="two1">普通</label>
+                            </div>
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>工单来源</label>
+                            <select id="gdResourceQ" class="table-group-action-input form-control">
+
+                                <option value="1">车站报修</option>
+
+                                <option value="2">现场人员报修</option>
+
+                            </select>
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>任务级别</label>
+                            <select id="gdGradeQ" class="table-group-action-input form-control">
+                                <option value="1">一级任务</option>
+                                <option value="2">二级任务</option>
+                                <option value="3">三级任务</option>
+                                <option value="4">四级任务</option>
+                            </select>
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>报修电话</label>
+                            <input type="text" id="gdTelQ" name="gdTelQ" class="table-group-action-input form-control" placeholder="报修电话是必填字段">
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>报修人信息</label>
+                            <input type="text"  id="gdBXRenQ" name="gdBXRenQ" class="table-group-action-input form-control" placeholder="报修人信息是必填字段">
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>故障位置</label>
+                            <input type="text" id="gdPlaceQ" name="gdPlaceQ" class="table-group-action-input form-control" placeholder="故障位置是必填字段">
+                            <div class="modal-select"></div>
+                        </li>
+                        <li class="routeShow">
+                            <label>线路</label>
+                            <select id="line-routeQ" class="table-group-action-input form-control"></select>
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label><span class="user-defined-department"></span></label>
+                            <select id="gdSectionQ" name="gdSectionQ" class="table-group-action-input form-control"></select>
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>系统类型</label>
+                            <select id="gdMatterQ" name="gdMatterQ" class="table-group-action-input form-control"></select>
+                        </li>
+                        <li>
+                            <label><span class="user-defined-group"></span></label>
+                            <input type="text" class="table-group-action-input form-control" id="gdWXSection" disabled="disabled">
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>维修设备</label>
+                            <input type="text" class="table-group-action-input form-control" id="sbSelectQ">
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>设备名称</label>
+                            <input type="text" id="sbMCQ" class="table-group-action-input form-control">
+                            <div class="modal-select"></div>
+                        </li>
+                        <li>
+                            <label>发生时间</label>
+                            <input type="text" id="otimeQ" class="table-group-action-input form-control">
+                        </li>
+                        <li class="text-block">
+                            <label>故障描述</label>
+                            <textarea style="height: 34px;outline: none" class="form-control remarkDesQ"></textarea>
+                        </li>
+                        <li class="text-block">
+                            <label>维修内容</label>
+                            <textarea style="height: 34px;outline: none" id="weixiuBZQ" name="weixiuBZQ" class="form-control" placeholder="维修内容是必填字段"></textarea>
+                        </li>
+                        <!--<div style="margin-top: 10px;width: 611px;">-->
+                            <!--<button type="button" class="btn btn-info viewImage">查看图片</button>-->
+                            <!--<div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>-->
+                        <!--</div>-->
+                        <div class="table-block" style="width: 78%;">
+                            <div class="table-title">
+                                <span class="spanhover">执行人员</span>
+                                <!--<span>维修材料</span>-->
+                            </div>
+                            <span class="draw-border"></span>
+                            <div>
+                                <div class="tableHoverL" style="z-index: 1">
+                                    <table class="table table-hover" id="personTable1">
+                                        <thead>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary quickDengji">快速报障</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--设备选择模态框-->
+<div class="modal fade" id="DEV-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 746px;width: 1000px !important;">
+        <div class="modal-content" style="height: 746px;width: 1000px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">设备选择人</h4>
+            </div>
+            <div class="modal-body" style="height: 625px;overflow-y: auto">
+                <!--主体部分-->
+                <ul class="condition-query">
+                    <li>
+                        <label>设备编码：</label>
+                        <input type="text" class="sbbm form-control">
+                    </li>
+                    <li>
+                        <label>设备名称：</label>
+                        <input type="text" class="sbmc form-control">
+                    </li>
+                    <li>
+                        <label>规格型号：</label>
+                        <input type="text" class="ggxh form-control">
+                    </li>
+                    <li>
+                        <label>设备系统：</label>
+                        <select name="" id="dev-system" disabled="disabled" class="form-control"></select>
+                    </li>
+                    <li>
+                        <label>设备类型：</label>
+                        <select name="" id="dev-type" class="form-control"></select>
+                    </li>
+                    <li>
+                        <label>设备部门：</label>
+                        <select name="" id="dev-depart" disabled="disabled" class="form-control"></select>
+                    </li>
+                    <li><button class="btn btn-success" id="selected1">查询</button></li>
+                    <div class="clearfix"></div>
+                </ul>
+                <table id="dev-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary dengji">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--图片详情显示-->
+<div class="modal fade" id="img-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height: auto">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">图片</h4>
+            </div>
+            <div class="modal-body">
+                <img src="" style="max-width: 667px;">
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--所有提示框-->
+<div class="modal fade" id="tip-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<!--公共js-->
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--my js-->
+<script src="../resource/js/productionOrderNew-1.js"></script>
+
+<!--车站选择-->
+<script src="../resource/station/chooseStationNew.js"></script>
+
+<!--配置名称-->
+<script src="../../../assets/local/configs/setNames.js"></script>
+
+<!--工单的公共部分-->
+<script src="../resource/js/publicGD.js"></script>
+
+<!--选择设备-->
+<script src="../resource/js/equipmentSelectNew.js"></script>
+
+<!--validate表单验证-->
+<script src="../resource/validation/jquery.validate.min.js"></script>
+
+<script src="../resource/validation/messages_zh.min.js"></script>
+
+<!--表单格式验证-->
+<script src="../resource/js/validateFormat.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
