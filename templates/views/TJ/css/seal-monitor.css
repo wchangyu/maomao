@@ -165,11 +165,12 @@ h3{
     text-align: center;
     line-height: 110px;
     cursor: pointer;
+    color: #95A4B6;
 }
 
 .content-child-show .the-choose-show-data-container .onChoose{
 
-    color:white;
+    color:#A7D9FF;
 }
 
 /*echart图*/

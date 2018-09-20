@@ -6,8 +6,8 @@ $(function(){
     //获取菜单信息 并赋值到页面中
      getMenuToHtml();
 
-    //给iframe添加点击事件
-    addClickForIframe();
+    ////给iframe添加点击事件
+    //addClickForIframe();
 
     //点击左侧主菜单
     $('.left-bottom-menu-container').on('click','.main-menu',function(){
@@ -146,12 +146,12 @@ $(function(){
 
         $('.right-menu-inner-container .secondary-menu').addClass('hide-menu');
 
-
     });
 
     $('.embed-page').on('click',function(){
 
         $('.right-menu-inner-container .secondary-menu').addClass('hide-menu');
+
     });
 
     //点击三级菜单
@@ -164,7 +164,6 @@ $(function(){
         $('#embed-page').attr('src',jumpUrl);
 
     });
-
 
 });
 
@@ -208,15 +207,20 @@ function getMenuToHtml(){
         //删除配置项中../ 方便下面进行遍历
         indexUrl = myFunc(sessionStorage.indexUrl,'../');
 
+        indexUrl = myFunc(indexUrl,'./');
+
         mainIndexUrl = '../'+ indexUrl;
 
         //页面初始化
         //改变iframe路径
         $('#embed-page').attr('src',mainIndexUrl);
+
+        iframeClick();
+
     }
 
     //改变menuArr的结构
-    _menuArr = changeOriginalMenu(_menuArr,indexUrl);
+    menuArr = changeOriginalMenu(_menuArr,indexUrl);
 
     _newSimpleMenuArr = _menuArr;
 
@@ -373,6 +377,17 @@ function checkedIndexUrl(menuObj,indexUrl){
     //获取当前url
     var curUrl = menuObj.uri;
 
+    if(curUrl){
+
+        curUrl =  curUrl.toLowerCase()
+    }
+
+    if(indexUrl){
+
+        indexUrl = indexUrl.toLowerCase();
+    }
+
+
     if(curUrl.indexOf(indexUrl) > -1){
 
         return true;
@@ -405,6 +420,7 @@ function drawLeftMenu(menuArr){
 
             //给当前显示的二级菜单列表赋值
             _theSecondMenuArr = o.newChildMenu;
+
         }
 
         if(o['icon-img']){
@@ -467,12 +483,23 @@ function drawTopMenu(secondMenuArr,flag){
                 if(i == 0){
 
                     indexClass = 'onChoose1';
+
+                    //获取当前地址
+                    var thisUrl = o.childMenu[0].uri;
+
+                    //页面初始化
+                    //改变iframe路径
+                    $('#embed-page').attr('src',thisUrl);
+
+                    iframeClick();
+
                 }
 
                 //如果包含首页 则当前选中
             }else if(o.indexUrl == 1){
 
                 indexClass = 'onChoose1';
+
             }
 
 
@@ -506,6 +533,16 @@ function drawTopMenu(secondMenuArr,flag){
                 if(i == 0){
 
                     indexClass = 'onChoose';
+
+
+                    //获取当前地址
+                    var thisUrl = o.uri;
+
+                    //页面初始化
+                    //改变iframe路径
+                    $('#embed-page').attr('src',thisUrl);
+
+                    iframeClick();
                 }
 
                 //如果包含首页 则当前选中
@@ -555,11 +592,15 @@ function changeMainMenuImg(dom,flag){
         //获取到之前选中的菜单的图片
         var imgUrl = dom.find('.left-main-menu-img').attr('src');
 
-        //选中图片变成未选中图片
-        var newImgUrl = imgUrl.split('1')[0] + imgUrl.split('1')[1];
+        if(imgUrl){
 
-        //新图片赋值
-        dom.find('.left-main-menu-img').attr('src',newImgUrl);
+            //选中图片变成未选中图片
+            var newImgUrl = imgUrl.split('1')[0] + imgUrl.split('1')[1];
+
+            //新图片赋值
+            dom.find('.left-main-menu-img').attr('src',newImgUrl);
+
+        }
 
     }
 
@@ -569,11 +610,15 @@ function changeMainMenuImg(dom,flag){
         //获取到之前选中的菜单的图片
         var imgUrl = dom.find('.left-main-menu-img').attr('src');
 
-        //选中图片变成未选中图片
-        var newImgUrl = imgUrl.split('.')[0] + '1.'+imgUrl.split('.')[1];
+        if(imgUrl){
 
-        //新图片赋值
-        dom.find('.left-main-menu-img').attr('src',newImgUrl);
+            //选中图片变成未选中图片
+            var newImgUrl = imgUrl.split('.')[0] + '1.'+imgUrl.split('.')[1];
+
+            //新图片赋值
+            dom.find('.left-main-menu-img').attr('src',newImgUrl);
+
+        }
 
     }
 }
@@ -600,14 +645,34 @@ function myFunc(a,b){
 
 };
 
-//给iframe添加点击事件
-function addClickForIframe(){
+//iframe点击事件
+function iframeClick(){
 
-    var testiframe=document.getElementById("embed-page").contentWindow;
-    var doc=testiframe.document;
-    /*testiframe.scroll(0,doc.body.scrollHeight);*/
-    testiframe.addEventListener("click",function(e){
-        $('.right-menu-inner-container .secondary-menu').addClass('hide-menu');
-    },false);
+    var iframe = document.getElementById('embed-page');
+
+    iframe.onload = function() {
+
+
+        var frameObj = iframe.contentDocument;
+
+        setTimeout(function(){
+
+            var _frameHeight = frameObj.documentElement.scrollHeight + 20;
+
+            console.log(_frameHeight);
+
+            $("#embed-page").height(_frameHeight);
+
+        },1000);
+
+
+        iframe.contentDocument.onclick = function () {
+
+            //console.log(55);
+            $('.right-menu-inner-container .secondary-menu').addClass('hide-menu');
+
+        };
+    };
 
 }
+

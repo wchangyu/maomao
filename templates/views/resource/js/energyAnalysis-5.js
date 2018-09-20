@@ -344,7 +344,7 @@ $(function() {
 
 		conditionalSearch();
 
-	})
+	});
 
 	//分项、能耗联动
 	$('.energy-types').delegate('div','click',function(){

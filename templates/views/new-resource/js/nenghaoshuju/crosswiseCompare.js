@@ -823,8 +823,12 @@ function GetShowEnergyNormItem(energyType,flag){
                 //如果是第一个默认选中
                 if(i == 0){
                     html += '<p data-num ="'+ o.normIndex+'" class="curChoose" data-unit="'+ o.energyUnit+'">'+ o.energyItemName+'</p>';
+
+
+
                     //右上角单位
                     $('.unit').val(o.energyUnit);
+
                 }else{
                     html += '<p data-num ="'+ o.normIndex+' " data-unit="'+ o.energyUnit+'">'+ o.energyItemName+'</p>'
                 }

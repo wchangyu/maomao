@@ -489,6 +489,7 @@ function getPointerData(url,flag){
 
 
         });
+
         //页面上方展示信息
         areaName = $('#allPointer .radio_true_full').next().html();
 

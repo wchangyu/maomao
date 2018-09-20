@@ -107,6 +107,7 @@ p{
     position: absolute;
     right: 45px;
     top: 6px;
+    z-index: 1000;
 }
 .top-cut1 li {
     float: left;
@@ -409,7 +410,7 @@ h3 .left-patch{
 /*能耗排名*/
 .header-right-btn{
     position: absolute;
-    left: 22% !important;
+    left: 110px !important;
     top: 20px !important;
 }
 

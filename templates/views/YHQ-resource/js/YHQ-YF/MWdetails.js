@@ -63,7 +63,7 @@ $(function(){
                 //重量
                 $('#MW-weighNum').val(current.weight);
                 //打包时间
-                $('#MW-creat-time').val(current.sendtime);
+                $('#MW-creat-time').val(current.sendtime == ''?'':moment(current.sendtime).format('YYYY-MM-DD HH:mm'));
 
                 //入库称
                 $('#MW-in-weigh').val(current.inscalename);
@@ -74,7 +74,7 @@ $(function(){
                 //入库人
                 $('#MW-in-person').val(current.inusername);
                 //入库时间
-                $('#MW-in-time').val(current.insttime);
+                $('#MW-in-time').val(current.insttime == ''?'':moment(current.insttime).format('YYYY-MM-DD HH:mm'));
 
                 //处理公司
                 $('#MW-out-company').val(current.compname);
@@ -83,7 +83,7 @@ $(function(){
                 //入库人
                 $('#MW-out-person').val(current.outusername);
                 //入库时间
-                $('#MW-out-time').val(current.outsttime);
+                $('#MW-out-time').val(current.outsttime == ''?'':moment(current.outsttime).format('YYYY-MM-DD HH:mm'));
 
 
             }

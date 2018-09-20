@@ -166,14 +166,14 @@
       }
     ]
   },
-  "apiUriPrefix":"http://localhost/BEEWebAPI/api/",
+  "apiUriPrefix":"http://218.70.30.134:32537/BEEWebAPI/api/",
   "apiUriPrefixYW":"http://218.70.30.134:32537/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
   "systemTitle":"高效机房控制系统",
   "isShowTitleEprName":"0",
   "isShowTitleEprNameComment":"是否在systemTitle的基础上追加企业名称",
-  "pageTitle":"高效机房冷站控制系统",
+  "pageTitle":"高效机房控制系统",
   "themeColor":"blue",
   "themecolors":"blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
   "refreshInterval":"0",
@@ -217,5 +217,9 @@
   "selectPointerType":"0",
   "selectPointerTypeComment":"右上角楼宇选择 0为单选 1为复选",
   "stationTabType":"1",
-  "stationTabTypeComment":"车站大屏导航栏模式 0为南京南模式 1为上海虹桥模式"
+  "stationTabTypeComment":"车站大屏导航栏模式 0为南京南模式 1为上海虹桥模式",
+  "useNewIframe":"0",
+  "useNewIframeComment":"是否启用新框架 0不启用 1启用",
+  "useNewIframeUrl":"new-frame/new-frame.html",
+  "useNewIframeUrlComment":"新框架页面路径"
 }

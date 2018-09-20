@@ -37,6 +37,7 @@ $(function(){
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
     $('.buttons').children('.btn-success').click(function(){
+
         //获得选择的能耗类型
         _ajaxEcType =_getEcTypeValue(_ajaxEcType);
 
@@ -82,7 +83,6 @@ $(function(){
         //给右侧上方用能趋势切换按钮赋值
         $('.header-right-btn font').html(energyName);
     });
-
 
     //右上角注释图标
     $('.right-text').on('click',function(){

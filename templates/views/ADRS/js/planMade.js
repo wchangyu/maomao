@@ -310,7 +310,7 @@
 
                 }else if(data == 2){
 
-                    return '鼓励型'
+                    return '激励型'
 
                 }
 

@@ -109,6 +109,7 @@ var ObjectSelection = function(){
                 obj.id = tempAllOffice[i].f_OfficeID;
                 obj.pId = tempAllOffice[i].f_ParentID;
                 obj.f_OfficeName = tempAllOffice[i].f_OfficeName;
+                obj.name = tempAllOffice[i].f_OfficeName;
                 if(i == 0){
                    obj.open = true;
                 }
@@ -212,8 +213,17 @@ var ObjectSelection = function(){
 
                     //如果当前页面存在支路
                     if($('#allBranch').length>0 && treeId != 'allSelectPointer' && treeId != 'allBranch'){
-                        //获取当前楼宇下的支路
-                        GetAllBranches();
+                        if(branchesType){
+
+                            //获取当前楼宇下的支路
+                            GetAllBranches(branchesType);
+
+                        }else{
+
+                            //获取当前楼宇下的支路
+                            GetAllBranches();
+                        }
+
                     }
 
                     if(getShowRadio){
@@ -282,8 +292,16 @@ var ObjectSelection = function(){
                         //如果当前页面存在支路
                         if($('#allBranch').length>0 && treeId != 'allSelectPointer'){
 
-                            //获取当前楼宇下的支路
-                            GetAllBranches();
+                            if(branchesType){
+
+                                //获取当前楼宇下的支路
+                                GetAllBranches(branchesType);
+
+                            }else{
+
+                                //获取当前楼宇下的支路
+                                GetAllBranches();
+                            }
                         }
 
                         $('#' + treeId).find('.curSelectedNode').removeClass('curSelectedNode');

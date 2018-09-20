@@ -416,6 +416,7 @@ function getPointerData(url,flag){
         }
     })
 }
+
 //电分项
 var table = $('#dateTables').DataTable({
     "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
@@ -559,6 +560,7 @@ $('#dateTables tbody').on('click', '.details-control', function () {
         // Open this row
         row.child( format(historyArr) ).show();
         tr.addClass('shown');
+        $('.shown').next('tr').addClass('on-show');
     }
 } );
 

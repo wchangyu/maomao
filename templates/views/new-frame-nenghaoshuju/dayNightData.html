@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <!--<link rel="stylesheet" href="../new-resource/css/common.css">-->
+    <!--<link rel="stylesheet" href="../new-resource/css/nenghaoshuju/energyDemand.css">-->
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        #rheader-content-41 {
+            width: 100%;
+            height: 290px;
+        }
+
+        #rheader-content-42 {
+            height: 290px;
+            width: 100%;
+        }
+
+        .rheader-content-rightss-1 {
+            width: 415px;
+            height: 100%;
+            margin: 0 auto;
+        }
+
+        .content-rightss-tip{
+            width:210px;
+            height:50px;
+            /*background: url(../img/bg-img.png)no-repeat 0px 0px;*/
+            text-indent: 20px;
+        }
+        .content-rightss-one-1 p:nth-child(2){
+            text-indent:15px;
+            line-height:30px;
+            margin:0;
+            width: 130px;
+        }
+        .content-rightss-one-1 p:nth-child(3){
+            width:130px;
+            height:1px;
+            background:#afc8de;
+            margin:0;
+            width: 130px;
+        }
+        .content-rightss-one-1 p:nth-child(4){
+            text-indent:15px;
+            line-height:30px;
+            margin:0;
+            width: 130px;
+        }
+        .content-rightss-one-1 span:nth-child(5){
+            position:absolute;
+            left:150px;
+            top:80px;
+        }
+        .content-rightss-one-1 span:nth-child(6){
+            font-size:15px;
+            position:absolute;
+            left:60px;
+            line-height:80px;
+            weight:bold;
+            color:#fff;
+        }
+        .content-rightss-one-2 p:nth-child(2){
+            text-indent:15px;
+            line-height:30px;
+            margin:0;
+        }
+        .content-rightss-one-2 p:nth-child(3){
+            width:130px;
+            height:1px;
+            background:#afc8de;
+            margin:0;
+        }
+        .content-rightss-one-2 p:nth-child(4){
+            text-indent:15px;
+            line-height:30px;
+            margin:0;
+        }
+        .content-rightss-one-2 span:nth-child(5){
+            position:absolute;
+            left:150px;
+            top:80px;
+        }
+        .content-rightss-one-2 span:nth-child(6){
+            font-size:15px;
+            position:absolute;
+            left:60px;
+            line-height:80px;
+            weight:bold;
+            color:#fff;
+        }
+
+        /*选择时间段选框稍小*/
+        .datepicker1{
+            width:90px !important;
+            vertical-align: middle;
+        }
+
+        .choose-day-night-time .the-times{
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom:8px;
+            height: 40px;
+        }
+
+        .choose-day-night-time .the-times b{
+
+            vertical-align: middle;
+        }
+
+    </style>
+</head>
+
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+
+                            <!--上方选择查询条件-->
+                            <div class="top-choose-condition-container">
+
+                                <!--里层容器-->
+                                <div class="inner-condition-container">
+
+                                    <!--左侧选择水电-->
+                                    <div class="left-choose-energy-container">
+
+                                        <ul>
+                                            <li class="choose-energy dian" data-img="dian.png">
+                                                <label for="radio1" class="input-label1" style="padding-left: 0">电</label>
+                                                <input class="time-radio" id="radio1" type="radio" name="choose-radio" value="day" checked="checked" data-id="01" data-id1="4" data-type="100">
+
+                                            </li>
+
+                                            <li class="choose-energy shui" data-img="shui.png">
+
+                                                <label for="radio2" class="input-label1" style="padding-left: 0">水</label>
+
+                                                <input class="time-radio" id="radio2" type="radio" name="choose-radio" value="time" data-id="211" data-id1="5" data-type="200">
+
+                                            </li>
+
+                                        </ul>
+
+                                    </div>
+
+                                    <!--右侧选择其他信息-->
+                                    <div class="right-choose-condition-container">
+
+                                        <!--对象选择-->
+                                        <span class="choose-object">对象选择</span>
+
+                                        <!--对象选择弹窗-->
+                                        <div class='modal fade' id='my-object' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' >
+                                            <div class='modal-dialog' style='margin:100px auto;width:530px;'>
+
+                                                <div class='modal-content'>
+
+                                                    <div class="choose-object-windows">
+
+                                                        <!--标题-->
+                                                        <h3 class="window-title">对象选择
+
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                                        </h3>
+
+                                                        <div class="left-middle-main">
+                                                            <div class="left-middle-content">
+                                                                <div class="left-tab-contain">
+                                                                    <div class="left-middle-tab left-middle-tab_aa_0 onChoose" style="width:50%">区域位置</div>
+                                                                    <div class="left-middle-tab left-middle-tab_aa_0" style="width:50%">分项</div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="tree-1 tree-0" style="display: block;">
+                                                        <span class="allPointerOne">
+                                                            <div class="selectedRadio"></div>
+                                                        </span>
+                                                                <div class="left-middle-input">
+                                                                    <input type="text" id="keys" class="empty form-control" placeholder="搜索...">
+                                                                </div>
+                                                                <div class="tipess"></div>
+                                                                <ul class="allPointer ztree scrollbar" id="allPointer"></ul>
+                                                            </div>
+                                                            <div class="tree-1 tree-3" style="display: none;">
+                                                                <div class="left-middle-input">
+                                                                    <input type="text" id="key" class="empty form-control" placeholder="搜索...">
+                                                                </div>
+                                                                <div class="tipes" style="display: none;">抱歉，没有您想要的结果</div>
+                                                                <ul id="energyConsumption" class="ztree energyConsumption scrollbar"></ul>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--确定按钮-->
+                                                        <button class="sure">确定</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!--存放已选择的对象-->
+                                        <span class="has-choosed-object">
+
+                                            <!--<p class="has-choosed-message">-->
+                                            <!--<b></b><font>1号楼1号变压器</font>-->
+                                            <!--</p>-->
+
+                                            <!--<p class="has-choosed-message">-->
+                                            <!--<b></b><font>2号楼2号变压器</font>-->
+                                            <!--</p>-->
+
+                                            <!--<p class="has-choosed-message">-->
+                                            <!--<b></b><font>3号楼3号变压器</font>-->
+                                            <!--</p>-->
+
+                                        </span>
+
+                                        <!--时间选择-->
+                                        <span class="choose-time choose-custom-select">
+                                            <font>日</font><b></b>
+
+                                            <!--时间选择下拉框-->
+                                            <div class="choose-time-select choose-custom-select-container">
+
+                                                <ul>
+                                                    <li class="the-select-message the-time-type onChoose">日</li>
+                                                    <li class="the-select-message the-time-type">周</li>
+                                                    <li class="the-select-message the-time-type">月</li>
+                                                    <li class="the-select-message the-time-type">年</li>
+                                                    <li class="the-select-message the-time-type">自定义</li>
+                                                </ul>
+
+                                            </div>
+
+                                        </span>
+
+                                        <!--开始时间-->
+                                        <span class="start-time the-times">
+                                            <input type="text" class="min datetime" placeholder="开始时间"><b></b>
+
+                                        </span>
+
+                                        <!--结束时间-->
+                                        <span class="end-time the-times">
+                                            <input type="text" class="max datetime" placeholder="结束时间"><b></b>
+
+                                        </span>
+
+                                        <div class="choose-day-night-time" style="width: 188px;
+    height: 85px;">
+
+                                                <!--开始时间-->
+                                            <span class=" the-times">
+                                                <input type="text" id="st" class="datepicker1 datetime" placeholder="开始时间"><b></b>
+
+                                            </span>
+
+                                                <!--结束时间-->
+                                            <span class=" the-times">
+                                                <input type="text" id="et" class="datepicker1 datetime" placeholder="结束时间"><b></b>
+
+                                            </span>
+
+                                        </div>
+
+
+
+                                        <!--查询按钮-->
+                                        <button class="demand">查询</button>
+
+                                    </div>
+
+
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                            </div>
+
+                            <!--下方数据-->
+                            <div class="bottom-data-container">
+
+                                <div class="right-content">
+                                    <!--<div class="left-middle-header">-->
+                                    <!--<div class="header-one"></div>-->
+                                    <!--<div class="header-two"></div>-->
+                                    <!--<div class="header-three"></div>-->
+                                    <!--</div>-->
+                                    <div class="right-top">
+
+                                        <div class="right-header">
+                                            <!-- 标题 -->
+                                           <span class="header-one right-header-title" style=""></span>
+                                            <!-- 标题右边 -->
+                                            <ul class="right-header-right">
+                                                <!-- 单位 -->
+                                                <li class="header-right-lists">
+                                                    <label for="">单位：</label>
+                                                    <select name="" id="unit"></select>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                        <!--eChart图-->
+                                        <!-- 内容 -->
+                                        <div class="rheader-content rheader-content-1">
+                                            <!-- 用电分布柱状图 -->
+                                            <div class="rheader-content-left col-lg-12 col-md-12 col-sm-12 col-xs-12"id="rheader-content-41"></div>
+                                            <div class="clearfix"></div>
+                                        </div>
+
+
+
+
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="right-top">
+
+                                        <div class="right-header">
+                                            <!-- 标题 -->
+                                            <span class="right-header-title"></span>
+                                            <!-- 标题右边 -->
+                                            <ul class="right-header-right">
+                                                <!-- 单位 -->
+                                                <li class="header-right-lists">
+                                                    <label for="">单位：</label>
+                                                    <select name="" id=""></select>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                        <!--eChart图-->
+                                        <!-- 内容 -->
+                                        <div class="rheader-content rheader-content-2">
+
+                                            <!-- 昼夜分析饼图 -->
+                                            <div class="L-left col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="rheader-content-left"id="rheader-content-42"></div>
+                                            </div>
+
+                                            <!-- 计算公式 -->
+                                            <div class="L-right col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="rheader-content-rightss rheader-content-rightss-1">
+                                                    <!-- 左 -->
+                                                    <div class="content-rightss-one content-rightss-one-1 content-rightss-one-11 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                        <p class="content-rightss-tip" >
+                                                            <span></span>
+                                                        </p>
+                                                        <p>工作日夜间用电量</p>
+                                                        <p></p>
+                                                        <p>工作日白天用电量</p>
+                                                        <span class="proportion1">=</span>
+
+                                                    </div>
+                                                    <!-- 右 -->
+                                                    <div class="content-rightss-one content-rightss-one-2 content-rightss-one-11 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                        <p class="content-rightss-tip">
+                                                            <span></span>
+                                                        </p>
+                                                        <p>休息日夜间用电量</p>
+                                                        <p></p>
+                                                        <p>休息日白天用电量</p>
+                                                        <span class="proportion2">=</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+
+
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../new-resource/js/common.js"></script>
+<script src="js/common.js"></script>
+<script src="js/dayNightData.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

@@ -74,7 +74,7 @@ var EPMA = function () {
             }
         })
         return eprs;
-    }
+    };
 
     //初始化eprbox控件
     var initeprBox = function () {
@@ -158,8 +158,6 @@ var EPMA = function () {
 
     return {
         init: function () {
-
-            console.log(222);
 
             if (sessionStorage.enterpriseID === undefined) {
                 //初始化默认界面

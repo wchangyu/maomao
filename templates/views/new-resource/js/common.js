@@ -173,8 +173,9 @@ $('.energy-types').on('click','div',function(){
 
     $(this).addClass('selectedEnergy');
 
-    //判断是否在支路霞选择能耗种类
+    //判断是否在支路下选择能耗种类
     if($('.onChecked').length > 0){
+
         //获取对应能耗类型下的支路
         if(branchesType == 2){
 
@@ -195,6 +196,7 @@ $('.energy-types').on('click','div',function(){
         $(unitArr).each(function(i,o){
             html += '<option value="'+ o.unitNum+'">'+ o.unitName+'</option>'
         });
+
     }else{
 
         //获取当前单位
@@ -368,9 +370,16 @@ function GetAllBranches(flag,energy){
         energyType = 100;
     }
 
+    if($('.left-choose-energy-container').length>0){
+
+        energyType = $('.left-choose-energy-container .time-radio:checked').attr('data-type');
+    }
+
     if(energy){
         energyType = energy
     }
+
+
     //获取楼宇
     //确定楼宇id
     var pts = _pointerZtree.getSelectedPointers(),pointerID;
@@ -537,9 +546,11 @@ function getPointerTree1(){
 
     var firstNum = -1;
 
+    //console.log(treeArr);
+
     $(treeArr).each(function(i,o){
 
-        if(i != 2){
+        if(o.nodeType != 2){
 
             o.nocheck=true;
 
@@ -572,8 +583,10 @@ function getZNodes(EnItdata){
     var aaa = [];
 
     $(EnItdata).each(function(i,o){
+
         //获取楼宇ID
         var pointerID = o.pointerID;
+
         var ifOpen = false;
         if(i == 0){
             ifOpen = true;
@@ -586,7 +599,7 @@ function getZNodes(EnItdata){
             if(o.f_ParentId == 0){
                 parentid = pointerID
             }
-            zNodes.push({ id: o.f_ServiceId, pId: parentid, title: o.f_ServiceName,name:o.f_ServiceName,open:false,checked:false, unit: o.dataUnit, f_AddSamAvg: o.f_AddSamAvg})
+            zNodes.push({ id: o.f_ServiceId,pointerID: pointerID, pId: parentid, title: o.f_ServiceName,name:o.f_ServiceName,open:false,checked:false, unit: o.dataUnit, f_AddSamAvg: o.f_AddSamAvg})
 
         })
     });

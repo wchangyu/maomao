@@ -49,6 +49,7 @@ $(function(){
 
     //能耗选择
     $('.typee').click(function(){
+
         $('.typee').removeClass('selectedEnergy');
         $(this).addClass('selectedEnergy');
 
@@ -117,7 +118,7 @@ $(function(){
 
         $(this).addClass('curChoose');
 
-        var unit = $(this).attr('data-unit')
+        var unit = $(this).attr('data-unit');
 
         //改变右上角单位名称
         $('.unit').val(unit);
@@ -620,6 +621,7 @@ function GetShowEnergyNormItem(energyType,flag){
                     html += '<p data-num ="'+ o.normIndex+'" class="curChoose" data-unit="'+ o.energyUnit+'">'+ o.energyItemName+'</p>';
                     //右上角单位
                     $('.unit').val(o.energyUnit);
+
                 }else{
                     html += '<p data-num ="'+ o.normIndex+' " data-unit="'+ o.energyUnit+'">'+ o.energyItemName+'</p>'
                 }
@@ -627,6 +629,7 @@ function GetShowEnergyNormItem(energyType,flag){
 
             });
             html += '<div class="clearfix"></div>';
+
             //将指标类型嵌入页面
             $('.left-middle-main1').html(html);
 
@@ -680,6 +683,7 @@ function showDataByNum(data,flag){
 
         }
     });
+
     //单位
     var unit = $('.unit').val();
     optionBar.yAxis[0].axisLabel.formatter = '{value}' + unit + '';

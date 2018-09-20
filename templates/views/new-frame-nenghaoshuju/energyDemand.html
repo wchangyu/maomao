@@ -51,6 +51,7 @@
             <!-- END SIDEBAR MENU -->
         </div>
     </div>
+
     <!-- END SIDEBAR -->
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
@@ -72,12 +73,12 @@
                                 <div class="inner-condition-container">
 
                                     <!--左侧选择水电-->
-                                    <div class="left-chooose-energy-container">
+                                    <div class="left-choose-energy-container">
 
                                         <ul>
                                             <li class="choose-energy dian" data-img="dian.png">
                                                 <label for="radio1" class="input-label1" style="padding-left: 0">电</label>
-                                                <input class="time-radio" id="radio1" type="radio" name="choose-radio" value="day" checked="checked">
+                                                <input class="time-radio" id="radio1" type="radio" name="choose-radio" value="day" checked="checked" data-id="01" data-id1="4" data-type="100">
 
                                             </li>
 
@@ -85,13 +86,137 @@
 
                                                 <label for="radio2" class="input-label1" style="padding-left: 0">水</label>
 
-                                                <input class="time-radio" id="radio2" type="radio" name="choose-radio" value="time">
+                                                <input class="time-radio" id="radio2" type="radio" name="choose-radio" value="time" data-id="211" data-id1="5" data-type="200">
 
                                             </li>
 
                                         </ul>
 
                                     </div>
+
+                                    <!--右侧选择其他信息-->
+                                    <div class="right-choose-condition-container">
+
+                                        <!--对象选择-->
+                                        <span class="choose-object">对象选择</span>
+
+                                        <!--对象选择弹窗-->
+                                        <div class='modal fade' id='my-object' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' >
+                                            <div class='modal-dialog' style='margin:100px auto;width:530px;'>
+
+                                                <div class='modal-content'>
+
+                                                    <div class="choose-object-windows">
+
+                                                        <!--标题-->
+                                                        <h3 class="window-title">对象选择
+
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                                        </h3>
+
+                                                        <div class="left-middle-main">
+                                                            <div class="left-middle-content">
+                                                                <div class="left-tab-contain">
+                                                                    <div class="left-middle-tab left-middle-tab_aa_0 onChoose">区域位置</div>
+                                                                    <div class="left-middle-tab left-middle-tab_aa_0">用能单位</div>
+                                                                    <div class="left-middle-tab left-middle-tab_aa_0">支路</div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="tree-1 tree-0">
+                                                    <span class="allPointerOne">
+                                                        <div class="selectedRadio"></div>
+                                                    </span>
+                                                                <div class="left-middle-input">
+                                                                    <input type="text"  id="keys" class="empty form-control" placeholder="搜索...">
+                                                                </div>
+                                                                <div class="tipess"></div>
+                                                                <ul class="allPointer ztree scrollbar" id="allPointer">
+                                                                </ul>
+                                                            </div>
+                                                            <div class="tree-1 tree-2"  style="display: none">
+                                                                <div class="left-middle-input">
+                                                                    <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
+                                                                </div>
+                                                                <div class="tipes"></div>
+                                                                <ul class="allOffices ztree scrollbar" id="allOffices">
+                                                                </ul>
+                                                            </div>
+                                                            <div class="tree-1 tree-3" style="display: none">
+                                                                <div class="left-middle-input">
+                                                                    <input type="text"  id="keyss" class="empty form-control" placeholder="搜索...">
+                                                                </div>
+                                                                <div class="tipes"></div>
+                                                                <ul class="allBranch ztree scrollbar" id="allBranch">
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--确定按钮-->
+                                                        <button class="sure">确定</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!--存放已选择的对象-->
+                                        <span class="has-choosed-object">
+
+                                            <!--<p class="has-choosed-message">-->
+                                                <!--<b></b><font>1号楼1号变压器</font>-->
+                                            <!--</p>-->
+
+                                             <!--<p class="has-choosed-message">-->
+                                                 <!--<b></b><font>2号楼2号变压器</font>-->
+                                             <!--</p>-->
+
+                                             <!--<p class="has-choosed-message">-->
+                                                 <!--<b></b><font>3号楼3号变压器</font>-->
+                                             <!--</p>-->
+
+                                        </span>
+
+                                        <!--时间选择-->
+                                        <span class="choose-time choose-custom-select">
+                                            <font>日</font><b></b>
+
+                                            <!--时间选择下拉框-->
+                                            <div class="choose-time-select choose-custom-select-container">
+
+                                                <ul>
+                                                    <li class="the-select-message the-time-type onChoose">日</li>
+                                                    <li class="the-select-message the-time-type">周</li>
+                                                    <li class="the-select-message the-time-type">月</li>
+                                                    <li class="the-select-message the-time-type">年</li>
+                                                    <li class="the-select-message the-time-type">自定义</li>
+                                                </ul>
+
+                                            </div>
+
+                                        </span>
+
+                                        <!--开始时间-->
+                                        <span class="start-time the-times">
+                                            <input type="text" class="min datetime" placeholder="开始时间"><b></b>
+
+                                        </span>
+
+                                        <!--结束时间-->
+                                        <span class="end-time the-times">
+                                            <input type="text" class="max datetime" placeholder="结束时间"><b></b>
+
+                                        </span>
+
+                                        <!--查询按钮-->
+                                        <button class="demand">查询</button>
+
+                                    </div>
+
+
 
                                     <div class="clearfix"></div>
 
@@ -100,7 +225,80 @@
                             </div>
 
                             <!--下方数据-->
-                            <div class="bottom-data-container"></div>
+                            <div class="bottom-data-container">
+
+                                <div class="right-content">
+                                    <!--<div class="left-middle-header">-->
+                                    <!--<div class="header-one"></div>-->
+                                    <!--<div class="header-two"></div>-->
+                                    <!--<div class="header-three"></div>-->
+                                    <!--</div>-->
+                                    <div class="right-top">
+                                        <div class="right-header">
+                                            <!-- 标题 -->
+                                            <span class="right-header-title"></span>
+                                            <!-- 标题右边 -->
+                                            <ul class="right-header-right">
+                                                <!-- 单位 -->
+                                                <li class="header-right-lists">
+                                                    <label for="">单位：</label>
+                                                    <select name="" id="unit"></select>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="rheader-content">
+                                            <!--右侧数据展示-->
+                                            <div class="rheader-content-left comparisonOfHistograms" style="width:280px;float: right">
+                                                <div class="rheader-content-right">
+                                                    <div class="rheader-content-rights">
+                                                        <!-- 累计耗电标题 -->
+                                                        <span class="total-power-consumption">累计能耗</span>
+                                                        <!-- 耗电数值 -->
+													<span class="total-power-consumption-value">
+														<label id="consumption-value-number"></label>
+                                                        <!-- 单位  -->
+														<span class="the-cumulative-power-unit"></span>
+													</span>
+                                                        <!-- 与上年同期相比 -->
+													<span class="compared-with-last-time">上年同期<br>
+														<label class="the-show-data"></label>
+                                                        <!--<span class="the-cumulative-power-unit">kWh</span>-->
+													</span>
+                                                        <!-- 上升还是下降的箭头 -->
+                                                        <div class="rights-up" ></div>
+
+                                                        <!-- 上升或下降的百分比 -->
+                                                        <span class="rights-up-name">同比</span><br/>
+                                                        <span class="rights-up-value"></span>
+
+                                                        <!-- 与上一时段相比 -->
+                                                        <span class="compared-with-last-time compared-with-last-time1">上一期<br>
+                                                        <label class="the-show-data"></label>
+                                                        <!--<span class="the-cumulative-power-unit">kWh</span>-->
+                                                        </span>
+                                                        <!-- 上升还是下降的箭头 -->
+                                                        <div class="rights-up rights-up1 " ></div>
+                                                        <!-- 上升或下降的百分比 -->
+                                                        <span class="rights-up-name rights-up-name1">环比</span><br/>
+                                                        <span class="rights-up-value rights-up-value1"></span>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <!--eChart图-->
+                                        <div class="rheader-content-left " id="rheader-content-16" style="margin-right:300px;">
+
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -111,9 +309,13 @@
     </div>
 </div>
 
+
+
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
 <div id="foot-html"></div>
+
+
 
 <!-- END FOOTER -->
 <!-- END FOOTER -->
@@ -134,8 +336,10 @@
 
 </script>
 <script src="../resource/js/commonJsResource.js"></script>
+<script src="../new-resource/js/common.js"></script>
 <script src="js/common.js"></script>
 <script src="js/energyDemand.js"></script>
+
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

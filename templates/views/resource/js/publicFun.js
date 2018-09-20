@@ -654,15 +654,21 @@ function _tableInitScroll(tableId,col,buttons,flag,fnRowCallback,drawCallback,do
 
 //表格赋值
 function _datasTable(tableId,arr){
+
     var table = tableId.dataTable();
+
     if(arr.length == 0){
+
         table.fnClearTable();
+
         table.fnDraw();
 
     }else{
 
         table.fnClearTable();
+
         table.fnAddData(arr);
+
         table.fnDraw();
     }
 };
@@ -968,10 +974,12 @@ function _exportExecl(dom){
 /*--------------------------模态框设置--------------------------*/
 //控制模态框的设置，出现确定按钮的话，第三个参数传''，第四个才有效,用不到的参数一定要传''；istap,如果有值的话，内容改变，否则内容不变。
 function _moTaiKuang(who, title, flag, istap ,meg, buttonName) {
+
     who.modal({
         show: false,
         backdrop: 'static'
-    })
+    });
+
     who.find('.modal-title').html(title);
     who.modal('show');
     var markHeight = document.documentElement.clientHeight;

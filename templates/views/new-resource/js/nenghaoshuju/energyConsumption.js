@@ -22,7 +22,6 @@ $(function(){
 
     _ajaxEcTypeWord = _getEcTypeWord();
 
-
     //加载默认能耗类型单位
     var html = '';
     $(unitArr3).each(function(i,o){
@@ -32,7 +31,6 @@ $(function(){
     $('#unit').html(html);
 
     //默认加载数据
-
     GetShowEnergyNormItem(100,true);
 
     /*---------------------------------buttonEvent------------------------------*/

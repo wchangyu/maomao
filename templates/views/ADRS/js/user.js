@@ -151,16 +151,16 @@
     })
 
     //创建账户【确定按钮】
-    $('#create-Modal').on('click','.dengji',function(){
-
-        $('#theLoading').modal('show');
-
-        formatValidate(function(){
-
-            sendOption('DRUser/CreateDRUserInfo','创建成功！');
-
-        })
-    })
+    //$('#create-Modal').on('click','.dengji',function(){
+    //
+    //    $('#theLoading').modal('show');
+    //
+    //    formatValidate(function(){
+    //
+    //        sendOption('DRUser/CreateDRUserInfo','创建成功！');
+    //
+    //    })
+    //})
 
     //【编辑】
     $('#table tbody').on('click','.option-edit',function(){
