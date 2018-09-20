@@ -212,6 +212,8 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
     //给页面中添加诊断信息
     $('#content-container').html(diagHtml);
 
+
+
     //当前大项下无诊断项
     if(diagnoseArr[indexItem].oneKeyDiagItems.length == 0){
 

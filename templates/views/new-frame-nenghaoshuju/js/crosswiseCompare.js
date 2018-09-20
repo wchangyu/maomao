@@ -16,7 +16,6 @@ $(function(){
     //楼宇搜索功能
     _searchPO($(".tipess"),"allPointer",$(".tipes"),"allOffices");
 
-
     //默认勾选第一个楼宇
     var zTree = $.fn.zTree.getZTreeObj("allPointer");
     var nodes = zTree.getNodes();
@@ -27,10 +26,9 @@ $(function(){
 
     //获取支路
     GetAllBranches(2);
+
     //branchesType = 2 支路复选框
     branchesType = 2;
-
-
 
     //点击页面查询按钮
     $('.demand').on('click',function(){
@@ -556,9 +554,8 @@ function getContentData(flag){
 
         }
 
-
     //判断是否标煤
-    if($('.selectedEnergy p').html() == '标煤'){
+    if($('.left-choose-energy-container .time-radio:checked').parents('.choose-energy').find('label').html() == '标煤'){
         _ajaxEcType = -2;
     }
 
@@ -635,6 +632,7 @@ function getContentData(flag){
             var energyName = '';
 
             if($('.choose-target-select .onChoose').length > 0){
+
                 energyName = $('.choose-target-select .onChoose').html();
             }
 

@@ -362,7 +362,6 @@ $('#datetimepicker1').on('changeDate',function(e){
 //获取支路 flag 2表示复选框 energy表示获取支路的能耗类型
 function GetAllBranches(flag,energy){
 
-
     //获取能耗类型
     var energyType = $('.selectedEnergy').attr('value');
 
@@ -584,8 +583,10 @@ function getZNodes(EnItdata){
     var aaa = [];
 
     $(EnItdata).each(function(i,o){
+
         //获取楼宇ID
         var pointerID = o.pointerID;
+
         var ifOpen = false;
         if(i == 0){
             ifOpen = true;
@@ -598,7 +599,7 @@ function getZNodes(EnItdata){
             if(o.f_ParentId == 0){
                 parentid = pointerID
             }
-            zNodes.push({ id: o.f_ServiceId, pId: parentid, title: o.f_ServiceName,name:o.f_ServiceName,open:false,checked:false, unit: o.dataUnit, f_AddSamAvg: o.f_AddSamAvg})
+            zNodes.push({ id: o.f_ServiceId,pointerID: pointerID, pId: parentid, title: o.f_ServiceName,name:o.f_ServiceName,open:false,checked:false, unit: o.dataUnit, f_AddSamAvg: o.f_AddSamAvg})
 
         })
     });

@@ -562,6 +562,10 @@ var Login = function() {
                     var useNewIframe = data["useNewIframe"] || '';
                     sessionStorage.useNewIframe = useNewIframe;
 
+                    //新框架页面路径
+                    var useNewIframeUrl = data["useNewIframeUrl"] || '';
+                    sessionStorage.useNewIframeUrl = useNewIframeUrl;
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 

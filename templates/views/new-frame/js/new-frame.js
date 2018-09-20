@@ -651,6 +651,21 @@ function iframeClick(){
     var iframe = document.getElementById('embed-page');
 
     iframe.onload = function() {
+
+
+        var frameObj = iframe.contentDocument;
+
+        setTimeout(function(){
+
+            var _frameHeight = frameObj.documentElement.scrollHeight + 20;
+
+            console.log(_frameHeight);
+
+            $("#embed-page").height(_frameHeight);
+
+        },1000);
+
+
         iframe.contentDocument.onclick = function () {
 
             //console.log(55);
@@ -660,3 +675,4 @@ function iframeClick(){
     };
 
 }
+

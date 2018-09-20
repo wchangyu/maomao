@@ -132,7 +132,7 @@ var __systemConfigArr = [
     //能耗中定额管理相关页面配置信息
     {
         pageName :"能耗中定额管理",
-        pageUrl :"new-yongnengguanli/OfficeDingEData.html",
+        pageUrl :"OfficeDingEData.html",
         pageId:1,
         //定义定额管理中定额种类同时也用于用能考核
         quotaKind : [
@@ -159,7 +159,7 @@ var __systemConfigArr = [
             {
                 quotaName:'KPI指标',
                 quotaTypeID:'5',
-                isShow:0
+                isShow:1
             }
         ]
     },

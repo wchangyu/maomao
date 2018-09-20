@@ -500,9 +500,11 @@ function getContentData(flag){
     }
 
     //判断是否标煤
-    if($('.selectedEnergy p').html() == '标煤'){
+    if( $('.left-choose-energy-container .time-radio:checked').parents('.choose-energy').find('label').html() == '标煤'){
         _ajaxEcType = -2;
     }
+
+
 
     //获取当前时间类型
     var dateType = $('.choose-time-select .onChoose').html();

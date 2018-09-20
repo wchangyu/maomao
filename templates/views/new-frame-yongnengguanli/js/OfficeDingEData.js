@@ -3,36 +3,117 @@
  */
 $(function(){
 
+    //从配置项中获取页面中所展示信息
+    getDataByConfig();
+
     //日期初始化
     _timeYMDComponentsFun($('.min'));
 
     $('.choose-time-select ul li').eq(0).click();
 
-    //默认加载数据
-    GetShowEnergyNormItem(100,true);
+    ////默认加载数据
+    //分户数据
+    var dingEType = $('.choose-object-select .onChoose').attr('data-id');
+
+    getDingEData('EnergyManageV2/GetDingEQueryData',dingEType);
 
     //点击页面查询按钮
     $('.demand').on('click',function(){
 
         //获取页面中具体数据
-        var flag = $('.choose-object-select').find('.onChoose').attr('data-id');
+        var dingEType = $('.choose-object-select').find('.onChoose').attr('data-id');
 
-        getContentData(flag);
+        //获取数据
+        getDingEData('EnergyManageV2/GetDingEQueryData',dingEType);
 
     });
 
+    //点击编辑按钮时，表格中数据切换为可编辑
+    $('.top-operation .top-edit').on('click',function(){
 
-    //chart图自适应
-    window.onresize = function () {
-        if(myChartTopLeft){
-            myChartTopLeft.resize();
-        }
-    };
+
+        var now = parseInt(moment().year());
+
+        var compareYear = $('.min').val();
+
+        if(compareYear < now){
+            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'过往年份数据无法编辑', '');
+            return false;
+        };
+
+
+        $('.month-data').removeAttr('readOnly');
+        $('.month-data').removeAttr('unselectable');
+
+        $('.month-data').addClass('month-data-input');
+
+        $('.prompt').html('当前可编辑，编辑完成后请点击确定按钮进行提交。');
+
+
+        $('.top-operation .top-btn').removeClass('onClick');
+
+        $(this).addClass('onClick');
+
+    });
+
+    //点击取消按钮时，表格数据回到最初。
+    $('.top-operation .top-abolish').on('click',function(){
+
+
+        _moTaiKuang($('#myModal2'),'提示', '', 'istap' ,'确定取消之前操作吗？', '确定');
+
+    });
+
+    //取消操作
+    $('#myModal2 .btn-primary').on('click',function(){
+
+        //不可编辑
+        $('.month-data').attr('readOnly','readOnly');
+        $('.month-data').attr('unselectable','on');
+
+        $('#myModal2').modal('hide');
+
+        postArr.length = 0;
+
+        //对数据进行深拷贝
+        deepCopy(getArr,postArr);
+
+        //table重新赋值
+        _datasTable($('#dateTables'),getArr);
+
+        $('.prompt').html(' 当前不可编辑，可点击右侧编辑按钮进行编辑');
+
+        $('.month-data').removeClass('month-data-input');
+
+    });
+
+    //点击确定按钮时，提交表格中的数据，并使其不可编辑。
+    $('.top-operation .top-sure').on('click',function(){
+
+        $('.top-operation .top-btn').removeClass('onClick');
+
+        var flag = $('.choose-object-select .onChoose').attr('data-id');
+
+        postDingEData(flag);
+
+        $(this).addClass('onClick');
+
+        $('.month-data').attr('readOnly','readOnly');
+        $('.month-data').attr('unselectable','on');
+
+        $('.month-data').removeClass('month-data-input');
+
+        $('.prompt').html('当前不可编辑，可点击右侧编辑按钮进行编辑。');
+
+    });
 
 });
 
+
 //从配置项中获取页面中所展示信息
 function getDataByConfig(){
+
+    //console.log(__systemConfigArr);
 
     //获取当前的url
     var curUrl = window.location.href;
@@ -61,18 +142,21 @@ function getDataByConfig(){
 
                     if(thisNum == 0){
 
-                        html += '<p class="curChoose" data-id='+ o.quotaTypeID+'>'+ o.quotaName+'</p>';
+                        html += '<li class="onChoose the-select-message the-object-type" data-id='+ o.quotaTypeID+'>'+ o.quotaName+'</li>';
+
+                        $('.choose-object1 font').html(o.quotaName);
 
                     }else{
 
-                        html += '<p data-id='+ o.quotaTypeID+'>'+ o.quotaName+'</p>';
+                        html += '<li class="the-select-message the-object-type" data-id='+ o.quotaTypeID+'>'+ o.quotaName+'</li>';
+
                     }
                 }
 
             });
 
             //赋值到页面中
-            $('.left-middle-main').html(html);
+            $('.choose-object-select ul').html(html);
 
         }
     });
@@ -326,12 +410,9 @@ var table = $('#dateTables').DataTable({
 });
 
 //获取页面具体数据
+//获取数据
 //flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
-function getContentData(flag){
-
-    // console.log(energyNormItemArr);
-    //存放访问后台的地址
-    var url = 'EnergyManageV2/GetDingEQueryData';
+function getDingEData(url,flag){
 
     //存放要传递的分户集合
     var officeID = [];
@@ -346,38 +427,13 @@ function getContentData(flag){
     var ecParams = {};
 
     //获取名称
-    var areaName = $('.choose-object1  .onChoose').html();
-
-    //当前选中的能耗类型
-    if(flag != 2){
-
-        _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
-
-    }else{
-
-        _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id1');
-
-    }
-
-    var commonEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
-
-
-    _ajaxEcTypeWord = getEtName(commonEcType);
-
-
-
-    //判断是否标煤
-    if($('.selectedEnergy p').html() == '标煤'){
-        _ajaxEcType = -2;
-    }
+    var areaName = $('.choose-object-select .onChoose').eq(0).html();
 
     //传递给后台的时间
     var yearInt = parseInt($('.min').val());
 
     //分户数据
     if(flag == 2){
-
-
         //获取session中存放的楼宇ID
         var officeArr = JSON.parse(sessionStorage.getItem('offices'));
 
@@ -400,6 +456,23 @@ function getContentData(flag){
 
     }
 
+    if(flag != 5){
+
+        //当前选中的能耗类型
+        if(flag != 2){
+
+            _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
+
+        }else{
+
+            _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id1');
+
+        }
+
+    }
+
+    //单位
+    var unit = getEtUnit(_ajaxEcType);
 
     ecParams = {
         "energyItemID":_ajaxEcType,
@@ -416,19 +489,21 @@ function getContentData(flag){
         _ajaxEcType = -2;
     }
 
+
     //发送请求
     $.ajax({
-        type:'post',
+        type:postType,
         url:sessionStorage.apiUrlPrefix+url,
         data:ecParams,
         timeout:_theTimes,
-        beforeSend:function(){
-
+        beforeSend: function () {
+            $('#theLoading').modal('hide');
+            $('#theLoading').modal('show');
+        },
+        complete: function () {
+            $('#theLoading').modal('hide');
         },
         success:function(result){
-
-
-            //console.log(result);
 
             //console.log(result);
 
@@ -441,12 +516,15 @@ function getContentData(flag){
 
             }
             //改变头部显示信息
-            var energyName = $('.selectedEnergy p').html();
+            var energyName = $('.left-choose-energy-container .time-radio:checked').parents('.choose-energy ').find('label').html();
 
             //改变头部日期
             var date = $('.min').val();
 
             $('.right-header-title').eq(0).html(energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
+
+            //改变单位
+            $('.the-unit').val(unit);
 
             //获取到数据后赋值
             getArr = result;
@@ -455,28 +533,34 @@ function getContentData(flag){
 
             //表格赋值
             _datasTable($('#dateTables'),result);
+
             //对数据进行深拷贝
             deepCopy(getArr,postArr);
 
             changeData();
-
         },
         error:function(jqXHR, textStatus, errorThrown){
-            myChartTopLeft.hideLoading();
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
+
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
+
+            }else{
+
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请求失败', '');
+
             }
-            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
+
+
         }
     })
-}
+};
 
 //编辑完成 给后台提交数据
 function postDingEData(flag){
 
     //获取名称
-    var areaName = $('.left-middle-main .curChoose').eq(0).html();
+    var areaName = $('.choose-object-select .onChoose').eq(0).html();
 
     //传递给后台的时间
     var yearInt = parseInt($('.min').val());
@@ -487,12 +571,26 @@ function postDingEData(flag){
     //传递给后台的分项ID
     var f_EnergyItemId = 0;
 
+    //当前选中的能耗类型
+    if(flag != 2){
+
+        _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
+
+    }else{
+
+        _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id1');
+
+    }
+
+    var commonEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
+
+
+    _ajaxEcTypeWord = getEtName(commonEcType);
+
     //分户数据
     if(flag != 5){
 
         //获得选择的能耗类型
-        _ajaxEcType =_getEcTypeValue(_ajaxEcType);
-
         f_EnergyItemId = _ajaxEcType;
 
         //KPI数据
@@ -504,7 +602,7 @@ function postDingEData(flag){
     }
 
     //判断是否标煤
-    if($('.selectedEnergy p').html() == '标煤'){
+    if(energyDom.parents('.choose-energy ').find('label').html() == '标煤'){
         _ajaxEcType = -2;
     }
 
@@ -624,7 +722,6 @@ function changeData(){
         });
     });
 };
-
 
 $('#dateTables').on('click','.data-option',function(){
 

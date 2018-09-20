@@ -24,87 +24,16 @@
     <!--<link rel="stylesheet" href="../new-resource/css/nenghaoshuju/energyDemand.css">-->
     <link rel="stylesheet" href="../new-frame-nenghaoshuju/css/common.css">
     <style>
-
-
-        .quota-data-bottom {
-            overflow: auto;
+        .compared-with-last-time2{
+            position: absolute;
+            top:260px;
         }
 
-        #dateTables th{
-            background: #aeb4c9;
-            border: none;
-            color:white;
-        }
+        .rheader-content-rights {
 
-        #dateTables th a{
-            color:white;
-        }
+            height: 310px;
 
-        .top-btn {
-            border-width: 0;
-            font-size: 14px;
-            display: inline-block;
-            padding: 6px 12px;
-            margin-bottom: 0;
-            font-weight: 400;
-            line-height: 1.42857143;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: middle;
-            touch-action: manipulation;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            background-image: none;
-            border-radius: 4px;
-            color: #fff;
-            background-color: #45B6AF;
-            border-color: #3ea49d;
-            width: 80px;
         }
-
-        .prompt {
-            color: red;
-            font-size: 14px;
-        }
-
-        .dataTables_filter label {
-            line-height: 32px;
-        }
-        #dateTables_filter input {
-            height: 30px;
-            width: 160px;
-        }
-
-        #dateTables_filter {
-            float: left;
-        }
-
-        #dateTables thead tr th, #dateTables tbody tr td {
-            text-align: center !important;
-            font-size: 12px;
-            padding-left: 2px !important;
-            padding-right: 2px !important;
-        }
-
-        .month-data {
-            width: 60px;
-            border: none;
-            background: none !important;
-            text-align: center;
-        }
-
-        #dateTables {
-            overflow: auto;
-            width: 100%;
-        }
-
-        .average {
-            width: 40px !important;
-        }
-
     </style>
 </head>
 
@@ -180,12 +109,12 @@
                                     <!--右侧选择其他信息-->
                                     <div class="right-choose-condition-container">
 
-                                        <!--对象选择-->
-                                        <span class="choose-object1 choose-custom-select" style="width:auto">
-                                            <font>区域位置</font><b></b>
+                                        <!--定额种类-->
+                                        <span class="choose-dingE choose-custom-select" style="width:auto">
+                                            <font></font><b></b>
 
-                                            <!--对象选择下拉框-->
-                                            <div class="choose-object-select choose-custom-select-container">
+                                            <!--定额种类下拉框-->
+                                            <div class="choose-dingE-select choose-custom-select-container">
 
                                                 <ul>
 
@@ -195,16 +124,86 @@
 
                                         </span>
 
+                                        <!--KPI种类-->
+                                        <span class="choose-kpi choose-custom-select" style="width:auto;display: none">
+                                            <font></font><b></b>
+
+                                            <!--KPI种类下拉框-->
+                                            <div class="choose-kpi-select choose-custom-select-container">
+
+                                                <ul>
+
+                                                </ul>
+
+                                            </div>
+
+                                        </span>
+
+                                        <!--对象选择-->
+                                        <span class="choose-object">对象选择</span>
+
+                                        <!--对象选择弹窗-->
+                                        <div class='modal fade' id='my-object' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' >
+                                            <div class='modal-dialog' style='margin:100px auto;width:530px;'>
+
+                                                <div class='modal-content'>
+
+                                                    <div class="choose-object-windows">
+
+                                                        <!--标题-->
+                                                        <h3 class="window-title">对象选择
+
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                                        </h3>
+
+                                                        <div class="left-middle-main">
+                                                            <div class="left-middle-content">
+                                                                <div class="left-tab-contain">
+                                                                    <div class="left-middle-tab left-middle-tab_aa_0 onChoose" style="width:100%">区域位置</div>
+
+                                                                </div>
+
+                                                            </div>
+
+
+
+                                                            <div class="tree-1 tree-2"  style="display:block">
+                                                                <div class="left-middle-input">
+                                                                    <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
+                                                                </div>
+                                                                <div class="tipes"></div>
+                                                                <ul class="allOffices ztree" id="allOffices">
+                                                                </ul>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <!--确定按钮-->
+                                                        <button class="sure">确定</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!--存放已选择的对象-->
+                                        <span class="has-choosed-object">
+
+
+                                        </span>
+
                                         <!--时间选择-->
                                         <span class="choose-time choose-custom-select">
-                                            <font>月</font><b></b>
+                                            <font>日</font><b></b>
 
                                             <!--时间选择下拉框-->
                                             <div class="choose-time-select choose-custom-select-container">
 
                                                 <ul>
-
                                                     <li class="the-select-message the-time-type onChoose">年</li>
+
                                                 </ul>
 
                                             </div>
@@ -229,6 +228,7 @@
                                     </div>
 
 
+
                                     <div class="clearfix"></div>
 
                                 </div>
@@ -239,7 +239,11 @@
                             <div class="bottom-data-container">
 
                                 <div class="right-content">
-
+                                    <!--<div class="left-middle-header">-->
+                                    <!--<div class="header-one"></div>-->
+                                    <!--<div class="header-two"></div>-->
+                                    <!--<div class="header-three"></div>-->
+                                    <!--</div>-->
                                     <div class="right-top">
                                         <div class="right-header">
                                             <!-- 标题 -->
@@ -249,42 +253,59 @@
                                                 <!-- 单位 -->
                                                 <li class="header-right-lists">
                                                     <label for="">单位：</label>
-                                                    <input name="" id="" class="the-unit" type="text" readonly="readonly">
+                                                    <input name="" class="the-unit" />
                                                 </li>
-
                                             </ul>
                                         </div>
 
-                                        <!--下方对比表格-->
-                                        <div class= quota-data-bottom" >
-                                            <!--上方操作按钮-->
-                                            <div class="top-operation" style="text-align:right;padding-top:15px;">
-                                                <button class="top-btn top-edit">编辑</button>
-                                                <button class="top-btn top-sure">确定</button>
-                                                <button class="top-btn top-abolish">取消</button>
+                                        <div class="rheader-content">
+                                            <!--右侧数据展示-->
+                                            <div class="rheader-content-left comparisonOfHistograms" style="width:280px;float: right">
+                                                <div class="rheader-content-right">
+                                                    <div class="rheader-content-rights">
+                                                        <!-- 累计耗电标题 -->
+                                                        <span class="total-power-consumption">累计能耗</span>
+                                                        <!-- 耗电数值 -->
+													<span class="total-power-consumption-value">
+														<label id="consumption-value-number"></label>
+                                                        <!-- 单位  -->
+														<span class="the-cumulative-power-unit"></span>
+													</span>
+                                                        <!-- 与上年同期相比 -->
+													<span class="compared-with-last-time">累计定额<br>
+														<label class="the-show-data"></label>
+                                                        <!--<span class="the-cumulative-power-unit">kWh</span>-->
+													</span>
 
-                                                <span class="prompt" style="float: left">当前不可编辑，可点击右侧编辑按钮进行编辑。</span>
-                                                <br />
+                                                        <!-- 上升还是下降的箭头 -->
+                                                        <div class="rights-up" ></div>
 
+                                                        <!-- 上升或下降的百分比 -->
+                                                        <span class="rights-up-name">同比</span><br/>
+                                                        <span class="rights-up-value"></span>
+
+                                                        <!-- 与上一时段相比 -->
+                                                        <span class="compared-with-last-time compared-with-last-time1">年定额<br>
+                                                        <label class="the-show-data quota-year"></label>
+                                                            <!--<span class="the-cumulative-power-unit">kWh</span>-->
+                                                        </span>
+
+                                                        <!-- 与上一时段相比 -->
+                                                        <span class="compared-with-last-time compared-with-last-time2">预计年使用<br>
+                                                        <label class="the-show-data quota-year1"></label>
+                                                            <!--<span class="the-cumulative-power-unit">kWh</span>-->
+                                                        </span>
+
+                                                    </div>
+
+
+                                                </div>
                                             </div>
 
+                                        </div>
 
-
-
-                                            <div style="height:20px;"></div>
-
-                                            <div style="width:100%;max-height:550px;overflow: auto;">
-                                                <table class="table table-striped table-bordered table-advance table-hover
-" id="dateTables">
-                                                    <thead>
-
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
+                                        <!--eChart图-->
+                                        <div class="rheader-content-left " id="rheader-content-16" style="margin-right:300px;">
 
                                         </div>
 
@@ -308,6 +329,9 @@
 <!-- BEGIN QUICK SIDEBAR -->
 <div id="foot-html"></div>
 
+
+
+<!-- END FOOTER -->
 <!-- END FOOTER -->
 <script>
 
@@ -328,7 +352,7 @@
 <script src="../resource/js/commonJsResource.js"></script>
 <script src="../new-resource/js/common.js"></script>
 <script src="../new-frame-nenghaoshuju/js/common.js"></script>
-<script src="js/OfficeDingEData.js"></script>
+<script src="js/energyAssess.js"></script>
 
 <!-- END JAVASCRIPTS -->
 </body>
