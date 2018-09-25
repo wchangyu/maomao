@@ -1,21 +1,22 @@
 ﻿{
+  "content": "type:0代表具体菜单,1代表上级菜单;content:显示文本;uri:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;",
   "系统首页": {
-    "type": "1",
-    "content": "系统首页",
-    "iconclass": "icon-home",
-    "icon-img": "01.png",
-    "icon-hover": "01dian.png",
-    "submenu": {
-      "数据总览": {
-        "type": "0",
-        "content": "数据总览",
-        "uri": "../EPMA/main.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "icon-bar-chart"
-      }
+  "type": "1",
+  "content": "系统首页",
+  "iconclass": "icon-home",
+  "icon-img": "01.png",
+  "icon-hover": "01dian.png",
+  "submenu": {
+    "数据总览": {
+      "type": "0",
+      "content": "数据总览",
+      "uri": "../EPMA/main.html",
+      "uid": "",
+      "arg": "",
+      "iconclass": "icon-bar-chart"
     }
-  },
+  }
+},
   "数据监测": {
     "type": "1",
     "content": "数据监测",
@@ -26,10 +27,10 @@
       "系统流程": {
         "type": "0",
         "content": "系统流程",
-        "uri": "../yongnengjiance/energyMonitor.html?a=9",
+        "uri": "../yongnengjiance/energyMonitor_EPMA.html?a=9",
         "uid": "",
         "arg": "1,8817007007",
-        "iconclass": "",
+        "iconclass": "icon-picture",
         "arg2": ""
       },
       "实时数据": {
