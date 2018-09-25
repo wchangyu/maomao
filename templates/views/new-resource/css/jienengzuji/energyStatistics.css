@@ -10,6 +10,7 @@
 .left-middle-main1 .curChoose{
     color:#5b9bd5
 }
+
 /*对象选择*/
 .main-left-middle .left-middle-main {
     overflow-y: auto;
@@ -36,6 +37,7 @@
     cursor: pointer;
 
 }
+
 /*选中的对象*/
 .left-middle-main .curChoose,.left-middle-main1 .curChoose{
     color:#5b9bd5
@@ -94,6 +96,7 @@
     overflow: auto;
     width:100%;
 }
+
 /*搜索框*/
 #dateTables_filter{
     float: left;

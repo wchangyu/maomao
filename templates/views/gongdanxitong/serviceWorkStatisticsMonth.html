@@ -358,8 +358,10 @@
                                         <span>按楼宇统计</span>
                                         <span>按维修项目统计</span>
                                         <span>按报修<font class="user-defined-office"></font>统计</span>
-                                        <span><font class="user-defined-office"></font>费用明细</span>
-                                        <span>各<font class="user-defined-office"></font>费用总汇</span>
+                                        <span>报修<font class="user-defined-office"></font>费用明细</span>
+                                        <span>报修<font class="user-defined-office"></font>费用总汇</span>
+                                        <span>维修<font class="user-defined-office"></font>费用明细</span>
+                                        <span>维修<font class="user-defined-office"></font>费用总汇</span>
                                     </div>
                                     <!-- 表格 -->
                                     <div class="table-block1 noBorder" style="overflow: hidden;border: 1px solid #cccccc;border-top: none;padding:20px;padding-top:0">
@@ -521,6 +523,63 @@
                                                             <td id="dataFeeGS"></td>
                                                             <td id="dataFeeZJ"></td>
                                                         </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="content-main-contents hide-block" style="margin-top: 20px;">
+                                            <div class="main-contents-table">
+                                                <div style="text-align: left">
+                                                    <label><font class="user-defined-office"></font>：</label><select id="departWX" style="margin-right: 10px;"></select><button type="button" class="btn btn-primary">确定</button>
+                                                </div>
+                                                <table id="oneSectionTableWX" class="table table-striped table-bordered  table-hover" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <td colspan="5">小计</td>
+                                                        <td id="pageKSFeeNumWX"></td>
+                                                        <td id="pageKSFeePrinceWX"></td>
+                                                        <td id="pageKSFeeAmountWX"></td>
+                                                        <td id="pageKSFeeWorkWX"></td>
+                                                        <td id="pageKSFeeAllMomeyWX"></td>
+                                                        <td colspan="3"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="5">合计</td>
+                                                        <td id="dataKSFeeNumWX"></td>
+                                                        <td id="dataKSFeePrinceWX"></td>
+                                                        <td id="dataKSFeeAmountWX"></td>
+                                                        <td id="dataKSFeeWorkWX"></td>
+                                                        <td id="dataKSFeeAllMomeyWX"></td>
+                                                        <td colspan="3"></td>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="content-main-contents hide-block" style="margin-top: 20px;">
+                                            <div class="main-contents-table">
+                                                <table id="oneSectionSummaryTableWX" class="table table-striped table-bordered  table-hover" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <td colspan="2">小计</td>
+                                                        <td id="pageFeeCLWX"></td>
+                                                        <td id="pageFeeGSWX"></td>
+                                                        <td id="pageFeeZJWX"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">合计</td>
+                                                        <td id="dataFeeCLWX"></td>
+                                                        <td id="dataFeeGSWX"></td>
+                                                        <td id="dataFeeZJWX"></td>
+                                                    </tr>
                                                     </tfoot>
                                                 </table>
                                             </div>

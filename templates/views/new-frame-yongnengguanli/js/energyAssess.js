@@ -1,36 +1,19 @@
 /**
- * Created by admin on 2017/11/24.
+ * Created by admin on 2018/9/18.
  */
 $(function(){
 
     //从配置项中获取页面中所展示信息
     getDataByConfig();
 
-    //时间插件
-    _timeYMDComponentsFun($('.datatimeblock'));
+    //日期初始化
+    _timeYMDComponentsFun($('.min'));
 
-    //时间初始化
-    $('.time-options-1').click();
-
-    //记录页面
-    _energyTypeSel = new ETSelection();
-
-    //读取能耗种类
-    _getEcType('initPointers');
-
-    //默认选中第一个能耗
-    $('.selectedEnergy').addClass('blueImg0');
-
-    _getEcTypeWord();
-
-    //默认能耗种类
-    _ajaxEcType =_getEcTypeValue();
-
-    _ajaxEcTypeWord = _getEcTypeWord();
+    $('.choose-time-select ul li').eq(0).click();
 
     //获取当前选中的是楼宇还是科室
 
-    var thisID = $('.left-middle-main .curChoose').attr('data-id');
+    var thisID = $('.choose-dingE .onChoose').attr('data-id');
 
     //如果是楼宇
     if(thisID == 1){
@@ -40,7 +23,7 @@ $(function(){
         //_officeZtree = _getPointerZtree($("#allOffices"),1);
 
         //默认加载数据
-        getPointerData('EnergyManageV2/GetPointerDingEAssess',thisID);
+        getContentData(thisID);
 
     }else if(thisID == 2){
 
@@ -48,10 +31,9 @@ $(function(){
         _officeZtree = _getOfficeZtree($("#allOffices"),1);
 
         //默认加载数据
-        getPointerData('EnergyManageV2/GetOfficeDingEAssess',thisID);
+        getContentData(thisID);
 
     }
-
 
     //科室或楼宇搜索功能
     _searchPO1($(".tipes"),"allOffices");
@@ -59,70 +41,42 @@ $(function(){
     //加载KPI中数据
     getKPIInfos();
 
-    //默认时间
-    $('.min').val(moment().format('YYYY'));
 
+    //页面初始化
+    $('.choose-object-windows .sure').click();
 
-    /*---------------------------------buttonEvent------------------------------*/
-    //查询按钮
-    $('.buttons').children('.btn-success').click(function(){
+    //点击页面查询按钮
+    $('.demand').on('click',function(){
 
-        //获得选择的能耗类型
-        _ajaxEcType =_getEcTypeValue(_ajaxEcType);
+        //获取页面中具体数据
+        var flag =  $('.choose-dingE .onChoose').attr('data-id');
 
-        var o = $('.left-middle-main .curChoose').attr('data-id');
-
-        if(o == 2){
-
-            //分户数据
-            getPointerData('EnergyManageV2/GetOfficeDingEAssess',o);
-
-        }else if(o == 1){
-
-            //楼宇数据
-            getPointerData('EnergyManageV2/GetPointerDingEAssess',o);
-
-        }else if(o == 5){
-
-            //KPI数据
-            getPointerData('EnergyManageV2/GetKPIDingEAssess',o);
-
-        }
-    });
-
-    //能耗选择
-    $('.energy-types').on('click','div',function(){
-
-        //右上角单位
-        var unit = $('#unit').find("option").eq(0).text();
-
-        $('.unit').val(unit);
+        getContentData(flag);
 
     });
+
+    $('.demand').click();
 
     //点击切换楼宇或单位时，改变上方能耗类型
-    $('.left-middle-main p').on('click',function(){
+    $('.choose-dingE-select').on('click','.the-dingE-type',function(){
 
-        $('.left-middle-main p').removeClass('curChoose');
-
-        $(this).addClass('curChoose');
 
         //判断页面中是否存在能耗类型选项
-        if(typeof _energyTypeSel!="undefined" ){
 
             if($(this).attr('data-id') == 5){
 
                 //清空上方能耗种类
-                $('.energy-types').html('');
-
-                $('.energy-types').addClass('hasHeight');
+                $('.left-choose-energy-container li').hide();
 
                 //右上角单位
-                $('.unit').val($('.left-middle-main1 .curChoose').attr('data-unit'));
+                //$('.unit').val($('.left-middle-main1 .curChoose').attr('data-unit'));
 
                 //下方对象
-                $('.left-middle-main1').show();
-                $('.tree-2').hide();
+                $('.choose-kpi').show();
+
+                $('.choose-object').hide();
+
+                $('.has-choosed-object').hide();
 
                 return false;
 
@@ -131,9 +85,6 @@ $(function(){
                 //楼宇
                 if($(this).attr('data-id') == 1){
 
-                    _energyTypeSel.initPointers($(".energy-types"),undefined,function(){
-                        getEcType();
-                    });
 
                     //楼宇ztree树
                     getBranchZtree(0,0,getPointerTree1,$("#allOffices"));
@@ -141,56 +92,29 @@ $(function(){
                     //科室
                 }else if($(this).attr('data-id') == 2){
 
-                    _energyTypeSel.initOffices($(".energy-types"),undefined,function(){
-                        getEcType();
-                    });
-
-
                     //科室ztree树
                     _officeZtree = _getOfficeZtree($("#allOffices"),1);
 
                 }
 
-
-
-                $('.energy-types').removeClass('hasHeight');
+                $('.left-choose-energy-container li').show();
 
                 //右上角单位
-                var unit = $('#unit').find("option").eq(0).text();
-
-                $('.unit').val(unit);
+                //$('.unit').val($('.left-middle-main1 .curChoose').attr('data-unit'));
 
                 //下方对象
-                $('.left-middle-main1').hide();
-                $('.tree-2').show();
+                $('.choose-kpi').hide();
+
+                $('.choose-object').show();
+
+                $('.has-choosed-object').show();
+
+                //页面初始化
+                $('.choose-object-windows .sure').click();
 
             }
 
-            //默认选中第一个能耗
-            $('.selectedEnergy').addClass('blueImg0');
-        }else{
-
-
-        };
     });
-
-    //加载默认能耗种类
-    $('.left-middle-main .curChoose').click();
-
-    //改变指标类型 右上角单位跟着改变
-    $('.left-middle-main1').on('click','p',function(){
-
-        $('.left-middle-main1 p').removeClass('curChoose');
-
-        $(this).addClass('curChoose');
-
-        var unit = $(this).attr('data-unit');
-
-        //改变右上角单位名称
-        $('.unit').val(unit);
-
-    });
-
 
     //chart图自适应
     window.onresize = function () {
@@ -199,23 +123,13 @@ $(function(){
         }
     };
 
-    var zoomSize = 6;
-    myChartTopLeft.on('click', function (params) {
-        console.log(allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-        myChartTopLeft.dispatchAction({
-            type: 'dataZoom',
-            startValue: allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)],
-            endValue: allDataX[Math.min(params.dataIndex + zoomSize / 2, allDataY.length - 1)]
-        });
-    });
-
 });
 
 //从配置项中获取页面中所展示信息
 function getDataByConfig(){
 
     //获取当前的url
-    var curUrl = "new-yongnengguanli/OfficeDingEData.html";
+    var curUrl = "OfficeDingEData.html";
 
     //获取当前页面的配置信息
     $(__systemConfigArr).each(function(i,o){
@@ -241,18 +155,20 @@ function getDataByConfig(){
 
                     if(thisNum == 0){
 
-                        html += '<p class="curChoose" data-id='+ o.quotaTypeID+'>'+ o.quotaName+'</p>';
+                        html += '<li class="the-select-message the-dingE-type onChoose" data-id='+ o.quotaTypeID+'>'+ o.quotaName+'</li>';
+
+                        $('.choose-dingE font').html(o.quotaName);
 
                     }else{
 
-                        html += '<p data-id='+ o.quotaTypeID+'>'+ o.quotaName+'</p>';
+                        html += '<li class="the-select-message the-dingE-type" data-id='+ o.quotaTypeID+'>'+ o.quotaName+'</li>';
                     }
                 }
 
             });
 
             //赋值到页面中
-            $('.left-middle-main').html(html);
+            $('.choose-dingE-select ul').html(html);
 
         }
     });
@@ -260,6 +176,10 @@ function getDataByConfig(){
 
 //存放获取到的指标类型
 var energyNormItemArr = [];
+
+
+var _pointerZtree;
+var _officeZtree;
 
 //记录能耗种类
 var _ajaxEcType = '';
@@ -274,8 +194,6 @@ var allData = [];
 //折线图
 var myChartTopLeft = echarts.init(document.getElementById('rheader-content-16'));
 
-//柱状图配置项
-// 指定图表的配置项和数据
 option = {
 
     tooltip : {
@@ -305,7 +223,13 @@ option = {
     xAxis : [
         {
             type : 'category',
-            data : ['周一','周二','周三','周四','周五','周六','周日']
+            data : ['周一','周二','周三','周四','周五','周六','周日'],
+            axisLine:{
+                lineStyle:{
+                    color:'#666',
+                    width:1//这里是为了突出显示加上的
+                }
+            }
         }
     ],
     yAxis : [
@@ -313,10 +237,22 @@ option = {
             type : 'value',
             axisLabel : {
                 formatter: '{value} °C'
+            },
+            axisLine:{
+                lineStyle:{
+                    color:'#666',
+                    width:1//这里是为了突出显示加上的
+                }
             }
         },
         {   type: 'value',
             show: true,
+            axisLine:{
+                lineStyle:{
+                    color:'#666',
+                    width:1//这里是为了突出显示加上的
+                }
+            },
             axisLabel : {
                 formatter: '{value} %'
             }
@@ -327,6 +263,7 @@ option = {
             name:'定额量',
             type:'bar',
             data:[],
+            color:['#7DC79B'],
             //itemStyle : {
             //    normal : {
             //        color:'#52d0ef',
@@ -341,6 +278,7 @@ option = {
         {
             name:'使用量',
             type:'bar',
+            color:['#5B69D2'],
             //itemStyle : {
             //    normal : {
             //        color:'darkOrange',
@@ -359,6 +297,7 @@ option = {
             type:'line',
             showAllSymbol: true,
             yAxisIndex: 1,
+            color:['#F2285C'],
             //itemStyle : {
             //    normal : {
             //        color:'darkOrange',
@@ -376,11 +315,13 @@ option = {
     ]
 };
 
-/*---------------------------------otherFunction------------------------------*/
 
-//获取数据
-function getPointerData(url,flag){
+//获取页面具体数据
+//flag = 1 楼宇数据 flag = 2 分户数据 flag = 5 kpi数据
+function getContentData(flag){
 
+    //存放访问后台的地址
+    var url = '';
 
     //存放要传递的分户集合
     var officeID = [];
@@ -398,25 +339,39 @@ function getPointerData(url,flag){
     var areaName = '';
 
     //获取能耗名称
-    var energyName='';
+    var energyName =  $('.left-choose-energy-container .time-radio:checked').parents('.choose-energy').find('label').html();
 
     //判断是否标煤
-    if($('.selectedEnergy p').html() == '标煤'){
+    if( energyName == '标煤'){
+
         _ajaxEcType = -2;
     }
 
     //获取年份
     var f_Year = $('.min').val();
 
+    //当前选中的能耗类型
+
+    _ajaxEcType = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
+
+    _ajaxEcTypeWord = getEtName(_ajaxEcType);
+
+    var curUnit = getEtUnit(_ajaxEcType);
+
+
+    //console.log(_ajaxEcTypeWord )
+
     //楼宇数据
     if(flag == 1){
+
+        url = 'EnergyManageV2/GetPointerDingEAssess';
 
         var treeObj = $.fn.zTree.getZTreeObj('allOffices');
 
         //确定楼宇id
         var pts = treeObj.getCheckedNodes(true)[0];
 
-        console.log(pts);
+       // console.log(pts);
 
         pointerID = pts.id;
 
@@ -428,10 +383,10 @@ function getPointerData(url,flag){
             "pointerID": pointerID
         };
 
-        energyName = $('.selectedEnergy p').html();
-
         //分户数据
     }else if(flag == 2){
+
+        url = 'EnergyManageV2/GetOfficeDingEAssess';
 
         //确定分户id
         var ofs = _officeZtree.getSelectedOffices();
@@ -447,13 +402,13 @@ function getPointerData(url,flag){
         };
 
 
-        energyName = $('.selectedEnergy p').html();
-
-       //KPI数据
+        //KPI数据
     }else if(flag == 5){
 
+        url = 'EnergyManageV2/GetKPIDingEAssess';
+
         //获取指标ID
-        var normItemID = $('.left-middle-main1 .curChoose').attr('data-num');
+        var normItemID = $('.choose-kpi .onChoose').attr('data-num');
 
         //console.log(energyNormItemArr);
 
@@ -473,8 +428,18 @@ function getPointerData(url,flag){
             "kpiInfo": energyNormItemObj
         };
 
-        energyName = $('.left-middle-main1 .curChoose').eq(0).html();
+        energyName = $('.choose-kpi-select .onChoose').html();
 
+        curUnit = $('.choose-kpi-select .onChoose').attr('data-unit');
+
+        //console.log(nodes[0]);
+    }
+
+
+    if(f_Year == ""){
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请输入年份', '');
+        return false;
     }
 
     //发送请求
@@ -489,13 +454,13 @@ function getPointerData(url,flag){
         success:function(result){
             myChartTopLeft.hideLoading();
 
-            console.log(result);
+            //console.log(result);
 
             //return false;
 
             //判断是否返回数据
             if(result == null || result.length == 0){
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'无数据', '');
                 return false;
             }
 
@@ -503,6 +468,9 @@ function getPointerData(url,flag){
             var date = f_Year;
 
             $('.right-header-title').eq(0).html(energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
+
+            //改变单位
+            $('.the-unit').val(curUnit);
 
             //首先处理本期的数据
             allData.length = 0;
@@ -531,32 +499,32 @@ function getPointerData(url,flag){
             var yearEnergyData = result.yearEnergyData.toFixed(1);
 
             //单位
-            var unit = $('.unit').val();
+            var unit = $('.the-unit').val();
 
             //判断当前数据是否过大
             if(result.sumEnergyData > 10000 && _ajaxEcType == '01'){
 
                 unit = 'MWh';
 
-                 sumEnergyData = (sumEnergyData / 1000).toFixed(1);
+                sumEnergyData = (sumEnergyData / 1000).toFixed(1);
 
                 //累计定额
-                 sumDingEData = (sumDingEData / 1000).toFixed(1);
+                sumDingEData = (sumDingEData / 1000).toFixed(1);
 
                 //年定额
-                 yearDingE = (yearDingE / 1000).toFixed(1);
+                yearDingE = (yearDingE / 1000).toFixed(1);
 
                 //预计年使用量
-                 yearEnergyData = (yearEnergyData / 1000).toFixed(1);
+                yearEnergyData = (yearEnergyData / 1000).toFixed(1);
 
-                $('.unit').val(unit);
+                $('.the-unit').val(unit);
 
                 //给右侧展示eCharts数据赋值
                 showDataByNum(allData,1);
 
             }else{
 
-                $('.unit').val(unit);
+                $('.the-unit').val(unit);
 
                 //给右侧展示eCharts数据赋值
                 showDataByNum(allData);
@@ -575,28 +543,33 @@ function getPointerData(url,flag){
             //比例
             var precent = Math.abs((result.energyDingeScale* 100).toFixed(1));
 
-            $('.right-up-precent').html(precent + '%');
+            $('.rights-up-value').html(precent + '%');
+
+            $('.rights-up').removeClass('data-up');
+
+            $('.rights-up').removeClass('data-down');
+
+            $('.rights-up').removeClass('data-equal');
 
             //中间上升箭头
             if(result.energyDingeScale > 0){
 
-                $('.rights-up').addClass('rights-up1');
+                $('.rights-up').addClass('data-up');
 
             }else if(result.energyDingeScale == 0){
 
-                $('.rights-up').addClass('rights-equal1');
-            }else{
+                $('.rights-up').addClass('data-equal');
+            }else if(result.energyDingeScale < 0){
 
-                $('.rights-up').removeClass('rights-up1');
+                $('.rights-up').addClass('data-down');
 
-                $('.rights-up').removeClass('rights-equal1');
             }
 
             //年定额
-            $('.quota-year b').html(yearDingE + unit);
+            $('.quota-year').html(yearDingE );
 
             //预计年使用量
-            $('.quota-year1 b').html(yearEnergyData + unit);
+            $('.quota-year1 ').html(yearEnergyData );
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -610,7 +583,7 @@ function getPointerData(url,flag){
 
         }
     })
-};
+}
 
 //获取KPI列表 根据用户选择展示项数进行展示
 function getKPIInfos(){
@@ -639,17 +612,19 @@ function getKPIInfos(){
 
                 //如果是第一个默认选中
                 if(i == 0){
-                    html += '<p data-num ="'+ o.pK_KPIInfo+'" class="curChoose" data-unit="'+ o.f_kpiUnit+'">'+ o.f_kpiName+'</p>';
+                    html += '<li data-num ="'+ o.pK_KPIInfo+'" class="the-select-message the-kpi-type onChoose" data-unit="'+ o.f_kpiUnit+'">'+ o.f_kpiName+'</li>';
+
+                    $('.choose-kpi font').html( o.f_kpiName);
 
                 }else{
-                    html += '<p data-num ="'+ o.pK_KPIInfo+' " data-unit="'+ o.f_kpiUnit+'">'+ o.f_kpiName+'</p>'
+                    html += '<li class="the-select-message the-kpi-type" data-num ="'+ o.pK_KPIInfo+' " data-unit="'+ o.f_kpiUnit+'">'+ o.f_kpiName+'</li>'
                 }
 
 
             });
             html += '<div class="clearfix"></div>';
             //将指标类型嵌入页面
-            $('.left-middle-main1').html(html);
+            $('.choose-kpi ul').html(html);
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -692,7 +667,7 @@ function showDataByNum(data,flag){
     });
 
     //单位
-    var unit = $('.unit').val();
+    var unit = $('.the-unit').val();
     option.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
 
     //echart柱状图

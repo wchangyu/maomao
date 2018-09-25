@@ -46,3 +46,25 @@ $.validator.addMethod("phoneNumFormat",function(value,element,params){
     return this.optional(element)||flag;
 
 },"请输入合法的联系方式");
+
+//日期格式验证
+$.validator.addMethod("isDate", function(value, element){
+    var ereg = /^(\d{1,4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;
+    var r = value.match(ereg);
+    if (r == null) {
+        return false;
+    }
+    var d = new Date(r[1], r[3] - 1, r[5]);
+    var result = (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[5]);
+
+    return this.optional(element) || (result);
+}, "请输入正确的日期");
+
+//时间点验证
+$.validator.addMethod("isTimeFormat",function(value,element,params){
+
+    var doubles= /^(0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1})$/;
+
+    return this.optional(element)||(doubles.test(value));
+
+},"请输入时间格式：HH:mm");

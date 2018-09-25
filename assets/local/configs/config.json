@@ -166,7 +166,7 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.196/BEEWebAPI/api/",
+  "apiUriPrefix":"http://211.100.28.180/EMPWAPI/api/",
   "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
@@ -221,5 +221,7 @@
   "useNewIframe":"0",
   "useNewIframeComment":"是否启用新框架 0不启用 1启用",
   "colorStyle":"1",
-  "colorStyleComment":"大屏首页风格，0南京南，1虹桥"
+  "colorStyleComment":"大屏首页风格，0南京南，1虹桥",
+  "useNewIframeUrl":"new-frame/new-frame.html",
+  "useNewIframeUrlComment":"新框架页面路径"
 }

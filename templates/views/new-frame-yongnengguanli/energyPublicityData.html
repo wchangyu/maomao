@@ -22,61 +22,62 @@
     <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
     <!--<link rel="stylesheet" href="../new-resource/css/common.css">-->
     <!--<link rel="stylesheet" href="../new-resource/css/nenghaoshuju/energyDemand.css">-->
-    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="../new-frame-nenghaoshuju/css/common.css">
     <style>
-
-        .header-right-btn .cur-on-choose {
-            background: #666;
-            color: white;
+        #unit {
+            width: 90px;
         }
 
-        .header-right-btn span {
-            margin-right: 10px;
-            cursor: pointer;
-            padding-left: 5px;
-            padding-right: 5px;
-            line-height: 22px;
-            display: inline-block;
-            border-radius: 5px !important;
+        .right-choose-condition-container .choose-object1 font {
+            width: 205px;
         }
-
-        .right-header-right li {
-            float: right;
-        }
-
-        #dateTables td,#dateTables th{
+        .table th{
+            background: #aeb4c9 !important;
+            border: none !important;
+            color:white !important;
             text-align: center;
-            min-width: 100px;
         }
 
-        #dateTables .equal{
-            background: url(../new-resource/img/tongbi0%25.png) no-repeat 10px center;
-            background-size: 20px 5px;
+        .table thead tr{
+            background: #aeb4c9 !important;
         }
 
-        #dateTables .up{
-            background: url(../new-resource/img/zengzhang.png) no-repeat 10px center;
-            background-size: 28px 20px;
+        .table tr td {
+            background: #f4f8fd;
+            text-align: center;
         }
 
-        #dateTables .down{
-            background: url(../new-resource/img/xiajiang.png) no-repeat 10px center;
-            background-size: 28px 20px;
+        #dateTables, #dateTables2 {
+            margin-bottom: 0 !important;
+            min-height: 375px;
         }
 
-        .quota-data-bottom {
-            overflow: auto;
+        #dateTables1-container, #dateTables3-container, #dateTables2-container {
+            height: 380px;
+            overflow-y: auto;
         }
 
-        #dateTables th{
-            background: #aeb4c9;
-            border: none;
-            color:white;
+        /*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+        .dataTables-container::-webkit-scrollbar{
+            width: 12px;
+            height: 12px;
+            background-color: #f5f5f5;
+        }
+        /*定义滚动条的轨道，内阴影及圆角*/
+        .dataTables-container::-webkit-scrollbar-track{
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            border-radius: 0px;
+            background-color: #f5f5f5;
+        }
+        /*定义滑块，内阴影及圆角*/
+        .dataTables-container::-webkit-scrollbar-thumb{
+            /*width: 10px;*/
+            height: 20px;
+            border-radius: 0px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #aeb4c9;
         }
 
-        #dateTables th a{
-            color:white;
-        }
     </style>
 </head>
 
@@ -122,7 +123,7 @@
                         <div class="wrap container">
 
                             <!--上方选择查询条件-->
-                            <div class="top-choose-condition-container" style="display: none">
+                            <div class="top-choose-condition-container">
 
                                 <!--里层容器-->
                                 <div class="inner-condition-container">
@@ -130,7 +131,7 @@
                                     <!--左侧选择水电-->
                                     <div class="left-choose-energy-container">
 
-                                        <ul>
+                                        <ul style="display: none">
                                             <li class="choose-energy dian" data-img="dian.png">
                                                 <label for="radio1" class="input-label1" style="padding-left: 0">电</label>
                                                 <input class="time-radio" id="radio1" type="radio" name="choose-radio" value="day" checked="checked" data-id="01" data-id1="4" data-type="100">
@@ -154,26 +155,10 @@
 
                                         <!--对象选择-->
                                         <span class="choose-object1 choose-custom-select" style="width:auto">
-                                            <font>区域位置</font><b></b>
-
-                                            <!--对象选择下拉框-->
-                                            <div class="choose-object-select choose-custom-select-container">
-
-                                                <ul>
-                                                    <li class="the-select-message the-object-type onChoose" data-id="1">区域位置</li>
-                                                    <li class="the-select-message the-object-type" data-id="2">用能单位</li>
-                                                </ul>
-
-                                            </div>
-
-                                        </span>
-
-                                        <!--指标选择-->
-                                        <span class="choose-target choose-custom-select" style="width:auto">
                                             <font></font><b></b>
 
                                             <!--对象选择下拉框-->
-                                            <div class="choose-target-select choose-custom-select-container">
+                                            <div class="choose-object-select choose-custom-select-container">
 
                                                 <ul>
 
@@ -186,14 +171,16 @@
 
                                         <!--时间选择-->
                                         <span class="choose-time choose-custom-select">
-                                            <font>月</font><b></b>
+                                            <font>本月</font><b></b>
 
                                             <!--时间选择下拉框-->
                                             <div class="choose-time-select choose-custom-select-container">
 
                                                 <ul>
-                                                    <li class="the-select-message the-time-type onChoose">月</li>
-                                                    <li class="the-select-message the-time-type">年</li>
+                                                    <li class="the-select-message the-time-type onChoose" data-id="1">本月</li>
+                                                    <li class="the-select-message the-time-type " data-id="2">本年</li>
+                                                    <li class="the-select-message the-time-type " data-id="3">上月</li>
+                                                    <li class="the-select-message the-time-type " data-id="4">上年</li>
 
                                                 </ul>
 
@@ -202,13 +189,13 @@
                                         </span>
 
                                         <!--开始时间-->
-                                        <span class="start-time the-times">
+                                        <span class="start-time the-times" style="display: none">
                                             <input type="text" class="min datetime" placeholder="开始时间"><b></b>
 
                                         </span>
 
                                         <!--结束时间-->
-                                        <span class="end-time the-times">
+                                        <span class="end-time the-times" style="display: none">
                                             <input type="text" class="max datetime" placeholder="结束时间"><b></b>
 
                                         </span>
@@ -218,71 +205,93 @@
 
                                     </div>
 
-
-
                                     <div class="clearfix"></div>
 
                                 </div>
 
-                            </div style>
+                            </div>
 
                             <!--下方数据-->
                             <div class="bottom-data-container">
 
                                 <div class="right-content">
 
-                                    <div class="right-top">
-                                        <div class="right-header">
-                                            <!-- 标题 -->
-                                            <span class="right-header-title"></span>
-                                            <!-- 标题右边 -->
-                                            <ul class="right-header-right">
-                                                <!-- 单位 -->
-                                                <li class="header-right-lists">
-                                                    <label for="">单位：</label>
-                                                    <input name="" id="" class="the-unit" type="text" readonly="readonly">
-                                                </li>
+                                    <div class="content-main-contents">
 
-                                                <!--选择展示条目-->
-                                                <li class="header-right-btn" style="margin-right:28px;">
-
-                                                    <span class="cur-on-choose">前20项</span>
-                                                    <span class="">后20项</span>
-                                                    <span class="">全部</span>
-                                                </li>
-
-                                            </ul>
-                                        </div>
-
-
-                                        <!--eChart图-->
-                                        <div class="rheader-content-left " id="rheader-content-16" style="margin-right:100px;">
-
-                                        </div>
-
-                                        <div class="right-header" style="margin-bottom:10px;">
-                                            <!-- 标题 -->
-                                            <span class="right-header-title">对比分析</span>
-                                            <!-- 标题右边 -->
-
-                                        </div>
-
-                                        <!--下方对比表格-->
-                                        <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" >
-                                            <table class="table table-striped table-bordered table-advance table-hover
+                                        <div class="main-table-top row">
+                                            <!--左上角总体数据-->
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="margin-bottom:20px;">
+                                                <table class="table table-striped table-bordered table-advance table-hover
 " id="dateTables">
-                                                <thead>
-                                                <tr></tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr></tr>
-                                                <tr></tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                    <thead>
+                                                    <tr>
+                                                        <th>项目</th>
+                                                        <th>数值</th>
+                                                        <th>单位</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
 
-                                        <div class="clearfix"></div>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <!--右上角楼宇数据-->
+                                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="margin-bottom:20px;">
+                                                <div id="dateTables1-container" class="dataTables-container">
+                                                    <table class="table table-striped table-bordered table-advance table-hover
+" id="dateTables1" style="">
+                                                        <thead>
+
+                                                        </thead>
+                                                        <tbody>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+
+                                            <!--左下角总体数据-->
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                <div id="dateTables2-container" class="dataTables-container">
+                                                    <table class="table table-striped table-bordered table-advance table-hover
+    " id="dateTables2">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>项目</th>
+                                                            <th>数值</th>
+                                                            <th>单位</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <!--右下角楼宇数据-->
+                                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" >
+                                                <div id="dateTables3-container" class="dataTables-container">
+                                                    <table class="table table-striped table-bordered table-advance table-hover
+" id="dateTables3" >
+                                                        <thead>
+
+                                                        </thead>
+
+                                                        <tbody>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -295,15 +304,10 @@
     </div>
 </div>
 
-
-
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
 <div id="foot-html"></div>
 
-
-
-<!-- END FOOTER -->
 <!-- END FOOTER -->
 <script>
 
@@ -317,14 +321,14 @@
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         Demo.init(); // init demo features
-        BEE.init(true);
+        BEE.init();
     });
 
 </script>
 <script src="../resource/js/commonJsResource.js"></script>
 <script src="../new-resource/js/common.js"></script>
-<script src="js/common.js"></script>
-<script src="js/energyOfficePanking.js"></script>
+<script src="../new-frame-nenghaoshuju/js/common.js"></script>
+<script src="js/energyPublicityData.js"></script>
 
 <!-- END JAVASCRIPTS -->
 </body>

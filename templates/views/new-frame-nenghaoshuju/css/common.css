@@ -8,6 +8,10 @@
     display: none;
 }
 
+.theHidden {
+    display: none !important;
+}
+
 /*最外层容器*/
 .container{
     background: #F0F3F6;

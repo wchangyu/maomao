@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="../YHQ-resource/css/public.css">
 
     <style>
-
         #create-Modal label{
 
             width: 115px;
@@ -133,8 +132,8 @@
 
                             <ul class="L-condition">
                                 <li>
-                                    <label>餐厅名称</label>
-                                    <input type="text" class="form-control" id="DC-nameCon">
+                                    <label>菜品分类</label>
+                                    <input type="text" class="form-control" id="DC-dishCon">
                                 </li>
                                 <li>
                                     <div class="cont-col1" id="createBtn">
@@ -172,126 +171,25 @@
 
     <!--创建-->
     <div class="modal fade" id="create-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 577px;width: 1000px!important;">
-            <div class="modal-content" style="height: 577px;width: 1000px!important;">
+        <div class="modal-dialog" style="height: 367px;width: 1000px!important;">
+            <div class="modal-content" style="height: 367px;width: 1000px!important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">提示</h4>
                 </div>
-                <div class="modal-body" style="overflow-y: auto;height: 440px;">
+                <div class="modal-body" style="overflow-y: auto;height: 244px;">
 
                     <form class="cmxform" id="commentForm" method="post" action="">
 
                         <ul class="modal-block">
                             <li>
-                                <label>餐厅名称：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-name" name="DC-name" placeholder="餐厅名称是必填字段">
+                                <label>菜品分类编码：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-num" name="DC-num" placeholder="分类编码是必填字段">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>地址：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-location" name="DC-location" placeholder="餐厅地址是必填字段">
-                                <div class="modal-select"></div>
-                            </li>
-                            <li>
-                                <label>电话：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-tel" name="DC-tel" placeholder="餐厅电话是必填字段">
-                                <div class="modal-select"></div>
-                            </li>
-                            <li>
-                                <label>经理：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-manager" name="DC-manager" placeholder="餐厅经理是必填字段">
-                                <div class="modal-select"></div>
-                            </li>
-                            <li>
-                                <label>类型：</label>
-                                <div id="DC-type" class="radioBlock">
-                                    <input type="radio" class="inpus" name="inpus" id="ones" value="0" checked><label>对外</label>
-
-                                    <input type="radio" class="inpus" name="inpus" id="twos" value="1"><label>对内</label>
-                                </div>
-                                <div class="modal-select"></div>
-                            </li>
-                            <li>
-                                <label>送餐费：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-mealFee" name="DC-mealFee" placeholder="送餐费是必填字段">
-                                <div class="modal-select"></div>
-                            </li>
-                            <li>
-                                <label>早送餐时间：</label>
-                                <div class="time-tool-block">
-                                    <div class="input-group date form_date DC-time">
-                                        <input id="breakfast-time" name="breakfast-time" class="form-control max" size="16" type="text" value=""  placeholder="早送餐时间是必填字段"/>
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="modal-select"></div>
-                                <div class="time-seat"></div>
-                            </li>
-                            <li>
-                                <label>早送餐时间截止：</label>
-                                <div class="time-tool-block">
-                                    <div class="input-group date form_date DC-time">
-                                        <input id="breakfast-end-time" name="breakfast-end-time" class="form-control max" size="16" type="text" value="" placeholder="早送餐时间截止是必填字段" />
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="modal-select"></div>
-                                <div class="time-seat"></div>
-                            </li>
-                            <li>
-                                <label>中送餐时间：</label>
-                                <div class="time-tool-block">
-                                    <div class="input-group date form_date DC-time">
-                                        <input id="lunch-time" name="lunch-time" class="form-control max" size="16" type="text" placeholder="中送餐时间是必填字段" value="" />
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="modal-select"></div>
-                                <div class="time-seat"></div>
-                            </li>
-                            <li>
-                                <label>中送餐时间截止：</label>
-                                <div class="time-tool-block">
-                                    <div class="input-group date form_date DC-time">
-                                        <input name="lunch-end-time" id="lunch-end-time" class="form-control max" size="16" type="text" value="" placeholder="中送餐时间截止是必填字段" />
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="modal-select"></div>
-                                <div class="time-seat"></div>
-                            </li>
-                            <li>
-                                <label>晚送餐时间：</label>
-                                <div class="time-tool-block">
-                                    <div class="input-group date form_date DC-time">
-                                        <input name="dinner-time" id="dinner-time" class="form-control max" size="16" type="text" value="" placeholder="晚送餐时间是必填字段" />
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="modal-select"></div>
-                                <div class="time-seat"></div>
-                            </li>
-                            <li>
-                                <label>晚送餐时间截止：</label>
-                                <div class="time-tool-block">
-                                    <div class="input-group date form_date DC-time">
-                                        <input id="dinner-end-time" name="dinner-end-time" class="form-control max" size="16" type="text" value="" placeholder="晚送餐时间截止是必填字段"/>
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
+                                <label>菜品分类名称：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-name" name="DC-name" placeholder="分类名称是必填字段">
                                 <div class="modal-select"></div>
                             </li>
                             <li class="text-block" style="width: 800px;">
@@ -365,7 +263,7 @@
 
 <script src="../YHQ-resource/js/public.js"></script>
 
-<script src="../YHQ-resource/js/YHQ-DC/DCRestaurant.js"></script>
+<script src="../YHQ-resource/js/YHQ-DC/DCDishes.js"></script>
 
 <!--表单格式验证-->
 <script src="../resource/js/validateFormat.js"></script>

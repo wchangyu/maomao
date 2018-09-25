@@ -962,10 +962,12 @@ function _exportExecl(dom){
 /*--------------------------模态框设置--------------------------*/
 //控制模态框的设置，出现确定按钮的话，第三个参数传''，第四个才有效,用不到的参数一定要传''；istap,如果有值的话，内容改变，否则内容不变。
 function _moTaiKuang(who, title, flag, istap ,meg, buttonName) {
+
     who.modal({
         show: false,
         backdrop: 'static'
-    })
+    });
+
     who.find('.modal-title').html(title);
     who.modal('show');
     var markHeight = document.documentElement.clientHeight;
@@ -1796,6 +1798,37 @@ function _timeCompare(st,et){
 
 }
 
+//验证时间
+function _timeShow(modal){
+
+    var time = modal.find('.time-tool-block');
+
+    for(var i=0;i<time.length;i++){
+
+        if(time.eq(i).find('label').length >0){
+
+            var o = time.eq(i).find('label').css('display');
+
+            if(o != 'none'){
+
+                time.eq(i).next().next('.time-seat').show();
+
+            }else{
+
+                time.eq(i).next().next('.time-seat').hide();
+
+            }
+
+        }else{
+
+            time.eq(i).next().next('.time-seat').hide();
+
+        }
+
+    }
+
+}
+
 /*---------------------------------------------------控制界面------------------------------------*/
 
 //获取表格结构
@@ -2135,6 +2168,7 @@ function _sendInstruction(instanceID,el,fun){
     })
 
 }
+
 
 $(function(){
 

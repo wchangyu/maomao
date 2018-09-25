@@ -9,9 +9,12 @@ var BEE = (function(){
     //获取当前的url
     var curUrl = window.parent.location.href;
 
+    //获取新框架页面地址
+    var useNewIframeUrl = sessionStorage.useNewIframeUrl;
+
     //console.log(curUrl);
 
-    if( curUrl.indexOf('passengerStation.html') == -1 && curUrl.indexOf('new-frame/new-frame.html') == -1){
+    if( curUrl.indexOf('passengerStation.html') == -1 && curUrl.indexOf(useNewIframeUrl) == -1){
 
         showLeftMenu();
 
@@ -20,7 +23,6 @@ var BEE = (function(){
         $('html body').css("cssText","background-color:#fff !important");
 
     };
-
 
     var _assetsPath = '../../../assets/';
     var _localImgPath = 'local/img/';

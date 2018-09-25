@@ -2,6 +2,8 @@
  * Created by admin on 2018/1/12.
  */
 
+console.log(sessionStorage.colorStyle);
+
 if(sessionStorage.colorStyle == 0){
 
 

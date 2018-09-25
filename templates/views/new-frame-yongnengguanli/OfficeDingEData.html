@@ -22,47 +22,9 @@
     <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
     <!--<link rel="stylesheet" href="../new-resource/css/common.css">-->
     <!--<link rel="stylesheet" href="../new-resource/css/nenghaoshuju/energyDemand.css">-->
-    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="../new-frame-nenghaoshuju/css/common.css">
     <style>
 
-        .header-right-btn .cur-on-choose {
-            background: #666;
-            color: white;
-        }
-
-        .header-right-btn span {
-            margin-right: 10px;
-            cursor: pointer;
-            padding-left: 5px;
-            padding-right: 5px;
-            line-height: 22px;
-            display: inline-block;
-            border-radius: 5px !important;
-        }
-
-        .right-header-right li {
-            float: right;
-        }
-
-        #dateTables td,#dateTables th{
-            text-align: center;
-            min-width: 100px;
-        }
-
-        #dateTables .equal{
-            background: url(../new-resource/img/tongbi0%25.png) no-repeat 10px center;
-            background-size: 20px 5px;
-        }
-
-        #dateTables .up{
-            background: url(../new-resource/img/zengzhang.png) no-repeat 10px center;
-            background-size: 28px 20px;
-        }
-
-        #dateTables .down{
-            background: url(../new-resource/img/xiajiang.png) no-repeat 10px center;
-            background-size: 28px 20px;
-        }
 
         .quota-data-bottom {
             overflow: auto;
@@ -77,6 +39,72 @@
         #dateTables th a{
             color:white;
         }
+
+        .top-btn {
+            border-width: 0;
+            font-size: 14px;
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border-radius: 4px;
+            color: #fff;
+            background-color: #45B6AF;
+            border-color: #3ea49d;
+            width: 80px;
+        }
+
+        .prompt {
+            color: red;
+            font-size: 14px;
+        }
+
+        .dataTables_filter label {
+            line-height: 32px;
+        }
+        #dateTables_filter input {
+            height: 30px;
+            width: 160px;
+        }
+
+        #dateTables_filter {
+            float: left;
+        }
+
+        #dateTables thead tr th, #dateTables tbody tr td {
+            text-align: center !important;
+            font-size: 12px;
+            padding-left: 2px !important;
+            padding-right: 2px !important;
+        }
+
+        .month-data {
+            width: 60px;
+            border: none;
+            background: none !important;
+            text-align: center;
+        }
+
+        #dateTables {
+            overflow: auto;
+            width: 100%;
+        }
+
+        .average {
+            width: 40px !important;
+        }
+
     </style>
 </head>
 
@@ -122,7 +150,7 @@
                         <div class="wrap container">
 
                             <!--上方选择查询条件-->
-                            <div class="top-choose-condition-container" style="display: none">
+                            <div class="top-choose-condition-container">
 
                                 <!--里层容器-->
                                 <div class="inner-condition-container">
@@ -160,29 +188,12 @@
                                             <div class="choose-object-select choose-custom-select-container">
 
                                                 <ul>
-                                                    <li class="the-select-message the-object-type onChoose" data-id="1">区域位置</li>
-                                                    <li class="the-select-message the-object-type" data-id="2">用能单位</li>
-                                                </ul>
-
-                                            </div>
-
-                                        </span>
-
-                                        <!--指标选择-->
-                                        <span class="choose-target choose-custom-select" style="width:auto">
-                                            <font></font><b></b>
-
-                                            <!--对象选择下拉框-->
-                                            <div class="choose-target-select choose-custom-select-container">
-
-                                                <ul>
 
                                                 </ul>
 
                                             </div>
 
                                         </span>
-
 
                                         <!--时间选择-->
                                         <span class="choose-time choose-custom-select">
@@ -192,9 +203,8 @@
                                             <div class="choose-time-select choose-custom-select-container">
 
                                                 <ul>
-                                                    <li class="the-select-message the-time-type onChoose">月</li>
-                                                    <li class="the-select-message the-time-type">年</li>
 
+                                                    <li class="the-select-message the-time-type onChoose">年</li>
                                                 </ul>
 
                                             </div>
@@ -219,12 +229,11 @@
                                     </div>
 
 
-
                                     <div class="clearfix"></div>
 
                                 </div>
 
-                            </div style>
+                            </div>
 
                             <!--下方数据-->
                             <div class="bottom-data-container">
@@ -243,42 +252,40 @@
                                                     <input name="" id="" class="the-unit" type="text" readonly="readonly">
                                                 </li>
 
-                                                <!--选择展示条目-->
-                                                <li class="header-right-btn" style="margin-right:28px;">
-
-                                                    <span class="cur-on-choose">前20项</span>
-                                                    <span class="">后20项</span>
-                                                    <span class="">全部</span>
-                                                </li>
-
                                             </ul>
                                         </div>
 
-
-                                        <!--eChart图-->
-                                        <div class="rheader-content-left " id="rheader-content-16" style="margin-right:100px;">
-
-                                        </div>
-
-                                        <div class="right-header" style="margin-bottom:10px;">
-                                            <!-- 标题 -->
-                                            <span class="right-header-title">对比分析</span>
-                                            <!-- 标题右边 -->
-
-                                        </div>
-
                                         <!--下方对比表格-->
-                                        <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" >
-                                            <table class="table table-striped table-bordered table-advance table-hover
+                                        <div class= quota-data-bottom" >
+                                            <!--上方操作按钮-->
+                                            <div class="top-operation" style="text-align:right;padding-top:15px;">
+                                                <button class="top-btn top-edit">编辑</button>
+                                                <button class="top-btn top-sure">确定</button>
+                                                <button class="top-btn top-abolish">取消</button>
+
+                                                <span class="prompt" style="float: left">当前不可编辑，可点击右侧编辑按钮进行编辑。</span>
+                                                <br />
+
+                                            </div>
+
+
+
+
+                                            <div style="height:20px;"></div>
+
+                                            <div style="width:100%;max-height:550px;overflow: auto;">
+                                                <table class="table table-striped table-bordered table-advance table-hover
 " id="dateTables">
-                                                <thead>
-                                                <tr></tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr></tr>
-                                                <tr></tr>
-                                                </tbody>
-                                            </table>
+                                                    <thead>
+
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
                                         </div>
 
                                         <div class="clearfix"></div>
@@ -301,9 +308,6 @@
 <!-- BEGIN QUICK SIDEBAR -->
 <div id="foot-html"></div>
 
-
-
-<!-- END FOOTER -->
 <!-- END FOOTER -->
 <script>
 
@@ -317,14 +321,14 @@
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         Demo.init(); // init demo features
-        BEE.init(true);
+        BEE.init();
     });
 
 </script>
 <script src="../resource/js/commonJsResource.js"></script>
 <script src="../new-resource/js/common.js"></script>
-<script src="js/common.js"></script>
-<script src="js/energyOfficePanking.js"></script>
+<script src="../new-frame-nenghaoshuju/js/common.js"></script>
+<script src="js/OfficeDingEData.js"></script>
 
 <!-- END JAVASCRIPTS -->
 </body>

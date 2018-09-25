@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <!--<link rel="stylesheet" href="../new-resource/css/common.css">-->
+    <!--<link rel="stylesheet" href="../new-resource/css/nenghaoshuju/energyDemand.css">-->
+    <link rel="stylesheet" href="../new-frame-nenghaoshuju/css/common.css">
+    <style>
+        #unit {
+            width: 90px;
+        }
+
+        .right-choose-condition-container .choose-object1 font {
+            width: 135px;
+        }
+        .table th{
+            background: #aeb4c9 !important;
+            border: none !important;
+            color:white !important;
+            text-align: center;
+        }
+
+        .table thead tr{
+            background: #aeb4c9 !important;
+        }
+
+        .table tr td {
+            background: #f4f8fd;
+            text-align: center;
+        }
+
+        .top-btn {
+            border-width: 0;
+            font-size: 14px;
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border-radius: 4px;
+            color: #fff;
+            background-color: #45B6AF;
+            border-color: #3ea49d;
+            width: 80px;
+        }
+
+        /*新增弹窗样式*/
+        .modal-body1{
+            padding-right:40px;
+        }
+        .gongdanList li {
+            width: 300px;
+        }
+        .floatLeft {
+            float: left;
+        }
+        .labels {
+            line-height: 30px;
+        }
+        .input-blockeds {
+            height: 30px;
+            border: 1px solid #ccc;
+            background: #ffffff;
+            display: inline-block;
+            position: relative;
+        }
+        .input-blockeds input {
+            line-height: 28px;
+            margin-left: 5px;
+            margin-right:5px;
+            border: none;
+            outline: none;
+            display: block;
+            width: 288px;
+            background: #ffffff;
+            height: 28px;
+        }
+        .floatRight {
+            float: right;
+        }
+        .colorTip {
+            color: #db3d32;
+        }
+
+        .fdjImg {
+            cursor: pointer;
+            position: absolute;
+            right: -34px;
+            top: 0px;
+        }
+
+        /*选择楼宇*/
+        .ztree {
+            height: 280px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .modal-body2{
+            padding-bottom:48px;
+            background: #ededed;
+        }
+        /*搜索框*/
+        .left-middle-input {
+            position: absolute;
+            top: 288px;
+            left: 50%;
+            margin-left: -95px;
+            width: 205px;
+        }
+
+    </style>
+</head>
+
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+
+                            <!--上方选择查询条件-->
+                            <div class="top-choose-condition-container">
+
+                                <!--里层容器-->
+                                <div class="inner-condition-container">
+
+                                    <!--左侧选择水电-->
+                                    <div class="left-choose-energy-container">
+
+                                        <ul style="display: none">
+                                            <li class="choose-energy dian" data-img="dian.png">
+                                                <label for="radio1" class="input-label1" style="padding-left: 0">电</label>
+                                                <input class="time-radio" id="radio1" type="radio" name="choose-radio" value="day" checked="checked" data-id="01" data-id1="4" data-type="100">
+
+                                            </li>
+
+                                            <li class="choose-energy shui" data-img="shui.png">
+
+                                                <label for="radio2" class="input-label1" style="padding-left: 0">水</label>
+
+                                                <input class="time-radio" id="radio2" type="radio" name="choose-radio" value="time" data-id="211" data-id1="5" data-type="200">
+
+                                            </li>
+
+                                        </ul>
+
+                                    </div>
+
+                                    <!--右侧选择其他信息-->
+                                    <div class="right-choose-condition-container">
+
+                                        <!--对象选择-->
+                                        <span class="choose-object1 choose-custom-select" style="width:auto">
+                                            <font>小于1万</font><b></b>
+
+                                            <!--对象选择下拉框-->
+                                            <div class="choose-object-select choose-custom-select-container">
+
+                                                <ul>
+                                                    <li class="the-select-message the-time-type onChoose" data-id="0">小于1万</li>
+                                                    <li class="the-select-message the-time-type " data-id="1">大于等于1万</li>
+                                                    <li class="the-select-message the-time-type " data-id="-1">全部</li>
+
+                                                </ul>
+
+                                            </div>
+
+                                        </span>
+
+
+                                        <!--时间选择-->
+                                        <span class="choose-time choose-custom-select">
+                                            <font>本月</font><b></b>
+
+                                            <!--时间选择下拉框-->
+                                            <div class="choose-time-select choose-custom-select-container">
+
+                                                <ul>
+                                                    <li class="the-select-message the-time-type onChoose" data-id="1">年</li>
+
+                                                </ul>
+
+                                            </div>
+
+                                        </span>
+
+                                        <!--开始时间-->
+                                        <span class="start-time the-times" style="">
+                                            <input type="text" class="min datetime" placeholder="开始时间"><b></b>
+
+                                        </span>
+
+                                        <!--结束时间-->
+                                        <span class="end-time the-times" style="">
+                                            <input type="text" class="max datetime" placeholder="结束时间"><b></b>
+
+                                        </span>
+
+                                        <!--查询按钮-->
+                                        <button class="demand">查询</button>
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                            </div>
+
+                            <!--下方数据-->
+                            <div class="bottom-data-container">
+
+                                <!--下方对比表格-->
+                                <div class= quota-data-bottom" >
+                                    <!--上方操作按钮-->
+                                    <div class="top-operation" style="text-align:right;padding-top:15px;">
+                                        <button class="top-btn top-add">新增</button>
+                                        <button class="top-btn top-edit">编辑</button>
+                                        <button class="top-btn top-remove">删除</button>
+                                        <!--<button class="top-btn top-sure">确定</button>-->
+                                        <br />
+
+                                    </div>
+
+                                    <div style="height:10px;"></div>
+
+                                    <div style="width:100%;max-height:550px;overflow: auto;">
+                                        <table class="table table-striped table-bordered table-advance table-hover
+" id="dateTables">
+                                            <thead>
+
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!--新增节能项目弹窗-->
+<div class="modal fade in" id="add-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style=" padding-left: 17px;">
+    <div class="modal-dialog" style="height: 678px;width:700px;margin-top:150px;">
+        <div class="modal-content" style="height: 678px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">添加项目</h4>
+            </div>
+            <div class="modal-body modal-body1">
+                <!--主体部分-->
+                <ul class="gongdanList" id="myApp33">
+                    <validator name="validation">
+                        <form novalidate="">
+                            <li class="floatLeft" >
+                                <div class="labels  colorTip">合同名称 * ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="pact-name">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">合同编号：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="pact-num">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">改造方式：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="change-way">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels  colorTip">实施内容 * ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="improve-content">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels  colorTip">开始时间 * ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="chooseDate startDate" placeholder="选择时间">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels  colorTip">结束时间 * ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="chooseDate endDate" placeholder="选择时间">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels  colorTip">合同金额(元) * ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="type-number pact-money">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels">验收时间 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="chooseDate check-date" placeholder="选择时间">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels colorTip">所属楼宇 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" placeholder="请选择所属楼宇" disabled="disabled" readonly="readonly" class="belong-building">
+                                    <!--点击图标-->
+                                    <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-building' >
+                                </div>
+
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels colorTip">涉及支路 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" placeholder="请选择支路" disabled="disabled" readonly="readonly" class="belong-brach">
+                                    <!--点击图标-->
+                                    <img class='fdjImg get-branch' src="../resource/img/fdj.png" alt="" data-toggle='modal'>
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels">责任部门 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="duty-department">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels  colorTip">责任人 * ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="duty-people">
+                                </div>
+                            </li>
+
+                            <li class="floatLeft">
+                                <div class="labels ">联系电话 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="type-phone department-phone">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">实施主体 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="implement-subject">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels ">联系人 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="link-man">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">联系电话 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="type-phone link-phone">
+                                </div>
+                            </li>
+                            <div class="clearfix"></div>
+
+                        </form>
+                    </validator>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--修改节能项目弹窗-->
+<div class="modal fade in" id="alter-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style=" padding-left: 17px;">
+    <div class="modal-dialog" style="height: 678px;width:700px;margin-top:150px;">
+        <div class="modal-content" style="height: 678px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="">修改项目</h4>
+            </div>
+            <div class="modal-body modal-body1">
+                <!--主体部分-->
+                <ul class="gongdanList" id="">
+                    <validator name="validation">
+                        <form novalidate="">
+                            <li class="floatLeft">
+                                <div class="labels  colorTip">合同名称 * ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="pact-name">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">合同编号：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="pact-num">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">改造方式：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="change-way">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels  colorTip">实施内容 * ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="improve-content">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels  colorTip">开始时间 * ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="chooseDate startDate" placeholder="选择时间">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels  colorTip">结束时间 * ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="chooseDate endDate" placeholder="选择时间">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels  colorTip">合同金额(元) * ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="type-number pact-money">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels">验收时间 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="chooseDate check-date" placeholder="选择时间">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels colorTip">所属楼宇 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" placeholder="请选择所属楼宇" disabled="disabled" readonly="readonly" class="belong-building">
+                                    <!--点击图标-->
+                                    <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-building' >
+                                </div>
+
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels colorTip">涉及支路 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" placeholder="请选择支路" disabled="disabled" readonly="readonly" class="belong-brach">
+                                    <!--点击图标-->
+                                    <img class='fdjImg get-branch' src="../resource/img/fdj.png" alt="" data-toggle='modal'>
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels">责任部门 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="duty-department">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels  colorTip">责任人 * ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="duty-people">
+                                </div>
+                            </li>
+
+                            <li class="floatLeft">
+                                <div class="labels ">部门电话 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="type-phone department-phone">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">实施主体 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="implement-subject">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels ">联系人 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="link-man">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">联系电话 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="type-phone link-phone">
+                                </div>
+                            </li>
+                            <div class="clearfix"></div>
+
+                        </form>
+                    </validator>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--选择楼宇弹窗-->
+<div class="modal fade in" id="choose-building" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style=" padding-left: 17px;">
+    <div class="modal-dialog" style="height: 480px;width:350px;margin-top:150px;">
+        <div class="modal-content" style="height: 480px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel1">选择楼宇</h4>
+            </div>
+            <div class="modal-body modal-body2">
+                <!--主体部分-->
+                <div class="tree-1 tree-0">
+                     <span class="allPointerOne">
+                            <div class="selectedRadio"></div>
+                     </span>
+                    <div class="left-middle-input">
+                        <input type="text"  id="keys" class="empty form-control" placeholder="搜索...">
+                    </div>
+                    <div class="tipess"></div>
+                    <ul class="allPointer ztree" id="allPointer">
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--选择支路弹窗-->
+<div class="modal fade in" id="choose-branch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style=" padding-left: 17px;">
+    <div class="modal-dialog" style="height: 5100px;width:350px;margin-top:150px;">
+        <div class="modal-content" style="height: 510px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="">选择支路</h4>
+            </div>
+
+            <div class="modal-body modal-body2">
+                <!--主体部分-->
+                <div>
+                    <label for="">能耗类型</label>
+                    <select name="" id="energy-type" style="width:120px">
+
+                    </select>
+                </div>
+
+                <div class="tree-1 tree-3" style="">
+                    <div class="left-middle-input">
+                        <input type="text"  id="keyss" class="empty form-control" placeholder="搜索...">
+                    </div>
+                    <div class="tipes"></div>
+                    <ul class="allBranch ztree" id="allBranch">
+
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
+
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../new-resource/js/common.js"></script>
+<script src="../new-frame-nenghaoshuju/js/common.js"></script>
+<script src="js/energyStatistics.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
