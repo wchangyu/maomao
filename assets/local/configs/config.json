@@ -166,7 +166,7 @@
       }
     ]
   },
-  "apiUriPrefix":"http://47.92.134.19/EMPWAPI/api/",
+  "apiUriPrefix":"http://222.190.246.50:8080/BEEWebAPIys/api/",
   "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",

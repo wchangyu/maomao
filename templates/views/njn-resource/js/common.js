@@ -18,6 +18,9 @@ $(function(){
 
     var pageTitleEN = '';
 
+    //能源管理tab
+    var energyTabStr = '';
+
     if(_colorLocation == 0){
 
         pageTitleCN = '南京南站';
@@ -26,6 +29,11 @@ $(function(){
 
         $('.right-bottom-energyment0').find('.left-tab-container').children('div').eq(1).hide();
 
+        energyTabStr = '<span class="left-tab left-tab1 left-tab-choose0 left-tab-choose"  unit-type="01" style="padding-left:40px;">电</span>' +
+
+                        '<span class="left-tab left-tab2" unit-type="211" style="padding-left:50px;">水</span>' +
+
+                        '<span class="left-tab left-tab3" unit-type="2011" style="padding-left:50px;">汽</span>'
 
     }else if(_colorLocation == 1){
 
@@ -34,6 +42,12 @@ $(function(){
         pageTitleEN = '（hongqiao station）';
 
         $('.right-bottom-energyment0').find('.left-tab-container').children('div').eq(1).show();
+
+        energyTabStr = '<span class="left-tab left-tab1 left-tab-choose0 left-tab-choose"  unit-type="01" style="padding-left:40px;">电</span>' +
+
+            '<span class="left-tab left-tab2" unit-type="211" style="padding-left:50px;display: none">水</span>' +
+
+            '<span class="left-tab left-tab3" unit-type="211" style="padding-left:50px;">水</span>'
 
     }
 
@@ -44,6 +58,8 @@ $(function(){
         $('.right-top-title').html(pageTitleCN + pageTitleEN);
 
     }
+
+    $('#energy-tab').empty().append(energyTabStr);
 
     //获取页面左侧站点数据
     getStationInfo();

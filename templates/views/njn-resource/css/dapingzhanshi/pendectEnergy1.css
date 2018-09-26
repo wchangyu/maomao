@@ -373,3 +373,39 @@
     background: url(../../img/qiehuanH.png)no-repeat;
 
 }
+
+.right-bottom-centent-dataN{
+
+    padding-top: 15px;
+
+    height: 117px !important;
+
+    background: url("../../img/yellowBorderHN.png") no-repeat 0px 5px !important;
+
+}
+
+.right-bottom-centent-dataN1{
+
+    padding-top: 15px;
+
+    height: 117px !important;
+
+    background: url("../../img/greenBorderHN.png") no-repeat 0px 5px !important;
+
+}
+
+.right-bottom-centent-dataN2{
+
+    padding-top: 15px;
+
+    height: 117px !important;
+
+    background: url("../../img/redBorderHN.png") no-repeat 0px 5px !important;
+
+}
+
+.left-bottom-contentN{
+
+    background: url(../../img/shebeibaojinbeijignN.png)no-repeat !important;
+
+}
