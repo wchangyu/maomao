@@ -56,7 +56,7 @@ $(function(){
 
         $(this).parents('ul').find('a').removeClass('onClicks');
         $(this).addClass('onClicks');
-        $('.top-cut li').css({background:'#C0CAD6'})
+        $('.top-cut li').css({background:'#C0CAD6'});
         $(this).parent('li').css({background:'#ffffff'});
         //获取实时能耗
         getRealTimeData();
@@ -1917,4 +1917,5 @@ function maxNum(num){
     var heightNum = Number(num.toString().slice(0,1)) + 1;
 
     return Math.pow(10,length-1)*heightNum *5;
-}
+};
+

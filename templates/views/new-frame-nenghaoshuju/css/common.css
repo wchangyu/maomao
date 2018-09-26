@@ -18,6 +18,12 @@
 
 }
 
+/*时间插件*/
+.min,.max{
+    cursor: pointer;
+}
+
+
 /*-------------------------------------上方选择条件---------------------------*/
 .top-choose-condition-container{
     width: 100%;
@@ -359,6 +365,15 @@
     z-index: 999;
 }
 
+/*时间选择提示语*/
+.right-choose-condition-container .message-word{
+
+    color:#5B69D2;
+    margin-right:10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
 .right-choose-condition-container .choose-custom-select-container .the-select-message {
     padding-left: 30px;
     box-sizing: border-box;
@@ -670,6 +685,13 @@
 /*echart图*/
 #rheader-content-16{
     height: 450px;
+}
+
+/*table*/
+#dateTables th {
+    background-color: #aeb4c9 !important;
+    color: white !important;
+    border: none !important;
 }
 
 

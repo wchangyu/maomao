@@ -238,7 +238,9 @@ var Login = function() {
             //判断是否启用新框架
             if( sessionStorage.useNewIframe == 1){
 
-                window.location.href = 'new-frame/new-frame.html';
+                var newFrameUrl = sessionStorage.useNewIframeUrl;
+
+                window.location.href = newFrameUrl;
 
                 return false;
             }
@@ -569,6 +571,10 @@ var Login = function() {
                     //新框架页面路径
                     var useNewIframeUrl = data["useNewIframeUrl"] || '';
                     sessionStorage.useNewIframeUrl = useNewIframeUrl;
+
+                    //车站大屏页面跳转方式
+                    var  stationJumpType = data[" stationJumpType"] || '';
+                    sessionStorage. stationJumpType =  stationJumpType;
 
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}

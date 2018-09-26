@@ -55,7 +55,6 @@ $(function(){
         //获取当前元素偏移量
         var marginNum = parseInt($(".right-menu-inner-container").css('marginLeft'));
 
-
         //判断当前是左偏还是右偏
         var flag = $(this).attr('data-id');
 
@@ -83,8 +82,6 @@ $(function(){
 
             return false
         }
-
-
 
         $(".right-menu-inner-container").css('marginLeft',excursionNum+'px');
 
@@ -136,7 +133,7 @@ $(function(){
             var jumpUrl = $(this).attr('data-id');
 
             //改变iframe路径
-            $('#embed-page').attr('src',jumpUrl);
+            iframeJump(jumpUrl);
 
         }
 
@@ -145,6 +142,12 @@ $(function(){
     $('body').on('click',function(){
 
         $('.right-menu-inner-container .secondary-menu').addClass('hide-menu');
+
+    });
+
+    $('#the-top-logo').on('click',function(){
+
+        window.history.go(0);
 
     });
 
@@ -161,7 +164,7 @@ $(function(){
         var jumpUrl = $(this).attr('data-id');
 
         //改变iframe路径
-        $('#embed-page').attr('src',jumpUrl);
+        iframeJump(jumpUrl);
 
     });
 
@@ -209,11 +212,38 @@ function getMenuToHtml(){
 
         indexUrl = myFunc(indexUrl,'./');
 
-        mainIndexUrl = '../'+ indexUrl;
+        //存放当前打开的页面地址
+        if(!sessionStorage.curUrl){
+
+            sessionStorage.curUrl ='../'+ indexUrl;
+
+        }else{
+
+            indexUrl = sessionStorage.curUrl;
+        }
+
+        if(sessionStorage.curUrl1 && sessionStorage.curUrl1 != ''){
+
+            indexUrl = myFunc(sessionStorage.curUrl1,'../');
+
+            indexUrl = myFunc(indexUrl,'./');
+
+            console.log(indexUrl);
+
+            mainIndexUrl = sessionStorage.curUrl1;
+
+            sessionStorage.curUrl1 = '';
+
+        }else{
+
+            mainIndexUrl = sessionStorage.curUrl;
+
+        }
+
 
         //页面初始化
         //改变iframe路径
-        $('#embed-page').attr('src',mainIndexUrl);
+        iframeJump( mainIndexUrl);
 
         iframeClick();
 
@@ -221,6 +251,8 @@ function getMenuToHtml(){
 
     //改变menuArr的结构
     menuArr = changeOriginalMenu(_menuArr,indexUrl);
+
+    //console.log(_menuArr);
 
     _newSimpleMenuArr = _menuArr;
 
@@ -234,6 +266,7 @@ function getMenuToHtml(){
 
 //把从后台获取到的菜单变成方便页面使用的菜单
 function changeOriginalMenu(menuArr,indexUrl){
+
 
     //给数组中每个主菜单加索引
     $(menuArr).each(function(i,o){
@@ -387,10 +420,35 @@ function checkedIndexUrl(menuObj,indexUrl){
         indexUrl = indexUrl.toLowerCase();
     }
 
+    //定义流程图页面url
+    var monitorUrl = 'yongnengjiance/energyMonitor.html';
+
+    monitorUrl = monitorUrl.toLowerCase();
 
     if(curUrl.indexOf(indexUrl) > -1){
 
-        return true;
+        //流程图页面
+        if(indexUrl.indexOf(monitorUrl) > -1){
+
+            var num1 = indexUrl.split('a=')[1];
+
+            var num2 = curUrl.split('a=')[1];
+
+            if(num1 == num2){
+
+                return true;
+
+            }else{
+
+                return false;
+            }
+
+        }else{
+
+            return true;
+
+
+        }
 
     }else {
 
@@ -489,7 +547,7 @@ function drawTopMenu(secondMenuArr,flag){
 
                     //页面初始化
                     //改变iframe路径
-                    $('#embed-page').attr('src',thisUrl);
+                    iframeJump(thisUrl);
 
                     iframeClick();
 
@@ -540,7 +598,7 @@ function drawTopMenu(secondMenuArr,flag){
 
                     //页面初始化
                     //改变iframe路径
-                    $('#embed-page').attr('src',thisUrl);
+                    iframeJump(thisUrl);
 
                     iframeClick();
                 }
@@ -580,6 +638,8 @@ function drawTopMenu(secondMenuArr,flag){
         $('.right-menu-container .carousel-control').show();
 
     }
+
+    $('.right-menu-inner-container .secondary-menu').addClass('hide-menu');
 
 };
 
@@ -623,6 +683,26 @@ function changeMainMenuImg(dom,flag){
     }
 }
 
+//iframe跳转时操作
+function iframeJump(jumpUrl){
+
+    var iframe = document.getElementById('embed-page');
+
+    iframe.style.height = "600px";
+
+    //改变iframe路径
+    $('#embed-page').attr('src',jumpUrl);
+
+    sessionStorage.curUrl = jumpUrl;
+
+
+}
+
+//如果要客观比较一下s5的skt和s4的三星白。我想我还是要偏向skt一些。
+//首先，s4那个赛季的大部分时间里，三星白是被蓝压制的，s赛前都不是夺冠的大热门，论一年里的统治力，skt优于三星白。
+//第二，正好和你的观点相反。我认为skt温水煮青蛙的胜利方式反而比三星白暴力虐杀的方式更高一层。就像象棋一样，
+//不因为别的，只因为skt中单的id是Faker。
+
 //对象转化为数组
 function transform(obj){
 
@@ -652,14 +732,13 @@ function iframeClick(){
 
     iframe.onload = function() {
 
-
         var frameObj = iframe.contentDocument;
 
         setTimeout(function(){
 
-            var _frameHeight = frameObj.documentElement.scrollHeight + 20;
+            var _frameHeight = frameObj.documentElement.scrollHeight;
 
-            console.log(_frameHeight);
+            //console.log(_frameHeight);
 
             $("#embed-page").height(_frameHeight);
 

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <!--<link rel="stylesheet" href="../new-resource/css/common.css">-->
+    <!--<link rel="stylesheet" href="../new-resource/css/nenghaoshuju/energyDemand.css">-->
+    <link rel="stylesheet" href="../new-frame-nenghaoshuju/css/common.css">
+    <style>
+        .right-choose-condition-container .end-time {
+             display: block;
+        }
+
+        .no-change b{
+            background-image: none !important;
+        }
+
+        .bottom-data-container .top-message p{
+            font-size: 16px;
+        }
+
+        .compared-with-last-time {
+            position: absolute;
+            top: 93px;
+            left: 27px;
+            font-size: 1.6rem;
+        }
+
+        .compared-with-last-time1 {
+            position: absolute;
+            top: 93px;
+            left: 150px;
+            font-size: 1.6rem;
+        }
+
+        .total-power-consumption-value {
+            color: #019cdf;
+            position: absolute;
+            top: 71px;
+            left: 60px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .rights-up {
+            display: inline-block;
+            width: 37px;
+            height: 62px;
+            position: absolute;
+            top: 205px;
+            left: 108px;
+            margin-left: 5px;
+        }
+
+        .quota-year {
+            position: absolute;
+            left: 27px;
+            top: 170px;
+            font-size: 1.4rem;
+        }
+
+        .quota-year1 {
+            position: absolute;
+            left: 27px;
+            top: 223px;
+            font-size: 1.4rem;
+        }
+
+        .compared-with-last-time b {
+            color: #7DC79B;
+        }
+
+        .right-up-precent {
+            position: absolute;
+            left: 156px;
+            top: 196px;
+            font-size: 2.2rem;
+            color: #019cdf;
+        }
+    </style>
+</head>
+
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+
+                            <!--上方选择查询条件-->
+                            <div class="top-choose-condition-container">
+
+                                <!--里层容器-->
+                                <div class="inner-condition-container">
+
+                                    <!--左侧选择水电-->
+                                    <div class="left-choose-energy-container">
+
+                                        <ul style="display: none">
+                                            <li class="choose-energy dian" data-img="dian.png">
+                                                <label for="radio1" class="input-label1" style="padding-left: 0">电</label>
+                                                <input class="time-radio" id="radio1" type="radio" name="choose-radio" value="day" checked="checked" data-id="01" data-id1="4" data-type="100">
+
+                                            </li>
+
+                                            <li class="choose-energy shui" data-img="shui.png">
+
+                                                <label for="radio2" class="input-label1" style="padding-left: 0">水</label>
+
+                                                <input class="time-radio" id="radio2" type="radio" name="choose-radio" value="time" data-id="211" data-id1="5" data-type="200">
+
+                                            </li>
+
+                                        </ul>
+
+                                    </div>
+
+                                    <!--右侧选择其他信息-->
+                                    <div class="right-choose-condition-container">
+
+
+                                        <!--开始时间-->
+                                        <span class="start-time the-times" style="">
+                                              <font class="message-word">改造前:</font>
+                                            <input type="text" class="min datetime" placeholder="开始时间"><b></b>
+
+                                        </span>
+
+                                        <!--结束时间-->
+                                        <span class="end-time the-times" style="">
+                                            <input type="text" class="max datetime" placeholder="结束时间"><b></b>
+
+                                        </span>
+
+                                        <!--开始时间-->
+                                        <span class="start-time the-times no-change" style="">
+                                           <font class="message-word">改造后:</font>
+                                            <input type="text" class="min1 datetime" placeholder="开始时间" readonly="readonly" disabled="disabled"><b></b>
+
+                                        </span>
+
+                                        <!--结束时间-->
+                                        <span class="end-time the-times  no-change" style="">
+                                            <input type="text" class="max1 datetime" placeholder="结束时间" readonly="readonly" disabled="disabled"><b></b>
+
+                                        </span>
+
+                                        <!--查询按钮-->
+                                        <button class="demand">查询</button>
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                            </div>
+
+                            <!--下方数据-->
+                            <div class="bottom-data-container">
+
+                                <!--上方有关信息-->
+                                <div class="top-message row">
+
+                                    <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
+
+                                        <p class="improve-name">改造名称：<span></span></p>
+                                        <p class="improve-content">改造内容：<span>
+</span></p>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-2 col-sm-12 col-xs-12">
+
+                                        <p class="start-date">开始时间：<span>
+</span></p>
+                                        <p class="end-date">结束时间：<span>
+
+</span></p>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
+
+                                        <p class="belong-building">所属楼宇：<span>
+</span></p>
+                                        <p class="belong-branch">涉及之路：<span>
+</span></p>
+
+                                    </div>
+                                </div>
+
+                                <!--右侧数据展示-->
+                                <div class="rheader-content-left comparisonOfHistograms" style="width:280px;float: right">
+                                    <div class="rheader-content-right">
+                                        <div class="rheader-content-rights">
+                                            <!-- 累计耗电标题 -->
+                                            <span class="total-power-consumption">节能量</span>
+                                            <!-- 耗电数值 -->
+													<span class="total-power-consumption-value">
+														<label id="consumption-value-number"></label>
+                                                        <!-- 单位  -->
+														<span class="the-cumulative-power-unit"></span>
+													</span>
+
+                                                    <span class="compared-with-last-time compared-with-last-time0"><br>
+														<b> <font></font> <span class="">kg</span></b> <br />
+                                                        CO2排放量
+													</span>
+
+                                               <span class="compared-with-last-time1 compared-with-last-time"><br>
+														<b><font></font> <span class="">棵</span></b> <br />
+                                                        相当于植树
+													</span>
+
+                                            <div class="rights-up" style=""></div>
+
+                                            <span class="right-up-precent"></span>
+
+
+                                            <span class="quota-year">改造前:<br><b></b></span>
+                                            <span class="quota-year1">改造后:<br><b></b></span>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <!--eChart图-->
+                                <div class="rheader-content-left " id="rheader-content-16" style="margin-right:300px;">
+
+                                </div>
+
+
+                                <div class="clearfix"></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
+
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../new-resource/js/common.js"></script>
+<script src="../new-frame-nenghaoshuju/js/common.js"></script>
+<script src="js/energyConservation.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

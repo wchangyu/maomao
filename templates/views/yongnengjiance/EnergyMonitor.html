@@ -260,7 +260,7 @@
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 energyMonitor-container">
                     <div class="total-wrap">
 
                         <!-- 左边选择区域 -->
@@ -279,6 +279,7 @@
                             </div>
                             <ul class="list-group">
                             </ul>
+
                         </div>
                         <!-- 右边主体数据部分 -->
                         <div id="right-container">
@@ -292,6 +293,36 @@
                             </div>
                         </div>
 
+
+                    </div>
+
+                    <!--最右侧新的工具栏-->
+                    <div class="right-new-toolbar-container">
+
+                        <!--内层包裹容器-->
+                        <div class="innner-toolbar-container">
+
+                            <div class="toolbar liebiao" data-id="liebiao" title="列表">
+
+                                <ul class="monitor-list">
+                                    <li class="onChoose" title="3号楼压机系统图">3号楼压机系统图</li>
+
+                                    <li title="3号楼压机系统图">3号楼压机系统图</li>
+                                </ul>
+
+                            </div>
+
+                            <p class="toolbar shuaxin" data-id="shuaxin" title="刷新"></p>
+
+                            <p class="toolbar fangda" data-id="fangda" title="放大"></p>
+
+                            <p class="toolbar suoxiao" data-id="suoxiao" title="缩小"></p>
+
+                            <p class="toolbar yingyan" data-id="yingyan" title="鹰眼"></p>
+
+                            <p class="toolbar moren" data-id="moren" title="默认"></p>
+
+                        </div>
 
                     </div>
                 </div>
@@ -407,6 +438,100 @@
 
         myVideo.pause();
     });
+
+    //点击页面右侧工具栏
+    $('.innner-toolbar-container .toolbar').on('click',function(e){
+
+        //获取当前索引
+        var index = $(this).index();
+
+        $('.innner-toolbar-container .toolbar').removeClass('onChoose');
+
+        $(this).addClass('onChoose');
+
+        //给工具栏中各个按钮添加背景色
+         addBackgroud();
+
+        if(index != 0){
+
+            $('.chooseFunction .functions').eq(index).click();
+
+        //点击流程图列表控制开关
+        }else{
+
+
+            $('.innner-toolbar-container .monitor-list').toggle();
+
+            //阻止事件冒泡
+            e.stopPropagation();
+        }
+
+    });
+
+
+    //点击页面右侧流程图列表
+    $('.innner-toolbar-container .monitor-list').on('click','li',function(e){
+
+
+        $('.innner-toolbar-container .monitor-list li').removeClass('onChoose');
+
+        $(this).addClass('onChoose');
+
+        //获取当前索引
+        var index = $(this).index();
+
+        $('.list-group .list-group-item').eq(index).click();
+
+        //阻止事件冒泡
+        e.stopImmediatePropatation();
+
+    });
+
+    //页面点击事件
+    $('body').on('click',function(){
+
+        //隐藏流程图列表
+        $('.innner-toolbar-container .monitor-list').hide();
+
+    });
+
+    //给工具栏中各个按钮添加背景色
+    function addBackgroud(){
+
+        //获取按钮数量
+        var length = $('.innner-toolbar-container .toolbar').length;
+
+        for(var i=0; i<length; i++){
+
+            var dom = $('.innner-toolbar-container .toolbar').eq(i);
+
+            //获取图片地址
+            var url = 'img/';
+
+            //获取到之前选中的菜单的图片
+            var imgUrl = dom.attr('data-id');
+
+            //当前是被选中状态
+            if(dom.hasClass('onChoose')){
+
+              imgUrl += '1' + '.png';
+
+            }else{
+
+                imgUrl += '' + '.png';
+            }
+
+            url += imgUrl;
+
+            //console.log(url);
+
+            dom.css({
+
+                'background':'url('+url+') no-repeat center center'
+            });
+
+        }
+    }
 
 </script>
 <!-- END JAVASCRIPTS -->

@@ -288,3 +288,128 @@ body{
 	border-radius: 0 8px 8px 0 !important;
 	outline: none !important;
 }
+
+/*最右侧新的工具栏*/
+/*.energyMonitor-container{*/
+	/*position: relative;*/
+/*}*/
+/*.right-new-toolbar-container{*/
+
+	/*display: flex;*/
+	/*position: absolute;*/
+	/*top:0;*/
+	/*right:0;*/
+	/*width:40px;*/
+	/*height:80%;*/
+	/*background:#2B3256;*/
+	/*z-index: 10000;*/
+/*}*/
+
+.right-new-toolbar-container{
+
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	align-items: center /*垂直居中*/;
+	justify-content: center;/*水平居中*/;
+	position: fixed;
+	top:0;
+	right:0;
+	width:40px;
+	height:100%;
+	background:#2B3256;
+	z-index: 100;
+
+}
+
+/*内层包裹div*/
+.innner-toolbar-container{
+
+	width: 100%;
+	height:150px;
+
+
+}
+
+/*具体按钮*/
+.innner-toolbar-container .toolbar{
+
+	width:100%;
+	height:40px;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+.innner-toolbar-container .liebiao{
+
+	background: url('../../yongnengjiance/img/liebiao.png') no-repeat center center;
+	position: relative;
+
+}
+
+/*流程图列表*/
+.innner-toolbar-container .liebiao .monitor-list{
+
+	position: absolute;
+	left:-175px;
+	width:175px;
+	min-height:200px;
+	background: #3D4050;
+	display: none;
+}
+
+.innner-toolbar-container .liebiao .monitor-list li{
+
+	width:100%;
+	padding:10px;
+	padding-left: 30px;
+	box-sizing: border-box;
+	color:#8692E8;
+	font-size: 14px;
+	background: url(../../yongnengjiance/img/yuandian.png) no-repeat 10px center;
+	font-weight: 600;
+}
+
+.innner-toolbar-container .liebiao .monitor-list .onChoose{
+
+	background: #5B69D2;
+	color:white;
+	background: url(../../yongnengjiance/img/yuandian1.png) no-repeat 10px center;
+	background-color: #5B69D2;
+}
+
+.innner-toolbar-container .shuaxin{
+
+	background: url('../../yongnengjiance/img/shuaxin.png') no-repeat center center;
+
+}
+
+.innner-toolbar-container .fangda{
+
+	background: url('../../yongnengjiance/img/fangda.png') no-repeat center center;
+
+}
+
+.innner-toolbar-container .suoxiao{
+
+	background: url('../../yongnengjiance/img/suoxiao.png') no-repeat center center;
+
+}
+
+
+.innner-toolbar-container .yingyan{
+
+	background: url('../../yongnengjiance/img/yingyan.png') no-repeat center center;
+
+}
+
+.innner-toolbar-container .moren{
+
+	background: url('../../yongnengjiance/img/moren.png') no-repeat center center;
+
+}
+
+.showOrHidden{
+	display: none !important;
+}
