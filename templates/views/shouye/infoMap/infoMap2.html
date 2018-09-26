@@ -414,27 +414,45 @@
 
         var index= $(this).parent().index();
 
+
+        var jumpUrl = '';
+
         //驾驶舱
         if(index == 0){
 
-            window.location.href="../../new-nengyuanzonglan/new-index1.html";
+            jumpUrl="../new-nengyuanzonglan/new-index1.html";
 
         }
 
         //监控总览
         if(index == 1){
 
-            window.location.href="../../yongnengjiance/energyMonitor.html?a=1";
+            jumpUrl="../yongnengjiance/energyMonitor.html?a=1";
 
         }
 
         //工单系统
         if(index == 2){
 
-            window.location.href="../../gongdangunali/productionOrder-6.html";
+            jumpUrl="../gongdangunali/productionOrder-6.html";
 
         }
 
+        //如果嵌套框架
+        if(sessionStorage.useNewIframe == 1){
+
+            if(index == 0){
+
+                jumpUrl="../new-nengyuanzonglan/new-frame-index.html";
+            }
+
+            sessionStorage.curUrl = jumpUrl;
+
+            parent.$(window.parent.document).find('#the-top-logo').click();
+
+        }
+
+        window.location.href = jumpUrl;
 
     });
 

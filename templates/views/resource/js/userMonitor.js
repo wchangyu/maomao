@@ -193,9 +193,11 @@ var userMonitor = (function(){
 
         //刷新数据
         $(".functions-2").click(function(){
+
             if(!_isInstDataLoading){
                 getInstDatasByIds();
             }
+
         });
 
         $(".functions-3").click(function(){     //全屏操作
@@ -554,17 +556,38 @@ var userMonitor = (function(){
                 }
             }
         }
+
+        //给右侧的流程图列表添加数据
+        var listHtml = '';
+
+        $(procs).each(function(i,o){
+
+                listHtml +=  '<li class="monitor-list-data" title="'+ o.showProcName+'" data-procid="'+ o.procID+'">'+o.showProcName+'</li>';
+
+
+        });
+
+        //页面赋值
+        $('.monitor-list').html(listHtml);
+
         if(curProc){            //可能存在看不到任何监控方案的情况，没有权限
 
             initializeProcSubs(curProc.procID);//选中默认的监控
 
             selectLi($('.list-group-item[data-procid="' + curProc.procID  + '"]'));//默认选中的样式
+
+            selectLi1($('.monitor-list-data[data-procid="' + curProc.procID  + '"]'));
         }
     };
 
     function selectLi($li){
         $(".list-group-item").removeClass("selected");
         $li.addClass("selected");
+    }
+
+    function selectLi1($li){
+        $(".innner-toolbar-container .monitor-list-data").removeClass("onChoose");
+        $li.addClass("onChoose");
     }
 
     //根据定义的方案类型，获取该类型下的监控方案，返回数据

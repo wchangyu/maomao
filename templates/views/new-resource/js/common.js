@@ -7,7 +7,57 @@ $(function(){
     ////页面右上角选择单位
     //drawChangeUnitButton();
 
+    //判断是否在新框架中
+    if(sessionStorage.useNewIframe == 1){
+
+        //调用a标签重绘的方法
+        newFrameDrawLink();
+
+        setInterval(function(){
+            //调用a标签重绘的方法
+            newFrameDrawLink();
+
+        },1000)
+    }
+
 });
+
+//新框架下a标签的跳转
+$('.page-container').on('click','.newFrameJump',function(){
+
+    //获取当前跳转地址
+    var jumpUrl = $(this).attr('data-url');
+
+    if($(this).attr('target') == '_blank'){
+
+        sessionStorage.curUrl1 = jumpUrl;
+
+        //获取新框架页面地址
+        var useNewIframeUrl = '';
+
+        if(sessionStorage.useNewIframeUrl){
+
+            useNewIframeUrl = myFunc(sessionStorage.useNewIframeUrl,'../');
+
+            useNewIframeUrl = myFunc(useNewIframeUrl,'./');
+        }
+
+        useNewIframeUrl = '../' + useNewIframeUrl;
+
+        window.open(useNewIframeUrl);
+
+    }else{
+
+        sessionStorage.curUrl = jumpUrl;
+
+        parent.$(window.parent.document).find('#the-top-logo').click();
+
+        window.location.href = jumpUrl;
+
+    }
+
+});
+
     //时间选择
 $('.time-options').click(function(){
 
@@ -572,10 +622,6 @@ function getPointerTree1(){
     return treeArr;
 };
 
-
-
-
-
 //获取分项zTree树的数据
 function getZNodes(EnItdata){
 
@@ -977,8 +1023,8 @@ function getNewDate(){
 };
 
 //判断输入是否为电话号码
-
 function checkedPhone(dom){
+
     var num = $(dom).find('.type-phone').length;
 
     for(var i=0; i<num; i++){
@@ -1079,7 +1125,31 @@ function getPointersId(){
     return pointerIdArr;
 };
 
-//
+//新框架中重绘a标签的方法
+function newFrameDrawLink(){
+
+    var length = $('.page-container a').length;
+
+    for(var i=0; i<length; i++){
+
+        //获取当前dom元素
+        var curDom = $('.page-container a').eq(i);
+
+        //获取当前跳转地址
+        var jumpUrl = curDom.attr('href');
+
+        if(jumpUrl != 'javascript:;' && jumpUrl != '#'){
+
+            //给a标签添加class名
+            curDom.addClass('newFrameJump');
+
+            curDom.attr('data-url',jumpUrl);
+
+            curDom.attr('href','javascript:;');
+
+        };
+    };
+}
 
 
 

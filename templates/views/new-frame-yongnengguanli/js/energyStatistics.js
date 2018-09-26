@@ -119,6 +119,7 @@ $(function(){
         if(pointerName != ''){
 
             $('#choose-branch').modal('show');
+
         }else{
 
             _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请先选择楼宇', '');
@@ -268,6 +269,7 @@ $(function(){
         for(var i=0; i<length; i++){
 
             if( $('#dateTables .tableCheck').eq(i).is(':checked')){
+
                 //获取勾选的ID
                 alterID = $('#dateTables .tableCheck').eq(i).parents('tr').find('td').eq(2).html();
 
@@ -604,7 +606,7 @@ var table = $('#dateTables').DataTable({
             data:"pK_EnergyProj",
             render:function(data, type, full, meta){
 
-                return '<a target="_blank" href="./energyConservation.html?id='+data+'" />节能量查询'
+                return '<a target="_blank" href="../new-frame-yongnengguanli/energyConservation.html?id='+data+'" />节能量查询'
             }
         }
 
@@ -636,7 +638,6 @@ function getEcTypeByDeploy(){
 
 };
 
-
 //获取数据
 //flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
 function getDingEData(){
@@ -661,8 +662,6 @@ function getDingEData(){
         'ET' : etTime,
         'priceFlag' : priceFlag
     };
-
-    //也不能这么说，陈佩斯的巅峰是在90年春晚的《主角与配角》，后两年的《警察与小偷》《姐夫与小舅子》也都属佳作。但之后的作品水平已经下来了。98年被封时候的《王爷与邮差》说实话，水平很一般了已经，说句江郎才尽或许有点过分，但却是是日薄西山了。而赵本山恰恰相反，90年凭借《相亲》第一次进入春晚观众的视野。90年代中期《牛大叔提干》《红高粱模特队》初露峥嵘。98年《拜年》开始，作品质量已经超过陈佩斯同期。然后就是随着99年赵本山凭借《昨天 今天 明天》
 
     //发送请求
     $.ajax({
@@ -800,7 +799,9 @@ function getPostData(dom){
     if(branchID){
 
         //获取传递给后台的楼宇支路信息
-        getPostPointBranchMessage(branchID);
+        energyProjPointersArr = getPostPointBranchMessage(branchID);
+
+        console.log(energyProjPointersArr);
     }
 
     //获取能耗类型
@@ -842,16 +843,7 @@ function getPostData(dom){
         //能耗类型
         "f_EnergyType": energyType,
         //楼宇和支路
-        "energyProjPointers": [
-            {
-                "f_PointerID": pointerID,
-                "energyProjBranchs": [
-                    {
-                        "f_BranchID": branchID
-                    }
-                ]
-            }
-        ],
+        "energyProjPointers": energyProjPointersArr,
         "userID": _userIdNum
     };
 
@@ -873,9 +865,10 @@ function getOneMessage(id,dom){
         data:ecParams,
         timeout:_theTimes,
         success:function(result){
+
             $('#theLoading').modal('hide');
 
-            console.log(result);
+            //console.log(result);
 
             //判断是否返回数据
             if(result == null || result.length == 0){
@@ -914,12 +907,67 @@ function getOneMessage(id,dom){
             dom.find('.link-man').val( result.f_ExecutorName);
             //联系电话
             dom.find('.link-phone').val(result.f_ExecutorPhone);
+
             //所属楼宇
-            dom.find('.belong-building').val(result.energyProjPointers[0].f_PointerName);
-            dom.find('.belong-building').attr('data-num',result.energyProjPointers[0].f_PointerID);
+            var pointerName = '';
+
+            var pointerId = '';
+
+            //对应支路
+            var branchName = '';
+
+            var branchId = '';
+
+            $(result.energyProjPointers).each(function(i,o){
+
+                if(i < result.energyProjPointers.length - 1){
+
+                    pointerName += o.f_PointerName + ',';
+
+                    pointerId += o.f_PointerID + ',';
+
+                    $(o.energyProjBranchs).each(function(k,j){
+
+                        branchName += j.f_BranchName + ',';
+
+                        branchID += j.f_BranchID + '|'+ o.f_PointerID + ',';
+
+                    });
+
+                }else{
+
+                    pointerName += o.pointerName;
+
+                    pointerId += o.pointerID;
+
+                    $(o.energyProjBranchs).each(function(k,j){
+
+                        if(k < o.energyProjBranchs.length - 1){
+
+                            branchName += j.f_BranchName + ',';
+
+                            branchID += j.f_BranchID + '|'+ o.f_PointerID + ',';
+
+                        }else{
+
+                            branchName += j.f_BranchName ;
+
+                            branchID += j.f_BranchID + '|'+ o.f_PointerID ;
+                        }
+
+                    });
+
+                }
+            });
+
+            dom.find('.belong-building').val(pointerName);
+            dom.find('.belong-building').attr('data-num',pointerId);
+
+
             //涉及支路
             dom.find('.belong-brach').val(result.energyProjPointers[0].energyProjBranchs[0].f_BranchName);
             dom.find('.belong-brach').attr('data-num',result.energyProjPointers[0].energyProjBranchs[0].f_BranchID);
+
             //能耗类型
             dom.find('.belong-brach').attr('energy-type',result.f_EnergyType);
 
@@ -978,13 +1026,48 @@ function getPostPointBranchMessage(branchID){
 
             $(energyProjPointersArr).each(function(i,o){
 
+                //获取当前楼宇
+                var curPointerId = o.f_PointerID;
+
+                if(curPointerId == pointerId){
+
+                    var obj = {
+
+                        "f_BranchID": branchId
+                    };
+
+                    //给当前对象添加支路Id
+                    o.energyProjBranchs.push(obj);
+
+                    return false;
+                }
+
+                if(i == energyProjPointersArr.length - 1){
+
+
+                    var obj = {
+
+                        "f_PointerID": pointerId,
+                        "energyProjBranchs": [
+                            {
+                                "f_BranchID": branchId
+                            }
+                        ]
+                    };
+
+                    energyProjPointersArr.push(obj);
+
+                }
 
             });
 
         }
 
     });
-}
+
+    return energyProjPointersArr;
+};
+
 
 
 $('#dateTables').on('click','.data-option',function(){

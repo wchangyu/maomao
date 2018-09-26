@@ -750,7 +750,7 @@ function showDataByNum(data,flag){
     if(flag == 1){
         $(data).each(function(i,o){
 
-            html1 += '<th><span title="'+o.returnOBJName+'"><a target="_blank" href="energyOfficePanking.html?id='+ o.returnOBJID+'" >'+ o.returnOBJName.substring(0,4)+'</a></span></th>'
+            html1 += '<th><span title="'+o.returnOBJName+'"><a target="_blank" href="../new-frame-nenghaoshuju/energyOfficePanking.html?id='+ o.returnOBJID+'" >'+ o.returnOBJName.substring(0,4)+'</a></span></th>'
 
         });
 

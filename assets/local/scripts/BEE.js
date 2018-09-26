@@ -10,17 +10,24 @@ var BEE = (function(){
     var curUrl = window.parent.location.href;
 
     //获取新框架页面地址
-    var useNewIframeUrl = sessionStorage.useNewIframeUrl;
+    var useNewIframeUrl = '';
+
+    if(sessionStorage.useNewIframeUrl){
+
+        useNewIframeUrl = myFunc(sessionStorage.useNewIframeUrl,'../');
+
+        useNewIframeUrl = myFunc(useNewIframeUrl,'./');
+    }
 
     //console.log(curUrl);
 
-    if( curUrl.indexOf('passengerStation.html') == -1 && curUrl.indexOf(useNewIframeUrl) == -1){
+    if( curUrl && curUrl.indexOf('passengerStation.html') == -1 && curUrl.indexOf(useNewIframeUrl) == -1){
 
         showLeftMenu();
 
     }else{
 
-        $('html body').css("cssText","background-color:#fff !important");
+        $('html body').css("cssText","background-color:#fff ");
 
     };
 
@@ -93,6 +100,16 @@ var BEE = (function(){
 
             _loginHtml = loginPath;
         }
+
+    };
+
+    //删除字符串中某段字符
+    function myFunc(a,b){
+
+        while(a.indexOf(b)!=-1){
+            a=a.replace(b,'');
+        }
+        return a;
 
     };
 

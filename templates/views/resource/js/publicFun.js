@@ -1254,6 +1254,16 @@ function _formatNumber(num){
     return 0.00;
 }
 
+//删除字符串中某段字符
+function myFunc(a,b){
+
+    while(a.indexOf(b)!=-1){
+        a=a.replace(b,'');
+    }
+    return a;
+
+};
+
 //对后台返回的表格数据进行包装，方便datatables插件进行调用
 function _packagingTableData(tableData){
 

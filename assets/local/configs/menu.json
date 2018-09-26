@@ -14,7 +14,7 @@
       "驾驶舱": {
         "type": "0",
         "content": "驾驶舱",
-        "uri": "../new-nengyuanzonglan/new-index1.html",
+        "uri": "../new-nengyuanzonglan/new-frame-index.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -201,7 +201,7 @@
       "节能项目管理": {
         "type": "0",
         "content": "节能项目管理",
-        "uri": "../new-jienengzuji/energyStatistics.html",
+        "uri": "../new-frame-yongnengguanli/energyStatistics.html",
         "uid": "",
         "arg": "",
         "iconclass": "",

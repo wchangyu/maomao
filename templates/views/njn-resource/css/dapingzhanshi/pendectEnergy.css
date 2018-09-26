@@ -399,17 +399,25 @@
 }
 
 /*能源管理*/
+.right-bottom-container .right-bottom-energyment{
+    float: left;
+    width:865px;
+    position: relative;
+}
+
+/*能源管理加长  并隐藏运维联动*/
 /*.right-bottom-container .right-bottom-energyment{*/
     /*float: left;*/
-    /*width:865px;*/
+    /*width:1440px;*/
     /*position: relative;*/
 /*}*/
 
-.right-bottom-container .right-bottom-energyment{
-    float: left;
-    width:1440px;
-    position: relative;
-}
+/*.right-bottom-container .the-response-container{*/
+
+/*display: none*/
+/*}*/
+
+
 
 .right-bottom-container .left-bottom-content {
     width: 100%;
@@ -444,6 +452,8 @@
     width:auto !important;
     margin-right:15px;
 }
+
+
 
 
 /*上方小标题*/

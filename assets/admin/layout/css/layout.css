@@ -66,6 +66,11 @@
 
 }
 
+.page-footer{
+  position: relative !important;
+  z-index: 1000 !important;
+}
+
 @media (min-width: 992px){
 
   .page-content-wrapper .page-content-nest {

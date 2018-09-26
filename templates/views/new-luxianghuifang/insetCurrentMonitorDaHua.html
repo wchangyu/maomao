@@ -1,0 +1,253 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>视频控件</title>
+    <style>
+        body {font-family:"", arial;margin:0 auto; padding:0; }
+        div,form,img,ul,p {margin: 0 auto; padding: 0; border: 0; overflow:hidden; list-style-type:none; }
+        h1,h2,h3,h4,h5,h6 { margin:0; padding:0;}
+        .bigbg{
+            width:1280px;
+            height:820px;
+            position:relative;
+            /*top:50px;*/
+            background:#fff;
+            margin-left: 0;
+        }
+
+        .kuang{
+            background:url(img/video_03.gif) no-repeat;
+            /*width:1280px;*/
+            /*height:820px;*/
+            /*margin-top:12px;*/
+        }
+
+        .close a{
+            background:url(img/1_04.gif) no-repeat;
+            width:41px;
+            height:36px;
+            position:absolute;
+            left:618px;
+            top:5px;
+        }
+        .close a:hover{
+            background:url(img/2_04.gif) no-repeat;
+            with:41px;
+            height:36px;
+            position:absolute;
+            left:618px;
+            top:5px;
+        }
+
+        .videoscreen{
+            /*width:1280px;*/
+            /*height:720px;*/
+            background-color:#999;
+            position:absolute;
+            left:0px;
+            top:0px;
+        }
+
+        .sfream {
+            background:url(img/video_05.jpg) no-repeat;
+            width:627px;
+            height:42px;
+            margin-top:400px;}
+
+        .play a{
+            background:url(img/video_25.gif) no-repeat;
+            width:19px;
+            height:19px;
+            position:absolute;
+            left:26px;
+            bottom:17px;}
+
+        .pause a{	background:url(img/video_26.gif) no-repeat;
+            width:21px;
+            height:19px;
+            position:absolute;
+            left:46px;
+            bottom:17px;
+        }
+        .progressbar a{	background:url(img/video_28.gif) no-repeat;
+            width:291px;
+            height:20px;
+            position:absolute;
+            left:76px;
+            bottom:17px;
+        }
+        .snapshot-picture a{	background:url(img/video_16.gif) no-repeat;
+            width:25px;
+            height:25px;
+            position:absolute;
+            left:377px;
+            bottom:17px;}
+
+        .stepback a {	background:url(img/video_18.gif) no-repeat;
+            width:24px;
+            height:25px;
+            position:absolute;
+            left:409px;
+            bottom:17px;}
+
+        .camera a{background:url(img/video_20.gif) no-repeat;
+            width:26px;
+            height:27px;
+            position:absolute;
+            left:439px;
+            bottom:14px;}
+
+        .stopcamera a{background:url(img/video_22.gif) no-repeat;
+            width:27px;
+            height:27px;
+            position:absolute;
+            left:472px;
+            bottom:14px;}
+
+        .singlescreen a{background:url(img/video_09.gif) no-repeat;
+            width:31px;
+            height:29px;
+            position:absolute;
+            left:506px;
+            bottom:12px;}
+
+        .doublescreen a{background:url(img/video_11.gif) no-repeat;
+            width:31px;
+            height:29px;
+            position:absolute;
+            left:546px;
+            bottom:12px;}
+
+        .ninescreen a{background:url(img/video_13.gif) no-repeat;
+            width:32px;
+            height:29px;
+            position:absolute;
+            left:586px;
+            bottom:12px;}
+
+        .ninescreen a:hover{background:url(img/design_05.gif) no-repeat;
+            width:40px;
+            height:29px;
+            position:absolute;
+            left:586px;
+            bottom:82px;}
+
+    </style>
+
+
+</head>
+
+<body>
+<div class="bigbg">
+    <div class="kuang">
+        <div class="videoscreen">
+
+
+
+                <!--<object classid="clsid:30209FBC-57EB-4F87-BF3E-740E3D8019D2" codebase=""-->
+                        <!--standby="Waiting..." id="playOcx" width="1280" height="720" name="playOcx" align="center" >-->
+                    <!--<embed width="618" height="360" align="center"></embed>-->
+
+                <!--</object>-->
+
+                <object classid="clsid:30209FBC-57EB-4F87-BF3E-740E3D8019D2" codebase=""
+                        standby="Waiting..." id="playOcx" width="640" height="360" name="playOcx" align="center" >
+                    <embed width="618" height="360" align="center"></embed>
+
+                </object>
+
+
+        </div>
+
+        <div class="sfream" style="display: none">
+            <div class="play"><a href="javascript:StartPreview()">播放</a><br/></div>
+            <div class="pause"><a href="javascript:StoptPreview()">暂停</a><br /></div>
+            <div class="progressbar"><a href=""></a></div>
+            <div class="snapshot-picture"><a href="javascript:Capture()">拍照</a><br/></div>
+            <div class="stepback"><a href=""></a></div>
+            <div class="camera"><a href="javascript:StartRecord()">录制</a><br/></div>
+            <div class="stopcamera"><a href="javascript:StopRecord()">停止录制</a></div>
+            <div class="singlescreen"><a href=""></a></div>
+            <div class="doublescreen"><a href=""></a></div>
+            <div class="ninescreen"><a href=""></a></div>
+        </div>
+    </div>
+    <div class="close"><a href=""></a></div>
+
+</div>
+
+
+<script language="javascript">
+
+    setTimeout(function(){
+
+        //开始预览
+        StartPreview();
+
+    },100);
+
+    function StartPreview()
+    {
+        //alert("开始");
+        var SSOcx = document.getElementById("playOcx");
+        SSOcx.SetDeviceInfo("192.168.1.108",37777,0,"admin","mch790927");
+        SSOcx.StartPlay();
+    }
+
+
+    function StoptPreview()
+    {
+        var SSOcx = document.getElementById("playOcx");
+        SSOcx.StopPlay();
+
+    }
+
+    function Capture()
+    {
+
+        var SSOcx = document.getElementById("playOcx");
+        var dd= SSOcx.GetCapturePicture("d:\\1.bmp");
+
+    }
+
+    function StartRecord()
+    {
+
+        var SSOcx = document.getElementById("playOcx");
+        SSOcx.SaveRealData("d:\\1.avi");
+    }
+
+    function StopRecord()
+    {
+        var SSOcx = document.getElementById("playOcx");
+        SSOcx.StopSaveRealDate();
+    }
+
+    /**
+     * 检测浏览器是否存在视频插件
+     * @return {Boolean}
+     */
+    function checkPlugins() {
+        var result;
+        if (Sys.ie) {
+            try {
+                result = new ActiveXObject(PLUGINS_NAME);
+                delete result;
+            } catch (e) {
+                return false;
+            }
+            return true;
+        } else {
+            navigator.plugins.refresh(false);
+            result = navigator.mimeTypes["application/media-plugin-version-3.1.0.2"];
+            return !!(result && result.enabledPlugin);
+        }
+    }
+
+
+</script>
+
+</body>
+</html>
