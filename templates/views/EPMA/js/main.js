@@ -61,7 +61,12 @@
         var hour = addZeroToSingleNumber(now.getHours());
         var min = addZeroToSingleNumber(now.getMinutes());
         var realdatetime = year + "-" + month + "-" + day + " " + hour + ":" + min;
-        return realdatetime;
+
+        //console.log(realdatetime);
+
+        sessionStorage.sysDt = realdatetime;
+
+        //return realdatetime;
     }
 
     //获取实时时间
@@ -346,6 +351,7 @@
             misc:sessionStorage.misc,
             stp:sessionStorage.showstep
         },function (res) {
+
             if(res.code===0){
 
                 //返回的数据中，第一个是实时能效曲线值，第二个是折标能效值；
@@ -452,7 +458,7 @@
         var url = sessionStorage.apiUrlPrefix+"Main/GetEERNowChartViewDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            //SysrealDt:encodeURIComponent(sessionStorage.sysDt),
+            SysrealDt:encodeURIComponent(sessionStorage.sysDt),
             misc:sessionStorage.misc,
             stp:sessionStorage.showstep
         },function (res) {
@@ -1355,9 +1361,9 @@
         init: function () {
 
             //系统实时时间
-            //sysrealdatetime();
+            sysrealdatetime();
 
-            realTime();
+            //realTime();
 
             var eerVa=0.0;
             //切换实时数据曲线
@@ -1410,8 +1416,10 @@
 
             //十分钟自动刷新
             setInterval(function(){
+
                 //系统实时时间
-                realTime();
+                sysrealdatetime();
+                //realTime();
 
                 var eerVa=0.0;
                 //切换实时数据曲线

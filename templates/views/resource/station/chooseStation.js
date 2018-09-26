@@ -10,7 +10,7 @@ var ABC4 = ['P','Q','R','S','T'];
 var ABC5 = ['U','V','W','X','Y','Z'];
 
 //定义要插入的元素
-var stationHtml = '<div class="add-input-father" style="margin-left:10px">' +
+var stationHtml = '<div class="add-input-father form-control" style="margin-left:10px">' +
     '    <div class="add-input-block" style="margin-left:0">' +
     '        <div type="text" class="add-input add-input-select" style="">' +
     '            <span>全部</span>' +

@@ -864,6 +864,16 @@ var endDate = moment().add('1','days').format('YYYY-MM-DD');
 //左侧下方柱状图
 var leftBottomChart = echarts.init(document.getElementById('echarts-left-bottom'));
 
+if(_colorLocation == 0){
+
+    var _gradualChangeColor = ['#61854f','#2170F4']
+
+}else if(_colorLocation == 1){
+
+    var _gradualChangeColor = ['#F4A85A','#2a3952']
+
+}
+
 var leftBottomOption = {
     color: ['#3398DB'],
     tooltip : {
@@ -937,10 +947,10 @@ var leftBottomOption = {
                 normal: {
                     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                         offset: 0,
-                        color: '#2170F4'
+                        color:_gradualChangeColor[0]
                     }, {
                         offset: 1,
-                        color: '#61854f'
+                        color: _gradualChangeColor[1]
                     }])
                 }
             },
@@ -1514,9 +1524,20 @@ var _energyOption = {
             itemStyle : {
                 normal : {
                     color:function(params){
-                        var colorList = [
-                            '#14E398', '#2170F4','#EAD01E', '#33E3B6', '#ead01e','#f8276c', '#33E3B6', '#ead01e','#f8276c'
-                        ];
+
+                        if(_colorLocation == 0){
+
+                            var colorList = [
+                                '#14E398', '#2170F4','#EAD01E', '#33E3B6', '#ead01e','#f8276c', '#33E3B6', '#ead01e','#f8276c'
+                            ];
+
+                        }else if(_colorLocation == 1){
+
+                            var colorList = [
+                                '#6CA6EF', '#53C1E6','#F4A85A', '#33E3B6', '#ead01e','#f8276c', '#33E3B6', '#ead01e','#f8276c'
+                            ];
+
+                        }
                         return colorList[params.dataIndex]
 
                     },
@@ -1566,6 +1587,18 @@ var _energyOption = {
 };
 
 //能管重绘数据
+
+//设备故障图的配色
+
+if(_colorLocation == 0){
+
+    var _devAlarmColor = ['#33E3B6', '#ead01e','#f8276c', '#33E3B6', '#ead01e','#f8276c', '#33E3B6', '#ead01e','#f8276c'];
+
+}else if(_colorLocation == 1){
+
+    var _devAlarmColor = ['#33BD60', '#0BA3C3','#0387F7', '#0353F7', '#283DDA','#3C27D5', '#6512D7', '#901AD3','#f8276c'];
+
+}
 
 //设备故障echart图
 var _useelectricityChart = echarts.init(document.getElementById('echarts-left-bottom2'));
@@ -1624,9 +1657,8 @@ var _useelectricityoption = {
             itemStyle : {
                 normal : {
                     color:function(params){
-                        var colorList = [
-                            '#33E3B6', '#ead01e','#f8276c', '#33E3B6', '#ead01e','#f8276c', '#33E3B6', '#ead01e','#f8276c'
-                        ];
+                        var colorList = _devAlarmColor;
+
                         return colorList[params.dataIndex]
 
                     },
@@ -1735,9 +1767,7 @@ var option8 = {
             itemStyle : {
                 normal : {
                     color:function(params){
-                        var colorList = [
-                            '#0d9dcb', '#0cd34c','#cfcf14', '#d36e12', '#dc2612','#b70723', '#7c05cb', '#1c39d9','#f8276c'
-                        ];
+                        var colorList = _devAlarmColor;
                         return colorList[params.dataIndex]
 
                     },
@@ -1937,9 +1967,22 @@ var userEquipAlarmArr = [];
 //-----------------------------------获取页面主体部分数据----------------------------//
 
 //定义环形图颜色集合
-var colorArr1 = ['#14e398','#2170f4'];
 
-var colorArr2 = ['#14e398','#f8276c','#ead01e'];
+if(_colorLocation == 0){
+
+    //定义环形图颜色集合
+    var colorArr1 = ['#14e398','#2170f4'];
+
+    var colorArr2 = ['#14e398','#f8276c','#ead01e'];
+
+}else if(_colorLocation ==1){
+
+    //定义环形图颜色集合
+    var colorArr1 = ['#6CA6EF','#53C1E6'];
+
+    var colorArr2 = ['#6CA6EF','#F4A85A','#D75241'];
+
+}
 
 //定义echart集合
 var echartNameArr = [_electricityEcharts,_electricityEcharts1,_conditionerEcharts,_conditionerEcharts1,_elevatorEcharts,_elevatorEcharts1, _rotatingEcharts, _rotatingEcharts1,

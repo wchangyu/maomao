@@ -1,0 +1,375 @@
+
+.left-tab-container .left-tab-choose0 {
+
+    background: url(../../img/dianji1H.png) no-repeat center center;
+}
+
+.right-bottom-equipment .bottom-equipment-chart-data .chart-power1{
+
+    background: url(../../img/alarmH.png) no-repeat 35px center;
+
+}
+
+.right-bottom-equipment .bottom-equipment-chart-data .chart-power{
+
+    background: url(../../img/electricityH.png) no-repeat 50px center;
+
+}
+
+.right-bottom-equipment .bottom-equipment-chart-data .chart-power0{
+
+    background:url(../../img/small-co2H.png) no-repeat 44px center;
+
+}
+
+.left-tab-container .left-tab1{
+
+    background:url('../../img/weidianji1H.png') no-repeat center center;
+
+}
+
+.left-tab-container .left-tab-choose0{
+
+    background:url('../../img/dianji1H.png') no-repeat center center;
+
+}
+
+.left-tab-container .left-tab2{
+
+    background: url('../../img/weidianji2H.png') no-repeat center center;
+
+}
+
+.left-tab-container .left-tab-choose1{
+
+    background: url('../../img/dianji2H.png') no-repeat center center
+
+}
+
+.left-tab-container .left-tab3{
+
+    background: url('../../img/weidianji3H.png') no-repeat center center;
+
+}
+
+.left-tab-container .left-tab-choose2{
+
+    background: url('../../img/dianji3H.png') no-repeat center center;
+
+}
+
+.small-times{
+
+    border: 1px solid #3CABD9;
+
+}
+
+.right-tab{
+
+    background: #3CABD9;
+
+    padding: 6px;
+
+    padding-top: 4px;
+
+    border-top-right-radius: 4px !important;
+
+    border-bottom-right-radius: 4px !important;
+
+    margin-right: 1px !important;
+
+}
+
+.time-block{
+
+    font-size: 0;
+
+}
+
+.small-times{
+
+    padding: 5px;
+
+    border-bottom-left-radius: 4px !important;
+
+    border-top-left-radius: 4px !important;
+
+}
+
+.right-bottom-container .right-bottom-safe{
+
+    background: url(../../img/anquanH.png) no-repeat;
+
+}
+
+.right-bottom-container .right-bottom-safe .safe-day{
+
+    background: url("../../img/safeTimeH.png") no-repeat 50px 10px;
+
+}
+
+.right-bottom-container .right-bottom-centent-data{
+
+    background: url("../../img/yellowBorderH.png") no-repeat;
+
+}
+
+.right-bottom-container .right-bottom-centent-data1{
+
+    background: url("../../img/greenBorderH.png") no-repeat;
+
+}
+
+.right-bottom-container .right-bottom-centent-data2{
+
+    background: url("../../img/blueBorderH.png") no-repeat;
+
+}
+
+.right-bottom-container .right-bottom-centent-data3{
+
+    background: url("../../img/redBorderH.png") no-repeat;
+
+}
+
+.right-bottom-container .right-bottom-centent-data .bottom-data{
+
+    background: url("../../img/yellowElectH.png") no-repeat 45px 5px;
+
+}
+
+.right-bottom-container .right-bottom-centent-data .bottom-data1{
+
+    background: url("../../img/greenWaterH.png") no-repeat 45px 5px
+
+}
+
+.right-bottom-container .right-bottom-centent-data .bottom-data2{
+
+    background: url("../../img/blueAirH.png") no-repeat 45px 5px;
+
+}
+
+.right-bottom-container .right-bottom-centent-data .bottom-data3{
+
+    background: url("../../img/CO2H.png") no-repeat 45px 5px;
+
+}
+
+.inner-left-top .right-picture-data{
+
+    background: url("../../img/hqPic.png") no-repeat;
+
+}
+
+.inner-left-top{
+
+    background: url('../../img/01ditu1H.png') no-repeat top center;
+
+}
+
+.left-tab-container .right-tab-choose-name{
+
+    color: #ffffff;
+
+}
+
+.left-tab-container .right-tab-choose{
+
+    color: #ffffff;
+
+}
+
+.inner-left-container{
+
+    background: #1E3352;
+
+}
+
+.right-bottom-equipment .right-bottom-equipment-content{
+
+    background: url("../../img/juxingdaH.png")no-repeat;
+
+}
+
+.right-bottom-equipment-contentH{
+
+    background: url("../../img/juxingxiaoH.png")no-repeat !important;
+
+}
+
+.right-bottom-equipment .equipment-title{
+
+    background: url('../../img/windH.png') no-repeat !important;
+
+}
+
+.right-bottom-equipment .elevator-title{
+
+    background: url('../../img/elevatorH.png') no-repeat !important;
+
+}
+
+.right-bottom-equipment .conditioner-title{
+
+    background: url('../../img/conditionerH.png') no-repeat !important;
+
+}
+
+.right-bottom-equipment .rotating-title{
+
+    background: url('../../img/rotatingH.png') no-repeat !important;
+
+}
+
+.right-bottom-equipment .platform-title{
+
+    background: url('../../img/platformH.png') no-repeat !important;
+
+}
+
+.right-bottom-equipment .station-title{
+
+    background: url('../../img/stationH.png') no-repeat !important;
+
+}
+
+.right-bottom-equipment .wind-title{
+
+    background: url('../../img/saleTicketH.png') no-repeat !important;
+
+}
+
+.right-bottom-equipment .water-title{
+
+    background: url('../../img/energyH.png') no-repeat !important;
+
+}
+
+.left-specific-data1{
+
+    color: #3CABD9;
+
+    font-size: 48px;
+
+}
+
+#echarts-left-bottom{
+
+    background: url('../../img/shebeibaojinbeijign.png')no-repeat;
+
+}
+
+#echarts-left-bottom2{
+
+    background: url("../../img/shebeibaijingda.png")no-repeat;
+
+}
+
+.right-bottom-container .right-bottom-content-chart{
+
+    height: 286px;
+
+}
+
+.right-bottom-container .right-bottom-content-chart{
+
+    background-color: inherit !important;
+
+}
+
+.right-picture-title span{
+
+    color: #3cabd9 !important;
+
+}
+
+.interval0{
+
+    font-size: 0 !important;
+
+}
+
+.right-tab-container .right-tab1{
+
+    background: url('../../img/weidianji01H.png') no-repeat center center;
+
+}
+
+.right-tab-container .right-tab2{
+
+    background: url('../../img/weidianji02H.png') no-repeat center center;
+
+}
+
+.right-tab-container .right-tab3{
+
+    background: url('../../img/weidianji03H.png') no-repeat center center;
+
+}
+
+.right-tab-container .right-tab-choose1{
+
+    background: url('../../img/dianji02H.png') no-repeat center center;
+
+}
+
+.right-tab-container .right-tab-choose2{
+
+    background: url('../../img/dianji03H.png') no-repeat center center;
+
+}
+
+.jump-container{
+
+    background: url('../../img/tanchuH.png') no-repeat;
+
+}
+
+.right-bottom-container .left-tab-container{
+
+    width: 98% !important;
+
+}
+
+.left-tab-container .left-tab-data-container .left-tab-data1 font{
+
+    display: inline-block;
+
+    color: #3cabd9;
+
+}
+
+.top-message-temperature{
+
+    padding-left: 20px !important;
+
+    background: url("../../img/wendu.png")no-repeat 2px 3px;
+
+    background-size: 15%;
+
+}
+
+.top-message-humidity{
+
+    padding-left: 20px !important;
+
+    background: url("../../img/shidu.png")no-repeat 2px 5px;
+
+    background-size: 17%;
+
+}
+
+.inner-right-container .right-top-message{
+
+    width: 420px !important;
+
+}
+
+.right-info-header-logo{
+
+    margin-right: 57px;
+
+    background: url(../../img/qiehuanH.png)no-repeat;
+
+}

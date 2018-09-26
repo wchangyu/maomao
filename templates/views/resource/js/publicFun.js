@@ -153,26 +153,14 @@ function _monthDay(el){
 //datatimepicker事件插件初始化（日月年时分秒）
 function _timeHMSComponentsFun(el,startView){
     el.datetimepicker({
-        //language:  'zh-CN',//此处修改
-        //weekStart: 1,
-        //todayBtn:  1,
-        //autoclose: 1,
-        //todayHighlight: 1,
-        //startView: startView,  //1时间  2日期  3月份 4年份
-        //forceParse: 0,
-
-        format: 'yyyy-mm-dd',
-        language: 'zh-CN',
-        weekStart: true,
-        todayBtn: true,
-        autoclose: true,
-        todayHighlight: true,
-        startView: 2,
-        minView: 2,
-        minuteStep: 10,
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: startView,  //1时间  2日期  3月份 4年份
         forceParse: 0,
         pickerPosition: "bottom-left"
-
     });
 }
 
@@ -234,7 +222,7 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
         {
             extend: 'excelHtml5',
             text: '导出',
-            className:'saveAs',
+            className:'saveAs L-condition-button',
             exportOptions:{
                 columns:arr
             }
@@ -1504,6 +1492,75 @@ function _mainAjaxFunCompleteNew(type,url,prm,el,successFun){
 
         })
 }
+
+//仅仅是ajax
+function _mainAjaxFunCompleteOnly(type,url,prm,el,successFun){
+
+
+    $.ajax(
+        {
+
+            //发送方式
+            type:type,
+
+            //url
+            url:_urls + url,
+
+            //timeout
+            timeout:_theTimes,
+
+            //参数
+            data:prm,
+
+            //发送数据之前
+            beforeSend:function(){
+
+                if(el){
+
+                    el.showLoading();
+
+                }
+
+            },
+
+            //发送数据完成之后
+            complete:function(){
+
+                if(el){
+
+                    el.hideLoading();
+
+                }
+
+            },
+
+            //成功
+            success:successFun,
+
+            //失败
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+
+                if(el){
+
+                    el.hideLoading();
+
+                }
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    console.log('请求超时');
+
+                }else{
+
+                    console.log('请求失败');
+
+                }
+
+            }
+
+        })
+}
+
 //打印插件初始化
 function _printFun(table){
 
@@ -1746,6 +1803,37 @@ function _timeCompare(st,et){
     }else{
 
         return false;
+
+    }
+
+}
+
+//验证时间
+function _timeShow(modal){
+
+    var time = modal.find('.time-tool-block');
+
+    for(var i=0;i<time.length;i++){
+
+        if(time.eq(i).find('label').length >0){
+
+            var o = time.eq(i).find('label').css('display');
+
+            if(o != 'none'){
+
+                time.eq(i).next().next('.time-seat').show();
+
+            }else{
+
+                time.eq(i).next().next('.time-seat').hide();
+
+            }
+
+        }else{
+
+            time.eq(i).next().next('.time-seat').hide();
+
+        }
 
     }
 
@@ -2090,6 +2178,7 @@ function _sendInstruction(instanceID,el,fun){
     })
 
 }
+
 
 $(function(){
 

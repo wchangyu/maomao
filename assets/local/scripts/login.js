@@ -564,6 +564,10 @@ var Login = function() {
                     var useNewIframe = data["useNewIframe"] || '';
                     sessionStorage.useNewIframe = useNewIframe;
 
+                    //页面颜色风格
+                    var colorStyle = data["colorStyle"] || '';
+                    sessionStorage.colorStyle = colorStyle;
+
                     //新框架页面路径
                     var useNewIframeUrl = data["useNewIframeUrl"] || '';
                     sessionStorage.useNewIframeUrl = useNewIframeUrl;

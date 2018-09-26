@@ -3,6 +3,8 @@
 
     display: inline-block !important;
 
+    background: #ffffff!important;
+
 }
 
 .L-condition li{
@@ -12,6 +14,10 @@
     margin:10px;
 
     color: #757575;
+
+    vertical-align: middle;
+
+    cursor: pointer;
 
 }
 
@@ -216,6 +222,27 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 
 }
 
+.modal-block select~.error {
+    color: red;
+    width: auto;
+    line-height: 30px;
+    margin: 0;
+    margin-top: 10px;
+    display: block;
+    text-indent: 85px;
+}
+
+.modal-block textarea~.error {
+    color: red;
+    width: auto;
+    line-height: 30px;
+    margin: 0;
+    margin-top: 10px;
+    display: block;
+    text-indent: 85px;
+}
+
+
 .option-button{
 
     display: inline-block;
@@ -301,5 +328,51 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     position: relative;
 
     margin-right: 45px !important;
+
+}
+
+.modal-block .time-tool-block{
+
+    width: 250px !important;
+
+    position: relative;
+    
+}
+
+.text-block{
+
+    width: 740px;
+
+}
+
+.text-block textarea{
+
+    width: 648px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+}
+
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio]{
+
+    margin-left:-9px !important;
+
+}
+
+.radioBlock{
+
+    display: inline-block;
+
+    width: 250px;
+
+}
+
+.time-seat{
+
+    height: 30px;
+
+    margin-top: 10px;
 
 }

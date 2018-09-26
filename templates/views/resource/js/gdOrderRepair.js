@@ -2049,6 +2049,7 @@ $(function(){
             if(flag){
                 prm.gdCode = _gdCode
             }
+
             $.ajax({
                 type:'post',
                 url:_urls + url ,
