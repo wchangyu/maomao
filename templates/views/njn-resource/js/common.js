@@ -11,6 +11,77 @@ if(sessionStorage.colorStyle == 0){
 
 }
 
+//定义南京南页面地址
+var njnUrl = 'http://222.190.246.50:8080/njnys/templates/views/login_3.html';
+
+var deployPoinerId=[
+    {
+        'pointerName':'丹阳北',
+        'pointerId':'1'
+    },
+    {
+        'pointerName':'上海虹桥',
+        'pointerId':'2'
+    }
+];
+
+
+//车站大屏页面跳转方式为外部链接
+if(sessionStorage.stationJumpType == 1){
+
+    //创建遮罩
+    var $span = '<span title="点击打开南京南站" class="jump-shade nanjingnan"></span>';
+
+    //获取丹阳北站id
+
+    var $span1 = '<span title="切换丹阳北站" class="jump-shade danyangbei" data-id=></span>';
+
+    var $span2 = '<span title="切换上海虹桥站" class="jump-shade shanghaihongqiao"></span>';
+
+    //插入页面
+    $(".inner-left-top").append($span);
+
+    $(".inner-left-top").append($span1);
+
+    $(".inner-left-top").append($span2);
+
+    $('.nanjingnan').css({
+
+        'position':'absolute',
+        'left':'257px',
+        'top':'514px'
+
+    });
+
+    $('.danyangbei').css({
+
+        'position':'absolute',
+        'left':'283px',
+        'top':'511px'
+
+    });
+
+    $('.shanghaihongqiao').css({
+
+        'position':'absolute',
+        'left':'341px',
+        'top':'535px'
+
+    });
+
+    $('.inner-left-top').on('click','.nanjingnan',function(){
+
+        //调用单点登录的方法
+        singleSignWay(njnUrl);
+
+    });
+
+
+
+};
+
+
+
 $(function(){
 
     //更改页面标题
@@ -223,8 +294,6 @@ $(function(){
 
 });
 
-
-
 var ifShowLoading1 = true;
 
 //定义送排风 给排水弹出页面的宽高
@@ -254,6 +323,7 @@ $('.left-tab-data-container span font').html(0);
 //绘制页面上方的跳转选项卡
 
 if(!sessionStorage.stationTabType || sessionStorage.stationTabType == 0){
+
     //南京南模式
     drawRightTab();
 
@@ -421,7 +491,6 @@ if(_colorLocation == 0){
     var colorBar = '#F4A85A'
 
 }
-
 
 var option00 = {
     color: [colorBar],
@@ -711,12 +780,18 @@ $('.left-data-container .left-specific-data1').html( pointerIdArr.length);
 
 //当前楼宇ID
 var curPointerIDArr = [];
+
 if(sessionStorage.pointers){
 
     var pos = JSON.parse(sessionStorage.pointers);
     var po = pos[0];
 
     var curPointerID = po.pointerID;
+
+    if(sessionStorage.PointerID){
+
+        curPointerIDArr = [sessionStorage.PointerID];
+    }
 
 }
 curPointerIDArr = [curPointerID];
@@ -834,7 +909,6 @@ $('#right-container').on('click','.close1',function(){
 //获取实时时间
 function getNowTime(){
 
-
     var time1 = moment().format('HH:mm:ss');
 
     var time2 = moment().format('YYYY-MM-DD');
@@ -910,7 +984,6 @@ function getPointersId(){
 
     var pointerArr = $.parseJSON(sessionStorage.getItem('pointers'));
 
-
     $(pointerArr).each(function(i,o){
 
         pointerIdArr.push(o.pointerID);
@@ -940,7 +1013,6 @@ function getOfficesId(){
 
 //------------------------------------页面左侧站点数据-----------------------------------//
 function getStationInfo(){
-
 
     //传递给后台的数据
     var ecParams = {
@@ -1190,6 +1262,7 @@ function getStationAlarmData(index){
 
 //展示日期类型 用户选择日期类型
 function getShowDateType(){
+
     //获取页面日期类型
     var dateType = $('.right-bottom-container .left-tab-container .right-tab-choose').html();
 
@@ -1519,7 +1592,6 @@ function getPointerData(){
     var unitType = '0';
 
     //确定楼宇id
-
     postPointerID.push(curPointerIDArr);
 
     //能耗类型

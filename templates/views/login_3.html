@@ -131,11 +131,15 @@
             //获取密码
             var userPassWord = window.location.search.split('para2=')[1].split('&para3=')[0];
 
+            console.log(userName);
+
             //如果存在用户名，密码
             if (userName && userPassWord) {
 
                 //给用户名进行解密
                 var passName = Went.utility.wCoder.wDecode(userName, "");
+
+                console.log(passName);
 
                 //给密码解密
                 var passWord = Went.utility.wCoder.wDecode(userPassWord, "");
@@ -145,8 +149,20 @@
 
                 $('#password').val(passWord);
 
+//                if ($('.login-form').validate().form()) {
+//
+//                    //进行登录操作
+//                    $('.login-form').submit();
+//
+//                }else{
+//
+//                    submitSystem();
+//
+//                }
+
                 //进行登录操作
                 $('.login-form').submit();
+
             }
 
         });
@@ -165,7 +181,32 @@
                 }
             }
             return null;
+        };
+
+        function submitSystem(){
+
+            //console.log(33);
+
+                if ($('.login-form').validate().form()) {
+
+                    //console.log(22);
+
+                    //进行登录操作
+                    $('.login-form').submit();
+
+                }else{
+
+                    setTimeout(function(){
+
+                        submitSystem();
+
+                    },500);
+
+                }
+
         }
+
+
     </script>
     <!-- END JAVASCRIPTS -->
 </body>

@@ -140,6 +140,7 @@
 </head>
 
 <body>
+
 <div class="bigbg">
     <div class="kuang">
         <div class="videoscreen">
@@ -178,23 +179,155 @@
 
 </div>
 
+<script src="../../../assets/global/plugins/respond.min.js"></script>
+<script src="../../../assets/global/plugins/excanvas.min.js"></script>
+<!--<![endif]&ndash;&gt;-->
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 
-<script language="javascript">
+<!-- END CORE PLUGINS -->
+<script rel="stylesheet" src="../bank-resource/js/lib/jquery.dataTables.min.js"></script>
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<!--非框架中的js-->
+<script src="../bank-branch-resource/js/lib/bootstrap-datepicker.js"></script>
+<script src="../bank-branch-resource/js/lib/moment.min.js"></script>
+<script src="../bank-resource/js/lib/html2canvas.js"></script>
+<script src="../bank-resource/js/lib/jspdf.debug.js"></script>
+<script src="../resource/js/echarts.min.js"></script>
+<!--<script src="monitorSrc/jquery-1.7.1.min.js"></script>-->
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../../../assets/local/scripts/Went.utility.js"></script>
+
+<script>
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        BEE.init(true);
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+    });
 
     setTimeout(function(){
 
         //开始预览
-        StartPreview();
+        getAlarmCameraData();
 
     },100);
 
-    function StartPreview()
+    //获取宽度
+    var  curWidth =  window.location.href.split("width=")[1].split("height=")[0];
+
+    //获取屏幕高度
+    var curHeight =  window.location.href.split("height=")[1].split("cameraID=")[0];
+
+    curWidth = parseInt(curWidth);
+
+    curHeight = parseInt(curHeight);
+
+    $('#playOcx').attr('width',curWidth);
+
+    $('#playOcx').attr('height',curHeight);
+
+
+    //获取当前摄像头报警数据
+    function getAlarmCameraData(){
+
+        //获取当前摄像头ID
+        var cameraID = window.location.href.split("cameraID=")[1];
+
+        $.ajax({
+            type:'get',
+            url:sessionStorage.apiUrlPrefix + 'Alarm/GetCameraDataByID',
+            data:{
+                "cameraID":cameraID
+            },
+            success:function(result){
+
+                //console.log(result);
+
+                //登陆当前摄像头
+
+                //账号
+                var account = result.mappVideoRecorder.f_User;
+                //地址
+                var address = result.mappVideoRecorder.f_RecIP;
+                //密码
+                var password = result.mappVideoRecorder.f_Password;
+
+                var ifdecode = getDataByConfig();
+
+                //判断是否需要解密
+                if( ifdecode== 1){
+
+                    //给密码解密
+                    password = Went.utility.wCoder.wDecode(password,"");
+
+                }
+
+                //端口
+                var port = result.mappVideoRecorder.f_PortNum;
+
+                //通道号
+                var aisleNum = result.f_AisleNum;
+
+                //console.log(password);
+
+                //登录当前设备
+                StartPreview(account,address,password,port,aisleNum);
+
+            },
+            error:function(){
+
+            }
+        })
+
+    };
+
+    function StartPreview(account,address,password,port,aisleNum)
     {
         //alert("开始");
         var SSOcx = document.getElementById("playOcx");
-        SSOcx.SetDeviceInfo("192.168.1.108",37777,0,"admin","mch790927");
+        SSOcx.SetDeviceInfo(address,port,aisleNum,account,password);
         SSOcx.StartPlay();
+
     }
+
+
+    //从配置项中获取页面中所需信息
+    function getDataByConfig(){
+
+
+        var ifdecode = 0;
+
+        //获取当前页面的配置信息
+        $(__systemConfigArr).each(function(i,o){
+
+            //console.log(o);
+
+            //获取当前配置项中的url
+            if(o.pageId == 0){
+
+                ifdecode = o.ifdecode;
+            }
+        });
+
+        return ifdecode;
+
+    };
 
 
     function StoptPreview()
@@ -245,7 +378,6 @@
             return !!(result && result.enabledPlugin);
         }
     }
-
 
 </script>
 

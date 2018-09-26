@@ -1336,8 +1336,14 @@ var userMonitor = (function(){
                     var cameraID = curProcDef.prdProcLnk.paras[2];
                     //console.log(cameraID);
 
+                    //获取当前摄像头品牌
+                    var brand = curProcDef.prdProcLnk.paras[0];
+
+                    //定义摄像头页面路径
+                    var monitorUrl = getMonitorUrlByBrand(brand);
+
                     //获取弹窗的页面地址
-                    var url = jumpUrl + "new-luxianghuifang/insetCurrentMonitor.html?width="+defWidth+"height="+defHeight+"cameraID="+cameraID+"";
+                    var url = jumpUrl + monitorUrl + "?width="+defWidth+"height="+defHeight+"cameraID="+cameraID+"";
 
                     var $Camera = '<iframe width="'+defWidth+'" scrolling="no" height="'+defHeight+'" frameborder="0" allowtransparency="true" src='+url+'></iframe>';
 
@@ -1354,6 +1360,8 @@ var userMonitor = (function(){
                         jumpPageWidth = defWidth;
 
                         jumpPageHeight = defHeight;
+
+                        //
 
                     //获取弹窗的页面地址
                     var url = jumpUrl + "yongnengjiance/jumpEnergyMonitor.html?width="+defWidth+"height="+defHeight+"ckId="+id+"";
@@ -1415,12 +1423,12 @@ var userMonitor = (function(){
                         //console.log(curProcDef);
 
                         //获取当前跳转url地址
-                        var jumpUrl = curProcDef.prcProcLnk.procLnkBase.url;
+                        var jumpUrl1 = curProcDef.prcProcLnk.procLnkBase.url;
 
                         //跳转模式
                         var jumpType = curProcDef.prcProcLnk.procLnkBase.startpos;
 
-                        var jumpArr = [jumpUrl,jumpType];
+                        var jumpArr = [jumpUrl1,jumpType];
 
                         $spanDef.css("cursor","pointer");
                         $spanDef.on("click",(function(arr){return function(){ jumpNewPage(arr); }})(jumpArr));
@@ -1509,6 +1517,7 @@ var userMonitor = (function(){
                     if(curPD.enableScriptResult){
 
                     }else{
+
                         $spanDef.css("cursor","pointer");
                         $spanDef.on("click",(function(procDef){return function(){ showMonitorByID(procDef); }})(_procDefs[i]));
 
@@ -2000,8 +2009,18 @@ var userMonitor = (function(){
         //定义当前弹窗的id
         var modalID = procDef.prDefId + "camera";
 
+        //获取当前摄像头品牌
+        var brand = procDef.prcProcLnk.paras[0];
+
+        console.log(brand);
+
+        //定义摄像头页面路径
+        var monitorUrl = getMonitorUrlByBrand(brand);
+
+        console.log(monitorUrl);
+
         //获取弹窗的页面地址
-        var url = jumpUrl + "new-luxianghuifang/insetCurrentMonitor.html?width="+cameraWidth+"height="+cameraHeight+"cameraID="+cameraID+"";
+        var url = jumpUrl + monitorUrl + "?width="+cameraWidth+"height="+cameraHeight+"cameraID="+cameraID+"";
 
         var html = '<div class=\'modal fade content-child-shows\' id="'+modalID+'" tabindex=\'-1\' role=\'dialog\' aria-labelledby=\'myModalLabel\' aria-hidden=\'true\' data-backdrop="static">' +
         '    <div class=\'modal-dialog\' style=\'margin:15% auto;\'>' +
@@ -3202,3 +3221,17 @@ function transform(obj){
     return arr;
 };
 
+//根据摄像头品牌获取不同的摄像头页面地址
+function getMonitorUrlByBrand(brand){
+
+    //大华摄像头
+    if(brand == 1){
+
+        return 'new-luxianghuifang/insetCurrentMonitorDahua.html';
+
+        //海康威视摄像头
+    }else  if(brand == 0){
+
+        return 'new-luxianghuifang/insetCurrentMonitor.html';
+    }
+}

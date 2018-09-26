@@ -49,7 +49,7 @@ function getAlarmCameraData(){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
                 //登陆当前摄像头
 

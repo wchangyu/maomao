@@ -226,6 +226,15 @@
         "iconclass": "",
         "arg2": "admin,pdf,zb"
       },
+      "监控总览1": {
+        "type": "0",
+        "content": "监控总览1",
+        "uri": "../yongnengjiance/energyMonitor.html?a=1",
+        "uid": "",
+        "arg": "1,3101007767",
+        "iconclass": "",
+        "arg2": "admin,pdf,zb"
+      },
       "变配电系统": {
         "type": "2",
         "content": "变配电系统"

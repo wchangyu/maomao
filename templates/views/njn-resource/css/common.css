@@ -1100,6 +1100,15 @@
     display: -webkit-flex;
 }
 
+/*大屏页面左侧遮罩颜色*/
+.inner-left-container .jump-shade{
+    display: inline-block;
+    width:10px;
+    height:10px;
+    cursor: pointer;
+    background: red;
+}
+
 
 
 
