@@ -16,15 +16,14 @@ var njnUrl = 'http://222.190.246.50:8080/njnys/templates/views/login_3.html';
 
 var deployPoinerId=[
     {
-        'pointerName':'丹阳北',
+        'pointerName':'丹阳北站',
         'pointerId':'1'
     },
     {
-        'pointerName':'上海虹桥',
-        'pointerId':'2'
+        'pointerName':'上海虹桥站',
+        'pointerId':'3101800202'
     }
 ];
-
 
 //车站大屏页面跳转方式为外部链接
 if(sessionStorage.stationJumpType == 1){
@@ -33,10 +32,14 @@ if(sessionStorage.stationJumpType == 1){
     var $span = '<span title="点击打开南京南站" class="jump-shade nanjingnan"></span>';
 
     //获取丹阳北站id
+    var danyangId = deployPoinerId[0].pointerId;
 
-    var $span1 = '<span title="切换丹阳北站" class="jump-shade danyangbei" data-id=></span>';
+    var $span1 = '<span title="切换丹阳北站" class="jump-shade switchover-pointer danyangbei" data-id="'+danyangId+'"></span>';
 
-    var $span2 = '<span title="切换上海虹桥站" class="jump-shade shanghaihongqiao"></span>';
+    //获取上海虹桥id
+    var shanghaiId = deployPoinerId[1].pointerId;
+
+    var $span2 = '<span title="切换上海虹桥站" class="jump-shade switchover-pointer shanghaihongqiao" data-id="'+shanghaiId+'"></span>';
 
     //插入页面
     $(".inner-left-top").append($span);
@@ -76,11 +79,26 @@ if(sessionStorage.stationJumpType == 1){
 
     });
 
+    $('.inner-left-top').on('click','.switchover-pointer',function(){
 
+       //获取当前绑定id
+        var thisId = $(this).attr('data-id');
+
+        $(deployPoinerId).each(function(i,o){
+
+            if(o.pointerId == thisId){
+
+                sessionStorage.PointerID =o.pointerId;
+                sessionStorage.PointerName = o.pointerName;
+                //刷新页面
+                window.history.go(0);
+
+            }
+        });
+
+    });
 
 };
-
-
 
 $(function(){
 
@@ -88,6 +106,9 @@ $(function(){
     var pageTitleCN = '';
 
     var pageTitleEN = '';
+
+    //能源管理tab
+    var energyTabStr = '';
 
     if(_colorLocation == 0){
 
@@ -97,6 +118,11 @@ $(function(){
 
         $('.right-bottom-energyment0').find('.left-tab-container').children('div').eq(1).hide();
 
+        energyTabStr = '<span class="left-tab left-tab1 left-tab-choose0 left-tab-choose"  unit-type="01" style="padding-left:40px;">电</span>' +
+
+                        '<span class="left-tab left-tab2" unit-type="211" style="padding-left:50px;">水</span>' +
+
+                        '<span class="left-tab left-tab3" unit-type="2011" style="padding-left:50px;">汽</span>'
 
     }else if(_colorLocation == 1){
 
@@ -105,6 +131,12 @@ $(function(){
         pageTitleEN = '（hongqiao station）';
 
         $('.right-bottom-energyment0').find('.left-tab-container').children('div').eq(1).show();
+
+        energyTabStr = '<span class="left-tab left-tab1 left-tab-choose0 left-tab-choose"  unit-type="01" style="padding-left:40px;">电</span>' +
+
+            '<span class="left-tab left-tab2" unit-type="211" style="padding-left:50px;display: none">水</span>' +
+
+            '<span class="left-tab left-tab3" unit-type="211" style="padding-left:50px;">水</span>'
 
     }
 
@@ -115,6 +147,8 @@ $(function(){
         $('.right-top-title').html(pageTitleCN + pageTitleEN);
 
     }
+
+    $('#energy-tab').empty().append(energyTabStr);
 
     //获取页面左侧站点数据
     getStationInfo();
@@ -791,10 +825,14 @@ if(sessionStorage.pointers){
     if(sessionStorage.PointerID){
 
         curPointerIDArr = [sessionStorage.PointerID];
+
+    }else{
+
+        curPointerIDArr = [curPointerID];
     }
 
 }
-curPointerIDArr = [curPointerID];
+
 
 //获取全部分户ID列表
 var officeIdArr = getOfficesId();
