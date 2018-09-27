@@ -942,6 +942,7 @@ function getDataByConfig(){
 
 //指定能耗种类的类型为全部；
 var _ajaxEcType = " ";
+
 //指定全部报警类型为全部；
 var excTypeInnderId = " ";
 var pointerID = [];
@@ -958,11 +959,13 @@ function getPointerID(){
 var startRealTime = moment().subtract('24','hours').format('YYYY-MM-DD HH:mm:ss');
 var endRealTime = moment().format('YYYY-MM-DD HH:mm:ss');
 var showStartRealTime = moment().format('YYYY-MM-DD');
+
 //获取历史数据
 var dataArr = [];
 var totalArr = [];
 //获取所有数据
 var _history = [];
+
 function alarmHistory(){
 
     var prm = {
@@ -1025,6 +1028,7 @@ function existItem(arr,item){ //遍历数组中的所有数，如果有相同的
     }
     return false;
 }
+
 function datasTable(tableId,arr){
     if(arr.length == 0){
         var table = tableId.dataTable();
@@ -1037,6 +1041,7 @@ function datasTable(tableId,arr){
         table.fnDraw();
     }
 }
+
 //标识阅读功能
 var logoToReadID = [];
 function logoToRead (){

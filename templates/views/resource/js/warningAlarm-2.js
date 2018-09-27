@@ -941,8 +941,10 @@ $(function(){
         var theader = '<table class="table">' +
             '<thead><tr><td>时间</td><td>支路</td><td>楼宇名称</td><td>报警类型</td><td>报警条件</td><td>此时数据</td><td>报警等级</td></tr></thead>';
         var theaders = '</table>';
-        var tbodyer = '<tbody>'
+        var tbodyer = '<tbody>';
         var tbodyers = '</tbody>';
+        var str = '';
+
         for(var i=0;i< d.length;i++){
             var atime = d[i].dataDate.split('T')[0] + ' ' + d[i].dataDate.split('T')[1];
             str += '<tr><td>' + atime +

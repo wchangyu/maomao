@@ -711,6 +711,7 @@ $(function(){
 
         //获取后台数据
         getTableData(condition,'#dateTables-energy');
+
     });
 
     //点击能耗费用信息弹出能耗费用弹窗 并展示数据

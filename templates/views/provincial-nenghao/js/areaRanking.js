@@ -15,7 +15,6 @@ $(function(){
     //获取区域位置选框中信息
     getPositionSelect();
 
-
     //改变能耗类型
     $('.right-choose-energy').on('click','span',function(){
 
@@ -175,7 +174,6 @@ function getOrganizationData(){
         districtIDArr = [districtID]
     }
 
-
     //获取当前对比内容
     var compareName = $('#compare-type').find("option:selected").text();
 
@@ -297,8 +295,6 @@ function getOrganizationData(){
 
         //页面赋值
         bottomCharts.setOption(optionBar,true);
-
-
 
         $('#scrap-datatables thead').html(tableHeadHtml);
 
