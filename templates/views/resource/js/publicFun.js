@@ -1586,6 +1586,25 @@ function _printFun(table){
 }
 
 //----------------------------------获取配置的能耗数据中信息---------------------------------//
+//根据选中的分项能耗value确定id
+function _getEcId(value){
+
+    var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+
+    if(jsonText){
+        for(var i=0;i<jsonText.alltypes.length;i++){
+
+            if(value == jsonText.alltypes[i].ettype){
+
+                return jsonText.alltypes[i].etid;
+            }
+        }
+
+    }
+
+
+}
+
 //根据能耗分项ID获取能耗名称
 function _getEcName(etid){
 
@@ -1616,6 +1635,22 @@ function _getEcUnit(etid){
         }
     }
 };
+
+//根据能耗类型获取分项列表
+function _getEnergyItemByType(num){
+
+    var  num1 = parseInt(num) * 100;
+
+    var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+    //var txt = unitObj.alltypes;
+    //for(var i=0; i < txt.length; i++){
+    //    if(num1 == txt[i].ettype){
+    //        return txt[i].etunit;
+    //    }
+    //}
+};
+
 
 //隐藏table中带建筑面积 空调面积的项
 function hiddenAreaTh(nameArr){
@@ -1838,6 +1873,37 @@ function _timeShow(modal){
     }
 
 }
+
+//所有表格单击事件
+$('.table tbody').on('click','tr',function(){
+
+    if(_isClickTr){
+
+        if($(this).hasClass('tables-hover')){
+
+            $(this).parents('.table').find('tr').removeClass('tables-hover');
+
+            $(this).parents('.table').find('input').parent('span').removeClass('checked');
+
+            $(this).removeClass('tables-hover');
+
+            $(this).find('input').parent('span').removeClass('checked');
+
+        }else{
+
+            $(this).parents('.table').find('tr').removeClass('tables-hover');
+
+            $(this).parents('.table').find('input').parent('span').removeClass('checked');
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent('span').addClass('checked');
+
+        }
+
+    }
+
+})
 
 /*---------------------------------------------------控制界面------------------------------------*/
 

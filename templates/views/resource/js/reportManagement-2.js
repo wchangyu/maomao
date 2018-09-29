@@ -327,6 +327,8 @@ $(function(){
 
         $('.table').find('tfoot').find('td').html(0);
 
+        $('.table').find('tfoot').find('tr').eq(0).find('td').eq(0).html('小计');
+
         $('.table').find('tfoot').find('tr').eq(1).find('td').eq(0).html('合计');
 
         _datasTable($('#scrap-datatables'),[]);

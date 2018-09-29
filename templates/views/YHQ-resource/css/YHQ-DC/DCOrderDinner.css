@@ -1,0 +1,141 @@
+#create-Modal label{
+
+    width: 115px;
+
+}
+
+#DC-type label{
+
+    width: auto;
+
+}
+
+#commentForm .modal-block input~.error{
+
+    color: red;
+
+    width: auto;
+
+    line-height: 30px;
+
+    margin: 0;
+
+    margin-top: 10px;
+
+    display: block;
+
+    text-indent: 124px;
+
+}
+
+#commentForm .modal-block select~.error {
+    color: red;
+    width: auto;
+    line-height: 30px;
+    margin: 0;
+    margin-top: 10px;
+    display: block;
+    text-indent: 124px;
+}
+
+#commentForm .modal-block textarea~.error {
+    color: red;
+    width: auto;
+    line-height: 30px;
+    margin: 0;
+    margin-top: 10px;
+    display: block;
+    text-indent: 124px;
+}
+
+#commentForm .modal-block .time-tool-block input~.error {
+    color: red;
+    line-height: 30px;
+    text-indent: 0px;
+    position: absolute;
+    top: 33px;
+    width: 100%;
+}
+
+.thumbnail{
+
+    border: none;
+
+}
+
+#picker{
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    height: 34px;
+
+}
+
+#picker label{
+
+    margin: 0;
+
+}
+
+#picker div:nth-child(2){
+
+    width: 82px !important;
+
+    height: 34px !important;
+
+}
+
+.mealLeft{
+
+    width: 750px;
+
+    display: inline-block;
+
+
+    vertical-align: top
+
+}
+
+.mealRight{
+
+    width: 180px;
+
+    display: inline-block;
+
+    padding:10px;
+
+    vertical-align: top;
+
+    min-height: 200px;
+
+    margin-top: 66px;
+
+    border: 1px solid #ddd;
+
+}
+
+.order-already li{
+
+    margin-bottom: 5px;
+
+}
+
+.order-already .order-meal-name{
+
+    width: 50%;float: left
+
+}
+
+.order-already .order-meal-num{
+
+    width: 50%;float: right;text-indent: 10px;
+
+}
+
+.order-already .order-meal-prince{
+
+    margin-right: 5px;
+
+}

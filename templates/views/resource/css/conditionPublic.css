@@ -267,6 +267,14 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 
 }
 
+.option-see{
+
+    color: #2EC29D !important;
+
+    border-color: #2EC29D !important;
+
+}
+
 .option-del{
 
     color: #88898a !important;
@@ -374,5 +382,37 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     height: 30px;
 
     margin-top: 10px;
+
+}
+
+.upload-picture{
+
+    float: left;
+
+    margin-right: 54px;
+
+}
+
+.upload-picture img{
+
+    width: 250px;
+
+    height: 250px;
+
+    display: inline-block;
+
+    border: 1px solid #e5e5e5;
+
+}
+
+.uploader-list{
+
+    width: 250px;
+
+    min-height: 250px;
+
+    display: inline-block;
+
+    border: 1px solid #e5e5e5;
 
 }

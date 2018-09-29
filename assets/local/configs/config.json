@@ -47,7 +47,7 @@
       {
         "etid": "2011",
         "etname": "汽",
-        "ettype" : "1400",
+        "ettype" : "2000",
         "etunit": "t",
         "img":"totalQi.png",
         "unSelectImg":"qi33.png",
@@ -166,8 +166,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://211.100.28.180/EMPWAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
+  "apiUriPrefix":"http://218.70.30.134:32537/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://218.70.30.134:32537/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
   "systemTitle":"高效机房控制系统",

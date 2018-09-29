@@ -5,7 +5,7 @@ $(function(){
     //获得用户名
     var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    var _urls = sessionStorage.getItem("apiUrlPrefix");
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',

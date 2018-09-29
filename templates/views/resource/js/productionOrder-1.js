@@ -774,6 +774,9 @@ $(function(){
 
     $('#uniform-ones').parents('.input-blockeds').removeClass('disabled-block');
 
+    //选择设备按钮显示
+    $('#select-Dev').show();
+
   }
 
   //不可操作
@@ -782,6 +785,9 @@ $(function(){
     $('#myApp33').find('input,select,textarea').attr('disabled',true).addClass('disabled-block');
 
     $('#uniform-ones').parents('.input-blockeds').addClass('disabled-block');
+
+    //选择设备按钮隐藏
+    $('#select-Dev').hide();
 
   }
 

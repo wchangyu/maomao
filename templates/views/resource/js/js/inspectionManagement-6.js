@@ -467,6 +467,7 @@ $(function(){
 
         }
 
+
         $.ajax({
 
             type:'post',
@@ -492,9 +493,12 @@ $(function(){
                 $('#theLoading').modal('hide');
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                    myAlter("超时");
+
+                    _moTaiKuang($('#myModal5'),'提示',true,true,'超时','');
+
+
                 }else{
-                    myAlter("请求失败！");
+                    _moTaiKuang($('#myModal5'),'提示',true,true,'请求失败','');
                 }
 
             }

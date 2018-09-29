@@ -14,6 +14,10 @@ $(function(){
 	//选中的能耗种类id
 	var _energyTypeValue = '';
 
+	//当前选中的能耗种类value
+
+	var _energyTypeNum = '';
+
 	//选中能耗种类名称
 	var _energyTypeWord = '';
 
@@ -26,12 +30,16 @@ $(function(){
 
 		_energyTypeWord = _getEcTypeWord();
 
+		_energyTypeNum = _getEcTypeNum();
+
 	});
 
 	//确定能耗种类
 	_energyTypeValue = _getEcTypeValue();
 
 	_energyTypeWord = _getEcTypeWord();
+
+	_energyTypeNum = _getEcTypeNum();
 
 	/*--------------------------------------------------区域位置----------------------------------------------------*/
 
@@ -267,6 +275,9 @@ $(function(){
 		//获取能耗信息的配置
 		var alltypes = jsonText.alltypes;
 
+		//获取当前选中的能耗的值
+		_energyTypeNum = $('.energy-types').find('.selectedEnergy').attr('value');
+
 		$(alltypes).each(function(i,o){
 
 			var imgUrl;
@@ -321,8 +332,11 @@ $(function(){
 	//ztree树设置
 	function getBranchZtree(){
 
+
 		//json数据
 		var EnItdata=JSON.parse(sessionStorage.getItem('energyItems'));
+
+		//_energyTypeValue
 
 		var setting = {
 			check: {
@@ -356,7 +370,9 @@ $(function(){
 
 		for(var i=0;i<EnItdata.length;i++){
 
-			if(EnItdata[i].energyItemType == _energyTypeWord){
+			var  newEnergyType = parseInt(EnItdata[i].energyItemType) * 100;
+
+			if(newEnergyType == _energyTypeNum){
 
 				energyTypeArr.push(EnItdata[i]);
 
@@ -515,7 +531,7 @@ $(function(){
 			timeout:30000,
 			success:function(result){
 
-				if(result){
+				if(result.length>0){
 
 					//横坐标、纵坐标
 					var dataX = [],dataY = [];
@@ -576,7 +592,7 @@ $(function(){
 
 					}
 
-					myChart.setOption(option);
+					myChart.setOption(option,true);
 
 					//表格
 
@@ -824,6 +840,19 @@ $(function(){
 			forceParse: 0,
 			autoclose: 1
 		});
+	}
+
+	//获取能耗值
+	function _getEcTypeNum(){
+		var aaa =[];
+		var jsonText = JSON.parse(sessionStorage.getItem('allEnergyType'));
+		if(jsonText){
+			for(var i=0;i<jsonText.alltypes.length;i++){
+				aaa.push(jsonText.alltypes[i].ettype);
+			}
+			var el = aaa[$('.selectedEnergy').index()];
+			return el;
+		}
 	}
 
 
