@@ -733,30 +733,30 @@
             </div>
 
             <!--运维联动-->
-            <div class="right-bottom-centent right-bottom-energyment right-bottom-operation" style="margin-right:0;">
+            <div class="right-bottom-centent right-bottom-energyment right-bottom-operation" style="border-radius: 15px 0 0 15px !important;">
 
                 <h2 class="right-bottom-centent-title">
 
                     <a href="operationMaintenance.html">  </a>
                 </h2>
 
-                <!--下方环形图-->
-                <div class="right-bottom-content-chart" style="border-radius: 15px 0 0 15px !important;display: block">
+                <div class="right-bottom-content-chart right-bottom-content-trouble" style="border-radius:15px 0px  0px 15px!important;">
 
-                    <div id="operation-chart-response" class="right-bottom-content-chart-content">
+                    <div id="echarts-left-bottom2" class="right-bottom-content-chart-content">
 
                     </div>
 
                     <!--头部小框-->
                     <div class="chart-name-case">
 
-                        <span>工单响应</span>
+                        <span>设备报警</span>
 
                     </div>
 
                 </div>
 
-                <div class="right-bottom-content-chart" style="border-radius:0  0px  0px 0!important;display: block">
+
+                <div class="right-bottom-content-chart the-response-container" style="border-radius:0  0px  0px 0!important;">
 
                     <div id="operation-chart-response1" class="right-bottom-content-chart-content">
 
@@ -771,20 +771,22 @@
 
                 </div>
 
-                <div class="right-bottom-content-chart right-bottom-content-trouble" style="border-radius:0  15px  15px 0!important;">
+                <!--下方环形图-->
+                <div class="right-bottom-content-chart the-response-container" style="margin-right:0;border-radius:0  15px  15px 0!important;">
 
-                    <div id="echarts-left-bottom2" class="right-bottom-content-chart-content">
+                    <div id="operation-chart-response" class="right-bottom-content-chart-content">
 
                     </div>
 
                     <!--头部小框-->
                     <div class="chart-name-case">
 
-                        <span>设备报警</span>
+                        <span>工单推送</span>
 
                     </div>
 
                 </div>
+
 
             </div>
         </div>

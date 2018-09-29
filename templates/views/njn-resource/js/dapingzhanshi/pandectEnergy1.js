@@ -4262,7 +4262,7 @@ function getGDRespondInfo(){
 
             var dataArr = [
                 {
-                    name:'已完成',
+                    name:'手动推送',
                     value:completeNum
                 },
                 {
@@ -4270,7 +4270,7 @@ function getGDRespondInfo(){
                     value:dispatchNum
                 },
                 {
-                    name:'进行中',
+                    name:'自动推送',
                     value:runningNum
                 }
             ];

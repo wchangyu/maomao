@@ -124,7 +124,6 @@ var BEE = (function(){
 
             url = url.split("?")[0];
 
-
         }
 
         _LurlLength= url.split('templates')[1].split('/').length-1;
@@ -143,11 +142,9 @@ var BEE = (function(){
 
             indexUrl = _loginSlash + indexUrl;
 
-
         }
 
     }
-
 
     //logo跳转地址
     $('.page-logo a').attr('href',indexUrl);

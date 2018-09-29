@@ -260,23 +260,39 @@
 
 }
 
-#echarts-left-bottom2{
-
-    background: url("../../img/shebeibaijingda.png")no-repeat;
-
+.right-bottom-container .right-bottom-content-chart {
+    background: #1e3352 !important;
 }
+
+/*#echarts-left-bottom2{*/
+
+    /*background: url("../../img/shebeibaijingda.png")no-repeat;*/
+
+/*}*/
 
 .right-bottom-container .right-bottom-content-chart{
 
-    height: 286px;
+    height: 265px;
+    overflow: hidden;
 
 }
 
-.right-bottom-container .right-bottom-content-chart{
-
-    background-color: inherit !important;
-
+.right-bottom-centent .right-bottom-centent-title {
+    /* margin: 0; */
+    margin-bottom: 10px;
 }
+
+.right-bottom-container .right-bottom-operation {
+
+    margin-left: 5px;
+}
+
+
+/*.right-bottom-container .right-bottom-content-chart{*/
+
+    /*background-color: inherit !important;*/
+
+/*}*/
 
 .right-picture-title span{
 

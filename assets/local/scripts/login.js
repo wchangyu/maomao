@@ -88,7 +88,7 @@ var Login = function() {
 
                             $('.pull-right').attr('disabled',true);
 
-                            var str = '正在登录...'
+                            var str = '正在登录...';
 
                             $('.pull-right').html(str);
 
@@ -573,7 +573,7 @@ var Login = function() {
                     sessionStorage.useNewIframeUrl = useNewIframeUrl;
 
                     //车站大屏页面跳转方式
-                    var  stationJumpType = data[" stationJumpType"] || '';
+                    var  stationJumpType = data["stationJumpType"] || '';
                     sessionStorage. stationJumpType =  stationJumpType;
 
                     //监控信息的刷新时间

@@ -2272,5 +2272,46 @@ $(function(){
 
 })
 
+//页面单点登录时调用的方法
+function singleSignWay(url){
+
+    $('body').append('<script src="../../../assets/local/scripts/Went.utility.js"></script>');
+
+    //获取用户名
+    var userName = sessionStorage.getItem('userName');
+    var userPassWord = sessionStorage.getItem('userpassword');
+
+    //获取当前IP地址
+    var  host =  url;
+
+    // 获取当前时间
+    var now = moment().format('YYYY-MM-DD');
+
+    //console.log(now);
+
+    //加密条件
+    var urlstring  = '';
+    urlstring += "hq";
+    urlstring += now;
+
+    //给用户名进行加密
+    //var passName = Went.utility.wCoder.wEncode(userName, urlstring);
+
+    var passName = Went.utility.wCoder.wEncode(userName);
+
+    //给密码解密
+    var passWord = Went.utility.wCoder.wDecode(userPassWord,"");
+
+    //给密码二次加密
+    passWord = Went.utility.wCoder.wEncode(passWord, urlstring);
+
+    //给日期进行加密
+    var passTime = Went.utility.wCoder.wEncode(now, host+'hq');
+
+
+    //打开的地址
+    window.open(host+ "?para1="+passName+"&para2="+userPassWord+"&para3="+passTime+"");
+}
+
 
 
