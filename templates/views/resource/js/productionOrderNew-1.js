@@ -52,6 +52,81 @@ $(function(){
 
   /*-----------------------------------------------------表单验证--------------------------------------------*/
 
+  //普通保修输入验证
+  $('#commentForm').validate({
+
+    rules:{
+      //报修电话
+      'gdTel':{
+
+        required: true,
+
+        phoneNumFormat:true
+
+      },
+      //报修人
+      'gdBXRen':{
+
+        required: true
+
+      },
+      //故障位置
+      'gdPlace':{
+
+        required: true
+
+      },
+      //车站
+      'gdSection':{
+
+        required: true
+
+      },
+      //系统类型
+      'gdMatter':{
+
+        required: true
+
+      },
+    },
+    messages:{
+
+      //报修电话
+      'gdTel':{
+
+        required: '请输入报修电话',
+
+        phoneNumFormat:'请输入电话格式'
+
+      },
+      //报修人
+      'gdBXRen':{
+
+        required: '请输入报修人信息'
+
+      },
+      //故障位置
+      'gdPlace':{
+
+        required: '请输入故障位置'
+
+      },
+      //车站
+      'gdSection':{
+
+        required: '请选择' + __names.department
+
+      },
+      //系统类型
+      'gdMatter':{
+
+        required: '请选择系统类型'
+
+      },
+    }
+
+  });
+
   //普通报修
   function validform(){
 
@@ -446,6 +521,14 @@ $(function(){
 
     if(validformQ().form()){
 
+      var weixiuRen = [
+        {
+          wxRen: _userIdNum,
+          wxRName: _userIdName,
+          wxRDh: ''
+        }
+      ];
+
       var prm = {
 
         //工单类型
@@ -474,17 +557,17 @@ $(function(){
         //维修班组编码
         wxKeshiNum:$('#gdWXSection').attr('data-num'),
         //维修设备(设备编码)
-        wxShebei:quickVue.sbSelect,
+        wxShebei:$('#sbSelectQ').val(),
         //设备编码
-        dNum:quickVue.sbLX,
+        dNum:$('#sbSelectQ').val(),
         //设备名称
-        dName:quickVue.sbMC,
+        dName:$('#sbMCQ').val(),
         //发生时间
-        gdFsShij:$('#quickWork').find('.otimes').val(),
+        gdFsShij:$('#quickWork').find('#otimeQ').val(),
         //故障描述
-        bxBeizhu: $('#quickWork').find('.remarkDes').eq(0).val(),
+        bxBeizhu: $('#quickWork').find('.remarkDesQ').val(),
         //维修内容
-        wxBeizhu:$('#quickWork').find('.weixiuBZ').val(),
+        wxBeizhu:$('#quickWork').find('#weixiuBZQ').val(),
         //执行人
         gdWxRs: weixiuRen,
         //工单来源
@@ -501,51 +584,6 @@ $(function(){
         installAddress:''
 
       }
-
-    }
-
-    return false;
-
-    //验证
-    if( quickVue.telephone == '' || quickVue.person == '' || quickVue.place == '' || quickVue.section == '' || quickVue.matter == '' || $('#quickWork').find('.weixiuBZ').val() == ''){
-
-      _moTaiKuang($('#myModal2'), '提示', 'flag','istap', '请填写红色必填项!', '');
-
-    }else{
-
-      var cheName = '';
-
-      if( quickVue.section == ' ' ){
-
-        cheName = '';
-
-      }else{
-
-        cheName = $('#quickWork').find('.cjz').children('option:selected').html();
-
-      }
-
-      var xiName = '';
-
-      if( quickVue.matter == '' ){
-
-        xiName = '';
-
-      }else{
-
-        xiName = $('#quickWork').find('.xitong').children('option:selected').html();
-
-      }
-
-      var weixiuRen = [
-        {
-          wxRen: _userIdNum,
-          wxRName: _userIdName,
-          wxRDh: ''
-        }
-      ];
-
-
 
       $.ajax({
         type: 'post',
@@ -589,6 +627,8 @@ $(function(){
 
         }
       })
+
+
     }
 
   })
@@ -821,6 +861,11 @@ $(function(){
     $('#gdCode').attr('disabled',true);
 
     $('#gdState').attr('disabled',true);
+
+    //设备不能填
+    $('#sbSelect').attr('disabled',true);
+
+    $('#sbMC').attr('disabled',true);
 
     $('.modal-select').show();
 

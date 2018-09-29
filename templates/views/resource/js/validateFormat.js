@@ -51,10 +51,15 @@ $.validator.addMethod("phoneNumFormat",function(value,element,params){
 $.validator.addMethod("isDate", function(value, element){
     var ereg = /^(\d{1,4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;
     var r = value.match(ereg);
+
     if (r == null) {
+
+        $(element).parents('.time-tool-block').next().next().show();
+
         return false;
     }
     var d = new Date(r[1], r[3] - 1, r[5]);
+
     var result = (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[5]);
 
     return this.optional(element) || (result);

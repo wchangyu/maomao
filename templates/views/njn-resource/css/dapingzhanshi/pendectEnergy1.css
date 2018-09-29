@@ -425,3 +425,18 @@
     background: url(../../img/shebeibaojinbeijignN.png)no-repeat !important;
 
 }
+
+.big-screen-message .modal-content {
+    width: 777px;
+    height: 383px;
+    background: url(../../img/alarm-backgroundH.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.demand-button {
+    background: url(../../img/chaxunH.png) no-repeat;
+    border: none;
+    outline: none;
+    width: 63px;
+    height: 24px;
+}
