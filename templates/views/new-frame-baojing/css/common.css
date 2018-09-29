@@ -1,0 +1,312 @@
+.modal-dialog, .modal-content {
+    width: auto !important;
+    /* height: 500px; */
+    background: #ffffff;
+}
+
+
+.left-middle-main .left-tab-contain .left-middle-tab {
+    width: 100%;
+
+}
+
+.bottom-data-container {
+
+    background: none !important;
+}
+
+.warning-data-container{
+    width: 100%;
+
+}
+
+.warning-data-container .warning-data{
+
+    width:18.3%;
+    max-width: 280px;
+    height: 220px;
+    background: white;
+    padding-top:15px;
+    box-sizing: border-box;
+    position: relative;
+    margin-right:1.5%;
+    float: left;
+    margin-bottom: 15px;
+}
+
+.warning-data .left-warning-tab{
+
+    border-right:1px solid #E5E5E5;
+    width:75px;
+    float: left;
+}
+
+.warning-data .left-warning-tab p{
+    font-size:12px;
+    color:#888D9F;
+    line-height: 22px;
+    margin-bottom: 0;
+    width:75px;
+    text-indent: 15px;
+    font-weight: 600;
+}
+
+.warning-data .right-warning-message{
+
+    margin-left: 75px;
+}
+
+.warning-data .right-warning-message p{
+    font-size:12px;
+    color:#666666;
+    line-height: 22px;
+    margin-bottom: 0;
+    text-indent: 10px;
+    font-weight: 600;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+}
+
+/*时间*/
+.warning-data .right-warning-message .dataDate{
+    color:#88D8A8;
+}
+
+/*报警类型*/
+.warning-data .right-warning-message .cDtnName{
+    color:#7B7FDE;
+}
+
+/*报警等级*/
+.warning-data .right-warning-message  .the-import{
+    color:#EC7059;
+}
+
+/*生成工单*/
+.warning-data .create-order{
+    position: absolute;
+    bottom:0;
+    left:0;
+    width:50%;
+    height:28px;
+    line-height: 28px;
+    color:white;
+    background: #B6B5B5;
+    text-align: center;
+
+    font-weight: 600;
+}
+
+.warning-data .can-creat{
+    background: #7DC79B;
+    cursor: pointer;
+}
+
+/*故障定位*/
+.warning-data .fault-location{
+    position: absolute;
+    bottom:0;
+    right:0;
+    width:40%;
+    height:28px;
+    line-height: 28px;
+    color:white;
+    background: #B6B5B5;
+    text-align: center;
+
+    font-weight: 600;
+}
+
+.warning-data .examine-monitor{
+
+    background: #EB7159;
+    cursor: pointer;
+}
+
+/*历史报警数*/
+.warning-data .history-alarm-num{
+    position: absolute;
+    top:0;
+    right:0;
+    width:60px;
+    height:20px;
+    line-height: 20px;
+    color:white;
+
+    text-align: right;
+    cursor: pointer;
+    font-weight: 600;
+    padding-right:5px;
+    box-sizing: border-box;
+    background:url('../img/time-small.png') no-repeat 5px center;
+    background-color: #EC7059;
+}
+
+/*查看全部按钮*/
+.warning-data-container .all-data-btn{
+
+    width:110px;
+    height: 110px;
+    background: url('../img/examine-all.png') no-repeat center 18px;
+    background-color: #C0BFBF;
+    margin:30px auto;
+    padding-top:30px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.warning-data-container .all-warning-data{
+
+    background: none !important;
+
+
+}
+
+.warning-data-container .all-warning-data p{
+
+    color:white;
+    font-size: 14px;
+    margin-top:30px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/*弹窗样式*/
+#Creat-myModa .modal-header{
+    border: none !important;
+}
+
+#Creat-myModa .modal-header .modal-title{
+
+    color:#666666;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+
+#Creat-myModa .modal-body{
+
+    padding-top: 0px;
+}
+
+#Creat-myModa .labels{
+
+    color:#888D9F;
+    font-size: 14px;
+}
+
+#Creat-myModa .btn-primary {
+    outline: none;
+    /* border: none; */
+    width: 80px;
+    height: 40px;
+    background: rgba(236,112,89,1);
+    border-radius: 20px !important;
+    color: white;
+    text-align: center;
+}
+
+#Creat-myModa .modal-footer {
+
+    border-top: none;
+    padding-top:0;
+}
+
+#Creat-myModa .modal-title{
+    text-indent: 30px;
+    background: url('../img/gongdan.png') no-repeat left center;
+}
+
+.colorTip {
+    color: #db3d32 !important;
+}
+
+
+/*历史报警弹窗*/
+#historyWarn .modal-title{
+
+    font-size:18px;
+    font-weight:bold;
+    color:#666666;
+    text-indent: 35px;
+    background: url('../img/time-big.png') no-repeat left center;
+}
+
+#historyWarn  .modal-header {
+
+    border-bottom: none;
+
+}
+
+#dateTables th{
+    background-color: #aeb4c9;
+    color:white;
+}
+
+#dateTables td{
+    color:#666666;
+}
+
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+.scrollbar::-webkit-scrollbar{
+    width: 16px;
+    height: 16px;
+    background-color: #f5f5f5;
+}
+/*定义滚动条的轨道，内阴影及圆角*/
+.scrollbar::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    border-radius: 0px !important;
+    background-color: #f5f5f5;
+}
+/*定义滑块，内阴影及圆角*/
+.scrollbar::-webkit-scrollbar-thumb{
+    /*width: 10px;*/
+    height: 20px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #aeb4c9;
+    border-radius: 0px !important;
+}
+
+.table-alarm tbody {
+    display:block;
+    max-height:400px;
+    overflow-y:auto;
+}
+
+
+.table-alarm thead,.table-alarm tbody tr {
+    display:table;
+    width:100%;
+    table-layout: fixed;
+}
+
+.table-alarm thead {
+    width: calc( 100% - 1em )
+}
+
+
+#dateTables>tbody>tr:nth-of-type(odd) {
+    background-color: white ;
+}
+
+#dateTables>tbody>tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
+
+#historyWarn .modal-body{
+
+    padding-bottom:0px;
+    padding-top:0px;
+}
+
+#dateTables {
+    background: #aeb4c9 !important;
+    border: 1px solid #DCDCDC !important;
+}
+
+#dateTables td {
+    height: 40px !important;
+    border: 1px solid #DCDCDC !important;
+}

@@ -829,7 +829,7 @@
 
         "content": "未处理报警",
 
-        "uri": "../baojingyujing/warningAlarm-3.html",
+        "uri": "../new-frame-baojing/realTimeWarning.html",
 
         "uid": "",
 
@@ -842,7 +842,7 @@
       "历史报警": {
         "type": "0",
         "content": "历史报警",
-        "uri": "../baojingyujing/warningAlarm-2.html",
+        "uri": "../new-frame-baojing/historyWarning.html",
         "uid": "",
         "arg": "",
         "iconclass": "",

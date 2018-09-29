@@ -132,11 +132,18 @@ $(function(){
             //获取当前跳转地址
             var jumpUrl = $(this).attr('data-id');
 
-            //改变iframe路径
-            iframeJump(jumpUrl);
+            //判断是否是打开新页面
+            if($(this).attr('data-target') == 1){
 
+                window.open(jumpUrl);
+
+            }else{
+
+                //改变iframe路径
+                iframeJump(jumpUrl);
+
+            }
         }
-
     });
 
     $('body').on('click',function(){
@@ -163,8 +170,17 @@ $(function(){
         //获取当前跳转地址
         var jumpUrl = $(this).attr('data-id');
 
-        //改变iframe路径
-        iframeJump(jumpUrl);
+        //判断是否是打开新页面
+        if($(this).attr('data-target') == 1){
+
+            window.open(jumpUrl);
+
+        }else{
+
+            //改变iframe路径
+            iframeJump(jumpUrl);
+
+        }
 
     });
 
@@ -546,10 +562,19 @@ function drawTopMenu(secondMenuArr,flag){
                     var thisUrl = o.childMenu[0].uri;
 
                     //页面初始化
-                    //改变iframe路径
-                    iframeJump(thisUrl);
+                    //判断是否是打开新页面
+                    if(o.childMenu[0].target == 'blank'){
 
-                    iframeClick();
+                        window.open(thisUrl);
+
+                    }else{
+
+                        //改变iframe路径
+                        iframeJump(thisUrl);
+
+                        iframeClick();
+
+                    }
 
                 }
 
@@ -566,7 +591,18 @@ function drawTopMenu(secondMenuArr,flag){
 
             $(o.childMenu).each(function(k,j){
 
-                thirdMenuHtml += '<li><a class="third-menu-message" href="javascript:;" data-id="'+ j.uri+'">'+ j.content+'</a></li>';
+                //判断是否跳转新页面
+                if(j.target == 'blank'){
+
+                    thirdMenuHtml += '<li><a class="third-menu-message" href="javascript:;" data-id="'+ j.uri+'" data-target="1">'+ j.content+'</a></li>';
+
+                }else{
+
+                    thirdMenuHtml += '<li><a class="third-menu-message" href="javascript:;" data-id="'+ j.uri+'">'+ j.content+'</a></li>';
+
+                }
+
+
 
             });
 
@@ -597,10 +633,22 @@ function drawTopMenu(secondMenuArr,flag){
                     var thisUrl = o.uri;
 
                     //页面初始化
-                    //改变iframe路径
-                    iframeJump(thisUrl);
 
-                    iframeClick();
+                    //判断是否是打开新页面
+                    if(o.target == 'blank'){
+
+                        window.open(thisUrl);
+
+                    }else{
+
+                        //改变iframe路径
+                        iframeJump(thisUrl);
+
+                        iframeClick();
+
+                    }
+
+
                 }
 
                 //如果包含首页 则当前选中
@@ -609,12 +657,27 @@ function drawTopMenu(secondMenuArr,flag){
                 indexClass = 'onChoose';
             }
 
+            //判断是否打开新页面
+            if(o.target == 'blank'){
 
-            secondMenuHtml +=   '<div class="secondary-menu  '+indexClass+'" data-id="'+ o.uri+'">' +
+                secondMenuHtml +=   '<div class="secondary-menu  '+indexClass+'" data-id="'+ o.uri+'" data-target="1">' +
 
-                                     o.content+
+                    o.content+
 
-                                '</div>';
+                    '</div>';
+
+            }else{
+
+                secondMenuHtml +=   '<div class="secondary-menu  '+indexClass+'" data-id="'+ o.uri+'">' +
+
+                    o.content+
+
+                    '</div>';
+
+            }
+
+
+
 
         }
 
@@ -697,11 +760,6 @@ function iframeJump(jumpUrl){
 
 
 }
-
-//如果要客观比较一下s5的skt和s4的三星白。我想我还是要偏向skt一些。
-//首先，s4那个赛季的大部分时间里，三星白是被蓝压制的，s赛前都不是夺冠的大热门，论一年里的统治力，skt优于三星白。
-//第二，正好和你的观点相反。我认为skt温水煮青蛙的胜利方式反而比三星白暴力虐杀的方式更高一层。就像象棋一样，
-//不因为别的，只因为skt中单的id是Faker。
 
 //对象转化为数组
 function transform(obj){

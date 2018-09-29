@@ -408,7 +408,7 @@ $(function(){
 
                         if(data == 0){
 
-                            return  "<span style='width:80px;display: inline-block'>无</span>"
+                            return  "<span style='width:80px;display: inline-block'>无</span>";
 
                         }else{
 
@@ -471,16 +471,20 @@ $(function(){
 
     //setData();
     $('#datatables tbody').on( 'click', 'input', function () {
+
         var $this = $(this);
         if($(this).parents('.checker').children('.checked').length == 0){
             $(this).parent($('span')).addClass('checked');
         }else{
             $(this).parent($('span')).removeClass('checked');
         }
+
     } );
 
     $('.logoToRead').click(function(){
+
         logoToRead();
+
     });
 
     $('#datatables tbody').on('click', 'td .details-control', function () {
@@ -709,7 +713,7 @@ $(function(){
 
             error:_errorFun
 
-        })
+        });
 
         //查看未完成工单
         var prmGD = {
@@ -726,14 +730,13 @@ $(function(){
             //用户名
             userName:_userIdName
 
-        }
+        };
 
         if(_this.attr('data-devnum') == ''){
 
             prmGD.bxBeizhu = bxStr
 
         }
-
 
         $.ajax({
 

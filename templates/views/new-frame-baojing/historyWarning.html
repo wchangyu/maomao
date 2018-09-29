@@ -25,9 +25,58 @@
     <link rel="stylesheet" href="../new-frame-nenghaoshuju/css/common.css">
     <link rel="stylesheet" href="css/common.css">
     <style>
+        .right-choose-condition-container .datetime {
+            width: 90px !important;
+
+        }
+
+        .right-choose-condition-container .has-choosed-object {
+            width: 165px !important;
+
+        }
+
+        .left-choose-energy-container {
+
+            padding-left: 25px !important;
+
+        }
+
+        .left-choose-energy-container ul {
+            padding-right: 20px !important;
+        }
+
+        .right-choose-condition-container .choose-custom-select font {
+            width: 110px !important;
+
+        }
+
+        .right-choose-condition-container .choose-custom-select {
+
+            margin-left: 10px;
+
+             margin-right: 0px;
+
+        }
+
+        .right-choose-condition-container .start-time{
+
+            margin-left: 10px;
+        }
+
+        /*左侧是否处理的图标*/
+        .left-choose-energy-container ul .has-deal {
+
+            background: url(img/yichuli.png) no-repeat;
+
+        }
+
+        .left-choose-energy-container ul .has-no-deal {
+
+            background: url(img/weichuli.png) no-repeat;
+
+        }
 
     </style>
-
 </head>
 
 <!-- END HEAD -->
@@ -77,27 +126,28 @@
                                 <!--里层容器-->
                                 <div class="inner-condition-container">
 
-                                    <!--&lt;!&ndash;左侧选择水电&ndash;&gt;-->
-                                    <!--<div class="left-choose-energy-container">-->
+                                    <!--左侧选择是否处理-->
+                                    <div class="left-choose-energy-container">
 
-                                        <!--<ul>-->
-                                            <!--<li class="choose-energy dian" data-img="dian.png">-->
-                                                <!--<label for="radio1" class="input-label1" style="padding-left: 0">电</label>-->
-                                                <!--<input class="time-radio" id="radio1" type="radio" name="choose-radio" value="day" checked="checked" data-id="01" data-id1="4" data-type="100">-->
+                                    <ul>
+                                        <li class="choose-energy has-deal" >
 
-                                            <!--</li>-->
+                                            <label for="radio1" class="input-label1" style="padding-left: 0">已处理</label>
+                                            <input class="time-radio" id="radio1" type="radio" name="choose-radio" value="day" data-id="-2">
 
-                                            <!--<li class="choose-energy shui" data-img="shui.png">-->
+                                        </li>
 
-                                                <!--<label for="radio2" class="input-label1" style="padding-left: 0">水</label>-->
+                                        <li class="choose-energy has-no-deal" >
 
-                                                <!--<input class="time-radio" id="radio2" type="radio" name="choose-radio" value="time" data-id="211" data-id1="5" data-type="200">-->
+                                            <label for="radio2" class="input-label1" style="padding-left: 0">未处理</label>
 
-                                            <!--</li>-->
+                                            <input class="time-radio" id="radio2" type="radio" name="choose-radio" value="time" data-id="0" checked="checked" >
 
-                                        <!--</ul>-->
+                                        </li>
 
-                                    <!--</div>-->
+                                    </ul>
+
+                                    </div>
 
                                     <!--右侧选择其他信息-->
                                     <div class="right-choose-condition-container">
@@ -198,43 +248,41 @@
 
                                         </span>
 
-                                        <!--&lt;!&ndash;时间选择&ndash;&gt;-->
-                                        <!--<span class="choose-time choose-custom-select">-->
-                                            <!--<font>日</font><b></b>-->
+                                        <!--时间选择-->
+                                        <span class="choose-time choose-custom-select" style="display: none">
+                                            <font>日</font><b></b>
 
-                                            <!--&lt;!&ndash;时间选择下拉框&ndash;&gt;-->
-                                            <!--<div class="choose-time-select choose-custom-select-container">-->
+                                            <!--时间选择下拉框-->
+                                            <div class="choose-time-select choose-custom-select-container">
 
-                                                <!--<ul>-->
-                                                    <!--<li class="the-select-message the-time-type onChoose">日</li>-->
-                                                    <!--<li class="the-select-message the-time-type">周</li>-->
-                                                    <!--<li class="the-select-message the-time-type">月</li>-->
-                                                    <!--<li class="the-select-message the-time-type">年</li>-->
-                                                    <!--<li class="the-select-message the-time-type">自定义</li>-->
-                                                <!--</ul>-->
+                                            <ul>
+                                                <li class="the-select-message the-time-type onChoose">日</li>
+                                                <li class="the-select-message the-time-type">周</li>
+                                                <li class="the-select-message the-time-type">月</li>
+                                                <li class="the-select-message the-time-type">年</li>
+                                                <li class="the-select-message the-time-type">自定义</li>
+                                            </ul>
 
-                                            <!--</div>-->
+                                            </div>
 
-                                        <!--</span>-->
+                                        </span>
 
-                                        <!--&lt;!&ndash;开始时间&ndash;&gt;-->
-                                        <!--<span class="start-time the-times">-->
-                                            <!--<input type="text" class="min datetime" placeholder="开始时间"><b></b>-->
+                                        <!--开始时间-->
+                                        <span class="start-time the-times">
+                                        <input type="text" class="min datetime" placeholder="开始时间"><b></b>
 
-                                        <!--</span>-->
+                                        </span>
 
-                                        <!--&lt;!&ndash;结束时间&ndash;&gt;-->
-                                        <!--<span class="end-time the-times">-->
-                                            <!--<input type="text" class="max datetime" placeholder="结束时间"><b></b>-->
+                                        <!--结束时间-->
+                                        <span class="end-time the-times">
+                                        <input type="text" class="max datetime" placeholder="结束时间"><b></b>
 
-                                        <!--</span>-->
+                                        </span>
 
                                         <!--查询按钮-->
                                         <button class="demand">查询</button>
 
                                     </div>
-
-
 
                                     <div class="clearfix"></div>
 
@@ -253,6 +301,7 @@
                                     </div>
 
                                 </div>
+
                             </div>
 
                         </div>
@@ -266,9 +315,9 @@
 
 <!--流程图弹窗-->
 <div class='modal fade' id='my-userMonitor' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
-    <div class='modal-dialog' style='margin:100px auto;width:1000px !important;'>
-        <div class='modal-content' style="width:1000px !important;">
-            <div class='modal-header'>
+    <div class='modal-dialog' style='margin:100px auto;'>
+        <div class='modal-content' style="width:100px !important;">
+            <div class='modal-header' style="width:100px !important;">
 
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4>流程图信息</h4>
@@ -373,28 +422,28 @@
                 <!--&lt;!&ndash;已创建工单部分&ndash;&gt;-->
                 <!--<div style="width: 300px;float: right;">-->
 
-                    <!--<div style="font-size: 16px;line-height: 40px;">当前设备未完成工单:<span id="GdNum" style="font-size: 20px;margin-left: 10px;">0</span></div>-->
+                <!--<div style="font-size: 16px;line-height: 40px;">当前设备未完成工单:<span id="GdNum" style="font-size: 20px;margin-left: 10px;">0</span></div>-->
 
-                    <!--<ul class="gdListInfo">-->
-                        <!--<li>-->
-                            <!--<label for="">工单号：</label>-->
-                            <!--<a href="">DE18062110590430</a>-->
-                            <!--<div></div>-->
-                            <!--<label for="">详情：</label>-->
-                            <!--<div class="detailGD">-->
-                                <!--时间：2018-06-21 11:00:00↵支路：F19.1D.LWP49提升泵故障状态↵楼宇名称：南京南高铁站↵报警事件：提升泵故障报警↵报警类型：设备故障↵此时数据：1.00↵报警等级：2-->
-                            <!--</div>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<label for="">工单号：</label>-->
-                            <!--<a href="">DE18062110590430</a>-->
-                            <!--<div></div>-->
-                            <!--<label for="">详情：</label>-->
-                            <!--<div class="detailGD">-->
-                                <!--时间：2018-06-21 11:00:00↵支路：F19.1D.LWP49提升泵故障状态↵楼宇名称：南京南高铁站↵报警事件：提升泵故障报警↵报警类型：设备故障↵此时数据：1.00↵报警等级：2-->
-                            <!--</div>-->
-                        <!--</li>-->
-                    <!--</ul>-->
+                <!--<ul class="gdListInfo">-->
+                <!--<li>-->
+                <!--<label for="">工单号：</label>-->
+                <!--<a href="">DE18062110590430</a>-->
+                <!--<div></div>-->
+                <!--<label for="">详情：</label>-->
+                <!--<div class="detailGD">-->
+                <!--时间：2018-06-21 11:00:00↵支路：F19.1D.LWP49提升泵故障状态↵楼宇名称：南京南高铁站↵报警事件：提升泵故障报警↵报警类型：设备故障↵此时数据：1.00↵报警等级：2-->
+                <!--</div>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<label for="">工单号：</label>-->
+                <!--<a href="">DE18062110590430</a>-->
+                <!--<div></div>-->
+                <!--<label for="">详情：</label>-->
+                <!--<div class="detailGD">-->
+                <!--时间：2018-06-21 11:00:00↵支路：F19.1D.LWP49提升泵故障状态↵楼宇名称：南京南高铁站↵报警事件：提升泵故障报警↵报警类型：设备故障↵此时数据：1.00↵报警等级：2-->
+                <!--</div>-->
+                <!--</li>-->
+                <!--</ul>-->
 
                 <!--</div>-->
 
@@ -421,14 +470,14 @@
                 <table class="table  table-alarm table-striped  table-bordered table-advance table-hover
 " id="dateTables" cellspacing="0">
                     <thead>
-                        <tr>
-                            <th>时间</th>
-                            <th>报警事件</th>
-                            <th>报警类型</th>
-                            <th>报警条件</th>
-                            <th>此时数据</th>
-                            <th>报警等级</th>
-                        </tr>
+                    <tr>
+                        <th>时间</th>
+                        <th>报警事件</th>
+                        <th>报警类型</th>
+                        <th>报警条件</th>
+                        <th>此时数据</th>
+                        <th>报警等级</th>
+                    </tr>
                     </thead>
 
                     <tbody class="scrollbar">
@@ -470,7 +519,7 @@
 <script src="../new-resource/js/common.js"></script>
 <script src="../new-frame-nenghaoshuju/js/common.js"></script>
 <script src="js/common.js"></script>
-<script src="js/realTimeWarning.js"></script>
+<script src="js/historyWarning.js"></script>
 
 <!-- END JAVASCRIPTS -->
 </body>

@@ -119,7 +119,7 @@ var __systemConfigArr = [
         pageName :"实时报警",
         pageUrl :"baojingyujing/warningAlarm-3.html",
         //定义实时报警是否显示查看流程图功能 0为不显示 1为显示
-        ifShowMonitor : 0
+        ifShowMonitor : 1
     },
     //摄像头相关页面配置信息
     {

@@ -83,6 +83,10 @@ h3 .left-patch {
     height:130px;
 }
 
+.the-data-span-container{
+    margin-bottom:10px;
+}
+
 .bottom-content-top-operation .top-control .top-control-span{
     font-size:14px;
     color:#2170F4;
@@ -101,7 +105,8 @@ h3 .left-patch {
     font-size:16px;
     color:#4C4C4C;
     margin-right:22px;
-
+    width:70px;
+    display: inline-block;
 }
 
 .bottom-content-top-operation .top-control-content .right-span font{

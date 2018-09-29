@@ -1,12 +1,24 @@
 /**
- * Created by admin on 2018/9/27.
+ * Created by admin on 2018/9/28.
  */
+
 $(function(){
 
+    //日期初始化
+    _timeYMDComponentsFun($('.min'));
 
+    //获取上周
+    var date1 = moment().subtract('6','days').format('YYYY/MM/DD');
 
-    ////日期初始化
-    //_timeYMDComponentsFun($('.min'));
+    //获取昨天2
+    var date2 = moment().format('YYYY/MM/DD');
+
+    $('.choose-time-select ul li').eq(4).click();
+
+    $('.min').val(date1);
+
+    $('.max').val(date2);
+
 
     //获取报警类型
     typeOfAlarm();
@@ -78,7 +90,7 @@ $(function(){
 
         var config2 = $(this).attr('data-pointer');
 
-        var config3 = $(this).attr('data-cdata');
+        var config3 = $(this).attr('data-cdataid');
 
         //拼接打开的url地址
         var postUrl = "../yongnengjiance/jumpEnergyMonitor1.html?configArg1=" + config1 + "configArg2=" + config2 + "configArg3=" + config3 + "";
@@ -158,10 +170,6 @@ var _pointerZtree;
 //获取登陆用户信息
 var userInfo = JSON.parse(sessionStorage.userInfo);
 
-//实时数据（开始）；
-var startRealTime = moment().subtract('24','hours').format('YYYY-MM-DD HH:mm:ss');
-var endRealTime = moment().format('YYYY-MM-DD HH:mm:ss');
-var showStartRealTime = moment().format('YYYY-MM-DD');
 
 //获取历史数据
 var dataArr = [];
@@ -208,6 +216,14 @@ function alarmHistory(){
     //获取能耗种类
     _ajaxEcType = $('.choose-energy .onChoose').attr('data-id');
 
+    //获取是否处理
+    var dealFlag = $('.left-choose-energy-container .time-radio:checked').attr('data-id');
+
+    //开始结束时间
+    var startRealTime = $('.min').val();
+
+    var endRealTime = $('.max').val();
+
     //确定楼宇id
     var pts = _pointerZtree.getSelectedPointers();
 
@@ -226,7 +242,7 @@ function alarmHistory(){
         'pointerIds' : postPinterId,
         'excTypeInnderId' : excTypeInnderId,
         'energyType' : _ajaxEcType,
-        "dealFlag": 0, //0为未处理 -1为全部
+        "dealFlag": dealFlag, //0为未处理 -1为全部
         "userID" :  _userIdNum,
         hasDev:1//为了判断是否显示创建工单按钮
     };

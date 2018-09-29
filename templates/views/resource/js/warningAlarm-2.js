@@ -593,7 +593,7 @@ $(function(){
 
         $('#GdNum').html('0');
 
-        $('.gdListInfo').html('<li>无</li>')
+        $('.gdListInfo').html('<li>无</li>');
 
         var prm = {
 
@@ -602,7 +602,8 @@ $(function(){
 
             //cdataId
             cdataid:$(this).attr('data-cdata')
-        }
+
+        };
 
         var _this = $(this);
 
@@ -683,7 +684,7 @@ $(function(){
 
             error:_errorFun
 
-        })
+        });
 
         //查看未完成工单
         var prmGD = {
@@ -700,7 +701,7 @@ $(function(){
             //用户名
             userName:_userIdName
 
-        }
+        };
 
         if(_this.attr('data-devnum') == ''){
 
@@ -747,7 +748,7 @@ $(function(){
 
                 }else{
 
-                    var str = '<li>无</li>'
+                    var str = '<li>无</li>';
 
                     $('.gdListInfo').empty().append(str);
 
@@ -761,7 +762,7 @@ $(function(){
 
         })
 
-    })
+    });
 
     //创建工单确定按钮
     $('#Creat-myModa').on('click','.dengji',function(){
@@ -824,7 +825,7 @@ $(function(){
                 //维修设备
                 'wxShebei':$('#devBM').val()
 
-            }
+            };
 
             $.ajax({
 
@@ -876,8 +877,7 @@ $(function(){
 
         }
 
-    })
-
+    });
 
 
     ////打开某个故障位置的3d视图
@@ -891,6 +891,7 @@ $(function(){
     //    exec_iframe('goToWarnPlace',id);
     //
     //});
+
     /*-----------------------其他方法------------------------*/
     //月的时间初始化
     function monthDate(){
@@ -1338,6 +1339,4 @@ $(function(){
             }
         )
     }
-
-
-})
+});
