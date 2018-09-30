@@ -213,6 +213,12 @@ $(function(){
     //获取[热泵机组系统]实时数据
     getRBJAE('EC');
 
+    //获取[电锅炉系统]实时数据
+    getDGLAE('EC');
+
+    //获取[电锅炉系统]实时数据
+    getDGLAE('EC');
+
     //获取[冷却侧系统]实时数据
     getLQCAE('EC');
 
@@ -366,6 +372,7 @@ function getRunData(ew,ch){
         AREA:ew,
         CH:ch
     };
+
     //发送请求
     $.ajax({
         type:'post',
@@ -392,17 +399,19 @@ function getRunData(ew,ch){
                     changeEquipState(lxState ,0 ,'.right-bottom-content1',result.mode);
 
                     //获取溴锂机组运行状态
-
                     var xlState = result.xljzRs;
 
                     changeEquipState(xlState ,1 ,'.right-bottom-content1',result.mode);
 
                     //获取热泵运行状态
-
                     var rbState = result.rbjzRs;
 
                     changeEquipState(rbState ,2 ,'.right-bottom-content1',result.mode);
 
+                    //获取电锅炉运行状态
+                    var dglState = result.dglRs;
+
+                    changeEquipState(dglState ,3 ,'.right-bottom-content1',result.mode);
 
                 }else{
 
@@ -412,7 +421,6 @@ function getRunData(ew,ch){
                     changeEquipState(hrbState ,0 ,'.right-bottom-content2',result.mode);
 
                     //获取采暖泵运行状态
-
                     var cnbState = result.cnbRs;
 
                     changeEquipState(cnbState ,1 ,'.right-bottom-content2',result.mode);
@@ -472,6 +480,7 @@ function changeEquipState(stateObj,index,dom,mode){
 
         $(dom).find('.top-control .top-control-span').eq(0).html('过渡季');
     }
+
 
 };
 
@@ -1317,6 +1326,48 @@ function getRBJAE(ew) {
     })
 };
 
+//获取[电锅炉系统]数据
+var chartViewDGLMain =  echarts.init(document.getElementById('bottom-refrigerator-chart5'));
+function getDGLAE(ew) {
+    var url = sessionStorage.apiUrlPrefix + "EWCH/GetDGLMos";
+    var st = moment().format('YYYY-MM-DD HH:mm');
+    var par = {
+        pId:sessionStorage.PointerID,
+        dt:encodeURIComponent(st) ,
+        AREA:ew
+    };
+    chartViewDGLMain.showLoading();
+    $.post(url,par,function (res) {
+        chartViewDGLMain.hideLoading();
+        if(res.code === 0){
+            //输入电量
+            $('#span_DGL_eVa_text').html(res.eVa);
+            //输出热量
+            $('#span_DGL_hVa_text').html(res.cVa);
+            //锅炉效率
+            $('#span_DGL_nxVa_text').html(res.nxVa);
+            var minVa = 0;
+            var maxVa = 7.0;
+
+            var cc1 = [[0.55, '#F8276C'], [0.67, '#EAD01E'], [0.80, '#14E398'], [1, '#2170F4']];
+
+            var option = initareaoption(cc1,minVa,maxVa,res.nxVa);
+
+            chartViewDGLMain.setOption( option,true);
+
+        }else if(res.code === -1){
+            $('#span_DGL_eVa_text').html('0');
+            $('#span_DGL_hVa_text').html('0');
+            $('#span_DGL_nxVa_text').html('0');
+            console.log('异常错误(电锅炉):' + res.msg);
+        }else{
+            $('#span_DGL_eVa_text').html('0');
+            $('#span_DGL_hVa_text').html('0');
+            $('#span_DGL_nxVa_text').html('0');
+        }
+    })
+};
+
 //获取[溴锂机组系统]数据
 var chartViewXLJMain =  echarts.init(document.getElementById('bottom-refrigerator-chart1'));
 function getXLJAE(ew) {
@@ -1778,6 +1829,9 @@ $('#monitor-menu-container').on('click','span',function(){
         //获取[热泵机组系统]实时数据
         getRBJAE(ew);
 
+        //获取[电锅炉系统]实时数据
+        getDGLAE(ew);
+
         //获取[冷却侧系统]实时数据
         getLQCAE(ew);
 
@@ -2125,7 +2179,6 @@ var table = $('#equipment-datatables').DataTable({
                 });
 
                 return result;
-
 
             }
         },

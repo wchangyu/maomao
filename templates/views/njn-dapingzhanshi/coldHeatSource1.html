@@ -173,12 +173,14 @@
                                 <span class="left-patch"></span>
                                 机房概况
                             </h3>
+
                             <p>
                                 上海虹桥站采用中央空调供冷供热，共设有一个冷热站，冷渊采用4台高压离心机，单台额定制冷量4572kW,热源采用一台电锅炉，额定热功率1.4MW。同时设有3台螺杆式地源热泵机组，单台额定制冷量2896kW,制冷量3292kW,过渡季、夏季供冷及过渡季、冬季供热。
                             </p>
 
                         </div>
                     </div>
+
                     <!--页面右侧数据-->
                     <div class="right-bottom-content-right">
 
@@ -195,30 +197,55 @@
                                 </h3>
 
                                 <div class="top-control">
+
                                     <span class="top-control-span"></span> <span class="top-control-span">手动模式</span>
                                     <div class="top-control-content">
 
-                                        <span class="left-span">离心机组</span>
-                                        <span class="control-area-span">东</span>
-                                        <span class="right-span">
-                                        <font class="">1</font>
-                                        <font>2</font>
+                                        <div class="the-data-span-container">
+                                            <span class="left-span">离心机组</span>
+                                            <span class="control-area-span">东</span>
+                                            <span class="right-span">
+                                                <font class="">1</font>
+                                                <font>2</font>
+                                                <font>3</font>
+                                                <font>4</font>
+                                            </span>
 
-                                    </span>
-                                        <br /><br />
-                                        <span class="left-span">溴锂机组</span>
-                                        <span class="control-area-span">东</span>
-                                        <span class="right-span">
-                                         <font class="">1</font>
-                                        <font>2</font>
-                                    </span>
-                                        <br /><br />
-                                        <span class="left-span">热泵机组</span>
-                                        <span class="control-area-span">东</span>
-                                        <span class="right-span">
-                                         <font class="">1</font>
-                                        <font>2</font>
-                                    </span>
+                                        </div>
+
+                                        <div class="the-data-span-container" style="display: none">
+                                            <span class="left-span">溴锂机组</span>
+                                            <span class="control-area-span">东</span>
+                                            <span class="right-span">
+                                                 <font class="">1</font>
+                                                <font>2</font>
+                                            </span>
+
+                                        </div>
+
+                                        <div class="the-data-span-container">
+
+                                            <span class="left-span">地源热泵</span>
+                                            <span class="control-area-span">东</span>
+                                            <span class="right-span">
+                                                     <font class="">1</font>
+                                                    <font>2</font>
+                                                    <font>3</font>
+                                            </span>
+
+                                        </div>
+
+                                        <div class="the-data-span-container">
+
+                                            <span class="left-span">电锅炉</span>
+                                            <span class="control-area-span">东</span>
+                                            <span class="right-span">
+                                                     <font>1</font>
+                                                      <font>2</font>
+                                            </span>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -275,7 +302,7 @@
                                     </div>
 
                                     <!--溴化锂机组系统-->
-                                    <div class="bottom-efficiency-container" >
+                                    <div class="bottom-efficiency-container" style="display: none">
                                         <h2 class="right-bottom-content-title">溴化锂机组</h2>
                                         <!--echart图-->
                                         <div id="bottom-refrigerator-chart1" class="bottom-meter-chart">
@@ -301,6 +328,23 @@
                                             <p>热泵COP:<span id="span_RBJ_nxVa_text">0</span>kW/kW</p>
                                         </div>
                                     </div>
+
+                                    <!--电锅炉系统-->
+                                    <div class="bottom-efficiency-container" >
+                                        <h2 class="right-bottom-content-title">电锅炉</h2>
+                                        <!--echart图-->
+                                        <div id="bottom-refrigerator-chart5" class="bottom-meter-chart">
+                                        </div>
+                                        <!--数据信息-->
+                                        <div class="bottom-efficiency-message">
+                                            <p>输入电量:<span id="span_DGL_eVa_text">0</span>kW</p>
+                                            <p>输出热量:<span id="span_DGL_hVa_text">0</span>kW</p>
+                                            <p>锅炉效率:<span id="span_DGL_nxVa_text">0</span>kW</p>
+                                        </div>
+
+                                    </div>
+
+
                                     <!--冷却侧系统-->
                                     <div class="bottom-efficiency-container" >
                                         <h2 class="right-bottom-content-title">冷却侧</h2>
@@ -314,6 +358,7 @@
                                             <p>冷却输送系数:<span id="span_LQC_nxVa_text">0</span>kW/kW</p>
                                         </div>
                                     </div>
+
                                     <!--冷冻侧系统-->
                                     <div class="bottom-efficiency-container" >
                                         <h2 class="right-bottom-content-title">冷冻侧</h2>
@@ -346,6 +391,7 @@
                         <!--下方折线图-->
                         <div class="right-bottom-content-bottom">
                             <div class="row">
+
                                 <!--能耗曲线-->
                                 <div class="col-lg-12 bottom-content-top-introduce bottom-content-bottom-consumption quota-data-bottom">
                                     <!--头部信息-->
@@ -357,8 +403,9 @@
                                     <div class="consumption-container">
                                         <span class="onClick">冷量曲线</span>
                                         <span>电耗曲线</span>
-                                        <span>汽耗曲线</span>
+                                        <span style="display: none">汽耗曲线</span>
                                         <span>温度曲线</span>
+
                                     </div>
                                     <div class="right-bottom-content-bottom-echart" id="consumotion-echart0">
                                     </div>

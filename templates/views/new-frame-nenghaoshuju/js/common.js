@@ -316,6 +316,8 @@ function _newSelectTime(dataType){
 
              _timeYMDComponentsFun($('.min'));
 
+            _timeYMDComponentsFun($('.max'));
+
         }
 
         //改变提示信息

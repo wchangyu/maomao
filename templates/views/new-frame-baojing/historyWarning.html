@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
+    <link rel="stylesheet" href="../resource/css/productionOrder.css">
+    <link rel="stylesheet" href="../new-frame-nenghaoshuju/css/common.css">
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        .right-choose-condition-container .datetime {
+            width: 90px !important;
+
+        }
+
+        .right-choose-condition-container .has-choosed-object {
+            width: 165px !important;
+
+        }
+
+        .left-choose-energy-container {
+
+            padding-left: 25px !important;
+
+        }
+
+        .left-choose-energy-container ul {
+            padding-right: 20px !important;
+        }
+
+        .right-choose-condition-container .choose-custom-select font {
+            width: 110px !important;
+
+        }
+
+        .right-choose-condition-container .choose-custom-select {
+
+            margin-left: 10px;
+
+             margin-right: 0px;
+
+        }
+
+        .right-choose-condition-container .start-time{
+
+            margin-left: 10px;
+        }
+
+        /*左侧是否处理的图标*/
+        .left-choose-energy-container ul .has-deal {
+
+            background: url(img/yichuli.png) no-repeat;
+
+        }
+
+        .left-choose-energy-container ul .has-no-deal {
+
+            background: url(img/weichuli.png) no-repeat;
+
+        }
+
+    </style>
+</head>
+
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+
+                            <!--上方选择查询条件-->
+                            <div class="top-choose-condition-container">
+
+                                <!--里层容器-->
+                                <div class="inner-condition-container">
+
+                                    <!--左侧选择是否处理-->
+                                    <div class="left-choose-energy-container">
+
+                                    <ul>
+                                        <li class="choose-energy has-deal" >
+
+                                            <label for="radio1" class="input-label1" style="padding-left: 0">已处理</label>
+                                            <input class="time-radio" id="radio1" type="radio" name="choose-radio" value="day" data-id="-2">
+
+                                        </li>
+
+                                        <li class="choose-energy has-no-deal" >
+
+                                            <label for="radio2" class="input-label1" style="padding-left: 0">未处理</label>
+
+                                            <input class="time-radio" id="radio2" type="radio" name="choose-radio" value="time" data-id="0" checked="checked" >
+
+                                        </li>
+
+                                    </ul>
+
+                                    </div>
+
+                                    <!--右侧选择其他信息-->
+                                    <div class="right-choose-condition-container">
+
+                                        <!--对象选择-->
+                                        <span class="choose-object">楼宇选择</span>
+
+                                        <!--对象选择弹窗-->
+                                        <div class='modal fade' id='my-object' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' >
+                                            <div class='modal-dialog' style='margin:100px auto;width:530px !important;'>
+
+                                                <div class='modal-content' style="">
+
+                                                    <div class="choose-object-windows">
+
+                                                        <!--标题-->
+                                                        <h3 class="window-title">对象选择
+
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                                        </h3>
+
+                                                        <div class="left-middle-main">
+                                                            <div class="left-middle-content">
+                                                                <div class="left-tab-contain">
+                                                                    <div class="left-middle-tab left-middle-tab_aa_0 onChoose">楼宇选择</div>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="tree-1 tree-0">
+                                                    <span class="allPointerOne">
+                                                        <div class="selectedRadio"></div>
+                                                    </span>
+                                                                <div class="left-middle-input">
+                                                                    <input type="text"  id="keys" class="empty form-control" placeholder="搜索...">
+                                                                </div>
+                                                                <div class="tipess"></div>
+                                                                <ul class="allPointer ztree scrollbar" id="allPointer">
+                                                                </ul>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <!--确定按钮-->
+                                                        <button class="sure">确定</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!--存放已选择的对象-->
+                                        <span class="has-choosed-object">
+
+                                            <!--<p class="has-choosed-message">-->
+                                            <!--<b></b><font>1号楼1号变压器</font>-->
+                                            <!--</p>-->
+
+                                            <!--<p class="has-choosed-message">-->
+                                            <!--<b></b><font>2号楼2号变压器</font>-->
+                                            <!--</p>-->
+
+                                            <!--<p class="has-choosed-message">-->
+                                            <!--<b></b><font>3号楼3号变压器</font>-->
+                                            <!--</p>-->
+
+                                        </span>
+
+                                        <!--选择报警类型-->
+                                        <span class="choose-exc choose-custom-select" style="width:auto">
+                                            <font>全部</font><b></b>
+
+                                            <!--对象选择下拉框-->
+                                            <div class="choose-exc-select choose-custom-select-container" style="display: none;">
+
+                                                <ul>
+
+                                                </ul>
+
+                                            </div>
+
+                                        </span>
+
+                                        <!--选择能耗类型-->
+                                        <span class="choose-energy choose-custom-select" style="width:auto">
+                                            <font>全部</font><b></b>
+
+                                            <!--对象选择下拉框-->
+                                            <div class="choose-energy-select  choose-custom-select-container" style="display: none;">
+
+                                                <ul>
+
+                                                </ul>
+
+                                            </div>
+
+                                        </span>
+
+                                        <!--时间选择-->
+                                        <span class="choose-time choose-custom-select" style="display: none">
+                                            <font>日</font><b></b>
+
+                                            <!--时间选择下拉框-->
+                                            <div class="choose-time-select choose-custom-select-container">
+
+                                            <ul>
+                                                <li class="the-select-message the-time-type onChoose">日</li>
+                                                <li class="the-select-message the-time-type">周</li>
+                                                <li class="the-select-message the-time-type">月</li>
+                                                <li class="the-select-message the-time-type">年</li>
+                                                <li class="the-select-message the-time-type">自定义</li>
+                                            </ul>
+
+                                            </div>
+
+                                        </span>
+
+                                        <!--开始时间-->
+                                        <span class="start-time the-times">
+                                        <input type="text" class="min datetime" placeholder="开始时间"><b></b>
+
+                                        </span>
+
+                                        <!--结束时间-->
+                                        <span class="end-time the-times">
+                                        <input type="text" class="max datetime" placeholder="结束时间"><b></b>
+
+                                        </span>
+
+                                        <!--查询按钮-->
+                                        <button class="demand">查询</button>
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                            </div>
+
+                            <!--下方数据-->
+                            <div class="bottom-data-container">
+
+                                <div class="right-content">
+
+                                    <div class="warning-data-container">
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!--流程图弹窗-->
+<div class='modal fade' id='my-userMonitor' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:100px auto;'>
+        <div class='modal-content' style="width:100px !important;">
+            <div class='modal-header' style="width:100px !important;">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>流程图信息</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <iframe src="../yongnengjiance/jumpEnergyMonitor1.html" frameborder="0" width="900" height="600" style="overflow: hidden" scrolling="no">
+
+                </iframe>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--生成工单弹窗-->
+<div class="modal fade" id="Creat-myModa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 572px;width: 650px !important;margin:8% auto">
+        <div class="modal-content" style="height: 572px;width: 650px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">生成工单</h4>
+            </div>
+            <div class="modal-body" style="height: 450px;overflow-y: auto">
+                <!--主体部分-->
+                <ul class="gongdanList" style="width: 630px !important;float: left;">
+                    <li class="floatLi" class="gdcodehide" style="display: none;">
+                        <div class="labels">工单号：</div>
+                        <div class="input-blockeds">
+                            <input class="disabled-block auto-fill" id="gdCode" type="text" placeholder="自动生成" disabled="disabled">
+                        </div>
+                    </li>
+                    <li class="floatLi" style="display: none">
+                        <div class="labels">设备名称 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text"id="devMC">
+                        </div>
+                    </li>
+                    <li class="floatLi" style="display: none">
+                        <div class="labels">设备编码 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="devBM">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">报修人信息 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="bxRen">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">报修电话 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="bxTel" id="bxTel">
+                        </div>
+                    </li>
+
+                    <li class="floatLi">
+                        <div class="labels">报修科室：</div>
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" id="bxSec">
+                        </div>
+                    </li>
+
+                    <li class="floatLi">
+                        <div class="labels">维修项目：</div>
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" id="wx-project">
+                        </div>
+                    </li>
+                    <li class="floatLi" style="display: none">
+                        <div class="labels">设备系统 ：</div>
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" id="devSys">
+                        </div><!--v-model="matter"-->
+                    </li>
+                    <li class="floatLi" style="display: none">
+                        <div class="labels">设备分类 ：</div>
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" id="devMatter">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels colorTip">故障定位 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="wxAdd">
+                        </div>
+                    </li>
+
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="labels">故障描述：</div>
+                        <div class="input-blockeds" style="height:185px;width: 99%;">
+                            <textarea id="bxRem" style="width: 100%;height: 183px;outline: none"></textarea>
+                        </div>
+                    </div>
+                </ul>
+
+                <!--&lt;!&ndash;已创建工单部分&ndash;&gt;-->
+                <!--<div style="width: 300px;float: right;">-->
+
+                <!--<div style="font-size: 16px;line-height: 40px;">当前设备未完成工单:<span id="GdNum" style="font-size: 20px;margin-left: 10px;">0</span></div>-->
+
+                <!--<ul class="gdListInfo">-->
+                <!--<li>-->
+                <!--<label for="">工单号：</label>-->
+                <!--<a href="">DE18062110590430</a>-->
+                <!--<div></div>-->
+                <!--<label for="">详情：</label>-->
+                <!--<div class="detailGD">-->
+                <!--时间：2018-06-21 11:00:00↵支路：F19.1D.LWP49提升泵故障状态↵楼宇名称：南京南高铁站↵报警事件：提升泵故障报警↵报警类型：设备故障↵此时数据：1.00↵报警等级：2-->
+                <!--</div>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<label for="">工单号：</label>-->
+                <!--<a href="">DE18062110590430</a>-->
+                <!--<div></div>-->
+                <!--<label for="">详情：</label>-->
+                <!--<div class="detailGD">-->
+                <!--时间：2018-06-21 11:00:00↵支路：F19.1D.LWP49提升泵故障状态↵楼宇名称：南京南高铁站↵报警事件：提升泵故障报警↵报警类型：设备故障↵此时数据：1.00↵报警等级：2-->
+                <!--</div>-->
+                <!--</li>-->
+                <!--</ul>-->
+
+                <!--</div>-->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary dengji">确定</button>
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--历史报警弹窗-->
+<div class="modal fade" id="historyWarn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 552px;width: 1100px !important;margin:8% auto">
+        <div class="modal-content" style="height: 552px;width: 1100px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body" style="height: 450px;overflow-y: auto">
+
+                <!--主体部分-->
+                <table class="table  table-alarm table-striped  table-bordered table-advance table-hover
+" id="dateTables" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>时间</th>
+                        <th>报警事件</th>
+                        <th>报警类型</th>
+                        <th>报警条件</th>
+                        <th>此时数据</th>
+                        <th>报警等级</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="scrollbar">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../new-resource/js/common.js"></script>
+<script src="../new-frame-nenghaoshuju/js/common.js"></script>
+<script src="js/common.js"></script>
+<script src="js/historyWarning.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

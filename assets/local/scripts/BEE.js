@@ -841,6 +841,7 @@ var BEE = (function(){
                                     num2 ++;
                                 }
                             });
+
                             if(num2 > 0){
                                 //加入待接单备件信息
                                 infoHtml += addInfoMessage(num2,'待接单','gdOrders.html','../gongdanxitong/');

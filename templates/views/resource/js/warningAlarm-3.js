@@ -408,7 +408,7 @@ $(function(){
 
                         if(data == 0){
 
-                            return  "<span style='width:80px;display: inline-block'>无</span>"
+                            return  "<span style='width:80px;display: inline-block'>无</span>";
 
                         }else{
 
@@ -471,16 +471,20 @@ $(function(){
 
     //setData();
     $('#datatables tbody').on( 'click', 'input', function () {
+
         var $this = $(this);
         if($(this).parents('.checker').children('.checked').length == 0){
             $(this).parent($('span')).addClass('checked');
         }else{
             $(this).parent($('span')).removeClass('checked');
         }
+
     } );
 
     $('.logoToRead').click(function(){
+
         logoToRead();
+
     });
 
     $('#datatables tbody').on('click', 'td .details-control', function () {
@@ -709,7 +713,7 @@ $(function(){
 
             error:_errorFun
 
-        })
+        });
 
         //查看未完成工单
         var prmGD = {
@@ -726,14 +730,13 @@ $(function(){
             //用户名
             userName:_userIdName
 
-        }
+        };
 
         if(_this.attr('data-devnum') == ''){
 
             prmGD.bxBeizhu = bxStr
 
         }
-
 
         $.ajax({
 
@@ -942,6 +945,7 @@ function getDataByConfig(){
 
 //指定能耗种类的类型为全部；
 var _ajaxEcType = " ";
+
 //指定全部报警类型为全部；
 var excTypeInnderId = " ";
 var pointerID = [];
@@ -958,11 +962,13 @@ function getPointerID(){
 var startRealTime = moment().subtract('24','hours').format('YYYY-MM-DD HH:mm:ss');
 var endRealTime = moment().format('YYYY-MM-DD HH:mm:ss');
 var showStartRealTime = moment().format('YYYY-MM-DD');
+
 //获取历史数据
 var dataArr = [];
 var totalArr = [];
 //获取所有数据
 var _history = [];
+
 function alarmHistory(){
 
     var prm = {
@@ -1025,6 +1031,7 @@ function existItem(arr,item){ //遍历数组中的所有数，如果有相同的
     }
     return false;
 }
+
 function datasTable(tableId,arr){
     if(arr.length == 0){
         var table = tableId.dataTable();
@@ -1037,6 +1044,7 @@ function datasTable(tableId,arr){
         table.fnDraw();
     }
 }
+
 //标识阅读功能
 var logoToReadID = [];
 function logoToRead (){

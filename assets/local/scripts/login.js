@@ -230,7 +230,16 @@ var Login = function() {
 
             if(window.screen.width > 2500 && sessionStorage.bigScreenSwitch == 1){
 
-                window.location.href = 'njn-dapingzhanshi/pandectEnergy.html';
+                //虹桥页面
+                if(sessionStorage.colorStyle == 1){
+
+                    window.location.href = 'njn-dapingzhanshi/pandectEnergy1.html';
+
+                }else{
+
+                    window.location.href = 'njn-dapingzhanshi/pandectEnergy.html';
+                }
+
 
                 return false;
             }
