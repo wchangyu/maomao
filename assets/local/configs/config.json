@@ -220,7 +220,7 @@
   "stationTabTypeComment":"车站大屏导航栏模式 0为南京南模式 1为上海虹桥模式",
   "stationJumpType":"1",
   "stationJumpTypeComment":"车站大屏页面跳转方式 0不跳转 1单点登录方式跳转 2系统内部改变车站id",
-  "useNewIframe":"0",
+  "useNewIframe":"1",
   "useNewIframeComment":"是否启用新框架 0不启用 1启用",
   "colorStyle":"1",
   "colorStyleComment":"大屏首页风格，0南京南，1虹桥",

@@ -13,6 +13,8 @@
 .bottom-data-container {
 
     background: none !important;
+    height: 600px !important;
+    overflow: auto;
 }
 
 .warning-data-container{

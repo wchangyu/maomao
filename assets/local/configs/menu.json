@@ -842,7 +842,7 @@
       "历史报警": {
         "type": "0",
         "content": "历史报警",
-        "uri": "../new-frame-baojing/realTimeWarning.html",
+        "uri": "../new-frame-baojing/historyWarning.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
