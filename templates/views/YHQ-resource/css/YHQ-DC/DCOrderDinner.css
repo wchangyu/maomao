@@ -100,7 +100,7 @@
 
 .mealRight{
 
-    width: 180px;
+    width: 380px;
 
     display: inline-block;
 
@@ -137,5 +137,57 @@
 .order-already .order-meal-prince{
 
     margin-right: 5px;
+
+}
+
+.order-meal-number{
+
+    width: 50px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    border: 1px solid #DCDCDC;
+
+    outline: none;
+
+    text-indent: 5px;
+
+    margin: 0 10px;
+
+    text-align: center;
+
+}
+
+.order-meal-prince{
+
+    width: 30px;
+
+    text-align: center;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+}
+
+.order-dinner-num{
+
+    cursor: pointer;
+
+}
+
+#emptyAllMeal{
+
+    padding: 3px 5px;
+
+    border: 1px solid #DCDCDC;
+
+    font-size: 12px;
+
+    float: right;
+
+    cursor: pointer;
 
 }
