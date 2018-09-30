@@ -1328,8 +1328,7 @@ function getRBJAE(ew) {
 
 //获取[电锅炉系统]数据
 var chartViewDGLMain =  echarts.init(document.getElementById('bottom-refrigerator-chart5'));
-function getDGLAE(ew)
-{
+function getDGLAE(ew) {
     var url = sessionStorage.apiUrlPrefix + "EWCH/GetDGLMos";
     var st = moment().format('YYYY-MM-DD HH:mm');
     var par = {
@@ -1368,7 +1367,6 @@ function getDGLAE(ew)
         }
     })
 };
-
 
 //获取[溴锂机组系统]数据
 var chartViewXLJMain =  echarts.init(document.getElementById('bottom-refrigerator-chart1'));

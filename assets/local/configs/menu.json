@@ -1,4 +1,4 @@
-﻿﻿{
+﻿{
   "content": "type:0代表具体菜单,1代表上级菜单;content:显示文本;url:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;",
   "能源管理": {
     "type": "1",
@@ -672,7 +672,7 @@
         "iconclass": "",
         "arg2": "admin,gly,hq01,kz"
       },
-      "设备二维码":{
+      "设备二维码": {
         "type": "0",
         "content": "设备二维码",
         "uri": "../zichanguanli/assetManagement-print-hospital.html",
@@ -842,7 +842,7 @@
       "历史报警": {
         "type": "0",
         "content": "历史报警",
-        "uri": "../new-frame-baojing/historyWarning.html",
+        "uri": "../new-frame-baojing/realTimeWarning.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
@@ -1120,14 +1120,14 @@
         "iconclass": "",
         "arg2": "admin"
       },
-      "仓库权限管理":{
-        "type":"0",
-        "content":"仓库权限管理",
-        "uri":"../xitongshezhi/permissionAssignment.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":"",
-        "arg2":"admin"
+      "仓库权限管理": {
+        "type": "0",
+        "content": "仓库权限管理",
+        "uri": "../xitongshezhi/permissionAssignment.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
       },
       "维修工时管理": {
         "type": "0",
@@ -1203,13 +1203,13 @@
         "content": "用户信息",
         "arg2": "admin"
       },
-      "修改密码":{
-        "type":"0",
-        "content":"修改密码",
-        "uri":"../xitongshezhi/changePwd.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
+      "修改密码": {
+        "type": "0",
+        "content": "修改密码",
+        "uri": "../xitongshezhi/changePwd.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       },
       "登录日志": {
         "type": "0",
