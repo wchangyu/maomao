@@ -65,17 +65,9 @@ $(function(){
             title:'状态',
             data:'mwstatus',
             className:'status',
-            render:function(data, type, full, meta) {
+            render:function(data, type, full, meta){
 
-                if(data == ''){
-
-                    return ''
-
-                }else{
-
-                    return moment(data).format('YYYY-MM-DD HH:mm')
-
-                }
+                return _YFstatus(data)
 
             }
         },

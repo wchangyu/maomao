@@ -38,7 +38,15 @@ $(function(){
 
     }else{
 
-        unLoginPointer();
+        if(searchL == '?000'){
+
+            pointerData();
+
+        }else{
+
+            unLoginPointer();
+
+        }
 
     }
 

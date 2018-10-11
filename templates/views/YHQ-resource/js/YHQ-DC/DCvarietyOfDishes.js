@@ -21,12 +21,6 @@ $(function(){
     //删除文件有两个含义，本地删除（创建的时候删除，编辑的时候删除服务器上的图片）
     var _thisImg = false;
 
-    //获取菜品类型
-    MealType();
-
-    //获取餐厅
-    RestaurantType();
-
     /*----------------------------------------验证-----------------------------------------*/
 
     //输入验证
@@ -425,7 +419,11 @@ $(function(){
 
     _tableInit($('#table'),col,'2','','','','','');
 
-    conditionSelect();
+    //获取菜品类型
+    MealType();
+
+    //获取餐厅
+    RestaurantType();
 
     /*----------------------------------------按钮事件-------------------------------------*/
 
@@ -788,7 +786,7 @@ $(function(){
 
             var str = '<option value="">请选择</option>';
 
-            var str1 = '<option value="">全部</option>';
+            var str1 = '<option value="-1">全部</option>';
 
             if(result.code == 99){
 
@@ -805,6 +803,8 @@ $(function(){
             $('#DC-type').append(str);
 
             $('#DC-type-con').append(str1);
+
+            conditionSelect();
 
         })
 
@@ -933,9 +933,11 @@ $(function(){
             cookname:$('#DC-name-con').val(),
             //餐厅
             //dinningroomid:$('#DC-restaurant-con').val(),
-            dinningroomid:1,
+            //dinningroomid:1,
             //菜品类型
-            lx:$('#DC-type-con').val()
+            lx:$('#DC-type-con').val(),
+            //部门
+            departnum:_userBM
 
         }
 

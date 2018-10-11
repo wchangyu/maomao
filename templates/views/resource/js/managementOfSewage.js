@@ -20,7 +20,11 @@ $(function(){
             //盐用量
             consumption:'',
             //执行人
-            person:''
+            person:'',
+            //ph1
+            ph1:'',
+            //ph2
+            ph2:''
         },
         methods:{
             timeFun:function(){
@@ -33,6 +37,71 @@ $(function(){
                     forceParse: 0,
                     autoclose: 1
                 });
+            },
+            naturalNumber:function(attr){
+
+                //var mny = /^([1-9]\d*(\.\d*[1-9])?)/;
+
+                var $this = $(this)[0][attr];
+
+                var e = e||window.event;
+
+                var error = $(e.srcElement).parents('li').find('span');
+
+                if( $this == '' ){
+
+                    error.hide();
+
+                }else{
+
+                    if(isNaN(Number($this))){
+
+                        //不是数字
+                        error.show();
+
+
+                    }else{
+
+                        //是数字
+                        error.hide();
+
+                    }
+
+                }
+
+
+            },
+            numberY:function(attr){
+
+                var mny = /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
+
+                var $this = $(this)[0][attr];
+
+                var e = e||window.event;
+
+                var error = $(e.srcElement).parents('li').find('span');
+
+                if( $this == '' ){
+
+                    error.hide();
+
+                }else{
+
+                    if(!mny.test(obj.consumption)){
+
+                        //不是数字
+                        error.show();
+
+
+                    }else{
+
+                        //是数字
+                        error.hide();
+
+                    }
+
+                }
+
             }
         }
     });
@@ -90,14 +159,24 @@ $(function(){
 
         }else{
 
-            //验证数字
-            var reg = /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
+            //验证是否通过
+            var errorDom = $('#myApp33').find('.colorTip');
 
-            if(!reg.test(obj.consumption)){
+            var isPass = true;
 
-                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写大于0的数字！', '');
+            for(var i=0;i<errorDom.length;i++){
 
-            }else{
+                if(errorDom.eq(i).css('display') != 'none'){
+
+                    isPass = false;
+
+                    break;
+
+                }
+
+            }
+
+            if(isPass){
 
                 optionButton('EnergyReportV2/SaveSewageData','新增成功','新增失败');
 
@@ -203,14 +282,24 @@ $(function(){
 
         }else{
 
-            //验证数字
-            var reg = /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
+            //验证是否通过
+            var errorDom = $('#myApp33').find('.colorTip');
 
-            if(!reg.test(obj.consumption)){
+            var isPass = true;
 
-                _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写大于0的数字！', '');
+            for(var i=0;i<errorDom.length;i++){
 
-            }else{
+                if(errorDom.eq(i).css('display') != 'none'){
+
+                    isPass = false;
+
+                    break;
+
+                }
+
+            }
+
+            if(isPass){
 
                 optionButton('EnergyReportV2/EditSewageData','编辑成功','编辑失败',true);
 
@@ -275,6 +364,14 @@ $(function(){
         {
             title:'盐用量（公斤）',
             data:'f_InputValue'
+        },
+        {
+            title:'PH1',
+            data:'f_InputValue1'
+        },
+        {
+            title:'PH2',
+            data:'f_InputValue2'
         },
         {
             title:'执行人',
@@ -410,7 +507,11 @@ $(function(){
                 //用户id
                 userID:_userIdNum,
                 //是污水处理还是液氧0是污水处理1是液氧
-                f_ValueType:0
+                f_ValueType:0,
+                //ph1
+                f_InputValue1:obj.ph1 == ''?0:obj.ph1,
+                //ph2
+                f_InputValue2:obj.ph2 == ''?0:obj.ph2
             }
 
             if(flag){
@@ -555,6 +656,8 @@ $(function(){
 
         $('#chosePerson').show();
 
+        $('#person1').attr('disabled',true);
+
     }
 
     //条件查询
@@ -633,6 +736,12 @@ $(function(){
 
                     //盐用量
                     obj.consumption = result.f_InputValue;
+
+                    //PH1
+                    obj.ph1 = result.f_InputValue1;
+
+                    //PH2
+                    obj.ph2 = result.f_InputValue2;
 
                     //执行人
                     obj.person = result.f_SysUserName;
