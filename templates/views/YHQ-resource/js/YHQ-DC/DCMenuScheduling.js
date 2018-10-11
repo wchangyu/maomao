@@ -12,6 +12,22 @@ $(function(){
 
     _timeYMDComponentsFun11($('.abbrDT'));
 
+    $('.DC-time').datepicker({
+        language:  'zh-CN',
+        todayBtn: 1,
+        todayHighlight: true,
+        format: 'yyyy-mm-dd',
+        forceParse: 0,
+        autoclose: 1
+
+    }).on('change',function(picker){
+
+        $(picker.target).parents('.time-tool-block').next().next().hide();
+
+        $(picker.target).next('.error').hide();
+
+    })
+
     //获取菜品类型
     MealType();
 
@@ -30,6 +46,9 @@ $(function(){
 
     //当前id
     var _thisId = '';
+
+    //当前日期
+    var _dt = '';
 
     /*------------------------------------------表格初始化---------------------------------*/
 
@@ -373,21 +392,22 @@ $(function(){
 
         //数据(根据选中的类型筛选菜品)
 
-        var arr = [];
 
-        for(var i=0;i<_mealArr.length;i++){
-
-            if(_mealArr[i].lx == $('#DC-type').val()){
-
-                arr.push(_mealArr[i]);
-
-            }
-
-        }
-
-        //console.log(arr);
-
-        _datasTable($('#meal-table'),arr);
+        //var arr = [];
+        //
+        //for(var i=0;i<_mealArr.length;i++){
+        //
+        //    if(_mealArr[i].lx == $('#DC-type').val()){
+        //
+        //        arr.push(_mealArr[i]);
+        //
+        //    }
+        //
+        //}
+        //
+        ////console.log(arr);
+        //
+        //_datasTable($('#meal-table'),arr);
 
 
     })
@@ -413,7 +433,7 @@ $(function(){
         //菜品单价
         $('#DC-prince').val(currentTr.find('.price').html());
 
-        $('#meal-Modal').hide();
+        $('#meal-Modal').modal('hide');
 
         if($('#DC-name').next('.error')){
 
@@ -515,6 +535,46 @@ $(function(){
             _moTaiKuang($('#tip-Modal'),'提示',true,true,result.message,'');
 
         })
+
+    })
+
+    //查询
+    $('#selectBtn').click(function(){
+
+        conditionSelect();
+
+    })
+
+    //重置
+    $('#resetBtn').click(function(){
+
+        $('#DC-restaurant-con').val('');
+
+        $('#spDT').val(st);
+
+        $('#epDT').val(nowTime);
+
+    })
+
+    //批量删除
+    $('#table tbody').on('click','.option-del',function(){
+
+        var str = $(this).parents('tr').children().eq(0).html();
+
+        _thisId = $(this).attr('data-attr');
+
+        _dt = str;
+
+        var strTip = '确定要删除<span style="font-weight: bold;margin: 0 10px;">' + str + '</span>的餐次吗？';
+
+        _moTaiKuang($('#del-batch-Modal'),'提示','',true,strTip,'删除');
+
+    })
+
+    //批量删除确定按钮
+    $('#del-batch-Modal').on('click','.btn-primary',function(){
+
+        batchDel();
 
     })
 
@@ -667,8 +727,11 @@ $(function(){
             //菜名
             cookname:'',
 
+            //时间
+
+
             //菜品类型
-            lx:''
+            lx:'-1'
 
         }
 
@@ -786,44 +849,17 @@ $(function(){
 
                     for(var j=0;j<resultArr[i].length;j++){
 
-
                         if(resultArr[i][j].mmn == '早'){
 
-                            if(j == resultArr[i].length-1){
-
-                                strM += '<span data-attr="' + resultArr[i][j].id + '">' + resultArr[i][j].cookname  + '</span>';
-
-                            }else{
-
-                                strM += '<span data-attr="' + resultArr[i][j].id + '">' + resultArr[i][j].cookname + '、' + '</span>';
-
-                            }
-
-
+                            strM += '<span data-attr="' + resultArr[i][j].id + '" style="margin-right: 10px;">' + resultArr[i][j].cookname  + '</span>';
 
                         }else if(resultArr[i][j].mmn == '中'){
 
-                            if(j == resultArr[i].length-1){
-
-                                strN += '<span data-attr="' + resultArr[i][j].id + '">' + resultArr[i][j].cookname  + '</span>';
-
-                            }else{
-
-                                strN += '<span data-attr="' + resultArr[i][j].id + '">' + resultArr[i][j].cookname + '、' + '</span>';
-
-                            }
+                            strN += '<span data-attr="' + resultArr[i][j].id + '" style="margin-right: 10px;">' + resultArr[i][j].cookname  + '</span>';
 
                         }else if(resultArr[i][j].mmn == '晚'){
 
-                            if(j == resultArr[i].length-1){
-
-                                strE += '<span data-attr="' + resultArr[i][j].id + '">' + resultArr[i][j].cookname  + '</span>';
-
-                            }else{
-
-                                strE += '<span data-attr="' + resultArr[i][j].id + '">' + resultArr[i][j].cookname + '、' + '</span>';
-
-                            }
+                            strE += '<span data-attr="' + resultArr[i][j].id + '" style="margin-right: 10px;">' + resultArr[i][j].cookname + '</span>';
 
 
                         }
@@ -847,7 +883,7 @@ $(function(){
                     str += '<td>' + strE + '</td>';
 
                     //操作（编辑）
-                    //str += '<span class="option-button option-see option-in">详情</span>'
+                    str += '<td><div class="option-button option-del option-in" data-attr="' + resultArr[i][0].dinningroomid + '">删除</div></td>'
 
                     //闭合
                     str += '</tr>'
@@ -858,6 +894,15 @@ $(function(){
                 $('#table tbody').empty().append(str);
 
             }
+
+            if(_allData.length == 0){
+
+                var str = '<tr><td colspan="5">暂时没有餐次排班</td></tr>'
+
+                $('#table tbody').empty().append(str);
+
+            }
+
 
         })
 
@@ -891,6 +936,35 @@ $(function(){
             }
 
         }
+
+    }
+
+    //批量删除
+    function batchDel(){
+
+        var prm = {
+
+            //餐厅id
+            dinningroomid:_thisId,
+            //日期
+            dt:_dt
+
+        }
+
+        _mainAjaxFunCompleteNew('post','YHQDC/DayMenuBatchDelete',prm,$('#del-batch-Modal').children(),function(result){
+
+            if(result.code == 99){
+
+                $('#del-batch-Modal').modal('hide');
+
+                conditionSelect();
+
+            }
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,result.message,'');
+
+        })
+
 
     }
 

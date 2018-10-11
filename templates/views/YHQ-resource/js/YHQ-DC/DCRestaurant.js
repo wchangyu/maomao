@@ -8,13 +8,41 @@ $(function(){
     //当前的餐厅id
     var _thisId = '';
 
+    //暂存部门
+    var _depArr = [];
+
+    //已选中的部门
+    var _selectDep = [];
+
+    //部门
+    departData();
+
     /*----------------------------------------时间----------------------------------------*/
 
     //条件查询时间初始化
     _timeYMDComponentsFun11($('.abbrDT'));
 
     //模态框时间初始化
-    _timeComponentsFun($('.DC-time'));
+    //_timeComponentsFun($('.DC-time'));
+
+    $('.DC-time').datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        format : "hh:ii",//日期格式
+        startView: 1,  //1时间  2日期  3月份 4年份
+        forceParse: 0,
+        maxView : 'hour'
+    }).on('change',function(picker, values, displayValues){
+
+        var dom = $(picker.target).parents('.time-tool-block').next().next();
+
+        dom.hide();
+
+        $(picker.target).next('.error').hide();
+    });
 
     /*----------------------------------------验证-----------------------------------------*/
 
@@ -431,7 +459,126 @@ $(function(){
 
     _tableInit($('#table'),col,'2','','','','','');
 
+    //部门表格初始化
+    var depCol = [
+
+        {
+            title:'选择',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                return '<img src="../YHQ-resource/img/addMeal.png" class="add-dep" style="width: 15px;cursor: pointer">'
+
+                //return  '<div class="checker" data-id="' + full.departNum + '"><span><input type="checkbox"                                 value=""></span></div>'
+
+            }
+        },
+        {
+            title:'科室编码',
+            data:'departNum'
+        },
+        {
+            title:'科室名称',
+            data:'departName'
+        }
+
+    ]
+
+    _tableInitSearch($('#dep-table'),depCol,'2','','','','','',10,true,'','',true);
+
     conditionSelect();
+
+    //科室多选
+    $('#dep-table tbody').on('click','.add-dep',function(){
+
+        //ui部分
+        var obj = {};
+
+        obj.departName = $(this).parents('tr').children().eq(2).html();
+
+        obj.departNum = $(this).parents('tr').children().eq(1).html();
+
+        //是否允许push进去
+
+        var isPass = false;
+
+        if(_selectDep.length == 0){
+
+            isPass = true;
+
+        }else{
+
+            for(var i=0;i<_selectDep.length;i++){
+
+                if(_selectDep[i].departNum == obj.departNum){
+
+                    isPass = false;
+
+                    break;
+
+                }else{
+
+                    isPass = true;
+
+                }
+
+            }
+
+        }
+
+        if(isPass){
+
+            _selectDep.push(obj);
+
+        }
+
+        //根据数组，生成li
+
+        $('#selectedDep').empty().append(selectedDepStr(_selectDep));
+
+    })
+
+    //科室静态删除
+    $('#selectedDep').on('click','.close',function(){
+
+        var num = $(this).parent('li').children('.depNum').html();
+
+        for(var i=0;i<_selectDep.length;i++){
+
+            if(_selectDep[i].departNum == num){
+
+                _selectDep.remove(_selectDep[i]);
+
+            }
+
+        }
+
+        $('#selectedDep').empty().append(selectedDepStr(_selectDep));
+
+    });
+
+    function selectedDepStr(arr){
+
+        var str = '';
+
+        for(var i=0;i<arr.length;i++){
+
+            str += '<li>';
+
+            str += '<span class="depName">' + arr[i].departName + '</span>';
+
+            str += '<span class="depNum">' + arr[i].departNum + '</span>';
+
+            str += '<span class="close"></span>'
+
+            str += '</li>'
+
+        }
+
+        return str;
+
+    }
 
     /*----------------------------------------按钮事件-------------------------------------*/
 
@@ -593,6 +740,45 @@ $(function(){
 
     })
 
+    //选择部门
+    $('#depart-select-button').click(function(){
+
+        //数据
+        _datasTable($('#dep-table'),_depArr);
+
+        //模态框
+        _moTaiKuang($('#dep-Modal'),'部门列表','','','','选择');
+
+        //根据数组，确定已选中的部门
+        $('#selectedDep').empty().append(selectedDepStr(_selectDep));
+
+    })
+
+    //确定选择的部门
+    $('#dep-Modal').on('click','.btn-primary',function(){
+
+        var str = '';
+
+        for(var i=0;i<_selectDep.length;i++){
+
+            if(i==_selectDep.length-1){
+
+                str += _selectDep[i].departName
+
+            }else{
+
+                str += _selectDep[i].departName + '、'
+
+            }
+
+        }
+
+        $('#DC-depart').val(str);
+
+        $('#dep-Modal').modal('hide');
+
+    })
+
     /*-----------------------------------其他方法------------------------------------------*/
 
     //条件查询
@@ -622,6 +808,18 @@ $(function(){
     //操作发送数据
     function sendData(url,el,flag,successFun){
 
+        var arr = [];
+
+        for(var i=0;i<_selectDep.length;i++){
+
+            var obj = {};
+
+            obj.departnum = _selectDep[i].departNum;
+
+            arr.push(obj);
+
+        }
+
         var prm = {
 
             //餐厅名称
@@ -649,12 +847,16 @@ $(function(){
             //晚送餐时间截止
             eveningordertime:$('#dinner-end-time').val(),
             //备注
-            comment:$('#DC-remark').val()
+            comment:$('#DC-remark').val(),
+            //部门
+            diningRoomsDeparts:arr
         }
 
         if(flag){
 
-            prm.id = _thisId
+            prm.id = _thisId;
+
+            //prm.
 
         }
 
@@ -678,6 +880,11 @@ $(function(){
         $('#create-Modal').find('.radio').children().removeClass('checked');
 
         $('#create-Modal').find('.radio').children().eq(0).addClass('checked');
+
+        //部门选择
+        $('#DC-depart').removeAttr('data-num');
+
+        _selectDep = [];
 
     }
 
@@ -748,6 +955,33 @@ $(function(){
                 $('#dinner-time').val(data.eveningsendtime);
                 //晚送餐时间截止
                 $('#dinner-end-time').val(data.eveningordertime);
+                //部门
+
+                var str = '';
+
+                for(var i=0;i<data.diningRoomsDeparts.length;i++){
+
+                    var obj = {};
+
+                    obj.departNum = data.diningRoomsDeparts[i].departnum;
+
+                    obj.departName = data.diningRoomsDeparts[i].departName;
+
+                    _selectDep.push(obj);
+
+                    if(i==data.diningRoomsDeparts.length-1){
+
+                        str += data.diningRoomsDeparts[i].departName
+
+                    }else{
+
+                        str += data.diningRoomsDeparts[i].departName + '、'
+
+                    }
+
+                }
+
+                $('#DC-depart').val(str);
 
             }
 
@@ -755,4 +989,36 @@ $(function(){
 
     }
 
+    //选择部门
+    function departData(){
+
+        var prm = {
+
+            //部门编码
+            departNum:'',
+            //部门名称
+            departName:'',
+            //用户ID
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName,
+            //角色
+            b_UserRole:_userRole,
+            //当前用户的部门
+            b_DepartNum:_userBM
+
+        }
+
+        _mainAjaxFunCompleteNew('post','RBAC/rbacGetDeparts',prm,false,function(result){
+
+            if(result.length >0){
+
+                _depArr = result;
+
+            }
+
+
+        })
+
+    }
 })

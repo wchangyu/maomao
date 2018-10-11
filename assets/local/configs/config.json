@@ -166,8 +166,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.122/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
+  "apiUriPrefix":"http://222.190.246.50:8080/BEEWebAPIys/api/",
+  "apiUriPrefixYW":"http://222.190.246.50:8080/BEEWebAPIys/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
   "systemTitle":"高效机房控制系统",
@@ -220,9 +220,9 @@
   "stationTabTypeComment":"车站大屏导航栏模式 0为南京南模式 1为上海虹桥模式",
   "stationJumpType":"1",
   "stationJumpTypeComment":"车站大屏页面跳转方式 0不跳转 1单点登录方式跳转 2系统内部改变车站id",
-  "useNewIframe":"1",
+  "useNewIframe":"0",
   "useNewIframeComment":"是否启用新框架 0不启用 1启用",
-  "colorStyle":"1",
+  "colorStyle":"0",
   "colorStyleComment":"大屏首页风格，0南京南，1虹桥",
   "useNewIframeUrl":"../../new-frame/new-frame.html",
   "useNewIframeUrlComment":"新框架页面路径"

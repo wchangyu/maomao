@@ -85,9 +85,33 @@
             width: 100%;
         }
 
+        #selectedDep li{
+
+            line-height: 30px;
+
+            cursor: pointer;
+
+        }
+
+        #selectedDep li .close{
+
+            margin-top: 7px;
+
+        }
+
+        #selectedDep li .depName{
+
+            margin-right: 10px;
+
+        }
+
+        #selectedDep li .depNum{
+
+            margin-right: 10px;
+
+        }
+
     </style>
-
-
 
 </head>
 <!-- END HEAD -->
@@ -206,9 +230,9 @@
                             <li>
                                 <label>类型：</label>
                                 <div id="DC-type" class="radioBlock">
-                                    <input type="radio" class="inpus" name="inpus" id="ones" value="0" checked><label>对外</label>
+                                    <input type="radio" class="inpus" name="inpus" id="ones" value="0" checked><label for="ones">对外</label>
 
-                                    <input type="radio" class="inpus" name="inpus" id="twos" value="1"><label>对内</label>
+                                    <input type="radio" class="inpus" name="inpus" id="twos" value="1"><label for="twos">对内</label>
                                 </div>
                                 <div class="modal-select"></div>
                             </li>
@@ -294,6 +318,11 @@
                                 </div>
                                 <div class="modal-select"></div>
                             </li>
+                            <li style="width: 800px;">
+                                <label>部门：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-depart" name="DC-depart" placeholder="部门是必选字段" style="width: 675px;">
+                                <div class="modal-select modal-select-show" id="depart-select-button"></div>
+                            </li>
                             <li class="text-block" style="width: 800px;">
                                 <label>备注：</label>
                                 <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="DC-remark" name="DC-remark"></textarea>
@@ -306,6 +335,50 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary confirm" type="submit" value="Submit">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--选择部门-->
+    <div class="modal fade" id="dep-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 685px;width: 1000px;">
+            <div class="modal-content" style="height: 685px;width: 800px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 563px;overflow-y: auto">
+                    <div style="display: inline-block;vertical-align: top;height: 100%;overflow-y: auto;width: 500px;">
+
+                        <!--表格-->
+                        <table id="dep-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div style="display: inline-block;vertical-align: top;height: 100%;overflow-y: auto;width: 200px;margin-left: 20px;border: 1px solid #eeeeee;padding: 10px;">
+
+                        <p style="border-bottom:1px dashed #eeeeee;line-height: 30px;">已选部门</p>
+
+                        <ul id="selectedDep">
+
+                            <!--<li>-->
+                                <!--<span class="depName">上饶维保组</span><span class="depNum">JT04</span><span class="close"></span>-->
+                            <!--</li>-->
+
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
             </div><!-- /.modal-content -->
@@ -338,8 +411,6 @@
 
 <!-- END FOOTER -->
 <script>
-
-    var _isClick = true;
 
     $('#head-html').load('../resource/html/commonHead.html');
 

@@ -368,13 +368,41 @@ $(function(){
 		//根据能耗种类过滤数据
 		var energyTypeArr = [];
 
+		//获取能耗类型的分项
+
+		var rootParent = '';
+
 		for(var i=0;i<EnItdata.length;i++){
 
-			var  newEnergyType = parseInt(EnItdata[i].energyItemType) * 100;
+			if(EnItdata[i].f_EnergyItemID == _energyTypeValue){
 
-			if(newEnergyType == _energyTypeNum){
+				rootParent = EnItdata[i].f_EnergyItemID;
 
 				energyTypeArr.push(EnItdata[i]);
+
+
+			}
+
+		}
+
+		//存放新生成的数组
+
+		ztreeDataFilter(EnItdata,rootParent);
+
+
+		function  ztreeDataFilter(arr,value){
+
+			//第一层的时候
+
+			for(var i=0;i<arr.length;i++){
+
+				if(arr[i].f_ParentItemID == value){
+
+					energyTypeArr.push(arr[i]);
+
+					ztreeDataFilter(arr,energyTypeArr[energyTypeArr.length-1].f_EnergyItemID);
+
+				}
 
 			}
 
@@ -392,6 +420,7 @@ $(function(){
 		treeObj = $.fn.zTree.init($("#energyConsumption"), setting, zNodes);
 
 	}
+
 
 	//首先将sessionStorage的内容写入html中
 	function getSessionStoragePointer(){
@@ -424,6 +453,14 @@ $(function(){
 
 		//获取楼宇id
 		var pts = pointerObj.getSelectedPointers();
+
+		var arr = [];
+
+		for(var i=0;i<pts.length;i++){
+
+			arr.push(pts[i].pointerID);
+
+		}
 
 		//获取时间维度
 		var Ttype = $('.time-options-1').html();
@@ -495,7 +532,9 @@ $(function(){
 			ecTypeId:ecTypeId,
 
 			//楼宇id
-			pointerIds:pts[0].pointerID,
+			//pointerIds:pts[0].pointerID,
+
+			pointerIds:arr,
 
 			//开始时间
 			startTime:st,
