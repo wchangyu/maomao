@@ -1170,9 +1170,9 @@ $(function(){
 
             devType:devNum
 
-        }
+        };
 
-        var url = ''
+        var url = '';
 
         if(searchL == ''){
 

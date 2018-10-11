@@ -259,6 +259,7 @@ var ObjectSelection = function(){
 
                 },
                 onCheck:function(e,treeId,treeNode){
+
                         $(treeNode).css("background", "blue");
 
                     if(treeId == 'allSelectPointer'){
@@ -284,25 +285,28 @@ var ObjectSelection = function(){
 
                     }else{
 
+                        var nodes = zTreePointer.getCheckedNodes(true)[0];
+
                         $('#eprBox .add-input-select1 span').html('全部');
 
                         $('#eprBox .add-input-select1 span').attr('data-id',nodes.id);
                     }
 
-                        //如果当前页面存在支路
-                        if($('#allBranch').length>0 && treeId != 'allSelectPointer'){
+                    //如果当前页面存在支路
+                    if($('#allBranch').length>0 && treeId != 'allSelectPointer' && treeId != 'allBranch'){
+                        console.log(66);
+                        if(branchesType){
 
-                            if(branchesType){
+                            //获取当前楼宇下的支路
+                            GetAllBranches(branchesType);
 
-                                //获取当前楼宇下的支路
-                                GetAllBranches(branchesType);
+                        }else{
 
-                            }else{
-
-                                //获取当前楼宇下的支路
-                                GetAllBranches();
-                            }
+                            //获取当前楼宇下的支路
+                            GetAllBranches();
                         }
+
+                    }
 
                         $('#' + treeId).find('.curSelectedNode').removeClass('curSelectedNode');
 

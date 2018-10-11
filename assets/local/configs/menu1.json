@@ -2516,6 +2516,17 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "停电记录报表": {
+        "type": "0",
+        "content": "停电记录报表",
+        "uri": "../gongdanxitong/powerCutReport.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "",
+        "arg2": "admin,WXBZ01",
+        "arg3": "Dep173"
       }
     }
   }
