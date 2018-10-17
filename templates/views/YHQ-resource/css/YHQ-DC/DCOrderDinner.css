@@ -110,7 +110,7 @@
 
     min-height: 200px;
 
-    margin-top: 66px;
+    margin-top: 30px;
 
     border: 1px solid #ddd;
 
@@ -189,5 +189,11 @@
     float: right;
 
     cursor: pointer;
+
+}
+
+.switch span{
+
+    background-image:none !important;
 
 }

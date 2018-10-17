@@ -367,6 +367,16 @@ $(function(){
             }
         },
         {
+            title:'PH1',
+            data:'PH1',
+            className:'rowOne',
+        },
+        {
+            title:'PH2',
+            data:'PH2',
+            className:'rowOne',
+        },
+        {
             title:'执行人',
             data:'执行人',
             className:'rowOne',

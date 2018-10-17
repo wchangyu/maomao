@@ -38,7 +38,15 @@ $(function(){
 
     }else{
 
-        unLoginPointer();
+        if(searchL == '?000'){
+
+            pointerData();
+
+        }else{
+
+            unLoginPointer();
+
+        }
 
     }
 
@@ -1170,9 +1178,9 @@ $(function(){
 
             devType:devNum
 
-        }
+        };
 
-        var url = ''
+        var url = '';
 
         if(searchL == ''){
 

@@ -422,7 +422,7 @@
 
                     }
 
-                    var JHSStr = '<p>' + '聚合商响应能力'+ '<span>' + (totalNum - Number(_DYHNum))  + '</span>' + '</p>';
+                    var JHSStr = '<p>' + '聚合商响应能力'+ '<span>' + (totalNum - Number(_DYHNum)).toFixed(2)  + '</span>' + '</p>';
 
                     $('.role-answer').append(JHSStr);
 

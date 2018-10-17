@@ -38,7 +38,7 @@ var optionBar = {
         {
             show:'false',
             type : 'category',
-            data:['定额量','能耗量']
+            data:['能耗量','定额量']
         }
     ],
     yAxis : [
@@ -275,9 +275,9 @@ function getPointerData(url){
             //确定本期y轴
             for(var i=0;i<allData.length;i++){
                 //定额量
-                allDataY.push(allData[i].energyData.toFixed(2));
+                allDataY.push(allData[i].compareData.toFixed(2));
                 //使用量
-                allDataY1.push(allData[i].compareData.toFixed(2));
+                allDataY1.push(allData[i].energyData.toFixed(2));
             }
 
             //echart折现图

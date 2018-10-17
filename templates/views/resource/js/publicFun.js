@@ -1875,6 +1875,9 @@ function _timeShow(modal){
 }
 
 //所有表格单击事件
+
+var _isClickTr = false;
+
 $('.table tbody').on('click','tr',function(){
 
     if(_isClickTr){
