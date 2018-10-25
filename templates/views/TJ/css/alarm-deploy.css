@@ -1,0 +1,87 @@
+.page-content {
+    background: #e5ebf1;
+}
+
+.container {
+    background: white;
+}
+
+.page-bar {
+    background: #e5ebf1;
+}
+
+.left-title1 {
+    background: none;
+    background-color: #687ea3;
+}
+
+/*上方标题*/
+.switch-title1{
+    width:110px;
+    text-align: right !important;
+    background: url('../img/alarm/guolv.png') no-repeat 5px center !important;
+}
+
+.switch-title2{
+    width:110px;
+    text-align: right !important;
+    background: url('../img/alarm/shezhi.png') no-repeat 5px center !important;
+}
+
+.top-title {
+    text-indent: 0px;
+}
+
+.left-diagram .top-title .onChoose {
+    background-color: #3674D9 !important;
+    color: white;
+}
+
+/*下方input框样式*/
+.condition-query  li{
+    width: 33% !important;
+    margin-right: 0;
+    margin-bottom: 15px;
+    height: auto;
+}
+
+.condition-query  li label{
+    width: 120px;
+    margin-right: 15%;
+}
+
+.condition-query  li .input-blocked {
+    display: inline-block;
+    border: 1px solid #3674D9;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.input-blocked input {
+    border: none;
+    height: 28px !important;
+    outline: none;
+    margin: 0 5px;
+    width: 200px;
+}
+
+.input-blocked select{
+    width: 210px;
+}
+
+.bottom-title{
+    text-indent: 30px;
+    color:#666666;
+    font-weight: 600;
+}
+
+.condition-query1{
+    border:1px dashed #DCDCDC;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.check-input{
+    width: 26px !important;
+    height: 30px !important;
+}

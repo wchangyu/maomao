@@ -1,16 +1,10 @@
 /**
  * Created by admin on 2018/10/25.
  */
-/**
- * Created by admin on 2018/10/22.
- */
 $(function(){
 
     //页面绘制右侧数据
-    //drawSpaceData();
-
-    //给左侧下方系统容量echart赋值
-     systemCapacityEchart();
+    drawSpaceData();
 
     //点击切换机房
     $('.top-title .userMonitor-name').on('click',function(){
@@ -63,7 +57,7 @@ $(function(){
 
 });
 
-//-----------------------------------变压器数据-------------------------------------//
+//-----------------------------------列头柜参数报警-------------------------------------//
 
 
 //定义数组长度
@@ -78,113 +72,126 @@ function drawSpaceData(){
 
     for(var i=1; i<spaceDataLength; i++){
 
-        var thisName = 'K'+i;
+        var thisName = 'P'+i;
 
         dataHtml +=
 
             '<div class="data-container">' +
-            '<h3>'+thisName+' 精密空调</h3>' +
+            '<h3>'+thisName+' PDU参数</h3>' +
+
             '<p>' +
-            '<span class="name">控制</span>' +
-            '<span class="data">' +
-            '<select name="" id="">' +
-            '<option value="0">超节能</option>' +
-            '<option value="1">一般节能</option>' +
-            '</select>' +
-            '</span>' +
+            '<span class="name title-name">进线</span>' +
             '</p>' +
+
             '<p>' +
             '<span class="name">运行状态</span>' +
             '<span class="data">' +
-            '<input type="text" class="state" value="NO">' +
+            '<input type="text" class="imaginary" value="NO">' +
+            '</span>' +
+            '</p>' +
+
+
+            '<p>' +
+            '<span class="name">故障</span>' +
+            '<span class="data">' +
+            '<input type="text" class="green-data" value="正常">' +
             '</span>' +
             '</p>' +
 
             '<p>' +
-            '<span class="name">湿度设定值</span>' +
+            '<span class="name">A相电压</span>' +
             '<span class="data">' +
-            '<input type="text" class="" value="60%">' +
+            '<input type="text" class="imaginary" value="220">' +
             '</span>' +
             '</p>' +
 
             '<p>' +
-            '<span class="name">送风温度设定</span>' +
+            '<span class="name">B相电压</span>' +
             '<span class="data">' +
-            '<input type="text" class="" value="18℃">' +
+            '<input type="text" class="imaginary" value="220">' +
             '</span>' +
             '</p>' +
 
             '<p>' +
-            '<span class="name">送风温度</span>' +
+            '<span class="name">C相电压</span>' +
             '<span class="data">' +
-            '<input type="text" class="green-data" value="18℃">' +
+            '<input type="text" class="imaginary" value="220">' +
             '</span>' +
             '</p>' +
 
             '<p>' +
-            '<span class="name">送风湿度</span>' +
+            '<span class="name">A相电流</span>' +
             '<span class="data">' +
-            '<input type="text" class="green-data" value="50%">' +
+            '<input type="text" class="imaginary" value="110">' +
             '</span>' +
             '</p>' +
 
             '<p>' +
-            '<span class="name">回风温度</span>' +
+            '<span class="name">B相电流</span>' +
             '<span class="data">' +
-            '<input type="text" class="imaginary" value="22℃">' +
+            '<input type="text" class="imaginary" value="110">' +
             '</span>' +
             '</p>' +
 
             '<p>' +
-            '<span class="name">风机频率</span>' +
+            '<span class="name">C相电流</span>' +
             '<span class="data">' +
-            '<input type="text" class="imaginary" value="45HZ">' +
+            '<input type="text" class="imaginary" value="110">' +
             '</span>' +
             '</p>' +
 
             '<p>' +
-            '<span class="name">电动阀开度</span>' +
+            '<span class="name">频率</span>' +
             '<span class="data">' +
-            '<input type="text" class="imaginary" value="70%">' +
+            '<input type="text" class="imaginary" value="50Hz">' +
             '</span>' +
             '</p>' +
 
             '<p>' +
-            '<span class="name">加湿开度</span>' +
+            '<span class="name">功率因数</span>' +
             '<span class="data">' +
-            '<input type="text" class="imaginary" value="10%">' +
+            '<input type="text" class="imaginary" value="0.9">' +
             '</span>' +
             '</p>' +
 
             '<p>' +
-            '<span class="name">风机报警</span>' +
+            '<span class="name">有功电度</span>' +
             '<span class="data">' +
-            '<span class="green-ball imaginary"><font></font></span>' +
+            '<input type="text" class="imaginary" value="2335">' +
             '</span>' +
             '</p>' +
 
             '<p>' +
-            '<span class="name">滤网压差报警</span>' +
+            '<span class="name">无功电度</span>' +
             '<span class="data">' +
-            '<span class="green-ball imaginary"><font></font></span>' +
+            '<input type="text" class="imaginary" value="599">' +
             '</span>' +
             '</p>' +
 
             '<p>' +
-            '<span class="name">持续运行时间</span>' +
+            '<span class="name">有功功率</span>' +
             '<span class="data">' +
-            '<input type="text" class="imaginary" value="2500">' +
+            '<input type="text" class="imaginary" value="300">' +
             '</span>' +
             '</p>' +
 
             '<p>' +
-            '<span class="name">总运行时间</span>' +
+            '<span class="name">无功功率</span>' +
             '<span class="data">' +
-            '<input type="text" class="imaginary" value="87600">' +
+            '<input type="text" class="imaginary" value="100">' +
             '</span>' +
             '</p>' +
 
-            '</div>';
+            '<p>' +
+            '<span class="name">零底电压</span>' +
+            '<span class="data">' +
+            '<input type="text" class="imaginary" value="0">' +
+            '</span>' +
+            '</p>' +
+
+
+
+        '</div>';
 
 
     }
@@ -192,13 +199,14 @@ function drawSpaceData(){
     //页面赋值
     $('.right-navigation .bottom-data-container ').html(dataHtml);
 
-}
+};
 
 
-// 指定图表的配置项和数据 用于系统容量
+
+// 指定图表的配置项和数据 用于电池容量
 var option0 = {
     title: {
-        text: '制冷系统(kw)',
+        text: '',
         //sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
         left: 'center',
         bottom: '10',
@@ -314,55 +322,12 @@ var option0 = {
     ]
 };
 
-//系统容量echart图
-var _rightMiddleChart1 = echarts.init(document.getElementById('left-bottom-echart1'));
+var _rightMiddleChart1 = echarts.init(document.getElementById('electric-capacity-echart'));
 
-var _rightMiddleChart2 = echarts.init(document.getElementById('left-bottom-echart2'));
+_rightMiddleChart1.setOption(option0,true);
 
-var _rightMiddleChart3 = echarts.init(document.getElementById('left-bottom-echart3'));
 
-var _rightMiddleChart4 = echarts.init(document.getElementById('left-bottom-echart4'));
 
-//系统容量数据
-var systemCapacityEcahrtArr = [_rightMiddleChart1,_rightMiddleChart2,_rightMiddleChart3,_rightMiddleChart4];
-var systemCapacityArr = [
-    {
-        'name':'制冷系统(kw)',
-        "data":[1300,1400],
-        "data1":[24,7,12,1]
-    },
-    {
-        'name':'动力供电(kva)',
-        "data":[565,2635],
-        "data1":[60,5,55,3]
-
-    },
-    {
-        'name':'IT供电(kva)',
-        "data":[904,3096],
-        "data1":[24,7,12,1]
-
-    },
-    {
-        'name':'IT(u)',
-        "data":[10926,8940],
-        "data1":[24,7,12,1]
-
-    }
-];
-
-//给系统容量echart赋值
-function systemCapacityEchart(){
-
-    $(systemCapacityArr).each(function(i,o){
-
-        option0.title.text = '';
-
-        option0.series[0].data = o.data;
-
-        systemCapacityEcahrtArr[i].setOption(option0,true);
-    })
-};
 
 
 

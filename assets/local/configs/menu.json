@@ -20,14 +20,6 @@
 		"content": "动环监测",
 		"iconclass": "icon-camcorder",
 		"submenu": {
-			"动环监测": {
-				"type": "0",
-				"content": "动环监测",
-				"uri": "../TJ/seal-monitor-new.html",
-				"uid": "",
-				"arg": "",
-				"iconclass": ""
-			},
 			"监控总览": {
 				"type": "0",
 				"content": "监控总览",
@@ -75,6 +67,14 @@
 				"uid": "",
 				"arg": "",
 				"iconclass": ""
+			},
+			"配电柜": {
+				"type": "0",
+				"content": "配电柜",
+				"uri": "../TJ/seal-monitor-cabinet.html",
+				"uid": "",
+				"arg": "",
+				"iconclass": ""
 			}
 		}
 	},
@@ -83,14 +83,6 @@
 		"content": "配电系统",
 		"iconclass": "icon-clock",
 		"submenu": {
-			"配电系统": {
-				"type": "0",
-				"content": "配电系统",
-				"uri": "../TJ/distribution-monitor-new.html",
-				"uid": "",
-				"arg": "",
-				"iconclass": ""
-			},
 			"UPS": {
 				"type": "0",
 				"content": "UPS",
@@ -323,6 +315,14 @@
 				"arg": "",
 				"iconclass": ""
 			},
+			"报警配置": {
+				"type": "0",
+				"content": "报警配置",
+				"uri": "../TJ/alarm-deploy.html",
+				"uid": "",
+				"arg": "",
+				"iconclass": ""
+			},
 			"故障统计": {
 				"type": "0",
 				"content": "故障统计",
@@ -532,35 +532,6 @@
 				"iconclass": ""
 			},
 
-			"设备管理": {
-				"type": "2",
-				"content": "设备管理"
-			},
-			"设备台帐": {
-				"type": "0",
-				"content": "设备台帐",
-				"uri": "../zichanguanli/assetManagement-1.html",
-				"uid": "",
-				"arg": "",
-				"iconclass": ""
-			},
-			"生命周期管理": {
-				"type": "0",
-				"content": "生命周期管理",
-				"uri": "../zichanguanli/assetManagement-history.html",
-				"uid": "",
-				"arg": "",
-				"iconclass": ""
-			},
-			"设备预警管理": {
-				"type": "0",
-				"content": "设备预警管理",
-				"uri": "../zichanguanli/assetManagement-5.html",
-				"uid": "",
-				"arg": "",
-				"iconclass": ""
-			},
-
 			"巡检管理": {
 				"type": "2",
 				"content": "巡检管理"
@@ -633,6 +604,34 @@
 				"type": "0",
 				"content": "容量管理",
 				"uri": "../TJ/ITdev.html",
+				"uid": "",
+				"arg": "",
+				"iconclass": ""
+			},
+			"设备管理": {
+				"type": "2",
+				"content": "设备管理"
+			},
+			"设备台帐": {
+				"type": "0",
+				"content": "设备台帐",
+				"uri": "../zichanguanli/assetManagement-1.html",
+				"uid": "",
+				"arg": "",
+				"iconclass": ""
+			},
+			"生命周期管理": {
+				"type": "0",
+				"content": "生命周期管理",
+				"uri": "../zichanguanli/assetManagement-history.html",
+				"uid": "",
+				"arg": "",
+				"iconclass": ""
+			},
+			"设备预警管理": {
+				"type": "0",
+				"content": "设备预警管理",
+				"uri": "../zichanguanli/assetManagement-5.html",
 				"uid": "",
 				"arg": "",
 				"iconclass": ""
