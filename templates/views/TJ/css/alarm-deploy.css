@@ -85,3 +85,29 @@
     width: 26px !important;
     height: 30px !important;
 }
+
+/*高级设置下方按钮*/
+.bottom-btn{
+    padding-top:20px;
+    padding-right:6%;
+    text-align: right;
+}
+
+.bottom-btn span{
+    width:65px;
+    height:30px;
+    background:#DCDCDC;
+    color:#666666;
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right:15px;
+}
+
+.bottom-btn .sure{
+
+    background:#3674D9;
+    color:white;
+}

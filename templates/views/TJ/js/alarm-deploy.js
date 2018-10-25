@@ -10,6 +10,13 @@ $(function(){
         $('.top-title .userMonitor-name').removeClass('onChoose');
 
         $(this).addClass('onChoose');
+
+        //获取当前索引
+        var index = $(this).index();
+
+        $('.bottom-message-container').hide();
+
+        $('.bottom-message-container').eq(index).show();
     });
 
 });

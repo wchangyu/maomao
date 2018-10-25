@@ -527,17 +527,13 @@
     "iconclass": "icon-settings",
     "submenu": {
       "IT设备": {
-        "type": "0",
-        "content": "IT设备",
-        "uri": "../TJ/ITdev.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
+        "type": "2",
+        "content": "IT设备"
       },
       "容量管理": {
         "type": "0",
         "content": "容量管理",
-        "uri": "../TJ/ITdev.html",
+        "uri": "../TJ/TIcapacity.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
