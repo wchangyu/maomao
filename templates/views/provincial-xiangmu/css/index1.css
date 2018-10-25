@@ -1,0 +1,124 @@
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 14px;
+}
+/*工单操作tip*/
+.gdcz{
+    color: #fff;
+}
+.redtip{
+    color:red;
+}
+.condition-query-a{
+    padding: 20px;
+    overflow-y: auto;
+}
+.condition-query-a li{
+    display: inline-block;
+    padding: 5px 0px 5px 0px;
+    margin: 0px;
+}
+.condition-query-a li div.sanlie-div{
+    padding-right:10px;
+    float: left;
+    word-wrap:break-word;
+    word-break:break-all;
+    /*width: 78px;*/
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 14px;
+}
+.condition-query-a li div.sanlie-div span.sanlie-div-span{
+}
+select, input{
+    width: 160px;
+    border: 1px solid #ccc;
+    outline: none;
+    padding-left: 3px;
+    height: 30px;
+}
+.input-blocked{
+    display: inline;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.datatimeblock{
+    background: url(../../new-resource/img/clendar.png) no-repeat #ffffff !important;
+    background-size: 25px !important;
+    background-position: 100% center !important;
+    cursor: pointer !important;
+}
+.title-block{
+    display: inline-block;
+    position: relative;
+}
+.title-block .title-block-span{
+    position: absolute;
+    top: 15px;
+}
+.textInput{
+    width: 85%;
+    height: 100px;
+}
+.gljz{
+    float: left;
+    font-weight: 700;
+    font-size: 14px;
+}
+.myreset{
+    padding:0px;
+    margin: 0px;
+}
+
+.zhenglie-div{
+    padding-right:10px;
+    float: left;
+    word-wrap:break-word;
+    word-break:break-all;
+    /*width: 108px;*/
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 14px;
+}
+.zhenglie div.sanlie-div select{
+    width:300px;
+}
+.mytop-save{
+    border-width: 0;
+    font-size: 14px;
+    outline: none !important;
+    filter: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    text-shadow: none;
+    background: #35DAAF !important;
+    padding: 6px 20px;
+}
+#exampleModal .modal-footer{
+    border-top: 0px;
+}
+
+#xuanzewenjian{
+    background-color: rgb(0, 183, 238);
+    color: #fff;
+    height: 38px;
+    margin-left: 26px;
+}
+
+#kaishishangchuan{
+    height: 38px;
+    margin-left: 10px;
+}
+#beizhu {
+    margin-left: 10px;
+}
+.wenjianyulan{
+    margin-left: 10px;
+}
