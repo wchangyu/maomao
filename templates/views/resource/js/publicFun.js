@@ -29,6 +29,15 @@ var _maintenanceTeam = sessionStorage.getItem("userDepartNum");
 //图片的路径
 var _urlImg = sessionStorage.getItem("imgPath");
 
+//数字验证
+var _isNum = /^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/;
+
+//正整数
+var _isPositiveInt = /^[+]{0,1}(\d+)$/;
+
+//时间格式验证
+var _isDate = /^(\d{1,4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;
+
 //从本地存储中获取楼宇ID列表
 function getPointersId(){
 
@@ -75,6 +84,25 @@ function _timeYMDComponentsFun(el){
         format: 'yyyy/mm/dd',
         forceParse: 0,
         autoclose: 1
+    });
+}
+
+function _timeYMDComponentsFunValite(el){
+    el.datepicker('destroy');
+    el.datepicker({
+        language:  'zh-CN',
+        todayBtn: 1,
+        todayHighlight: 1,
+        format: 'yyyy-mm-dd',
+        forceParse: 0,
+        autoclose: 1
+    }).on('change',function(picker, values, displayValues){
+
+        var dom = $(picker.target).parents('.time-tool-block').next().next();
+
+        dom.hide();
+
+        $(picker.target).next('.error').hide();
     });
 }
 
@@ -1874,7 +1902,7 @@ function _timeShow(modal){
 
 }
 
-//所有表格单击事件
+//所有表格单击事件(单选)
 
 var _isClickTr = false;
 
@@ -1907,6 +1935,47 @@ $('.table tbody').on('click','tr',function(){
     }
 
 })
+
+
+var _isClickTrMulti = false;
+
+$('.table tbody').on('click','tr',function(){
+
+    if(_isClickTrMulti){
+
+        if($(this).hasClass('tables-hover')){
+
+            $(this).removeClass('tables-hover');
+
+            $(this).find('input').parent('span').removeClass('checked');
+
+        }else{
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent('span').addClass('checked');
+
+        }
+
+    }
+
+})
+
+//正则验证
+function _regularTest(reg,dom){
+
+    if(reg.test(dom)){
+
+        return true;
+
+    }else{
+
+        return false;
+
+    }
+
+}
+
 
 /*---------------------------------------------------控制界面------------------------------------*/
 

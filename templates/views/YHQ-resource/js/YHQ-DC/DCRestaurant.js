@@ -8,6 +8,9 @@ $(function(){
     //当前的餐厅id
     var _thisId = '';
 
+    //当前餐厅编号
+    var _thisBM = '';
+
     //暂存部门
     var _depArr = [];
 
@@ -139,6 +142,13 @@ $(function(){
 
                 isTimeFormat:true
 
+            },
+
+            //部门
+            'DC-depart':{
+
+                required: true
+
             }
 
         },
@@ -219,6 +229,13 @@ $(function(){
 
                 required: '请输入晚送餐截止时间'
 
+            },
+
+            //部门
+            'DC-depart':{
+
+                required: '部门为必选字段'
+
             }
         }
 
@@ -279,33 +296,50 @@ $(function(){
                 //早送餐时间截止
                 'breakfast-end-time':{
 
-                    required: true
+                    required: true,
+
+                    isTimeFormat:true
 
                 },
 
                 //中送餐时间
                 'lunch-time':{
 
-                    required: true
+                    required: true,
+
+                    isTimeFormat:true
 
                 },
 
                 //中送餐时间截止
                 'lunch-end-time':{
 
-                    required: true
+                    required: true,
+
+                    isTimeFormat:true
 
                 },
 
                 //晚送餐时间
                 'dinner-time':{
 
-                    required: true
+                    required: true,
+
+                    isTimeFormat:true
 
                 },
 
                 //晚送餐时间截止
                 'dinner-end-time':{
+
+                    required: true,
+
+                    isTimeFormat:true
+
+                },
+
+                //部门
+                'DC-depart':{
 
                     required: true
 
@@ -389,6 +423,13 @@ $(function(){
 
                     required: '请输入晚送餐截止时间'
 
+                },
+
+                //部门
+                'DC-depart':{
+
+                    required: '部门为必选字段'
+
                 }
             }
 
@@ -446,7 +487,7 @@ $(function(){
             title:'操作',
             render:function(data, type, full, meta){
 
-                return '<span class="option-button option-edit option-in" data-attr="' + full.id + '">' + '编辑</span>' +
+                return '<span class="option-button option-edit option-in" data-attr="' + full.id + '" data-bm="' + full.dinningroomnum + '">' + '编辑</span>' +
 
                     '<span class="option-button option-del option-in" data-attr="' + full.id + '">' + '删除</span>'
 
@@ -661,6 +702,8 @@ $(function(){
     //编辑
     $('#table tbody').on('click','.option-edit',function(){
 
+        _thisBM = $(this).attr('data-bm');
+
         //初始化
         createModeInit();
         //模态框
@@ -777,6 +820,8 @@ $(function(){
 
         $('#dep-Modal').modal('hide');
 
+        $('#DC-depart').next('.error').hide();
+
     })
 
     /*-----------------------------------其他方法------------------------------------------*/
@@ -796,7 +841,7 @@ $(function(){
 
                 _allData = result.data;
 
-                _jumpNow($('#table'),result.data);
+                _datasTable($('#table'),result.data);
 
             }
 
@@ -856,7 +901,7 @@ $(function(){
 
             prm.id = _thisId;
 
-            //prm.
+            prm.dinningroomnum = _thisBM;
 
         }
 
@@ -884,6 +929,28 @@ $(function(){
         //部门选择
         $('#DC-depart').removeAttr('data-num');
 
+        //将所有label .error验证隐藏
+        var label = $('#create-Modal').find('label');
+
+        for(var i=0;i<label.length;i++){
+
+            var attr = $(label).eq(i).attr('class')
+
+            if(attr){
+
+                if(attr.indexOf('error')>-1){
+
+                    label.eq(i).hide();
+
+                }
+
+            }
+
+        }
+
+        //时间格式
+        $('.time-seat').hide();
+
         _selectDep = [];
 
     }
@@ -897,6 +964,7 @@ $(function(){
 
         $('#create-Modal').find('textarea').attr('disabled',false);
 
+        //$('#DC-depart').attr('disabled',true);
     }
 
     //不可以操作
@@ -959,23 +1027,27 @@ $(function(){
 
                 var str = '';
 
-                for(var i=0;i<data.diningRoomsDeparts.length;i++){
+                if(data.diningRoomsDeparts.length>0){
 
-                    var obj = {};
+                    for(var j=0;j<data.diningRoomsDeparts.length;j++){
 
-                    obj.departNum = data.diningRoomsDeparts[i].departnum;
+                        var obj = {};
 
-                    obj.departName = data.diningRoomsDeparts[i].departName;
+                        obj.departNum = data.diningRoomsDeparts[j].departnum;
 
-                    _selectDep.push(obj);
+                        obj.departName = data.diningRoomsDeparts[j].departName;
 
-                    if(i==data.diningRoomsDeparts.length-1){
+                        _selectDep.push(obj);
 
-                        str += data.diningRoomsDeparts[i].departName
+                        if(j==data.diningRoomsDeparts.length-1){
 
-                    }else{
+                            str += data.diningRoomsDeparts[j].departName
 
-                        str += data.diningRoomsDeparts[i].departName + '、'
+                        }else{
+
+                            str += data.diningRoomsDeparts[j].departName + '、'
+
+                        }
 
                     }
 

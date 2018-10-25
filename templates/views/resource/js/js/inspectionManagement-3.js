@@ -408,7 +408,7 @@ $(function(){
 
     function format ( d ) {
         var theader = '<table class="table">' +
-            '<thead><tr><td>设备编号</td><td>设备名称</td><td>是否下发</td><td>规格型号</td><td>安装地点</td><td>设备类型</td><td>操作</td></tr></thead>';
+            '<thead><tr><td>设备编号</td><td>设备名称</td><td>是否下发</td><td>规格型号</td><td>安装地点</td><td>设备类型</td></tr></thead>';
         var theaders = '</table>';
         var tbodyer = '<tbody>'
 
@@ -429,13 +429,26 @@ $(function(){
 
             }
 
-            if(d[i].isActive == 0){
+            //规格型号
+            var spac = '';
 
-                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + isstatus + '</td><td>' + d[i].spec + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td><td><span class="data-option Alone-assign btn default btn-xs green-stripe">下发任务</span></td></tr>'
+            if(d[i].spec == null){
+
+                spac = ''
 
             }else{
 
-                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + isstatus + '</td><td>' + d[i].spec + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td></tr>'
+                spac = d[i].spec;
+
+            }
+
+            if(d[i].isActive == 0){
+
+                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + isstatus + '</td><td>' + spac + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td><td><span class="data-option Alone-assign btn default btn-xs green-stripe">下发任务</span></td></tr>'
+
+            }else{
+
+                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + isstatus + '</td><td>' + spac + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td></tr>'
 
             }
 
@@ -448,7 +461,7 @@ $(function(){
 
     function format1 ( d ) {
         var theader = '<table class="table">' +
-            '<thead><tr><td>设备编号</td><td>设备名称</td><td>规格型号</td><td>安装地点</td><td>设备类型</td><td>操作</td></tr></thead>';
+            '<thead><tr><td>设备编号</td><td>设备名称</td><td>设备状态</td><td>规格型号</td><td>安装地点</td><td>设备类型</td></tr></thead>';
         var theaders = '</table>';
         var tbodyer = '<tbody>'
 
@@ -469,7 +482,20 @@ $(function(){
 
             }
 
-            str +=  str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + isstatus + '</td><td>' + d[i].spec + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td></tr>'
+            //规格型号
+            var spac = '';
+
+            if(d[i].spec == null){
+
+                spac = ''
+
+            }else{
+
+                spac = d[i].spec;
+
+            }
+
+            str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + isstatus  + '</td><td>' + spac + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td></tr>'
 
         }
 

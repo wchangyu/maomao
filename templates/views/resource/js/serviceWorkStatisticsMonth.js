@@ -1032,7 +1032,6 @@ $(function(){
                             //数量
                             $('#dataKSFeeNum').html(Num);
                             //单价
-                            $('#dataKSFeePrince').html(prince.toFixed(2));
                             //合计
                             $('#dataKSFeeAmount').html(amount.toFixed(2));
                             //工时
@@ -1101,8 +1100,6 @@ $(function(){
 
                             //数量
                             $('#dataKSFeeNumWX').html(Num);
-                            //单价
-                            $('#dataKSFeePrinceWX').html(prince.toFixed(2));
                             //合计
                             $('#dataKSFeeAmountWX').html(amount.toFixed(2));
                             //工时
@@ -1273,8 +1270,6 @@ $(function(){
         $('.table').find('#dataKSFeeAllMomey').html(0);
 
         $('.table').find('#pageKSFeePrince').html(0);
-
-        $('.table').find('#dataKSFeePrince').html(0);
 
         //费用总汇
         $('.table').find('#pageFeeCL').html(0);

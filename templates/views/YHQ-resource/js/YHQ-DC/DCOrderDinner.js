@@ -9,6 +9,12 @@ $(function(){
     //获取菜品分类
     MealType();
 
+    //暂存当前餐厅
+    var _restaurantArr = [];
+
+    //获取餐厅
+    RestaurantType();
+
     //获取菜品列表
     //mealData();
 
@@ -23,6 +29,12 @@ $(function(){
 
     //当前选中的订单号
     var _thisId = '';
+
+    //判断当前管理菜品是否可以点击操作
+    var _manageMealFlag = false;
+
+    //判断当前订餐人按钮是否可选择
+    var _selectUserFlag = false;
 
     /*-------------------------------时间插件------------------------------------*/
 
@@ -84,7 +96,7 @@ $(function(){
             //订餐时间
             'time':{
 
-                required: true,
+                isEmpty: true,
 
                 isDate:true
 
@@ -118,7 +130,7 @@ $(function(){
             //送餐时间
             'sendTime':{
 
-                required: true,
+                isEmpty: true,
 
                 isTimeFormat:true
 
@@ -136,7 +148,7 @@ $(function(){
             //订餐时间
             'time':{
 
-                required: '请选择订餐时间',
+                isEmpty: '请选择订餐时间',
 
                 isDate:'订餐时间格式为 YYYY-MM-DD'
 
@@ -170,7 +182,7 @@ $(function(){
             //送餐时间
             'sendTime':{
 
-                required: '请选择送餐时间',
+                isEmpty: '请选择送餐时间',
 
                 isTimeFormat:'送餐时间格式为 HH:mm'
 
@@ -194,7 +206,7 @@ $(function(){
                 //订餐时间
                 'time':{
 
-                    required: true,
+                    isEmpty: true,
 
                     isDate:true
 
@@ -228,7 +240,7 @@ $(function(){
                 //送餐时间
                 'sendTime':{
 
-                    required: true,
+                    isEmpty: true,
 
                     isTimeFormat:true
 
@@ -246,7 +258,7 @@ $(function(){
                 //订餐时间
                 'time':{
 
-                    required: '请选择订餐时间',
+                    isEmpty: '请选择订餐时间',
 
                     isDate:'订餐时间格式为 YYYY-MM-DD'
 
@@ -280,7 +292,7 @@ $(function(){
                 //送餐时间
                 'sendTime':{
 
-                    required: '请选择送餐时间',
+                    isEmpty: '请选择送餐时间',
 
                     isTimeFormat:'送餐时间格式为 HH:mm'
 
@@ -342,11 +354,42 @@ $(function(){
             title:'操作',
             render:function(data, type, full, meta){
 
-                return  '<span class="option-button option-see option-in" data-attr="' + full.ordered + '">' + '详情</span>' +
+                var str = '<span class="option-button option-see option-in" data-attr="' + full.ordered + '">' + '详情</span>';
 
-                    '<span class="option-button option-edit option-in" data-attr="' + full.ordered + '">' + '编辑</span>' +
 
-                    '<span class="option-button option-del option-in" data-attr="' + full.ordered + '">' + '删除</span>'
+
+                if(full.orderZht == 10){
+
+                    //确认+完成+取消+编辑+详情
+
+                            //编辑
+                    str += '<span class="option-button option-edit option-in" data-attr="' + full.ordered + '">' + '编辑</span>' +
+                            //确认
+                            '<span class="option-button option-confirm option-in" data-attr="' + full.ordered + '">' + '确认接单</span>' +
+                            //完成
+                            '<span class="option-button option-complete option-in" data-attr="' + full.ordered + '">' + '完成</span>' +
+                            //取消
+                            '<span class="option-button option-cancel option-in" data-attr="' + full.ordered + '">' + '取消</span>'
+
+
+                }else if(full.orderZht == 30){
+
+                    //完成 + 取消
+                            //完成
+                    str += '<span class="option-button option-complete option-in" data-attr="' + full.ordered + '">' + '完成</span>' +
+                            //取消
+                            '<span class="option-button option-cancel option-in" data-attr="' + full.ordered + '">' + '取消</span>'
+
+
+                }else if(full.orderZht == 40){
+
+                    //完成
+                    str += '<span class="option-button option-complete option-in" data-attr="' + full.ordered + '">' + '完成</span>'
+
+                }
+
+
+                return str;
 
 
             }
@@ -367,7 +410,9 @@ $(function(){
 
                 //return  '<div class="checker" data-id="' + full.userNum + '"><span><input type="checkbox"                                 value=""></span></div>'
 
-                return '<img src="../YHQ-resource/img/addMeal.png" class="order-dinner-table-add" style="width: 15px;cursor: pointer">'
+                var num = Number(full.totalQuantity) - Number(full.saleQuantity);
+
+                return '<img src="../YHQ-resource/img/addMeal.png" class="order-dinner-table-add" data-num="' + num + '" data-attr="' + full.id + '" style="width: 15px;cursor: pointer">'
 
                 //return '<div class="order-num-block">' +
                 //
@@ -408,7 +453,7 @@ $(function(){
             className:'cookname',
             render:function(data, type, full, meta){
 
-                return '<span data-id="' + full.id + '">' + data + '</span>'
+                return '<span data-id="' + full.itemid + '">' + data + '</span>'
 
             }
 
@@ -480,6 +525,8 @@ $(function(){
     //新增订单
     $('#createBtn').click(function(){
 
+        _manageMealFlag = true;
+
         //可操作
         abledOption();
 
@@ -487,10 +534,10 @@ $(function(){
         createModeInit();
 
         //模态框
-        _moTaiKuang($('#create-Modal'),'新增','','','','新增');
+        _moTaiKuang($('#create-Modal'),'确认订单','','','','确认订单');
 
         //类
-        $('#create-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
+        $('#create-Modal').find('.btn-primary').removeClass('queren').removeClass('bianji').removeClass('quxiao').removeClass('wancheng').addClass('dengji');
 
         //菜品按钮显示
         $('#modal-select-meal').html('选择菜品');
@@ -539,8 +586,33 @@ $(function(){
 
     })
 
+    //重置
+    $('#resetBtn').click(function(){
+
+        $('#spDT').val(st);
+
+        $('#epDT').val(nowTime);
+
+    })
+
     //点击放大镜选择菜品
     $('#modal-select-meal').click(function(){
+
+        //首先判断是否可操作
+        if(!_manageMealFlag){
+
+            return;
+
+        }
+
+        //首先确认订餐
+        if( $('#DC-restaurant').val() == '' ){
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择餐厅','');
+
+            return false;
+
+        }
 
         //首先确认订餐时间
         if( $('#time').val() == '' ){
@@ -595,6 +667,9 @@ $(function(){
 
         var obj = {};
 
+        //排班id
+        obj.pbid = currentTr.find('img').attr('data-attr');
+
         //菜品名称
         obj.name = currentTr.find('.cookname').children().html();
 
@@ -606,6 +681,9 @@ $(function(){
 
         //份数
         obj.num = 1;
+
+        //菜品剩余份数
+        obj.surplus = currentTr.find('img').attr('data-num');
 
         if(_thisOrder.length == 0){
 
@@ -668,9 +746,20 @@ $(function(){
 
         if(className.indexOf('order-dinner-add')>-1){
 
+            var num = $(this).attr('attr-num');
+
             //是增加按钮
 
             value ++ ;
+
+            //console.log('value'+value);
+
+            if(value == num || value>num){
+
+                value = num;
+
+            }
+
 
         }else if(className.indexOf('order-dinner-sub')>-1){
 
@@ -773,12 +862,42 @@ $(function(){
     })
 
     //选择订餐人
-    $('#create-Modal').on('click','#modal-select-user',function(){
 
-        //模态框
-        _moTaiKuang($('#user-Modal'),'员工列表','','','','确定');
+    $('.modal-select-user').click(function(){
 
-        _datasTable($('#user-table'),_userArr);
+        if(_DCquery){
+
+            _isClickTr = true;
+
+            //模态框
+            _moTaiKuang($('#user-Modal'),'员工列表','','','','确定');
+
+            _datasTable($('#user-table'),_userArr);
+
+        }
+
+        if(_selectUserFlag){
+
+            _isClickTr = true;
+
+            //模态框
+            _moTaiKuang($('#user-Modal'),'员工列表','','','','确定');
+
+            _datasTable($('#user-table'),_userArr);
+
+        }else{
+
+            return ;
+
+        }
+
+    })
+
+
+    //模态框关闭
+    $('#user-Modal').on('hidden.bs.modal',function(){
+
+        _isClickTr = false;
 
     })
 
@@ -805,6 +924,13 @@ $(function(){
 
             $('#DC-person').next().hide();
 
+            if($('#DC-personCon')){
+
+                $('#DC-personCon').val(name);
+
+                $('#DC-personCon').attr('data-num',num);
+
+            }
 
         }else{
 
@@ -816,7 +942,9 @@ $(function(){
     })
 
     //编辑
-    $('#table tbody').on('click','.option-edit',function(){
+    $('.table tbody').on('click','.option-edit',function(){
+
+        _manageMealFlag = true;
 
         //初始化
         createModeInit();
@@ -825,13 +953,13 @@ $(function(){
         _thisId = $(this).attr('data-attr');
 
         //模态框
-        _moTaiKuang($('#create-Modal'),'编辑','','','','保存');
+        _moTaiKuang($('#create-Modal'),'订单编辑','','','','保存');
 
         //绑定数据
         getDatil($(this).attr('data-attr'));
 
         //类
-        $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
+        $('#create-Modal').find('.btn-primary').removeClass('queren').removeClass('dengji').removeClass('quxiao').removeClass('wancheng').addClass('bianji');
 
         //可操作
         abledOption();
@@ -914,7 +1042,7 @@ $(function(){
     })
 
     //删除
-    $('#table tbody').on('click','.option-del',function(){
+    $('.table tbody').on('click','.option-del',function(){
 
         //初始化
         createModeInit();
@@ -959,7 +1087,7 @@ $(function(){
     })
 
     //查看
-    $('#table tbody').on('click','.option-see',function(){
+    $('.table tbody').on('click','.option-see',function(){
 
         //初始化
         createModeInit();
@@ -968,7 +1096,7 @@ $(function(){
         _thisId = $(this).attr('data-attr');
 
         //模态框
-        _moTaiKuang($('#create-Modal'),'编辑',true,'','','保存');
+        _moTaiKuang($('#create-Modal'),'订单详情',true,'','','');
 
         //绑定数据
         getDatil($(this).attr('data-attr'));
@@ -1012,6 +1140,237 @@ $(function(){
 
     })
 
+    //tab选择
+    $('.nav-tabs-lg').on('click','li',function(){
+
+        var arr = [];
+
+        var dinningNum = $(this).children().attr('data-attr');
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].dinningroomid == dinningNum){
+
+                arr.push(_allData[i]);
+
+            }
+
+        }
+
+        _datasTable($('#table'),arr);
+
+    })
+
+    //确认
+    $('.table tbody').on('click','.option-confirm',function(){
+
+        //初始化
+        createModeInit();
+
+        //赋值id
+        _thisId = $(this).attr('data-attr');
+
+        //模态框
+        _moTaiKuang($('#create-Modal'),'确认订单','','','','确认');
+
+        //绑定数据
+        getDatil($(this).attr('data-attr'));
+
+        //类(编辑，登记、取消、确认、完成)
+        $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').removeClass('quxiao').removeClass('wancheng').addClass('queren');
+
+        //不可操作
+        disabledOption();
+
+        //菜品按钮显示
+        $('#modal-select-meal').html('已选菜品');
+
+    })
+
+    //确认【确定】按钮
+    $('#create-Modal').on('click','.queren',function(){
+
+        var prm = {
+
+            //订单号
+            ordered:_thisId
+
+        }
+
+        _mainAjaxFunCompleteNew('post','YHQDC/AffirmOrder',prm,$('#create-Modal').children(),function(result){
+
+            if(result.code == 99){
+
+                $('#create-Modal').modal('hide');
+
+                conditionSelect();
+
+            }
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,result.message,'');
+
+        })
+
+
+    })
+
+    //完成
+    $('.table tbody').on('click','.option-complete',function(){
+
+        //初始化
+        createModeInit();
+
+        //赋值id
+        _thisId = $(this).attr('data-attr');
+
+        //模态框
+        _moTaiKuang($('#create-Modal'),'完成订单','','','','完成');
+
+        //绑定数据
+        getDatil($(this).attr('data-attr'));
+
+        //类(编辑，登记、取消、确认、完成)
+        $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').removeClass('quxiao').removeClass('queren').addClass('wancheng');
+
+        //不可操作
+        disabledOption();
+
+        //菜品按钮显示
+        $('#modal-select-meal').html('已选菜品');
+
+        //支付按钮显示
+        $('.payType').show();
+
+    })
+
+    //完成【确定】按钮
+    $('#create-Modal').on('click','.wancheng',function(){
+
+        var prm = {
+
+            //订单号
+            ordered:_thisId,
+            //支付方式
+            payType: $('.radioBlock').find('input:checked').attr('data-value')
+        }
+
+        _mainAjaxFunCompleteNew('post','YHQDC/AccomplishOrder',prm,$('#create-Modal').children(),function(result){
+
+            if(result.code == 99){
+
+                $('#create-Modal').modal('hide');
+
+                conditionSelect();
+
+            }
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,result.message,'');
+
+        })
+
+
+    })
+
+    //取消
+    $('.table tbody').on('click','.option-cancel',function(){
+
+        //初始化
+        createModeInit();
+
+        //赋值id
+        _thisId = $(this).attr('data-attr');
+
+        //模态框
+        _moTaiKuang($('#create-Modal'),'取消订单','','','','取消订单');
+
+        //绑定数据
+        getDatil($(this).attr('data-attr'));
+
+        //类(编辑，登记、取消、确认、完成)
+        $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').removeClass('wancheng').removeClass('queren').addClass('quxiao');
+
+        //不可操作
+        disabledOption();
+
+        //菜品按钮显示
+        $('#modal-select-meal').html('已选菜品');
+
+    })
+
+    //取消提示
+    $('#create-Modal').on('click','.quxiao',function(){
+
+        var str = '确定要取消订单号为 <span style="margin: 0 10px;font-weight: bold">' + _thisId + '</span>的订单吗？'
+
+        _moTaiKuang($('#cancel-Modal'),'提示',false,true,str,'确定取消');
+
+    })
+
+    //取消【确定】按钮
+    $('#cancel-Modal').on('click','.btn-primary',function(){
+
+        var prm = {
+
+            //订单号
+            ordered:_thisId
+
+        }
+
+        _mainAjaxFunCompleteNew('post','YHQDC/cancelOrder',prm,$('#create-Modal').children(),function(result){
+
+            if(result.code == 99){
+
+                $('#create-Modal').modal('hide');
+
+                conditionSelect();
+
+            }
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,result.message,'');
+
+        })
+
+    })
+
+    $('#create-Modal').on('hidden.bs.modal',function(){
+
+        _manageMealFlag = false;
+
+    })
+
+    //根据当前选中的订餐人类型确定订餐人是选择还是填写
+    $('#DC-person-type').change(function(){
+
+        _selectUserFlag = false;
+
+        var thisValue = $(this).val();
+
+        //初始化
+        $('#DC-person').val('');
+
+        $('#DC-person').removeAttr('data-num');
+
+        if( thisValue == 1 ){
+
+            _selectUserFlag = true;
+
+            //医护订餐，订餐人只可选择  modal-select-show
+            $('#DC-person').attr('readOnly',true);
+
+            $('#modal-select-user').addClass('modal-select-show');
+
+
+        }else if( thisValue != 1 ){
+
+            //病户订餐，订餐人只能填写，并且userNum填写为电话
+            $('#DC-person').attr('readOnly',false);
+
+            $('#modal-select-user').removeClass('modal-select-show');
+
+        }
+
+    })
+
     /*------------------------------------------其他方法-----------------------------------*/
 
     //模态框初始化
@@ -1022,7 +1381,7 @@ $(function(){
 
         $('#create-Modal').find('input').val('');
 
-        $('#create-Modal').find('select').val('');
+        //$('#create-Modal').find('select').val('');
 
         $('#create-Modal').find('textarea').val('');
 
@@ -1048,8 +1407,7 @@ $(function(){
 
         }
 
-        //送餐费默认
-        $('.sendFee').find('input').val(6);
+        $('.sendFee').hide();
 
         //当前选中的菜品清单
         $('.order-already-modal').empty();
@@ -1075,6 +1433,21 @@ $(function(){
             size : "small",
             state:false,
             onSwitchChange:function(event,state){
+
+                var fee = 0;
+
+                for(var i=0;i<_restaurantArr.length;i++){
+
+                    if(_restaurantArr[i].id == $('#DC-restaurant').val()){
+
+                        fee = _restaurantArr[i].sendfee;
+
+                    }
+
+                }
+
+                //送餐费默认
+                $('.sendFee').find('input').val(fee);
 
                 var money = 0;
 
@@ -1110,6 +1483,18 @@ $(function(){
 
         });
 
+        //订餐人类型
+        $('#DC-person-type').val('');
+
+        //三餐类型
+        $('#three-meal').val('');
+
+        //支付方式隐藏
+        $('.payType').hide();
+
+        //当前操作是否可选择订餐人
+        _selectUserFlag = false;
+
     }
 
     //条件查询
@@ -1117,12 +1502,13 @@ $(function(){
 
         var prm = {
             //餐厅
-            dinningroomid:1,
+            //dinningroomid:$(''),
             //开始时间
             begintime:$('#spDT').val(),
             //结束时间
-            endtime:moment($('#epDT').val()).add(1,'d').format('YYYY-MM-DD')
-
+            endtime:moment($('#epDT').val()).add(1,'d').format('YYYY-MM-DD'),
+            //departnum
+            departnum:_userBM
         }
 
         _mainAjaxFunCompleteNew('post','YHQDC/Returnorderlist',prm,$('.L-container'),function(result){
@@ -1131,7 +1517,21 @@ $(function(){
 
                 _allData = result.data;
 
-                _datasTable($('#table'),result.data);
+                var arr = [];
+
+                var dinningNum = $('.nav-tabs-lg').children('.active').children().attr('data-attr');
+
+                for(var i=0;i<_allData.length;i++){
+
+                    if(_allData[i].dinningroomid == dinningNum){
+
+                        arr.push(_allData[i]);
+
+                    }
+
+                }
+
+                _datasTable($('#table'),arr);
 
             }
 
@@ -1150,6 +1550,9 @@ $(function(){
         for(var i=0;i<_thisOrder.length;i++){
 
             var obj = {};
+
+            //餐次id
+            obj.dayMenuid = _thisOrder[i].pbid;
 
             //菜品id
             obj.itemid = _thisOrder[i].id;
@@ -1170,14 +1573,32 @@ $(function(){
 
         }
 
+        //判断当前订餐人id,如果当前医护订餐，userid为医护人员内部id，如果时病户订餐，userid为电话
+        var userId = '';
+
+        if( $('#DC-person-type').val() == 1 ){
+
+            //医护订餐
+            userId = $('#DC-person').attr('data-num')
+
+        }else if( $('#DC-person-type').val() == 2 ){
+
+            //病户订餐
+            userId = $('#DC-phone').val();
+
+        }
+
+
         var prm = {
 
             //餐厅id
-            dinningroomid:1,
+            dinningroomid:$('#DC-restaurant').val(),
             //日期
             orderdt:$('#time').val(),
             //订餐人id
-            userNum:$('#DC-person').attr('data-num'),
+            userNum:userId,
+            //订餐人name
+            userName:$('#DC-person').val(),
             //总计
             Paysum:$('#mealMoneyModal').val(),
             //三餐类型  -
@@ -1207,47 +1628,12 @@ $(function(){
 
         if(flag){
 
-            prm.ordered = _thisId
+            prm.ordered = _thisId;
 
         }
 
         _mainAjaxFunCompleteNew('post',url,prm,el,successFun);
 
-
-    }
-
-    //订单状态
-    function DCStatus(data){
-
-        if(data == 10){
-
-            return '订餐'
-
-        }else if(data == 20){
-
-            return '付款'
-
-        }else if(data == 30){
-
-            return '确认'
-
-        }else if(data == 40){
-
-            return '已送餐'
-
-        }else if(data == 50){
-
-            return '待评价'
-
-        }else if(data == 60){
-
-            return '完成'
-
-        }else if(data == 999){
-
-            return '取消'
-
-        }
 
     }
 
@@ -1257,7 +1643,7 @@ $(function(){
         var prm = {
 
             //餐厅
-            dinningroomid:1,
+            dinningroomid:$('#DC-restaurant').val(),
 
             //开始时间
             dt:$('#time').val(),
@@ -1360,11 +1746,12 @@ $(function(){
                 var data = result.data;
 
                 //赋值
+
+                //餐厅
+                $('#DC-restaurant').val(data.dinningroomid );
+
                 //订餐时间
                 $('#time').val(data.orderdt.split('T')[0] );
-
-                //订餐人
-                $('#DC-person').val(data.userid);
 
                 //订餐人id
                 $('#DC-person').attr('data-num',data.userid);
@@ -1402,6 +1789,9 @@ $(function(){
                     //arr
                     var obj = {};
 
+                    //排餐id
+                    obj.pbid = data.itemslist[i].id;
+
                     //菜品名称
                     obj.name = data.itemslist[i].cookname;
 
@@ -1424,6 +1814,8 @@ $(function(){
                 $('.order-already-modal').empty().append(arrMealAlready(_thisOrder));
 
                 //是否送餐
+                $('.sendFee').find('input').val(data.sendfee);
+
 
                 $('.switch input').bootstrapSwitch('destroy');
 
@@ -1449,6 +1841,26 @@ $(function(){
 
                                 $('.sendFee').show();
 
+                                var fee = 0;
+
+                                for(var i=0;i<_restaurantArr.length;i++){
+
+                                    if(_restaurantArr[i].id == $('#DC-restaurant').val()){
+
+                                        fee = _restaurantArr[i].sendfee;
+
+                                    }
+
+                                }
+
+                                //送餐费默认
+                                $('.sendFee').find('input').val(fee);
+
+                                //送餐费显示
+                                $('.sendFee').show();
+
+                                $('.sendFee').find('input').val(data.sendfee);
+
                                 //计算总价
                                 var moneyT = Number(money) + Number($('.sendFee').find('input').val());
 
@@ -1469,13 +1881,10 @@ $(function(){
 
                     });
 
-                    //送餐费显示
-                    $('.sendFee').show();
-
-                    $('.sendFee').find('input').val(data.sendfee);
-
                     mealMoney += Number(data.sendfee);
 
+                    //送餐费显示
+                    $('.sendFee').show();
 
                 }else{
 
@@ -1484,6 +1893,26 @@ $(function(){
                         size : "small",
                         state:false,
                         onSwitchChange:function(event,state){
+
+                            var fee = 0;
+
+                            for(var i=0;i<_restaurantArr.length;i++){
+
+                                if(_restaurantArr[i].id == $('#DC-restaurant').val()){
+
+                                    fee = _restaurantArr[i].sendfee;
+
+                                }
+
+                            }
+
+                            //送餐费默认
+                            $('.sendFee').find('input').val(fee);
+
+                            //送餐费显示
+                            $('.sendFee').show();
+
+                            $('.sendFee').find('input').val(data.sendfee);
 
                             var money = 0;
 
@@ -1556,7 +1985,7 @@ $(function(){
             //数量
             str += 'x' +
 
-                '<span style="width: 150px;text-indent:10px;display: inline-block;vertical-align: middle">' + arr[i].num + '</span>' +
+                '<span style="width: 135px;text-indent:10px;display: inline-block;vertical-align: middle">' + arr[i].num + '</span>' +
 
                 '</div></li><div class="clearfix"></div>';
 
@@ -1584,9 +2013,9 @@ $(function(){
             //数量
             str += 'x <img src="../YHQ-resource/img/subMeal.png" class="order-dinner-num order-dinner-sub" style="width: 15px;margin-left: 5px;">' +
 
-                '<input class="order-meal-number" type="text" value="' + arr[i].num + '" attr-id="' + arr[i].id + '">' +
+                '<input class="order-meal-number" disabled="disabled" type="text" value="' + arr[i].num + '" attr-id="' + arr[i].id + '">' +
 
-                '<img src="../YHQ-resource/img/addMeal.png" class="order-dinner-num order-dinner-add" style="width: 15px;"></div><div class="clearfix"></div>';
+                '<img src="../YHQ-resource/img/addMeal.png" class="order-dinner-num order-dinner-add" attr-num="' + arr[i].surplus + '" style="width: 15px;"></div><div class="clearfix"></div>';
 
 
         }
@@ -1606,9 +2035,9 @@ $(function(){
         $('#create-Modal').find('textarea').attr('disabled',false);
 
         //选择订餐人的按钮
-        $('#modal-select-user').addClass('modal-select-show');
+        $('#modal-select-user').removeClass('modal-select-show');
 
-        $('#DC-person').attr('disabled',true);
+        $('#DC-person').attr('readOnly',true);
 
     }
 
@@ -1624,8 +2053,138 @@ $(function(){
         //选择订餐人的按钮
         $('#modal-select-user').removeClass('modal-select-show');
 
+        $('.radioBlock').find('input').attr('disabled',false);
+
+    }
+
+    //餐厅
+    function RestaurantType(){
+
+        var prm = {
+
+            departnum:_userBM
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YHQDC/ReturndepartDiningRooms',
+
+            data:prm,
+
+            async:false,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                _restaurantArr.length = 0;
+
+                var str1 = '<option value="">请选择</option>';
+
+                var tabStr = '';
+
+                if(result.code == 99){
+
+                    _restaurantArr = result.data;
+
+                    for(var i=0;i<result.data.length;i++){
+
+                        str1 += '<option value="' + result.data[i].id + '">' + result.data[i].diningroom + '</option>';
+
+                        if(i==0){
+
+                            tabStr += '<li class="active">';
+
+                        }else{
+
+                            tabStr += '<li>';
+
+                        }
+
+                        tabStr += '<a href="" data-toggle="tab" aria-expanded="true" data-attr="' + result.data[i].id + '">'
+
+                        tabStr += result.data[i].diningroom;
+
+                        tabStr += '</a>';
+
+                        tabStr += '</li>'
+
+                    }
+
+                }
+
+                $('#DC-restaurant').append(str1);
+
+                $('.nav-tabs-lg').empty().append(tabStr);
+
+
+            },
+
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+
+                if(el){
+
+                    el.hideLoading();
+
+                }
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    console.log('请求超时');
+
+                }else{
+
+                    console.log('请求失败');
+
+                }
+
+            }
+
+        })
+
+
     }
 
 })
 
-_isClickTr = true;
+//订单状态
+function DCStatus(data){
+
+    if(data == 10){
+
+        return '订餐'
+
+    }else if(data == 20){
+
+        return '付款'
+
+    }else if(data == 30){
+
+        return '确认'
+
+    }else if(data == 40){
+
+        return '已送餐'
+
+    }else if(data == 50){
+
+        return '待评价'
+
+    }else if(data == 60){
+
+        return '完成'
+
+    }else if(data == 999){
+
+        return '取消'
+
+    }
+
+}
+
+//_isClickTr = true;
+
+var _DCquery = false;

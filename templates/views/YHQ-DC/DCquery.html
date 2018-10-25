@@ -1,0 +1,632 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+
+    <link rel="stylesheet" href="../resource/css/conditionPublic.css">
+
+    <link rel="stylesheet" href="../YHQ-resource/css/public.css">
+
+    <link rel="stylesheet" href="../YHQ-resource/css/YHQ-DC/DCOrderDinner.css">
+
+    <style>
+
+        #create-Modal label{
+
+            width: 115px;
+
+        }
+
+        #DC-type label{
+
+            width: auto;
+
+        }
+
+        #commentForm .modal-block input~.error{
+
+            color: red;
+
+            width: auto;
+
+            line-height: 30px;
+
+            margin: 0;
+
+            margin-top: 10px;
+
+            display: block;
+
+            text-indent: 124px;
+
+        }
+
+        #commentForm .modal-block select~.error {
+            color: red;
+            width: auto;
+            line-height: 30px;
+            margin: 0;
+            margin-top: 10px;
+            display: block;
+            text-indent: 124px;
+        }
+
+        #commentForm .modal-block textarea~.error {
+            color: red;
+            width: auto;
+            line-height: 30px;
+            margin: 0;
+            margin-top: 10px;
+            display: block;
+            text-indent: 124px;
+        }
+
+        #commentForm .modal-block .time-tool-block input~.error {
+            color: red;
+            line-height: 30px;
+            text-indent: 0px;
+            position: absolute;
+            top: 33px;
+            width: 100%;
+        }
+
+        #selectedDep li{
+
+            line-height: 30px;
+
+            cursor: pointer;
+
+        }
+
+        #selectedDep li .close{
+
+            margin-top: 7px;
+
+        }
+
+        #selectedDep li .depName{
+
+            margin-right: 10px;
+
+        }
+
+        #selectedDep li .depNum{
+
+            margin-right: 10px;
+
+        }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="compareBusy">
+                        <div class="total-warp L-container">
+
+                            <ul class="L-condition">
+                                <li>
+                                    <label>餐厅</label>
+                                    <select id="DC-restaurant-con" class="form-control"></select>
+                                </li>
+                                <li>
+                                    <label>开始时间</label>
+                                    <div class="time-tool-block">
+                                        <div class="input-group date form_date abbrDT">
+                                            <input id="spDT" class="form-control" size="16" type="text" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>结束时间</label>
+                                    <div class="time-tool-block">
+                                        <div class="input-group date form_date abbrDT">
+                                            <input id="epDT" class="form-control" size="16" type="text" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>订单号</label>
+                                    <input type="text" class="form-control" id="DC-numCon">
+                                </li>
+                                <li>
+                                    <label>是否支付</label>
+                                    <select id="isPay" class="form-control">
+                                        <option value="-1">全部</option>
+                                        <option value="0">未支付</option>
+                                        <option value="1">已支付</option>
+                                    </select>
+                                </li>
+                                <li class="condition-li">
+                                    <label>订餐人</label>
+                                    <input type="text" class="form-control" id="DC-personCon" readonly="" style="background: #ffffff">
+                                    <div id="removeDep" class="close"></div>
+                                    <div class="modal-select modal-select-show modal-select-user" id="selectedUser"></div>
+                                </li>
+                                <li>
+                                    <div class="L-condition-button" id="selectBtn1">查询数据</div>
+                                </li>
+                                <li>
+                                    <div id="resetBtn1" class="L-condition-button">重置条件</div>
+                                </li>
+                                <li>
+                                    <div id="batchPay" class="L-condition-button">批量支付</div>
+                                </li>
+                            </ul>
+
+                            <div class="row content-top">
+                                <div class="col-md-12 col-sm-12">
+                                    <table id="table1" class="table table-striped table-advance table-hover">
+                                        <thead>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+
+    <!--创建-->
+    <div class="modal fade" id="create-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 567px;width: 1000px!important;">
+            <div class="modal-content" style="height: 567px;width: 1000px!important;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="overflow-y: auto;height: 444px;">
+
+                    <form class="cmxform" id="commentForm" method="post" action="">
+
+                        <ul class="modal-block">
+                            <li>
+                                <label>餐厅</label>
+                                <select type="text" class="form-control" id="DC-restaurant" name="DC-restaurant"></select>
+                            </li>
+                            <li>
+                                <label>订餐时间：</label>
+                                <div class="time-tool-block">
+                                    <div class="input-group date form_date DC-time">
+                                        <input id="time" name="time" class="form-control max" size="16" type="text" value=""  placeholder="时间是必选字段"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="modal-select"></div>
+                                <div class="time-seat"></div>
+                            </li>
+                            <li>
+                                <label>订餐人：</label>
+
+                                <input type="text" class="table-group-action-input form-control" id="DC-person" name="DC-person" placeholder="订餐人是必选字段">
+                                <div class="modal-select modal-select-show modal-select-user" id="modal-select-user"></div>
+                            </li>
+                            <li>
+                                <label>订餐人类型：</label>
+                                <select name="DC-person-type" id="DC-person-type" class="table-group-action-input form-control">
+                                    <option value="">请选择</option>
+                                    <option value="1">医护订餐</option>
+                                    <option value="2">病户订餐</option>
+                                </select>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>订餐电话：</label>
+
+                                <input type="text" class="table-group-action-input form-control" id="DC-phone" name="DC-phone" placeholder="订餐电话是必填字段">
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>三餐类型：</label>
+                                <select name="three-meal" id="three-meal" class="table-group-action-input form-control">
+                                    <option value="">请选择</option>
+                                    <option value="早">早餐</option>
+                                    <option value="中">中餐</option>
+                                    <option value="晚">晚餐</option>
+                                </select>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>送餐时间：</label>
+                                <div class="time-tool-block">
+                                    <div class="input-group date form_date DC-time1">
+                                        <input id="sendTime" name="sendTime" class="form-control max" size="16" type="text" value=""  placeholder="送餐时间是必选字段"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="modal-select"></div>
+                                <div class="time-seat"></div>
+                            </li>
+                            <li>
+                                <label>送餐地点：</label>
+
+                                <input type="text" class="table-group-action-input form-control" id="DC-location" name="DC-location" placeholder="送餐地点是必选字段">
+                                <div class="modal-select"></div>
+                            </li>
+
+                            <li class="text-block" style="width: 800px;">
+                                <label>备注：</label>
+                                <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="DC-remark" name="DC-remark" placeholder="备注是选填字段"></textarea>
+                                <div class="modal-select"></div>
+                            </li>
+
+                            <!--<li>-->
+                            <!--<label>菜品名称：</label>-->
+
+                            <!--<input type="text" class="table-group-action-input form-control" id="DC-name" name="DC-location">-->
+
+                            <!--<div class="modal-select modal-select-show" id="modal-select-meal"></div>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                            <!--<label>菜品价格：</label>-->
+
+                            <!--<input type="text" class="table-group-action-input form-control" id="DC-meal-fee" name="DC-meal-fee">-->
+
+                            <!--<div class="modal-select"></div>-->
+                            <!--</li>-->
+                            <!--<li >-->
+                            <!--<label>是否送餐：</label>-->
+
+                            <!--<div style="width: 250px;display: inline-block;">-->
+
+                            <!--<div class="switch" data-on-label="是" data-off-label="否">-->
+
+                            <!--<input type="checkbox" checked />-->
+
+                            <!--</div>-->
+
+                            <!--</div>-->
+
+                            <!--<div class="modal-select"></div>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                            <!--<label>送餐费：</label>-->
+
+                            <!--<input type="text" class="table-group-action-input form-control" id="DC-sendFee" name="DC-sendFee">-->
+
+                            <!--<div class="modal-select"></div>-->
+                            <!--</li>-->
+                        </ul>
+
+                    </form>
+
+                    <!--菜品列表-->
+
+                    <div>
+
+                        <div style="display: inline-block;padding: 3px 5px;border: 1px solid #DCDCDC;cursor: pointer;background:#428bca;color: #ffffff" id="modal-select-meal">选择菜品</div>
+
+                        <span id="meal-tip" style="color: red;text-indent: 50px;display: inline-block">请选择菜品</span>
+
+                    </div>
+
+                    <div class="mealRight">
+
+                        <p style="line-height: 40px;">当前选中菜品</p>
+
+                        <ul class="order-already-modal"></ul>
+
+                        <div style="height: 30px;margin-bottom: 10px;">
+                            <label style="margin-bottom: 0;line-height: 30px;">是否送餐：</label>
+                            <div class="switch" data-on-label="是" data-off-label="否" style="display: inline-block;vertical-align: top">
+
+                                <input type="checkbox" checked />
+
+                            </div>
+
+                        </div>
+
+                        <div class="sendFee" style="margin-bottom: 10px;display: none;">
+
+                            <label>送餐费</label>
+
+                            <input type="text" style="border: 1px solid #DCDCDC;outline: none;line-height: 30px;text-indent: 10px;">
+                            （元）
+
+                        </div>
+
+                        <div style="border-top: 1px dashed #DCDCDC;line-height: 40px;margin-top: 10px;">
+
+                            <label>当前总计</label>
+
+                            <input type="text" id="mealMoneyModal" style="border: 1px solid #DCDCDC;outline: none;line-height: 30px;text-indent: 10px;color: #00a0e9;">
+                            （元）
+                        </div>
+
+                    </div>
+
+                    <div class="payType">
+
+                        <p style="line-height: 40px;">请选择支付方式</p>
+
+                        <div id="DC-type" class="radioBlock">
+
+                            <input type="radio" class="inpus" name="inpus" id="ones" data-value="1" checked=""><label for="ones">当面结账</label>
+
+                            <input type="radio" class="inpus" name="inpus" id="twos" data-value="2"><label for="twos">月结</label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary confirm" type="submit" value="Submit">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <!--菜品选择-->
+    <div class="modal fade ui-draggable" id="meal-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow: hidden; display: none;">
+        <div class="modal-dialog" style="height: 685px; width: 1200px !important; margin-top: 132px;">
+            <div class="modal-content" style="height: 685px;width: 1200px !important;">
+                <div class="modal-header ui-draggable-handle">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body" style="height: 563px;overflow-y: scroll">
+                    <div class="mealLeft">
+
+                        <ul class="L-condition">
+                            <li>
+                                <label>菜品类型</label>
+                                <select name="DC-type-modal" id="DC-type-modal" class="form-control"></select>
+                            </li>
+                            <li>
+                                <label>菜品名称</label>
+                                <input type="text" class="form-control" id="DC-name-modal">
+                            </li>
+                            <li>
+                                <div class="L-condition-button" id="selectBtn-modal">查询数据</div>
+                            </li>
+                        </ul>
+                        <table id="meal-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="mealRight">
+
+                        <p style="line-height: 40px;">当前选中菜品</p>
+
+                        <ul class="order-already">
+                            <!--<li>-->
+
+                            <!--<span class="order-meal-name">馄饨</span>-->
+                            <!--<div class="order-meal-num">-->
+
+                            <!--￥-->
+                            <!---->
+                            <!--<span class="order-meal-prince" style="">5</span>-->
+                            <!---->
+                            <!--x-->
+
+                            <!--<img src="../YHQ-resource/img/subMeal.png" class="order-dinner-num order-dinner-sub" style="width: 15px;margin-left: 5px;">-->
+
+                            <!--<input class="order-meal-number" type="text">-->
+
+                            <!--<img src="../YHQ-resource/img/addMeal.png" class="order-dinner-num order-dinner-add" style="width: 15px;">-->
+                            <!---->
+                            <!--</div>-->
+                            <!--<div class="clearfix"></div>-->
+                            <!--</li>-->
+                        </ul>
+
+                        <div style="border-top: 1px dashed #DCDCDC;line-height: 40px;">
+
+                            当前总计:<span id="mealMoney" style="color: #00a0e9;margin-left: 10px;">0.00</span>（元）
+
+                        </div>
+
+                        <div id="emptyAllMeal">清除已选菜品</div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">选择</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <!--提示框-->
+    <div class="modal fade" id="empty-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 168px;">
+            <div class="modal-content" style="height: 168px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">请填写红色必填项</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--选择订餐人-->
+    <div class="modal fade" id="user-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 685px;width: 800px !important;">
+            <div class="modal-content" style="height: 685px;width: 800px !important;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 563px;">
+                    <table id="user-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--取消确定按钮-->
+    <div class="modal fade" id="cancel-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 168px;">
+            <div class="modal-content" style="height: 168px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">请填写红色必填项</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--提示框-->
+    <div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 168px;">
+            <div class="modal-content" style="height: 168px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                </div>
+                <div class="modal-body">请填写红色必填项</div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+
+        $("#resetBtn1").click(function(){
+
+            window.location.href = encodeURI('../mobile/DCMedicalStaffOrderMobile.html' + '?' +  'usernum=400416&username=%E7%8E%8B%E9%BB%8E%EF%BC%88%E5%B7%A5%EF%BC%89&phone=138123');
+
+        })
+
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--my js-->
+
+<script src="../resource/validation/jquery.validate.min.js"></script>
+
+<script src="../resource/validation/messages_zh.min.js"></script>
+
+<script src="../YHQ-resource/js/public.js"></script>
+
+<script src="../YHQ-resource/js/YHQ-DC/DCOrderDinner.js"></script>
+
+<script src="../YHQ-resource/js/YHQ-DC/DCquery.js"></script>
+
+<!--表单格式验证-->
+<script src="../resource/js/validateFormat.js"></script>
+
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
