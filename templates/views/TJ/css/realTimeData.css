@@ -126,3 +126,37 @@
     background: url('../img/dangqian1.png') no-repeat 10px center;
     background-color: #687ea3;
 }
+
+.tab-block{
+
+    float: right;
+
+}
+
+.tab-block span{
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    padding: 5px 12px;
+
+    border: 1px solid #3674D9;
+
+    border-right: none;
+
+}
+
+.tab-block span:last-child{
+
+    border: 1px solid #3674D9;
+
+}
+
+.span-hover{
+
+    background: #3674D9;
+
+    color: #ffffff;
+
+}
