@@ -20,6 +20,7 @@ label {
     display: inline-block;
     padding: 5px 0px 5px 0px;
     margin: 0px;
+    margin-top: 13px;
 }
 .condition-query-a li div.sanlie-div{
     padding-right:10px;
@@ -35,7 +36,7 @@ label {
 .condition-query-a li div.sanlie-div span.sanlie-div-span{
 }
 select, input{
-    width: 160px;
+    width: 250px;
     border: 1px solid #ccc;
     outline: none;
     padding-left: 3px;

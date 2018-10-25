@@ -45,9 +45,10 @@ function xiugaireset() {
     //获取实施单位
     var shishidanweiXiugai = $("#shishidanwei-xiugai").val("");
     //获取签约节能率
-    var qianyuejienenglv = $("#qianyuejienenglv").val("");
+    var qianyuejienenglvXiugai = $("#qianyuejienenglv-xiugai").val("");
+
     //获取采购计划下达时间
-    var caigoujihuaxiadashijian = $("#caigoujihuaxiadashijian").val("");
+    var caigoujihuaxiadashijianXiugai = $("#caigoujihuaxiadashijian").val("");
     //获取招标时间
     var zhaobiaoshijian = $("#zhaobiaoshijian").val("");
     //获取合同时间

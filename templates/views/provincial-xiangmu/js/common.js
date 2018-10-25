@@ -570,6 +570,20 @@ function  getxiangmuleixingbyhezuofangshiid ( id ){
 
 
 $('#chuangjian').on('click',function(){
+
+        var dd = $('#xiangmu').validate({
+            rules:{
+                'xiangmumingcheng':{
+                    required: true
+                }
+            },
+            messages:{
+                'xiangmumingcheng':{
+                    required: "请输入项目名称"
+                }
+            }
+        });
+        dd.form()
     // 开始提交按钮
     //获取单位名称
     var danweimingcheng = $('.danweimingcheng').val()
@@ -1063,12 +1077,12 @@ $('#xiangmubiaoge tbody').on('click','.option-see',function(data, index){
 
 
 function startEdite(){
-    var data = hh.cache.itemdata;
-    if(!data){
-        myAlter("没有找到该条数据,请刷新后重试")
-        return 
-    }
-    console.log(data)
+    // var data = hh.cache.itemdata;
+    // if(!data){
+    //     myAlter("没有找到该条数据,请刷新后重试")
+    //     return 
+    // }
+    // console.log(data)
 }
 
 //删除项目

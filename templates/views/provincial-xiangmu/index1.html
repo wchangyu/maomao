@@ -295,304 +295,301 @@
 
     <!--模态框创建 修改工单-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 648px;min-width:700px;margin:150px auto">
-            <div class="modal-content" style="height: 648px;">
+        <div class="modal-dialog" style="height: 750px;width: 1000px!important;">
+            <div class="modal-content" style="height: 750px;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">添加项目改造</h4>
                 </div>
-                <div class="modal-body" style="height: 525px;overflow-y: auto">
+                <div class="modal-body" style="height: 623px;overflow-y: auto">
                     <!--主体部分-->
                     <div class="bianjirizhi ui-accordion ui-widget ui-helper-reset ui-accordion-icons" style="">
-
-                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" style="display: block; padding-top: 12px; padding-bottom: 12px; ">
-                            <ul class="condition-query-a noprint">
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            单位名称
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="filterInput danweimingcheng" readonly>
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            所属区域
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="filterInput suoshuquyu" readonly>
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            单位类型
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <select name="" id="danweileixing">
-                                                <option value ="volvo">Volvo</option>
-                                                <option value ="saab">Saab</option>
-                                                <option value="opel">Opel</option>
-                                                <option value="audi">Audi</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<select name="">-->
-                                            <!--<option value ="volvo">Volvo</option>-->
-                                            <!--<option value ="saab">Saab</option>-->
-                                            <!--<option value="opel">Opel</option>-->
-                                            <!--<option value="audi">Audi</option>-->
-                                        <!--</select>-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            项目名称
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="filterInput" id="xiangmumingcheng">
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            合作方式
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <select name="" id="hezuofangshi">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<select name="">-->
-                                            <!--<option value ="volvo">Volvo</option>-->
-                                            <!--<option value ="saab">Saab</option>-->
-                                            <!--<option value="opel">Opel</option>-->
-                                            <!--<option value="audi">Audi</option>-->
-                                        <!--</select>-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            项目类型
-                                            <span class="redtip xiangmuleixingxingxing">*</span>
-                                        </span>
-                                        <div>
-                                            <select name="" id="xiangmuleixing">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<select name="">-->
-                                            <!--<option value ="volvo">Volvo</option>-->
-                                            <!--<option value ="saab">Saab</option>-->
-                                            <!--<option value="opel">Opel</option>-->
-                                            <!--<option value="audi">Audi</option>-->
-                                        <!--</select>-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            EPC类型
-                                            <span class="redtip epcxinghao">*</span>
-                                        </span>
-                                        <div>
-                                            <select name="" id="epcleixing">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<select name="">-->
-                                            <!--<option value ="volvo">Volvo</option>-->
-                                            <!--<option value ="saab">Saab</option>-->
-                                            <!--<option value="opel">Opel</option>-->
-                                            <!--<option value="audi">Audi</option>-->
-                                        <!--</select>-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            改造面积(平方米)
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input  class="filterInput"  type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" id="gaizaomianji" />
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            投资额(万元)
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="filterInput" onkeyup="this.value=this.value.replace(/\D/g,'')" id="touzie" />
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            实施单位
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="filterInput" id="shishidanwei" />
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            签约节能率(%)
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="filterInput" onkeyup="this.value=this.value.replace(/\D/g,'')" id="qianyuejienenglv" />
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            采购计划下达时间
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="datatimeblock max" name="max" id="caigoujihuaxiadashijian">
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            招标时间
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="datatimeblock max" name="max" id="zhaobiaoshijian">
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="datatimeblock max" name="max">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            合同时间
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="datatimeblock max" name="max" id="hetongshijian">
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="datatimeblock max" name="max">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            验收时间
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="datatimeblock max" name="max" id="yanshoushijian">
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="datatimeblock max" name="max">-->
-                                    <!--</div>-->
-                                </li>
-
-                                <li class="col-md-12">
-                                    <div class="col-md-12 myreset">
-                                        <span class="gljz">
-                                            关联建筑&nbsp;&nbsp;
-                                            <!-- <span class="redtip">*</span> -->
-                                        </span>
-                                        <textarea class="textInput" rows="3" style="resize:none" id="guanlianjianzhu"></textarea>
-                                    </div>
-                                </li>
-                                <li class="col-md-12 zhenglie">
-                                    <div class="zhenglie-div">
+                        <form class="cmxform" id="xiangmu" method="post" action="">
+                            <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" style="display: block; padding-top: 12px; padding-bottom: 12px; ">
+                                <ul class="condition-query-a noprint">
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
                                             <span class="sanlie-div-span">
-                                                项目实施进度(里程碑)
+                                                单位名称
                                                 <span class="redtip">*</span>
                                             </span>
-                                    </div>
-                                    <div class="sanlie-div">
-                                        <select name="" id="xiangmushishijindu">
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="col-md-12">
-                                    <div class="col-md-12 myreset">
-                                        <span class="gljz">备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                        <textarea class="textInput" rows="3" style="resize:none" id="beizhu"></textarea>
-                                    </div>
-                                </li>
-                            </ul>
-                            <table style="width: 100%;" class="dTable">
-                                <tbody>
-                                <tr>
-                                    <td valign="middle" align="center">附件：</td>
-                                    <td>
-                                        <br>
-                                        <!--用来存放文件信息-->
-                                        <div id="thelist0" class="uploader-list0"></div>
-                                        <div id="thelist" class="uploader-list"></div>
-                                        <div id="uploader" class="wu-example">
-
-                                            <div class="btns">
-                                                <div id="picker" style="display: inline-block;vertical-align: top;">选择文件</div>
-                                                <button id="ctlBtn" class="btn btn-default">开始上传</button>
-
+                                            <div>
+                                                <input type="text" class="filterInput danweimingcheng" readonly>
                                             </div>
                                         </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<input type="text" class="filterInput">-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                所属区域
+                                                <span class="redtip">*</span>
+                                            </span>
+                                            <div>
+                                                <input type="text" class="filterInput suoshuquyu" readonly>
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<input type="text" class="filterInput">-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                单位类型
+                                                <span class="redtip">*</span>
+                                            </span>
+                                            <div>
+                                                <select name="" id="danweileixing">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<select name="">-->
+                                                <!--<option value ="volvo">Volvo</option>-->
+                                                <!--<option value ="saab">Saab</option>-->
+                                                <!--<option value="opel">Opel</option>-->
+                                                <!--<option value="audi">Audi</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                项目名称
+                                                <span class="redtip">*</span>
+                                            </span>
+                                            <div>
+                                                <input type="text" class="filterInput" id="xiangmumingcheng" name="xiangmmingcheng">
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<input type="text" class="filterInput">-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                合作方式
+                                                <span class="redtip">*</span>
+                                            </span>
+                                            <div>
+                                                <select name="" id="hezuofangshi">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<select name="">-->
+                                                <!--<option value ="volvo">Volvo</option>-->
+                                                <!--<option value ="saab">Saab</option>-->
+                                                <!--<option value="opel">Opel</option>-->
+                                                <!--<option value="audi">Audi</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                项目类型
+                                                <span class="redtip xiangmuleixingxingxing">*</span>
+                                            </span>
+                                            <div>
+                                                <select name="" id="xiangmuleixing">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<select name="">-->
+                                                <!--<option value ="volvo">Volvo</option>-->
+                                                <!--<option value ="saab">Saab</option>-->
+                                                <!--<option value="opel">Opel</option>-->
+                                                <!--<option value="audi">Audi</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                EPC类型
+                                                <span class="redtip epcxinghao">*</span>
+                                            </span>
+                                            <div>
+                                                <select name="" id="epcleixing">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<select name="">-->
+                                                <!--<option value ="volvo">Volvo</option>-->
+                                                <!--<option value ="saab">Saab</option>-->
+                                                <!--<option value="opel">Opel</option>-->
+                                                <!--<option value="audi">Audi</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                改造面积(平方米)
+                                                <span class="redtip">*</span>
+                                            </span>
+                                            <div>
+                                                <input  class="filterInput"  type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" id="gaizaomianji" />
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<input type="text" class="filterInput">-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                投资额(万元)
+                                                <span class="redtip">*</span>
+                                            </span>
+                                            <div>
+                                                <input type="text" class="filterInput" onkeyup="this.value=this.value.replace(/\D/g,'')" id="touzie" />
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                实施单位
+                                                <span class="redtip">*</span>
+                                            </span>
+                                            <div>
+                                                <input type="text" class="filterInput" id="shishidanwei" />
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<input type="text" class="filterInput">-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                签约节能率(%)
+                                                <span class="redtip">*</span>
+                                            </span>
+                                            <div>
+                                                <input type="text" class="filterInput" onkeyup="this.value=this.value.replace(/\D/g,'')" id="qianyuejienenglv" />
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<input type="text" class="filterInput">-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                采购计划下达时间
+                                                <span class="redtip">*</span>
+                                            </span>
+                                            <div>
+                                                <input type="text" class="datatimeblock max" name="max" id="caigoujihuaxiadashijian">
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<input type="text" class="filterInput">-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                招标时间
+                                                <span class="redtip">*</span>
+                                            </span>
+                                            <div>
+                                                <input type="text" class="datatimeblock max" name="max" id="zhaobiaoshijian">
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<input type="text" class="datatimeblock max" name="max">-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                合同时间
+                                                <span class="redtip">*</span>
+                                            </span>
+                                            <div>
+                                                <input type="text" class="datatimeblock max" name="max" id="hetongshijian">
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<input type="text" class="datatimeblock max" name="max">-->
+                                        <!--</div>-->
+                                    </li>
+                                    <li class="col-md-4">
+                                        <div class="sanlie-div">
+                                            <span class="sanlie-div-span">
+                                                验收时间
+                                                <span class="redtip">*</span>
+                                            </span>
+                                            <div>
+                                                <input type="text" class="datatimeblock max" name="max" id="yanshoushijian">
+                                            </div>
+                                        </div>
+                                        <!--<div class="sanlie-div">-->
+                                            <!--<input type="text" class="datatimeblock max" name="max">-->
+                                        <!--</div>-->
+                                    </li>
+
+                                    <li class="col-md-12">
+                                        <div class="col-md-12 myreset">
+                                            <span class="gljz">
+                                                关联建筑&nbsp;&nbsp;
+                                                <!-- <span class="redtip">*</span> -->
+                                            </span>
+                                            <textarea class="textInput" rows="3" style="resize:none" id="guanlianjianzhu"></textarea>
+                                        </div>
+                                    </li>
+                                    <li class="col-md-12 zhenglie">
+                                        <div class="zhenglie-div">
+                                                <span class="sanlie-div-span">
+                                                    项目实施进度(里程碑)
+                                                    <span class="redtip">*</span>
+                                                </span>
+                                        </div>
+                                        <div class="sanlie-div">
+                                            <select name="" id="xiangmushishijindu">
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li class="col-md-12">
+                                        <div class="col-md-12 myreset">
+                                            <span class="gljz">备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <textarea class="textInput" rows="3" style="resize:none" id="beizhu"></textarea>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <table style="width: 100%;" class="dTable">
+                                    <tbody>
+                                    <tr>
+                                        <td valign="middle" align="center">附件：</td>
+                                        <td>
+                                            <br>
+                                            <!--用来存放文件信息-->
+                                            <div id="thelist0" class="uploader-list0"></div>
+                                            <div id="thelist" class="uploader-list"></div>
+                                            <div id="uploader" class="wu-example">
+
+                                                <div class="btns">
+                                                    <div id="picker" style="display: inline-block;vertical-align: top;">选择文件</div>
+                                                    <button id="ctlBtn" class="btn btn-default">开始上传</button>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -603,311 +600,7 @@
         </div><!-- /.modal -->
     </div>
 
-    <!--模态框 修改项目-->
-    <div class="modal fade" id="myModal-xiugai" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 648px;min-width:700px;margin:150px auto">
-            <div class="modal-content" style="height: 648px;">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel-xiugai">修改项目改造</h4>
-                </div>
-                <div class="modal-body" style="height: 525px;overflow-y: auto">
-                    <!--主体部分-->
-                    <div class="bianjirizhi ui-accordion ui-widget ui-helper-reset ui-accordion-icons" style="">
 
-                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" style="display: block; padding-top: 12px; padding-bottom: 12px; ">
-                            <ul class="condition-query-a noprint">
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            单位名称
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="filterInput danweimingcheng" id="danweimingcheng-xiugai" readonly>
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            所属区域
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="filterInput suoshuquyu" id="suoshuquyu-xiugai" readonly>
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            单位类型
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <select name="" id="danweileixing-xiugai">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<select name="">-->
-                                            <!--<option value ="volvo">Volvo</option>-->
-                                            <!--<option value ="saab">Saab</option>-->
-                                            <!--<option value="opel">Opel</option>-->
-                                            <!--<option value="audi">Audi</option>-->
-                                        <!--</select>-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            项目名称
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="filterInput" id="xiangmumingcheng-xiugai">
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            合作方式
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <select name="" id="hezuofangshi-xiugai">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<select name="">-->
-                                            <!--<option value ="volvo">Volvo</option>-->
-                                            <!--<option value ="saab">Saab</option>-->
-                                            <!--<option value="opel">Opel</option>-->
-                                            <!--<option value="audi">Audi</option>-->
-                                        <!--</select>-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            项目类型
-                                            <span class="redtip xiangmuleixingxingxing">*</span>
-                                        </span>
-                                        <div>
-                                            <select name="" id="xiangmuleixing-xiugai">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<select name="">-->
-                                            <!--<option value ="volvo">Volvo</option>-->
-                                            <!--<option value ="saab">Saab</option>-->
-                                            <!--<option value="opel">Opel</option>-->
-                                            <!--<option value="audi">Audi</option>-->
-                                        <!--</select>-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            EPC类型
-                                            <span class="redtip epcxinghao">*</span>
-                                        </span>
-                                        <div>
-                                            <select name="" id="epcleixing-xiugai">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<select name="">-->
-                                            <!--<option value ="volvo">Volvo</option>-->
-                                            <!--<option value ="saab">Saab</option>-->
-                                            <!--<option value="opel">Opel</option>-->
-                                            <!--<option value="audi">Audi</option>-->
-                                        <!--</select>-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            改造面积(平方米)
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input  class="filterInput"  type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" id="gaizaomianji-xiugai" />
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            投资额(万元)
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="filterInput" onkeyup="this.value=this.value.replace(/\D/g,'')" id="touzie-xiugai" />
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            实施单位
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="filterInput" id="shishidanwei-xiugai" />
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            签约节能率(%)
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="filterInput" onkeyup="this.value=this.value.replace(/\D/g,'')" id="qianyuejienenglv-xiugai" />
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            采购计划下达时间
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="datatimeblock max" name="max" id="caigoujihuaxiadashijian-xiugai">
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="filterInput">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            招标时间
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="datatimeblock max" name="max" id="zhaobiaoshijian-xiugai">
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="datatimeblock max" name="max">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            合同时间
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="datatimeblock max" name="max" id="hetongshijian-xiugai">
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="datatimeblock max" name="max">-->
-                                    <!--</div>-->
-                                </li>
-                                <li class="col-md-4">
-                                    <div class="sanlie-div">
-                                        <span class="sanlie-div-span">
-                                            验收时间
-                                            <span class="redtip">*</span>
-                                        </span>
-                                        <div>
-                                            <input type="text" class="datatimeblock max" name="max" id="yanshoushijian-xiugai">
-                                        </div>
-                                    </div>
-                                    <!--<div class="sanlie-div">-->
-                                        <!--<input type="text" class="datatimeblock max" name="max">-->
-                                    <!--</div>-->
-                                </li>
-
-                                <li class="col-md-12">
-                                    <div class="col-md-12 myreset">
-                                        <span class="gljz">
-                                            关联建筑&nbsp;&nbsp;
-                                            <!-- <span class="redtip">*</span> -->
-                                        </span>
-                                        <textarea class="textInput" rows="3" style="resize:none" id="guanlianjianzhu-xiugai"></textarea>
-                                    </div>
-                                </li>
-                                <li class="col-md-12 zhenglie">
-                                    <div class="zhenglie-div">
-                                            <span class="sanlie-div-span">
-                                                项目实施进度(里程碑)
-                                                <span class="redtip">*</span>
-                                            </span>
-                                    </div>
-                                    <div class="sanlie-div">
-                                        <select name="" id="xiangmushishijindu-xiugai">
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="col-md-12">
-                                    <div class="col-md-12 myreset">
-                                        <span class="gljz">备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                        <textarea class="textInput" rows="3" style="resize:none" id="beizhu-xiugai"></textarea>
-                                    </div>
-                                </li>
-                            </ul>
-                            <table style="width: 100%;" class="dTable">
-                                <tbody>
-                                <tr>
-                                    <td valign="middle" align="center">附件：</td>
-                                    <td>
-                                        <br>
-                                        <!--用来存放文件信息-->
-                                        <div id="thelist0" class="uploader-list0"></div>
-                                        <div id="thelist" class="uploader-list"></div>
-                                        <div id="uploader" class="wu-example">
-
-                                            <div class="btns">
-                                                <div id="picker" style="display: inline-block;vertical-align: top;">选择文件</div>
-                                                <button id="ctlBtn" class="btn btn-default">开始上传</button>
-
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="chuangjian-xiugai">修改</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
 
     <!--自定义弹窗-->
     <div class='modal fade' id='my-alert' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
@@ -1002,6 +695,9 @@
 <script src="../resource/webUploader/webuploader.js"></script>
 <script src="../bank-resource/js/common.js"></script>
 <script src="../resource/js/publicFun.js"></script>
+<script src="../resource/validation/jquery.validate.min.js"></script>
+
+<script src="../resource/validation/messages_zh.min.js"></script>
 <!-- <script src="../resource/js/js/knowledgeBase-1.js"></script> -->
 <script>
     jQuery(document).ready(function() {
