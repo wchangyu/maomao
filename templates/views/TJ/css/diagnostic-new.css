@@ -1,0 +1,93 @@
+/*外层框*/
+.page-content {
+
+    background: #e5ebf1;
+}
+
+.page-bar{
+    background: #e5ebf1;
+}
+
+.container {
+    background: white;
+}
+
+/*上方评分*/
+.left-title1{
+    margin-bottom:30px;
+}
+.top-grade{
+    margin-bottom:50px;
+}
+.top-grade .left-grade{
+
+    width:30%;
+    float: left;
+}
+
+.top-grade .left-grade .inner-grade{
+
+    margin-left:20%;
+    width:180px;
+    height: 180px;
+    border-radius: 50%;
+    background: url('../img/zhenduan/grade.png') no-repeat center center;
+    background-size: 100% 100%;
+    color:white;
+    font-size: 72px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 180px;
+}
+
+/*右侧按钮*/
+.top-grade .right-btn {
+    padding-top:60px;
+    width: 70%;
+    float: left;
+}
+
+.top-grade .right-btn h3{
+    color:#666666;
+    font-size: 32px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom:38px;
+}
+
+.top-grade .right-btn  p{
+    text-align: center;
+}
+
+.top-grade .right-btn .diagram-btn {
+    width:130px;
+    height:32px;
+    background:#3674D9;
+    display: inline-block;
+    color: white;
+    line-height: 32px;
+    text-align: center;
+    font-size:18px;
+    cursor: pointer;
+}
+
+/*下方诊断信息*/
+.bottom-diagram-message{
+
+    padding:10px 0px 0px 40px;
+
+}
+
+.bottom-diagram-message .top-select{
+    width:140px;
+    height:32px;
+    border:1px solid #DCDCDC;
+    color: #687EA2;
+    font-size: 17px;
+}
+
+.bottom-echart{
+    width:95%;
+    height: 400px;
+
+}

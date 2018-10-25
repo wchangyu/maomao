@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>动环监测</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <link href="../resource/css/ALLDevice.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/entranceGuard.css">
+    <style>
+
+    </style>
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container"  style="padding-top: 0px !important;">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left " style="padding-right: 0px;">
+
+                                <!--上方信息-->
+                                <div class="left-diagram">
+
+                                    <h3 class="top-title left-title1">门禁集成</h3>
+
+                                    <!--访客信息-->
+                                    <div class="top-visitor-message scrollbar">
+
+                                            <!--具体信息-->
+                                            <div class="top-visitor-message-container">
+
+                                                <h3 style="" class="message-title">
+                                                    <span class="left-patch"></span>
+                                                    门禁1
+                                                </h3>
+
+                                                <!--上方门禁控制-->
+                                                <div class="visitor-control">
+
+                                                    <p>门禁状态：<span class="state">正常</span></p>
+
+                                                    <p>远程控制：<span class="control">开</span></p>
+                                                </div>
+
+                                                <!--下方访客信息-->
+                                                <div class="the-visitor-message">
+
+                                                    <h4>当前访客信息</h4>
+
+                                                    <div class="visitor-message-data">
+
+                                                        <!--头像-->
+                                                        <img src="img/renxiang.png" alt="">
+
+                                                        <p>
+                                                            姓名：<span class="name">雷杰</span>
+                                                            部门：<span class="department">科技发展部</span>
+                                                        </p>
+
+                                                        <p>
+                                                            职位：<span class="name">经理</span>
+                                                            工号：<span class="department">644553</span>
+                                                        </p>
+                                                        <p>
+                                                            刷卡信息：<span class="time" style="width:auto">2018-10-16 8:53:56</span>
+                                                        </p>
+
+                                                        <p>
+                                                            出入情况：<span class="come">出</span>
+                                                            状态：<span class="department">成功</span>
+                                                        </p>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="top-visitor-message-container">
+
+                                                <h3 style="" class="message-title">
+                                                    <span class="left-patch"></span>
+                                                    门禁2
+                                                </h3>
+
+                                                <!--上方门禁控制-->
+                                                <div class="visitor-control">
+
+                                                    <p>门禁状态：<span class="state">正常</span></p>
+
+                                                    <p>远程控制：<span class="control">开</span></p>
+                                                </div>
+
+                                                <!--下方访客信息-->
+                                                <div class="the-visitor-message">
+
+                                                    <h4>当前访客信息</h4>
+
+                                                    <div class="visitor-message-data">
+
+                                                        <!--头像-->
+                                                        <img src="img/touxiang2.png" alt="">
+
+                                                        <p>
+                                                            姓名：<span class="name">李亮</span>
+                                                            部门：<span class="department">人才事业部</span>
+                                                        </p>
+
+                                                        <p>
+                                                            职位：<span class="name">经理</span>
+                                                            工号：<span class="department">644554</span>
+                                                        </p>
+                                                        <p>
+                                                            刷卡信息：<span class="time" style="width:auto">2018-10-16 8:53:56</span>
+                                                        </p>
+
+                                                        <p>
+                                                            出入情况：<span class="come">出</span>
+                                                            状态：<span class="department">成功</span>
+                                                        </p>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="top-visitor-message-container">
+
+                                                <h3 style="" class="message-title">
+                                                    <span class="left-patch"></span>
+                                                    门禁3
+                                                </h3>
+
+                                                <!--上方门禁控制-->
+                                                <div class="visitor-control">
+
+                                                    <p>门禁状态：<span class="state">正常</span></p>
+
+                                                    <p>远程控制：<span class="control">开</span></p>
+                                                </div>
+
+                                                <!--下方访客信息-->
+                                                <div class="the-visitor-message">
+
+                                                    <h4>当前访客信息</h4>
+
+                                                    <div class="visitor-message-data">
+
+                                                        <!--头像-->
+                                                        <img src="img/touxiang3.png" alt="">
+
+                                                        <p>
+                                                            姓名：<span class="name">张利军</span>
+                                                            部门：<span class="department">科技发展部</span>
+                                                        </p>
+
+                                                        <p>
+                                                            职位：<span class="name">职员</span>
+                                                            工号：<span class="department">644558</span>
+                                                        </p>
+                                                        <p>
+                                                            刷卡信息：<span class="time" style="width:auto">2018-10-16 8:53:56</span>
+                                                        </p>
+
+                                                        <p>
+                                                            出入情况：<span class="come">出</span>
+                                                            状态：<span class="department">成功</span>
+                                                        </p>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="top-visitor-message-container">
+
+                                                <h3 style="" class="message-title">
+                                                    <span class="left-patch"></span>
+                                                    门禁4
+                                                </h3>
+
+                                                <!--上方门禁控制-->
+                                                <div class="visitor-control">
+
+                                                    <p>门禁状态：<span class="state">正常</span></p>
+
+                                                    <p>远程控制：<span class="control">开</span></p>
+                                                </div>
+
+                                                <!--下方访客信息-->
+                                                <div class="the-visitor-message">
+
+                                                    <h4>当前访客信息</h4>
+
+                                                    <div class="visitor-message-data">
+
+                                                        <!--头像-->
+                                                        <img src="img/touxiang4.png" alt="">
+
+                                                        <p>
+                                                            姓名：<span class="name">郭宇</span>
+                                                            部门：<span class="department">科技发展部</span>
+                                                        </p>
+
+                                                        <p>
+                                                            职位：<span class="name">职员</span>
+                                                            工号：<span class="department">644556</span>
+                                                        </p>
+                                                        <p>
+                                                            刷卡信息：<span class="time" style="width:auto">2018-10-16 8:53:56</span>
+                                                        </p>
+
+                                                        <p>
+                                                            出入情况：<span class="come">出</span>
+                                                            状态：<span class="department">成功</span>
+                                                        </p>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+                                    </div>
+
+                                    <!--下方表格-->
+                                    <div class="bottom-table-container">
+
+                                        <ul class="condition-query noprint">
+                                            <li><label for="">门禁编号：</label>
+                                                <div class="input-blocked" id="filter_global">
+                                                    <input type="text" class="filterInput">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <label for="">起始时间：</label>
+                                                <div class="input-blocked">
+                                                    <input type="text" class="datatimeblock min" name="min">
+                                                </div>
+                                                <label for="">--</label>
+                                                <div class="input-blocked">
+                                                    <input type="text" class="datatimeblock max" name="max">
+                                                </div>
+                                            </li>
+
+                                            <li><label for="">姓名：</label>
+                                                <div class="input-blocked" id="">
+                                                    <input type="text" class="filterInput">
+                                                </div>
+                                            </li>
+
+                                            <li><label for="">部门：</label>
+                                                <div class="input-blocked" id="">
+                                                    <input type="text" class="filterInput">
+                                                </div>
+                                            </li>
+
+                                            <li><label for="">职位：</label>
+                                                <div class="input-blocked" id="">
+                                                    <input type="text" class="filterInput">
+                                                </div>
+                                            </li>
+
+                                            <li><button class="btn btn-success btn1" id="selected">查询</button></li>
+
+
+                                            <div class="clearfix"></div>
+                                        </ul>
+
+                                        <table id="scrap-datatables" class="table table-person table-striped table-bordered table-advance table-hover table-fixation" cellspacing="0" width="100%">
+
+                                            <thead>
+                                                <tr>
+                                                    <td>编号</td>
+                                                    <td>姓名</td>
+                                                    <td>部门</td>
+                                                    <td>职位</td>
+                                                    <td>门名</td>
+                                                    <td>时间</td>
+                                                    <td>状态</td>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody class="scrollbar">
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+
+
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../resource/js/userMonitor.js"></script>
+<script src="js/entranceGuard.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

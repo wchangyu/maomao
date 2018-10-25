@@ -2226,6 +2226,7 @@ function getTPDevMonitor(){
             $('#equipment-chart-electricity1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.hvacAirsOBJ.cDataIDNum);
 
             //-----------------------------照明系统---------------------------//
+
             //总台数
             var allNum = result.lightSysOBJ.houseLightAllNum;
 
@@ -3022,6 +3023,7 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
         option.series[i].data = data;
 
         if(allData == 100000){
+
             allData = 0
         }
 

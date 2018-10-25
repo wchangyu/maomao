@@ -207,8 +207,6 @@ function alarmData(){
 
     },3000);
 
-
-
 };
 
 //左上方介绍的滚动效果
@@ -413,7 +411,7 @@ function systemCapacityEchart(){
 
         systemCapacityEcahrtArr[i].setOption(option0,true);
     })
-}
+};
 
 //冗余量echart图
 var _rightMiddleChart5 = echarts.init(document.getElementById('right-middle-echart5'));
@@ -422,6 +420,7 @@ var _rightMiddleChart6 = echarts.init(document.getElementById('right-middle-echa
 
 // 指定图表的配置项和数据 用于冗余量
 var option1 = {
+
     title: {
         text: '制冷系统(kw)',
         sublink: ' /n 良好',
@@ -561,7 +560,7 @@ function redundancyEchart(){
         o.setOption(option1,true);
 
     })
-}
+};
 
 //运维统计echart图
 var _rightMiddleChart7 = echarts.init(document.getElementById('right-middle-echart7'));
@@ -732,7 +731,7 @@ function operationEchart(){
         o.setOption(option2,true);
 
     })
-}
+};
 
 //能耗统计柱状图
 var energyLeftEchart = echarts.init(document.getElementById('energy-left-echart'));
@@ -1019,6 +1018,7 @@ energyRightEchart.setOption(dayNightOption,true);
 
 
 //-----------------------------------能效指标---------------------------//
+
 //仪表盘
 var _gaugeChart = echarts.init(document.getElementById('gaugeChart'));
 
@@ -1182,7 +1182,6 @@ var _gaugeOption = {
 //生成
 _gaugeChart.setOption(_gaugeOption,true);
 
-
 //----------------------------------健康诊断雷达图-------------------------//
 
 //雷达图参数
@@ -1238,4 +1237,387 @@ var _healthChart = echarts.init(document.getElementById('healthChart'));
 
 //生成
 _healthChart.setOption(_healthOption,true);
+
+//----------------------------------报警信息柱状图-------------------------//
+
+//报警信息柱状
+var alarmEchart = echarts.init(document.getElementById('alarm-echart'));
+
+// 指定图表的配置项和数据 用于报警信息
+var alarmOption = {
+
+    tooltip:{
+        trigger:'axis',
+        axisPointer:{
+            type:'shadow'
+        },
+        show:false,
+        formatter:function (params) {
+            var tar = params[1];
+            var tars = params[0];
+            return tar.name + '<br/>' + tar.seriesName + '  ' + tar.value + '<br/>' + tars.seriesName + '  ' + tars.value;
+        }
+    },
+    toolbox:{
+        show:false,
+        feature:{
+            mark:{show:true},
+            dataView:{show:true, readOnly:false},
+            restore:{show:true},
+            saveAsImage:{show:true}
+        }
+    },
+    grid:{
+        left:'1%',
+        right:'1%',
+        bottom:'1%',
+        top:"12%",
+        borderColor:'#ccc',
+        containLabel:true
+    },
+    xAxis:{
+        show:'true',
+        type : 'category',
+        axisLabel: {
+            color:'#B0BED0' //刻度线标签颜色
+        },
+        data:[1,2,3,4,5]
+    },
+    yAxis:{
+        type:'value',
+        axisLabel: {
+            color:'#B0BED0' //刻度线标签颜色
+        },
+        max:25
+    },
+    series:[
+        {
+            name:'环境',
+            type:'bar',
+            stack:'总量',
+            label:{
+                normal:{
+                    show:false,
+                    position:'inside'
+                }
+            },
+            itemStyle:{
+                normal:{
+                    color:'#31BEA4'
+                },
+                emphasis:{
+                    barBorderColor:'rgba(0,0,0,0.5)',
+                    color:'#afc8de'
+                }
+            },
+            data:[2,3,4,9,1],
+            barMaxWidth:'50'
+        },
+        {
+            name:'配电',
+            type:'bar',
+            stack:'总量',
+            label:{
+                normal:{
+                    show:false,
+                    position:'inside'
+                }
+            },
+            itemStyle:{
+                normal:{
+                    color:'#4B85E5'
+                },
+                emphasis:{
+                    barBorderColor:'rgba(0,0,0,0.5)',
+                    color:'#9dc541'
+                }
+            },
+            data:[6,6,6,6,6],
+            barMaxWidth:'50',
+        },
+        {
+            name:'消防',
+            type:'bar',
+            stack:'总量',
+            label:{
+                normal:{
+                    show:false,
+                    position:'inside'
+                }
+            },
+            itemStyle:{
+                normal:{
+                    color:'#4D7AE1'
+                },
+                emphasis:{
+                    barBorderColor:'rgba(0,0,0,0.5)',
+                    color:'#9dc541'
+                }
+            },
+            data:[3,2,2,3,5],
+            barMaxWidth:'50'
+        },
+        {
+            name:'制冷',
+            type:'bar',
+            stack:'总量',
+            label:{
+                normal:{
+                    show:false,
+                    position:'inside'
+                }
+            },
+            itemStyle:{
+                normal:{
+                    color:'#8A52E7'
+                },
+                emphasis:{
+                    barBorderColor:'rgba(0,0,0,0.5)',
+                    color:'#9dc541'
+                }
+            },
+            data:[4,1,1,3,5],
+            barMaxWidth:'50'
+        },
+        {
+            name:'安防',
+            type:'bar',
+            stack:'总量',
+            label:{
+                normal:{
+                    show:false,
+                    position:'inside'
+                }
+            },
+            itemStyle:{
+                normal:{
+                    color:'#D944DB'
+                },
+                emphasis:{
+                    barBorderColor:'rgba(0,0,0,0.5)',
+                    color:'#9dc541'
+                }
+            },
+            data:[4,2,5,2,3],
+            barMaxWidth:'50'
+        }
+    ]
+};
+
+alarmEchart.setOption(alarmOption,true);
+
+//---------------------------------资产信息--------------------------//
+
+//资产信息echart图
+var _propertyChart5 = echarts.init(document.getElementById('property-echart'));
+
+// 指定图表的配置项和数据 用于资产信息
+var propertyOption = {
+    title: {
+        text: '6',
+        subtext: '信息量',
+        left: 'center',
+        top: '100',
+        itemGap: 1,
+        textBaseline:'middle',
+        textStyle : {
+            color : 'white',
+            fontFamily : '微软雅黑',
+            fontSize : 22,
+            fontWeight : 'normal',
+            lineHeight:20
+        },
+        subtextStyle:{
+            color:'white',
+            fontSize : 14,
+            fontWeight : 'normal',
+            lineHeight:18
+        }
+    },
+    tooltip: {
+        trigger: 'item',
+        formatter: " {b} : {c} ({d}%) "
+    },
+    legend: {
+        orient: 'vertical',
+        x: 'left',
+        y:'10px',
+        show:false,
+        data:['已完成','派单中','进行中'],
+        textStyle:{
+            color:'white'
+        }
+
+    },
+    series: [
+        {
+            name:'',
+            type:'pie',
+            radius: ['50%', '70%'],
+            center:['50%', '58%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: true,
+                    position:'outside',
+                    textStyle : {
+                        color:'white',
+                        fontSize : '12',
+                        fontWeight : 'bold'
+                    },
+                    padding:[0,-20,15,-15],
+                    formatter: function(params){
+                        //console.log(params);
+
+                        return params.data.value + ' (' +  params.percent.toFixed(1) + '%)';
+                    }
+                },
+                emphasis: {
+                    show: false,
+                    textStyle: {
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            itemStyle : {
+                normal : {
+                    color:function(params){
+                        var colorList = [
+                            '#31BEA4','#2A9FD0', '#4D7AE1','#8A52E7','#D944DB', '#d36e12', '#dc2612','#b70723', '#7c05cb', '#1c39d9','#f8276c'
+                        ];
+                        return colorList[params.dataIndex]
+
+                    },
+                    label : {
+                        show : false
+                    },
+                    labelLine : {
+                        show : false
+                    }
+                },
+                emphasis : {
+                    label : {
+                        show : false,
+                        position : 'center',
+                        textStyle : {
+                            fontSize : '16',
+                            fontWeight : 'bold'
+                        }
+                    }
+                }
+            },
+            labelLine: {
+                length:'1px',
+                length2:'1px',
+                lineStyle:{
+                    width:1
+                },
+                normal: {
+                    show: true
+                }
+            },
+            data:[
+                {
+                    name:'报废到期',
+                    value:1
+                },
+                {
+                    name:'保修到期',
+                    value:1
+                },
+                {
+                    name:'逾期未换',
+                    value:1
+                },
+                {
+                    name:'维保到期',
+                    value:2
+                },
+                {
+                    name:'在线异常',
+                    value:1
+                }
+            ]
+        }
+    ]
+};
+
+_propertyChart5.setOption(propertyOption,true);
+
+
+//-----------------------------天气信息中下方仪表盘----------------------------//
+
+var refrigerationChart = echarts.init(document.getElementById('bottom-wind-echart'));
+
+var refrigerationOption ={
+    title: {
+        text: '风力',
+        textStyle:{
+            fontSize:'10',
+            fontWeight:'normal',
+            color:'#B0BED0'
+        },
+        textBaseline:'middle',
+        x:'center',
+        bottom:'-4'
+    },
+    tooltip : {
+        formatter: "{a} {b} : {c}"
+    },
+    series: [
+        {
+            name: 'RTI',
+            type: 'gauge',
+            radius: '89%',
+            min: 0,
+            max:9,
+            detail : {
+                fontWeight: 'bolder',
+                fontFamily: 'Arial',
+                fontSize:'18',
+                color: 'white',
+                rich: {}
+            },
+            pointer: {
+                width:3,//指针的宽度
+                length:"70%", //指针长度，按照半圆半径的百分比
+                shadowColor : '#ccc', //默认透明
+                shadowBlur: 5
+            },
+            splitNumber: 3,
+            axisTick: {            // 坐标轴小标记
+                length: 6,        // 属性length控制线长
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    color: 'auto'
+                }
+            },
+            splitLine: {           // 分隔线
+                length: 6,         // 属性length控制线长
+                lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                    color: 'auto'
+                }
+            },
+            axisLabel: {
+                show:false,
+                padding: [0, 0, 0, -4],
+                formatter: function (value) {
+                    // return value.toFixed(1);
+                    return value;
+                }
+            },
+            axisLine: {            // 坐标轴线
+                lineStyle: {       // 属性lineStyle控制线条样式
+
+                    color: [[0.2, '#4B85E5'],[0.5, '#31BEA4'], [0.8, '#E1C649'], [1, '#E93C94']],
+                    width: 3 // 这个是修改宽度的属性
+                }
+            },
+            data: [{value:3}]
+        }
+    ]
+};
+
+//页面赋值
+refrigerationChart.setOption(refrigerationOption,true);
 

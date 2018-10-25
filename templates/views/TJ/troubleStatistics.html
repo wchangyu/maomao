@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>故障统计</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <style>
+
+        /*上方时间选择*/
+        .time-choose-container{
+            color:white;
+        }
+        .time-choose-container input{
+
+            width:115px;
+            height:30px;
+            border:1px solid #88A4D4;
+            background: none;
+            padding-left:5px;
+        }
+
+        .time-choose-container b{
+
+            width:32px;
+            height:30px;
+            border:1px solid #88A4D4;
+            display: inline-block;
+            vertical-align: top;
+            border-left:0;
+            background: url(img/shijian.png) no-repeat center center;
+        }
+
+        .left-diagram{
+            position: relative;
+        }
+
+        .time-choose-container{
+            position: absolute;
+            left:150px;
+            top:5px;
+        }
+
+        .btn-success {
+            background: #3674D9;
+            margin-left:10px;
+            vertical-align: top;
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            padding:0;
+            width:70px;
+        }
+
+        /*右上角设备故障数*/
+        .the-total-trouble{
+
+            position: absolute;
+            right:15px;
+            top:10px;
+            color:white;
+        }
+
+        .the-total-trouble .alarm-num-container {
+            font-size: 16px;
+            color: white;
+            background: #4271b5;
+            padding: 2px;
+            font-weight: bold;
+        }
+
+        /*下方echart图*/
+        .bottom-echart-container{
+            width: 33%;
+            height:350px;
+            border:1px solid #DCDCDC;
+            border-top:none;
+            padding-left:15px;
+            padding-top:10px;
+            box-sizing: border-box;
+            background: white;
+            float: left;
+        }
+
+        .bottom-echart-container .bottom-echart{
+            height: 300px;
+        }
+
+        .message-title {
+            height: 30px;
+            line-height: 30px;
+            border-bottom: none;
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 18px;
+            position: relative;
+            padding-left: 15px;
+            box-sizing: border-box;
+            color: #3E3E3E;
+        }
+
+        .message-title .left-patch {
+            display: inline-block;
+            width: 6px;
+            height: 18px;
+            background: #687EA2;
+            position: absolute;
+            left: 0;
+            top: 8px;
+        }
+
+    </style>
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container" style="padding-top: 0px !important;">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px;padding-left: 0px">
+
+                                <!--统计信息-->
+                                <div class="left-diagram">
+
+                                    <span class="switchover" data-id="1"></span>
+
+                                    <h3 class="top-title left-title1">
+                                        故障统计
+                                    </h3>
+
+                                    <!--时间信息-->
+                                    <div class="time-choose-container">
+
+                                        <span style="margin-right:10px;">起始时间</span>
+                                        <input type="text" class="min datatimeblocks"/><b></b>
+                                        <span> —— </span>
+                                        <input type="text" class="max datatimeblocks"/><b></b>
+
+                                        <button class="btn btn-success btn1" id="selected">统计</button>
+                                    </div>
+
+                                    <!--右上角设备故障数-->
+                                    <div class="the-total-trouble">
+
+                                        <span style="margin-right:10px;">设备总故障数</span>
+                                        <span class="alarm-num-container">0</span>
+                                        <span class="alarm-num-container">0</span>
+                                        <span class="alarm-num-container">5</span>
+                                        <span class="alarm-num-container">8</span>
+                                    </div>
+
+                                    <!--下方各项echart图-->
+                                    <div class="bottom-echart-container" >
+
+                                        <h3 style="" class="message-title">
+                                            <span class="left-patch"></span>
+                                            系统故障分布率
+                                        </h3>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-echart" id="echart1"></div>
+
+                                    </div>
+
+                                    <div class="bottom-echart-container" >
+
+                                        <h3 style="" class="message-title">
+                                            <span class="left-patch"></span>
+                                            品牌故障分布率
+                                        </h3>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-echart" id="echart2"></div>
+
+                                    </div>
+
+                                    <div class="bottom-echart-container" >
+
+                                        <h3 style="" class="message-title">
+                                            <span class="left-patch"></span>
+                                            系统解决情况
+                                        </h3>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-echart" id=""></div>
+
+                                    </div>
+
+                                    <div class="bottom-echart-container" >
+
+                                        <h3 style="" class="message-title">
+                                            <span class="left-patch"></span>
+                                            系统程度比较
+                                        </h3>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-echart" id=""></div>
+
+                                    </div>
+
+                                    <div class="bottom-echart-container" >
+
+                                        <h3 style="" class="message-title">
+                                            <span class="left-patch"></span>
+                                            系统恢复费用占比
+                                        </h3>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-echart" id=""></div>
+
+                                    </div>
+
+                                    <div class="bottom-echart-container" >
+
+                                        <h3 style="" class="message-title">
+                                            <span class="left-patch"></span>
+                                            故障解决时效
+                                        </h3>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-echart" id=""></div>
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+
+
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="js/troubleStatistics.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

@@ -1,0 +1,247 @@
+.page-content {
+
+    min-width: 1450px !important;
+}
+
+.container {
+  background: none;
+}
+
+
+
+/*上方整体结果*/
+.top-total-result{
+    background: white;
+    margin-bottom:15px;
+}
+
+.left-title1 {
+    margin-bottom: 0px;
+}
+
+.top-total-result-container{
+    width: 33%;
+    min-width: 450px;
+    border-right:1px dashed #ccc;
+    height: 400px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:15px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.top-total-result-container .data-echart{
+
+    height:350px;
+}
+
+/*左侧echart图*/
+.message-title {
+    height: 30px;
+    line-height: 30px;
+    border-bottom: none;
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-size: 18px;
+    position: relative;
+    padding-left: 15px;
+    box-sizing: border-box;
+    color: #3E3E3E;
+}
+
+.message-title .left-patch {
+    display: inline-block;
+    width: 6px;
+    height: 18px;
+    background: #687EA2;
+    position: absolute;
+    left: 0;
+    top: 8px;
+}
+
+/*中间gif*/
+.top-result-icon{
+    padding-top:50px;
+    text-align: center;
+}
+
+.top-result-icon .bottom-message{
+
+    color:#666666;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.top-result-icon .innner-container{
+
+    width:400px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.top-result-icon .grade{
+
+    position:absolute ;
+    left: 165px;
+    top: 114px;
+    color:#23A55D;
+    font-size: 52px;
+    font-weight: bold;
+}
+
+/*下方具体信息*/
+.bottom-diagram-message {
+    padding: 5px 0px 0px 0px;
+    display: -webkit-flex;
+    flex-direction: row;
+    justify-content: space-between /* || space-around || center;水平居中*/;
+}
+
+.bottom-specific-message{
+    width:24%;
+    height: 400px;
+    background: white;
+}
+
+.bottom-specific-message .specific-title{
+
+    padding:10px 0px 10px 10px;
+    background: url('../img/zhenduan/01.png') no-repeat 10px center;
+    color:#3E3E3E;
+    text-indent: 30px;
+    font-size: 18px;
+    border-bottom:1px solid #DCDCDC;
+}
+
+.bottom-specific-message .specific-title1{
+
+    background: url('../img/zhenduan/02.png') no-repeat 10px center;
+}
+
+.bottom-specific-message .specific-title2{
+
+    background: url('../img/zhenduan/03.png') no-repeat 10px center;
+}
+
+.bottom-specific-message .specific-title3{
+
+    background: url('../img/zhenduan/04.png') no-repeat 10px center;
+}
+
+.bottom-specific-message .specific-title .trouble-num{
+    float: right;
+    margin-right:10px;
+}
+
+.bottom-specific-message .specific-title .trouble-num font{
+    color:#4B85E5;
+    margin-right:5px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.bottom-specific-data-container{
+    padding:25px 15px 0px 15px;
+}
+
+.bottom-specific-data-container .specific-data{
+
+    color:#4B85E5;
+    font-size:14px;
+    margin-bottom:15px;
+    cursor: pointer;
+    display: none;
+}
+
+.bottom-specific-data-container .specific-data font{
+
+    display: inline-block;
+    width:14px;
+    height:14px;
+    background:#E1C649;
+    border-radius:50%;
+    float: right;
+}
+
+.bottom-specific-data-container .specific-data .red{
+    background: #F25B72;
+}
+
+
+/*弹窗信息*/
+#diagnostic-myModal .alarm-title {
+    background: #687EA2;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+}
+
+#diagnostic-myModal .modal-content {
+    width: 1000px !important;
+}
+
+#diagnostic-myModal .modal-dialog {
+    width: 1000px !important;
+}
+
+#diagnostic-myModal .alarm-content{
+
+    height:500px;
+    padding:15px 10px 0px 15px;
+}
+
+#diagnostic-myModal .left-echart-container{
+    width: 50%;
+    float: left;
+}
+
+#diagnostic-data-echart{
+    height: 350px;
+    width:450px;
+}
+
+/*右侧原因分析*/
+#diagnostic-myModal .right-analyze-container{
+    float: right;
+    width:50%;
+    padding-left:15px;
+}
+
+#diagnostic-myModal .right-analyze-message{
+
+    height:180px;
+    padding:15px 0px 0px 15px;
+    color:#757575;
+    font-size: 14px;
+    border:1px dashed #DCDCDC;
+    margin-bottom:15px;
+}
+
+#diagnostic-myModal .right-analyze-message p{
+    line-height: 24px;
+}
+
+#diagnostic-myModal .bottom-btn{
+
+    position: absolute;
+    right:15px;
+    bottom:15px;
+}
+
+#diagnostic-myModal .bottom-btn span{
+    display: inline-block;
+    width:57px;
+    height:28px;
+    border:1px solid #5BDEB6;
+    font-size: 16px;
+    color:#3E3E3E;
+    text-align: center;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+#diagnostic-myModal .bottom-btn .sure{
+
+    border:1px solid #3674D9;
+}

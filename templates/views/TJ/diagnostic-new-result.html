@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>动环监测</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <link href="../resource/css/ALLDevice.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/diagnostic-new.css">
+    <link rel="stylesheet" href="css/diagnostic-new-result.css">
+    <style>
+
+    </style>
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container"  style="padding-top: 0px !important;">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left " style="padding-right: 0px;">
+
+                                <!--上方信息-->
+                                <div class="left-diagram">
+
+                                    <h3 class="top-title left-title1">诊断结果</h3>
+
+                                    <!--上方整体结果-->
+                                    <div class="top-total-result">
+
+                                        <!--左侧诊断信息汇总-->
+                                        <div class="left-diagram-echart top-total-result-container">
+
+                                            <h3 style="" class="message-title">
+                                                <span class="left-patch"></span>
+                                                诊断信息汇总
+                                            </h3>
+
+                                            <div class="data-echart" id="diagram-echart">
+
+
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!--中间诊断图标-->
+                                        <div class="top-result-icon top-total-result-container">
+
+                                            <div class="innner-container">
+
+                                                <span class="grade">80</span>
+
+                                                <img src="img/zhenduan/diagnostic.gif" alt="">
+                                                <p class="bottom-message">正在扫描...</p>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!--右侧问题数量-->
+                                        <div class="left-diagram-echart top-total-result-container" style="border-right:0">
+
+                                            <h3 style="" class="message-title">
+                                                <span class="left-patch"></span>
+                                                问题数量
+                                            </h3>
+
+                                            <div class="data-echart" id="diagram-echart1" >
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="clearfix"></div>
+
+                                    </div>
+
+                                    <!--下方诊断统计信息-->
+                                    <div class="bottom-diagram-message" style="">
+
+                                        <!--每项诊断信息-->
+                                        <div class="bottom-specific-message">
+
+                                            <h3 class="specific-title">供配电 <span class="trouble-num"><font></font>项</span></h3>
+                                            <div class="bottom-specific-data-container">
+
+                                                <!--下方具体数据-->
+                                                <p class="specific-data">TA03变压器三相温度不平衡 <font class="red"></font></p>
+                                                <p class="specific-data">B02变压器温度超指标2℃ <font></font></p>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!--每项诊断信息-->
+                                        <div class="bottom-specific-message">
+
+                                            <h3 class="specific-title specific-title1">空调 <span class="trouble-num"><font></font>项</span></h3>
+                                            <div class="bottom-specific-data-container">
+
+                                                <!--下方具体数据-->
+                                                <p class="specific-data">1#机组冷凝压力高 <font class="red"></font></p>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!--每项诊断信息-->
+                                        <div class="bottom-specific-message">
+
+                                            <h3 class="specific-title specific-title2">环境监测 <span class="trouble-num"><font></font>项</span></h3>
+                                            <div class="bottom-specific-data-container">
+
+                                                <!--下方具体数据-->
+                                                <p class="specific-data">1#机房W101温湿度数据丢失 <font class="red"></font></p>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!--每项诊断信息-->
+                                        <div class="bottom-specific-message">
+
+                                            <h3 class="specific-title specific-title3">能效 <span class="trouble-num"><font></font>项</span></h3>
+                                            <div class="bottom-specific-data-container">
+
+                                                <!--下方具体数据-->
+                                                <p class="specific-data">冷机能效偏低 <font ></font></p>
+                                                <p class="specific-data">冷却塔效率偏低 <font ></font></p>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+
+<!--诊断结果弹窗-->
+<div class="modal fade alarm-container" id="diagnostic-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static"  aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title ">TA03变压器三相温度不平衡
+                </h4>
+
+            </div>
+            <div class="modal-body alarm-content">
+
+                <!--左侧echart图-->
+                <div class="left-echart-container">
+
+                    <h3 style="" class="message-title">
+                        <span class="left-patch"></span>
+                        TA03三相温度趋势
+                    </h3>
+
+                    <div class="bottom-echart" id="diagnostic-data-echart">
+
+
+                    </div>
+
+                </div>
+
+                <!--右侧分析-->
+                <div class="right-analyze-container">
+
+                    <h3 style="" class="message-title">
+                        <span class="left-patch"></span>
+                        原因分析
+                    </h3>
+
+                    <div class="right-analyze-message">
+                        <p> 1，B相温度较高，三相温差超过2℃<br/>
+                            2，B相风扇损坏<br/>
+                            3，B相风扇需要清理
+                        </p>
+                    </div>
+
+                    <h3 style="" class="message-title">
+                        <span class="left-patch"></span>
+                        建议措施
+                    </h3>
+
+                    <div class="right-analyze-message" style="position: relative">
+                        <p> 1，检查TA03三相散热风扇状态<br/>
+                            2，对散热器进行清灰
+
+                        </p>
+
+                        <div class="bottom-btn">
+                            <span class="">派单</span>
+                            <span class="sure">确认</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../resource/js/userMonitor.js"></script>
+<script src="js/diagnostic-new-result.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

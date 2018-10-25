@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>监控总览</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="css/monitor-pandect.css">
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container" style="padding: 0 !important;width: 1600px !important;">
+
+                            <!--上方空白-->
+                            <div style="height:30px;"></div>
+
+                                <!--动力环境-->
+                               <div class=" monitor-message-container" style="border-right:none">
+
+                                   <h3>动力环境</h3>
+
+                                   <div class="bottom-equipment-chart-background"></div>
+
+                                   <div class="bottom-content-data">
+
+                                       <span class="">115</span><br>
+                                       <span class="">9</span><br>
+                                       <span class="">6</span>
+                                   </div>
+
+                                   <!--echart图-->
+                                   <div class="echart-container" id="power-echart">
+
+
+                                   </div>
+
+                                   <!--下方表格-->
+                                   <div class="bottom-data-table">
+
+                                       <table class="bottom-table">
+                                           <thead>
+                                                <tr>
+                                                    <td>设备</td>
+                                                    <td>正常</td>
+                                                    <td>通讯异常</td>
+                                                    <td>报警</td>
+                                                </tr>
+                                           </thead>
+                                           <tbody>
+                                                <tr>
+
+                                                    <td>
+                                                        <img src="img/dongli/01.png" alt=""><br />
+                                                        温湿度
+                                                    </td>
+                                                    <td>100</td>
+                                                    <td>6</td>
+                                                    <td>4</td>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td>
+                                                        <img src="img/dongli/02.png" alt=""><br />
+                                                        漏水
+                                                    </td>
+                                                    <td>5</td>
+                                                    <td>1</td>
+                                                    <td>1</td>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td>
+                                                        <img src="img/dongli/03.png" alt=""><br />
+                                                        加湿器
+                                                    </td>
+                                                    <td>12</td>
+                                                    <td>2</td>
+                                                    <td>1</td>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td>
+                                                        <img src="img/dongli/04.png" alt=""><br />
+                                                        烟雾
+                                                    </td>
+                                                    <td>5</td>
+                                                    <td>1</td>
+                                                    <td>1</td>
+                                                </tr>
+
+                                           </tbody>
+                                       </table>
+                                   </div>
+
+                               </div>
+
+                                <!--电力-->
+                                <div class=" monitor-message-container" style="border-left: 1px solid #DCDCDC;">
+
+                                    <h3>电力</h3>
+
+                                    <div class="bottom-equipment-chart-background"></div>
+
+                                    <div class="bottom-content-data">
+
+                                        <span class="">115</span><br>
+                                        <span class="">9</span><br>
+                                        <span class="">6</span>
+                                    </div>
+
+                                    <!--echart图-->
+                                    <div class="echart-container" id="electricity-echart">
+
+
+                                    </div>
+
+                                    <!--下方表格-->
+                                    <div class="bottom-data-table">
+
+                                        <table class="bottom-table">
+                                            <thead>
+                                            <tr>
+                                                <td>设备</td>
+                                                <td>正常</td>
+                                                <td>通讯异常</td>
+                                                <td>报警</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/dianli/01.png" alt=""><br />
+                                                    列头柜
+                                                </td>
+                                                <td>100</td>
+                                                <td>6</td>
+                                                <td>4</td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/dianli/02.png" alt=""><br />
+                                                    柴油发电
+                                                </td>
+                                                <td>5</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/dianli/03.png" alt=""><br />
+                                                    变配电室
+                                                </td>
+                                                <td>12</td>
+                                                <td>2</td>
+                                                <td>1</td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/dianli/04.png" alt=""><br />
+                                                    UPS
+                                                </td>
+                                                <td>5</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/dianli/05.png" alt=""><br />
+                                                    蓄电池
+                                                </td>
+                                                <td>5</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                                <!--空调-->
+                                <div class=" monitor-message-container">
+
+                                    <h3>空调</h3>
+
+                                    <div class="bottom-equipment-chart-background"></div>
+
+                                    <div class="bottom-content-data">
+
+                                        <span class="">115</span><br>
+                                        <span class="">9</span><br>
+                                        <span class="">6</span>
+                                    </div>
+
+                                    <!--echart图-->
+                                    <div class="echart-container" id="conditioner-echart">
+
+
+                                    </div>
+
+                                    <!--下方表格-->
+                                    <div class="bottom-data-table">
+
+                                        <table class="bottom-table">
+                                            <thead>
+                                            <tr>
+                                                <td>设备</td>
+                                                <td>正常</td>
+                                                <td>通讯异常</td>
+                                                <td>报警</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/kongtiao/01.png" alt=""><br />
+                                                    冷冻站
+                                                </td>
+                                                <td>100</td>
+                                                <td>6</td>
+                                                <td>4</td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/kongtiao/02.png" alt=""><br />
+                                                    蓄冷池
+                                                </td>
+                                                <td>5</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/kongtiao/03.png" alt=""><br />
+                                                    精密空调
+                                                </td>
+                                                <td>12</td>
+                                                <td>2</td>
+                                                <td>1</td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/kongtiao/04.png" alt=""><br />
+                                                    新风机组
+                                                </td>
+                                                <td>5</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/kongtiao/05.png" alt=""><br />
+                                                    加湿器
+                                                </td>
+                                                <td>5</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                                <!--安防-->
+                                <div class=" monitor-message-container" style="border-right:none">
+
+                                    <h3>安防</h3>
+
+                                    <div class="bottom-equipment-chart-background"></div>
+
+                                    <div class="bottom-content-data">
+
+                                        <span class="">115</span><br>
+                                        <span class="">9</span><br>
+                                        <span class="">6</span>
+                                    </div>
+
+                                    <!--echart图-->
+                                    <div class="echart-container" id="protection-echart">
+
+
+                                    </div>
+
+                                    <!--下方表格-->
+                                    <div class="bottom-data-table">
+
+                                        <table class="bottom-table">
+                                            <thead>
+                                            <tr>
+                                                <td>设备</td>
+                                                <td>正常</td>
+                                                <td>通讯异常</td>
+                                                <td>报警</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/anfang/01.png" alt=""><br />
+                                                    门禁
+                                                </td>
+                                                <td>100</td>
+                                                <td>6</td>
+                                                <td>4</td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/anfang/02.png" alt=""><br />
+                                                    视频
+                                                </td>
+                                                <td>5</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td>
+                                                    <img src="img/anfang/03.png" alt=""><br />
+                                                    红外
+                                                </td>
+                                                <td>12</td>
+                                                <td>2</td>
+                                                <td>1</td>
+                                            </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="js/monitor-pandect.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

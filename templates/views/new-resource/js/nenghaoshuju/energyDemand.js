@@ -608,6 +608,12 @@ function getPointerData(url,flag){
                 for(var i=0;i<allData.length;i++){
                     var dataSplit = allData[i].dataDate.split('T')[0];
 
+                    if(showDateType == 'Month'){
+
+                        dataSplit = dataSplit.split('-')[0] + '-'+ dataSplit.split('-')[1];
+                    }
+
+
                     if(allDataX.indexOf(dataJoin)<0){
                         allDataX.push(dataSplit);
                     }
