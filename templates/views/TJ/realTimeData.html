@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--本页css-->
+    <link rel="stylesheet" href="css/realTimeData.css">
+
+</head>
+
+<style >
+
+
+
+</style>
+
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row" style="margin-right: 0">
+                <div class="col-md-12">
+                    <div class="left-title1" style="height: 48px;text-indent:45px;margin:0 15px !important;line-height: 48px;font-size: 15px;color: #FFFFFF">
+
+                        <!--<span style="display: inline-block;width: 24px;height: 24px;vertical-align: middle;background: red;"></span>-->
+
+                        实时数据
+                    </div>
+                    <!--左半部分-->
+                    <div class="col-lg-8 col-md-8 col-sm-12" style="border-right: 1px solid #DCDCDC;padding-right: 0">
+                        <!--实时能耗-->
+                        <div class="portlet light" style="background: #ffffff !important;">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="main-title"></i>
+                                    <span class="main-title-word">实时能耗</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body" style="position: relative">
+
+                                <!--右边固定 左边自适应-->
+                                <div style="margin-right: 300px;height: 300px;" id="SSNH"></div>
+
+                                <div style="position: absolute;width: 300px;height: 300px;right: 0;top: 0;padding: 0 10px;">
+
+                                    <div class="left-top-right-bar">本日累计</div>
+
+                                    <div class="left-top-right-block">
+
+                                        <div class="left-top-right-cell">
+
+                                            23415.6 <span>kwh</span>
+
+                                            <div class="left-top-right-name">电</div>
+
+                                        </div>
+                                        <div class="left-top-right-cell">
+
+                                            898175.4 <span>kwh</span>
+
+                                            <div class="left-top-right-name">电</div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="left-top-right-bar">本年累计</div>
+
+                                    <div class="left-top-right-block">
+
+                                        <div class="left-top-right-cell">
+
+                                            155515516.6 <span>kwh</span>
+
+                                            <div class="left-top-right-name">电</div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--机房PUE-->
+                        <div class="portlet light" style="background: #ffffff !important;">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="main-title"></i>
+                                    <span class="main-title-word">机房PUE</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body" style="position: relative">
+
+                                <!--右边固定 左边自适应-->
+                                <div style="height: 197px;" id="PUE">
+
+                                    <div style="min-height: 197px;position: relative;">
+                                        <div id="nvTip"></div>
+                                        <table id="tableMark" class="table table-bordered" style="width:90%;margin:0 auto;margin-top:12px;border:none">
+                                            <tbody>
+                                            <tr style="height:20px;font-weight: bold">
+                                                <td class="borderNull color">0.0</td>
+                                                <td colspan="2" class="textAlign borderNull color"></td>
+                                                <td colspan="2" class="textAlign borderNull color">0.6</td>
+                                                <td colspan="2" class="textAlign borderNull">标杆</td>
+                                                <td colspan="2" class="textAlign borderNull color">0.8</td>
+                                                <td colspan="2" class="textAlign borderNull color"></td>
+                                                <td colspan="2" class="textAlign borderNull color">1.0</td>
+                                                <td colspan="2" class="textAlign borderNull">当前楼</td>
+                                                <td colspan="2" class="textAlign borderNull color">1.2</td>
+                                            </tr>
+                                            <tr style="height:45px;">
+                                                <td class="borderNull color">0.0</td>
+                                                <td colspan="2" class="textAlign borderNull color">0.5</td>
+                                                <td colspan="2" class="textAlign borderNull color">0.6</td>
+                                                <td colspan="2" class="textAlign borderNull color benchmarking" >0.7</td>
+                                                <td colspan="2" class="textAlign borderNull color">0.8</td>
+                                                <td colspan="2" class="textAlign borderNull color">0.9</td>
+                                                <td colspan="2" class="textAlign borderNull color">1.0</td>
+                                                <td colspan="2" class="textAlign borderNull color currentPointer">1.1</td>
+                                                <td colspan="2" class="textAlign borderNull color">1.2</td>
+                                            </tr>
+                                            <tr style="color: #ffffff">
+                                                <td colspan="6" class="textAlign borderNull" style="background:#528CED">优秀</td>
+                                                <td colspan="3" class="textAlign borderNull" style="background:#3DD7C1">良好</td>
+                                                <td colspan="3" class="textAlign borderNull" style="background:#E5BB3C">一般</td>
+                                                <td colspan="6" class="textAlign borderNull" style="background:#EF5286">急需改善</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="borderNull borderRight"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borderNull"></td>
+                                                <td class="borderNull"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="textAlign borderNull">yuan/kWh</td>
+                                                <td colspan="2" class="textAlign borderNull">(0.12)</td>
+                                                <td colspan="2" class="textAlign borderNull">(0.14)</td>
+                                                <td colspan="2" class="textAlign borderNull">(0.16)</td>
+                                                <td colspan="2" class="textAlign borderNull">(0.18)</td>
+                                                <td colspan="2" class="textAlign borderNull">(0.2)</td>
+                                                <td colspan="2" class="textAlign borderNull">(0.22)</td>
+                                                <td colspan="2" class="textAlign borderNull">(0.24)</td>
+                                                <td colspan="2" class="textAlign borderNull">(0.26)</td>
+                                            </tr>
+                                            <tr style="display: none">
+                                                <td class="textAlign borderNull">C.O.P</td>
+                                                <td colspan="2" class="textAlign borderNull">0.5</td>
+                                                <td colspan="2" class="textAlign borderNull">0.6</td>
+                                                <td colspan="2" class="textAlign borderNull">0.7</td>
+                                                <td colspan="2" class="textAlign borderNull">0.8</td>
+                                                <td colspan="2" class="textAlign borderNull">0.9</td>
+                                                <td colspan="2" class="textAlign borderNull">1.0</td>
+                                                <td colspan="2" class="textAlign borderNull">1.1</td>
+                                                <td colspan="2" class="textAlign borderNull">1.2</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--冷站EER-->
+                        <div class="portlet light" style="background: #ffffff !important;">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="main-title"></i>
+                                    <span class="main-title-word">冷站EER</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body" style="position: relative">
+
+                                <!--右边固定 左边自适应-->
+                                <div style="height: 197px;">
+
+                                    <div style="min-height: 197px;position: relative;">
+                                        <div id="nvTip"></div>
+                                        <table id="tableMark" class="table table-bordered" style="width:90%;margin:0 auto;margin-top:12px;border:none">
+                                            <tbody>
+                                            <tr style="height:20px;font-weight: bold">
+                                                <td class="borderNull color">0.0</td>
+                                                <td colspan="2" class="textAlign borderNull color"></td>
+                                                <td colspan="2" class="textAlign borderNull color">0.6</td>
+                                                <td colspan="2" class="textAlign borderNull color"></td>
+                                                <td colspan="2" class="textAlign borderNull color">0.8</td>
+                                                <td colspan="2" class="textAlign borderNull color"></td>
+                                                <td colspan="2" class="textAlign borderNull color">1.0</td>
+                                                <td colspan="2" class="textAlign borderNull">当前楼</td>
+                                                <td colspan="2" class="textAlign borderNull color">1.2</td>
+                                            </tr>
+                                            <tr style="height:45px;">
+                                                <td class="borderNull color">0.0</td>
+                                                <td colspan="2" class="textAlign borderNull color">0.5</td>
+                                                <td colspan="2" class="textAlign borderNull color">0.6</td>
+                                                <td colspan="2" class="textAlign borderNull color">0.7</td>
+                                                <td colspan="2" class="textAlign borderNull color">0.8</td>
+                                                <td colspan="2" class="textAlign borderNull color">0.9</td>
+                                                <td colspan="2" class="textAlign borderNull color">1.0</td>
+                                                <td colspan="2" class="textAlign borderNull color currentPointer">1.1</td>
+                                                <td colspan="2" class="textAlign borderNull color">1.2</td>
+                                            </tr>
+                                            <tr style="color: #ffffff">
+                                                <td colspan="6" class="textAlign borderNull" style="background:#528CED">优秀</td>
+                                                <td colspan="3" class="textAlign borderNull" style="background:#3DD7C1">良好</td>
+                                                <td colspan="3" class="textAlign borderNull" style="background:#E5BB3C">一般</td>
+                                                <td colspan="6" class="textAlign borderNull" style="background:#EF5286">急需改善</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="borderNull borderRight"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borders borderNull"></td>
+                                                <td class="borderNull bordersL borderRight"></td>
+                                                <td class="borderNull"></td>
+                                                <td class="borderNull"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="textAlign borderNull">C.O.P</td>
+                                                <td colspan="2" class="textAlign borderNull">(7.0)</td>
+                                                <td colspan="2" class="textAlign borderNull">(5.9)</td>
+                                                <td colspan="2" class="textAlign borderNull">(5.0)</td>
+                                                <td colspan="2" class="textAlign borderNull">(4.4)</td>
+                                                <td colspan="2" class="textAlign borderNull">(3.9)</td>
+                                                <td colspan="2" class="textAlign borderNull">(3.5)</td>
+                                                <td colspan="2" class="textAlign borderNull">(3.2)</td>
+                                                <td colspan="2" class="textAlign borderNull">(2.9)</td>
+                                            </tr>
+                                            <tr style="display: none">
+                                                <td class="textAlign borderNull">C.O.P</td>
+                                                <td colspan="2" class="textAlign borderNull">0.5</td>
+                                                <td colspan="2" class="textAlign borderNull">0.6</td>
+                                                <td colspan="2" class="textAlign borderNull">0.7</td>
+                                                <td colspan="2" class="textAlign borderNull">0.8</td>
+                                                <td colspan="2" class="textAlign borderNull">0.9</td>
+                                                <td colspan="2" class="textAlign borderNull">1.0</td>
+                                                <td colspan="2" class="textAlign borderNull">1.1</td>
+                                                <td colspan="2" class="textAlign borderNull">1.2</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--右半部分-->
+                    <div class="col-lg-4 col-md-4 col-sm-12" style="padding-left: 0">
+
+                        <!--本日能耗组成-->
+                        <div class="portlet light" style="background: #ffffff !important;">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="main-title"></i>
+                                    <span class="main-title-word">本日能耗组成</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body" style="position: relative">
+
+                                <!--右边固定 左边自适应-->
+                                <div style="height: 392px;" id="BRNH"></div>
+
+                            </div>
+                        </div>
+                        <!--本日能耗组成-->
+                        <div class="portlet light" style="background: #ffffff !important;">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="main-title"></i>
+                                    <span class="main-title-word">本月能耗组成</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body" style="position: relative">
+
+                                <!--右边固定 左边自适应-->
+                                <div style="height: 392px;" id="BNNH"></div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/validation/jquery.validate.min.js"></script>
+
+<script src="../resource/validation/messages_zh.min.js"></script>
+
+<script src="../resource/js/commonJsResource.js"></script>
+
+<script src="js/realTimeData.js"></script>
+
+</body>
+<!-- END BODY -->
+</html>

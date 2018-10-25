@@ -1,0 +1,33 @@
+table th{
+
+    min-height: 30px !important;
+
+    background: #e7eff7 !important;
+
+    padding: 10px !important;
+
+}
+
+.fc-title{
+
+    background: #ffffff !important;
+
+}
+
+.portlet.calendar .fc-event{
+
+    background: #ffffff !important;
+
+}
+
+.fc-content{
+
+    height: 30px;
+
+}
+
+.green{
+
+    background: #3674d9 !important;
+
+}
