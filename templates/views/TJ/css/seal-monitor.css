@@ -6,6 +6,10 @@ h3{
     margin-top:0;
 }
 
+.showOrHidden{
+    display: none;
+}
+
 .container{
     background: #e5ebf1;
     min-height: 800px;

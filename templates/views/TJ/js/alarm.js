@@ -34,15 +34,19 @@ $(function(){
 
         {
             title:'时间',
-            data:'SJ'
+            data:'SJ',
+            render:function(data, type, row, meta){
+
+                return randomCurTime()
+            }
         },
         {
-            title:'支路',
-            data:'ZL'
-        },
-        {
-            title:'楼宇名称',
+            title:'站点名称',
             data:'LYMC'
+        },
+        {
+            title:'系统名称',
+            data:'ZL'
         },
         {
             title:'报警事件',
@@ -51,14 +55,6 @@ $(function(){
         {
             title:'报警类型',
             data:'BJLX'
-        },
-        {
-            title:'报警条件',
-            data:'BJTJ'
-        },
-        {
-            title:'此时数据',
-            data:'CSSJ'
         },
         {
             title:'报警等级',
@@ -82,6 +78,30 @@ $(function(){
             data:'CLZT'
         },
         {
+          title:'闭环流程',
+          data:'CLZT',
+          render:function(data, type, full, meta){
+
+              //随机计算当前进度
+              var thisSchedule = (Math.random() * 100).toFixed(0);
+
+              if(thisSchedule < 10){
+
+                  thisSchedule += 10;
+              }
+
+              if(thisSchedule > 90){
+
+                  thisSchedule = 90;
+              }
+
+              thisSchedule = 45;
+
+              return '<span class="process-container"><font class="process" style="width:'+thisSchedule+'%;display: inline-block"></font></span> <span class="right-data">'+thisSchedule+'<span>%';
+
+          }
+        },
+        {
             title:'操作',
             render:function(data, type, full, meta){
 
@@ -95,7 +115,8 @@ $(function(){
 
                     "<span class='data-option option-modify default btn-xs green-stripe'data-id='" + full.id + "'title='修改范围'></span>" +
 
-                    "<span class='data-option option-delay default btn-xs green-stripe'data-id='" + full.id + "'title='延迟报警'></span>"
+                    "<span class='data-option option-delay default btn-xs green-stripe'data-id='" + full.id + "'title='延迟报警'></span>"+
+                    "<span class='data-option option-work default btn-xs green-stripe'data-id='" + full.id + "'title='交接班记录'></span>";
 
             }
 
@@ -302,7 +323,7 @@ $(function(){
     $('#table').on('click','.option-delay',function(){
 
         //样式修改
-        YC($(this).attr('data-id'))
+        YC($(this).attr('data-id'));
 
         //初始化
 
@@ -329,7 +350,74 @@ $(function(){
 
     });
 
+    //延迟报警
+    $('#table').on('click','.option-work',function(){
+
+        window.location.href = '../TJ/shiftingDuty.html';
+
+    });
+
+    //闭环流程
+    var thisProcessDom;
+
+    $('#table').on('click','.process-container',function(){
+
+        $('#closed-loop-myModal').modal('show');
+
+        //获取当前dom结点
+        thisProcessDom = $(this).parents('td').prev();
+
+        //随机一个当前时间
+        var curTime = randomCurTime();
+
+        var length = $('#closed-loop-myModal').find('.times').length;
+
+        for(var i=0; i<length; i++){
+
+            var dom = $('#closed-loop-myModal').find('.times').eq(i);
+
+            var thisMin = 30 * (i+1);
+
+            var randomTime = moment(curTime).add(thisMin,'m').format('YYYY-MM-DD HH:mm:ss');
+
+            dom.html(randomTime);
+        }
+
+    });
+
+    //点击闭环弹窗中手动处理按钮
+    $('#closed-loop-myModal').on('click','.hand-close',function(){
+
+
+        $('#closed-loop-myModal').modal('hide');
+
+        thisProcessDom.html('已处理')
+    });
+
+
     /*------------------------------------------其他方法-----------------------------------------------*/
+
+    //随机一个当前时间
+    function randomCurTime(){
+
+        var date = moment().format('YYYY-MM-DD');
+
+        var hour = parseInt(Math.random() * 24);
+
+        if(hour < 10){
+
+            hour = '0' + hour;
+        }
+
+        var min = parseInt(Math.random() * 60);
+
+        if(min < 10){
+
+            min = '0' + min;
+        }
+
+        return date + " " + hour + ':'+ min +":00"
+    }
 
     //主表格数据
     function conditionSelect(){
@@ -527,7 +615,7 @@ $(function(){
 
                 }
 
-                $('#range-myModal').find('.modal-header').removeClass('extraUrgent').removeClass('urgent').removeClass('moreUrgent').removeClass('ordinary').addClass(color);;
+                $('#range-myModal').find('.modal-header').removeClass('extraUrgent').removeClass('urgent').removeClass('moreUrgent').removeClass('ordinary').addClass(color);
 
             }
 

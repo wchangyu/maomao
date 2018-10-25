@@ -533,6 +533,21 @@
         }
     }
 
+    //判断是否启用新的流程图工具栏
+    //启用
+    if(sessionStorage.newMonitorToolbal == 1){
+
+        $('.showOrHidden').hide();
+
+        $('.right-new-toolbar-container').show();
+
+    }else{
+
+        $('.showOrHidden').show();
+
+        $('.right-new-toolbar-container').hide();
+    }
+
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

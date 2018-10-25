@@ -166,8 +166,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.115/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.115/BEEWebAPI/api/",
+  "apiUriPrefix":"http://211.100.28.180/ESCSWebAPI/api/",
+  "apiUriPrefixYW":"http://211.100.28.180/ESCSWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
   "systemTitle":"高效机房控制系统",
@@ -206,7 +206,7 @@
   "bigScreenSwitchComment":"登陆时是否进行自动识别大屏的判断",
   "dapinInterval":"3",
   "dapinIntervalComment":"大屏幕是否自动刷新，0为不刷新，单位分钟",
-  "loginPath":"../logins/Precision_energy_efficiency_CN/login.html",
+  "loginPath":"../logins/chcmu/login_4.html",
   "loginPathComment":"登录页面路径",
   "showstep":"1",
   "showstepComment":"是否显示折标能效",
@@ -225,5 +225,7 @@
   "colorStyle":"1",
   "colorStyleComment":"大屏首页风格，0南京南，1虹桥",
   "useNewIframeUrl":"../../new-frame/new-frame.html",
-  "useNewIframeUrlComment":"新框架页面路径"
+  "useNewIframeUrlComment":"新框架页面路径",
+  "newMonitorToolbal":"1",
+  "newMonitorToolbalComment":"是否启用新的流程图工具栏"
 }

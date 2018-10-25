@@ -94,3 +94,105 @@
     background-size: 13px;
 
 }
+
+.option-work {
+    background: url('../img/biaoji.png') no-repeat;
+    background-size: 13px;
+}
+
+.process-container{
+
+    width:100px;
+    height: 22px;
+    display: inline-block;
+    text-align: left;
+    line-height: 22px;
+    cursor: pointer;
+    background: white;
+    margin-right:8px;
+    vertical-align: middle;
+}
+
+.process{
+
+    background: #A8BACC;
+    height: 22px;
+}
+
+#table .right-data{
+
+    height: 22px;
+    display: inline-block;
+    text-align: left;
+    line-height: 22px;
+    vertical-align: middle;
+}
+
+#table td{
+    vertical-align: middle;
+}
+
+
+/*闭环流程*/
+#closed-loop-myModal .modal-dialog{
+    width:1000px !important;
+}
+
+#closed-loop-myModal .modal-content {
+    width: 1000px !important;
+
+}
+
+#closed-loop-myModal .alarm-title {
+    background: #687EA2;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+}
+
+#closed-loop-myModal .green-patch{
+    display: inline-block;
+    width:41px;
+    height: 41px;
+    background:#5BDEB6;
+    border-radius:50% !important;
+}
+
+#closed-loop-myModal .pray-patch{
+    display: inline-block;
+    width:41px;
+    height: 41px;
+    background:#DCDCDC;
+    border-radius:50% !important;
+}
+
+/*下方搜索*/
+.condition-query li{
+    float: left;
+    margin-right:20px;
+}
+
+.condition-query li label{
+    width:100px;
+    text-align: right;
+}
+
+.bottom-seek {
+    width:1000px;
+    border: 1px solid #999;
+    padding:10px 20px;
+    border-radius: 5px !important;
+}
+
+.input-blocked select {
+    height: 100%;
+    border: none;
+    width: 162px;
+    outline: none;
+}
+
+.btn-success {
+    background: #3674D9;
+    border-radius: 5px !important;
+    padding: 7px 18px;
+}

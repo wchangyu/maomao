@@ -1,0 +1,42 @@
+
+/*右侧极早期烟雾*/
+.right-navigation .bottom-data-container {
+    height: 650px;
+    overflow-y: auto;
+    background: white;
+    padding-top: 10px;
+}
+
+.right-navigation .bottom-data-container .data-container{
+    margin-bottom:15px;
+    height:auto;
+}
+
+.right-navigation .bottom-data-container h3{
+    font-size: 16px;
+    color:#666 ;
+    font-weight: 600;
+}
+
+.right-navigation .top-navigation {
+    background: url(../img/jizaoyanwubaojng.png) no-repeat 10px center ;
+    background-color: #687ea3;
+}
+
+.right-navigation .bottom-data-container .data-container p{
+
+    height: 24px;
+    line-height: 24px;
+    font-size: 16px;
+    color:#757575;
+    background: url('../img/yanwu01.png') no-repeat center center;
+}
+
+
+.right-navigation .bottom-data-container .data-container .alarm-data{
+
+    background: url('../img/yanwu02.png') no-repeat center center;
+
+}
+
+

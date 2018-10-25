@@ -198,10 +198,14 @@ function _selectTime(dataType){
 
         //如果是能耗查询页面
         if(curUrl.indexOf("new-nenghaoshuju/energyDemand-1.html") > -1){
+
             $('.datatimeblock').datetimepicker('remove');
+
         }
 
         _initDate1();
+
+        _initDate11($('#datetimepicker1'));
 
         //改变提示信息
         $('.start-time-choose label').html('开始时间：');
@@ -268,7 +272,9 @@ function _selectTime(dataType){
             if(showType == 0){
 
                 //时间插件
-                _timeYMDComponentsFun($('.datatimeblock'));
+                _initDate1();
+
+                _initDate11($('#datetimepicker1'));
 
                 //按小时展示
             }else if(showType == 1){
@@ -366,6 +372,21 @@ function _yearDate1(){
 function _initDate1(){
     $('#datetimepicker').datepicker('destroy');
     $('#datetimepicker').datepicker(
+        {
+            language:  'zh-CN',
+            todayBtn: 1,
+            todayHighlight: 1,
+            forceParse: 0,
+            format: 'yyyy-mm-dd',
+            autoclose:1
+        }
+    )
+}
+
+//一般时间初始化
+function _initDate11(dom){
+    dom.datepicker('destroy');
+    dom.datepicker(
         {
             language:  'zh-CN',
             todayBtn: 1,
