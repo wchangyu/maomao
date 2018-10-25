@@ -26,3 +26,28 @@
 	pointer-events:none;
 }
 
+#picker input{
+
+	width: 100%;
+
+}
+
+.mark-block{
+
+	display: inline-block
+
+}
+
+#picker{
+
+	display: inline-block;
+
+}
+
+#thelist{
+
+	line-height: 34px;
+
+	text-indent: 10px;
+
+}

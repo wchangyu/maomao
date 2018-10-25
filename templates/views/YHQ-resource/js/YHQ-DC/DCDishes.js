@@ -207,7 +207,7 @@ $(function(){
     //重置
     $('#resetBtn').click(function(){
 
-        $('#DC-nameCon').val('');
+        $('#DC-dishCon').val('');
 
     })
 

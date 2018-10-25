@@ -3298,3 +3298,20 @@ function getMonitorUrlByBrand(brand){
         return 'new-luxianghuifang/insetCurrentMonitor.html';
     }
 }
+
+//关闭弹窗中的流程图
+$('#right-container').on('click','.close1',function(){
+
+    //获取到要删除的元素
+    var dom = $(this).parents('.content-child-show');
+
+    dom.remove();
+});
+
+//关闭video模态框时 停止播放
+$('#my-video .close').on('click',function(){
+
+    var myVideo = document.getElementById('play-video');   //获取视频video
+
+    myVideo.pause();
+});

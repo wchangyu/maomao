@@ -1,0 +1,128 @@
+
+.page-content{
+
+    color: #666666;
+
+}
+
+.main-title{
+
+    width: 4px;
+
+    height: 16px;
+
+    background: #687EA2;
+
+}
+
+.left-top-right-bar{
+
+    font-size: 18px;
+
+    line-height: 40px;
+
+}
+
+.left-top-right-cell{
+
+    text-align: center;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    background: #F8F8F8;
+
+    padding: 10px;
+
+}
+
+.left-top-right-cell span{
+
+    font-size: 14px;
+
+    font-weight:normal;
+
+}
+
+.left-top-right-name{
+
+    font-size: 16px;
+
+    font-weight: normal;
+
+}
+
+.portlet > .portlet-title{
+
+    margin-bottom: 0 !important;
+
+    min-height: 30px !important;
+
+    border-bottom: none !important;
+}
+
+.portlet.light .portlet-body{
+
+    padding-top: 0 !important;
+
+}
+
+.portlet.light{
+
+    border-bottom: 1px dashed #DCDCDC;
+
+    margin-bottom: 0;
+
+}
+
+.borderNull{
+
+    border: none !important;
+
+}
+
+.textAlign{
+
+    text-align: center;
+
+}
+
+.color{
+
+    font-size: 0;
+
+}
+
+.bordersL{
+
+    background: url(../img/borderRight.png)no-repeat 100% 0px;
+
+}
+
+.borders{
+
+    background: url(../img/border.png)no-repeat 100% 0px;
+
+}
+
+.currentPointer{
+
+    background: url("../img/currentPointer.png") no-repeat;
+
+    background-position: center;
+
+}
+
+.benchmarking{
+
+    background: url("../img/biaogan.png") no-repeat;
+
+    background-position: center;
+
+}
+
+.left-title1{
+    background: url('../img/dangqian1.png') no-repeat 10px center;
+    background-color: #687ea3;
+}

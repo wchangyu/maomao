@@ -158,6 +158,8 @@
 
     text-align: center;
 
+    background: #ffffff !important;
+
 }
 
 .order-meal-prince{
@@ -195,5 +197,15 @@
 .switch span{
 
     background-image:none !important;
+
+}
+
+.payType{
+
+    display: inline-block;
+
+    vertical-align: bottom;
+
+    margin-left: 50px;
 
 }

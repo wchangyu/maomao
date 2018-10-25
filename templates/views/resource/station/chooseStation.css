@@ -7,10 +7,11 @@
     margin-bottom: 4px;
 }
 .add-input-father {
-    width: 182px;
+    width: 172px;
     position: relative;
     display: inline-block;
     height: 32px;
+    padding: 0 !important;
 }
 .add-input-block {
     width: 172px;

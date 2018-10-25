@@ -102,6 +102,16 @@ $(function(){
             data:'dName'
         },
         {
+            title:'巡检日期',
+            data:'tkTime',
+            render:function(data, type, full, meta){
+
+                return data.split('T')[0]
+
+            }
+
+        },
+        {
             title:'巡检编码',
             data:'dipNum'
         },
