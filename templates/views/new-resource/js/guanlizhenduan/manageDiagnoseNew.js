@@ -23,6 +23,10 @@ $(function(){
             //显示诊断进程
             $('.diagnose-course').show();
 
+            $('.diagnose-course .right-content b').html('发现0条问题.....');
+
+            $('.diagnose-course .right-content font').html('正在诊断能效问题');
+
             //清空诊断信息
             diagHtml = "";
 
@@ -63,6 +67,16 @@ $(function(){
                     })
                 }
             }
+
+            //不诊断能效
+            $(diagnoseArr).each(function(i,o){
+
+                if(o.diagTypeNum == 'EfficientDiag'){
+
+                    o.oneKeyDiagItems.length = 0;
+                }
+
+            });
 
             //获取第一次的诊断内容
             var firstName = diagnoseArr[0].diagTypeName.split('诊断')[0];
@@ -148,9 +162,11 @@ function getOneKeyDiagItemType(){
 
     $('.energy-diagnose1').hide();
 
+    //OneKeyDiag/GetStationOneKeyDiagItemType
+
     $.ajax({
         type: 'get',
-        url: sessionStorage.apiUrlPrefix + 'OneKeyDiag/GetStationOneKeyDiagItemType',
+        url: sessionStorage.apiUrlPrefix + 'OneKeyDiag/GetOneKeyDiagItemType',
         success: function (result) {
 
             //console.log(result);
@@ -211,7 +227,6 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
 
     //给页面中添加诊断信息
     $('#content-container').html(diagHtml);
-
 
 
     //当前大项下无诊断项
@@ -307,6 +322,11 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
 
                 postHtml= postHtml+"flag=3&&id=";
 
+            //楼宇分项诊断
+            }else if(diagObj.diagItemNum == 'PointerEnergyItem'){
+
+                postHtml= postHtml+"flag=4&&id=";
+
             }else{
 
                 postHtml= "officeDingEDetailData.html?id=";
@@ -336,7 +356,6 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
         postHtml= postHtml+"flag="+flag+"&&id=";
 
     }
-
 
     ////如果是子系统诊断
     //if(diagTypeNum == 'SubsystemDiag'){
@@ -391,7 +410,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
     //传递数据
     $.ajax({
         type: 'post',
-        url: sessionStorage.apiUrlPrefix + 'OneKeyDiag/ExecuteOneKeyDiagItemNew',
+        url: sessionStorage.apiUrlPrefix + 'OneKeyDiag/ExecuteOneKeyDiagItem',//OneKeyDiag/ExecuteOneKeyDiagItemNew
         //timeout:_theTimes,
         data:diagObj,
         success: function (result) {
@@ -484,6 +503,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
                 obj.indexId = curDiagProblemAccount;
                 //加入数组
                 diagSpecificArr.push(obj);
+
             });
 
             //把数据添加到session中

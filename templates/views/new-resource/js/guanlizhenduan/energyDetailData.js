@@ -41,6 +41,13 @@ var showDataArr = [
         url :'OneKeyDiag/GetSysWastageDetail',
         echartName1:'低压变压器',
         echartName2:'高压变压器'
+    },
+    {
+        id:'4',
+        name:'楼宇分项诊断',
+        url :'OneKeyDiag/GetPointerEnergyDetailData',
+        echartName1:'本期',
+        echartName2:'上期'
     }
 ];
 

@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+    <!--<link rel="shortcut icon" href="../favicon.ico"/>-->
+    <!--DATATABLES START-->
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.bootstrap.css">
+    <!--DATATABLES END-->
+
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
+
+    <!--my Style-->
+    <link rel="stylesheet" href="../resource/css/public.css">
+    <link rel="stylesheet" href="../resource/css/productionOrder.css">
+    <link rel="stylesheet" href="css/alarm.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <style>
+        .urgency-alarm{
+            color:orangered;
+        }
+
+        .hide-button{
+            display: none;
+        }
+
+        .button-switch{
+            cursor: pointer;
+        }
+
+        #assign-myModal .modal-dialog{
+
+            margin: auto !important;
+
+            margin-top: 100px !important;
+
+        }
+
+        #delay-myModal .modal-dialog{
+
+            margin: auto !important;
+
+            margin-top: 100px !important;
+
+        }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="">
+                <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default"/>
+            </a>
+            <div class="menu-toggler sidebar-toggler hide">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="totalTitle" style="display: inline-block"></div>
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="icon-bell"></i>
+					<span class="badge badge-danger">
+					 </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">   <h3><span class="bold">2 </span> 未分派报警数量</h3>
+                            <a href="alarm.html" target="_blank">查看详细</a>
+                        </li>
+                    </ul>
+
+                </li>
+                <!-- END NOTIFICATION DROPDOWN -->
+
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+					<span class="username username-hide-on-mobile">
+					</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+
+                        <li>
+                            <a class="logout-page" href="">
+                                <i class="icon-key"></i> 退出 </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div>
+    <div class="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar-wrapper">
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <div class="page-sidebar navbar-collapse collapse">
+
+                <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                    <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                    <li class="sidebar-toggler-wrapper">
+                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                        <div class="sidebar-toggler">
+                        </div>
+                        <!-- END SIDEBAR TOGGLER BUTTON -->
+                    </li>
+                </ul>
+                <!-- END SIDEBAR MENU -->
+            </div>
+        </div>
+        <!-- END SIDEBAR -->
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <!-- BEGIN STYLE CUSTOMIZER -->
+                <div class="theme-panel hidden-xs hidden-sm">
+                    <div class="toggler">
+                    </div>
+                    <div class="toggler-close">
+                    </div>
+                    <div class="theme-options">
+                        <div class="theme-option theme-colors clearfix">
+						<span>
+						配色 </span>
+                            <ul>
+                                <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="默认">
+                                </li>
+                                <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="蓝黑">
+                                </li>
+                                <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="蓝色">
+                                </li>
+                                <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="theme-option">
+						<span>
+						布局 </span>
+                            <select class="layout-option form-control input-sm">
+                                <option value="fluid" selected="selected">平铺</option>
+                                <option value="boxed">盒式</option>
+                            </select>
+                        </div>
+
+                        <div class="theme-option">
+						<span>
+						侧边菜单 </span>
+                            <select class="sidebar-menu-option form-control input-sm">
+                                <option value="accordion" selected="selected">手风琴式</option>
+                                <option value="hover">鼠标悬停</option>
+                            </select>
+                        </div>
+                        <div class="theme-option">
+						<span>
+						侧边位置 </span>
+                            <select class="sidebar-pos-option form-control input-sm">
+                                <option value="left" selected="selected">左</option>
+                                <option value="right">右</option>
+                            </select>
+                        </div>
+                        <div class="theme-option">
+						<span>
+						底部 </span>
+                            <select class="page-footer-option form-control input-sm">
+                                <option value="fixed">位置固定</option>
+                                <option value="default" selected="selected">默认</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- END STYLE CUSTOMIZER -->
+                <!-- BEGIN PAGE HEADER-->
+                <h3 class="page-title">
+                </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                    </ul>
+                    <div class="page-toolbar">
+
+                    </div>
+                </div>
+                <!-- END PAGE HEADER-->
+                <!-- BEGIN PAGE CONTENT-->
+                <div class="row">
+                    <div style="max-height:500px;overflow: auto;margin-bottom:50px;">
+                        <table id="table" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--下方搜索-->
+                    <div class="bottom-seek">
+                        <ul class="condition-query noprint">
+
+                            <li><button class="btn btn-success btn1" id="selected">过滤</button></li><br/><br/><br/>
+
+                            <li>
+                                <label for="">开始时间：</label>
+                                <div class="input-blocked">
+                                    <input type="text" class="datatimeblock min" name="min">
+                                </div>
+
+                            </li>
+                            <li>
+                                <label for="">结束时间：</label>
+                                <div class="input-blocked">
+                                    <input type="text" class="datatimeblock max" name="max">
+                                </div>
+                            </li>
+
+                            <li>
+                                <label for="">默认显示近：</label>
+                                <div class="input-blocked">
+                                    <select name="" id="">
+                                        <option value="0">1小时</option>
+                                        <option value="1">1天</option>
+                                        <option value="2">1周</option>
+                                    </select>
+                                </div>
+                            </li>
+
+                            <li><label for="">级别：</label>
+                                <div class="input-blocked">
+                                    <select name="" id="">
+                                        <option value="0">1</option>
+                                        <option value="1">2</option>
+                                        <option value="2">3</option>
+                                    </select>
+                                </div>
+                            </li>
+
+                            <li><label for="">设备名称：</label>
+                                <div class="input-blocked" id="">
+                                    <input type="text" class="filterInput">
+                                </div>
+                            </li>
+
+                            <li><label for="">处理情况：</label>
+                                <div class="input-blocked" id="">
+                                    <select name="" id="">
+                                        <option value="0">未处理</option>
+                                        <option value="1">已处理</option>
+                                    </select>
+                                </div>
+                            </li>
+
+                            <li><label for="">系统：</label>
+                                <div class="input-blocked" id="">
+                                    <input type="text" class="filterInput">
+                                </div>
+                            </li>
+
+                            <li><label for="">站点：</label>
+                                <div class="input-blocked" id="">
+                                    <input type="text" class="filterInput">
+                                </div>
+                            </li>
+
+                            <li><label for="">设备类型：</label>
+                                <div class="input-blocked" id="">
+                                    <input type="text" class="filterInput">
+                                </div>
+                            </li>
+
+
+                            <div class="clearfix"></div>
+                        </ul>
+
+                    </div>
+
+                </div>
+                <!-- END PAGE CONTENT-->
+            </div>
+        </div>
+        <!-- END CONTENT -->
+        <!-- BEGIN QUICK SIDEBAR -->
+        <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+        <!-- END QUICK SIDEBAR -->
+    </div>
+</div>
+
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+    <div class="page-footer-inner">
+        2016 &copy; Huaqin.
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../../../assets/global/plugins/respond.min.js"></script>
+<script src="../../../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+</script>
+<!--my Script-->
+<!--时间插件-->
+<script src="../resource/js/moment.js"></script>
+<!--echarts-->
+<script src="../resource/js/echarts.min.js"></script>
+<!--公共方法-->
+<script src="../resource/js/publicFun.js"></script>
+<!--DATATABLES START-->
+<script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
+<script src="../resource/TableTools/button/buttons.print.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.buttons.min.js"></script>
+<script src="../resource/TableTools/button/buttons.colVis.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.tableTools.min.js"></script>
+<script src="../resource/TableTools/js/jszip.min.js"></script>
+<script src="../resource/TableTools/js/pdfmake.min.js"></script>
+<script src="../resource/TableTools/js/vfs_fonts.js"></script>
+<script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+
+<script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+
+<!--DATATABLES END-->
+<!--本页面-->
+<script src="js/alarm.js"></script>
+
+<!--弹窗-->
+
+<!--确认弹窗-->
+<div class="modal fade" id="confirm-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog" style="height: 306px;">
+        <div class="modal-content" style="height: 306px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel5">提示</h4>
+            </div>
+            <div class="modal-body">
+                <label for="">备注：</label>
+                <textarea name="" id="confirm-message" style="border: 1px solid #ebebeb"></textarea>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--查询弹窗-->
+<div class="modal fade" id="query-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog" style="height: 419px;">
+        <div class="modal-content" style="height: 419px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+
+                <table id="devTable" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <div class="choose-ways-container choose-ways-container0" style="text-align: center">
+                    <span class="bottom-sure1" data-dismiss="modal">确认</span>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--分派-->
+<div class="modal fade" id="create-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog" style="height: 572px;width: 700px !important;">
+        <div class="modal-content" style="height: 572px;width: 700px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">创建工单</h4>
+            </div>
+            <div class="modal-body" style="height: 450px;overflow-y: auto">
+                <!--主体部分-->
+                <ul class="gongdanList">
+                    <li class="floatLi" class="gdcodehide" style="display: none;">
+                        <div class="labels">工单号：</div>
+                        <div class="input-blockeds">
+                            <input class="disabled-block auto-fill" type="text" placeholder="自动生成" disabled="disabled">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">设备名称 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text"id="devMC">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">设备编码 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="devBM">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">报修电话 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="bxTel" id="bxTel">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">报修人信息 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="bxRen">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">报修部门：</div>
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" id="bxSec">
+                        </div>
+                    </li>
+                    <li class="floatLi" style="display: none">
+                        <div class="labels">设备系统 ：</div>
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" id="devSys">
+                        </div><!--v-model="matter"-->
+                    </li>
+                    <li class="floatLi" style="display: none">
+                        <div class="labels">设备分类 ：</div>
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" id="devMatter">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels colorTip">维修地点 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="wxAdd">
+                        </div>
+                    </li>
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="labels">报修备注：</div>
+                        <div class="input-blockeds" style="height:185px;">
+                            <textarea id="bxRem" style="width: 100%;height: 183px;outline: none"></textarea>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary dengji">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--修改范围-->
+<div class="modal fade" id="range-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog" style="height: 572px;width: 367px !important;">
+        <div class="modal-content" style="height: 572px;width: 367px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">修改范围</h4>
+            </div>
+            <div class="modal-body" style="height: 450px;overflow-y: auto">
+                <!--主体部分-->
+                <ul class="gongdanList">
+                    <li class="floatLi" class="gdcodehide" style="display: none;">
+                        <div class="labels">工单号：</div>
+                        <div class="input-blockeds">
+                            <input class="disabled-block auto-fill" type="text" placeholder="自动生成" disabled="disabled">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">高限 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text"id="max">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">低限 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="min">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels colorTip">账号 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="id">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels colorTip">密码 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="passWord">
+                        </div>
+                    </li>
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="labels">修改原因：</div>
+                        <div class="input-blockeds" style="height:120px;">
+                            <textarea id="reason" style="width: 100%;height: 118px;outline: none"></textarea>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <div class="choose-ways-container choose-ways-container0" style="text-align: center">
+                    <span class="bottom-sure1" data-dismiss="modal">确认</span>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--延迟-->
+<div class="modal fade" id="delay-myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog" style="height: 437px;">
+        <div class="modal-content" style="height: 437px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+
+                <ul class="gongdanList">
+                    <li class="floatLi" class="gdcodehide" style="display: none;">
+                        <div class="labels">工单号：</div>
+                        <div class="input-blockeds">
+                            <input class="disabled-block auto-fill" type="text" placeholder="自动生成" disabled="disabled">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">延迟 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text"id="hourNum">
+                        </div>
+                    </li>
+                    <li class="floatLi">
+                        <div class="labels">单位 ：</div>
+                        <div class="input-blockeds">
+                            <select id="range">
+                                <option value="">分钟</option>
+                                <option value="">小时</option>
+                                <option value="">日</option>
+                                <option value="">周</option>
+                                <option value="">月</option>
+                                <option value="">年</option>
+                            </select>
+                        </div>
+                    </li>
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="labels">推迟原因：</div>
+                        <div class="input-blockeds" style="height:185px;">
+                            <textarea id="delayReason" style="width: 100%;height: 183px;outline: none"></textarea>
+                        </div>
+                    </div>
+                </ul>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--提示消息-->
+<div class="modal fade" id="tip-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--压差报警弹窗--><!--确认-->
+<div class="modal fade alarm-container" id="seal-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">压差报警</h4>
+
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>
+                        <span class="left-name">IP</span>
+                        <span class="right-data">CRAH4</span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">事件</span>
+                        <span class="right-data">过滤网阻塞</span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">机房</span>
+                        <span class="right-data">IT机房C</span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">设备</span>
+                        <span class="right-data">CRAH12</span>
+                    </li>
+
+                    <li style="height:50px;border-bottom:none;  background: #eee;">
+                        <div class="choose-ways-container choose-ways-container0" style="text-align: center">
+                            <span class="bottom-sure1" data-dismiss="modal">确认</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+<!--温度报警弹窗-->
+<div class="modal fade alarm-container" id="seal-myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">温度报警</h4>
+
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>
+                        <span class="left-name">IP</span>
+                        <span class="right-data">TH23</span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">事件</span>
+                        <span class="right-data">冷通道TH23温度高</span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">机房</span>
+                        <span class="right-data">IT机房D</span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">设备</span>
+                        <span class="right-data"></span>
+                    </li>
+
+                    <li style="height:120px;border-bottom:none;  background: #eee;">
+                        <div class="choose-ways-container choose-ways-container0">
+                            <span class="bottom-sure1">确认</span>
+                            <span class="show-data">查询</span>
+                            <span>上报</span>
+                        </div>
+
+                        <div class="choose-ways-container choose-ways-container0">
+                            <span class="assign">分派</span>
+                            <span class="">延迟</span>
+                            <span>修改阈值</span>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+<!--设备故障报警弹窗-->
+<div class="modal fade alarm-container" id="seal-myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">设备故障报警</h4>
+
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>
+                        <span class="left-name">IP</span>
+                        <span class="right-data">UPS-IT-A1</span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">事件</span>
+                        <span class="right-data">UPS旁路供电</span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">机房</span>
+                        <span class="right-data">变电机室A</span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">设备</span>
+                        <span class="right-data">UPS-IT-A1</span>
+                    </li>
+
+                    <li style="height:120px;border-bottom:none;  background: #eee;">
+                        <div class="choose-ways-container choose-ways-container0">
+                            <span class="bottom-sure1">确认</span>
+                            <span class="show-data">查询</span>
+                            <span>上报</span>
+                        </div>
+
+                        <div class="choose-ways-container choose-ways-container0">
+                            <span class="assign">分派</span>
+                            <span class="defer">延迟</span>
+                            <span>修改阈值</span>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+<!--分派弹窗-->
+<div class="modal fade alarm-container" id="assign-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title ">分派</h4>
+
+            </div>
+            <div class="modal-body alarm-content">
+                <ul>
+                    <li>
+                        <span class="left-name">工单号</span>
+                        <span class="right-data">180802</span>
+                    </li>
+
+                    <li style="height: 80px;">
+                        <span class="left-name">任务描述</span>
+                        <span class="right-data" style="height:80px;line-height: 80px;">
+
+                            <textarea style="width:85%;height: 66px;border:1px solid #88A4D4;line-height: 16px;">
+
+                            </textarea>
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">接单人</span>
+                        <span class="right-data">
+                            <input type="text" value="">
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">完成日期</span>
+                        <span class="right-data">
+                            <input type="text" class="datatimeblock min" name="min">
+                        </span>
+                    </li>
+
+                    <li style="height:60px;border-bottom:none;  background: #eee;">
+
+                        <div class="choose-ways-container choose-ways-container2" style="text-align: center">
+
+                            <span class="issue" data-dismiss="modal">下发</span>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+<div class="modal fade alarm-container" id="assign-myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title ">分派</h4>
+
+            </div>
+            <div class="modal-body alarm-content">
+                <ul>
+                    <li>
+                        <span class="left-name">工单号</span>
+                        <span class="right-data">180803</span>
+                    </li>
+
+                    <li style="height: 80px;">
+                        <span class="left-name">任务描述</span>
+                        <span class="right-data" style="height:80px;line-height: 80px;">
+
+                            <textarea style="width:85%;height: 66px;border:1px solid #88A4D4;line-height: 16px;">
+
+                            </textarea>
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">接单人</span>
+                        <span class="right-data">
+                            <input type="text" value="">
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">完成日期</span>
+                        <span class="right-data">
+                            <input type="text" class="datatimeblock min" name="min" id="">
+                        </span>
+                    </li>
+
+                    <li style="height:60px;border-bottom:none;  background: #eee;">
+
+                        <div class="choose-ways-container choose-ways-container2" style="text-align: center">
+
+                            <span class="issue">下发</span>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+<!--延迟弹窗-->
+<div class="modal fade alarm-container" id="delay-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title " id="">延迟</h4>
+
+            </div>
+            <div class="modal-body alarm-content">
+                <ul>
+
+
+                    <li style="height: 80px;">
+                        <span class="left-name">延迟原因</span>
+                        <span class="right-data" style="height:80px;line-height: 80px;">
+
+                            <textarea style="width:85%;height: 66px;border:1px solid #88A4D4;line-height: 16px;">
+
+                            </textarea>
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">延迟时间</span>
+                        <span class="right-data">
+                            <input type="text" value=""> 天
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">操作账号</span>
+                        <span class="right-data">
+                            <select>
+                                <option value="0">张明</option>
+                                <option value="1">李亮</option>
+                                <option value="2">周岩</option>
+                            </select>
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="left-name">密码</span>
+                        <span class="right-data">
+                             <input type="password" >
+                        </span>
+                    </li>
+
+                    <li style="height:60px;border-bottom:none;  background: #eee;">
+
+                        <div class="choose-ways-container choose-ways-container3" style="text-align: center">
+
+                            <span class="issue" data-dismiss="modal">确定</span>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+<!--报警查询弹窗-->
+<div class="modal fade alarm-container" id="show-alarm-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title ui-draggable-handle">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title " id="">TH23报警(最近10条故障)</h4>
+
+            </div>
+            <div class="modal-body alarm-content">
+
+                <table class="bottom-temperature-table">
+
+                    <thead>
+
+                    <tr>
+                        <th>报警时间</th>
+                        <th>报警内容</th>
+                        <th>等级</th>
+                        <th>状态</th>
+                        <th>处理方法</th>
+                        <th>完成人</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody class="scrollbar1"><tr><td>当前</td><td>温度高</td><td>红色</td><td>未处理</td><td>诊断: 1，IT机房D平均温度正常 <br>2，制冷系统无报警 <br>建议: 1，重启CRAH14</td><td><span class="examine-monitor">查看监控</span></td></tr><tr><td>08-20  8:00</td><td>温度高</td><td>红色</td><td>未处理</td><td>CRAH14跳闸，重启</td><td>张三</td></tr><tr><td>08-20 09:30</td><td>温度高</td><td>黄色</td><td>已处理</td><td>CRAH14跳闸，重启</td><td>李四</td></tr><tr><td>08-20 15:02</td><td>温度高</td><td>黄色</td><td>已处理</td><td>冷水电动阀卡死</td><td>张三</td></tr><tr><td>08-20 18:15</td><td>温度高</td><td>黄色</td><td>已处理</td><td>冷水电动阀卡死</td><td>张三</td></tr><tr><td>08-20 20:20</td><td>温度高</td><td>黄色</td><td>已处理</td><td>冷水电动阀卡死</td><td>张三</td></tr><tr><td>08-20 22:05</td><td>温度高</td><td>黄色</td><td>已处理</td><td>冷水电动阀卡死</td><td>张三</td></tr></tbody>
+
+                </table>
+
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div>
+
+</div>
+
+<!--设备故障报警查询弹窗-->
+<div class="modal fade alarm-container" id="show-alarm-myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title ">UPS(最近1条故障)</h4>
+
+            </div>
+            <div class="modal-body alarm-content">
+
+                <table class="bottom-temperature-table">
+
+                    <thead>
+
+                    <tr>
+                        <th>报警时间</th>
+                        <th>报警内容</th>
+                        <th>等级</th>
+                        <th>状态</th>
+                        <th>处理方法</th>
+                        <th>完成人</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody class="scrollbar1">
+
+                    <tr>
+                        <td>当前</td>
+                        <td>温度高</td>
+                        <td>红色</td>
+                        <td>未处理</td>
+                        <td>诊断：1，自动切换<br/>2UPS输入无报警，无输出
+                            <br/>建议：1，查看设备病历本
+                        </td>
+                        <td><span class="examine-monitor" >查看监控</span></td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+<!--闭环流程弹窗-->
+<div class="modal fade alarm-container" id="closed-loop-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title ">闭环流程</h4>
+
+            </div>
+            <div class="modal-body alarm-content">
+
+                <table class="bottom-temperature-table" style="table-layout: fixed">
+
+                    <thead>
+
+                    <tr>
+                        <th>
+                            <span class="green-patch">
+                                <img src="img/bihuan/01.png" alt="">
+                            </span>
+                        </th>
+                        <th>
+                            <span class="green-patch">
+                                <img src="img/bihuan/02.png" alt="">
+                            </span>
+                        </th>
+                        <th>
+                            <span class="green-patch">
+                                <img src="img/bihuan/03.png" alt="">
+                            </span>
+                        </th>
+                        <th>
+                            <span class="green-patch">
+                                <img src="img/bihuan/04.png" alt="">
+                            </span>
+                        </th>
+                        <th>
+                            <span class="green-patch">
+                                <img src="img/bihuan/05.png" alt="">
+                            </span>
+                        </th>
+                        <th>
+                            <span class="pray-patch">
+                                <img src="img/bihuan/06.png" alt="">
+                            </span>
+                        </th>
+                        <th>
+                            <span class="pray-patch">
+                                <img src="img/bihuan/07.png" alt="">
+                            </span>
+                        </th>
+                        <th>
+                            <span class="pray-patch">
+                                <img src="img/bihuan/08.png" alt="">
+                            </span>
+                        </th>
+                        <th>
+                            <span class="pray-patch">
+                                <img src="img/bihuan/09.png" alt="">
+                            </span>
+                        </th>
+                        <th>
+                            <span class="pray-patch">
+                                <img src="img/bihuan/10.png" alt="">
+                            </span>
+                        </th>
+                        <th>
+                            <span class="pray-patch">
+                                <img src="img/bihuan/11.png" alt="">
+                            </span>
+                        </th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody class="scrollbar1">
+                    <tr>
+                        <td>报警</td>
+                        <td>开始处理</td>
+                        <td>记录</td>
+                        <td>派单</td>
+                        <td>接单</td>
+                        <td>关单</td>
+                        <td>记录</td>
+                        <td>系统自学习</td>
+                        <td>知识库</td>
+                        <td>维保更新</td>
+                        <td>完成</td>
+                    </tr>
+
+                    <tr>
+                        <td class="times">2018/02/09 <br/>08:34:00</td>
+                        <td class="times">2018/02/09 <br/>08:34:00</td>
+                        <td class="times">2018/02/09 <br/>08:34:00</td>
+                        <td class="times">2018/02/09 <br/>08:34:00</td>
+                        <td class="times">2018/02/09 <br/>08:34:00</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                    </tr>
+                    <tr>
+                        <td>CRAH12 过滤网堵塞</td>
+                        <td>CRAH12 过滤网堵塞</td>
+                        <td>CRAH12 过滤网堵塞</td>
+                        <td>杜斐 派单 张明 更换滤网</td>
+                        <td>CRAH12 过滤网堵塞</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td><span class="examine-monitor hand-close" >手动关闭</span></td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+<!--loadding-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

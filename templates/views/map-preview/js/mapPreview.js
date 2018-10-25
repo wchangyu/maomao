@@ -15,6 +15,7 @@ var markerArr = [
 
 //存放人员信息
 var peopleArr = [];
+
 //获取本地url
 var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
@@ -166,6 +167,7 @@ function getShowData(){
             markerArr.push(obj);
         });
     }
+
     //清除之前页面中的标记点
     map.clearOverlays();
 
@@ -250,6 +252,7 @@ $('#onOff-machine').on('click',function(){
 
         map.enableScrollWheelZoom();
         map.addControl(new BMap.NavigationControl());
+
         //获取后台人员数据
         getData();
 
@@ -413,6 +416,7 @@ function addWords(){
 
         //map.removeEventListener("zoomend", showInfo);
     });
+
     //右上角label开关
     $('#onOff').off('click');
     $('#onOff').on('click',function(){

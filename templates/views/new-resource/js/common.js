@@ -1138,7 +1138,8 @@ function newFrameDrawLink(){
         //获取当前跳转地址
         var jumpUrl = curDom.attr('href');
 
-        if(jumpUrl != 'javascript:;' && jumpUrl != '#'){
+
+        if(jumpUrl && jumpUrl != 'javascript:;' && jumpUrl != '#'){
 
             //给a标签添加class名
             curDom.addClass('newFrameJump');

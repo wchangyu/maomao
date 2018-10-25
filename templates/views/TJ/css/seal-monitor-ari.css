@@ -1,0 +1,89 @@
+/*右侧数据上方标题图标*/
+.right-navigation .top-navigation {
+    background: url(../img/jingmikongtiao.png) no-repeat 10px center;
+    background-color: #687ea3;
+}
+
+.right-navigation .bottom-data-container {
+    height: 700px;
+    overflow-y: auto;
+    background: white;
+    padding-top: 10px;
+}
+
+.right-navigation .data-container {
+    width: 100%;
+    float: left;
+    height: auto;
+    margin-bottom: 5px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    color: #666666;
+}
+
+.right-navigation .data-container h3{
+
+    color:#666;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.right-navigation .data-container p .name{
+
+    width:100px;
+    margin-right:10%;
+    text-align: left;
+}
+
+.right-navigation .data-container p .data{
+
+    width:90px;
+    height: 22px;
+    display: inline-block;
+    margin-right: 0;
+}
+
+.right-navigation .data-container p .data input,.right-navigation .data-container p .data select{
+
+    width:90px;
+    height: 22px;
+    text-align: center;
+    border:1px solid #3674D9;
+}
+
+/*状态选框*/
+.right-navigation .data-container .state{
+
+    border: none !important;
+    color:#31BEA4;
+}
+
+/*背景色为绿色选框*/
+.right-navigation .data-container .green-data{
+
+    background: #31BEA4;
+    color:white;
+    border:none !important;
+}
+
+
+.right-navigation .data-container .imaginary{
+    border:1px dashed #DCDCDC !important;
+}
+
+.right-navigation .data-container .green-ball{
+
+    width:90px;
+    height: 22px;
+    text-align: center;
+    border:1px solid #3674D9;
+    display: inline-block;
+}
+
+.right-navigation .data-container .green-ball font{
+
+    width:12px;
+    height: 12px;
+    border-radius: 100% !important;
+    background: #31BEA4;
+}

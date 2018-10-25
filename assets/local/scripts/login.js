@@ -585,6 +585,10 @@ var Login = function() {
                     var  stationJumpType = data["stationJumpType"] || '';
                     sessionStorage. stationJumpType =  stationJumpType;
 
+                    //是否启用新的流程图工具栏
+                    var  newMonitorToolbal = data["newMonitorToolbal"] || '';
+                    sessionStorage. newMonitorToolbal =  newMonitorToolbal;
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 
@@ -625,7 +629,7 @@ var Login = function() {
                     if(data["pageTitle"]) {sessionStorage.pageTitle = data["pageTitle"];}
 
                     //系统的theme
-                    if(!localStorage.themeColor){
+                    if(!localStorage.themeColor || 1){ // ||1 为登陆时强制使用config.json中配置的系统风格
                         var themeColor = data["themeColor"];
 
                         if(themeColor){

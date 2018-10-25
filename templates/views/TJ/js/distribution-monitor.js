@@ -90,7 +90,6 @@ $(function(){
     //流程图上方切换系统图平面图
     $('.switchover').on('click',function(){
 
-
         //获取当前id
         var id = $(this).attr('data-id');
 
