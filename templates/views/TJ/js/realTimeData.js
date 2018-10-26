@@ -327,23 +327,25 @@ $(function(){
 
     _BRNH.setOption(_NHoption,true);
 
+    _NHoption.legend.data = ['机房1','机房2','机房3','冷站']
+
     _NHoption.series[0].data = [
 
-        {value:596, name:'冷机'},
-        {value:361, name:'水泵'},
-        {value:168, name:'精密空调'},
-        {value:735, name:'IT'},
-        {value:1548, name:'其他',label:{
-
-            //padding:[0,0,0,200]
-
-        },labelLine:{
-
-            length:10,
-
-            length2:20
-
-        }}
+        {value:596, name:'机房1'},
+        {value:361, name:'机房2'},
+        {value:168, name:'机房3'},
+        {value:735, name:'冷站'},
+        //{value:1548, name:'其他',label:{
+        //
+        //    //padding:[0,0,0,200]
+        //
+        //},labelLine:{
+        //
+        //    length:10,
+        //
+        //    length2:20
+        //
+        //}}
 
     ]
 

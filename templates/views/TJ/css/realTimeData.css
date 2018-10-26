@@ -145,6 +145,8 @@
 
     border-right: none;
 
+    cursor: pointer;
+
 }
 
 .tab-block span:last-child{
@@ -158,5 +160,31 @@
     background: #3674D9;
 
     color: #ffffff;
+
+}
+
+.content-tab{
+
+    height: 377px;
+
+    overflow: auto;
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    z-index: 0;
+
+    background: #ffffff;
+
+}
+
+.portlet-body .content-tab:first-child{
+
+    z-index: 1;
 
 }

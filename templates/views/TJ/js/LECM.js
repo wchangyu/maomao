@@ -39,7 +39,9 @@ $(function(){
             data:'',
             render:function(data, type, full, meta){
 
-                return '<span class="jump" style="display: inline-block;width: 20px;height: 20px;background: yellowgreen"></span>'
+                var str = '<a href="LCEMJump.html"><img class="jump" src="img/LCEM.png" style="display: inline-block;width: 20px;height: 20px;"></a>'
+
+                return str
 
             }
 
