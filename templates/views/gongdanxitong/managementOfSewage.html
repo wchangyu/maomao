@@ -414,9 +414,9 @@
                             </div>
                         </li>
                         <li class="floatLeft">
-                            <div class="labels" style="color: red">* 盐用量（公斤） ：<span class="colorTip" style="display: none;">请输入大于0的数字格式</span></div>
+                            <div class="labels">盐用量（公斤） ：<span class="colorTip" style="display: none;">请输入大于0的数字格式</span></div>
                             <div class="input-blockeds">
-                                <input type="text" v-model="consumption" placeholder="必填，数字格式" @keyup="numberY('consumption')">
+                                <input type="text" v-model="consumption" placeholder="0" @keyup="numberY('consumption')">
                             </div>
                         </li>
                         <li class="floatLeft">

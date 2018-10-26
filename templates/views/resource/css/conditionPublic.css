@@ -416,3 +416,23 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     border: 1px solid #e5e5e5;
 
 }
+
+.errorFormat{
+
+    border: 2px solid red !important;
+
+}
+
+.abbrDT .error{
+
+    text-indent: 36px !important;
+
+}
+
+.option-back{
+
+    border-color: orangered;
+
+    color: orangered;
+
+}

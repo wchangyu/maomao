@@ -181,6 +181,16 @@
                                         <!--下方echart-->
                                         <div class="bottom-echart-container" style="">
 
+                                            <div class="legend" style="position: absolute;left:10px;top:5px;">
+
+                                                <span class="patch green" style="background: #31BEA4"></span>
+                                                <span>已用</span>
+
+                                                <span class="patch yellow" style="background: #2A9FD0"></span>
+                                                <span>未用</span>
+
+                                            </div>
+
 
                                             <div class="left-bottom-content" id="left-bottom-echart1">
 
@@ -429,7 +439,7 @@
         Demo.init(); // init demo features
         BEE.init();
 
-        sessionStorage.menuArg = '1,8817007028';
+        sessionStorage.menuArg = '1,8817007034';
 
         //获取对应流程图
         userMonitor.init(false,false,1,$('.left-diagram'));

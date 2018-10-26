@@ -189,7 +189,7 @@
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
   "gongdanInterval":"0",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
-  "indexUrl":"./tj/index2.html",
+  "indexUrl":"../../tj/index2.html",
   "loginUrl":"login_3.html",
   "loginComment":"设置跳转为哪个登录页",
   "gongdanIndustryType":"1",

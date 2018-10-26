@@ -806,6 +806,7 @@ $(function(){
             isCalcTimeSpan:1,
             wxShiXNum:$('#xtlx').val(),
             gdCodeSrc:$('#gdly').val(),
+            bxBeizhu:$('#gzms').val()
         };
 
         if($('#gdzt').val() == 5){

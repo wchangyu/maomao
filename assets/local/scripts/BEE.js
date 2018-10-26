@@ -266,6 +266,7 @@ var BEE = (function(){
                                     isSelected = true;
                                     sessionStorage.menuFirst = menu[p]["content"];
                                     break;
+
                                 }
                             }
                         }
@@ -1406,6 +1407,8 @@ var BEE = (function(){
     //--------------------------页面右上角单位与楼宇的显示------------------------//
     //页面右上角选择单位
     function drawChangeUnitButton(){
+
+        $('body').append('<link rel="stylesheet" href="'+_loginSlash+'../../../assets/global/plugins/icons/iconfont.css">');
 
         //没有头部信息的页面
         if($('.page-header').length == 0){

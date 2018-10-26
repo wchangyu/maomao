@@ -73,7 +73,9 @@ $(function(){
             },
             numberY:function(attr){
 
-                var mny = /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
+                //var mny = /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
+
+                var mny = /^[0-9]+.?[0-9]*$/;
 
                 var $this = $(this)[0][attr];
 
@@ -153,7 +155,7 @@ $(function(){
     $('#myModal').on('click','.dengji',function(){
 
         //验证
-        if(obj.time == '' || obj.consumption == '' || obj.person == ''){
+        if(obj.time == '' || obj.person == ''){
 
             _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写红色必填项！', '');
 
@@ -276,7 +278,7 @@ $(function(){
     $('#myModal').on('click','.bianji',function(){
 
         //验证
-        if(obj.time == '' || obj.consumption == '' || obj.person == ''){
+        if(obj.time == '' || obj.person == ''){
 
             _moTaiKuang($('#tip-Modal'), '提示', true, 'istap' ,'请填写红色必填项！', '');
 
@@ -501,7 +503,7 @@ $(function(){
                 //日期
                 f_DayDate:obj.time,
                 //盐用量
-                f_InputValue:obj.consumption,
+                f_InputValue:obj.consumption == ''?0:obj.consumption,
                 //执行人
                 f_SysuserID:$('#person1').attr('data-attr'),
                 //用户id
@@ -633,9 +635,6 @@ $(function(){
             })
 
         }
-
-
-
 
     }
 

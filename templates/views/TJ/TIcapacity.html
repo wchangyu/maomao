@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--my css-->
+    <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
+
+    <link id="table_color" rel="stylesheet" href="../resource/css/productionOrder.css">
+
+    <link rel="stylesheet" href="../YHQ-resource/css/public.css">
+
+    <link rel="stylesheet" href="../resource/css/conditionPublic.css">
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="total-warp">
+                        <div class="wrap">
+                            <div class="total-warp L-container">
+
+                                <ul class="L-condition">
+                                    <li>
+                                        <label>机房</label>
+                                        <select class="form-control">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <label>通道</label>
+                                        <select class="form-control">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <label>PDU</label>
+                                        <select class="form-control">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <label>机柜</label>
+                                        <select class="form-control">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </li>
+                                </ul>
+
+                                <div class="row content-top">
+                                    <div class="col-md-12 col-sm-12">
+                                        <table id="table" class="table table-striped table-advance table-hover">
+                                            <thead>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <ul class="L-condition">
+                                    <li>
+                                        <label>机房</label>
+                                        <select class="form-control" id="bottom-echart-control">
+                                            <option value="0">全部</option>
+                                            <option value="1">机房1</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <label>通道</label>
+                                        <select class="form-control">
+                                            <option value="">全部</option>
+                                        </select>
+                                    </li>
+                                </ul>
+
+                                <div class="row">
+
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+
+                                        <div style="height: 300px;" id="left"></div>
+
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+
+                                        <div style="height: 300px;" id="right"></div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<!--公共js-->
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--my js-->
+<script src="js/TIcapacity.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

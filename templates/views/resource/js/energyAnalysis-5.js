@@ -435,15 +435,56 @@ $(function() {
 		//根据能耗种类过滤数据
 		var energyTypeArr = [];
 
-		for (var i = 0; i < EnItdata.length; i++) {
+		//for (var i = 0; i < EnItdata.length; i++) {
+        //
+		//	if (EnItdata[i].energyItemType == _energyTypeWord) {
+        //
+		//		energyTypeArr.push(EnItdata[i]);
+        //
+		//	}
+        //
+		//}
 
-			if (EnItdata[i].energyItemType == _energyTypeWord) {
+		//获取能耗类型的分项
+
+		var rootParent = '';
+
+		for(var i=0;i<EnItdata.length;i++){
+
+			if(EnItdata[i].f_EnergyItemID == _energyTypeValue){
+
+				rootParent = EnItdata[i].f_EnergyItemID;
 
 				energyTypeArr.push(EnItdata[i]);
+
 
 			}
 
 		}
+
+		//存放新生成的数组
+
+		ztreeDataFilter(EnItdata,rootParent);
+
+
+		function  ztreeDataFilter(arr,value){
+
+			//第一层的时候
+
+			for(var i=0;i<arr.length;i++){
+
+				if(arr[i].f_ParentItemID == value){
+
+					energyTypeArr.push(arr[i]);
+
+					ztreeDataFilter(arr,energyTypeArr[energyTypeArr.length-1].f_EnergyItemID);
+
+				}
+
+			}
+
+		}
+
 
 		for (var i = 0; i < energyTypeArr.length; i++) {
 			if (i == 0) {

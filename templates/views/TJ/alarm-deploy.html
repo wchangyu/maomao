@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>报警配置</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <link rel="stylesheet" href="css/alarm.css">
+    <link rel="stylesheet" href="../resource/css/productionOrder.css">
+    <link rel="stylesheet" href="css/alarm-deploy.css">
+    <style>
+
+        /*上方时间选择*/
+        .time-choose-container{
+            color:white;
+        }
+        .time-choose-container input{
+
+            width:115px;
+            height:30px;
+            border:1px solid #88A4D4;
+            background: none;
+            padding-left:5px;
+        }
+
+        .time-choose-container b{
+
+            width:32px;
+            height:30px;
+            border:1px solid #88A4D4;
+            display: inline-block;
+            vertical-align: top;
+            border-left:0;
+            background: url(img/shijian.png) no-repeat center center;
+        }
+
+        .left-diagram{
+            position: relative;
+        }
+
+        .time-choose-container{
+            position: absolute;
+            left:150px;
+            top:5px;
+        }
+
+        .btn-success {
+            background: #3674D9;
+            margin-left:10px;
+            vertical-align: top;
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            padding:0;
+            width:70px;
+        }
+
+        /*右上角设备故障数*/
+        .the-total-trouble{
+
+            position: absolute;
+            right:15px;
+            top:10px;
+            color:white;
+        }
+
+        .the-total-trouble .alarm-num-container {
+            font-size: 16px;
+            color: white;
+            background: #4271b5;
+            padding: 2px;
+            font-weight: bold;
+        }
+
+        /*下方echart图*/
+        .bottom-echart-container{
+            width: 33%;
+            height:350px;
+            border:1px solid #DCDCDC;
+            border-top:none;
+            padding-left:15px;
+            padding-top:10px;
+            box-sizing: border-box;
+            background: white;
+            float: left;
+        }
+
+        .bottom-echart-container .bottom-echart{
+            height: 300px;
+        }
+
+        .message-title {
+            height: 30px;
+            line-height: 30px;
+            border-bottom: none;
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 18px;
+            position: relative;
+            padding-left: 15px;
+            box-sizing: border-box;
+            color: #3E3E3E;
+        }
+
+        .message-title .left-patch {
+            display: inline-block;
+            width: 6px;
+            height: 18px;
+            background: #687EA2;
+            position: absolute;
+            left: 0;
+            top: 8px;
+        }
+
+        .userMonitor-name {
+            height: 40px;
+            line-height: 40px;
+            padding-left: 12px;
+            padding-right: 12px;
+            color: #CDD4E1;
+            display: inline-block;
+            text-align: center;
+            text-indent: 0px;
+            cursor: pointer;
+            border: 1px solid #3674D9;
+        }
+
+        .left-diagram .top-title .onChoose {
+            background: #3674D9;
+            color: white;
+        }
+
+    </style>
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container" style="padding-top: 0px !important;">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px;padding-left: 0px">
+
+                                <!--统计信息-->
+                                <div class="left-diagram">
+
+                                    <span class="switchover" data-id="1"></span>
+
+                                    <h3 class="top-title left-title1">
+                                        <span class="userMonitor-name onChoose switch-title1">报警过滤</span><span class="userMonitor-name switch-title2" >高级设置</span>
+                                    </h3>
+
+                                    <!--报警过滤信息-->
+                                    <div class="bottom-message-container">
+
+                                        <ul class="condition-query noprint" style="padding-top:30px;">
+
+                                            <li><label for="">测点名称：</label>
+                                                <div class="input-blocked" id="">
+                                                    <input type="text" class="filterInput" value="楼层二湿度">
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">测点类型：</label>
+                                                <div class="input-blocked">
+                                                    <select name="" id="">
+                                                        <option value="0">参数</option>
+                                                        <option value="1"></option>
+                                                        <option value="2">1周</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+                                            <li><label for="">测点名称：</label>
+                                                <div class="input-blocked" id="">
+                                                    <input type="text" class="filterInput" value="楼层二湿度">
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">测点类型：</label>
+                                                <div class="input-blocked">
+                                                    <select name="" id="">
+                                                        <option value="0">参数</option>
+                                                        <option value="1"></option>
+                                                        <option value="2">1周</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">测点类型：</label>
+                                                <div class="input-blocked">
+                                                    <select name="" id="">
+                                                        <option value="0">参数</option>
+                                                        <option value="1"></option>
+                                                        <option value="2">1周</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">测点类型：</label>
+                                                <div class="input-blocked">
+                                                    <select name="" id="">
+                                                        <option value="0">参数</option>
+                                                        <option value="1"></option>
+                                                        <option value="2">1周</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+
+                                            <div class="clearfix"></div>
+                                        </ul>
+
+                                        <h3 class="bottom-title">告警规则</h3>
+
+
+                                        <ul class="condition-query noprint condition-query1" style="padding-top:30px;">
+
+
+                                            <li>
+                                                <label for="">告警算法：</label>
+                                                <div class="input-blocked">
+                                                    <select name="" id="">
+                                                        <option value="0">阈值算法</option>
+
+                                                    </select>
+                                                </div>
+                                            </li>
+
+                                            <li><label for="">闪烁过滤时间(s)：</label>
+                                                <div class="input-blocked" id="">
+                                                    <input type="text" class="filterInput" value="0">
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">告警运算符：</label>
+                                                <div class="input-blocked">
+                                                    <select name="" id="">
+                                                        <option value="0">大于</option>
+                                                        <option value="1">等于</option>
+                                                        <option value="2">小于</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">持续超限时间(s)：</label>
+                                                <div class="input-blocked" id="">
+                                                    <input type="text" class="filterInput" value="0">
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">告警运算值：</label>
+                                                <div class="input-blocked">
+                                                    <select name="" id="">
+                                                        <option value="0">35.0</option>
+                                                        <option value="1">32.0</option>
+                                                        <option value="2">31.0</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">自定义编码：</label>
+                                                <div class="input-blocked">
+                                                    <input type="text" class="filterInput" value="0">
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">恢复运算符：</label>
+                                                <div class="input-blocked">
+                                                    <select name="" id="">
+                                                        <option value="0">小于</option>
+                                                        <option value="1">等于</option>
+                                                        <option value="2">大于</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">告警内容：</label>
+                                                <div class="input-blocked">
+                                                    <input type="text" class="filterInput" value="温度过高告警">
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">回复运算值：</label>
+                                                <div class="input-blocked">
+                                                    <input type="text" class="filterInput" value="33.0">
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">处理建议：</label>
+                                                <div class="input-blocked">
+                                                    <input type="text" class="filterInput" value="">
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="">告警类型：</label>
+                                                <div class="input-blocked">
+                                                    <select name="" id="">
+                                                        <option value="0">过高告警</option>
+                                                        <option value="1">一般告警</option>
+                                                        <option value="2">过低告警</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <label for="" style="height:31px">禁用：</label>
+                                                <input type="checkbox" class="check-input">
+                                            </li>
+
+                                            <li>
+                                                <label for="">告警等级：</label>
+                                                <div class="input-blocked">
+                                                    <select name="" id="">
+                                                        <option value="0">特急告警</option>
+                                                        <option value="1">紧急告警</option>
+                                                        <option value="2">一般告警</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+
+                                            <div class="clearfix"></div>
+                                        </ul>
+
+                                    </div>
+
+                                    <!--高级设置信息-->
+                                    <div class="bottom-message-container" style="display: none">
+
+                                        <ul class="condition-query noprint" style="padding-top:30px;">
+
+
+                                            <li>
+                                                <label for="">测点类型：</label>
+                                                <div class="input-blocked">
+                                                    <select name="" id="">
+                                                        <option value="0">参数</option>
+                                                        <option value="1"></option>
+                                                        <option value="2"></option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+
+                                            <li>
+                                                <label for="">测点类型：</label>
+                                                <div class="input-blocked">
+                                                    <select name="" id="">
+                                                        <option value="0">可多选</option>
+                                                        <option value="1"></option>
+                                                        <option value="2">1周</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+
+
+
+                                            <div class="clearfix"></div>
+                                        </ul>
+
+                                        <h3 class="bottom-title">报警屏蔽逻辑</h3>
+
+
+                                        <ul class="condition-query noprint condition-query1" style="padding-top:30px; border: none;" >
+                                            <img src="img/gaojishezhi.png" alt=""style="width: 100%">
+
+
+                                        </ul>
+
+                                       <div class="bottom-btn">
+                                           <span class="sure">保存</span>
+                                           <span>重置</span>
+                                           <span>返回</span>
+                                       </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT-->
+        </div>
+    </div>
+
+    <!-- END CONTENT -->
+    <!-- BEGIN QUICK SIDEBAR -->
+
+
+    <div id="foot-html"></div>
+
+    <!-- END FOOTER -->
+    <script>
+
+        $('#head-html').load('../resource/html/commonHead.html');
+
+        $('#menu-html').load('../resource/html/commonMenu.html');
+
+        $('#foot-html').load('../resource/html/commonFoot.html');
+
+        jQuery(document).ready(function() {
+            Metronic.init(); // init metronic core components
+            Layout.init(); // init current layout
+            Demo.init(); // init demo features
+            BEE.init();
+
+        });
+
+    </script>
+    <script src="../resource/js/commonJsResource.js"></script>
+    <script src="js/alarm-deploy.js"></script>
+    <!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
