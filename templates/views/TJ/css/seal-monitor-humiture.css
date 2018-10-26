@@ -48,6 +48,15 @@
 
 }
 
+/*流程图弹窗*/
+.content-child-show {
+    position: absolute;
+    left: 160px;
+    top: 150px;
+    opacity: 0.95;
+    z-index: 10000;
+}
+
 
 
 /*温度*/

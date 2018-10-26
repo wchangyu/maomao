@@ -12,6 +12,9 @@ $(function(){
         $('.top-title .userMonitor-name').removeClass('onChoose');
 
         $(this).addClass('onChoose');
+
+
+
     });
 
     //流程图上方切换系统图平面图

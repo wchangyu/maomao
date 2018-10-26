@@ -3059,8 +3059,22 @@ var userMonitor = (function(){
                     setContextMenuVisible(false);
                     var curDef = JSON.parse(sessionStorage.historyData_ProcDef);
                     var iTop = (window.screen.availHeight - 600) / 2,iLeft = (window.screen.availWidth - 700) / 2;
-                    window.open("../yongnengjiance/MHisData.html?mflag=" + curDef.prDefId,"",
-                        "height=600,width=700,top=" + iTop + ",left=" + iLeft + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
+
+                    var url = "../yongnengjiance/MHisData.html?mflag=" + curDef.prDefId+",height=600,width=700,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no"
+
+                    var html = '<div class="content-child-show" id="'+curDef.prDefId+'">' +
+                        '<div class="content-child-show-container">' +
+                        '<div class="close1">X</div>' +
+                        '<iframe width="700" scrolling="no" height="700" frameborder="0" allowtransparency="true" src='+url+'></iframe>' +
+                        '</div>' +
+                        '</div>';
+
+                    $('#right-container').append(html);
+
+                    //window.open("../yongnengjiance/MHisData.html?mflag=" + curDef.prDefId,"",
+                    //    "height=600,width=700,top=" + iTop + ",left=" + iLeft + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
+
+
                 });
             }
             //console.log(left);
@@ -3298,3 +3312,20 @@ function getMonitorUrlByBrand(brand){
         return 'new-luxianghuifang/insetCurrentMonitor.html';
     }
 }
+
+//关闭弹窗中的流程图
+$('#right-container').on('click','.close1',function(){
+
+    //获取到要删除的元素
+    var dom = $(this).parents('.content-child-show');
+
+    dom.remove();
+});
+
+//关闭video模态框时 停止播放
+$('#my-video .close').on('click',function(){
+
+    var myVideo = document.getElementById('play-video');   //获取视频video
+
+    myVideo.pause();
+});
