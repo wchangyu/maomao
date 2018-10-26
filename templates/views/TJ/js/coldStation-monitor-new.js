@@ -140,7 +140,7 @@ var efficiencyChart = echarts.init(document.getElementById('efficiency-echart'))
 
 var efficiencyOption ={
     title: {
-        text: 'kwh',
+        text: '制冷量',
         textStyle:{
             fontSize:'16',
             fontWeight:'normal',
@@ -149,7 +149,7 @@ var efficiencyOption ={
         },
         itemGap:1,
         textBaseline:'middle',
-        subtext:'供冷量',
+        subtext:'kwh',
         subtextStyle:{
             color:'#333',
             lineHeight:'16'

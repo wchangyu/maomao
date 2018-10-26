@@ -60,14 +60,6 @@
         "arg": "",
         "iconclass": ""
       },
-      "门禁": {
-        "type": "0",
-        "content": "门禁",
-        "uri": "../TJ/seal-monitor-guard.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": ""
-      },
       "配电柜": {
         "type": "0",
         "content": "配电柜",
@@ -81,7 +73,7 @@
   "配电系统": {
     "type": "1",
     "content": "配电系统",
-    "iconclass": "icon-clock",
+    "iconclass": "iconfont icon-shandian",
     "submenu": {
       "UPS": {
         "type": "0",
@@ -120,7 +112,7 @@
   "制冷空调": {
     "type": "1",
     "content": "制冷空调",
-    "iconclass": "icon-eye",
+    "iconclass": "iconfont new-iconfont icon-icon-test",
     "submenu": {
       "制冷空调": {
         "type": "0",
@@ -144,6 +136,14 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "门禁": {
+        "type": "0",
+        "content": "门禁",
+        "uri": "../TJ/seal-monitor-guard.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   },
@@ -152,7 +152,6 @@
     "content": "一键诊断",
     "iconclass": "icon-briefcase",
     "submenu": {
-
       "一键诊断": {
         "type": "0",
         "content": "一键诊断",
@@ -161,8 +160,6 @@
         "arg": "",
         "iconclass": ""
       }
-
-
     }
   },
   "能源管理": {
@@ -198,9 +195,9 @@
         "arg": "",
         "iconclass": ""
       },
-      "能耗分析": {
+      "能效分析": {
         "type": "2",
-        "content": "能耗分析"
+        "content": "能效分析"
       },
       "冷站能效": {
         "type": "0",
@@ -225,6 +222,15 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "负荷比重": {
+        "type": "0",
+        "content": "负荷比重",
+        "uri": "../ESCS/openingMatching.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": ""
       }
     }
   },

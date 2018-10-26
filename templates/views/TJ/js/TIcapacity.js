@@ -1,5 +1,66 @@
 $(function(){
 
+
+    //切换echart图上方机房
+    $('#bottom-echart-control').on('change',function(){
+
+        var value = $(this).val();
+
+        //机房数据
+        if(value == 0){
+
+            leftOption.xAxis[0].data = xArr1;
+
+            leftOption.series[0].data = dataArr1;
+
+            leftOption.series[1].data = dataArr2;
+
+            rightOption.xAxis[0].data = xArr1;
+
+            rightOption.series[0].data = dataArr3;
+
+
+        //通道数据
+        }else{
+
+            leftOption.xAxis[0].data = xArr2;
+
+            leftOption.series[0].data = dataArr11;
+
+            leftOption.series[1].data = dataArr22;
+
+            rightOption.xAxis[0].data = xArr2;
+
+            rightOption.series[0].data = dataArr33;
+
+        }
+
+        left.setOption(leftOption);
+
+        right.setOption(rightOption);
+
+
+    });
+
+    var xArr1 = ['机房1','机房2','机房3','机房4','机房5','机房6','机房7'];
+
+    var xArr2 = ['通道1','通道2','通道3','通道4','通道5','通道6','通道7'];
+
+
+    var dataArr1 = [110, 125,99, 57, 200, 347, 122.2];
+
+    var dataArr11 = [73, 82,80, 39, 135, 224, 97];
+
+    var dataArr2 = [222, 246, 60, 98, 233, 455, 182.2];
+
+    var dataArr22 = [185, 136, 75, 63, 156, 326, 177];
+
+    var dataArr3 = [52, 41.7,59.9, 80, 37, 30.2, 43.5];
+
+    var dataArr33 = [41, 32,13, 56, 71.2, 22, 31.4];
+
+
+
     //表格初始化
     var col = [
 
@@ -129,7 +190,7 @@ $(function(){
                 }
             }
         ],
-        color:['#8b52e7','#4c7ae1'],
+        color:['#2A9FD0','#D944DB'],
         series: [
             {
                 name:'空间剩余容量（U）',
@@ -195,4 +256,4 @@ $(function(){
 
     right.setOption(rightOption);
 
-})
+});
