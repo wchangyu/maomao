@@ -1,4 +1,4 @@
-
+console.log(11111111)
 var zNodes = [];
 //获取本地url
 var _urls = sessionStorage.getItem("apiUrlPrefixYW");
@@ -61,6 +61,8 @@ var uploader = WebUploader.create({
     //是否可选择同一文件
     duplicate:true
 });
+
+console.log(uploader)
 //uploader.on( 'beforeFileQueued',function(file){
 //    if( uploader.getFiles().length >0){
 //        //就不要再往队列里添加了

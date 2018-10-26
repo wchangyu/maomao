@@ -387,13 +387,10 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 
 .uploader-list{
 
-    width: 250px;
-
-    min-height: 250px;
+    width: 890px;
 
     display: inline-block;
 
-    border: 1px solid #e5e5e5;
 
 }
 
@@ -421,4 +418,8 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 
 #xiangmushishijindu{
 	width:300px;
+}
+
+#thelist>div.file-item{
+
 }
