@@ -154,8 +154,6 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 .modal-block .form-control{
 
     display: inline-block !important;
-
-    background: #ffffff !important;
 	font-weight: 700;
 }
 
@@ -410,7 +408,7 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 	color: #c50505
 }
 .modal-block .col-md-4 .datatimeblock{
-    background: url(../../new-resource/img/clendar.png) no-repeat #ffffff !important;
+    background: url(../../new-resource/img/clendar.png) no-repeat ;
     background-size: 25px !important;
     background-position: 100% center !important;
     cursor: pointer !important;
@@ -423,3 +421,17 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 #thelist>div.file-item{
 
 }
+
+#ctlBtn{
+    height: 38px;
+    margin-left: 10px;
+    margin-top: -30px;
+}
+
+#fujianlist:after {
+    visibility: hidden;
+    display: block;
+    content: "";
+    clear: both;
+    height: 0;
+    }

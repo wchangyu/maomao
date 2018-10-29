@@ -243,9 +243,13 @@ function myAlter(string){
         _moTaiKuang($('#create-Modal'),'新增','','','','新增');
 
         $('.L-container').hideLoading();
-
+        $('#thelist').html("")
         //类
         $('#create-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
+
+        setTimeout(function(){
+            creatUpdateLoader()
+        },500) 
 
         //单位名称
         $('#danweimingcheng').val(resetObj.eprName)
@@ -288,19 +292,24 @@ function myAlter(string){
             optionstring += "<option value=\"" + value.itemKey + "\" >" + value.cstName + "</option>";
         });
         $("#xiangmushishijindu").html(optionstring); 
-        setTimeout(function(){
-            creatUpdateLoader()
-        },500) 
+
     })
 //编辑项目
 $('#xiangmubiaoge tbody').on('click','.option-edite',function(data, index){
     unlockDisabled()
+    _postKnowLedgeFileArr = [];
     //获取当前项目在后台id
+    setTimeout(function(){
+        creatUpdateLoader()
+    },500)
     $(".fujianshangchuan").css("display",'hidden')
     var _postID = $(this).parents('tr').find('td').eq(0).html();
     var itemdata = getXiangmuInfoByID( _postID );
     hh.ui.xiangmu.data.addOrEditFlag = true;
-    if(itemdata){
+    getProItemData(_postID, function(data){
+
+        var datainfo = data[0];
+
         hh.ui.xiangmu.data.itemdata = itemdata;
         // $("#myModal-xiugai").modal('show');
                 //loadding
@@ -312,17 +321,15 @@ $('#xiangmubiaoge tbody').on('click','.option-edite',function(data, index){
         $(".error").removeClass("error");
         //模态框
         _moTaiKuang($('#create-Modal'),'修改','','','','修改');
-
         $('.L-container').hideLoading();
 
         //类
         $('#create-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
 
         //单位名称
-        $('#danweimingcheng').val(resetObj.eprName)
+        $('#danweimingcheng').val(datainfo.f_UnitName)
         //所属区域
-        $('#suoshuquyu').val(resetObj.districtName)
-        
+        $('#suoshuquyu').val(datainfo.f_DistrictID)
         //单位类型
         var danweileixing = danweileixinglist;
         if(danweileixing == null){
@@ -335,18 +342,20 @@ $('#xiangmubiaoge tbody').on('click','.option-edite',function(data, index){
         });
         $("#danweileixing").html(optionstring); //获得要赋值的select的id，进行赋值
 
-        //合作方式
-        var hezuofangshi = hezuofangshilist;
-        if(hezuofangshi == null){
-            myAlter("获取合作方式失败")
-            return 
-        }
-        var optionstring = "";
-        $.each(hezuofangshi,function(key,value){  //循环遍历后台传过来的json数据
-            optionstring += "<option cstFlag=\"" + value.cstFlag + "\" value=\"" + value.itemKey + "\" >" + value.cstName + "</option>";
-        });
-        $("#hezuofangshi").html( optionstring);
-        hezuofangshievt()
+        // //合作方式
+        // var hezuofangshi = hezuofangshilist;
+        // if(hezuofangshi == null){
+        //     myAlter("获取合作方式失败")
+        //     return 
+        // }
+        // var optionstring = "";
+        // $.each(hezuofangshi,function(key,value){  //循环遍历后台传过来的json数据
+        //     optionstring += "<option cstFlag=\"" + value.cstFlag + "\" value=\"" + value.itemKey + "\" >" + value.cstName + "</option>";
+        // });
+        // $("#hezuofangshi").html( optionstring);
+        // //TODO
+        // // hezuofangshievt()
+        // getxiangmuleixingbyhezuofangshiid( $("#hezuofangshi").val() )
 
         //项目实施进度
         var xiangmushishijindu = xiangmushishijindulist;
@@ -358,14 +367,105 @@ $('#xiangmubiaoge tbody').on('click','.option-edite',function(data, index){
         $.each(xiangmushishijindu,function(key,value){  //循环遍历后台传过来的json数据
             optionstring += "<option value=\"" + value.itemKey + "\" >" + value.cstName + "</option>";
         });
-        $("#xiangmushishijindu").html(optionstring); 
-        setTimeout(function(){
-            creatUpdateLoader()
-        },500) 
-        startSetItemData()
-    }else{
-        myAlter("没有找到该条数据,请刷新后重试")
-    }
+        $("#xiangmushishijindu").html(optionstring);  
+
+        // startSetItemData()
+        // hh.ui.xiangmu.data.itemdata
+        $('.danweimingcheng').val(datainfo.f_UnitName||"")
+        $('.suoshuquyu').val(datainfo.f_DistrictID||"")
+        //当前单位类型
+        $('.danweileixing').val(datainfo.f_PointerClass||"")
+        //当前项目名称
+        $('.xiangmumingcheng').val(datainfo.f_ProjName||"")
+
+        //当前合作方式
+        $('.hezuofangshi').val(datainfo.f_ProjCollaborate||"")
+        
+        //当前项目类型
+        var hezuofangshitype = datainfo.fK_ProjRemouldMode;
+        //当前epc类型
+        var epctype = datainfo.f_ProjEPCType
+        // f_ProjEPCType: epcleixing,
+        // hezuofangshievt_xiugai( hezuofangshitype, epctype)
+
+        //当前改造面积
+        $('.gaizaomianji').val(datainfo.f_RemouldArea||"")
+        //当前投资额
+        $('.touzie').val(datainfo.f_Investment||"")
+        //当前实施单位
+        $('.shishidanwei').val(datainfo.f_ImplementUnit||"")
+        //当前签约节能率
+        $('.qianyuejienenglv').val(datainfo.f_EnergySaving||"")
+        //当前采购计划下达时间
+        $('.caigoujihuaxiadashijian').val(datainfo.f_ProcurementDT.split(" ")[0]||"")
+        //当前招标时间
+        $('.zhaobiaoshijian').val(datainfo.f_TenderDT.split(" ")[0]||"")
+        //当前合同时间
+        $('.hetongshijian').val(datainfo.f_ContractDT.split(" ")[0]||"")
+        //当前验收时间
+        $('.yanshoushijian').val(datainfo.f_CheckAcceptDT.split(" ")[0]||"")
+        //关联建筑
+        $('.guanlianjianzhu').val(datainfo.f_RelatePointer||"")
+        //当前项目实施进度
+        $('.xiangmushishijindu').val(datainfo.f_ProjSchedule||"")
+        //当前备注
+        $('.beizhu').val(datainfo.f_Mark||"")
+
+         //合作方式
+        var hezuofangshi = hezuofangshilist;
+        if(hezuofangshi == null){
+            myAlter("获取合作方式失败")
+            return 
+        }
+        var optionstring = "";
+        $.each(hezuofangshi,function(key,value){  //循环遍历后台传过来的json数据
+            optionstring += "<option cstFlag=\"" + value.cstFlag + "\" value=\"" + value.itemKey + "\" >" + value.cstName + "</option>";
+        });
+        $("#hezuofangshi").html( optionstring);
+        //TODO
+        // hezuofangshievt()
+        // getxiangmuleixingbyhezuofangshiid( $("#hezuofangshi").val() )
+
+
+        setEditXiangmuleixing( datainfo.f_ProjCollaborate, datainfo.fK_ProjRemouldMode )
+
+        //此处是请求项目的回调 取出里面的附件内容再进行展示 TODO
+        //添加东西之后判断是否能预览，如果是图片能预览，否则反之，
+        _postKnowLedgeFileArr = []
+        _postKnowLedgeFileArr = data[0].projRemouldFiles;
+        var imgaarr = data[0].projRemouldFiles;
+        var $list = $("#thelist");
+            $list.html("")
+        for (var i = 0; i < imgaarr.length; i++) {
+            var item = imgaarr[i];
+            //类型
+            var type = item.f_FileExtension;
+            //路径
+            var lujing = item.f_FileAllPath;
+            //上传时间
+            var time = item.f_UploadDT;
+            //文件大小
+            var size  = item.f_FileSize;
+            //文件名字
+            var name = item.f_FileName;
+            var $li = $(
+                    '<div id="' + item.pK_ProjRemouldFile + '" class="file-item thumbnail col-md-4">' +
+                    '<img>' +
+                    '<div class="info">' + name + '</div>' +
+                    '<div><p class="remove-img-bianji"><a href="javascript:;">删除</a></p></div>'+
+                    '</div>'
+                );
+
+            var $img = $li.find('img');
+            if(type == "JPG" || type == "JPEG" || type == "PNG" || type == "jpg" || type == "jpeg" || type == "png"){
+                $img.attr( 'src', lujing );
+            }else{
+                $img.replaceWith('<span>不能预览</span>');
+            }
+            // $list为容器jQuery实例
+            $list.append( $li );
+        }
+    })
 });
 
 // 查看项目
@@ -377,7 +477,42 @@ $('#xiangmubiaoge tbody').on('click','.option-see',function(data, index){
     hh.ui.xiangmu.data.addOrEditFlag = true;
     if(itemdata){
         getProItemData(_postID, function(data){
-            console.log(data)
+            //此处是请求项目的回调 取出里面的附件内容再进行展示 TODO
+            //添加东西之后判断是否能预览，如果是图片能预览，否则反之，
+            var imgaarr = data[0].projRemouldFiles;
+            var $list = $("#fujianlist");
+                $list.html("")
+            for (var i = 0; i < imgaarr.length; i++) {
+                var item = imgaarr[i];
+                //类型
+                var type = item.f_FileExtension;
+                //路径
+                var lujing = item.f_FileAllPath;
+                //上传时间
+                var time = item.f_UploadDT;
+                //文件大小
+                var size  = item.f_FileSize;
+                //文件名字
+                var name = item.f_FileName;
+                var $li = $(
+                        '<div id="' + '' + '" class="file-item thumbnail col-md-4">' +
+                            '<img>' +
+                            '<div class="info">' + name + '</div>' +
+                            '<div><button type="button" class="downloadwenjian" data-myurl="'+ item.f_FileAllPath +'">下载此文件</button></div>'+
+                        '</div>'
+                    );
+
+                var $img = $li.find('img');
+                if(type == "JPG" || type == "JPEG" || type == "PNG" || type == "jpg" || type == "jpeg" || type == "png"){
+                    $img.attr( 'src', lujing );
+                }else{
+                    $img.replaceWith('<span>不能预览</span>');
+                }
+                // $list为容器jQuery实例
+                $list.append( $li );
+            }            
+
+
         })
 
         hh.ui.xiangmu.data.itemdata = itemdata;
@@ -434,9 +569,6 @@ $('#xiangmubiaoge tbody').on('click','.option-see',function(data, index){
         $('.xiangmushishijindu').val( xiangmushishijindutext )
         //当前备注
         $('.beizhu').val(itemdata.f_Mark||"")
-        setTimeout(function(){
-            creatUpdateLoader()
-        },500)
 
         //epc类型
         var epctext = getEpcTextByItemkey( itemdata.f_ProjEPCType );
@@ -546,14 +678,12 @@ function hezuofangshievt(){
     if(attr == 1){
         getEpcBycstflag( attr )
         //清除项目类型的所有值包括星星
-        // $("#xiangmuleixing").html("")
-        // $('#xiangmuleixing').attr("disabled",true);
         $('#epcleixing').attr("disabled",false);
+        $('#epcleixing').prev().children(".redxing").html('*')
     }else{
         $("#epcleixing").html("");
         $('#epcleixing').attr("disabled",true);
-        // $('#xiangmuleixing').attr("disabled",false);
-
+        $('#epcleixing').prev().children(".redxing").html('')
     }
 }
 $("#hezuofangshi").change(hezuofangshievt);
@@ -1021,6 +1151,7 @@ $(function(){
                 if(res.code == 99){
                     myAlter(res.data)
                     $("#create-Modal").modal('hide');
+                    selectAllData()
                 }else if(res.code == 3){
                     myAlter("创建失败")
                 }else if(res.code == 1){
@@ -1140,6 +1271,53 @@ function getProItemData( id, callback){
     });
 }
 
+function setEditXiangmuleixing( id, type){
+    var url = _urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+id;
+    $.ajax({
+        type: "GET",
+        cache: false,
+        url: url,
+        success: function (res) {
+            if(res.code == 3){
+                myAlter(res.message)
+            }
+            if(res.code == 1){
+                myAlter(res.message||"参数填写错误，请检查！")
+            }
+            if(res.code == 99){
+                var data = res.data;
+                var optionstring = "";
+                if(data == ""){
+                     myAlter("此合作方式项目类型为空,请更换合作方式")
+                }else{
+                    var data = res.data;
+                    var optionstring = "";
+                    $.each(data,function(key,value){
+                        optionstring += "<option suoshuid=\"" + value.fK_CollaborateWay  + "\" value=\"" + value.pK_ProjRemouldMode + "\" >" + value.f_RemouldName + "</option>";
+                    });
+                    $("#xiangmuleixing").html(optionstring);
+                    $("#xiangmuleixing").val(type)
+                }
+                var attr = $("#hezuofangshi").find("option:selected").attr('cstFlag');
+                var val = $("#hezuofangshi").val();
+                if(attr == 1){
+                    //清除项目类型的所有值包括星星
+                    $('#epcleixing').attr("disabled",false);
+                    $('#epcleixing').prev().children(".redxing").html('*')
+                }else{
+                    $("#epcleixing").html("");
+                    $('#epcleixing').attr("disabled",true);
+                    $('#epcleixing').prev().children(".redxing").html('')
+                }
+            }
+
+        }.bind(this),
+        error: function (xhr, ajaxOptions, thrownError) {
+            Metronic.stopPageLoading();
+            pageContentBody.html('<h4>Could not load the requested content.</h4>');
+        }
+    });
+}
 
 
 

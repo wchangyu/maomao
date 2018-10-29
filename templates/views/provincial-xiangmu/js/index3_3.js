@@ -100,13 +100,14 @@ function creatUpdateLoader(){
         obj.f_FileSize = file.size;
         //文件id
         obj.pK_KnowledgeFileID = file.id;
-
+        obj.f_FileName = file.name;
         //文件扩展名
         obj.f_FileExtension = file.ext;
         //文件路径
         obj.f_FilePath = _currentPath;
         //文件上传标识
         obj.fileUploadFlag = 0;
+        // obj.filedata = JSON.stringify(file);
         //把信息对象加入集合中
         _postKnowLedgeFileArr.push(obj);
 
@@ -149,6 +150,30 @@ $('#thelist').on('click','.remove-img',function(){
     //uploader.removeFile($(this)[0].id,true);
     removeImg(path);
 });
+
+$('#thelist').on('click','.remove-img-bianji',function(){
+
+    var id = $(this).parents('.file-item').attr('id');
+    var path ;
+
+    $(_postKnowLedgeFileArr).each(function(i,o){
+
+        if(o.pK_ProjRemouldFile  == id){
+            o.fileUploadFlag = 1;
+        }
+    });
+    //页面删掉
+    $(this).parents('.file-item').remove();
+    //队列删除
+    //uploader.removeFile($(this)[0].id,true);
+    // removeImg(path);
+});
+
+
+//
+
+
+
 
 function removeImg(_uploaderPath){
     var fileNamePath = {
@@ -264,22 +289,20 @@ function getXiangmuInfoByID( id ) {
 
 
 //合作方式触发的事件
-function hezuofangshievt_xiugai( hezuofangshitype, ){
+function hezuofangshievt_xiugai( hezuofangshitype, epctype){
     var attr = $("#hezuofangshi").find("option:selected").attr('cstFlag');
     var val = $("#hezuofangshi").val();
-
+    console.log(hezuofangshitype,'合作方式type')
     getxiangmuleixingbyhezuofangshiid_xiugai( val, hezuofangshitype )
     if(attr == 1){  
         getEpcBycstflag_xiugai( attr )
         //清除项目类型的所有值包括星星
-        // $("#xiangmuleixing").html("")
-        // $('#xiangmuleixing').attr("disabled",true);
         $('#epcleixing').attr("disabled",false);
+        $('#epcleixing').prev().children(".redxing").html('*')
     }else{
         $("#epcleixing").html("");
         $('#epcleixing').attr("disabled",true);
-        // $('#xiangmuleixing').attr("disabled",false);
-
+        $('#epcleixing').prev().children(".redxing").html("")
     }
 }
 
@@ -335,7 +358,9 @@ function  getxiangmuleixingbyhezuofangshiid_xiugai ( id, hezuofangshitype ){
                     optionstring += "<option suoshuid=\"" + value.fK_CollaborateWay  + "\" value=\"" + value.pK_ProjRemouldMode + "\" >" + value.f_RemouldName + "</option>";
                 });
                 $("#xiangmuleixing").html(optionstring);
+                console.log(optionstring)
                 setTimeout(function(){
+                    console.log($("#xiangmuleixing").html())
                     $('#xiangmuleixing').val(hezuofangshitype||"")
                 }.bind(this),200)
                 
@@ -487,5 +512,130 @@ function _my_creatTableData( arr ){
     });
 }
 
+$(function(){
+  setTimeout(function(){
+    selectAllData()
+  },500)
+})
 
 
+function addFujian(arr, el){
+    //附件预览
+    var $list = $("#fujianlist");
+    var $li = $(
+            '<div id="' + file.id + '" class="file-item thumbnail">' +
+                '<img>' +
+                '<div class="info">' + file.name + '</div>' +
+            '</div>'
+            );
+    var $img = $li.find('img');
+    // $list为容器jQuery实例
+    $list.append( $li );
+
+    // 创建缩略图
+    // 如果为非图片文件，可以不用调用此方法。
+    // thumbnailWidth x thumbnailHeight 为 100 x 100
+    uploader.makeThumb( file, function( error, src ) {
+        if ( error ) {
+            $img.replaceWith('<span>不能预览</span>');
+            return;
+        }
+
+        $img.attr( 'src', src );
+    }, 100, 100 );
+}
+
+
+
+
+function download(){
+    downloadFile('http://192.168.1.104/BEEWebAPI\YWFile//KnowledgesFile\fdjj.png');
+}
+// 直接下载，用户体验好
+window.downloadFile = function (sUrl) {
+
+    //iOS devices do not support downloading. We have to inform user about this.
+    if (/(iP)/g.test(navigator.userAgent)) {
+        alert('Your device does not support files downloading. Please try again in desktop browser.');
+        return false;
+    }
+
+    //If in Chrome or Safari - download via virtual link click
+    if (window.downloadFile.isChrome || window.downloadFile.isSafari) {
+        //Creating new link node.
+        var link = document.createElement('a');
+        link.href = sUrl;
+
+        if (link.download !== undefined) {
+            //Set HTML5 download attribute. This will prevent file from opening if supported.
+            var fileName = sUrl.substring(sUrl.lastIndexOf('/') + 1, sUrl.length);
+            link.download = fileName;
+        }
+
+        //Dispatching click event.
+        if (document.createEvent) {
+            var e = document.createEvent('MouseEvents');
+            e.initEvent('click', true, true);
+            link.dispatchEvent(e);
+            return true;
+        }
+    }
+
+    // Force file download (whether supported by server).
+    if (sUrl.indexOf('?') === -1) {
+        sUrl += '?download';
+    }
+
+    window.open(sUrl, '_self');
+    return true;
+}
+
+function downloadFile(url) {
+    try{
+        var elemIF = document.createElement("iframe");
+        elemIF.src = url;
+        elemIF.style.display = "none";
+        document.body.appendChild(elemIF);
+    }catch(e){
+
+    }
+}
+
+// <button type="button" id="btn2">下载一个zip（方法2）</button>
+
+// var $eleBtn1 = $("#btn1");
+// var $eleBtn2 = $("#btn2");
+
+// $eleBtn2.click(function(){
+//     var $eleForm = $("<form method='get'></form>");
+
+//     $eleForm.attr("action","https://codeload.github.com/douban/douban-client/legacy.zip/master");
+
+//     $(document.body).append($eleForm);
+
+//     //提交表单，实现下载
+//     $eleForm.submit();
+// });
+
+
+//下载文件
+
+
+$('#fujianlist').on('click','.downloadwenjian',function(){
+    var url = $(this).attr('data-myurl')
+    var $eleForm = $("<form method='get'></form>");
+    $eleForm.attr("action",url);
+    $(document.body).append($eleForm);
+    $eleForm.submit();
+    // var eleLink = document.createElement('a');
+    // eleLink.download = filename;
+    // eleLink.style.display = 'none';
+    // // 字符内容转变成blob地址
+    // var blob = new Blob([url]);
+    // eleLink.href = URL.createObjectURL(blob);
+    // // 触发点击
+    // document.body.appendChild(eleLink);
+    // eleLink.click();
+    // // 然后移除
+    // document.body.removeChild(eleLink);
+});
