@@ -1354,6 +1354,54 @@
 
     }
 
+    function compareDate(checkStartDate, checkEndDate) {
+        var arys1 = new Array();
+        var arys2 = new Array();
+        if (checkStartDate != null && checkEndDate != null) {
+            if (checkStartDate.indexOf("-") != -1)
+            {
+                checkStartDate =new Date( checkStartDate.replace("/-/g", "/")).toLocaleDateString();
+
+            }
+            if (checkEndDate.indexOf("-") != -1)
+            {
+                checkEndDate = new Date(checkStartDate.replace("/-/g", "/")).toLocaleDateString();
+            }
+            arys1 = checkStartDate.split('/');
+            var sdate = new Date(arys1[0], parseInt(arys1[1] - 1), arys1[2]);
+            arys2 = checkEndDate.split('/');
+            var edate = new Date(arys2[0], parseInt(arys2[1] - 1), arys2[2]);
+            if (sdate < edate) {
+                return true;
+            } else {
+
+                return false;
+            }
+        }
+    }
+
+    function getrealdatetime() {
+        var now = new Date();
+        if (sessionStorage.SysDT != undefined && compareDate(sessionStorage.SysDT, now.toLocaleDateString())) {
+            //w = convertDate(sessionStorage.SysDT);
+            return sessionStorage.SysDT;
+        }
+        else {
+            var year = now.getFullYear();
+            var month = "";
+            if (parseInt(now.getMonth()) == 0) {
+                month = "12";
+            } else {
+                month = addZeroToSingleNumber(now.getMonth()+1);
+            }
+            var day = addZeroToSingleNumber(now.getDate());
+            var hour = addZeroToSingleNumber(now.getHours());
+            var min = addZeroToSingleNumber(now.getMinutes());
+            var realdatetime = year + "-" + month + "-" + day + " " + hour + ":" + min;
+            return realdatetime;
+        }
+    }
+
     //整体刷新
     //function
 
@@ -1361,8 +1409,8 @@
         init: function () {
 
             //系统实时时间
-            sysrealdatetime();
-
+            //sysrealdatetime();
+            getrealdatetime();
             //realTime();
 
             var eerVa=0.0;
@@ -1387,7 +1435,8 @@
             var flagZB = false;
 
             //判断session中的PointerID是否在steps数组中
-            if(sessionStorage.steps.indexOf(sessionStorage.PointerID)>0){
+
+            if(sessionStorage.steps.indexOf(sessionStorage.PointerID)>-1){
 
                 flagZB = true;
 
@@ -1418,7 +1467,8 @@
             setInterval(function(){
 
                 //系统实时时间
-                sysrealdatetime();
+                //sysrealdatetime();
+                getrealdatetime();
                 //realTime();
 
                 var eerVa=0.0;

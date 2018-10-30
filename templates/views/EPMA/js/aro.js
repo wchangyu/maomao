@@ -524,7 +524,7 @@ $(function(){
 
                     if(result.code == -1){
 
-                        tip = result.msg;
+                        tip = '';
 
                     }else{
 

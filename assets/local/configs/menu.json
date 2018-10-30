@@ -1,161 +1,1309 @@
 ﻿{
-  "系统首页": {
+  "content": "type:0代表具体菜单,1代表上级菜单;content:显示文本;url:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;",
+  "能源管理": {
     "type": "1",
-    "content": "系统首页",
-    "iconclass": "icon-home",
-    "icon-img": "01.png",
-    "icon-hover": "01dian.png",
+    "iconclass": "icon-speedometer",
+    "content": "能源管理",
     "submenu": {
-      "数据总览": {
-        "type": "0",
-        "content": "数据总览",
-        "uri": "../EPMA/main.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "icon-bar-chart"
-      }
-    }
-  },
-  "数据监测": {
-    "type": "1",
-    "content": "数据监测",
-    "iconclass": "icon-screen-tablet",
-    "icon-img": "01.png",
-    "icon-hover": "01dian.png",
-    "submenu": {
-      "系统流程": {
-        "type": "0",
-        "content": "系统流程",
-        "uri": "../yongnengjiance/energyMonitor_EPMA.html?a=9",
-        "uid": "",
-        "arg": "1,8817007007",
-        "iconclass": "icon-picture",
-        "arg2": ""
+      "能耗总览": {
+        "type": "2",
+        "content": "能耗总览"
       },
-      "实时数据": {
+      "驾驶舱": {
         "type": "0",
-        "content": "实时数据",
-        "uri": "../EPMA/monitor.html",
+        "content": "驾驶舱",
+        "uri": "../new-nengyuanzonglan/new-index1.html",
         "uid": "",
         "arg": "",
-        "iconclass": "icon-screen-tablet"
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
       },
-      "历史数据": {
+      "GIS浏览": {
         "type": "0",
-        "content": "历史数据",
-        "uri": "../EPMA/history.html",
+        "content": "GIS浏览",
+        "uri": "../shouye/infoMap2.html",
         "uid": "",
         "arg": "",
-        "iconclass": "icon-bar-chart"
-      }
-    }
-  },
-  "能耗分析": {
-    "type": "1",
-    "content": "能耗分析",
-    "iconclass": "icon-energy",
-    "icon-img": "01.png",
-    "icon-hover": "01dian.png",
-    "submenu": {
+        "iconclass": ""
+      },
+      "能耗数据": {
+        "type": "2",
+        "content": "能耗数据"
+      },
+      "能耗查询": {
+        "type": "0",
+        "content": "能耗查询",
+        "uri": "../new-nenghaoshuju/energyDemand-1.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
+      "能耗指标": {
+        "type": "0",
+        "content": "能耗指标",
+        "uri": "../new-nenghaoshuju/energyConsumption.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
+      "横向对比": {
+        "type": "0",
+        "content": "横向对比",
+        "uri": "../new-nenghaoshuju/crosswiseCompare.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
+      "同比环比": {
+        "type": "0",
+        "content": "同比环比",
+        "uri": "../new-nenghaoshuju/energyCompare.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
+
       "能耗分析": {
+        "type": "2",
+        "content": "能耗分析"
+      },
+      "能耗分项": {
         "type": "0",
-        "content": "能耗分析",
-        "uri": "../EPMA/aro.html",
+        "content": "能耗分项",
+        "uri": "../new-nenghaofenxi/energySubentry.html",
         "uid": "",
         "arg": "",
-        "iconclass": "icon-bar-chart"
-      }
-    }
-  },
-  "能效分析": {
-    "type": "1",
-    "content": "能效分析",
-    "iconclass": "icon-bar-chart",
-    "icon-img": "01.png",
-    "icon-hover": "01dian.png",
-    "submenu": {
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
+      "关联分析": {
+        "type": "0",
+        "content": "关联分析",
+        "uri": "../new-nenghaofenxi/relevanAnalysData.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
+      "趋势预测": {
+        "type": "0",
+        "content": "趋势预测",
+        "uri": "../new-nenghaofenxi/energyTendConfig.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
+
+      "昼夜分析": {
+        "type": "0",
+        "content": "昼夜分析",
+        "uri": "../yongnengfenxi/energyAnalysis-5.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
+      "重点医疗设备": {
+        "type": "0",
+        "content": "重点医疗设备",
+        "uri": "../yongnengjiance/energyMonitor.html?a=666",
+        "uid": "",
+        "arg": "2,26",
+        "iconclass": "",
+        "arg2": "admin,zb"
+      },
+
+      "能效分析": {
+        "type": "2",
+        "content": "能效分析"
+      },
+
+      "能效查询": {
+        "type": "0",
+        "content": "能效查询",
+        "uri": "../new-nengxiaofenxi/efficiencyDemand.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
       "能效日历": {
         "type": "0",
         "content": "能效日历",
-        "uri": "../EPMA/calendar.html",
+        "uri": "../new-nengxiaofenxi/efficiencyCalendar.html",
         "uid": "",
         "arg": "",
-        "iconclass": "icon-calendar"
-      },
-      "热不平衡率": {
-        "type": "0",
-        "content": "热不平衡率",
-        "uri": "../EPMA/rph.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "icon-anchor"
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
       },
       "参数分析": {
         "type": "0",
         "content": "参数分析",
-        "uri": "../EPMA/abbr.html",
+        "uri": "../new-nengxiaofenxi/parameterAnalyze.html",
         "uid": "",
         "arg": "",
-        "iconclass": "icon-equalizer"
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
       },
       "能效对比": {
         "type": "0",
         "content": "能效对比",
-        "uri": "../EPMA/compare.html",
+        "uri": "../new-nengxiaofenxi/efficiencyCompare.html",
         "uid": "",
         "arg": "",
-        "iconclass": "icon-bar-chart"
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
       },
-      "负荷分析": {
+
+      "信息中心能效": {
         "type": "0",
-        "content": "负荷分析",
-        "uri": "../EPMA/rate.html",
+        "content": "信息中心能效",
+        "uri": "../yongnengjiance/energyMonitor.html?a=29",
         "uid": "",
-        "arg": "",
-        "iconclass": "fa fa-tachometer"
+        "arg": "2,29",
+        "iconclass": "",
+        "arg2": "admin,zb"
       },
-      "能效排名": {
+
+      "用能管理": {
+        "type": "2",
+        "content": "用能管理"
+      },
+      "能耗排名": {
         "type": "0",
-        "content": "能效排名",
-        "uri": "../EPMA/rank.html",
+        "content": "能耗排名",
+        "uri": "../new-yongnengguanli/energyRankingItem.html",
         "uid": "",
         "arg": "",
-        "iconclass": "glyphicon glyphicon-sort-by-order"
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
+      "定额管理": {
+        "type": "0",
+        "content": "定额管理",
+        "uri": "../new-yongnengguanli/OfficeDingEData.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
+      "用能考核": {
+        "type": "0",
+        "content": "用能考核",
+        "uri": "../new-yongnengguanli/energyAssess.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
+      "能耗公示": {
+        "type": "0",
+        "content": "能耗公示",
+        "uri": "../new-yongnengguanli/energyPublicityData.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
+      },
+
+      "节能足迹": {
+        "type": "2",
+        "content": "节能足迹"
+      },
+      "节能项目管理": {
+        "type": "0",
+        "content": "节能项目管理",
+        "uri": "../new-jienengzuji/energyStatistics.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,hq01,kz,gly"
       }
     }
   },
-  "报表打印": {
+
+  "设备监控": {
     "type": "1",
-    "content": "报表打印",
-    "iconclass": "icon-printer",
-    "icon-img": "01.png",
-    "icon-hover": "01dian.png",
+    "content": "设备监控",
+    "iconclass": "icon-camcorder",
     "submenu": {
-      "报表导出": {
+      "监控总览": {
         "type": "0",
-        "content": "报表导出",
-        "uri": "../EPMA/report.html",
+        "content": "监控总览",
+        "uri": "../yongnengjiance/energyMonitor.html?a=1",
+        "uid": "",
+        "arg": "2,4",
+        "iconclass": "",
+        "arg2": "admin,pdf,zb"
+      },
+      "变配电系统": {
+        "type": "2",
+        "content": "变配电系统"
+      },
+      "配电支路": {
+        "type": "0",
+        "content": "配电支路",
+        "uri": "../yongnengjiance/energyMonitor.html?a=2",
+        "uid": "",
+        "arg": "2,10",
+        "iconclass": "",
+        "arg2": "admin,pdf,zb,WXBZ01"
+      },
+      "变配电室综合监控": {
+        "type": "0",
+        "content": "变配电室综合监控",
+        "uri": "../yongnengjiance/energyMonitor.html?a=19",
+        "uid": "",
+        "arg": "2,19",
+        "iconclass": "",
+        "arg2": "admin,pdf,zb"
+      },
+      "综合保护": {
+        "type": "0",
+        "content": "综合保护",
+        "uri": "../yongnengjiance/energyMonitor.html?a=3",
+        "uid": "",
+        "arg": "2,9",
+        "iconclass": "",
+        "arg2": "admin,pdf,zb"
+      },
+      "变压器温控器": {
+        "type": "0",
+        "content": "变压器温控器",
+        "uri": "../yongnengjiance/energyMonitor.html?a=4",
+        "uid": "",
+        "arg": "2,6",
+        "iconclass": "",
+        "arg2": "admin,pdf,zb"
+      },
+      "发电系统": {
+        "type": "0",
+        "content": "发电系统",
+        "uri": "../yongnengjiance/energyMonitor.html?a=5",
+        "uid": "",
+        "arg": "2,5",
+        "iconclass": "",
+        "arg2": "admin,pdf,zb"
+      },
+      "电源隔离监测系统": {
+        "type": "0",
+        "content": "电源隔离监测系统",
+        "uri": "../yongnengjiance/energyMonitor.html?a=25",
+        "uid": "",
+        "arg": "2,25",
+        "iconclass": "",
+        "arg2": "admin,pdf,zb"
+      },
+      "暖通空调系统": {
+        "type": "2",
+        "content": "暖通空调系统"
+      },
+      "暖通空调": {
+        "type": "0",
+        "content": "暖通空调",
+        "uri": "../yongnengjiance/energyMonitor.html?a=18",
+        "uid": "",
+        "arg": "2,18",
+        "iconclass": "",
+        "arg2": "admin,zb"
+      },
+      "直燃机": {
+        "type": "0",
+        "content": "直燃机",
+        "uri": "../yongnengjiance/energyMonitor.html?a=20",
+        "uid": "",
+        "arg": "2,20",
+        "iconclass": "",
+        "arg2": "admin,zb"
+      },
+      "远大空调": {
+        "type": "0",
+        "content": "远大空调",
+        "uri": "http://61.187.123.138/",
+        "uid": "",
+        "arg": "2,18",
+        "iconclass": "",
+        "target": "yuanda",
+        "arg2": "admin,zb"
+      },
+      "洁净空调系统": {
+        "type": "2",
+        "content": "洁净空调系统"
+      },
+      "洁净空调": {
+        "type": "0",
+        "content": "洁净空调",
+        "uri": "../yongnengjiance/energyMonitor.html?a=8",
+        "uid": "",
+        "arg": "2,8",
+        "iconclass": "",
+        "arg2": "admin,zb"
+      },
+      "重点医疗设备1": {
+        "type": "2",
+        "content": "重点医疗设备"
+      },
+      "重点医疗设备": {
+        "type": "0",
+        "content": "重点医疗设备",
+        "uri": "../yongnengjiance/energyMonitor.html?a=666",
+        "uid": "",
+        "arg": "2,26",
+        "iconclass": "",
+        "arg2": "admin,zb"
+      },
+      "医用气体": {
+        "type": "2",
+        "content": "医用气体"
+      },
+      "空压系统": {
+        "type": "0",
+        "content": "空压系统",
+        "uri": "../yongnengjiance/energyMonitor.html?a=6",
+        "uid": "",
+        "arg": "2,14",
+        "iconclass": "",
+        "arg2": "admin,zb"
+      },
+      "液氧系统": {
+        "type": "0",
+        "content": "液氧系统",
+        "uri": "../yongnengjiance/energyMonitor.html?a=9",
+        "uid": "",
+        "arg": "2,15",
+        "iconclass": "",
+        "arg2": "admin,zb"
+      },
+      "负压系统": {
+        "type": "0",
+        "content": "负压系统",
+        "uri": "../yongnengjiance/energyMonitor.html?a=13",
+        "uid": "",
+        "arg": "2,16",
+        "iconclass": "",
+        "arg2": "admin,zb"
+      },
+      "汇流排系统": {
+        "type": "0",
+        "content": "汇流排系统",
+        "uri": "../yongnengjiance/energyMonitor.html?a=14",
+        "uid": "",
+        "arg": "2,17",
+        "iconclass": "",
+        "arg2": "admin,zb"
+      },
+      "给排水系统": {
+        "type": "2",
+        "content": "给排水系统"
+      },
+      "给排水": {
+        "type": "0",
+        "content": "给排水",
+        "uri": "../yongnengjiance/energyMonitor.html?a=11",
+        "uid": "",
+        "arg": "2,12",
+        "iconclass": "",
+        "arg2": "admin,zb"
+      },
+      "重点区域监测": {
+        "type": "2",
+        "content": "重点区域监测"
+      },
+      "污水处理站": {
+        "type": "0",
+        "content": "污水处理站",
+        "uri": "../yongnengjiance/energyMonitor.html?a=27",
+        "uid": "",
+        "arg": "2,27",
+        "iconclass": "",
+        "arg2": "admin,gly,zb"
+      },
+      "信息中心": {
+        "type": "0",
+        "content": "信息中心",
+        "uri": "../yongnengjiance/energyMonitor.html?a=29",
+        "uid": "",
+        "arg": "2,29",
+        "iconclass": "",
+        "arg2": "admin,pdf,gly,zb"
+      },
+      "UPS系统": {
+        "type": "2",
+        "content": "UPS系统"
+      },
+      "UPS": {
+        "type": "0",
+        "content": "UPS",
+        "uri": "../yongnengjiance/energyMonitor.html?a=7",
+        "uid": "",
+        "arg": "2,7",
+        "iconclass": "",
+        "arg2": "admin,pdf,zb"
+      },
+
+      "摄像头": {
+        "type": "2",
+        "content": "摄像头"
+      },
+      "实时监控": {
+        "type": "0",
+        "content": "实时监控",
+        "uri": "../new-luxianghuifang/currentMonitor.html",
         "uid": "",
         "arg": "",
-        "iconclass": "icon-screen-tablet"
+        "target": "blank",
+        "iconclass": "",
+        "arg2": "admin,pdf,zb"
+      },
+      "监控回放": {
+        "type": "0",
+        "content": "监控回放",
+        "uri": "../new-luxianghuifang/historyMonitor.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,pdf,zb"
+      },
+
+      "用电监控": {
+        "type": "2",
+        "content": "用电监控"
+      },
+      "电能质量": {
+        "type": "0",
+        "content": "电能质量",
+        "uri": "../new-nenghaofenxi/electricQuality.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,pdf,hq01,zb,WXBZ01"
+      },
+      "UD配置": {
+        "type": "0",
+        "content": "UD配置",
+        "uri": "../yongnengjiance/energyMonitor.html?a=28",
+        "uid": "",
+        "arg": "2,28",
+        "iconclass": "",
+        "arg2": "admin,zb"
       }
     }
   },
-  "系统设置": {
+
+  "后勤管理": {
     "type": "1",
-    "content": "系统设置",
-    "iconclass": "icon-docs",
-    "icon-img": "01.png",
-    "icon-hover": "01dian.png",
+    "content": "后勤管理",
+    "iconclass": "icon-wrench",
     "submenu": {
-      "计费方案": {
+      "一站式服务中心": {
+        "type": "2",
+        "content": "一站式服务中心"
+      },
+      "工单报修管理": {
         "type": "0",
-        "content": "计费方案",
-        "uri": "../EPMA/epgr.html",
+        "content": "工单报修管理",
+        "uri": "../gongdanxitong/gdOrderRepair.html",
         "uid": "",
         "arg": "",
-        "iconclass": "icon-credit-card"
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,BX01,BXZG01,dd01,WXBZ01"
+      },
+      "工单关单管理": {
+        "type": "0",
+        "content": "工单关单管理",
+        "uri": "../gongdanxitong/gdClosing.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,BXZG01"
+      },
+      "工单受理管理": {
+        "type": "0",
+        "content": "工单受理管理",
+        "uri": "../gongdanxitong/gdAcceptance.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,dd01"
+      },
+      "工单接单管理": {
+        "type": "0",
+        "content": "工单接单管理",
+        "uri": "../gongdanxitong/gdOrders.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,WXBZ01"
+      },
+      "工单执行管理": {
+        "type": "0",
+        "content": "工单执行管理",
+        "uri": "../gongdanxitong/gdImplement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,WXBZ01,WXBZ11"
+      },
+      "工单综合查询": {
+        "type": "0",
+        "content": "工单综合查询",
+        "uri": "../gongdangunali/productionOrder-6.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,dd01,hq01,WXBZ01"
+      },
+      "大屏展示": {
+        "type": "0",
+        "content": "大屏展示",
+        "uri": "../gongdanxitong/gdShowData.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "blank",
+        "arg2": "admin,WXBZ01"
+      },
+      "大屏展示1": {
+        "type": "0",
+        "content": "调度大屏展示",
+        "uri": "../gongdanxitong/gdShowData1.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "blank",
+        "arg2": "admin,dd01"
+      },
+
+      "工程仓库": {
+        "type": "2",
+        "content": "工程仓库"
+      },
+      "供应商管理": {
+        "type": "0",
+        "content": "供应商管理",
+        "uri": "../cangkuguanli/providerManagement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,WXBE01"
+      },
+      "物品类别": {
+        "type": "0",
+        "content": "物品类别",
+        "uri": "../cangkuguanli/warehouseManagement-9.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,WXBE01"
+      },
+      "物品管理": {
+        "type": "0",
+        "content": "物品管理",
+        "uri": "../cangkuguanli/warehouseManagement-1.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,WXBE01"
+      },
+      "入库管理": {
+        "type": "0",
+        "content": "入库管理",
+        "uri": "../cangkuguanli/warehouseManagement-2.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,WXBE01"
+      },
+      "出库管理": {
+        "type": "0",
+        "content": "出库管理",
+        "uri": "../cangkuguanli/warehouseManagement-3.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,WXBE01"
+      },
+      "库存清单": {
+        "type": "0",
+        "content": "库存清单",
+        "uri": "../cangkuguanli/warehouseManagement-4.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,WXBE01"
+      },
+      "台账记录": {
+        "type": "0",
+        "content": "台账记录",
+        "uri": "../cangkuguanli/warehouseManagement-5.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,WXBE01"
+      },
+      "材料月报表": {
+        "type": "0",
+        "content": "进销存报表",
+        "uri": "../cangkuguanli/materialMonthlyReport.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,WXBE01"
+      },
+      "月末结转": {
+        "type": "0",
+        "content": "月度结转",
+        "uri": "../cangkuguanli/monthlyCollect.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,WXBE01"
+      },
+
+      "设备管理": {
+        "type": "2",
+        "content": "设备管理"
+      },
+      "设备台帐": {
+        "type": "0",
+        "content": "设备台帐",
+        "uri": "../zichanguanli/assetManagement-1.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz"
+      },
+      "设备预警管理": {
+        "type": "0",
+        "content": "设备预警管理",
+        "uri": "../zichanguanli/assetManagement-5.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz"
+      },
+      "字典管理": {
+        "type": "0",
+        "content": "字典管理",
+        "uri": "../zichanguanli/assetManagement-4.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz"
+      },
+
+      "巡检管理": {
+        "type": "2",
+        "content": "巡检管理"
+      },
+      "巡检项目管理": {
+        "type": "0",
+        "content": "巡检条目管理",
+        "uri": "../xunjianguanli/inspectionManagement-1.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz"
+      },
+      "巡检内容": {
+        "type": "0",
+        "content": "巡检内容",
+        "uri": "../xunjianguanli/inspectionManagement-2.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz"
+      },
+      "巡检计划": {
+        "type": "0",
+        "content": "巡检计划",
+        "uri": "../xunjianguanli/inspectionManagement-3.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz"
+      },
+      "巡检任务": {
+        "type": "0",
+        "content": "巡检任务",
+        "uri": "../xunjianguanli/inspectionManagement-4_1.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz"
+      },
+      "综合查询": {
+        "type": "0",
+        "content": "综合管理",
+        "uri": "../xunjianguanli/inspectionManagement-5.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz"
+      },
+      "异常项目查询": {
+        "type": "0",
+        "content": "异常项目查询",
+        "uri": "../xunjianguanli/inspectionManagement-6.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz"
+      },
+
+      "知识库管理": {
+        "type": "2",
+        "content": "知识库管理"
+      },
+      "知识库维护": {
+        "type": "0",
+        "content": "知识库维护",
+        "uri": "../zhishikuguanli/knowledgeBase-1.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,WXBZ01"
+      },
+      "知识库检索": {
+        "type": "0",
+        "content": "知识库检索",
+        "uri": "../zhishikuguanli/knowledgeBase-2.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,WXBZ01,WXBZ11"
+      }
+    }
+  },
+
+  "管理诊断": {
+    "type": "1",
+    "iconclass": "icon-briefcase",
+    "content": "管理诊断",
+    "submenu": {
+      "一键诊断": {
+        "type": "0",
+        "content": "一键诊断",
+        "uri": "../new-guanlizhenduan/manageDiagnose.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz"
+      }
+    }
+  },
+
+  "告警管理": {
+    "type": "1",
+    "iconclass": "icon-bulb",
+    "content": "告警管理",
+    "submenu": {
+
+      "当日告警": {
+
+        "type": "0",
+
+        "content": "当日告警",
+
+        "uri": "../baojingyujing/warningAlarm-3.html",
+
+        "uid": "",
+
+        "arg": "",
+
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,zb,WXBZ01"
+
+      },
+      "历史告警": {
+        "type": "0",
+        "content": "历史告警",
+        "uri": "../baojingyujing/warningAlarm-2.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,zb,WXBZ01"
+      },
+      "摄像头告警": {
+        "type": "0",
+        "content": "摄像头告警",
+        "uri": "../new-baojingyujing/warningCamera.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,zb,WXBZ01"
+      }
+    }
+  },
+
+  "报表管理": {
+    "type": "1",
+    "iconclass": "icon-bar-chart",
+    "content": "报表管理",
+    "submenu": {
+      "能管报表": {
+        "type": "2",
+        "content": "能管报表"
+      },
+      "报表生成": {
+        "type": "0",
+        "content": "报表生成",
+        "uri": "../new-baobiaoguanli/statementManagement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,WXBZ01,dd01"
+      },
+
+      "维修报表": {
+        "type": "2",
+        "content": "维修报表"
+      },
+      "班组维修工作量统计报表": {
+        "type": "0",
+        "content": "部门维修工作量统计报表",
+        "uri": "../baobiaoguanli/reportManagement-1.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,WXBZ01,dd01"
+      },
+      "员工维修工作量统计报表": {
+        "type": "0",
+        "content": "员工维修工作量统计报表",
+        "uri": "../baobiaoguanli/reportManagement-2.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,WXBZ01,dd01"
+      },
+      "调度中心工作量统计报表": {
+        "type": "0",
+        "content": "调度中心工作量统计报表",
+        "uri": "../baobiaoguanli/reportManagement-3.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,WXBZ01,dd01"
+      },
+      "部门报修量统计报表": {
+        "type": "0",
+        "content": "部门报修量统计报表",
+        "uri": "../baobiaoguanli/reportManagement-4.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,WXBZ01,dd01"
+      },
+      "维修满意度统计报表": {
+        "type": "0",
+        "content": "维修满意度统计报表",
+        "uri": "../baobiaoguanli/reportManagement-6.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,WXBZ01,dd01"
+      },
+      "故障类别报表": {
+        "type": "0",
+        "content": "故障类别报表",
+        "uri": "../baobiaoguanli/maintenanceReportManagement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,WXBZ01,dd01"
+      },
+      "监控报表": {
+        "type": "2",
+        "content": "监控报表"
+      },
+      "六号楼中央空调运行记录": {
+        "type": "0",
+        "content": "六号楼中央空调运行记录",
+        "uri": "../new-baobiaoguanli/centralRecordStatement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin,gly,hq01,kz,WXBZ01,dd01"
+      }
+    }
+  },
+
+  "医废信息": {
+    "type": "1",
+    "iconclass": "icon-note",
+    "content": "医废信息",
+    "submenu": {
+      "创建医废": {
+        "type": "0",
+        "content": "创建医废",
+        "uri": "../YHQ-YF/MWcreate.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "医废仓库处理": {
+        "type": "0",
+        "content": "医废仓库处理",
+        "uri": "../YHQ-YF/MWinstore.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "医废异常查询": {
+        "type": "0",
+        "content": "医废异常查询",
+        "uri": "../YHQ-YF/MWabnormal.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "医废综合查询": {
+        "type": "0",
+        "content": "医废综合查询",
+        "uri": "../YHQ-YF/MWquery.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "电子秤管理": {
+        "type": "0",
+        "content": "电子秤管理",
+        "uri": "../YHQ-YF/MWbalance.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "工作量报表": {
+        "type": "0",
+        "content": "运送人工作量",
+        "uri": "../YHQ-YF/statisticalReportByCarrier.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "科室报表": {
+        "type": "0",
+        "content": "科室报表",
+        "uri": "../YHQ-YF/statisticalReportByDepartment.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
+
+  "订餐信息": {
+    "type": "1",
+    "iconclass": "icon-note",
+    "content": "订餐信息",
+    "submenu": {
+      "餐厅信息": {
+        "type": "0",
+        "content": "餐厅信息",
+        "uri": "../YHQ-DC/DCRestaurant.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "菜品分类": {
+        "type": "0",
+        "content": "菜品分类",
+        "uri": "../YHQ-DC/DCDishes.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "菜品管理": {
+        "type": "0",
+        "content": "菜品管理",
+        "uri": "../YHQ-DC/DCvarietyOfDishes.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "菜谱餐次排班": {
+        "type": "0",
+        "content": "菜谱餐次排班",
+        "uri": "../YHQ-DC/DCMenuScheduling.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "订餐管理": {
+        "type": "0",
+        "content": "订餐管理",
+        "uri": "../YHQ-DC/DCOrderDinner.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "订餐查询": {
+        "type": "0",
+        "content": "订餐查询",
+        "uri": "../YHQ-DC/DCquery.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "订餐统计": {
+        "type": "0",
+        "content": "订餐统计",
+        "uri": "../YHQ-DC/DCStatistics.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+
+    }
+  },
+
+  "合同信息": {
+    "type": "1",
+    "iconclass": "icon-note",
+    "content": "合同信息",
+    "submenu": {
+      "合同类型": {
+        "type": "0",
+        "content": "合同类型",
+        "uri": "../YHQ-HT/HTtype.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "合同客户管理": {
+        "type": "0",
+        "content": "合同客户管理",
+        "uri": "../YHQ-HT/HTCustomerManagement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "合同所属项目": {
+        "type": "0",
+        "content": "合同所属项目",
+        "uri": "../YHQ-HT/HTProject.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "合同管理": {
+        "type": "0",
+        "content": "合同管理",
+        "uri": "../YHQ-HT/HTmanagement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "合同审批": {
+        "type": "0",
+        "content": "合同审批",
+        "uri": "../YHQ-HT/HTapproval.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "合同执行": {
+        "type": "0",
+        "content": "合同执行",
+        "uri": "../YHQ-HT/HTimplement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "合同子项明细": {
+        "type": "0",
+        "content": "合同子项明细",
+        "uri": "../YHQ-HT/HTmanagementDetailed.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "合同款项明细": {
+        "type": "0",
+        "content": "合同款项明细",
+        "uri": "../YHQ-HT/HTmanagementPay.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "合同档案管理": {
+        "type": "0",
+        "content": "合同档案管理",
+        "uri": "../YHQ-HT/HTquery.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "合同付款情况": {
+        "type": "0",
+        "content": "合同付款情况",
+        "uri": "../YHQ-HT/HTpay.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+
+    }
+  },
+  "系统管理": {
+    "type": "1",
+    "iconclass": "icon-settings",
+    "content": "系统管理",
+    "submenu": {
+      "能管配置": {
+        "type": "2",
+        "content": "能管配置",
+        "arg2": "admin"
+      },
+      "万元GDP": {
+        "type": "0",
+        "content": "万元GDP",
+        "uri": "../new-shurucanshu/enterpriseGDPData.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "就诊人数": {
+        "type": "0",
+        "content": "就诊人数",
+        "uri": "../new-shurucanshu/outpatientNumber.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+
+      "运维配置": {
+        "type": "2",
+        "content": "运维配置",
+        "arg2": "admin"
+      },
+      "员工管理": {
+        "type": "0",
+        "content": "员工管理",
+        "uri": "../xitongshezhi/personnelManagement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "角色管理": {
+        "type": "0",
+        "content": "角色管理",
+        "uri": "../xitongshezhi/roleManagement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "部门管理": {
+        "type": "0",
+        "content": "部门管理",
+        "uri": "../xitongshezhi/sectorManagement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "仓库管理": {
+        "type": "0",
+        "content": "仓库管理",
+        "uri": "../cangkuguanli/warehouseManagement-10.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "仓库权限分配": {
+        "type": "0",
+        "content": "仓库权限分配",
+        "uri": "../xitongshezhi/permissionAssignment.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "维修项目": {
+        "type": "0",
+        "content": "维修项目",
+        "uri": "../weixiuguanli/dictionariesManage.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "地点管理": {
+        "type": "0",
+        "content": "地点管理",
+        "uri": "../xitongshezhi/siteMessage.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "电话管理": {
+        "type": "0",
+        "content": "电话管理",
+        "uri": "../xitongshezhi/phoneMessage.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+
+      "新闻配置": {
+        "type": "2",
+        "content": "新闻配置",
+        "arg2": "admin"
+      },
+      "添加新闻": {
+        "type": "0",
+        "content": "添加新闻",
+        "uri": "../news/news-1.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "栏目管理": {
+        "type": "0",
+        "content": "栏目管理",
+        "uri": "../news/news-2.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "新闻管理": {
+        "type": "0",
+        "content": "新闻管理",
+        "uri": "../news/news-3.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "arg2": "admin"
+      },
+      "用户信息": {
+        "type": "2",
+        "content": "用户信息",
+        "arg2": "admin"
+      },
+      "修改密码": {
+        "type": "0",
+        "content": "修改密码",
+        "uri": "../xitongshezhi/changePwd.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   }
+
 }

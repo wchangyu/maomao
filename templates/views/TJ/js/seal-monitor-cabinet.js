@@ -86,7 +86,7 @@ function drawSpaceData(){
             '<p>' +
             '<span class="name">运行状态</span>' +
             '<span class="data">' +
-            '<input type="text" class="imaginary" value="NO">' +
+            '<input type="text" class="imaginary" value="ON">' +
             '</span>' +
             '</p>' +
 
