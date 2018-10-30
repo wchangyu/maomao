@@ -20,7 +20,7 @@ $(function() {
         var min = $('#touzimin').val() || 0;
         var max = $('#touzimax').val() || 0;;
         getProjectByType(undefined, gzfstype, min, max, function(){
-            console.log(1111)
+
         })
     });
 
@@ -36,50 +36,6 @@ $(function() {
     creatCharts()
 
 })
-
-
-function startDraw( data ){
-    var echartoption = {
-        title : {
-            text: '筛选结果统计图',
-            subtext: '针对本次筛选结果',
-            x:'center'
-        },
-        tooltip : {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-            type: 'scroll',
-            orient: 'vertical',
-            right: 10,
-            top: 20,
-            bottom: 20,
-            data: data.legendData,
-            selected: data.selected
-        },
-        series : [
-            {
-                name: '姓名',
-                type: 'pie',
-                radius : '55%',
-                center: ['40%', '50%'],
-                data: data.seriesData,
-                itemStyle: {
-                    emphasis: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }
-        ]
-    };
-    if (echartoption && typeof echartoption === "object") {
-        myChart.setOption(echartoption, true);
-    }
-}
-
 
 function getProjectByType( f_DistrictID, fK_ProjRemouldMode, f_InvestmentMin, f_InvestmentMax, callback){
 	var url = _urls + "ProvincialProject/GetProjRemouldInfoQuery";
@@ -346,12 +302,6 @@ function getXiangmutextById( id ){
    }
    return id;
 }
-
-
-function startWriteData(){
-    
-}
-
 
 function creatCharts(){
 
