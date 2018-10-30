@@ -83,7 +83,8 @@ function creatUpdateLoader(){
         //缩略图
         uploader.makeThumb( file, function( error, src ) {   //webuploader方法
             if ( error ) {
-                $img.replaceWith('<span>不能预览</span>');
+                // $img.replaceWith('<span>不能预览</span>');
+                $img.attr( 'src', './img/weizhi.jpg' );
                 return;
             }
 
@@ -537,11 +538,12 @@ function addFujian(arr, el){
     // thumbnailWidth x thumbnailHeight 为 100 x 100
     uploader.makeThumb( file, function( error, src ) {
         if ( error ) {
-            $img.replaceWith('<span>不能预览</span>');
+            // $img.replaceWith('<span>不能预览</span>');
+            $img.attr( 'src', './img/weizhi.jpg' );
             return;
         }
-
         $img.attr( 'src', src );
+        
     }, 100, 100 );
 }
 
@@ -601,25 +603,7 @@ function downloadFile(url) {
     }
 }
 
-// <button type="button" id="btn2">下载一个zip（方法2）</button>
-
-// var $eleBtn1 = $("#btn1");
-// var $eleBtn2 = $("#btn2");
-
-// $eleBtn2.click(function(){
-//     var $eleForm = $("<form method='get'></form>");
-
-//     $eleForm.attr("action","https://codeload.github.com/douban/douban-client/legacy.zip/master");
-
-//     $(document.body).append($eleForm);
-
-//     //提交表单，实现下载
-//     $eleForm.submit();
-// });
-
-
 //下载文件
-
 
 $('#fujianlist').on('click','.downloadwenjian',function(){
     var url = $(this).attr('data-myurl')

@@ -435,3 +435,6 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     clear: both;
     height: 0;
     }
+    #xiangmumingchengselect{
+        width:260px;
+    }

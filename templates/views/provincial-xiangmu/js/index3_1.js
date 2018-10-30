@@ -328,8 +328,12 @@ $('#xiangmubiaoge tbody').on('click','.option-edite',function(data, index){
 
         //单位名称
         $('#danweimingcheng').val(datainfo.f_UnitName)
+        //单位id
+        // F_UnitID
         //所属区域
-        $('#suoshuquyu').val(datainfo.f_DistrictID)
+        // $('#suoshuquyu').val(datainfo.f_DistrictID)
+        $('#suoshuquyu').val(datainfo.districtName)
+        
         //单位类型
         var danweileixing = danweileixinglist;
         if(danweileixing == null){
@@ -371,8 +375,8 @@ $('#xiangmubiaoge tbody').on('click','.option-edite',function(data, index){
 
         // startSetItemData()
         // hh.ui.xiangmu.data.itemdata
-        $('.danweimingcheng').val(datainfo.f_UnitName||"")
-        $('.suoshuquyu').val(datainfo.f_DistrictID||"")
+        // $('.danweimingcheng').val(datainfo.f_UnitName||"")
+        // $('.suoshuquyu').val(datainfo.f_DistrictID||"")
         //当前单位类型
         $('.danweileixing').val(datainfo.f_PointerClass||"")
         //当前项目名称
@@ -411,6 +415,10 @@ $('#xiangmubiaoge tbody').on('click','.option-edite',function(data, index){
         //当前备注
         $('.beizhu').val(datainfo.f_Mark||"")
 
+        //单位名称
+        $('.danweimingcheng').val(datainfo.f_UnitName)
+        $('.suoshuquyu').val(datainfo.districtName)
+
          //合作方式
         var hezuofangshi = hezuofangshilist;
         if(hezuofangshi == null){
@@ -429,6 +437,10 @@ $('#xiangmubiaoge tbody').on('click','.option-edite',function(data, index){
 
         setEditXiangmuleixing( datainfo.f_ProjCollaborate, datainfo.fK_ProjRemouldMode )
 
+
+         //单位名称
+        $('.danweimingcheng').val(datainfo.f_UnitName)
+        $('.suoshuquyu').val(datainfo.districtName)
         //此处是请求项目的回调 取出里面的附件内容再进行展示 TODO
         //添加东西之后判断是否能预览，如果是图片能预览，否则反之，
         _postKnowLedgeFileArr = []
@@ -460,7 +472,8 @@ $('#xiangmubiaoge tbody').on('click','.option-edite',function(data, index){
             if(type == "JPG" || type == "JPEG" || type == "PNG" || type == "jpg" || type == "jpeg" || type == "png"){
                 $img.attr( 'src', lujing );
             }else{
-                $img.replaceWith('<span>不能预览</span>');
+                // $img.replaceWith('<span>不能预览</span>');
+                $img.attr( 'src', './img/weizhi.jpg' );
             }
             // $list为容器jQuery实例
             $list.append( $li );
@@ -498,7 +511,7 @@ $('#xiangmubiaoge tbody').on('click','.option-see',function(data, index){
                         '<div id="' + '' + '" class="file-item thumbnail col-md-4">' +
                             '<img>' +
                             '<div class="info">' + name + '</div>' +
-                            '<div><button type="button" class="downloadwenjian" data-myurl="'+ item.f_FileAllPath +'">下载此文件</button></div>'+
+                            '<div><button type="button" class="downloadwenjian" data-myurl="'+ item.f_FileAllPath +'">查看此文件</button></div>'+
                         '</div>'
                     );
 
@@ -506,7 +519,8 @@ $('#xiangmubiaoge tbody').on('click','.option-see',function(data, index){
                 if(type == "JPG" || type == "JPEG" || type == "PNG" || type == "jpg" || type == "jpeg" || type == "png"){
                     $img.attr( 'src', lujing );
                 }else{
-                    $img.replaceWith('<span>不能预览</span>');
+                    // $img.replaceWith('<span>不能预览</span>');
+                    $img.attr( 'src', './img/weizhi.jpg' );
                 }
                 // $list为容器jQuery实例
                 $list.append( $li );
@@ -578,6 +592,10 @@ $('#xiangmubiaoge tbody').on('click','.option-see',function(data, index){
         }
         // 项目类型
         setSeeXiangmuleixing( itemdata.f_ProjCollaborate, itemdata.fK_ProjRemouldMode )
+
+        //单位名称
+        $('.danweimingcheng').val(itemdata.f_UnitName)
+        $('.suoshuquyu').val(itemdata.districtName)
 
     }else{
         myAlter("没有找到该条数据,请刷新后重试")
@@ -979,6 +997,7 @@ $(function(){
 
     /*----------------------------------------按钮事件-------------------------------------*/
 
+    //修改项目内容
     function startEditFlag(){
         var formdata = {};
         var t = $('#xiangmu').serializeArray();
@@ -989,7 +1008,18 @@ $(function(){
         var epcleixing = $("#epcleixing").find("option:selected").attr('itemKey')||"";
         var addOrEditFlag = hh.ui.xiangmu.data.addOrEditFlag;
         var pK_ProjRemouldInfo = hh.ui.xiangmu.data.itemdata.pK_ProjRemouldInfo;
+        //单位id
+        var submitdanweiid = hh.ui.xiangmu.data.itemdata.f_UnitID
+        // 单位名称 f_UnitName
+        var submitdanweimingcheng = hh.ui.xiangmu.data.itemdata.f_UnitName
+
+        //所属区域
+        var submitsuoshuquyu = hh.ui.xiangmu.data.itemdata.districtName;
+        // 所属区域id
+        var submitsuoshuquyuid = hh.ui.xiangmu.data.itemdata.f_DistrictID;
+        
         // POST /api/
+
         $.ajax({
             type:'post',
             url:_urls + 'ProvincialProject/EditProjRemouldInfo',
@@ -1004,12 +1034,25 @@ $(function(){
                 b_UserRole:_userRole,
                 //当前用户所属部门
                 b_DepartNum:_maintenanceTeam,
+
+
+
                 //当前单位名称
-                f_UnitName: danweimingcheng.value,
-                //当前所属区域
-                f_DistrictID: suoshuquyu.value,
-                //当前单位类型
+                // f_UnitName: 
+                // f_UnitID: submitdanweiid,
+
+                // f_UnitName: formdata.enterpriseID,
+                // //当前所属区域
+                // f_DistrictID: formdata.districtID,
+                // //当前单位类型
                 f_PointerClass: formdata.danweileixing,
+
+
+                // f_UnitName: submitdanweimingcheng,
+                f_UnitID : submitdanweiid,
+                // districtName: submitsuoshuquyu,
+                f_DistrictID: submitsuoshuquyuid,
+
                 //当前项目名称
                 f_ProjName: formdata.xiangmumingcheng,
                 //当前合作方式
@@ -1106,10 +1149,13 @@ $(function(){
                 b_UserRole:_userRole,
                 //当前用户所属部门
                 b_DepartNum:_maintenanceTeam,
-                //当前单位名称
-                f_UnitName: danweimingcheng.value,
-                //当前所属区域
-                f_DistrictID: suoshuquyu.value,
+                // //当前单位名称
+                f_UnitName: resetObj.enterpriseID,
+                f_UnitID : resetObj.enterpriseID,
+                // //当前所属区域
+                f_DistrictID: resetObj.districtID,
+
+
                 //当前单位类型
                 f_PointerClass: formdata.danweileixing,
                 //当前项目名称
