@@ -166,8 +166,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://211.100.28.180/ESCSWebAPI/api/",
-  "apiUriPrefixYW":"http://211.100.28.180/ESCSWebAPI/api/",
+  "apiUriPrefix":"http://211.100.28.180/EMPWAPI/api/",
+  "apiUriPrefixYW":"http://211.100.28.180/EMPWAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
   "systemTitle":"高效机房控制系统",

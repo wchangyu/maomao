@@ -249,7 +249,7 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
     var buttonVisible = [
         {
             extend: 'excelHtml5',
-            text: '导出',
+            text: '导出数据',
             className:'saveAs L-condition-button',
             exportOptions:{
                 columns:arr

@@ -249,6 +249,8 @@ $(function(){
                 _datasTable($('#auditor-table'),current.htAuditInfos);
                 //款项
                 _datasTable($('#money-table'),current.htPayments);
+                //所属项目
+                $('#HT-project').val(current.projectName)
 
             }
 

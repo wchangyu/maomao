@@ -126,6 +126,31 @@
 
         }
 
+        button.dt-button, div.dt-button, a.dt-button{
+
+            padding: 7px 17px !important;
+
+            border: none;
+
+            margin-right: 0;
+
+        }
+
+        .dt-buttons{
+
+            height: 36px;
+
+        }
+
+        button.dt-button, div.dt-button, a.dt-button:hover{
+
+            padding: 7px 17px !important;
+
+            border: none;
+
+            margin-right: 0;
+
+        }
     </style>
 
 </head>
@@ -172,19 +197,46 @@
 
                             <ul class="L-condition">
                                 <li>
-                                    <label>合同状态</label>
-                                    <select class="form-control" id="HT-statusCon">
-                                        <option value="-1">全部</option>
-                                        <option value="0">登记</option>
-                                        <option value="10">执行</option>
-                                        <option value="20">完成</option>
-                                        <option value="999">取消</option>
-                                    </select>
+                                    <label>项目名称</label>
+                                    <input type="text" class="form-control" id="HT-projectCon">
                                 </li>
                                 <li>
-                                    <label>合同编号</label>
-                                    <input type="text" class="form-control" id="HT-numCon">
+                                    <label>合同名称</label>
+                                    <input type="text" class="form-control" id="HT-nameCon">
                                 </li>
+                                <li>
+                                    <label>合同类型</label>
+                                    <input type="text" class="form-control" id="HT-typeCon">
+                                </li>
+                                <li>
+                                    <label>甲方单位</label>
+                                    <input type="text" class="form-control" id="HT-customerCon">
+                                </li>
+                                <li>
+                                    <label>签订人</label>
+                                    <input type="text" class="form-control" id="HT-signCon">
+                                </li>
+                                <li>
+                                    <label>审核状态</label>
+                                    <select class="form-control" id="HT-approveCon">
+                                        <option value="-1">全部</option>
+                                        <option value="0">未审批</option>
+                                        <option value="1">审批中</option>
+                                        <option value="2">审批通过</option>
+                                        <option value="3">审批未通过</option>
+                                        <option value="9">没有审批</option>
+                                    </select>
+                                </li>
+                                <!--<li>-->
+                                    <!--<label>合同状态</label>-->
+                                    <!--<select class="form-control" id="HT-statusCon">-->
+                                        <!--<option value="-1">全部</option>-->
+                                        <!--<option value="0">登记</option>-->
+                                        <!--<option value="10">执行</option>-->
+                                        <!--<option value="20">完成</option>-->
+                                        <!--<option value="999">取消</option>-->
+                                    <!--</select>-->
+                                <!--</li>-->
                                 <li>
                                     <label>开始时间</label>
                                     <div class="time-tool-block">
@@ -217,6 +269,9 @@
                                 </li>
                                 <li>
                                     <div class="L-condition-button" id="selectBtn">查询数据</div>
+                                </li>
+                                <li class="excelButton">
+                                    <!--<div class="L-condition-button" id="excelBtn">导出数据</div>-->
                                 </li>
                                 <li>
                                     <div id="resetBtn" class="L-condition-button">重置条件</div>
@@ -268,6 +323,11 @@
                                 <label>合同类型：</label>
                                 <select name="HT-type" id="HT-type" class="table-group-action-input form-control"></select>
                                 <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>所属项目：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-project" name="HT-project" placeholder="所属项目是必填字段" readonly>
+                                <div class="modal-select modal-select-show" id="select-project"></div>
                             </li>
                             <li>
                                 <label>签订人：</label>
@@ -445,6 +505,32 @@
         </div><!-- /.modal -->
     </div>
 
+    <!--项目-->
+    <div class="modal fade" id="project-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 685px;width: 800px;">
+            <div class="modal-content" style="height: 685px;width: 800px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 563px;overflow-y: auto">
+                    <!--表格-->
+                    <table id="project-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
     <!--表格内审批人-->
     <div class="modal fade" id="auditor-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="height: 685px;width: 800px;">
@@ -573,7 +659,6 @@
 
 <!--文件上传-->
 <script src="../resource/js/uploader.js"></script>
-
 
 <!-- END JAVASCRIPTS -->
 </body>

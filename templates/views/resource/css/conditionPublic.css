@@ -35,9 +35,9 @@
 
 .L-condition-button{
 
-    font-size: 16px;
+    font-size: 16px !important;
 
-    background: #2170F4;
+    background: #2170F4 !important;
 
     padding: 7px 17px;
 

@@ -42,6 +42,9 @@ $(function(){
     //获取签订人
     signedPerson();
 
+    //获取项目名称
+    projectData();
+
     //审批人
     var _alreadyPersonArr = [];
 
@@ -164,6 +167,12 @@ $(function(){
 
                 required: true
 
+            },
+            //所属项目
+            'HT-project':{
+
+                required: true
+
             }
         },
         messages:{
@@ -275,6 +284,12 @@ $(function(){
 
                 required: '结算方式为必填字段'
 
+            },
+            //所属项目
+            'HT-project':{
+
+                required: '所属项目为必填字段'
+
             }
         }
 
@@ -316,7 +331,7 @@ $(function(){
                 //合同签订时间
                 'signDT':{
 
-                    isEmpty: true,
+                    isEmpty:true,
 
                     isDate:true
 
@@ -324,7 +339,7 @@ $(function(){
                 //合同开始时间
                 'HTStartDT':{
 
-                    isEmpty:true,
+                    isEmpty: true,
 
                     isDate:true
 
@@ -394,6 +409,12 @@ $(function(){
 
                     required: true
 
+                },
+                //所属项目
+                'HT-project':{
+
+                    required: true
+
                 }
             },
             messages:{
@@ -403,7 +424,7 @@ $(function(){
 
                     required: '合同名称为必填字段',
 
-                    isExist:_isExist
+                    isExist:'合同名已存在'
 
                 },
                 //合同类型
@@ -435,7 +456,7 @@ $(function(){
                 //合同开始时间
                 'HTStartDT':{
 
-                    isEmpty: '开始时间为必选字段',
+                    required: '开始时间为必选字段',
 
                     isDate:'格式为YYYY-MM-DD'
 
@@ -443,7 +464,7 @@ $(function(){
                 //合同结束时间
                 'HTendDT':{
 
-                    isEmpty: '结束时间为必选字段',
+                    required: '结束时间为必选字段',
 
                     isDate:'格式为YYYY-MM-DD'
 
@@ -461,7 +482,7 @@ $(function(){
                 //金额大写
                 'HT-Uppercase':{
 
-                    required: '金额大写为必填字段'
+                    required: '合同金额为必填字段'
 
                 },
                 //已付金额
@@ -505,6 +526,12 @@ $(function(){
 
                     required: '结算方式为必填字段'
 
+                },
+                //所属项目
+                'HT-project':{
+
+                    required: '所属项目为必填字段'
+
                 }
             }
 
@@ -539,17 +566,43 @@ $(function(){
     var col = [
 
         {
-            title:'合同名称',
-            data:'htname',
+            title:'合同编号',
+            data:'htnum',
             render:function(data, type, full, meta){
 
-                return '<a href="HTDetails.html?num=' + full.htnum + '" target="_blank">' + data + '</a>'
+                return '<a href="HTDetails.html?num=' + data + '" target="_blank">' + data + '</a>'
 
             }
         },
         {
+            title:'合同名称',
+            data:'htname'
+        },
+        {
             title:'合同类型',
             data:'catename'
+        },
+        {
+            title:'甲方单位',
+            data:'clientname'
+        },
+        {
+            title:'所属项目',
+            data:'projectName'
+        },
+        {
+            title:'签订人',
+            data:'signusername'
+        },
+        {
+            title:'合同状态',
+            data:'htstatus',
+            render:function(data, type, full, meta){
+
+                return HTStatusFun(data)
+
+
+            }
         },
         {
             title:'合同签定时间',
@@ -562,11 +615,11 @@ $(function(){
 
         },
         {
-            title:'合同状态',
-            data:'htstatus',
+            title:'审核状态',
+            data:'audit',
             render:function(data, type, full, meta){
 
-                return HTStatusFun(data)
+                return approvalStatusFun(data)
 
 
             }
@@ -616,7 +669,10 @@ $(function(){
 
     ]
 
-    _tableInit($('#table'),col,'2','','','','','');
+    //导出列
+    var _exportCol = [0,1,2,3,4,5,6,7,8,9];
+
+    _tableInit($('#table'),col,1,true,'','','',_exportCol);
 
     //工程量表格
     var engineeringCol = [
@@ -656,7 +712,7 @@ $(function(){
 
                 var value = data == undefined?'':data;
 
-                return '<input type="text" class="form-control must" placeholder="必填，数字" value="' + value + '">'
+                return '<input type="text" class="form-control must" placeholder="必填" value="' + value + '">'
 
             }
         },
@@ -966,6 +1022,40 @@ $(function(){
     //审核人列表
     _tableInitSearch($('#auditor-table-select'),signCol,'2','','','','','',10,'','','',true);
 
+    //项目表格
+    var projectCol = [
+
+        {
+            title:'选择',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                return  '<div class="checker" data-id="' + full.id + '"><span><input type="checkbox"                                 value=""></span></div>'
+
+            }
+        },
+        {
+            title:'项目名称',
+            data:'projectName'
+        },
+        {
+            title:'负责人',
+            data:'linkPerson'
+        },
+        {
+            title:'联系电话',
+            data:'phone'
+        },
+        {
+            title:'项目信息',
+            data:'projectInfo'
+        }
+
+    ]
+
+    _tableInitSearch($('#project-table'),projectCol,'2','','','','','',10,'','','',true);
+
     //默认加载
     conditionSelect();
 
@@ -1067,7 +1157,13 @@ $(function(){
     //重置
     $('#resetBtn').click(function(){
 
-        $('#HT-nameCon').val('');
+        $('.L-condition').eq(0).find('input').val('');
+
+        $('.L-condition').eq(0).find('select').val(-1);
+
+        $('#spDT').val(st);
+
+        $('#epDT').val(nowTime);
 
     })
 
@@ -1485,29 +1581,72 @@ $(function(){
 
     })
 
+    //选择所属项目
+    $('#select-project').click(function(){
+
+        _moTaiKuang($('#project-Modal'),'项目列表','','','','选择');
+
+    })
+
+    //所属项目确定
+    $('#project-Modal').on('click','.btn-primary',function(){
+
+        var currentTr = $('#project-table tbody').children('.tables-hover');
+
+        if(currentTr.length== 0){
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择所属项目','');
+
+            return false;
+
+        }
+
+        if(currentTr.children('.dataTables_empty').length>0){
+
+            return false;
+
+        }
+
+        var num = currentTr.find('.checker').attr('data-id');
+
+        var name = currentTr.children().eq(1).html();
+
+        $('#HT-project').val(name);
+
+        $('#HT-project').attr('data-attr',num);
+
+        $('#project-Modal').modal('hide');
+
+        $('#HT-project').next('.error').hide();
+
+    })
+
     /*-----------------------------其他方法----------------------------------*/
 
     //条件查询
     function conditionSelect(){
 
         var prm = {
-
+            //项目名称
+            projectName:$('#HT-projectCon').val(),
+            //合同名称
+            htname:$('#HT-nameCon').val(),
+            //合同类型
+            catename:$('#HT-typeCon').val(),
+            //甲方单位
+            clientName:$('#HT-customerCon').val(),
+            //签订人
+            signUserName:$('#HT-signCon').val(),
+            //审核状态
+            audit:$('#HT-approveCon').val(),
             //合同编码
-            htNum:$('#DC-numCon').val(),
+            //htNum:$('#DC-numCon').val(),
             //开始时间
             begintime:$('#spDT').val(),
             //结束时间
             endtime:moment($('#epDT').val()).add(1,'d').format('YYYY-MM-DD'),
             //状态
-            htStatus:$('#HT-statusCon').val()
-            ////用户ID
-            //userID:_userIdNum,
-            ////用户名
-            //userName:_userIdName,
-            ////用户角色
-            //b_UserRole:_userRole,
-            ////用户部门
-            //b_DepartNum:_userBM
+            htStatus:-1
         }
 
         _mainAjaxFunCompleteNew('post','YHQHT/GetHTInfoList',prm,$('.L-container'),function(result){
@@ -1570,6 +1709,9 @@ $(function(){
 
         //合同单位
         $('#HT-unit').removeAttr('data-attr');
+
+        //项目
+        $('#HT-project').removeAttr('data-attr');
 
         //删除按钮隐藏
         $('#deleted').hide();
@@ -1692,7 +1834,11 @@ $(function(){
             //用户角色
             b_UserRole:_userRole,
             //用户部门
-            b_DepartNum:_userBM
+            b_DepartNum:_userBM,
+            //所属项目
+            projectID:$('#HT-project').attr('data-attr'),
+            //所属项目
+            projectName:$('#HT-project').val()
 
         }
 
@@ -1787,6 +1933,10 @@ $(function(){
                     $('#deleted').show();
 
                 }
+                //项目id
+                $('#HT-project').attr('data-attr',data.projectID);
+                //项目名称
+                $('#HT-project').val(data.projectName);
 
 
             }
@@ -2041,6 +2191,56 @@ $(function(){
         }
 
         return str;
+
+    }
+
+    //审核状态
+    function approvalStatusFun(data){
+
+        var str = ''
+
+        if(data == '0'){
+
+            str = '未审批'
+
+        }else if(data == '1'){
+
+            str = '审批中'
+
+        }else if(data == '2'){
+
+            str = '审批通过'
+
+        }else if(data == '3'){
+
+            str = '审批未通过'
+
+        }else if(data == '9'){
+
+            str = '没有审批'
+
+        }
+
+        return str;
+
+    }
+
+    //获取项目名称
+    function projectData(){
+
+        var prm = {
+
+            projectName:''
+
+        }
+
+            _mainAjaxFunCompleteNew('post','YHQHT/ReturnHTProjectList',prm,false,function(result){
+
+            _datasTable($('#project-table'),result.data);
+
+
+
+        })
 
     }
 
