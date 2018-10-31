@@ -1,5 +1,6 @@
 ﻿{
   "content": "type:0代表具体菜单,1代表上级菜单;content:显示文本;url:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;",
+
   "能源管理": {
     "type": "1",
     "iconclass": "icon-speedometer",
@@ -1076,9 +1077,9 @@
         "arg": "",
         "iconclass": ""
       },
-      "合同客户管理": {
+      "合同单位管理": {
         "type": "0",
-        "content": "合同客户管理",
+        "content": "合同单位管理",
         "uri": "../YHQ-HT/HTCustomerManagement.html",
         "uid": "",
         "arg": "",
@@ -1151,6 +1152,7 @@
 
     }
   },
+
   "系统管理": {
     "type": "1",
     "iconclass": "icon-settings",

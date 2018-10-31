@@ -138,6 +138,10 @@ $(function(){
             data:'catename'
         },
         {
+            title:'顺序',
+            data:'orders'
+        },
+        {
             title:'操作',
             render:function(data, type, full, meta){
 

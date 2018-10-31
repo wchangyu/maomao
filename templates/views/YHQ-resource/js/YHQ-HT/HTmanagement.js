@@ -583,7 +583,7 @@ $(function(){
             data:'catename'
         },
         {
-            title:'甲方单位',
+            title:'合同单位',
             data:'clientname'
         },
         {
@@ -1633,7 +1633,7 @@ $(function(){
             htname:$('#HT-nameCon').val(),
             //合同类型
             catename:$('#HT-typeCon').val(),
-            //甲方单位
+            //合同单位
             clientName:$('#HT-customerCon').val(),
             //签订人
             signUserName:$('#HT-signCon').val(),

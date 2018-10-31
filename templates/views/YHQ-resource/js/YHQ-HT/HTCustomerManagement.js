@@ -16,7 +16,7 @@ $(function(){
 
         rules:{
 
-            //合同客户名称
+            //合同单位名称
             'HT-name':{
 
                 required: true,
@@ -51,12 +51,12 @@ $(function(){
         },
         messages:{
 
-            //合同客户名称
+            //合同单位名称
             'HT-name':{
 
-                required: '合同客户名称为必填字段',
+                required: '合同单位名称为必填字段',
 
-                isExist:'合同客户名称已存在',
+                isExist:'合同单位名称已存在',
 
                 maxlength:20
 
@@ -72,7 +72,7 @@ $(function(){
 
             rules:{
 
-                //合同客户名称
+                //合同单位名称
                 'HT-name':{
 
                     required: true,
@@ -105,12 +105,12 @@ $(function(){
             },
             messages:{
 
-                //合同客户名称
+                //合同单位名称
                 'HT-name':{
 
-                    required: '合同客户名称为必填字段',
+                    required: '合同单位名称为必填字段',
 
-                    isExist:'合同客户名称已存在',
+                    isExist:'合同单位名称已存在',
 
                     maxlength:20
 
@@ -147,7 +147,7 @@ $(function(){
     var col = [
 
         {
-            title:'合同客户',
+            title:'合同单位',
             data:'clientname'
         },
         {
@@ -499,7 +499,7 @@ $(function(){
 
                 _isExist = data.clientname;
 
-                //合同客户名称
+                //合同单位名称
                 $('#HT-name').val(data.clientname);
                 //联系人
                 $('#HT-linkperson').val(data.linkperson);

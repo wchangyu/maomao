@@ -40,7 +40,7 @@ $(function(){
             data:'signusername'
         },
         {
-            title:'甲方单位',
+            title:'合同单位',
             data:'clientname'
         },
         {
@@ -100,7 +100,7 @@ $(function(){
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": false,
-        "ordering": true,
+        "ordering": false,
         "bProcessing":true,
         "iDisplayLength":50,//默认每页显示的条数
         'language': {
@@ -188,7 +188,7 @@ $(function(){
             htname:$('#HT-nameCon').val(),
             //合同类型
             catename:$('#HT-typeCon').val(),
-            //甲方单位
+            //合同单位
             clientName:$('#HT-customerCon').val(),
             //签订人
             signUserName:$('#HT-signCon').val(),

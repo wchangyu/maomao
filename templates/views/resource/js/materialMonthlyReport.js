@@ -172,17 +172,24 @@ $(function(){
     $('.resites').click(function(){
         //时间置为今日
         //$('.datatimeblock').val(nowTime);
-        $('.min').html(startTime);
-        //$('.max').html(endTime);
+        //input置为空
+        $('.condition-query').eq(0).find('input').val('');
         //select置为所有
-        $('#storage').val('');
+        $('.condition-query').eq(0).find('select').val('');
+        //时间
+        $('.min').val(startTime);
+
+        $('.max').val(endTime);
+
+        //数量是否大于0
+        $('#greaterThan').val(1);
     });
 
     //导出
     $('.excelButton11').on('click',function(){
         //_FFExcel($('#scrap-datatables')[0]);
 
-        //exportExecl($('#scrap-datatables'));
+        exportExecl($('#scrap-datatables'));
     });
 
     //导出为excel
