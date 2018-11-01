@@ -35,9 +35,9 @@
 
 .L-condition-button{
 
-    font-size: 16px;
+    font-size: 16px !important;
 
-    background: #2170F4;
+    background: #2170F4 !important;
 
     padding: 7px 17px;
 
@@ -414,5 +414,25 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     display: inline-block;
 
     border: 1px solid #e5e5e5;
+
+}
+
+.errorFormat{
+
+    border: 2px solid red !important;
+
+}
+
+.abbrDT .error{
+
+    text-indent: 36px !important;
+
+}
+
+.option-back{
+
+    border-color: orangered;
+
+    color: orangered;
 
 }

@@ -76,6 +76,78 @@
 
         }
 
+        /*天气信息*/
+        .weather-message b{
+
+            font-size: 14px;
+            color:#2A9FD0;
+            margin-right:5px;
+        }
+
+        .weather-message font{
+
+            margin-right:10px;
+        }
+
+        .weather-message{
+            padding:8px 0px 8px 20px !important;
+            /*padding: 0px !important;*/
+        }
+
+        .alarm-num-container{
+            font-size: 16px;
+            color:white;
+            background: #4271b5;
+            padding:2px;
+            font-weight: bold;
+        }
+
+        /*报警信息echart*/
+        #alarm-echart{
+            height: 200px;
+        }
+
+        /*资产信息*/
+        .right-property-data-container p{
+            color:white;
+            margin-bottom:10px;
+
+        }
+
+        .right-property-data-container p b{
+            margin-left:10px;
+            font-size: 16px;
+        }
+
+        .right-property-data-container p span{
+            color:#B0BED0;
+            font-size: 12px;
+        }
+
+        .right-property-data-container{
+            padding:40px 0px 0px 5px;
+        }
+
+        .the-wearther-show p .name{
+            color:#B0BED0;
+            font-size: 14px;
+            margin-left:10%;
+            margin-right:10%;
+        }
+
+        .the-wearther-show p .data{
+            color:white;
+            font-size: 14px;
+        }
+
+        /*天气信息中的云*/
+        .the-wearther-show p .cloud{
+
+            background: url("img/tianqi.png") no-repeat center center;
+            color:#2a323e;
+        }
+
+
     </style>
 
 </head>
@@ -122,16 +194,77 @@
                     <div class="total-warp">
                         <div class="wrap container">
 
-                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 module-content-left">
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 module-content-left" style="padding-left:0">
+
+                                <!--天气信息-->
+                                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 the-wearther-show" style="padding-right:0!important;">
+
+                                    <div class="module-content-container">
+
+                                        <h3>天气信息</h3>
+                                        <p>
+                                            <span class="name cloud">天气</span>
+                                            <span class="data">晴</span>
+                                        </p>
+
+                                        <p>
+                                            <span class="name">温度</span>
+                                            <span class="data">24℃</span>
+                                        </p>
+
+                                        <p>
+                                            <span class="name">风力</span>
+                                            <span class="data">≤3</span>
+                                        </p>
+
+                                        <p>
+                                            <span class="name">风向</span>
+                                            <span class="data">西南风</span>
+                                        </p>
+
+                                        <div id="bottom-wind-echart" style="height:90px;">
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
 
                                 <!--机房3D透视图-->
-                                <div class=" col-lg-6 col-md-6 col-sm-12 col-xs-12 module-content margin-bottom">
+                                <div class=" col-lg-4 col-md-4 col-sm-12 col-xs-12 module-content margin-bottom" style="padding-left:5px;">
 
                                     <div class="module-content-container" style="position: relative" >
 
-                                        <span style="position: absolute;top:0;left:0;background: #2d3134;padding:10px;color:white;display: none" >MTBF 4000 h</span>
+                                        <span style="position: absolute;top:0;left:0;background: #2d3134;padding:10px;color:white;display: none" ></span>
 
-                                        <video src="video/machineRoom.mp4" loop="loop" autoplay="autoplay" style="width:100%;height:100%"></video>
+                                        <!--天气信息-->
+                                        <span style="position: absolute;top:0;left:0;background: #2d3134;padding:10px;color:white;width: 100%;opacity: 0.9;display: none" class="weather-message">
+
+                                            <!--<b>T</b>-->
+                                            <!--<font class="the-temperature">16℃</font>-->
+
+                                            <!--<b>H</b>-->
+                                            <!--<font class="weather">30%</font>-->
+
+
+                                            <!--<b>PM2.5</b>-->
+                                            <!--<font class="weather">30</font>-->
+
+                                              <!--<b>PM2.5</b>-->
+                                            <!--<font class="weather">30</font>-->
+
+                                             <!--<b>风力</b>-->
+                                            <!--<font class="wind-power">3级</font>-->
+
+                                       <!--<iframe allowtransparency="true" frameborder="0" width="100%" height="36" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=3&z=2&t=0&v=0&d=3&bd=0&k=000000&f=ffffff&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=180&h=36&align=center"></iframe>-->
+
+                                        </span>
+
+
+
+                                        <img src="img/jifang-head.png"  style="width:100%;height:100%" />
 
                                         <div style="position: absolute;left:0;bottom:0;background: #2d3134;padding:0px 10px;color:#b6b9c0;opacity: 0.8;height:60px;width:100%">
 
@@ -150,7 +283,7 @@
                                 </div>
 
                                 <!--实时温湿度-->
-                                <div class=" col-lg-3 col-md-3 col-sm-12 col-xs-12 module-content margin-bottom" style="padding-left:0;padding-right: 5px">
+                                <div class=" col-lg-3 col-md-6 col-sm-12 col-xs-12 module-content margin-bottom" style="padding-left:0;padding-right: 5px">
 
                                     <div class="module-content-container">
 
@@ -225,7 +358,7 @@
                                 </div>
 
                                 <!--健康诊断雷达图-->
-                                <div class=" col-lg-3 col-md-3 col-sm-12 col-xs-12 module-content margin-bottom" style="padding-left:0;padding-right: 0">
+                                <div class=" col-lg-3 col-md-6 col-sm-12 col-xs-12 module-content margin-bottom" style="padding-left:0;padding-right: 0">
 
                                     <div class="module-content-container">
 
@@ -275,28 +408,59 @@
                                 <!--实时报警-->
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12  module-content real-time-alarm margin-bottom">
 
-                                    <div class="module-content-container" style="height: 250px;">
+                                    <div class="module-content-container" style="height: 250px;position: relative">
 
-                                        <h3>实时报警</h3>
+                                        <h3 >
+                                            报警信息
+                                            <span class="alarm-num-container">0</span>
+                                            <span class="alarm-num-container">0</span>
+                                            <span class="alarm-num-container">2</span>
+                                            <span class="alarm-num-container">1</span>
+                                        </h3>
 
-                                        <!--下方表格-->
-                                        <table class="bottom-table table-alarm">
+                                        <div class="legend" style="position: absolute;left:10px;top:45px;">
 
-                                            <thead>
-                                            <tr>
-                                                <th>时间</th>
-                                                <th>事件</th>
-                                                <th>机房</th>
-                                                <th>级别</th>
-                                                <th>状态</th>
-                                            </tr>
-                                            </thead>
+                                            <span class="patch green" style="background: #31BEA4"></span>
+                                            <span>环境</span>
 
-                                            <tbody class="scrollbar1">
+                                            <span class="patch yellow" style="background: #2A9FD0"></span>
+                                            <span>配电</span>
 
-                                            </tbody>
+                                            <span class="patch blue" style="background: #4D7AE1"></span>
+                                            <span>消防</span>
 
-                                        </table>
+                                            <span class="patch red" style="background: #8A52E7"></span>
+                                            <span>制冷</span>
+
+                                            <span class="patch red" style="background: #D944DB"></span>
+                                            <span>安防</span>
+
+                                        </div>
+
+                                        <!--&lt;!&ndash;下方表格&ndash;&gt;-->
+                                        <!--<table class="bottom-table table-alarm">-->
+
+                                            <!--<thead>-->
+                                            <!--<tr>-->
+                                                <!--<th>时间</th>-->
+                                                <!--<th>事件</th>-->
+                                                <!--<th>机房</th>-->
+                                                <!--<th>级别</th>-->
+                                                <!--<th>状态</th>-->
+                                            <!--</tr>-->
+                                            <!--</thead>-->
+
+                                            <!--<tbody class="scrollbar1">-->
+
+                                            <!--</tbody>-->
+
+                                        <!--</table>-->
+
+                                        <div class="left-echart" id="alarm-echart" >
+
+
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -319,20 +483,82 @@
                                 </div>
 
                                 <!--监控-->
-                                <div class=" col-lg-6 col-md-6 col-sm-12 col-xs-12 module-content margin-bottom" >
+                                <div class=" col-lg-6 col-md-6 col-sm-12 col-xs-12 module-content margin-bottom " >
 
-                                    <div class="module-content-container">
+                                    <div class="module-content-container" style="position: relative">
 
-                                        <img src="img/jiankong.png" alt="" style="width:100%;height:100%">
+                                        <h3>资产信息</h3>
+
+                                        <div class="legend" style="position: absolute;left:10px;top:45px;">
+
+                                            <span class="patch green" style="background: #31BEA4"></span>
+                                            <span>报废到期</span>
+
+                                            <span class="patch yellow" style="background: #2A9FD0"></span>
+                                            <span>保修到期</span>
+
+                                            <span class="patch blue" style="background: #4D7AE1"></span>
+                                            <span>逾期未还</span>
+
+                                            <span class="patch red" style="background: #8A52E7"></span>
+                                            <span>维保到期</span>
+
+                                            <span class="patch red" style="background: #D944DB"></span>
+                                            <span>在线异常</span>
+
+                                        </div>
+
+                                        <div class="left-echart" id="property-echart" style="height:200px;width:70%;float:left">
+
+
+
+
+                                        </div>
+
+                                        <!--右侧数据统计-->
+                                        <div class="right-property-data-container " style="width:30%;float: right;display: none">
+                                          <p>
+                                              <span>报废到期</span><b>1</b>
+                                          </p>
+
+                                          <p>
+                                               <span>保修到期</span><b>1</b>
+                                          </p>
+
+                                          <p>
+                                                <span>逾期未还</span><b>1</b>
+                                          </p>
+
+                                          <p>
+                                                <span>维保到期</span><b>2</b>
+                                          </p>
+
+                                          <p>
+                                                <span>在线异常</span><b>1</b>
+                                          </p>
+
+
+                                        </div>
+
+                                        <!--清除浮动-->
+                                        <div class="clearfix"></div>
+
 
                                     </div>
+
+
+                                    <!--<div class="module-content-container">-->
+
+                                        <!--<img src="img/jiankong.png" alt="" style="width:100%;height:100%">-->
+
+                                    <!--</div>-->
 
                                 </div>
 
                                 <!--能耗统计-->
                                 <div class=" col-lg-6 col-md-6 col-sm-12 col-xs-12 module-content margin-bottom" style="padding-left:0;padding-right: 0;position: relative">
 
-                                    <div class="module-content-container energy-statistics">
+                                    <div class="module-content-container energy-statistics" >
 
                                         <h3>能耗统计</h3>
 
@@ -494,22 +720,14 @@
 
 
 
-
                                             </div>
-
-
-
-
 
                                             <div class="right-middle-content" id="right-middle-echart6">
 
                                             </div>
 
 
-
                                         </div>
-
-
 
                                     </div>
 
@@ -521,7 +739,6 @@
                                     <div class="module-content-container" style="position: relative;height: 250px;">
 
                                         <h3>运维统计</h3>
-
 
                                         <!--<div class="center-message">-->
                                         <!--<p>冗余量</p>-->
@@ -537,8 +754,6 @@
                                         <div class="right-middle-echart-container" >
 
                                             <div class="right-middle-content" id="right-middle-echart7" >
-
-
 
 
                                             </div>
@@ -588,6 +803,7 @@
 </script>
 <script src="../resource/js/commonJsResource.js"></script>
 <script src="js/index1.js"></script>
+<!--<script src="../resource/js/getWeatherMessage.js"></script>-->
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

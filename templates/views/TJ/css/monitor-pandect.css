@@ -1,0 +1,70 @@
+.page-content{
+    min-width:1650px !important;
+}
+
+.showOrHidden{
+    display: none;
+}
+
+/*每项内容*/
+.monitor-message-container{
+
+    height: auto;
+    border-right:1px solid #DCDCDC;
+    width:400px;
+    position: relative;
+    float: left;
+}
+
+.monitor-message-container h3{
+    text-align: center;
+    color:#666666;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+/*echart图*/
+.echart-container{
+
+    height:200px;
+    margin-bottom: 60px;
+}
+
+.bottom-equipment-chart-background{
+    width: 120px;
+    height: 120px;
+    border-radius: 50% !important;
+    border: 1px solid #DCDCDC;
+    position: absolute;
+    left: 138px;
+    top: 95px;
+}
+
+ .bottom-content-data {
+    position: absolute;
+     right: 202px;
+     top: 92px;
+    color: #333;
+    font-size: 12px;
+    line-height: 12px;
+    z-index: 1000;
+    text-align: right;
+}
+
+ /*下方表格*/
+.bottom-table{
+    width:100%;
+}
+
+.bottom-table td,.bottom-table th{
+
+    text-align: center;
+    color:#666666;
+    font-size: 14px;
+    height: 50px;
+
+}
+
+.bottom-table td{
+    height: 70px;
+}

@@ -35,7 +35,7 @@ var userMonitor = (function(){
     var _isOperating = false;   //标识是否正在操作，操作期间暂停刷新数据
 
     var _originPageWidth = 0,_originPageHeight = 0;
-    const _leftWidth = 250;
+    var _leftWidth = 250;
     const _headHeight = 62;
     const _scaleStep = 0.05;    //每次点击的变形变化量
     //var _scaleX = 1;        //变形比例
@@ -58,8 +58,11 @@ var userMonitor = (function(){
 
     $('.content-main-left').width(0);
 
+    var thisParentDom = ''; //定义流程图外部容器
+
     //monitorSize流程图宽高 jumpPageSize弹出二级页面的宽高 ifRemove是否可以移动 1为不可移动 不传则可移动
-    var init = function(monitorSize,jumpPageSize,ifRemove){
+    //parentDom为存放流程图的容器 如果有它 高度自适应时优先考虑
+    var init = function(monitorSize,jumpPageSize,ifRemove,parentDom){
 
         if(!_urlPrefix){
 
@@ -166,6 +169,20 @@ var userMonitor = (function(){
             jumpPageWidth = parseInt(jumpPageSize.split(',')[0]);
 
             jumpPageHeight = parseInt(jumpPageSize.split(',')[1]);
+
+        }
+
+        if(parentDom){
+
+            thisParentDom = parentDom;
+
+            //获取父元素宽度
+            var parentDomLength = parentDom.width();
+
+            //定义当前页面流程图宽高
+            sessionStorage.monitorSize = parentDomLength + ',1800';
+
+            containHeight = parseInt(sessionStorage.monitorSize.split(',')[1]);
 
         }
 
@@ -798,6 +815,12 @@ var userMonitor = (function(){
 
                 if(proc.procStyle.imageSizeWidth && proc.procStyle.imageSizeWidth>0) {
 
+                    //如果没有左侧工具栏
+                    if($('.content-main-left').length < 1){
+
+                        _leftWidth = 0;
+                    }
+
                     $divMain.width(proc.procStyle.imageSizeWidth);
                     imgWidth = proc.procStyle.imageSizeWidth;
                     _imgProcWidth = imgWidth;
@@ -890,6 +913,18 @@ var userMonitor = (function(){
 
                     $(window).resize(function () {
 
+                        if(thisParentDom != ''){
+
+                            //获取父元素宽度
+                            var parentDomLength = thisParentDom.width();
+
+                            //定义当前页面流程图宽高
+                            sessionStorage.monitorSize = parentDomLength + ',1800';
+
+                            containHeight = parseInt(sessionStorage.monitorSize.split(',')[1]);
+
+                        }
+
                         //当浏览器大小变化时
                         var _leftRealwidth = _leftWidth;
 
@@ -976,7 +1011,19 @@ var userMonitor = (function(){
                             marginTop:0
                         });
 
-                        $('#right-container').height(containHeight);
+                        if(ratioZoom > ratioZoom1){
+
+                            $('#right-container').height(containHeight);
+
+                        }else{
+
+                            var height = $('.content-main-right').height() * ratioZoom;
+
+                            $('#right-container').height(height);
+
+                        }
+
+
 
                     });
 
@@ -1197,7 +1244,7 @@ var userMonitor = (function(){
 
 
                             //判断是否需要进行重绘
-                          if(o.procRenderID == _defInsDataResults[i].procRenderID && o.enableScriptResult == _defInsDataResults[i].enableScriptResult && o.renderExprResult == _defInsDataResults[i].renderExprResult && o.visibleScriptResult == _defInsDataResults[i].visibleScriptResult){
+                          if(o.procRenderID == _defInsDataResults[i].procRenderID && o.enableScriptResult == _defInsDataResults[i].enableScriptResult  && o.renderExprResult == _defInsDataResults[i].renderExprResult && o.visibleScriptResult == _defInsDataResults[i].visibleScriptResult){
 
                               //当前元素不需要进行重绘
                               ifRedrawSpan = false;
@@ -1263,10 +1310,15 @@ var userMonitor = (function(){
             var curPD = _.findWhere(_defInsDataResults,{"procDefID":_procDefs[i].prDefId});
 
             if(curPD){       //从实时数据中提取当前def的信息
-                if(curPD.visibleScriptResult){          //是否可见的属性,不显示则继续
-                    if(curPD.visibleScriptResult=="0"){
-                        continue;
-                    }
+                //if(curPD.visibleScriptResult){          //是否可见的属性,不显示则继续
+                //    if(curPD.visibleScriptResult=="0"){
+                //        continue;
+                //    }
+                //}
+
+                if(!curPD.visibleScriptResult){          //是否可见的属性,不显示则继续
+
+                    continue;
                 }
 
                 var curPRR;     //当前render
@@ -1491,9 +1543,10 @@ var userMonitor = (function(){
                     setTextAlignment($spanImg,curPRR.imageAlignment);
                 }
                 if(curPD.enableScriptResult){       //是否可用(可点击)的属性
-                    $spanDef.attr("disabled","disabled");
-                }else{
                     $spanDef.removeAttr("disabled");
+                }else{
+                    $spanDef.attr("disabled","disabled");
+
                 }
                 var curProcCtrl = _.findWhere(_procCtrls,{"prDefId":_procDefs[i].prDefId});
 
@@ -1502,10 +1555,11 @@ var userMonitor = (function(){
                 ){
                     if(curPD.enableScriptResult){
 
-                    }else{
-
                         $spanDef.css("cursor","pointer");
                         $spanDef.on("click",(function(procDef){return function(){ setActionByDef(procDef); }})(_procDefs[i]));
+
+                    }else{
+
 
                     }
 
@@ -1516,10 +1570,11 @@ var userMonitor = (function(){
 
                     if(curPD.enableScriptResult){
 
-                    }else{
-
                         $spanDef.css("cursor","pointer");
                         $spanDef.on("click",(function(procDef){return function(){ showMonitorByID(procDef); }})(_procDefs[i]));
+                    }else{
+
+
 
                     }
                 }
@@ -1528,8 +1583,6 @@ var userMonitor = (function(){
                 if(curProcDef.cType >= 500 &&  curProcDef.cType <=600  && curProcDef.prcProcLnk && curProcDef.prcProcLnk.procLnkBase && curProcDef.prcProcLnk.procLnkBase.type == 503){
 
                     if(curPD.enableScriptResult){
-
-                    }else{
 
                         //给图片绑定视频路径
                         $Img.attr('videoUrl', curProcDef.prcProcLnk.procLnkBase.url);
@@ -1540,7 +1593,6 @@ var userMonitor = (function(){
 
                         if (curPD.enableScriptResult) {
 
-                        } else {
                             $spanDef.css("cursor","pointer");
 
                             //给图片添加点击事件
@@ -1548,7 +1600,14 @@ var userMonitor = (function(){
 
                                 showVideoByID(videoMessage,paras);
                             });
+
+                        } else {
+
                         }
+
+                    }else{
+
+
 
                     }
                 }
@@ -3000,8 +3059,22 @@ var userMonitor = (function(){
                     setContextMenuVisible(false);
                     var curDef = JSON.parse(sessionStorage.historyData_ProcDef);
                     var iTop = (window.screen.availHeight - 600) / 2,iLeft = (window.screen.availWidth - 700) / 2;
-                    window.open("../yongnengjiance/MHisData.html?mflag=" + curDef.prDefId,"",
-                        "height=600,width=700,top=" + iTop + ",left=" + iLeft + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
+
+                    var url = "../yongnengjiance/MHisData.html?mflag=" + curDef.prDefId+",height=600,width=700,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no"
+
+                    var html = '<div class="content-child-show" id="'+curDef.prDefId+'">' +
+                        '<div class="content-child-show-container">' +
+                        '<div class="close1">X</div>' +
+                        '<iframe width="700" scrolling="no" height="700" frameborder="0" allowtransparency="true" src='+url+'></iframe>' +
+                        '</div>' +
+                        '</div>';
+
+                    $('#right-container').append(html);
+
+                    //window.open("../yongnengjiance/MHisData.html?mflag=" + curDef.prDefId,"",
+                    //    "height=600,width=700,top=" + iTop + ",left=" + iLeft + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
+
+
                 });
             }
             //console.log(left);
@@ -3083,6 +3156,7 @@ $('.showOrHidden').click(function(){
             });
             changeTransform('none');
         }else if(o1 == 'none'){
+
             $('.content-main-left').animate({
                 'width':'250px'
             },100,function(){
@@ -3109,12 +3183,15 @@ $('.showOrHidden').click(function(){
 
 
 function changeTransform(o1){
+
     var _leftRealwidth = 250;
+
     if(o1 == 'none'){
 
         _leftRealwidth = 0;
 
     }
+
     var norWidth1 = $('.page-title').width();
     //实际宽度
     var realWidth = norWidth1 - _leftRealwidth-20;
@@ -3235,3 +3312,20 @@ function getMonitorUrlByBrand(brand){
         return 'new-luxianghuifang/insetCurrentMonitor.html';
     }
 }
+
+//关闭弹窗中的流程图
+$('#right-container').on('click','.close1',function(){
+
+    //获取到要删除的元素
+    var dom = $(this).parents('.content-child-show');
+
+    dom.remove();
+});
+
+//关闭video模态框时 停止播放
+$('#my-video .close').on('click',function(){
+
+    var myVideo = document.getElementById('play-video');   //获取视频video
+
+    myVideo.pause();
+});

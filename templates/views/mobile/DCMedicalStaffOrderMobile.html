@@ -1,0 +1,638 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>订餐</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!--<link rel="shortcut icon" href="/favicon.ico">-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="resource/css/sm.css">
+
+    <link rel="stylesheet" href="resource/css/sm-extend.css">
+
+    <link rel="stylesheet" href="">
+
+    <link rel="stylesheet" href="resource/css/DCMedicalStaffOrderMobile.css">
+
+    <!--<link rel="stylesheet" href="css/swiper.min.css">-->
+
+    <style>
+
+        *{
+
+            font-size: 14px;
+
+        }
+
+        .errorTip{
+
+            line-height: 30px;background: #df7070;color: #ffffff;text-align: center;display: none;
+
+        }
+
+    </style>
+
+</head>
+<body>
+<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+<div class="page-group">
+
+    <!--选择餐厅-->
+    <div class="page" id="router-res">
+
+        <header class="bar bar-nav">
+
+            <h1 class="title">餐厅</h1>
+
+        </header>
+
+        <div class="content">
+            <div class="list-block cards-list">
+                <ul id="res-list">
+                </ul>
+            </div>
+        </div>
+
+        <nav class="bar bar-tab">
+            <a class="tab-item external active" href="#">
+                <span class="icon icon-home"></span>
+                <span class="tab-label">餐厅选择</span>
+            </a>
+            <a class="tab-item external" href="#" id="orderHistoryBtn">
+                <span class="icon icon-star"></span>
+                <span class="tab-label">我的订单</span>
+            </a>
+        </nav>
+
+    </div>
+
+    <!--选择菜品页面-->
+    <div class="page" id="router">
+        <!-- 这里是页面内容区 -->
+
+        <header class="conditional-part">
+
+            <img class="returnRes" src="resource/img/return-arrow.png" alt="返回首页" style="width: 35px;position: absolute;left: 10px;top: 16px;">
+
+            <p id="res-name" style="text-align: center;line-height: 40px;font-size: 16px;"></p>
+
+            <div id="three-meal-type">
+                <span data-attr="" class="three-meal-type-hover">全部</span>
+                <span data-attr="早">早餐</span>
+                <span data-attr="中">中餐</span>
+                <span data-attr="晚">晚餐</span>
+            </div>
+
+            <div class="list-block">
+                <ul>
+                    <li style="display: none">
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">订餐时间</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="必填" id="time-con">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="display: none;">
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">餐厅</div>
+                                <div class="item-input">
+                                    <select id="condition-restaurant">
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content" style="display: none">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">三餐类型</div>
+                                <div class="item-input">
+                                    <select id="three-menu-type">
+                                        <option value="">请选择</option>
+                                        <option value="早">早餐</option>
+                                        <option value="中">中餐</option>
+                                        <option value="晚">晚餐</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="text-align: right;display: none">
+                        <a class="search-button" id="selectBtn">查询</a>
+
+                        <!--<a class="search-button" id="orderHistoryBtn">历史订单</a>-->
+                    </li>
+                </ul>
+
+            </div>
+
+        </header>
+
+        <div class="content" style="top: 96px !important;">
+            <div class="content-block">
+
+                <ul class="list-block" id="first-menu">
+
+                    <!--<li>-->
+                        <!--<div class="item-content">-->
+                            <!--<div class="row item-content-area">-->
+
+                                <!--<div class="img-block">-->
+
+                                    <!--<img src="../YHQ-resource/img/83e1b15db2a4431f49fca3ee03e2a74e.jpg" alt="">-->
+
+                                <!--</div>-->
+
+                                <!--<div class="meal-info-block">-->
+
+                                    <!--<div class="meal-name" data-attr="12">鲜肉包</div>-->
+
+                                    <!--<div class="meal-info">-->
+
+                                        <!--<span>微辣</span>-->
+
+                                        <!--<span>大鱼头</span>-->
+
+                                        <!--<span>剁椒</span>-->
+
+                                    <!--</div>-->
+
+                                    <!--<div class="meal-prince">-->
+
+                                        <!--￥<span>2</span>-->
+
+                                        <!--<div class="num-control-block">-->
+
+                                            <!--<span class="sub-button" style="display: none"></span>-->
+
+                                            <!--<input type="text" class="num-view" style="display: none">-->
+                                            <!---->
+
+                                            <!--<span class="add-button"></span>-->
+
+                                        <!--</div>-->
+
+                                    <!--</div>-->
+
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</li>-->
+
+                </ul>
+
+            </div>
+        </div>
+
+        <nav class="bar bar-tab order-tip">
+
+            <div class="order-tip-bar">
+
+                <span id="num-tip-momey" class="order-tip">￥0.00</span>
+
+                <span id="num-tip" class="order-tip">0</span>
+
+                <img src="resource/img/carryIcon.png" class="order-tip" alt="" style="width: 50px;height: 50px;position: absolute;top: -19px;left: 10px;">
+
+                <span id="settlement-meal">去结算</span>
+
+            </div>
+
+        </nav>
+
+    </div>
+
+    <!--结算页面-->
+    <div class="page" id="router1">
+
+        <div class="content" style="top: 0;background: #ffffff !important;border: none">
+
+            <div class="list-block" style="padding: 0 20px;">
+                <p>菜品清单</p>
+                <ul id="meal-list"></ul>
+                <ul id="send-meal-list">
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-toggle"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">是否送餐</div>
+                                <div class="item-input">
+                                    <label class="label-switch">
+                                        <input type="checkbox">
+                                        <div class="checkbox"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="food-delivery">
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-toggle"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">送餐费</div>
+                                <div class="item-input">
+                                    <input type="text" value="" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-toggle"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">总计</div>
+                                <div class="item-input">
+                                        <input type="text" value="12" id="total-fee">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="list-block" style="padding: 0 20px">
+
+                <p>订单详情</p>
+
+                <ul id="orderInfo" style="background: #ffffff !important;">
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content" style="font-family: PingFang-SC-Regular !important;">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner" style="background: #ffffff">
+                                <div class="item-title label">餐厅</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="必填" id="DC-restaurant" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-email"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">订餐时间</div>
+                                <div class="item-input">
+                                    <input type="text" id="DC-time" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-gender"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">三餐类型</div>
+                                <div class="item-input">
+
+                                    <input type="text" id="DC-menu-type" readonly>
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-password"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">订餐人</div>
+                                <div class="item-input">
+                                    <input type="text" id="DC-user" placeholder="必填">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-email"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">订餐电话</div>
+                                <div class="item-input">
+                                    <input type="text" id="DC-tel" placeholder="必填">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-email"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">送餐时间</div>
+                                <div class="item-input">
+                                    <input type="text" id="DC-send-time" readonly placeholder="必选">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-email"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">送餐地点</div>
+                                <div class="item-input">
+                                    <input type="text" id="DC-send-location" placeholder="必填">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-email"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">备注</div>
+                                <div class="item-input">
+                                    <input type="text" id="DC-remark" placeholder="选填">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="errorTip">请填写必填/必选项</div>
+            </div>
+
+        </div>
+
+        <!--按钮-->
+        <nav class="bar bar-tab">
+            <div class="button-block" style="padding: 10px 20px;">
+
+                <!--新增-->
+                <a class="search-button" id="returnDC" style="float: left;background: #eeeeee;color: #333333">返回</a>
+
+                <!--查询-->
+                <a class="search-button" id="orderCreate" style="float: right;background: #f7d073">提交</a>
+
+                <div class="clearfix"></div>
+
+            </div>
+        </nav>
+
+    </div>
+
+    <!--历史订单-->
+    <div class="page" id="router2">
+        <header class="bar bar-nav">
+            <h1 class="title">我的订单</h1>
+        </header>
+
+        <div class="content" style="top: 0;">
+            <div class="list-block cards-list">
+                <ul id="order-history-list">
+
+                </ul>
+            </div>
+        </div>
+
+        <nav class="bar bar-tab">
+            <div class="button-block" style="padding: 10px 20px;">
+
+                <!--新增-->
+                <a class="search-button" id="returnDCO" style="float: left;background: #eeeeee;color: #333333">返回首页</a>
+
+                <div class="clearfix"></div>
+
+            </div>
+        </nav>
+
+        <nav class="bar bar-tab">
+            <a class="tab-item external returnRes" href="#">
+                <span class="icon icon-home"></span>
+                <span class="tab-label">餐厅选择</span>
+            </a>
+            <a class="tab-item external active" href="#">
+                <span class="icon icon-star"></span>
+                <span class="tab-label">我的订单</span>
+            </a>
+        </nav>
+
+    </div>
+
+</div>
+
+<!-- popup, panel 等放在这里 -->
+<!--<div class="panel-overlay"></div>-->
+
+<!--菜品清单-->
+
+<div class="popup popup-order-meal">
+
+    <div class="list-block" style="background: #ffffff;position: absolute;width: 100%;bottom: 26px;">
+        <p style="text-align: right">
+            <span id="emptyCar">清空购物车</span>
+        </p>
+        <ul id="popup-order-meal-list">
+
+        </ul>
+
+    </div>
+
+</div>
+
+<!--订单详情-->
+<div class="popup popup-order-detail">
+    <header class="bar bar-nav">
+
+        <h1 class="title">订单详情</h1>
+
+    </header>
+    <div class="content" style="top: 10px;">
+
+        <div class="list-block" style="padding: 0 20px;">
+            <p style="font-weight: bold">菜品清单</p>
+            <ul id="detail-meal">
+
+            </ul>
+            <ul>
+
+                <li class="food-deliveryH">
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-toggle"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">送餐费</div>
+                            <div class="item-input">
+                                <input type="text" value="" readonly="">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-toggle"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">总计</div>
+                            <div class="item-input">
+                                <input type="text" value="12" id="total-feeH">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="list-block" style="padding: 0 20px;border-top: 8px solid #eeeeee">
+
+            <p style="font-weight: bold">订单详情</p>
+
+            <ul id="orderInfoH" style="background: #ffffff !important;">
+                <!-- Text inputs -->
+                <li>
+                    <div class="item-content" style="font-family: PingFang-SC-Regular !important;">
+                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                        <div class="item-inner" style="background: #ffffff">
+                            <div class="item-title label">餐厅</div>
+                            <div class="item-input">
+                                <input type="text" id="DC-restaurantH" readonly="" data-num="3">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-email"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">订餐时间</div>
+                            <div class="item-input">
+                                <input type="text" id="DC-timeH" readonly="">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-gender"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">三餐类型</div>
+                            <div class="item-input">
+
+                                <input type="text" id="DC-menu-typeH" readonly="" data-num="晚">
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-password"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">订餐人</div>
+                            <div class="item-input">
+                                <input type="text" id="DC-userH">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-email"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">订餐电话</div>
+                            <div class="item-input">
+                                <input type="text" id="DC-telH">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-email"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">送餐时间</div>
+                            <div class="item-input">
+                                <input type="text" id="DC-send-timeH" readonly="">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-email"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">送餐地点</div>
+                            <div class="item-input">
+                                <input type="text" id="DC-send-locationH">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-email"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title label">备注</div>
+                            <div class="item-input">
+                                <input type="text" id="DC-remarkH">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <nav class="bar bar-tab" style="background: #ffffff">
+        <div class="button-block" style="padding: 10px 20px;">
+
+            <!--新增-->
+            <a class="search-button" id="returnDCH" style="float: left;background: #eeeeee;color: #333333">返回订单列表</a>
+
+            <div class="clearfix"></div>
+
+        </div>
+    </nav>
+</div>
+
+<!--请输入手机号码-->
+
+<div class="popup popup-order-history">
+
+    <div style="height: 165px;background: #ffffff;margin:20% 20px 0 20px;">
+
+        <div style="text-align: center;padding-top: 30px;">
+
+            <label>手机号</label>
+
+            <input type="text" style="line-height: 40px;height: 40px;border: 1px solid #eeeeee;padding: 0 10px;">
+
+        </div>
+
+        <div style="text-align: center;margin-top: 30px;">
+
+            <div style="background: #f7d073;color: #ffffff;padding: 5px 10px;text-align: center;display: inline-block;" id="anonymousHistory">查询订单</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+<script type='text/javascript' src='resource/js/zepto.js' charset='utf-8'></script>
+
+<script type='text/javascript' src='resource/js/sm.js' charset='utf-8'></script>
+
+<script type='text/javascript' src='resource/js/sm-extend.js' charset='utf-8'></script>
+
+<!--时间-->
+<script type="text/javascript" src="resource/js/moment.js"></script>
+
+<script src="resource/js/DCMedicalStaffOrderMobile.js"></script>
+
+<!--<script src="js/swiper.min.js"></script>-->
+
+</html>

@@ -17,9 +17,9 @@ $(function(){
 
     }else{
 
-        startTime =moment().format('YYYY/MM');
+        startTime = moment().subtract(1,'months').format('YYYY/MM');
 
-        endTime = moment().add(1,'months').format('YYYY/MM');
+        //endTime = moment().subtract(1,'months').format('YYYY/MM');
 
     }
 
@@ -34,7 +34,7 @@ $(function(){
     var searchNum = 0;
 
     $('.min').val(startTime);
-    $('.max').val(endTime);
+    //$('.max').val(endTime);
 
     //获取仓库是否执行完毕
     var _isWarehouse = false;
@@ -173,7 +173,7 @@ $(function(){
         //时间置为今日
         //$('.datatimeblock').val(nowTime);
         $('.min').html(startTime);
-        $('.max').html(endTime);
+        //$('.max').html(endTime);
         //select置为所有
         $('#storage').val('');
     });
@@ -262,8 +262,12 @@ $(function(){
         var etTime = '';
 
         //获取时间
-        var st = $('.min').val() + '/01';
-        var et = moment($('.max').val()).add(1,'months').format('YYYY/MM') + '/01';
+        //var st = $('.min').val() + '/01';
+        //var et = moment($('.max').val()).add(1,'months').format('YYYY/MM') + '/01';
+
+        var st = moment($('.min').val()).startOf('month').format('YYYY/MM/DD');
+
+        var et = moment($('.min').val()).endOf('month').add(1,'d').format('YYYY/MM/DD');
 
         //获取条件
         if(searchNum == 0){

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>动环监测</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <style>
+
+        .bottom-img-content {
+            background: white;
+            height: 180px;
+            margin-bottom: 15px;
+        }
+
+        /*冷站控制图标*/
+        .right-navigation .top-navigation{
+            background: url(img/kongzhi.png) no-repeat 10px center;
+            background-color: #687ea3;
+        }
+
+
+        .right-alarm {
+            background: white;
+            height: auto;
+        }
+
+        /*实时能效*/
+        .bottom-efficiency{
+
+            background: url(img/tongji.png) no-repeat 10px center;
+            background-color: #687ea3;
+        }
+
+
+        /*流程图名称*/
+        .userMonitor-name{
+            height: 40px;
+            line-height: 40px;
+            padding-left:12px;
+            padding-right: 12px;
+            color:#CDD4E1;
+            display: inline-block;
+            text-align: center;
+            text-indent: 0px;
+            cursor: pointer;
+            border:1px solid #3674D9;
+        }
+
+        .left-diagram .top-title .onChoose{
+
+            background: #3674D9;
+            color:white;
+        }
+
+        /*流程图高度*/
+        #right-container {
+            position: static !important;
+            background: none;
+            width: 100%;
+            height: 650px;
+            overflow: hidden;
+            max-height: 1097px;
+        }
+
+        .switchover {
+            width: 24px;
+            height: 20px;
+            display: block;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            background: url(img/pd-xitongtu.png) no-repeat;
+            background-size: 100% 100%;
+            cursor: pointer;
+        }
+
+        .switchover1 {
+            background: url(img/pd-pingmiantu.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        /*冷站控制中*/
+        .control-container div{
+            height:160px;
+            background: white;
+            position: relative;
+            text-align: center;
+            padding-top:40px;
+            box-sizing: border-box;
+            color:#757575;
+            cursor: pointer;
+            border-bottom:1px solid #BDD7EE;
+        }
+
+        .control-container .onChoose{
+            color:#3674D9;
+        }
+
+        .control-container div img{
+            width:22%;
+            margin-bottom:10px;
+        }
+
+        /*图例*/
+        .legend span {
+            color: #687EA2;
+            font-size: 12px;
+            display: block;
+            float: left;
+            margin-right: 5px;
+            line-height: 12px;
+        }
+
+        .legend{
+            position: absolute;
+            left:10px;
+            top:55px;
+        }
+
+
+    </style>
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container" style="">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px;">
+
+                                <!--上方流程图-->
+                                <div class="left-diagram">
+
+                                    <span class="switchover" data-id="1"></span>
+
+                                    <h3 class="top-title left-title1">
+                                      实时参数
+                                    </h3>
+
+                                    <!-- 下方左侧流程图 -->
+                                    <!-- 右边主体数据部分 -->
+                                    <div id="right-container">
+                                        <div class="content-main-right" id="content-main-right">
+                                            <!--浮动显示的控制按钮-->
+                                            <div class="content-ctrls-show" id="content-ctrls">
+                                            </div>
+                                            <div class="content-menu-hide" id="content-menu">
+                                                <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+
+
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+
+        sessionStorage.menuArg = '1,8817007015';
+        //获取对应流程图
+        userMonitor.init(false,false,1,$('.left-diagram'));
+
+    });
+
+</script>
+
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../resource/js/userMonitor.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

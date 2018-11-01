@@ -1,0 +1,430 @@
+
+*{
+
+    font-size: 14px;
+
+}
+
+.content{
+
+    background: #ffffff;
+
+    top: 183px;
+
+    border-top: 8px solid #EEEEEE;
+
+}
+
+.conditional-part{
+
+    position: absolute;
+
+    top: 0;
+
+    z-index: 1;
+
+    width: 100%;
+
+    background: #ffffff;
+}
+
+.search-button{
+
+    background: #f7d073;
+
+    display: inline-block;
+
+    color: #ffffff;
+
+    padding: 5px 10px;
+
+}
+
+.conditional-part .list-block{
+
+    margin: 10px 20px;
+
+}
+
+.list-block{
+
+    padding-left: 0;
+
+}
+
+.list-block li{
+
+    list-style: none;
+
+}
+
+.list-block img{
+
+    width: 100%;
+
+}
+
+.meal-name{
+
+    font-size: 16px;
+
+}
+
+.list-block .img-block{
+
+    width: 35%;
+
+    height: 106px;
+
+    display: inline-block;
+
+    vertical-align: top;
+
+    overflow: hidden;
+
+}
+
+.list-block .meal-name{
+
+    margin-bottom: 5px;
+
+}
+
+.list-block .meal-info{
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+
+    margin-bottom: 8px;
+
+
+}
+
+.list-block .meal-info span{
+
+    margin-right: 5px;
+
+    background: #EEEEEE;
+
+    padding: 2px 5px;
+
+    margin-bottom: 5px;
+
+    font-size: 10px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+}
+
+.meal-prince span{
+
+    font-size: 20px;
+
+    color: #fd7b7b;
+
+}
+
+.meal-info-block{
+
+    width: 60%;
+
+    display: inline-block;
+
+    vertical-align: top;
+
+    padding-left: 20px;
+
+
+}
+
+.meal-prince{
+
+    position: relative;
+
+}
+
+.num-control-block{
+
+    position: absolute;
+
+    top: 0;
+
+    display: inline-block;
+
+    right: 0;
+
+}
+
+.num-control-block span{
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    cursor: pointer;
+
+}
+
+.sub-button{
+
+    width: 15px;
+
+    height: 15px;
+
+    background: url("../../img/subMeal.png") no-repeat;
+
+    background-size: 15px;
+
+    background-position: center;
+
+}
+
+.num-view{
+
+    width: 50px !important;
+
+    display: inline-block !important;
+
+    vertical-align: middle;
+
+    height: 30px !important;
+
+    font-size: 12px !important;
+
+    text-align: center;
+
+    margin: 0 8px !important;
+
+}
+
+.add-button{
+
+    width: 15px;
+
+    height: 15px;
+
+    background: url("../../img/addMeal.png") no-repeat;
+
+    background-size: 15px;
+
+    background-position: center;
+
+}
+
+.order-tip{
+
+    background: rgba(255,255,255,0);
+
+    height: 6%;
+
+}
+
+.order-tip-bar{
+
+    background: #322829;
+
+    background-size: 30px;
+
+    width: 80%;
+
+    height: 90%;
+
+    margin: auto;
+
+    border-radius: 20px !important;
+
+}
+
+#settlement-meal{
+
+    width: 35%;
+
+    height: 100%;
+
+    float: right;
+
+    background: #f7d073;
+
+    color: #ffffff;
+
+    line-height: 30px;
+
+    border-top-right-radius: 20px !important;
+
+    border-bottom-right-radius: 20px !important;
+
+    text-align: center;
+
+}
+
+#num-tip{
+
+    background: #fd7b7b;
+
+    color: #ffffff;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    width: 32px;
+
+    height:32px;
+
+    border-radius: 50% !important;
+
+    position: absolute;
+
+    top: -20px;
+
+    z-index: 1;
+
+    text-align: center;
+
+    left: 40px;
+
+
+}
+
+#num-tip-momey{
+
+    position: absolute;
+
+    left: 80px;
+
+    font-size: 20px;
+
+    color: #ffffff;
+
+}
+
+.popup-order-meal{
+
+    background: rgba(0,0,0,0.2) !important;
+
+}
+
+.popup-order-history{
+
+    background: rgba(0,0,0,0.2) !important;
+
+}
+
+#emptyCar{
+
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border: 1px solid #eeeeee;
+
+    margin-top: 5px;
+
+    margin-right: 5px;
+}
+
+#popup-order-meal-list{
+
+    max-height: 300px;
+
+    overflow-y: auto;
+
+}
+
+#meal-list{
+
+    border-bottom: 1px dashed #eeeeee;
+
+}
+
+.num-view-1{
+
+    font-size: 14px !important;
+
+    color: #3d4145 !important;
+
+    margin-left: 10px;
+
+}
+
+.list-block input[type=text], .list-block input[type=password], .list-block input[type=email], .list-block input[type=tel], .list-block input[type=url], .list-block input[type=date], .list-block input[type=datetime-local], .list-block input[type=time], .list-block input[type=number], .list-block input[type=search], .list-block select, .list-block textarea{
+
+    font-size: 14px;
+
+}
+
+#orderInfo input::-webkit-input-placeholder{
+
+    color: #DCDCDC;
+
+    text-indent: 75%;
+
+
+}
+
+.page{
+
+    background: #ffffff !important;
+
+}
+
+nav{
+    
+    background: #ffffff !important;
+    
+}
+
+.bar-tab:before{
+
+    height: 0;
+
+}
+
+.card-arrow{
+
+    background: url("../../img/right-arrow.png")no-repeat;
+
+    background-size: 12px;
+
+    background-position: 96% center;
+
+}
+
+#three-meal-type{
+
+    padding: 0 20px;
+
+}
+
+#three-meal-type span{
+
+    background: #eeeeee;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    padding: 5px 10px;
+
+    margin-right: 10px;
+
+}
+
+.three-meal-type-hover{
+
+    background: #f7d073 !important;
+
+    color: #ffffff;
+
+}
+
+#order-history-list{
+
+    padding-top: 20px;
+
+}

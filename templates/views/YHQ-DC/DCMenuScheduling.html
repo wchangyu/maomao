@@ -183,10 +183,7 @@
                         <div class="total-warp L-container">
 
                             <ul class="L-condition">
-                                <li>
-                                    <label>餐厅</label>
-                                    <select type="text" class="form-control" id="DC-restaurant-con"></select>
-                                </li>
+
                                 <li>
                                     <label>开始时间</label>
                                     <div class="time-tool-block">
@@ -210,14 +207,6 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="cont-col1" id="createBtn">
-                                        <div class="label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;cursor: pointer">
-                                            <i class="fa fa-plus" style="margin-right: 2px;"></i>新增
-                                        </div>
-                                    </div>
-                                    <!--<a id="createBtn" class="L-condition-button">新增</a>-->
-                                </li>
-                                <li>
                                     <div class="L-condition-button" id="selectBtn">查询数据</div>
                                 </li>
                                 <li>
@@ -227,6 +216,19 @@
 
                             <div class="row content-top">
                                 <div class="col-md-12 col-sm-12">
+
+                                    <ul class="nav nav-tabs nav-tabs-lg" style="margin-bottom: 6px;">
+                                        <!--<li class="active">-->
+                                            <!--<a href="" data-toggle="tab" aria-expanded="true"> </a>-->
+                                        <!--</li>-->
+                                        <!--<li class="">-->
+                                            <!--<a href="" data-toggle="tab" aria-expanded="true"> </a>-->
+                                        <!--</li>-->
+                                        <!--<li class="">-->
+                                            <!--<a href="" data-toggle="tab" aria-expanded="true"> </a>-->
+                                        <!--</li>-->
+                                    </ul>
+
                                     <table id="table" class="table table-striped table-advance table-hover">
                                         <thead>
                                             <tr>
@@ -264,6 +266,10 @@
 
                         <ul class="modal-block">
                             <li>
+                                <label>餐厅</label>
+                                <select type="text" class="form-control" id="DC-restaurant" name="DC-restaurant"></select>
+                            </li>
+                            <li>
                                 <label>时间：</label>
                                 <div class="time-tool-block">
                                     <div class="input-group date form_date DC-time">
@@ -277,7 +283,7 @@
                                 <div class="time-seat"></div>
                             </li>
                             <li>
-                                <label>类型：</label>
+                                <label>三餐类型：</label>
                                 <select name="three-meal" id="three-meal" class="table-group-action-input form-control">
                                     <option value="">请选择</option>
                                     <option value="早">早餐</option>
@@ -293,7 +299,7 @@
                             </li>
                             <li>
                                 <label>菜品名称：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-name" readonly="" name="DC-name" placeholder="口味是必填字段">
+                                <input type="text" class="table-group-action-input form-control" id="DC-name" readonly="" name="DC-name" placeholder="菜品是必填字段">
                                 <div class="modal-select modal-select-show" id="modal-select-meal"></div>
                             </li>
                             <li>
@@ -352,6 +358,175 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary confirm">选择</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--批量添加-->
+    <div class="modal fade ui-draggable" id="batch-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow: hidden; display: none;">
+        <div class="modal-dialog" style="height: 685px; width: 1000px !important; margin-top: 132px;">
+            <div class="modal-content" style="height: 685px;width: 1000px !important;">
+                <div class="modal-header ui-draggable-handle">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"></h4>
+
+                    <ul class="L-condition" style="position: absolute;top: 0;left: 240px">
+
+                        <li>
+                            <label>时间</label>
+                            <div class="time-tool-block">
+                                <div class="input-group date form_date abbrDT abbrDT1">
+                                    <input id="ccDT" class="form-control" size="16" type="text" value="">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="L-condition-button" id="copy-cc">复制餐次</div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="modal-body" style="height: 563px">
+
+                    <div class="three-type-block">
+
+                        <p>
+                            早餐
+                            <span class="add-meal" data-attr="早">添加</span>
+                        </p>
+                        <div class="three-type-content three-type-content-m">
+
+                            <table id="table-m" class="three-table table table-striped table-advance table-hover">
+                                <thead>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                    <div class="three-type-block">
+
+                        <p>
+                            中餐
+                            <span class="add-meal" data-attr="中">添加</span>
+                        </p>
+                        <div class="three-type-content three-type-content-n">
+
+                            <table id="table-n" class="three-table table table-striped table-advance table-hover">
+                                <thead>
+                                <tr>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                    <div class="three-type-block">
+
+                        <p>
+                            晚餐
+                            <span class="add-meal" data-attr="晚">添加</span>
+                        </p>
+                        <div class="three-type-content three-type-content-e">
+
+                            <table id="table-e" class="three-table table table-striped table-advance table-hover">
+                                <thead>
+
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">选择</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--菜品选择（多选）-->
+    <div class="modal fade ui-draggable" id="meal-Modal-multi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow: hidden; display: none;">
+        <div class="modal-dialog" style="height: 685px; width: 1000px !important; margin-top: 132px;">
+            <div class="modal-content" style="height: 685px;width: 1000px !important;">
+                <div class="modal-header ui-draggable-handle">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body" style="height: 563px">
+
+                    <ul class="L-condition">
+                        <li>
+                            <label>菜品类型</label>
+                            <select id="DC-type-new" class="form-control"></select>
+                        </li>
+                    </ul>
+                    <table id="meal-table-multi" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">选择</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--菜品选择（修改菜品）-->
+    <div class="modal fade ui-draggable" id="meal-Modal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow: hidden; display: none;">
+        <div class="modal-dialog" style="height: 685px; width: 1000px !important; margin-top: 132px;">
+            <div class="modal-content" style="height: 685px;width: 1000px !important;">
+                <div class="modal-header ui-draggable-handle">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body" style="height: 563px">
+
+                    <table id="meal-table-edit" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">选择</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--修改删除菜品（修改中的删除）-->
+    <div class="modal fade" id="edit-del-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 168px;">
+            <div class="modal-content" style="height: 168px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">请填写红色必填项</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
             </div><!-- /.modal-content -->

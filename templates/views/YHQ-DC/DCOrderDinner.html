@@ -113,6 +113,19 @@
 
                             <div class="row content-top">
                                 <div class="col-md-12 col-sm-12">
+
+                                    <ul class="nav nav-tabs nav-tabs-lg" style="margin-bottom: 6px;">
+                                        <!--<li class="active">-->
+                                        <!--<a href="" data-toggle="tab" aria-expanded="true"> </a>-->
+                                        <!--</li>-->
+                                        <!--<li class="">-->
+                                        <!--<a href="" data-toggle="tab" aria-expanded="true"> </a>-->
+                                        <!--</li>-->
+                                        <!--<li class="">-->
+                                        <!--<a href="" data-toggle="tab" aria-expanded="true"> </a>-->
+                                        <!--</li>-->
+                                    </ul>
+
                                     <table id="table" class="table table-striped table-advance table-hover">
                                         <thead>
                                         </thead>
@@ -142,11 +155,10 @@
                     <form class="cmxform" id="commentForm" method="post" action="">
 
                         <ul class="modal-block">
-                            <!--<li>-->
-                                <!--<label>餐厅：</label>-->
-                                <!--<select class="table-group-action-input form-control" name="DC-restaurant" id="DC-restaurant"></select>-->
-                                <!--<div class="modal-select"></div>-->
-                            <!--</li>-->
+                            <li>
+                                <label>餐厅</label>
+                                <select type="text" class="form-control" id="DC-restaurant" name="DC-restaurant"></select>
+                            </li>
                             <li>
                                 <label>订餐时间：</label>
                                 <div class="time-tool-block">
@@ -161,12 +173,6 @@
                                 <div class="time-seat"></div>
                             </li>
                             <li>
-                                <label>订餐人：</label>
-
-                                <input type="text" class="table-group-action-input form-control" id="DC-person" name="DC-person" placeholder="订餐人是必选字段">
-                                <div class="modal-select modal-select-show" id="modal-select-user"></div>
-                            </li>
-                            <li>
                                 <label>订餐人类型：</label>
                                 <select name="DC-person-type" id="DC-person-type" class="table-group-action-input form-control">
                                     <option value="">请选择</option>
@@ -175,6 +181,13 @@
                                 </select>
                                 <div class="modal-select"></div>
                             </li>
+                            <li>
+                                <label>订餐人：</label>
+
+                                <input type="text" class="table-group-action-input form-control" id="DC-person" name="DC-person" placeholder="订餐人是必选字段">
+                                <div class="modal-select  modal-select-user" id="modal-select-user"></div>
+                            </li>
+
                             <li>
                                 <label>订餐电话：</label>
 
@@ -302,6 +315,20 @@
 
                     </div>
 
+                    <div class="payType">
+
+                        <p style="line-height: 40px;">请选择支付方式</p>
+
+                        <div id="DC-type" class="radioBlock">
+
+                            <input type="radio" class="inpus" name="inpus" id="ones" data-value="1" checked=""><label for="ones">当面结账</label>
+
+                            <input type="radio" class="inpus" name="inpus" id="twos" data-value="2"><label for="twos">月结</label>
+
+                        </div>
+
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary confirm" type="submit" value="Submit">确定</button>
@@ -420,6 +447,23 @@
                     </table>
 
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--取消确定按钮-->
+    <div class="modal fade" id="cancel-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 168px;">
+            <div class="modal-content" style="height: 168px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">请填写红色必填项</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary confirm">确定</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+
+    <!--图片上传-->
+    <link rel="stylesheet" href="../resource/webUploader/webuploader.css">
+
+    <link rel="stylesheet" href="../resource/css/conditionPublic.css">
+
+    <link rel="stylesheet" href="../YHQ-resource/css/public.css">
+
+    <style>
+
+        #create-Modal label{
+
+            width: 115px;
+
+        }
+
+        #DC-type label{
+
+            width: auto;
+
+        }
+
+        #commentForm .modal-block input~.error{
+
+            color: red;
+
+            width: auto;
+
+            line-height: 30px;
+
+            margin: 0;
+
+            margin-top: 10px;
+
+            display: block;
+
+            text-indent: 124px;
+
+        }
+
+        #commentForm .modal-block select~.error {
+            color: red;
+            width: auto;
+            line-height: 30px;
+            margin: 0;
+            margin-top: 10px;
+            display: block;
+            text-indent: 124px;
+        }
+
+        #commentForm .modal-block textarea~.error {
+            color: red;
+            width: auto;
+            line-height: 30px;
+            margin: 0;
+            margin-top: 10px;
+            display: block;
+            text-indent: 124px;
+        }
+
+        #commentForm .modal-block .time-tool-block input~.error {
+            color: red;
+            line-height: 30px;
+            text-indent: 0px;
+            position: absolute;
+            top: 33px;
+            width: 100%;
+        }
+
+        #selectedDep li{
+
+            line-height: 30px;
+
+            cursor: pointer;
+
+        }
+
+        #selectedDep li .close{
+
+            margin-top: 7px;
+
+        }
+
+        #selectedDep li .depName{
+
+            margin-right: 10px;
+
+        }
+
+        #selectedDep li .depNum{
+
+            margin-right: 10px;
+
+        }
+
+        .serialBlock{
+
+            min-width: 30px;
+
+        }
+
+        .thumbnail{
+
+            border: none;
+
+        }
+
+        button.dt-button, div.dt-button, a.dt-button{
+
+            padding: 7px 17px !important;
+
+            border: none;
+
+            margin-right: 0;
+
+        }
+
+        .dt-buttons{
+
+            height: 36px;
+
+        }
+
+        button.dt-button, div.dt-button, a.dt-button:hover{
+
+            padding: 7px 17px !important;
+
+            border: none;
+
+            margin-right: 0;
+
+        }
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="compareBusy">
+                        <div class="total-warp L-container">
+
+                            <ul class="L-condition">
+                                <li>
+                                    <label>项目名称</label>
+                                    <input type="text" class="form-control" id="HT-projectCon">
+                                </li>
+                                <li>
+                                    <label>合同名称</label>
+                                    <input type="text" class="form-control" id="HT-nameCon">
+                                </li>
+                                <li>
+                                    <label>合同类型</label>
+                                    <input type="text" class="form-control" id="HT-typeCon">
+                                </li>
+                                <li>
+                                    <label>合同单位</label>
+                                    <input type="text" class="form-control" id="HT-customerCon">
+                                </li>
+                                <li>
+                                    <label>签订人</label>
+                                    <input type="text" class="form-control" id="HT-signCon">
+                                </li>
+                                <!--<li>-->
+                                    <!--<label>审核状态</label>-->
+                                    <!--<select class="form-control" id="HT-approveCon">-->
+                                        <!--<option value="-1">全部</option>-->
+                                        <!--<option value="0">未审批</option>-->
+                                        <!--<option value="1">审批中</option>-->
+                                        <!--<option value="2">审批通过</option>-->
+                                        <!--<option value="3">审批未通过</option>-->
+                                        <!--<option value="9">没有审批</option>-->
+                                    <!--</select>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<label>合同状态</label>-->
+                                    <!--<select class="form-control" id="HT-statusCon">-->
+                                        <!--<option value="-1">全部</option>-->
+                                        <!--<option value="0">登记</option>-->
+                                        <!--<option value="10">执行</option>-->
+                                        <!--<option value="20">完成</option>-->
+                                        <!--<option value="999">取消</option>-->
+                                    <!--</select>-->
+                                <!--</li>-->
+                                <li>
+                                    <label>开始时间</label>
+                                    <div class="time-tool-block">
+                                        <div class="input-group date form_date abbrDT">
+                                            <input id="spDT" class="form-control" size="16" type="text" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>结束时间</label>
+                                    <div class="time-tool-block">
+                                        <div class="input-group date form_date abbrDT">
+                                            <input id="epDT" class="form-control" size="16" type="text" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="L-condition-button" id="selectBtn">查询数据</div>
+                                </li>
+                                <li class="excelButton">
+                                    <!--<div class="L-condition-button" id="excelBtn">导出数据</div>-->
+                                </li>
+                                <li>
+                                    <div id="resetBtn" class="L-condition-button">重置条件</div>
+                                </li>
+                            </ul>
+
+                            <div class="row content-top">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <ul class="nav nav-tabs nav-tabs-lg" style="margin-bottom: 6px;">
+                                        <li class="active">
+                                            <a href="" data-toggle="tab" aria-expanded="true"> 全部</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="" data-toggle="tab" aria-expanded="false"> 未付款</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="" data-toggle="tab" aria-expanded="false"> 未付清</a>
+                                        </li>
+                                    </ul>
+                                    <div class="table-block">
+
+                                        <table id="table" class="table table-striped table-advance table-hover">
+                                            <thead>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+
+                                    </div>
+
+                                    <div class="table-block" style="display: none">
+
+                                        <table id="table1" class="table table-striped table-advance table-hover">
+                                            <thead>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+
+                                    </div>
+
+                                    <div class="table-block" style="display: none">
+
+                                        <table id="table2" class="table table-striped table-advance table-hover">
+                                            <thead>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+
+    <!--提示框-->
+    <div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 168px;">
+            <div class="modal-content" style="height: 168px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                </div>
+                <div class="modal-body">请填写红色必填项</div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--my js-->
+
+<script src="../resource/validation/jquery.validate.min.js"></script>
+
+<script src="../resource/validation/messages_zh.min.js"></script>
+
+<script src="../YHQ-resource/js/public.js"></script>
+
+<script src="../YHQ-resource/js/YHQ-HT/HTpay.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

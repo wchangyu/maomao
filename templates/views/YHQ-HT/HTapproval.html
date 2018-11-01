@@ -1,0 +1,480 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+
+    <!--图片上传-->
+    <link rel="stylesheet" href="../resource/webUploader/webuploader.css">
+
+    <link rel="stylesheet" href="../resource/css/conditionPublic.css">
+
+    <link rel="stylesheet" href="../YHQ-resource/css/public.css">
+
+    <style>
+
+        #create-Modal label{
+
+            width: 115px;
+
+        }
+
+        #DC-type label{
+
+            width: auto;
+
+        }
+
+        #commentForm .modal-block input~.error{
+
+            color: red;
+
+            width: auto;
+
+            line-height: 30px;
+
+            margin: 0;
+
+            margin-top: 10px;
+
+            display: block;
+
+            text-indent: 124px;
+
+        }
+
+        #commentForm .modal-block select~.error {
+            color: red;
+            width: auto;
+            line-height: 30px;
+            margin: 0;
+            margin-top: 10px;
+            display: block;
+            text-indent: 124px;
+        }
+
+        #commentForm .modal-block textarea~.error {
+            color: red;
+            width: auto;
+            line-height: 30px;
+            margin: 0;
+            margin-top: 10px;
+            display: block;
+            text-indent: 124px;
+        }
+
+        #commentForm .modal-block .time-tool-block input~.error {
+            color: red;
+            line-height: 30px;
+            text-indent: 0px;
+            position: absolute;
+            top: 33px;
+            width: 100%;
+        }
+
+        #selectedDep li{
+
+            line-height: 30px;
+
+            cursor: pointer;
+
+        }
+
+        #selectedDep li .close{
+
+            margin-top: 7px;
+
+        }
+
+        #selectedDep li .depName{
+
+            margin-right: 10px;
+
+        }
+
+        #selectedDep li .depNum{
+
+            margin-right: 10px;
+
+        }
+
+        .serialBlock{
+
+            min-width: 30px;
+
+        }
+
+        .thumbnail{
+
+            border: none;
+
+        }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="compareBusy">
+                        <div class="total-warp L-container">
+
+                            <ul class="L-condition">
+                                <li>
+                                    <label>合同编号</label>
+                                    <input type="text" class="form-control" id="HT-numCon">
+                                </li>
+                                <li>
+                                    <label>开始时间</label>
+                                    <div class="time-tool-block">
+                                        <div class="input-group date form_date abbrDT">
+                                            <input id="spDT" class="form-control" size="16" type="text" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>结束时间</label>
+                                    <div class="time-tool-block">
+                                        <div class="input-group date form_date abbrDT">
+                                            <input id="epDT" class="form-control" size="16" type="text" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="L-condition-button" id="selectBtn">查询数据</div>
+                                </li>
+                                <li>
+                                    <div id="resetBtn" class="L-condition-button">重置条件</div>
+                                </li>
+                            </ul>
+
+                            <div class="row content-top">
+                                <div class="col-md-12 col-sm-12">
+                                    <table id="table" class="table table-striped table-advance table-hover">
+                                        <thead>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+
+    <!--创建-->
+    <div class="modal fade" id="create-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 577px;width: 1000px!important;">
+            <div class="modal-content" style="height: 577px;width: 1000px!important;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="overflow-y: auto;height: 440px;">
+
+                    <form class="cmxform" id="commentForm" method="post" action="">
+
+                        <ul class="modal-block">
+                            <li>
+                                <label>合同编码：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-num" name="HT-num" placeholder="自动生成" readonly>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>合同名称：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-name" name="HT-name" placeholder="合同名称是必填字段">
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>合同类型：</label>
+                                <input type="text" name="HT-type" id="HT-type" class="table-group-action-input form-control">
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>所属项目：</label>
+                                <input type="text" name="HT-type" id="HT-project" class="table-group-action-input form-control">
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>签订人：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-person" name="HT-person" placeholder="签订人是必填字段" readonly>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>合同单位：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-unit" name="HT-unit" placeholder="签订人是必填字段" readonly>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>合同签订时间</label>
+                                <div class="time-tool-block">
+                                    <div class="input-group date form_date abbrDT">
+                                        <input id="signDT" name="signDT" class="form-control" size="16" type="text" value="" placeholder="必选字段"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="modal-select"></div>
+                                <div class="time-seat" style="display: none;"></div>
+                            </li>
+                            <li>
+                                <label>合同开始时间</label>
+                                <div class="time-tool-block">
+                                    <div class="input-group date form_date abbrDT">
+                                        <input id="HTStartDT" name="HTStartDT" class="form-control" size="16" type="text" value="" placeholder="必选字段"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="modal-select"></div>
+                                <div class="time-seat" style="display: none;"></div>
+                            </li>
+                            <li>
+                                <label>合同结束时间</label>
+                                <div class="time-tool-block">
+                                    <div class="input-group date form_date abbrDT">
+                                        <input id="HTendDT" name="HTendDT" class="form-control" size="16" type="text" value="" placeholder="必选字段"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="modal-select"></div>
+                                <div class="time-seat" style="display: none;"></div>
+                            </li>
+                            <li>
+                                <label>合同金额：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-money" name="HT-money" placeholder="合同金额是必填字段，数字">
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>已付金额：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-paid" name="HT-paid" placeholder="已付金额是必填字段，数字">
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>待付金额：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-unpaid" name="HT-unpaid" placeholder="待付金额是必填字段，数字">
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>保证金：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-bond" name="HT-bond" placeholder="保证金是必填字段，数字">
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>付款方式：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-PayWay" name="HT-PayWay" placeholder="付款方式是必填字段">
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>结算方式：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-AccountWay" name="HT-AccountWay" placeholder="结算方式是必填字段">
+                                <div class="modal-select"></div>
+                            </li>
+                            <li class="text-block" style="width: 800px;">
+                                <label>合同附件：</label>
+                                <div style="display: inline-block;vertical-align: middle;margin-bottom: 5px;">
+                                    <div id="uploader" class="wu-example">
+                                        <!--用来存放文件信息-->
+                                        <div id="thelist" class="uploader-list" style="width: 678px !important;min-height: 34px;"></div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li class="text-block" style="width: 800px;">
+                                <label>主要条款：</label>
+                                <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="HT-main-clause" name="HT-main-clause"></textarea>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li class="text-block" style="width: 800px;">
+                                <label>备注：</label>
+                                <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="HT-remark" name="HT-remark"></textarea>
+                                <div class="modal-select"></div>
+                            </li>
+                        </ul>
+
+                    </form>
+
+                    <!--工程量清单-->
+                    <div>
+                        <p style="text-align: center">工程量清单</p>
+
+                        <table id="engineering-table" class="table table-striped table-advance table-hover">
+                            <thead>
+                            </thead>
+                            <tbody></tbody>
+                            <!--<tfoot>-->
+                                <!--<tr>-->
+                                    <!--<td>合计</td>-->
+                                    <!--<td colspan="3"><input type="text" class="table-group-action-input form-control"></td>-->
+                                    <!--<td>大写</td>-->
+                                    <!--<td colspan="3"><input type="text" class="table-group-action-input form-control"></td>-->
+                                <!--</tr>-->
+                            <!--</tfoot>-->
+                        </table>
+
+                    </div>
+
+                    <!--审批人-->
+                    <div>
+                        <p style="text-align: center">审核人清单</p>
+
+                        <table id="auditor-table" class="table table-striped table-advance table-hover">
+                            <thead>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+
+                    <!--审批意见-->
+                    <ul class="modal-block" id="audit-block" style="margin-top: 20px;">
+
+                        <li>
+                            <label>审批状态；</label>
+
+                            <div id="HT-state" class="radioBlock" style="width: 300px;">
+
+                                <input type="radio" class="inpus" name="inpus" id="ones" value="10" checked><label for="ones">通过</label>
+
+                                <input type="radio" class="inpus" name="inpus" id="twos" value="20"><label for="twos">不通过</label>
+
+                            </div>
+
+                        </li>
+
+                        <li class="text-block" style="width: 800px;">
+                            <label>审批意见：</label>
+                            <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="HT-approval-opinion" name="HT-approval-opinion"></textarea>
+                            <div class="modal-select"></div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary confirm" type="submit" value="Submit">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--提示框-->
+    <div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 168px;">
+            <div class="modal-content" style="height: 168px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                </div>
+                <div class="modal-body">请填写红色必填项</div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--my js-->
+
+<script src="../YHQ-resource/js/public.js"></script>
+
+<script src="../YHQ-resource/js/YHQ-HT/HTapproval.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

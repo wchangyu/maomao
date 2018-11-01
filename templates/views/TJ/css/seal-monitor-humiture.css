@@ -1,0 +1,171 @@
+/*空间容量*/
+    .right-navigation .data-container{
+    width:100%;
+    float: left;
+    height:30px;
+    margin-bottom:5px;
+    padding-left:10px;
+    box-sizing: border-box;
+    color:#666666;
+}
+
+
+
+.right-navigation .bottom-data-container{
+
+    height:350px;
+    overflow-y: auto;
+    background: white;
+    padding-top:10px;
+}
+
+.right-navigation .data-container span{
+    font-size: 14px;
+    color:#666666;
+    text-align: right;
+    margin-right:10%;
+}
+
+.right-navigation .data-container .name{
+    width:54px;
+    display: inline-block;
+    margin-right:6px;
+}
+
+.right-navigation .data-container .humidity{
+    margin-right: 0px;
+}
+
+.right-navigation .data-container span font{
+    color:white;
+    background: #31BEA4;
+    display: inline-block;
+    vertical-align: middle;
+    height: 20px;
+    line-height: 20px;
+    padding:0px 6px;
+    font-size: 13px;
+
+}
+
+/*流程图弹窗*/
+.content-child-show {
+    position: absolute;
+    left: 160px;
+    top: 150px;
+    opacity: 0.95;
+    z-index: 10000;
+}
+
+
+
+/*温度*/
+.right-navigation .data-container .temperature{
+    width:70px;
+    height: 26px;
+    display: inline-block;
+    background: url('../img/wendu01.png ') no-repeat 0px top;
+    background-size: 27% 90% !important;
+}
+
+/*湿度*/
+.right-navigation .data-container .humidity{
+    width:72px;
+    height: 26px;
+    display: inline-block;
+    background: url('../img/shidu01.png ') no-repeat 0px top;
+    background-size: 32% 90% !important;
+}
+
+.overProof font{
+    background: #F25B72 !important;
+}
+
+/*流程图下方表格*/
+/*下方表格*/
+.bottom-table-container{
+    width: 65%;
+    position:absolute;
+    right:10px;
+    bottom:1px;
+    z-index: 9999
+}
+
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+.scrollbar::-webkit-scrollbar{
+    width: 12px;
+    height: 12px;
+    background-color: #f5f5f5;
+}
+/*定义滚动条的轨道，内阴影及圆角*/
+.scrollbar::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    /*border-radius: 10px;*/
+    background-color: #f5f5f5;
+}
+
+/*定义滑块，内阴影及圆角*/
+.scrollbar::-webkit-scrollbar-thumb{
+    /*width: 10px;*/
+    height: 16px;
+    /*border-radius: 10px;*/
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #95A4B6;
+}
+
+#scrap-datatables thead td{
+    background: #687EA2;
+    border: none;
+    color:white;
+}
+#scrap-datatables{
+    background: #687EA2;
+}
+
+.table-person tbody {
+    display:block;
+    height:130px;
+    overflow-y:auto;
+}
+
+
+.table-person thead,.table-person tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+.table-person thead {
+    width: calc( 100% - 1em )
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #E9EEF4;
+}
+.table-striped>tbody>tr:nth-of-type(even) {
+    background-color: #DAE8ED;
+}
+
+/*#scrap-datatables tbody td {*/
+    /*padding: 4px 6px !important;*/
+    /*border:none !important;*/
+/*}*/
+
+.table-bordered {
+    border: 1px solid #687EA2;
+}
+
+.table .red{
+    color:#F25B72;
+}
+
+.table .yellow{
+
+    color:#D89946;
+}
+
+.table td{
+    padding:0 !important;
+    height:41px;
+    line-height: 110px;
+}

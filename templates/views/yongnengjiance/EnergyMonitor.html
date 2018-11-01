@@ -422,22 +422,6 @@
         userMonitor.init();
     });
 
-    //关闭弹窗中的流程图
-    $('#right-container').on('click','.close1',function(){
-
-        //获取到要删除的元素
-        var dom = $(this).parents('.content-child-show');
-
-        dom.remove();
-    });
-
-    //关闭video模态框时 停止播放
-    $('#my-video .close').on('click',function(){
-
-        var myVideo = document.getElementById('play-video');   //获取视频video
-
-        myVideo.pause();
-    });
 
     //点击页面右侧工具栏
     $('.innner-toolbar-container .toolbar').on('click',function(e){
@@ -531,6 +515,21 @@
             });
 
         }
+    }
+
+    //判断是否启用新的流程图工具栏
+    //启用
+    if(sessionStorage.newMonitorToolbal == 1){
+
+        $('.showOrHidden').hide();
+
+        $('.right-new-toolbar-container').show();
+
+    }else{
+
+        $('.showOrHidden').show();
+
+        $('.right-new-toolbar-container').hide();
     }
 
 </script>

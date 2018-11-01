@@ -1,0 +1,52 @@
+.three-type-block{
+
+    border: 1px solid #eeeeee;
+
+    padding: 10px;
+
+    margin-bottom: 10px;
+
+}
+.three-type-block p{
+
+    line-height: 30px;
+
+    border-bottom: 1px dashed #eeeeee;
+
+    padding-bottom: 10px;
+
+}
+
+.three-type-block p span{
+
+    padding: 0 8px;
+
+    background: #eeeeee;
+
+    float: right;
+
+    margin-right: 10px;
+
+    cursor: pointer;
+
+}
+
+.three-type-content{
+
+    max-height: 550px;
+
+}
+
+.errorFormat{
+
+    border: 2px solid red !important;
+
+}
+
+.table input{
+
+    width: 110px;
+
+    display: inline-block !important;
+
+}

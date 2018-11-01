@@ -182,9 +182,21 @@ $(function(){
 
         var flag = true;
 
+        var arr = [];
+
         for(var i=0;i<_allData.length;i++){
 
-            if(_allData[i].cookname == value && _allData[i].cookname!= _isExist){
+            if( _allData[i].dinningroomid == $('#DC-restaurant').val() ){
+
+                arr.push(_allData[i]);
+
+            }
+
+        }
+
+        for(var i=0;i<arr.length;i++){
+
+            if(arr[i].cookname == value && arr[i].cookname!= _isExist){
 
                 flag = false;
 
@@ -486,7 +498,7 @@ $(function(){
 
         $('#DC-restaurant-con').val('');
 
-        $('#DC-type-con').val('');
+        $('#DC-type-con').val(-1);
 
     })
 
@@ -731,6 +743,27 @@ $(function(){
 
     })
 
+    //餐厅tab筛选
+    $('.nav-tabs-lg').on('click','li',function(){
+
+        var dinningNum = $(this).children().attr('data-attr')
+
+        var arr = [];
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].dinningroomid == dinningNum){
+
+                arr.push(_allData[i]);
+
+            }
+
+        }
+
+        _datasTable($('#table'),arr);
+
+    })
+
 
     /*----------------------------------------其他方法-------------------------------------*/
 
@@ -739,7 +772,7 @@ $(function(){
 
         $('#create-Modal').find('input').val('');
 
-        $('#create-Modal').find('select').val('');
+        //$('#create-Modal').find('select').val('');
 
         $('#create-Modal').find('textarea').val('');
 
@@ -770,6 +803,9 @@ $(function(){
         _isExistImg = '';
 
         _thisImg = false;
+
+        //菜品类型初始化
+        $('#DC-type').val('');
 
     }
 
@@ -816,31 +852,92 @@ $(function(){
 
         var prm = {
 
-            diningroom:''
+            departnum:_userBM
 
         }
 
-        _mainAjaxFunCompleteOnly('post','YHQDC/ReturnDiningRoomsList',prm,false,function(result){
+        $.ajax({
 
-            var str = '<option value="">请选择</option>';
+            type:'post',
 
-            var str1 = '<option value="">全部</option>';
+            url:_urls + 'YHQDC/ReturndepartDiningRooms',
 
-            if(result.code == 99){
+            data:prm,
 
-                for(var i=0;i<result.data.length;i++){
+            async:false,
 
-                    str += '<option value="' + result.data[i].id + '">' + result.data[i].diningroom + '</option>';
+            timeout:_theTimes,
 
-                    str1 += '<option value="' + result.data[i].id + '">' + result.data[i].diningroom + '</option>';
+            success:function(result){
+
+                //_restaurantArr.length = 0;
+
+                var str = '<option value="">全部</option>';
+
+                var str1 = '<option value="">请选择</option>';
+
+                var tabStr = '';
+
+                if(result.code == 99){
+
+                    //_restaurantArr = result.data;
+
+                    for(var i=0;i<result.data.length;i++){
+
+                        str += '<option value="' + result.data[i].id + '">' + result.data[i].diningroom + '</option>';
+
+                        str1 += '<option value="' + result.data[i].id + '">' + result.data[i].diningroom + '</option>';
+
+                        if(i==0){
+
+                            tabStr += '<li class="active">';
+
+                        }else{
+
+                            tabStr += '<li>';
+
+                        }
+
+                        tabStr += '<a href="" data-toggle="tab" aria-expanded="true" data-attr="' + result.data[i].id + '">'
+
+                        tabStr += result.data[i].diningroom;
+
+                        tabStr += '</a>';
+
+                        tabStr += '</li>'
+
+                    }
+
+                }
+
+                $('#DC-restaurant-con').empty().append(str);
+
+                $('#DC-restaurant').empty().append(str1);
+
+                $('.nav-tabs-lg').empty().append(tabStr);
+
+
+            },
+
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+
+                if(el){
+
+                    el.hideLoading();
+
+                }
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    console.log('请求超时');
+
+                }else{
+
+                    console.log('请求失败');
 
                 }
 
             }
-
-            $('#DC-restaurant').append(str);
-
-            $('#DC-restaurant-con').append(str1);
 
         })
 
@@ -890,7 +987,7 @@ $(function(){
 
         if(flag){
 
-            prm.id = _thisId
+            prm.id = _thisId;
 
         }
 
@@ -932,7 +1029,7 @@ $(function(){
             //菜名
             cookname:$('#DC-name-con').val(),
             //餐厅
-            //dinningroomid:$('#DC-restaurant-con').val(),
+            dinningroomid:$('#DC-restaurant-con').val(),
             //dinningroomid:1,
             //菜品类型
             lx:$('#DC-type-con').val(),
@@ -943,13 +1040,27 @@ $(function(){
 
         _mainAjaxFunCompleteNew('post','YHQDC/RetrunDinningbookList',prm,$('.L-container'),function(result){
 
+            var arr = [];
+
             if(result.code == 99){
 
                 _allData = result.data;
 
-                _jumpNow($('#table'),result.data);
+                var dinningNum = $('.nav-tabs-lg').children('.active').children().attr('data-attr');
+
+                for(var i=0;i<_allData.length;i++){
+
+                    if(_allData[i].dinningroomid == dinningNum){
+
+                        arr.push(_allData[i]);
+
+                    }
+
+                }
 
             }
+
+            _datasTable($('#table'),arr);
 
         })
 
@@ -976,6 +1087,8 @@ $(function(){
                     var str = '<img src="' + url + data.img + '">';
 
                     $('#thelist').append(str);
+
+                    _imgpath = data.img;
 
                 }
                 //菜品名称
@@ -1049,5 +1162,7 @@ $(function(){
         }
 
     }
+
+
 
 })
