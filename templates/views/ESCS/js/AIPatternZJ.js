@@ -522,11 +522,17 @@ $(function(){
 
                 var trNum = tdValue.rowid;
 
-                var tdNum = tdValue.colid;
+                //var tdNum = tdValue.colid;
+
+                var tdNum = tdValue.colindex;
 
                 var datetype = tdValue.datetype;
 
                 var trsDom = $('#table1 tbody').find('tr').eq(trNum).find('td').eq(tdNum);
+
+                //给每一个单元格绑定colid值，data-attr。
+
+                trsDom.attr('data-attr',tdValue.colid);
 
                 if(datetype == 1){
 

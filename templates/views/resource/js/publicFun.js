@@ -1976,6 +1976,45 @@ function _regularTest(reg,dom){
 
 }
 
+//模态框初始化（仅仅适用于创建的初始化）
+
+function _creatInit(){
+
+    //时间验证占位dom隐藏
+    $('.time-seat').hide();
+
+    $('#create-Modal').find('input').val('');
+
+    $('#create-Modal').find('select').val('');
+
+    $('#create-Modal').find('textarea').val('');
+
+    //将所有label .error验证隐藏
+    var label = $('#create-Modal').find('label');
+
+    for(var i=0;i<label.length;i++){
+
+        var attr = $(label).eq(i).attr('class')
+
+        if(attr){
+
+            if(attr.indexOf('error')>-1){
+
+                label.eq(i).hide();
+
+            }
+
+        }
+
+    }
+
+    //单选按钮
+    //单选按钮
+    $('#create-Modal').find('.radio').children().removeClass('checked');
+
+    $('#create-Modal').find('.radio').children().eq(0).addClass('checked');
+
+}
 
 /*---------------------------------------------------控制界面------------------------------------*/
 

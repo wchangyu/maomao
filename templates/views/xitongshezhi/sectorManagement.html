@@ -375,8 +375,8 @@
 <!--弹窗-->
 <!--新增用户-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 462px;width: 332px !important;">
-        <div class="modal-content" style="height: 462px;width: 332px !important;">
+    <div class="modal-dialog" style="height: 522px;width: 332px !important;">
+        <div class="modal-content" style="height: 522px;width: 332px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">新增用户</h4>
@@ -403,6 +403,14 @@
                                 <div class="input-blockeds">
                                     <input type="radio" class="inpus" id="ones" value="1" v-model="picked" @click="radio"><label for="ones" style="margin-top: 5px;">是</label>
                                     <input type="radio" class="inpus" id="twos" value="0" v-model="picked" @click="radio"><label for="twos">否</label>
+                                </div>
+                            </li>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels">部门属性：</div>
+                                <div class="input-blockeds">
+                                    <select id="depart-attr">
+
+                                    </select>
                                 </div>
                             </li>
                             <li class="floatLeft" style="line-height: 26px;">
