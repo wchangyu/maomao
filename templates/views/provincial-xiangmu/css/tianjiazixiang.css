@@ -1,0 +1,172 @@
+
+#DC-type label{
+
+    width: auto;
+
+}
+
+#commentForm .modal-block input~.error{
+
+    color: red;
+
+    width: auto;
+
+    line-height: 30px;
+
+    margin: 0;
+
+    margin-top: 10px;
+
+    display: block;
+
+    text-indent: 124px;
+
+}
+
+#commentForm .modal-block select~.error {
+    color: red;
+    width: auto;
+    line-height: 30px;
+    margin: 0;
+    margin-top: 10px;
+    display: block;
+    text-indent: 124px;
+}
+
+#commentForm .modal-block textarea~.error {
+    color: red;
+    width: auto;
+    line-height: 30px;
+    margin: 0;
+    margin-top: 10px;
+    display: block;
+    text-indent: 124px;
+}
+
+#commentForm .modal-block .time-tool-block input~.error {
+    color: red;
+    line-height: 30px;
+    text-indent: 0px;
+    position: absolute;
+    top: 33px;
+    width: 100%;
+}
+
+
+
+/*------------------头部------------------------*/
+.main_top{
+    margin: 10px;
+}
+.main_top_button{
+    font-size: 14px;
+    color: #fff;
+    background-color: #45B6AF;
+    text-align: center;
+    padding: 6px 12px;
+}
+.main_top_button:hover{
+    color: #fff;
+    background-color: #307f7a;
+}
+
+/*------------------主体内容------------------------*/
+
+.main_content{
+    margin: 0 10px;
+}
+
+.tables_button{
+    border-left: 3px solid #26a69a;
+    padding: 2px 5px;
+}
+
+.tables_button_right{
+    margin-right: 5px;
+}
+
+.tables_child_button{
+    border-left: 3px solid #26a69a;
+    padding: 0px 3px;
+}
+
+
+.tables_button:hover{
+    background-color: #E5E5E5;
+    color: #333333;
+}
+
+/*-----------------dataTable样式-----------------*/
+table.dataTable thead th, table.dataTable thead td{
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.table tbody tr td {
+    text-align: center;
+}
+
+table.dataTable.no-footer {
+     border-bottom: 1px solid #ddd;
+}
+
+/*.table-striped > tbody > tr:nth-child(2n+1) > th {*/
+    /*background-color: red;//:nth-child(n) 选择器匹配属于其父元素的第 N 个子元素，不论元素的类型。n 可以是数字、关键词或公式。*/
+/*}*/
+
+
+.table-striped>tbody>tr:nth-of-type(odd) {//odd表示奇数
+    background-color: right:
+}
+
+/*-----------dataTables子Table样式----------*/
+.tableStyle{
+    width: 100%;
+    border: 5px solid #ddd;
+}
+.tableStyle tr{
+    border-bottom: 1px solid #ddd;
+}
+
+.tableStyle th{
+    text-align: center;
+    padding: 2px;
+    font-size: 12px;
+    border-bottom: 1px solid #ddd;
+}
+.tableStyle td{
+    text-align: center;
+    padding: 2px;
+    font-size: 11px;
+}
+
+
+
+/*-------------------------模态框------------------------------*/
+/*.modalBodyUL li{
+    width: 200px;
+}
+.modalLabel {
+    height: 30px;
+    line-height: 30px;
+}
+.modalControl {
+    height: 30px;
+    line-height: 30px;
+}
+.modalControl_input{
+    height: 28px;
+    line-height: 28px;
+    width: 200px;
+}*/
+
+
+/*日期选择控件样式*/
+.calendar{
+    height: 30px;
+    width: 180px;
+    cursor: pointer;
+    background: url("../image/clendar.png") no-repeat center right/25px 25px;
+    padding-left: 5px;
+    border: 1px solid gray;
+}

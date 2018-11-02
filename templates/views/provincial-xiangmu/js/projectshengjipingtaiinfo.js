@@ -95,80 +95,44 @@ $(function() {
     //先获取所有改造方式*项目类型
     // GET /api/ProvincialProject/GetAllProjRemouldMode
     getAllxiangmuleixinglist( function(){
-
-        getProjectByType(undefined, 0, "", "", function() {
-            //echart初始化
-            creatCharts()
-            $('.startss').click()
-            
-
-            //此时取传值
-            var data = getSearchObj();
-            var typeid = data.typeid||0
-            if(typeid != 0){
-                //代表传值过来了
-                $('#gaizaofangshilist').val( typeid )
-                // $('#selectBtn').click()
-                searchId(data.csid)
-            }
-        })
-
+        var data = getSearchObj();
+        var typeid = data.typeid||0
+        if(typeid != 0){
+            //代表传值过来了
+            $('#gaizaofangshilist').val( typeid )
+            // $('#selectBtn').click()
+            searchId(data.csid)
+        }else{
+            getProjectByType(undefined, 0, "", "", null, function() {
+                //echart初始化
+                creatCharts()
+                $('.startss').click()
+            })
+        }
     })
 
-    $("#xiangmuzhanbi").change(function() {
-        creatChartsByOption()
-    })
+    validformzuixiaozhi()
 
     function searchId(id){
-
-        var min = $('#touzimin').val() || "";
-        var re = /^[0-9]+.?[0-9]*$/;
-        if (min!="" && !re.test(min)) {
-            myAlter("投资额请输入数字");
-    　　　　return false;
-    　　}
-        var max = $('#touzimax').val() || "";
-        if (max!="" && !re.test(max)) {
-            myAlter("投资额请输入数字");
-    　　　　return false;
-    　　}
-    
         xiangmualldata = [];
         xiangmuEnd = [];
         xiangmuStart = [];
         numtongji = [];
         areastongji = [];
-
         $('#shaixuan').children().removeClass('active');
-        $('#shaixuan').children().eq(0).addClass('active')
         var gzfstype = $('#gaizaofangshilist').val();
-        
-        getProjectByType(id, gzfstype, min, max, function() {
+        var min = $('#touzimin').val() || "";
+        var max = $('#touzimax').val() || "";
+        var url = 'GetAllChildProjRemouldInfoQuery';
+        getProjectByType(id, gzfstype, min, max, url, function() {
             creatChartsByOption()
             $('.startss').click()
         })
-
     }
     //先查询所有数据
     $('#selectBtn').click(function() {
         // 查询事件
-        // xiangmualldata = [];
-        // xiangmuEnd = [];
-        // xiangmuStart = [];
-        // numtongji = [];
-        // areastongji = [];
-        // $('#shaixuan').children().removeClass('active');
-        // var gzfstype = $('#gaizaofangshilist').val();
-        // var min = $('#touzimin').val() || "";
-        // var max = $('#touzimax').val() || "";
-        // getProjectByType(undefined, gzfstype, min, max, function() {
-        //     creatChartsByOption()
-        //     $('.startss').click()
-        // })
 
-        $('#shaixuan').children().removeClass('active');
-        $('#shaixuan').children().eq(0).addClass('active')
-        var gzfstype = $('#gaizaofangshilist').val();
         var min = $('#touzimin').val() || "";
         var re = /^[0-9]+.?[0-9]*$/;
         if (min!="" && !re.test(min)) {
@@ -180,18 +144,20 @@ $(function() {
             myAlter("投资额请输入数字");
     　　　　return false;
     　　}
-
         xiangmualldata = [];
         xiangmuEnd = [];
         xiangmuStart = [];
         numtongji = [];
         areastongji = [];
-
+        $('#shaixuan').children().removeClass('active');
+        $('#shaixuan').children().eq(0).addClass('active')
+        var gzfstype = $('#gaizaofangshilist').val();
         
-        getProjectByType(undefined, gzfstype, min, max, function() {
-            creatChartsByOption()
-            $('.startss').click()
-        })
+        var data = getSearchObj();
+        var typeid = data.typeid||0
+        if(typeid != 0){
+            searchId(data.csid)
+        }
     });
 
     //筛选
@@ -316,16 +282,25 @@ $(function() {
         $(document.body).append($eleForm);
         $eleForm.submit();
     });
+
+    $("#xiangmuzhanbi").change(function() {
+        creatChartsByOption()
+    })
+    // $("#touzimin").keyup(function(){
+    //     var val = $('.touzimin').val();
+    //     var reg = /^d*(?:.d{0,2})?$/;
+    //     if(!reg.test(val)){
+    //         $('.touzimin').val('')
+    //     }
+
+    // });
 })
 
-function getProjectByType(f_DistrictID, fK_ProjRemouldMode, f_InvestmentMin, f_InvestmentMax, callback) {
-    var url = _urls + "ProvincialProject/GetProjRemouldInfoQuery";
-    // f_DistrictID (string, optional): 所属区域ID ,
-    // fK_ProjRemouldMode (integer, optional): 项目类型,0表示全部 ,
-    // f_InvestmentMin (string, optional): 投资额起始值 ,
-    // f_InvestmentMax (string, optional): 投资额结束值
-
-    // f_DistrictID: resetObj.districtID,
+function getProjectByType(f_DistrictID, fK_ProjRemouldMode, f_InvestmentMin, f_InvestmentMax, url, callback) {
+    var dataurl = _urls + "ProvincialProject/GetProjRemouldInfoQuery";
+    if(url){
+        dataurl = _urls + "ProvincialProject/GetAllChildProjRemouldInfoQuery";
+    }
 
     xiangmualldata = [];
     xiangmuEnd = [];
@@ -358,7 +333,7 @@ function getProjectByType(f_DistrictID, fK_ProjRemouldMode, f_InvestmentMin, f_I
     $.ajax({
         type: 'post',
         cache: false,
-        url: url,
+        url: dataurl,
         data: data,
         success: function(res) {
             if (res.code == 99) {
@@ -519,7 +494,12 @@ function _my_creatTableData(arr) {
         }, {
             title: '单位名称',
             data: 'f_UnitName',
-        }, {
+        }, 
+        {
+            title: '所属区域',
+            data: 'districtName'
+        },
+        {
             title: '项目类型',
             data: 'fK_ProjRemouldMode',
             render: function(data, index, row, meta) {
@@ -701,7 +681,6 @@ function creatChartsByOption() {
             var opstSerData = option['series'][0]['data'][i];
             opstSerData['value'] = item.projNum;
             opstSerData['name'] = item.projCollaborateName;
-
         }
         option['series'][0]['name'] = '项目个数'
     } else {
@@ -865,3 +844,19 @@ function getxiangmuleixingtextByid( id ){
     return id
 }
 
+function validformzuixiaozhi(){
+    return $('#touzimin').validate({
+        onfocusout: function(element) { $(element).valid()},
+        rules:{
+            //单位名称
+            'pingtai':{
+                required: true,
+            },
+        },
+        messages:{
+            'pingtai':{
+                required: '请输入数字'
+            },
+        }
+    });
+}
