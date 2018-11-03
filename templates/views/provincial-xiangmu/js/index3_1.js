@@ -1159,13 +1159,13 @@ $(function(){
                     var name = item.f_FileName;
                     var $li = $(
                             '<div id="' + '' + '" class="file-item thumbnail col-md-4">' +
-                                '<img>' +
+                                '<img class="yulan">' +
                                 '<div class="info">' + name + '</div>' +
-                                '<div><button type="button" class="downloadwenjian" data-myurl="'+ item.f_FileAllPath +'">查看此文件</button></div>'+
+                                '<div><img class="tupiandiv  downloadwenjian" src="./img/xiazai.png" title="点击可以下载" data-myurl="'+ item.f_FileAllPath +'"/></div></div>'+
                             '</div>'
                         );
 
-                    var $img = $li.find('img');
+                    var $img = $li.find('img.yulan');
                     if(type == "JPG" || type == "JPEG" || type == "PNG" || type == "jpg" || type == "jpeg" || type == "png"){
                         $img.attr( 'src', lujing );
                     }else{

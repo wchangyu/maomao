@@ -438,3 +438,24 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     #xiangmumingchengselect{
         width:260px;
     }
+
+
+.tupian{
+    display: block;
+    width:25px;
+    height: 21px;
+    background: url(../img/xiazai.png) no-repeat ;
+
+    border: 0;
+     
+    background-color: transparent;
+     
+    outline: none;
+}
+.tupiandiv{
+    width: 25px;
+    height: 21px;
+    margin: 5px;
+    background-image: url(../img/xiazai.png);
+    background-repeat:no-repeat;
+}

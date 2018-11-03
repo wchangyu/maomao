@@ -18,7 +18,7 @@
     <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
     <!--自定义样式-->
     <link rel="stylesheet" href="../resource/webUploader/webuploader.css">
-    <link rel="stylesheet" href="../YHQ-resource/css/public.css">
+    <link rel="stylesheet" href="./css/public_a.css">
     <link rel="stylesheet" href="./css/projectjindu.css">
     <link rel="stylesheet" href="./css/projectbianjifenlei.css">
     <style>
@@ -150,7 +150,7 @@
                         <h4 class="modal-title">提示</h4>
                     </div>
                     <div class="modal-body" style="height: 380px;overflow-x: hidden;overflow-y: auto;">
-                        <form class="cmxform" id="see-xiangmu" method="post" action="">
+                        <form class="cmxform" id="fenlei_tianjiazixiang" method="post" action="">
                             <div class="container" id="see-xiangmu_d">
                                 <div class="row" id="see-xiangmu_d_d">
                                     <ul class="modal-block" id="see-xiangmu_d_d_ul">
@@ -219,7 +219,7 @@
                         <h4 class="modal-title">提示</h4>
                     </div>
                     <div class="modal-body" style="height: 380px;overflow-x: hidden;overflow-y: auto;">
-                        <form class="cmxform" id="see-xiangmu" method="post" action="">
+                        <form class="cmxform" id="bianjifenleimingcheng" method="post" action="">
                             <div class="container" id="see-xiangmu_d">
                                 <div class="row" id="see-xiangmu_d_d">
                                     <ul class="modal-block" id="see-xiangmu_d_d_ul">
@@ -268,6 +268,78 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
         </div>
+
+
+        <!--编辑子项-->
+        <div class="modal fade row" id="bianjizixiang" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="height: 500px;width: 700px!important;">
+                <div class="modal-content" style="height: 500px;width: 700px!important;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">提示</h4>
+                    </div>
+                    <div class="modal-body" style="height: 380px;overflow-x: hidden;overflow-y: auto;">
+                        <form class="cmxform" id="xiangmuzixiang_ziji" method="post" action="">
+                            <div class="container" id="see-xiangmu_d">
+                                <div class="row" id="see-xiangmu_d_d">
+                                    <ul class="modal-block" id="see-xiangmu_d_d_ul">
+                                        <li class="col-md-12">
+                                            <div class="col-md-offset-3 col-md-6">
+                                                <label class="fst">
+                                                    合作方式
+                                                </label>
+                                                <select name="hezuofangshilist_ziji" id="bianji_hezuofangshilist_ziji" 
+                                                     class="table-group-action-input form-control hezuofangshilist_ziji"></select>
+                                                <div class="modal-select"></div>
+                                            </div>
+                                        </li>
+                                        <li class="col-md-12">
+                                            <div class="col-md-offset-3 col-md-6">
+                                                <label class="fst">
+                                                    项目类型
+                                                    <span class="redxing">*</span>
+                                                </label>
+                                                <input type="text" class="table-group-action-input form-control bianji_zixiangxiangmuleixing_ziji"
+                                                    name="bianji_zixiangxiangmuleixing_ziji" placeholder="请输入项目类型">
+                                                <div class="modal-select"></div>
+                                            </div>
+                                        </li>
+                                        <li class="col-md-12">
+                                            <div class="col-md-offset-3 col-md-6">
+                                                <label class="fst">
+                                                    分类名称
+                                                    <span class="redxing"></span>
+                                                </label>
+                                                <select name="bianji_fenleimingchenglist_ziji" id="bianji_fenleimingchenglist_ziji" 
+                                                     class="table-group-action-input form-control bianji_fenleimingchenglist_ziji"></select>
+                                                <div class="modal-select"></div>
+                                            </div>
+                                        </li>
+                                        <li class="col-md-12">
+                                            <div class="col-md-offset-3 col-md-6">
+                                                <label class="fst">
+                                                    顺序号
+                                                    <span class="redxing">*</span>
+                                                </label>
+                                                <input type="text" class="table-group-action-input form-control bianji_zixiangxuhao_ziji"
+                                                    name="bianji_zixiangxuhao_ziji" placeholder="默认为1">
+                                                <div class="modal-select"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                            <button type='button' class='btn btn-primary top-btn bianji_dengji' id="bianji_dengjisub">确定</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+
         <!--删除项目弹窗-->
         <div class='modal fade' id='sure-remove' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
             <div class='modal-dialog'style='width:600px;margin:15% auto'>
@@ -330,7 +402,7 @@
     <script src="../resource/validation/jquery.validate.min.js"></script>
     <script src="../resource/validation/messages_zh.min.js"></script>
     <script src="../resource/webUploader/webuploader.js"></script>
-
+    <script src="./js/index3_2.js"></script>
     <script type="text/javascript" src="./js/projectbianjifenlei.js"></script>
     
 <!-- END JAVASCRIPTS -->

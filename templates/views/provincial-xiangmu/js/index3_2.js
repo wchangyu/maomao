@@ -76,3 +76,7 @@ $.validator.addMethod("isTimeFormat",function(value,element,params){
     return this.optional(element)||(doubles.test(value));
 
 },"请输入时间格式：HH:mm");
+
+$.validator.addMethod("isNumberUser", function(value, element) {       
+     return this.optional(element) || /^[-\+]?\d+$/.test(value) || /^[-\+]?\d+(\.\d+)?$/.test(value);       
+}, "请输入大于0的数字");  

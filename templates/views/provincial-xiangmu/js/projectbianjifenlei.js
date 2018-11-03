@@ -2,6 +2,16 @@ var allxiangmuleixing = null;
 
 var oTable = null;
 
+var zixianginfoid = null;
+
+
+var tianjiazixiang_validate = null;
+
+//编辑分类
+var bianjifenlei_validate = null;
+//添加按钮
+var tianjia_validate = null
+
 
 var hezuofangshilist = null;
 gethezuofangshilist();
@@ -63,29 +73,48 @@ function getallxiangmuleixing( callback ){
     });
 }
 
+function shuaxintable(){
+    getallxiangmuleixing(function(){
+        if(allxiangmuleixing){
+            creatDatatable(allxiangmuleixing)
+        }
+    });
+}
+
 
 
 $(function() {
-	getallxiangmuleixing(function(){
-		if(allxiangmuleixing){
-			creatDatatable(allxiangmuleixing)
-		}
-	});
+	shuaxintable()
 
-    $('#see-Modal').on('click','.dengji',function(){
-        // POST /api/ProvincialProject/AddProjRemouldMode
-        console.log(1111)
+    // 添加项目分类按钮
+    $('#btnAddRemouldMode').on('click', function(data, index){
+        createModeInit('see-xiangmu')
+        tianjia_validate.resetForm()
+        $('#see-xiangmu .xiangmuleixingmingcheng').val("")
+        $('#see-xiangmu .shunxuhao').val("")
+
+        $('.L-container').showLoading();
+        //初始化
+        $(".error").removeClass("error");
+        //模态框
+        _moTaiKuang($('#see-Modal'),'添加项目分分类','','','','确认');
+
+        $('.L-container').hideLoading();
+    });
+    // 添加项目分类提交
+     $('#see-Modal').on('click','.dengji',function(){
         var flag= $("#see-xiangmu").valid();
         if(!flag){
            return false;
         }
+        $('.L-container').showLoading();
         var url = _urls + "ProvincialProject/AddProjRemouldMode";
         var f_RemouldName = $("#xiangmuleixingmingcheng").val()
-        var f_Order = $('#shunxuhao').val()||0;
+        var f_Order = $('#see-xiangmu .shunxuhao').val()||'';
         var data = {
             f_RemouldName: f_RemouldName,
             f_ParentRemould:'',
-            fK_CollaborateWay: '',
+            fK_CollaborateWay: '0',
             f_Order: f_Order,
             //当前用户
             userID:_userIdNum,
@@ -102,19 +131,20 @@ $(function() {
             url: url,
             data: data,
             success: function(res) {
-                console.log(res)
+                $('.L-container').hideLoading();
                 if(res.code == 99){
                     myAlter(res.data)
                     $("#see-Modal").modal('hide');
                     $("#see-xiangmu").validate().resetForm();
                     $('.xiangmuleixingmingcheng').val('')
                     $('.shunxuhao').val('')
-                    // selectAllData()
+                    shuaxintable()
                 }else{
                     myAlter(res.message)
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
+                $('.L-container').hideLoading();
                 var info = JSON.parse(jqXHR.responseText).message;
                 if (textStatus == 'timeout') { //超时,status还有success,error等值的情况
                     myAlter("超时");
@@ -125,17 +155,8 @@ $(function() {
             }
         })
     });
-    $('#btnAddRemouldMode').on('click', function(data, index){
-        $('.L-container').showLoading();
-        //初始化
-        $(".error").removeClass("error");
-        //模态框
-        _moTaiKuang($('#see-Modal'),'添加项目分分类','','','','确认');
-
-        $('.L-container').hideLoading();
-    });
-
-    $('#see-xiangmu').validate({
+    // 添加按钮的验证规则
+    tianjia_validate = $('#see-xiangmu').validate({
             onfocusout: function(element) { 
                 setTimeout(function(){
                     $(element).valid()
@@ -148,7 +169,8 @@ $(function() {
                 },
                 //顺序号
                 'shunxuhao':{
-                    required: true
+                    required: true,
+                    isNumberUser: true
                 }
             },
             messages:{
@@ -161,6 +183,8 @@ $(function() {
             }
     });
 
+
+    // 查看子项
     $('#shengjipingtai tbody').on('click', '.clickme', function () {
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
         var row = oTable.row( tr );
@@ -179,8 +203,142 @@ $(function() {
     } );
 
 
-    // 给分类添加子项
+    // 编辑分类
+    $('#bianjifenlei tbody').on('click', '.option-edite', function () {
+        createModeInit('bianjifenleimingcheng')
+        bianjifenlei_validate.resetForm()
+        $('#bianjifenleimingcheng .xiugai_shunxuhao').val("")
+        $('#bianjifenleimingcheng .xiugai_xiangmuleixing').val("")
+
+        var id = $(this).parent().parent().children().eq(0).html();
+        var name = $(this).parents('tr').find('td').eq(1).html();
+        var xuhao = $(this).parents('tr').find('td').eq(3).html();
+        $('.L-container').showLoading();
+        //初始化
+        $(".error").removeClass("error");
+        var list = allxiangmuleixing;
+        $('.L-container').showLoading();
+        var url = _urls + "ProvincialProject/GetProjRemouldModeByID/"+ id;
+        $.ajax({
+            type: "GET",
+            cache: false,
+            url: url,
+            success: function (res) {
+                $('.L-container').hideLoading();
+                if(res.code == 3){
+                    myAlter(res.message)
+                }
+                if(res.code == 1){
+                    myAlter(res.message||"参数填写错误，请检查！")
+                }
+                if(res.code == 99){
+                   _moTaiKuang($('#xiugaifenlei'),'编辑分类','','','','确认');
+
+                    $('.L-container').hideLoading();
+                    $('.xiugai_xiangmuleixing').val(name);
+                    $('.xiugai_shunxuhao').val(res.data.f_Order);
+                    $('.xiugai_leixingid').val(res.data.pK_ProjRemouldMode);
+                }
+
+            }.bind(this),
+            error: function (xhr, ajaxOptions, thrownError) {
+                $('.L-container').hideLoading();
+                Metronic.stopPageLoading();
+                pageContentBody.html('<h4>Could not load the requested content.</h4>');
+            }
+        });
+    });
+    //编辑分类的提交
+    $('#xiugai_sub').click(function(event) {
+        var flag = $('#bianjifenleimingcheng').valid();
+        if(!flag){
+            return false;
+        }
+
+        var f_ParentRemould = $('#bianjifenleimingcheng .xiugai_leixingid').val();
+        var fK_CollaborateWay = getWay( f_ParentRemould );
+        var f_RemouldName = $('#bianjifenleimingcheng .xiugai_xiangmuleixing').val();
+        var f_Order = $('#bianjifenleimingcheng .xiugai_shunxuhao').val()
+
+        var url = _urls + "ProvincialProject/EditProjRemouldMode";
+
+
+        var data = {
+            pK_ProjRemouldMode: f_ParentRemould,
+            f_RemouldName: f_RemouldName,
+            pK_ProjRemouldMode: f_ParentRemould,
+            fK_CollaborateWay: fK_CollaborateWay,
+            f_Order: f_Order,
+            //当前用户
+            userID:_userIdNum,
+            //当前用户名
+            userName:_userIdName,
+            //当前角色
+            b_UserRole:_userRole,
+            //当前用户所属部门
+            b_DepartNum:_maintenanceTeam,
+        }
+        $('.L-container').showLoading();
+        $.ajax({
+            type:"post",
+            url:url,
+            data:data,
+            success: function (result) {
+                
+                $('.L-container').hideLoading();
+                if(result.code == 99){
+                     myAlter(result.message)
+                     $("#xiugaifenlei").modal('hide');
+                    getallxiangmuleixing(function(){
+                        if(allxiangmuleixing){
+                            creatDatatable(allxiangmuleixing)
+                        }
+                    });
+                }else{
+                    myAlter(result.message)
+                }
+            },
+            error: function() {
+                $('.L-container').hideLoading();
+                /* Act on the event */
+            }
+        });
+    });
+    //编辑分类的规则配置
+    bianjifenlei_validate = $('#bianjifenleimingcheng').validate({
+            onfocusout: function(element) { 
+                setTimeout(function(){
+                    $(element).valid()
+                }.bind(this),200)
+            },
+            rules:{
+                //分类名称
+                'xiugai_xiangmuleixing':{
+                    required: true,
+                },
+                //顺序号
+                'xiugai_shunxuhao':{
+                    required: true,
+                    isNumberUser:true,
+                }
+            },
+            messages:{
+                'xiugai_xiangmuleixing':{
+                    required: '项目类型不能为空'
+                },
+                'xiugai_shunxuhao':{
+                    required: '请输入数字'
+                }
+            }
+    });
+
+    // 给分类 添加子项
     $('#bianjifenlei tbody').on('click', '.option-add', function () {
+        createModeInit('fenlei_tianjiazixiang')
+        tianjiazixiang_validate.resetForm()
+        $('#fenlei_tianjiazixiang .zixiangxuhao').val("")
+        $('#fenlei_tianjiazixiang .zixiangxiangmuleixing').val("")
+        
         var id = $(this).parent().parent().children().eq(0).html()
         $('.L-container').showLoading();
         //初始化
@@ -215,65 +373,24 @@ $(function() {
             }
         }.bind(this))
     });
-
-
-     // 编辑分类
-    $('#bianjifenlei tbody').on('click', '.option-edite', function () {
-        var id = $(this).parent().parent().children().eq(0).html();
-        var name = $(this).parents('tr').find('td').eq(1).html();
-        var xuhao = $(this).parents('tr').find('td').eq(3).html();
-        $('.L-container').showLoading();
-        //初始化
-        $(".error").removeClass("error");
-        var list = allxiangmuleixing;
-
-        var url = _urls + "ProvincialProject/GetProjRemouldModeByID/"+ id;
-        console.log(url)
-        $.ajax({
-            type: "GET",
-            cache: false,
-            url: url,
-            success: function (res) {
-                if(res.code == 3){
-                    myAlter(res.message)
-                }
-                if(res.code == 1){
-                    myAlter(res.message||"参数填写错误，请检查！")
-                }
-                if(res.code == 99){
-                   console.log(res)
-                }
-
-            }.bind(this),
-            error: function (xhr, ajaxOptions, thrownError) {
-                Metronic.stopPageLoading();
-                pageContentBody.html('<h4>Could not load the requested content.</h4>');
-            }
-        });
-        
-        getallxiangmuleixing(function(){
-
-            _moTaiKuang($('#xiugaifenlei'),'编辑分类','','','','确认');
-            // console.log(111)
-            // hezuofangshilist = res.data;
-            $('.L-container').hideLoading();
-            $('.xiugai_xiangmuleixing').val(name);
-            $('.xiugai_shunxuhao').val(xuhao);
-            $('.xiugai_leixingid').val(id);
-        }.bind(this))
-    
-       
-
-    });
-
+    // 添加子项的验证
     $('#dengjisub').click(function(event) {
+
+        var  flag = $('#fenlei_tianjiazixiang').valid();
+        if(!flag){
+            return 
+        }
         var url = _urls + "ProvincialProject/AddProjRemouldMode";
 
+        var f_Order = $('#fenlei_tianjiazixiang .zixiangxuhao').val();
+        var fK_CollaborateWay = $('#fenlei_tianjiazixiang .hezuofangshilist').val();
+        var f_ParentRemould = $('#fenlei_tianjiazixiang .fenleimingchenglist').val();
+        var f_RemouldName = $('#fenlei_tianjiazixiang .zixiangxiangmuleixing').val();
         var data = {
-            f_RemouldName: $('.zixiangxiangmuleixing').val(),
-            f_ParentRemould:$('.fenleimingchenglist').val(),
-            fK_CollaborateWay: $('.hezuofangshilist').val(),
-            f_Order: $('.zixiangxuhao').val(),
+            f_RemouldName: f_RemouldName,
+            f_ParentRemould: f_ParentRemould,
+            fK_CollaborateWay: fK_CollaborateWay,
+            f_Order: f_Order,
             //当前用户
             userID:_userIdNum,
             //当前用户名
@@ -283,11 +400,13 @@ $(function() {
             //当前用户所属部门
             b_DepartNum:_maintenanceTeam,
         }
+        $('.L-container').showLoading();
         $.ajax({
             type:"post",
             url:url,
             data:data,
             success: function (result) {
+                $('.L-container').hideLoading();
                 if(result.code == 99){
                      myAlter(result.message)
                      $("#tianjiazixiang").modal('hide');
@@ -301,11 +420,245 @@ $(function() {
                 }
             },
             error: function() {
+                $('.L-container').hideLoading();
                 /* Act on the event */
             }
         });
     });
-    
+    //添加子项的规则配置
+    tianjiazixiang_validate = $('#fenlei_tianjiazixiang').validate({
+            onfocusout: function(element) { 
+                setTimeout(function(){
+                    $(element).valid()
+                }.bind(this),200)
+            },
+            rules:{
+                //分类名称
+                'zixiangxiangmuleixing':{
+                    required: true,
+                },
+                //顺序号
+                'zixiangxuhao':{
+                    required: true,
+                    isNumberUser:true,
+                }
+            },
+            messages:{
+                'zixiangxiangmuleixing':{
+                    required: '项目类型不能为空'
+                },
+                'zixiangxuhao':{
+                    required: '请输入数字'
+                }
+            }
+    });
+
+    // 子项的编辑
+     // 编辑分类
+
+
+     function getparenttid( id ){
+        if(allxiangmuleixing){
+            for (var i = 0; i < allxiangmuleixing.length; i++) {
+                var item = allxiangmuleixing[i];
+                if(item.projRemouldModes){
+                    for (var k = 0; k < item.projRemouldModes.length; k++) {
+                        var ditem = item.projRemouldModes[k];
+                        if(ditem.pK_ProjRemouldMode == id){
+                            return item.pK_ProjRemouldMode
+                        }
+                    }
+                }
+            }
+        }
+        return id
+     }
+
+     function getparenttidzixiang( id ){
+        if(allxiangmuleixing){
+            for (var i = 0; i < allxiangmuleixing.length; i++) {
+                var item = allxiangmuleixing[i];
+                if(item.projRemouldModes){
+                    for (var k = 0; k < item.projRemouldModes.length; k++) {
+                        var ditem = item.projRemouldModes[k];
+                        if(ditem.pK_ProjRemouldMode == id){
+                            return ditem
+                        }
+                    }
+                }
+            }
+        }
+        return null
+     }
+    function createModeInit( id ){
+        //将所有label .error验证隐藏
+        if(!id){
+            return
+        }
+        var label = $('#'+id).find('label');
+
+        for(var i=0;i<label.length;i++){
+
+            var attr = $(label).eq(i).attr('class')
+
+            if(attr){
+
+                if(attr.indexOf('error')>-1){
+
+                    label.eq(i).hide();
+
+                }
+            }
+
+        }
+    }
+     // 子项里的编辑
+     //$('#bianji_hezuofangshilist_ziji option:selected').val()
+    $('#bianjifenlei tbody').on('click', '.child-edit', function () {
+        createModeInit('bianjizixiang')
+        var id = $(this).parent().parent().children().eq(0).html()
+        var parentid = getparenttid( id )
+        $('.L-container').showLoading();
+        //初始化
+        $(".error").removeClass("error");
+        getallxiangmuleixing(function(){
+            var list = allxiangmuleixing;
+            var parentid = getparenttid( id )
+            //模态框
+            _moTaiKuang($('#bianjizixiang'),'编辑子项类型','','','','确认');
+
+            $('.L-container').hideLoading();
+
+            if(!hezuofangshilist){
+                myAlter("获取合作方式失败，请刷新后重试")
+                // return
+            }else{
+                // myAlter
+                var zixianginfo = getparenttidzixiang(id)
+                var optionstring = "";
+                $.each(hezuofangshilist,function(key,value){  //循环遍历后台传过来的json数据
+                    optionstring += "<option cstFlag=\"" + value.cstFlag + "\" value=\"" + value.itemKey + "\" >" + value.cstName + "</option>";
+                });
+                $('#bianji_hezuofangshilist_ziji').html("")
+                $('#bianji_hezuofangshilist_ziji').html(optionstring)
+
+                var fenleimingchengliststring = "";
+                $.each( allxiangmuleixing ,function(key,value){  //循环遍历后台传过来的json数据
+                    fenleimingchengliststring += "<option value=\"" + value.pK_ProjRemouldMode + "\" >" + value.f_RemouldName + "</option>";
+                });
+                $('#bianji_fenleimingchenglist_ziji').html("");
+                $('#bianji_fenleimingchenglist_ziji').html(fenleimingchengliststring);
+                $('#bianji_fenleimingchenglist_ziji').val(parentid)
+
+                if(zixianginfo){
+                    zixianginfoid = zixianginfo;
+                    $('.bianji_zixiangxiangmuleixing_ziji').val(zixianginfo.f_RemouldName)
+                    $('.bianji_zixiangxuhao_ziji').val(zixianginfo.f_Order)
+                }else{
+                    $('.bianji_zixiangxiangmuleixing_ziji').val('')
+                    $('.bianji_zixiangxuhao_ziji').val('0')
+                }
+            }
+        }.bind(this))
+    });
+    // 子项确认修改
+    $('#bianji_dengjisub').click(function(){
+
+
+        var flag= $("#xiangmuzixiang_ziji").valid();
+        if(!flag){
+           return false;
+        }
+
+
+        var editUrl= _urls + "ProvincialProject/EditProjRemouldMode";
+        //合作方式
+        var fK_CollaborateWay = $('#bianji_hezuofangshilist_ziji option:selected').val()
+        // 项目类型
+        var f_RemouldName = $(".bianji_zixiangxiangmuleixing_ziji").val()
+        
+        //分类名称
+        var f_ParentRemould = $(".bianji_fenleimingchenglist_ziji").val(); 
+
+        // 顺序号
+        var f_Order = $(".bianji_zixiangxuhao_ziji").val();
+        
+
+        var data = {
+                "pK_ProjRemouldMode": zixianginfoid.pK_ProjRemouldMode,
+                "f_ParentRemould": f_ParentRemould,
+                "fK_CollaborateWay":fK_CollaborateWay,
+                "f_RemouldName": f_RemouldName,
+                "f_Order": f_Order,
+                //当前用户
+                userID:_userIdNum,
+                //当前用户名
+                userName:_userIdName,
+                //当前角色
+                b_UserRole:_userRole,
+                //当前用户所属部门
+                b_DepartNum:_maintenanceTeam,
+        }
+
+        SaveModalData(editUrl,data);
+    })
+    // 子项的form配置
+    $('#xiangmuzixiang_ziji').validate({
+            onfocusout: function(element) { 
+                setTimeout(function(){
+                    $(element).valid()
+                }.bind(this),200)
+            },
+            rules:{
+                //分类名称
+                'bianji_zixiangxiangmuleixing_ziji':{
+                    required: true,
+                },
+                //顺序号
+                'bianji_zixiangxuhao_ziji':{
+                    required: true,
+                    isNumberUser:true,
+                }
+            },
+            messages:{
+                'bianji_zixiangxiangmuleixing_ziji':{
+                    required: '项目类型不能为空'
+                },
+                'shunxuhao':{
+                    required: '请输入数字'
+                }
+            }
+    });
+
+    //新增和修改调用保存数据
+    function SaveModalData( url,paramData) {
+        $('.L-container').showLoading();
+        $.ajax({
+            type: "post",
+            url: url,
+            data: paramData,
+            success: function (result) {
+                $('.L-container').hideLoading();
+                if(result.code == 99){
+                     myAlter(result.message)
+                     getallxiangmuleixing(function(){
+                        if(allxiangmuleixing){
+                            creatDatatable(allxiangmuleixing)
+                        }
+                    });
+                }else{
+                    myAlter(result.message)
+                }
+                $("#bianjizixiang").modal('hide');
+                
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $('.L-container').hideLoading();
+                modalShowSetting($('#modalToolTip'), "提示", false, '', true, '数据保存失败，请联系管理员!');
+            }
+        });
+    }
+
     //删除分类名称
     $('#bianjifenlei tbody').on('click', '.option-delete', function () {
         var _postID = $(this).parents('tr').find('td').eq(0).html();
@@ -373,59 +726,9 @@ $(function() {
         creatIdTable(id, child)
     } );
 
-    //修改项目名称和顺序
-    $('#xiugai_sub').click(function(event) {
 
-        // f_RemouldName (string, optional): 项目类型名称 ,
-        // f_ParentRemould (integer, optional): 项目类型层级 ,
-        // fK_CollaborateWay (string, optional): 所属项目类型的ID ,
-        // f_Order (integer, optional): 顺序 ,
-        // userID (string, optional): 用户ID，只为传值，添加，修改，删除时要传此值 ,
-        // userName (string, optional): 用户姓名 ,
-        // b_UserRole (string, optional): 用户角色 ,
-        // b_DepartNum (string, optional): 当前用户的部门
-        var f_ParentRemould = $('.xiugai_leixingid').val();
-        var fK_CollaborateWay = getWay( f_ParentRemould );
-        var f_RemouldName = $('.xiugai_xiangmuleixing').val();
-        var f_Order = $('.xiugai_shunxuhao').val()
 
-        var url = _urls + "ProvincialProject/EditProjRemouldMode";
-        var data = {
-            f_RemouldName: f_RemouldName,
-            f_ParentRemould: f_ParentRemould,
-            fK_CollaborateWay: fK_CollaborateWay,
-            f_Order: f_Order,
-            //当前用户
-            userID:_userIdNum,
-            //当前用户名
-            userName:_userIdName,
-            //当前角色
-            b_UserRole:_userRole,
-            //当前用户所属部门
-            b_DepartNum:_maintenanceTeam,
-        }
-        $.ajax({
-            type:"post",
-            url:url,
-            data:data,
-            success: function (result) {
-                if(result.code == 99){
-                     myAlter(result.message)
-                     $("#tianjiazixiang").modal('hide');
-                    getallxiangmuleixing(function(){
-                        if(allxiangmuleixing){
-                            creatDatatable(allxiangmuleixing)
-                        }
-                    });
-                }else{
-                    myAlter(result.message)
-                }
-            },
-            error: function() {
-                /* Act on the event */
-            }
-        });
-    });
+
 
 
 
@@ -567,7 +870,7 @@ function creatIdTable(id, datalist){
             render: function( data, index, row, meta ){
 
                 return '<span class="data-option child-edit btn default btn-xs green-stripe">编辑</span>'+
-                        '<span class="data-option child-edit btn default btn-xs green-stripe">删除</span>';
+                        '<span class="data-option child-delete btn default btn-xs green-stripe">删除</span>';
 
                 // "<span class='data-option child-edit btn default btn-xs green-stripe'>编辑</span>" +
                 //         "<span class='data-option child-delete btn default btn-xs green-stripe'>删除</span>"
@@ -632,13 +935,15 @@ function removeChildType( id, callback ){
         "PK_ProjRemouldMode": id,
         "UserID":_userIdNum,
     });
-
+    $('.L-container').showLoading();
     $.ajax({
         type:"post",
         url:url,
         contentType: 'application/json',
         data:data,
         success: function (result) {
+           
+            $('.L-container').hideLoading();
             if(callback){
                 callback(result)
             }else{
@@ -657,6 +962,7 @@ function removeChildType( id, callback ){
             // getAllProjRemouldMode();
         },
         error: function() {
+            $('.L-container').hideLoading();
             /* Act on the event */
         }
     });
