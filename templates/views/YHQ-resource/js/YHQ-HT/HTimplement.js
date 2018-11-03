@@ -886,7 +886,9 @@ $(function(){
             //结束时间
             endtime:moment($('#epDT').val()).add(1,'d').format('YYYY-MM-DD'),
             //状态
-            htStatus:10
+            htStatus:10,
+            //审批状态
+            audit:-1
             ////用户ID
             //userID:_userIdNum,
             ////用户名
@@ -1093,7 +1095,9 @@ $(function(){
                     //删除按钮显示
                     $('#deleted').show();
 
-                }
+                };
+                //所属项目
+                $('#HT-project').val(data.projectName);
 
 
             }

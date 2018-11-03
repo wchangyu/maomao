@@ -16,7 +16,7 @@ $(function(){
 
         rules:{
 
-            //合同客户名称
+            //合同单位名称
             'HT-name':{
 
                 required: true,
@@ -26,18 +26,8 @@ $(function(){
                 maxlength:20
 
             },
-            //联系人
-            'HT-linkperson':{
-
-                required: true,
-
-                maxlength:50
-
-            },
             //电话
             'HT-tel':{
-
-                required: true,
 
                 phoneNumFormat:true,
 
@@ -47,128 +37,28 @@ $(function(){
             //手机
             'HT-mobile':{
 
-                required: true,
-
                 phoneNumFormat:true
-
-            },
-            //传真
-            'HT-fax':{
-
-                required: true,
-
-                maxlength:50
 
             },
             //邮箱
             'HT-email':{
 
-                required: true,
+                email:true
 
-                email:true,
-
-                maxlength:50
-
-            },
-            //发票名称
-            'HT-invoice':{
-
-                required: true,
-
-                maxlength:20
-
-            },
-            //纳税人
-            'HT-invoicet':{
-
-                required: true,
-
-                maxlength:50
-
-            },
-            //地址
-            'HT-location':{
-
-                required: true,
-
-                maxlength:100
-
-            },
+            }
 
 
         },
         messages:{
 
-            //合同客户名称
+            //合同单位名称
             'HT-name':{
 
-                required: '合同客户名称为必填字段',
+                required: '合同单位名称为必填字段',
 
-                isExist:'合同客户名称已存在',
-
-                maxlength:20
-
-            },
-            //联系人
-            'HT-linkperson':{
-
-                required: '联系人为必填字段',
-
-                maxlength:50
-
-            },
-            //电话
-            'HT-tel':{
-
-                required: '电话为必填字段',
-
-                maxlength:50
-
-            },
-            //手机
-            'HT-mobile':{
-
-                required: '手机为必填字段',
-
-            },
-            //传真
-            'HT-fax':{
-
-                required: '传真为必填字段',
-
-                maxlength:50
-
-            },
-            //邮箱
-            'HT-email':{
-
-                required: '邮箱为必填字段',
-
-                maxlength:50
-
-            },
-            //发票名称
-            'HT-invoice':{
-
-                required: '发票为必填字段',
+                isExist:'合同单位名称已存在',
 
                 maxlength:20
-
-            },
-            //纳税人
-            'HT-invoicet':{
-
-                required: '纳税人为必填字段',
-
-                maxlength:50
-
-            },
-            //地址
-            'HT-location':{
-
-                required: '地址为必填字段',
-
-                maxlength:100
 
             }
         }
@@ -182,7 +72,7 @@ $(function(){
 
             rules:{
 
-                //合同客户名称
+                //合同单位名称
                 'HT-name':{
 
                     required: true,
@@ -192,72 +82,22 @@ $(function(){
                     maxlength:20
 
                 },
-                //联系人
-                'HT-linkperson':{
-
-                    required: true,
-
-                    maxlength:50
-
-                },
                 //电话
                 'HT-tel':{
 
-                    required: true,
-
                     phoneNumFormat:true,
-
-                    maxlength:50
 
                 },
                 //手机
                 'HT-mobile':{
 
-                    required: true,
-
                     phoneNumFormat:true
-
-                },
-                //传真
-                'HT-fax':{
-
-                    required: true,
-
-                    maxlength:50
 
                 },
                 //邮箱
                 'HT-email':{
 
-                    required: true,
-
-                    email:true,
-
-                    maxlength:50
-
-                },
-                //发票名称
-                'HT-invoice':{
-
-                    required: true,
-
-                    maxlength:20
-
-                },
-                //纳税人
-                'HT-invoicet':{
-
-                    required: true,
-
-                    maxlength:50
-
-                },
-                //地址
-                'HT-location':{
-
-                    required: true,
-
-                    maxlength:100
+                    email:true
 
                 },
 
@@ -265,82 +105,14 @@ $(function(){
             },
             messages:{
 
-                //合同客户名称
+                //合同单位名称
                 'HT-name':{
 
-                    required: '合同客户名称为必填字段',
+                    required: '合同单位名称为必填字段',
 
-                    isExist:'合同客户名称已存在',
-
-                    maxlength:20
-
-                },
-                //联系人
-                'HT-linkperson':{
-
-                    required: '联系人为必填字段',
-
-                    maxlength:50
-
-                },
-                //电话
-                'HT-tel':{
-
-                    required: '电话为必填字段',
-
-                    phoneNumFormat:true,
-
-                    maxlength:50
-
-                },
-                //手机
-                'HT-mobile':{
-
-                    required: '手机为必填字段',
-
-                    phoneNumFormat:true
-
-                },
-                //传真
-                'HT-fax':{
-
-                    required: '传真为必填字段',
-
-                    maxlength:50
-
-                },
-                //邮箱
-                'HT-email':{
-
-                    required: '邮箱为必填字段',
-
-                    email:true,
-
-                    maxlength:50
-
-                },
-                //发票名称
-                'HT-invoice':{
-
-                    required: '发票为必填字段',
+                    isExist:'合同单位名称已存在',
 
                     maxlength:20
-
-                },
-                //纳税人
-                'HT-invoicet':{
-
-                    required: '纳税人为必填字段',
-
-                    maxlength:50
-
-                },
-                //地址
-                'HT-location':{
-
-                    required: '地址为必填字段',
-
-                    maxlength:100
 
                 }
             }
@@ -375,7 +147,7 @@ $(function(){
     var col = [
 
         {
-            title:'合同客户',
+            title:'合同单位',
             data:'clientname'
         },
         {
@@ -685,7 +457,11 @@ $(function(){
             //供应商地址
             address:$('#HT-location').val(),
             //备注
-            description:$('#HT-remark').val()
+            description:$('#HT-remark').val(),
+            //开户行
+            bank:$('#HT-opening-bank').val(),
+            //银行账号
+            bankAccount:$('#HT-bank-account').val()
 
         }
 
@@ -723,7 +499,7 @@ $(function(){
 
                 _isExist = data.clientname;
 
-                //合同客户名称
+                //合同单位名称
                 $('#HT-name').val(data.clientname);
                 //联系人
                 $('#HT-linkperson').val(data.linkperson);
@@ -743,6 +519,10 @@ $(function(){
                 $('#HT-location').val(data.address);
                 //备注
                 $('#HT-remark').val(data.description);
+                //开户行
+                $('#HT-opening-bank').val(data.bank);
+                //银行账户
+                $('#HT-bank-account').val(data.bankAccount);
             }
 
         }

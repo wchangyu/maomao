@@ -111,6 +111,12 @@
 
         }
 
+        .radioBlock label{
+
+            width: 60px !important;
+
+        }
+
     </style>
 
 </head>
@@ -157,8 +163,8 @@
 
                             <ul class="L-condition">
                                 <li>
-                                    <label>合同单位名称</label>
-                                    <input type="text" class="form-control" id="HT-nameCon">
+                                    <label>司机姓名</label>
+                                    <input type="text" class="form-control" id="CA-driverCon">
                                 </li>
                                 <li>
                                     <div class="cont-col1" id="createBtn">
@@ -208,63 +214,83 @@
 
                         <ul class="modal-block">
                             <li>
-                                <label>合同单位名称：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-name" name="HT-name" placeholder="合同名称是必填字段">
+                                <label>司机工号：</label>
+                                <input type="text" class="table-group-action-input form-control" id="CA-userNum" name="CA-userNum" placeholder="" readonly>
+                                <div class="modal-select modal-select-show" id="select-user"></div>
+                            </li>
+                            <li>
+                                <label> 司机姓名：</label>
+                                <input type="text" class="table-group-action-input form-control" id="CA-userName" name="CA-userName" placeholder="">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>联系人：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-linkperson" name="HT-linkperson">
+                                <label>性别：</label>
+                                <div id="CA-gender" class="radioBlock">
+                                    <input type="radio" class="inpus" name="inpus" id="ones" value="1" checked><label for="ones">男</label>
+
+                                    <input type="radio" class="inpus" name="inpus" id="twos" value="2"><label for="twos">女</label>
+                                </div>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>身份证号码：</label>
+                                <input type="text" class="table-group-action-input form-control" id="CA-idCard" name="CA-idCard" placeholder="身份证号码必填">
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>出生年月：</label>
+                                <div class="time-tool-block">
+                                    <div class="input-group date form_date abbrDT">
+                                        <input id="CA-birth" name="CA-birth" class="form-control" size="16" type="text" value="" placeholder="格式：YYYY-MM-DD"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="modal-select"></div>
+                                <div class="time-seat" style="display: none;"></div>
+                            </li>
+                            <li>
+                                <label>家庭住址：</label>
+                                <input type="text" class="table-group-action-input form-control" id="CA-location" name="CA-location" placeholder="">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
                                 <label>电话：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-tel" name="HT-tel">
+                                <input type="text" class="table-group-action-input form-control" id="CA-phone" name="CA-phone" placeholder="">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
                                 <label>手机：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-mobile" name="HT-mobile">
+                                <input type="text" class="table-group-action-input form-control" id="CA-mobile" name="CA-mobile" placeholder="">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>传真：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-fax" name="HT-fax">
+                                <label>驾驶证档案号：</label>
+                                <input type="text" class="table-group-action-input form-control" id="CA-driving" name="CA-driving" placeholder="">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>邮箱：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-email" name="HT-email">
+                                <label>准驾车型：</label>
+                                <input type="text" class="table-group-action-input form-control" id="CA-car-model" name="CA-car-model" placeholder="">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>发票名称：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-invoice" name="HT-invoice">
+                                <label>登记时间：</label>
+                                <div class="time-tool-block">
+                                    <div class="input-group date form_date abbrDT">
+                                        <input id="CA-regDate" name="CA-regDate" class="form-control" size="16" type="text" value="" placeholder="格式：YYYY-MM-DD"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
                                 <div class="modal-select"></div>
-                            </li>
-                            <li>
-                                <label>纳税人识别号：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-invoicet" name="HT-invoicet">
-                                <div class="modal-select"></div>
-                            </li>
-                            <li>
-                                <label>地址：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-location" name="HT-location">
-                                <div class="modal-select"></div>
-                            </li>
-                            <li>
-                                <label>开户行：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-opening-bank" name="HT-opening-bank">
-                                <div class="modal-select"></div>
-                            </li>
-                            <li>
-                                <label>银行账号：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-bank-account" name="HT-bank-account">
-                                <div class="modal-select"></div>
+                                <div class="time-seat" style="display: none;"></div>
                             </li>
                             <li class="text-block" style="width: 800px;">
                                 <label>备注：</label>
-                                <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="HT-remark" name="HT-remark"></textarea>
+                                <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="CA-remark" name="CA-remark"></textarea>
                                 <div class="modal-select"></div>
                             </li>
                         </ul>
@@ -280,41 +306,22 @@
         </div><!-- /.modal -->
     </div>
 
-    <!--选择部门-->
-    <div class="modal fade" id="dep-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 685px;width: 1000px;">
+    <!--司机列表-->
+    <div class="modal fade" id="driver-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 685px;width: 800px;">
             <div class="modal-content" style="height: 685px;width: 800px;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">提示</h4>
                 </div>
                 <div class="modal-body" style="height: 563px;overflow-y: auto">
-                    <div style="display: inline-block;vertical-align: top;height: 100%;overflow-y: auto;width: 500px;">
-
-                        <!--表格-->
-                        <table id="dep-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
-                            <thead>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                    <div style="display: inline-block;vertical-align: top;height: 100%;overflow-y: auto;width: 200px;margin-left: 20px;border: 1px solid #eeeeee;padding: 10px;">
-
-                        <p style="border-bottom:1px dashed #eeeeee;line-height: 30px;">已选部门</p>
-
-                        <ul id="selectedDep">
-
-                            <!--<li>-->
-                                <!--<span class="depName">上饶维保组</span><span class="depNum">JT04</span><span class="close"></span>-->
-                            <!--</li>-->
-
-                        </ul>
-
-                    </div>
-
+                    <!--表格-->
+                    <table id="sign-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary confirm">确定</button>
@@ -375,7 +382,7 @@
 
 <script src="../YHQ-resource/js/public.js"></script>
 
-<script src="../YHQ-resource/js/YHQ-HT/HTCustomerManagement.js"></script>
+<script src="../YHQ-resource/js/YHQ-CA/CAdriver.js"></script>
 
 <!--表单格式验证-->
 <script src="../resource/js/validateFormat.js"></script>

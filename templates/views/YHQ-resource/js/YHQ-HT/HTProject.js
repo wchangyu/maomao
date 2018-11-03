@@ -5,11 +5,9 @@ $(function(){
     //暂存所有条件查询的数据
     var _allData = [];
 
-    //合同名称去重
     var _isExist = '';
 
-    //暂存当前操作的合同类型id
-    var _thisId = '';
+    var _thisid = '';
 
     /*-----------------------------验证-------------------------------------*/
 
@@ -17,41 +15,39 @@ $(function(){
 
         rules:{
 
-            //合同类型名称
-            'HT-name':{
+            //项目名称
+            'HT-project-name':{
 
                 required: true,
 
                 isExist:_isExist
 
             },
-            //顺序
-            'HT-order':{
+            //电话
+            'HT-project-tel':{
 
-                required: true,
+                phoneNumFormat:true
 
-                number:true,
+            },
+            //负责人
+            'HT-project-person':{
 
-                min:1
+                required:true
 
             }
         },
         messages:{
 
-            //合同类型名称
+            //合同客户名称
             'HT-name':{
 
-                required: '合同类型是必填字段'
+                required: '合同客户名称为必填字段'
 
             },
-            //顺序
-            'HT-order':{
+            //负责人
+            'HT-project-person':{
 
-                required: '顺序是必填字段',
-
-                number:'顺序为大于0的整数',
-
-                min:'顺序为大于0的整数'
+                required:'负责人为必填字段'
 
             }
         }
@@ -65,41 +61,39 @@ $(function(){
 
             rules:{
 
-                //合同类型名称
-                'HT-name':{
+                //项目名称
+                'HT-project-name':{
 
                     required: true,
 
                     isExist:_isExist
 
                 },
-                //顺序
-                'HT-order':{
+                //电话
+                'HT-project-tel':{
 
-                    required: true,
+                    phoneNumFormat:true
 
-                    number:true,
+                },
+                //负责人
+                'HT-project-person':{
 
-                    min:1
+                    required:true
 
                 }
             },
             messages:{
 
-                //合同类型名称
+                //合同客户名称
                 'HT-name':{
 
-                    required: '合同类型是必填字段'
+                    required: '合同客户名称为必填字段'
 
                 },
-                //顺序
-                'HT-order':{
+                //负责人
+                'HT-project-person':{
 
-                    required: '顺序是必填字段',
-
-                    number:true,
-
-                    min:1
+                    required:'负责人为必填字段'
 
                 }
             }
@@ -115,7 +109,7 @@ $(function(){
 
         for(var i=0;i<_allData.length;i++){
 
-            if(_allData[i].catename == value && _allData[i].catename!= _isExist){
+            if(_allData[i].projectName == value && _allData[i].projectName!= _isExist){
 
                 flag = false;
 
@@ -127,27 +121,43 @@ $(function(){
 
         return flag;
 
-    },"合同名称已存在");
+    },"项目名称已存在");
 
     /*-----------------------------表格初始化--------------------------------*/
 
-    var col = [
+    var col=[
 
         {
-            title:'合同类型',
-            data:'catename'
+            title:'项目名称',
+            data:'projectName'
         },
         {
-            title:'顺序',
-            data:'orders'
+            title:'负责人',
+            data:'linkPerson'
+        },
+        {
+            title:'联系电话',
+            data:'phone'
+        },
+        {
+            title:'项目信息',
+            data:'projectInfo'
+        },
+        {
+            title:'备注',
+            data:'remark'
         },
         {
             title:'操作',
             render:function(data, type, full, meta){
 
-                return  '<span class="option-button option-edit option-in" data-attr="' + full.id + '">' + '编辑</span>' +
+                var str = '';
+
+                str += '<span class="option-button option-edit option-in" data-attr="' + full.id + '">' + '编辑</span>' +
 
                     '<span class="option-button option-del option-in" data-attr="' + full.id + '">' + '删除</span>'
+
+                return str
 
 
             }
@@ -158,7 +168,6 @@ $(function(){
 
     _tableInit($('#table'),col,'2','','','','','');
 
-    //默认加载数据
     conditionSelect();
 
     /*-----------------------------按钮事件----------------------------------*/
@@ -192,7 +201,7 @@ $(function(){
 
         if(validform().form()){
 
-            sendData('YHQHT/HTCateAdd',$('#create-Modal').children(),false,function(result){
+            sendData('YHQHT/HTProjectAdd',$('#create-Modal').children(),false,function(result){
 
                 if(result.code == 99){
 
@@ -221,7 +230,7 @@ $(function(){
     //编辑
     $('#table tbody').on('click','.option-edit',function(){
 
-        _thisId = $(this).attr('data-attr');
+        _thisid = $(this).attr('data-attr');
 
         //初始化
         createModeInit();
@@ -230,9 +239,7 @@ $(function(){
         _moTaiKuang($('#create-Modal'),'编辑','','','','保存');
 
         //赋值
-        bindData(_thisId);
-
-        _isExist = $('#HT-name').val();
+        bindData(_thisid);
 
         //类
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
@@ -247,7 +254,7 @@ $(function(){
 
         if(validform().form()){
 
-            sendData('YHQHT/HTCateEdit',$('#create-Modal').children(),true,function(result){
+            sendData('YHQHT/HTProjectUpdate',$('#create-Modal').children(),true,function(result){
 
                 if(result.code == 99){
 
@@ -269,7 +276,7 @@ $(function(){
     //删除
     $('#table tbody').on('click','.option-del',function(){
 
-        _thisId = $(this).attr('data-attr');
+        _thisid = $(this).attr('data-attr');
 
         //初始化
         createModeInit();
@@ -278,7 +285,7 @@ $(function(){
         _moTaiKuang($('#create-Modal'),'确定要删除吗','','','','删除');
 
         //赋值
-        bindData(_thisId);
+        bindData(_thisid);
 
         //类
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
@@ -291,7 +298,7 @@ $(function(){
     //删除确定按钮
     $('#create-Modal').on('click','.shanchu',true,function(){
 
-        sendData('YHQHT/WasteTypeDelete',$('#create-Modal').children(),true,function(result){
+        sendData('YHQHT/HTProjectDelete',$('#create-Modal').children(),true,function(result){
 
             if(result.code == 99){
 
@@ -315,19 +322,19 @@ $(function(){
 
         var prm = {
 
-            //合同类型名称
-            catename:$('#HT-nameCon').val(),
-            //用户ID
-            userID:_userIdNum,
-            //用户名
-            userName:_userIdName,
-            //用户角色
-            b_UserRole:_userRole,
-            //用户部门
-            b_DepartNum:_userBM
+            //所属项目名称
+            projectName:$('#HT-projectCon').val()
+            ////用户ID
+            //userID:_userIdNum,
+            ////用户名
+            //userName:_userIdName,
+            ////用户角色
+            //b_UserRole:_userRole,
+            ////用户部门
+            //b_DepartNum:_userBM
         }
 
-        _mainAjaxFunCompleteNew('post','YHQHT/GetHTCates',prm,$('.L-container'),function(result){
+        _mainAjaxFunCompleteNew('post','YHQHT/ReturnHTProjectList',prm,$('.L-container'),function(result){
 
             if(result.code == 99){
 
@@ -338,6 +345,7 @@ $(function(){
             }
 
         })
+
 
     }
 
@@ -379,26 +387,22 @@ $(function(){
 
         var prm = {
 
-            //合同类型名称
-            catename:$('#HT-name').val(),
-            //顺序
-            order:$('#HT-order').val(),
+            //项目名称
+            projectName:$('#HT-project-name').val(),
+            //负责人
+            linkPerson:$('#HT-project-person').val(),
+            //联系电话
+            phone:$('#HT-project-tel').val(),
+            //项目信息
+            projectInfo:$('#HT-project-info').val(),
             //备注
-            memo:$('#HT-remark').val(),
-            //用户ID
-            userID:_userIdNum,
-            //用户名
-            userName:_userIdName,
-            //用户角色
-            b_UserRole:_userRole,
-            //用户部门
-            b_DepartNum:_userBM
+            remark:$('#HT-remark').val()
 
         }
 
         if(flag){
 
-            prm.id = _thisId;
+            prm.id = _thisid;
 
         }
 
@@ -415,12 +419,18 @@ $(function(){
 
             if(data.id == id){
 
-                //合同类型名称
-                $('#HT-name').val(data.catename);
-                //顺序
-                $('#HT-order').val(data.orders);
+                _isExist = data.projectName;
+
+                //项目名称
+               $('#HT-project-name').val(data.projectName);
+                //负责人
+                $('#HT-project-person').val(data.linkPerson);
+                //联系电话
+                $('#HT-project-tel').val(data.phone);
+                //项目信息
+                $('#HT-project-info').val(data.projectInfo);
                 //备注
-                $('#HT-remark').val(data.memo);
+                $('#HT-remark').val(data.remark);
 
             }
 

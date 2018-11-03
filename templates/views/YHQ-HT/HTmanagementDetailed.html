@@ -126,8 +126,21 @@
 
         }
 
+        button.dt-button, div.dt-button, a.dt-button{
 
+            padding: 7px 17px !important;
 
+            border: none;
+
+            margin-right: 0;
+
+        }
+
+        .dt-buttons{
+
+            height: 36px;
+
+        }
     </style>
 
 </head>
@@ -174,9 +187,46 @@
 
                             <ul class="L-condition">
                                 <li>
-                                    <label>合同编号</label>
-                                    <input type="text" class="form-control" id="HT-numCon">
+                                    <label>项目名称</label>
+                                    <input type="text" class="form-control" id="HT-projectCon">
                                 </li>
+                                <li>
+                                    <label>合同名称</label>
+                                    <input type="text" class="form-control" id="HT-nameCon">
+                                </li>
+                                <li>
+                                    <label>合同类型</label>
+                                    <input type="text" class="form-control" id="HT-typeCon">
+                                </li>
+                                <li>
+                                    <label>合同单位</label>
+                                    <input type="text" class="form-control" id="HT-customerCon">
+                                </li>
+                                <li>
+                                    <label>签订人</label>
+                                    <input type="text" class="form-control" id="HT-signCon">
+                                </li>
+                                <li>
+                                    <label>审核状态</label>
+                                    <select class="form-control" id="HT-approveCon">
+                                        <option value="-1">全部</option>
+                                        <option value="0">未审批</option>
+                                        <option value="1">审批中</option>
+                                        <option value="2">审批通过</option>
+                                        <option value="3">审批未通过</option>
+                                        <option value="9">没有审批</option>
+                                    </select>
+                                </li>
+                                <!--<li>-->
+                                    <!--<label>合同状态</label>-->
+                                    <!--<select class="form-control" id="HT-statusCon">-->
+                                        <!--<option value="-1">全部</option>-->
+                                        <!--<option value="0">登记</option>-->
+                                        <!--<option value="10">执行</option>-->
+                                        <!--<option value="20">完成</option>-->
+                                        <!--<option value="999">取消</option>-->
+                                    <!--</select>-->
+                                <!--</li>-->
                                 <li>
                                     <label>开始时间</label>
                                     <div class="time-tool-block">
@@ -201,6 +251,9 @@
                                 </li>
                                 <li>
                                     <div class="L-condition-button" id="selectBtn">查询数据</div>
+                                </li>
+                                <li class="excelButton">
+                                    <!--<div class="L-condition-button" id="excelBtn">导出数据</div>-->
                                 </li>
                                 <li>
                                     <div id="resetBtn" class="L-condition-button">重置条件</div>
@@ -235,7 +288,7 @@
                 </div>
                 <div class="modal-body" style="overflow-y: auto;height: 440px;">
 
-                    <form class="cmxform" method="post" action="">
+                    <form class="cmxform" id="commentForm" method="post" action="">
 
                         <ul class="modal-block">
                             <li>
@@ -250,23 +303,23 @@
                             </li>
                             <li>
                                 <label>合同类型：</label>
-                                <input type="text" name="HT-type" id="HT-type" class="table-group-action-input form-control">
+                                <select name="HT-type" id="HT-type" class="table-group-action-input form-control"></select>
                                 <div class="modal-select"></div>
                             </li>
                             <li>
                                 <label>所属项目：</label>
-                                <input type="text" name="HT-type" id="HT-project" class="table-group-action-input form-control">
-                                <div class="modal-select"></div>
+                                <input type="text" class="table-group-action-input form-control" id="HT-project" name="HT-project" placeholder="所属项目是必填字段" readonly>
+                                <div class="modal-select modal-select-show" id="select-project"></div>
                             </li>
                             <li>
                                 <label>签订人：</label>
                                 <input type="text" class="table-group-action-input form-control" id="HT-person" name="HT-person" placeholder="签订人是必填字段" readonly>
-                                <div class="modal-select" id="select-sign-modal"></div>
+                                <div class="modal-select modal-select-show" id="select-sign-modal"></div>
                             </li>
                             <li>
                                 <label>合同单位：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-unit" name="HT-unit" placeholder="签订人是必填字段" readonly>
-                                <div class="modal-select" id="select-unit-modal"></div>
+                                <input type="text" class="table-group-action-input form-control" id="HT-unit" name="HT-unit" placeholder="签订单位是必填字段" readonly>
+                                <div class="modal-select modal-select-show" id="select-unit-modal"></div>
                             </li>
                             <li>
                                 <label>合同签订时间</label>
@@ -343,6 +396,13 @@
                                     <div id="uploader" class="wu-example">
                                         <!--用来存放文件信息-->
                                         <div id="thelist" class="uploader-list" style="width: 678px !important;min-height: 34px;"></div>
+                                        <div class="btns" style="margin-top: 8px;">
+                                            <div class="mark-block">
+                                                <div id="picker">选择文件</div>
+                                                <div id="ctlBtn" class="btn btn-default" style="padding: 8px 13px;display: inline-block;vertical-align: top;">开始上传</div>
+                                            </div>
+                                            <div class="btn btn btn-danger" id="deleted" style="padding: 9px 13px;display: inline-block;vertical-align: top">删除文件</div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -363,19 +423,19 @@
 
                     <!--工程量清单-->
                     <div>
-                        <p style="text-align: center">工程量清单 </p>
+                        <p style="text-align: center">工程量清单 <span style="border: 1px solid #eeeeee;padding: 3px 5px;float: right;cursor: pointer" id="add-engineering">增加</span> </p>
 
                         <table id="engineering-table" class="table table-striped table-advance table-hover">
                             <thead>
                             </thead>
                             <tbody></tbody>
                             <!--<tfoot>-->
-                            <!--<tr>-->
-                            <!--<td>合计</td>-->
-                            <!--<td colspan="3"><input type="text" class="table-group-action-input form-control"></td>-->
-                            <!--<td>大写</td>-->
-                            <!--<td colspan="3"><input type="text" class="table-group-action-input form-control"></td>-->
-                            <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td>合计</td>-->
+                                    <!--<td colspan="3"><input type="text" class="table-group-action-input form-control"></td>-->
+                                    <!--<td>大写</td>-->
+                                    <!--<td colspan="3"><input type="text" class="table-group-action-input form-control"></td>-->
+                                <!--</tr>-->
                             <!--</tfoot>-->
                         </table>
 
@@ -383,7 +443,7 @@
 
                     <!--审批人-->
                     <div>
-                        <p style="text-align: center">审核人清单 </p>
+                        <p style="text-align: center">审核人清单 <span style="border: 1px solid #eeeeee;padding: 3px 5px;float: right;cursor: pointer" id="add-auditor">增加</span> </p>
 
                         <table id="auditor-table" class="table table-striped table-advance table-hover">
                             <thead>
@@ -392,77 +452,6 @@
                         </table>
 
                     </div>
-
-                    <!--添加款项-->
-                    <div>
-                        <p style="text-align: center">款项清单 <span style="border: 1px solid #eeeeee;padding: 3px 5px;float: right;cursor: pointer" id="add-money">增加</span> </p>
-
-                        <table id="money-table" class="table table-striped table-advance table-hover">
-                            <thead>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary confirm" type="submit" value="Submit">确定</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
-
-    <!--添加单条款项-->
-    <div class="modal fade" id="create-one-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 342px;width: 1000px!important;">
-            <div class="modal-content" style="height: 342px;width: 1000px!important;">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">提示</h4>
-                </div>
-                <div class="modal-body" style="overflow-y: auto;height: 220px;">
-
-                    <form class="cmxform" id="commentForm" method="post" action="">
-
-                        <ul class="modal-block">
-                            <li>
-                                <label>经办人：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-person-M" name="HT-person-M" placeholder="经办人是必填字段" readonly>
-                                <div class="modal-select modal-select-show" id="select-person"></div>
-                            </li>
-                            <li>
-                                <label>款项金额：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-money-M" name="HT-money-M" placeholder="款项金额是必填字段，数字">
-                                <div class="modal-select"></div>
-                            </li>
-                            <li>
-                                <label>款项时间</label>
-                                <div class="time-tool-block">
-                                    <div class="input-group date form_date abbrDT">
-                                        <input id="HT-time-M" name="HT-time-M" class="form-control" size="16" type="text" value="" placeholder="必选字段"/>
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="modal-select"></div>
-                                <div class="time-seat" style="display: none;"></div>
-                            </li>
-                            <li>
-                                <label>款项名称：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-money-name-M" name="HT-money-name-M" placeholder="款项名称是必填字段">
-                                <div class="modal-select"></div>
-                            </li>
-                            <li class="text-block" style="width: 800px;">
-                                <label>备注：</label>
-                                <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="HT-remark-M" name="HT-remark-M"></textarea>
-                                <div class="modal-select"></div>
-                            </li>
-                        </ul>
-
-                    </form>
 
                 </div>
                 <div class="modal-footer">
@@ -489,6 +478,32 @@
                         <tbody>
                         </tbody>
                     </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--项目-->
+    <div class="modal fade" id="project-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 685px;width: 800px;">
+            <div class="modal-content" style="height: 685px;width: 800px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 563px;overflow-y: auto">
+                    <!--表格-->
+                    <table id="project-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary confirm">确定</button>
@@ -616,11 +631,16 @@
 
 <script src="../YHQ-resource/js/public.js"></script>
 
-<script src="../YHQ-resource/js/YHQ-HT/HTimplement.js"></script>
+<script src="../YHQ-resource/js/YHQ-HT/HTmanagementDetailed.js"></script>
 
 <!--表单格式验证-->
 <script src="../resource/js/validateFormat.js"></script>
 
+<!--合并单元格-->
+
+<script src="../new-resource/src/jquery.table2excel.js"></script>
+
+<script src="../resource/TableTools/js/dataTables.rowsGroup.js"></script>
 
 <!-- END JAVASCRIPTS -->
 </body>
