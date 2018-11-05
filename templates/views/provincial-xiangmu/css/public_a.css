@@ -1,0 +1,188 @@
+#removeDep{
+
+    position: absolute;
+
+    left: 91%;
+
+    top: 6px;
+
+    width: 10px;
+
+    height: 10px;
+
+}
+
+.dataTables_filter input{
+
+    border: 1px solid #ddd !important;
+
+    text-indent: 4px;
+
+    outline: none;
+
+}
+
+.showOrHidden{
+
+    display: none !important;
+
+}
+
+.label-warning{
+
+    font-size: 16px !important;
+
+    font-weight: normal;
+
+}
+
+/*----------------详情页面样式-----------------*/
+
+.gd-wrap {
+    width: 1240px;
+
+    border: 1px solid #ebebeb;
+
+    margin: 0 auto;
+
+    padding: 20px;
+}
+
+.tipe-block {
+
+    /*display: inline-block;*/
+
+    display: none;
+
+    padding: 2px 10px;
+
+    border: 1px solid #cccccc;
+
+    background: #ffffff;
+
+    position: absolute;
+
+    top: -20px;
+
+    left: 20px;
+
+    line-height: 25px;
+}
+
+.single-labels{
+
+    line-height: 30px;
+
+    width: 80px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+}
+
+.single-block{
+
+    width: 250px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+}
+
+.single-line{
+
+    margin-top: 20px;
+
+}
+
+.gd-title{
+
+    border-bottom: 1px solid #ebebeb;
+
+    margin-bottom: 20px;
+
+    padding: 10px 0
+
+}
+
+.gongdanContent{
+
+    width: 100%;
+
+    float: left;
+
+    height:auto!important;
+
+    overflow: auto!important;
+
+    padding: 0 !important;
+
+}
+
+#gdDetail{
+
+    width: 740px;
+
+    float: left
+
+}
+
+.details-cell{
+
+    border: 1px solid #ebebeb;
+
+    padding: 10px;
+
+    position: relative;
+
+    margin-top: 20px;
+
+}
+
+.MW-log{
+
+    width: 426px;
+
+    padding: 15px;
+
+}
+
+.MW-log li{
+
+    line-height: 40px;
+
+}
+
+.list-dot {
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    width: 5px;
+
+    height: 5px;
+
+    background: #666;
+
+    border-radius: 50% !important;
+
+    margin-right: 10px;
+}
+
+.single-block-row{
+
+    width:625px !important;
+
+}
+
+.table-box{
+
+    margin-top: 10px;
+
+}
+.downloadwenjian{
+    cursor:pointer;
+}
