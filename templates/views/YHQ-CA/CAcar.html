@@ -222,6 +222,24 @@
                                 <input type="text" class="table-group-action-input form-control" id="CA-model" name="CA-model" placeholder="型号是必填字段">
                                 <div class="modal-select"></div>
                             </li>
+                            <li class="autoBack">
+                                <label>状态：</label>
+                                <!--<input type="text" class="table-group-action-input form-control" id="CA-status" name="CA-status" readonly>-->
+
+                                <select name="CA-status" id="CA-status" class="table-group-action-input form-control">
+
+                                    <option value="0">空闲</option>
+
+                                    <option value="1">出车</option>
+
+                                    <option value="2">维修</option>
+
+                                    <option value="3">报废</option>
+
+                                </select>
+
+                                <div class="modal-select"></div>
+                            </li>
                             <li>
                                 <label>座位数：</label>
                                 <input type="text" class="table-group-action-input form-control" id="CA-seats" name="CA-seats" placeholder="必填，正整数">

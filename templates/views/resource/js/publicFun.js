@@ -2035,6 +2035,11 @@ function _creatInit(){
 
     $('#create-Modal').find('.radio').children().eq(0).addClass('checked');
 
+
+    //不需要填写，自动生成的部分
+    $('.autoBack').show();
+
+
 }
 
 //当前表格是否选中
