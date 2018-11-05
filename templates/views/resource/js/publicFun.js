@@ -192,6 +192,27 @@ function _timeHMSComponentsFun(el,startView){
     });
 }
 
+function _timeHMSComponentsFunValite(el){
+
+    el.datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,  //1时间  2日期  3月份 4年份
+        forceParse: 0,
+        pickerPosition: "bottom-left"
+    }).on('change',function(picker, values, displayValues){
+
+        var dom = $(picker.target).parents('.time-tool-block').next().next();
+
+        dom.hide();
+
+        $(picker.target).next('.error').hide();
+    });
+}
+
 //datatimepicker事件插件初始化(单一视图，只选择年/月/日/时间)
 function _timeOneComponentsFun(el,startView,maxView,minView,format){
     el.datetimepicker({
@@ -2013,6 +2034,33 @@ function _creatInit(){
     $('#create-Modal').find('.radio').children().removeClass('checked');
 
     $('#create-Modal').find('.radio').children().eq(0).addClass('checked');
+
+}
+
+//当前表格是否选中
+function _isSelectTr(table){
+
+    //验证是否选择
+    var currentTr = table.children('tbody').children('.tables-hover');
+
+    if(currentTr.children('.dataTables_empty').length>0){
+
+        return false;
+
+    }
+
+    if(currentTr.length== 0){
+
+        _moTaiKuang($('#tip-Modal'),'提示',true,true,'未选中','');
+
+        return false;
+
+    }else{
+
+        return currentTr
+
+    }
+
 
 }
 
