@@ -442,7 +442,9 @@ $(function(){
         var prm = {
 
             //车辆编号
-            carNum:$('#CA-carnumCon').val()
+            carNum:$('#CA-carnumCon').val(),
+            //状态
+            status:-1
             ////用户ID
             //userID:_userIdNum,
             ////用户名

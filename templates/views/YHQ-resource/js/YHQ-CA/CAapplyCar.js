@@ -317,7 +317,7 @@ $(function(){
             data:'causerName'
         },
         {
-            title:'申请人部门',
+            title:'用车部门',
             data:'departName'
         },
         {
@@ -334,7 +334,13 @@ $(function(){
         },
         {
             title:'出发时间',
-            data:'caTime'
+            data:'caTime',
+            render:function(data, type, full, meta){
+
+                return data.replace(/T/g,' ');
+
+
+            }
         },
         {
             title:'申请理由',
@@ -414,8 +420,11 @@ $(function(){
     //重置
     $('#resetBtn').click(function(){
 
-        $('#CA-driverCon').val('');
+        $('.L-condition').eq(0).find('input').val('');
 
+        $('#CA-startTimeCon').val(st);
+
+        $('#CA-endTimeCon').val(nowTime);
     })
 
     //查看
@@ -605,9 +614,9 @@ $(function(){
             //用车部门
             departnum:$('#CA-departCon').val(),
             //申请开始时间
-            catimest:'',
+            catimest:$('#CA-startTimeCon').val(),
             //申请时间结束
-            catimeet:'',
+            catimeet:$('#CA-endTimeCon').val(),
             //用户ID
             userID:_userIdNum,
             //用户名

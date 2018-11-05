@@ -178,6 +178,23 @@ $(function(){
             data:'userNum'
         },
         {
+            title:'状态',
+            data:'status',
+            render:function(data, type, full, meta){
+
+                if(data == 1){
+
+                    return '出车中'
+
+                }else{
+
+                    return ''
+
+                }
+
+            }
+        },
+        {
             title:'性别',
             data:'gender',
             render:function(data, type, full, meta){
@@ -481,7 +498,9 @@ $(function(){
         var prm = {
 
             //司机姓名
-            userName:$('#CA-driverCon').val()
+            userName:$('#CA-driverCon').val(),
+            //司机状态
+            status:-1
             ////用户ID
             //userID:_userIdNum,
             ////用户名

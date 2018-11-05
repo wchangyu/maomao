@@ -1182,25 +1182,25 @@
         "arg": "",
         "iconclass": ""
       },
-      "受理申请": {
+      "受理派车": {
         "type": "0",
-        "content": "受理申请",
+        "content": "受理派车",
         "uri": "../YHQ-CA/CAapplyAcceptance.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
       },
-      "申请执行": {
+      "出车任务": {
         "type": "0",
-        "content": "申请执行",
+        "content": "出车任务",
         "uri": "../YHQ-CA/CAapplyImplement.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
       },
-      "申请查询": {
+      "派车查询": {
         "type": "0",
-        "content": "申请查询",
+        "content": "派车查询",
         "uri": "../YHQ-CA/CAapplyQuery.html",
         "uid": "",
         "arg": "",

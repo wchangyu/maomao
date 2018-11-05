@@ -807,7 +807,9 @@ $(function(){
 
         var prm = {
 
-            userName:''
+            userName:'',
+
+            status:0
 
         };
 
@@ -828,7 +830,9 @@ $(function(){
 
         var prm = {
 
-            carNum:''
+            carNum:'',
+
+            status:0
 
         };
 

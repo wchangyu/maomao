@@ -276,7 +276,9 @@ $(function(){
 
                 var str = '';
 
-                str += '<span class="option-button option-edit option-in" data-attr="' + full.id + '">' + '完成</span>' +
+                str += '<span class="option-button option-see option-in" data-attr="' + full.id + '">' + '<a href="CAExitList.html?num=' + full.caNum + '" target="_blank">出车单</a></span>' +
+
+                    '<span class="option-button option-edit option-in" data-attr="' + full.id + '">' + '完成</span>' +
 
                     '<span class="option-button option-del option-in" data-attr="' + full.id + '">' + '回退</span>'
 
