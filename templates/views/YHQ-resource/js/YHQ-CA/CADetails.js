@@ -1,5 +1,7 @@
 $(function(){
 
+    $('.gd-wrap').find('input').attr('disabled',true);
+
     var _prm = window.location.search;
 
     var _canum = '';
@@ -17,7 +19,7 @@ $(function(){
 
         var prm = {
 
-            //申请编码
+            //申请单号
             canum:_canum,
             //用户ID
             userID:_userIdNum,
@@ -34,7 +36,7 @@ $(function(){
             if(result.code == 99){
 
                 var data = result.data[0];
-                //申请状态
+                //派车状态
                 $('#CA-status').val(status(data.caStatus));
                 //申请人工号
                 $('#CA-applyNum').val(data.causerNum);
@@ -49,18 +51,9 @@ $(function(){
                 //目的地
                 $('#CA-destination').val(data.destAddress);
                 //预计出发时间
-                if(data.caTime != ''&&data.caTime != null){
-
-                    $('#CA-leave-time').val(data.caTime.replace(/T/g,' '));
-
-                }
+                $('#CA-leave-time').val(_formatTimeH(data.caTime));
                 //预计回场时间
-
-                if(data.estEndTime != ''&&data.estEndTime != null){
-
-                    $('#CA-back-time').val(data.estEndTime.replace(/T/g,' '));
-
-                }
+                $('#CA-back-time').val(_formatTimeH(data.estEndTime));
                 //预计公里数
                 $('#CA-km').val(data.estdistance);
                 //乘车人数
@@ -97,17 +90,9 @@ $(function(){
                     $('.back-block').show();
 
                     //实际出发时间
-                    if(data.startTime != '' && data.startTime!= null){
-
-                        $('#CA-leave-time-real').val(data.startTime.replace(/T/g,' '));
-
-                    }
+                    $('#CA-leave-time-real').val(_formatTimeH(data.startTime));
                     //实际回场时间
-                    if(data.endTime != '' && data.endTime != null){
-
-                        $('#CA-back-time-real').val(data.endTime.replace(/T/g,' '));
-
-                    }
+                    $('#CA-back-time-real').val(_formatTimeH(data.endTime));
 
                     //实际出发地点
                     $('#CA-departure-real').val(data.startAddress);
@@ -119,7 +104,7 @@ $(function(){
                     $('#CA-start-km-real').val(data.startmileage);
 
                     //结束里程表读数
-                    $('#CA-start-km-real').val(data.endmileage);
+                    $('#CA-end-km-real').val(data.endmileage);
 
                     //实际公里数
                     $('#CA-km-real').val(data.distance);

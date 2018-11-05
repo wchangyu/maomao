@@ -17,7 +17,7 @@ $(function(){
 
         var prm = {
 
-            //申请编码
+            //申请单号
             canum:_canum,
             //用户ID
             userID:_userIdNum,
@@ -39,11 +39,7 @@ $(function(){
 
                 $('#caNum').html(data.caNum);
 
-                if(data.eststartTime != ''&&data.eststartTime != null){
-
-                    $('#caTime').html(data.eststartTime.replace(/T/g,' '));
-
-                }
+                $('#caTime').html(_formatTimeH(data.eststartTime));
 
                 //选择的车牌
                 $('#CA-car').val(data.carNum);
@@ -64,11 +60,7 @@ $(function(){
                 //预计公里数
                 $('#CA-km').val(data.estdistance);
                 //预计回场时间
-                if(data.estEndTime != ''&&data.estEndTime != null){
-
-                    $('#CA-back-time').val(data.estEndTime.replace(/T/g,' '));
-
-                }
+                $('#CA-back-time').val(_formatTimeH(data.estEndTime));
                 //派车人
                 $('#send-userName').val(data.sendUserName);
             }

@@ -24,6 +24,28 @@
 
     <link rel="stylesheet" href="../YHQ-resource/css/public.css">
 
+    <style>
+
+        #gdDetail{
+
+            width: 99%;
+
+        }
+
+        .single-labels{
+
+            width: 110px;
+
+        }
+
+        .gd-wrap{
+
+            width: 860px;
+
+        }
+
+    </style>
+
 </head>
 <!-- END HEAD -->
 
@@ -35,7 +57,7 @@
     </div>
     <div class="gongdanContent">
         <!--左边详情-->
-        <div style="float: left">
+        <div style="float: left;width: 100%" >
             <!--<div class="tipe-block">工单基本信息</div>-->
             <div id="gdDetail">
                 <!--申请单详情-->
@@ -43,7 +65,7 @@
                     <div class="tipe-block"></div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                            <div class="single-labels ">申请状态：</div>
+                            <div class="single-labels ">派车状态：</div>
                             <div class="single-block">
                                 <input type="text" id="CA-status" class="form-control">
                             </div>
@@ -244,15 +266,6 @@
 
 
         </div>
-        <!--右边log日志-->
-        <div style="float: right">
-
-            <div class="details-cell">
-                <div class="tipe-block">日志</div>
-                <ul class="MW-log"></ul>
-            </div>
-
-        </div>
     </div>
     <div class="clearfix"></div>
 </div>
@@ -290,6 +303,7 @@
 
 <!--my js-->
 <script src="../YHQ-resource/js/public.js"></script>
+
 <script src="../YHQ-resource/js/YHQ-CA/CADetails.js"></script>
 
 <!-- END JAVASCRIPTS -->

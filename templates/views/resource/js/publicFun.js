@@ -2069,6 +2069,25 @@ function _isSelectTr(table){
 
 }
 
+//格式化当前时间(日月年十分)
+function _formatTimeH(data){
+
+    var data = data.replace(/T/g,' ' );
+
+    if(data != '' && data != null){
+
+        var data = data.replace(/T/g,' ');
+
+        return moment(data).format('YYYY-MM-DD HH:mm');
+
+    }else{
+
+        return ''
+
+    }
+
+}
+
 /*---------------------------------------------------控制界面------------------------------------*/
 
 //获取表格结构

@@ -1198,9 +1198,9 @@
         "arg": "",
         "iconclass": ""
       },
-      "派车查询": {
+      "综合查询": {
         "type": "0",
-        "content": "派车查询",
+        "content": "综合查询",
         "uri": "../YHQ-CA/CAapplyQuery.html",
         "uid": "",
         "arg": "",

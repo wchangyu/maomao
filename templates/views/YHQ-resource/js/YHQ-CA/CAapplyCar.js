@@ -304,7 +304,7 @@ $(function(){
 
     var col=[
         {
-            title:'申请编号',
+            title:'申请单号',
             data:'caNum',
             render:function(data, type, full, meta){
 
@@ -337,7 +337,7 @@ $(function(){
             data:'caTime',
             render:function(data, type, full, meta){
 
-                return data.replace(/T/g,' ');
+                return _formatTimeH(data);
 
 
             }
@@ -607,7 +607,7 @@ $(function(){
     function conditionSelect(){
 
         var prm = {
-            //申请编码
+            //申请单号
             canum:$('#CA-canumCon').val(),
             //状态为10的
             caStatus:10,
@@ -616,7 +616,7 @@ $(function(){
             //申请开始时间
             catimest:$('#CA-startTimeCon').val(),
             //申请时间结束
-            catimeet:$('#CA-endTimeCon').val(),
+            catimeet:moment($('#CA-endTimeCon').val()).add(1,'d').format('YYYY-MM-DD'),
             //用户ID
             userID:_userIdNum,
             //用户名
@@ -731,18 +731,9 @@ $(function(){
                 //目的地
                 $('#CA-destination').val(data.destAddress);
                 //出发时间
-                if(data.caTime != ''){
-
-                    $('#CA-leave-time').val(data.caTime.replace(/T/g,' '));
-
-                }
+                $('#CA-leave-time').val(_formatTimeH(data.caTime));
                 //预计回场时间
-
-                if(data.estEndTime != ''){
-
-                    $('#CA-back-time').val(data.estEndTime.replace(/T/g,' '));
-
-                }
+                $('#CA-back-time').val(_formatTimeH(data.estEndTime));
                 //预计公里数
                 $('#CA-km').val(data.estdistance);
                 //乘车人数

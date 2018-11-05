@@ -184,11 +184,11 @@ $(function(){
 
                 if(data == 1){
 
-                    return '出车中'
+                    return '出车'
 
                 }else{
 
-                    return ''
+                    return '空闲'
 
                 }
 
@@ -308,6 +308,9 @@ $(function(){
 
         //可操作
         abledOption();
+
+        //自动返回
+        $('.autoBack').show();
 
     })
 
@@ -573,6 +576,8 @@ $(function(){
 
             prm.id = _thisId;
 
+            prm.status = $('#CA-status').val()
+
         }
 
         _mainAjaxFunCompleteNew('post',url,prm,el,successFun)
@@ -634,6 +639,8 @@ $(function(){
                 $('#CA-remark').val(data.remark);
                 //身份证
                 $('#CA-idCard').val(data.idNum);
+                //状态
+                $('#CA-status').val(data.status);
             }
 
         }

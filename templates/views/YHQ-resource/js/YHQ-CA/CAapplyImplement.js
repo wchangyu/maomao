@@ -7,7 +7,7 @@ $(function(){
     //暂存所有条件查询的数据
     var _allData = [];
 
-    //当前操作的申请编码
+    //当前操作的申请单号
     var _thisId = '';
 
     //结束时间
@@ -242,7 +242,7 @@ $(function(){
     //主表格
     var col=[
         {
-            title:'申请编号',
+            title:'申请单号',
             data:'caNum',
             render:function(data, type, full, meta){
 
@@ -257,6 +257,14 @@ $(function(){
         {
             title:'申请人部门',
             data:'departName'
+        },
+        {
+            title:'车牌号码',
+            data:'carNum'
+        },
+        {
+            title:'司机',
+            data:'driverName'
         },
         {
             title:'负责人',
@@ -275,13 +283,9 @@ $(function(){
             data:'caTime',
             render:function(data, type, full, meta){
 
-                return data.replace(/T/g,' ')
+                return _formatTimeH(data);
 
             }
-        },
-        {
-            title:'申请理由',
-            data:'caMemo'
         },
         {
             title:'操作',
@@ -531,16 +535,16 @@ $(function(){
 
         var prm = {
 
-            //申请编码
+            //申请单号
             canum:$('#CA-canumCon').val(),
-            //状态为10的
+            //状态为20的
             caStatus:20,
             //用车部门
             departnum:$('#CA-departCon').val(),
             //申请开始时间
             catimest:$('#CA-startTimeCon').val(),
             //申请时间结束
-            catimeet:$('#CA-endTimeCon').val(),
+            catimeet:moment($('#CA-endTimeCon').val()).add(1,'d').format('YYYY-MM-DD'),
             //用户ID
             userID:_userIdNum,
             //用户名
@@ -655,18 +659,9 @@ $(function(){
                 //目的地
                 $('#CA-destination').val(data.destAddress);
                 //出发时间
-                if(data.caTime != ''){
-
-                    $('#CA-leave-time').val(data.caTime.replace(/T/g,' '));
-
-                }
+                $('#CA-leave-time').val(_formatTimeH(data.caTime));
                 //预计回场时间
-
-                if(data.estEndTime != ''){
-
-                    $('#CA-back-time').val(data.estEndTime.replace(/T/g,' '));
-
-                }
+                $('#CA-back-time').val(_formatTimeH(data.estEndTime));
                 //预计公里数
                 $('#CA-km').val(data.estdistance);
                 //乘车人数

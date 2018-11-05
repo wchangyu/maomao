@@ -19,7 +19,7 @@ $(function(){
     //主表格
     var col=[
         {
-            title:'申请编号',
+            title:'申请单号',
             data:'caNum',
             render:function(data, type, full, meta){
 
@@ -28,7 +28,7 @@ $(function(){
             }
         },
         {
-            title:'申请状态',
+            title:'派车状态',
             data:'caStatus',
             render:function(data, type, full, meta){
 
@@ -61,6 +61,14 @@ $(function(){
             data:'departName'
         },
         {
+            title:'车牌号码',
+            data:'carNum'
+        },
+        {
+            title:'司机',
+            data:'driverName'
+        },
+        {
             title:'负责人',
             data:'leaderName'
         },
@@ -77,13 +85,9 @@ $(function(){
             data:'caTime',
             render:function(data, type, full, meta){
 
-                return data.replace(/T/g,' ')
+                return _formatTimeH(data);
 
             }
-        },
-        {
-            title:'申请理由',
-            data:'caMemo'
         }
 
     ]
@@ -104,7 +108,13 @@ $(function(){
     //重置
     $('#resetBtn').click(function(){
 
-        $('#CA-driverCon').val('');
+        $('.L-condition').eq(0).find('input').val('');
+
+        $('#CA-startTimeCon').val(st);
+
+        $('#CA-endTimeCon').val(nowTime);
+
+        $('.L-condition').eq(0).find('select').val(0);
 
     })
 
@@ -115,16 +125,20 @@ $(function(){
 
         var prm = {
 
-            //申请编码
+            //申请单号
             canum:$('#CA-canumCon').val(),
             //状态为10的
             caStatus:$('#CA-statusCon').val(),
             //用车部门
             departnum:$('#CA-departCon').val(),
+            //车牌号码
+            carnum:$('#CA-carNumCon').val(),
+            //司机名称
+            drivername:$('#CA-dirverCon').val(),
             //申请开始时间
-            catimest:'',
+            catimest:$('#CA-startTimeCon').val(),
             //申请时间结束
-            catimeet:'',
+            catimeet:moment($('#CA-endTimeCon').val()).add(1,'d').format('YYYY-MM-DD'),
             //用户ID
             userID:_userIdNum,
             //用户名
