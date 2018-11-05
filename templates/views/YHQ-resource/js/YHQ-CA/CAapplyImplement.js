@@ -10,8 +10,20 @@ $(function(){
     //当前操作的申请编码
     var _thisId = '';
 
+    //结束时间
+    var nowTime = moment().format('YYYY-MM-DD');
+
+    //开始时间
+    var st = moment(nowTime).subtract(7,'days').format('YYYY-MM-DD');
+
+    $('#CA-startTimeCon').val(st);
+
+    $('#CA-endTimeCon').val(nowTime);
+
+    _timeYMDComponentsFun11($('.L-condition').eq(0).find('.abbrDT'));
+
     //时间初始化
-    _timeHMSComponentsFunValite($('.abbrDT'));
+    _timeHMSComponentsFunValite($('#create-Modal').find('.abbrDT'));
 
     /*-----------------------------验证-------------------------------------*/
 
@@ -439,7 +451,11 @@ $(function(){
     //重置
     $('#resetBtn').click(function(){
 
-        $('#CA-driverCon').val('');
+        $('.L-condition').eq(0).find('input').val('');
+
+        $('#CA-startTimeCon').val(st);
+
+        $('#CA-endTimeCon').val(nowTime);
 
     })
 
@@ -514,8 +530,16 @@ $(function(){
 
         var prm = {
 
+            //申请编码
+            canum:$('#CA-canumCon').val(),
             //状态为10的
             caStatus:20,
+            //用车部门
+            departnum:$('#CA-departCon').val(),
+            //申请开始时间
+            catimest:$('#CA-startTimeCon').val(),
+            //申请时间结束
+            catimeet:$('#CA-endTimeCon').val(),
             //用户ID
             userID:_userIdNum,
             //用户名
