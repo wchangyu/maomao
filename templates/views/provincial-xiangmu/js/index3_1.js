@@ -502,7 +502,7 @@ function creatUpdateLoader(){
             //我现在就是想要实现单文件上传
             var $li = $(
                     '<div id="' + file.id + '" class="file-item thumbnail col-md-4">' +
-                    '<img>' +
+                    '<img class="yulan">' +
                     '<div class="info">' + file.name + '</div>' +
                     '<p class="state">等待上传...</p>' +
                     '</div>'
@@ -1109,7 +1109,7 @@ $(function(){
                 var name = item.f_FileName;
                 var $li = $(
                         '<div id="' + item.pK_ProjRemouldFile + '" class="file-item thumbnail col-md-4">' +
-                        '<img>' +
+                        '<img class="yulan">' +
                         '<div class="info">' + name + '</div>' +
                         '<div><p class="remove-img-bianji"><a href="javascript:;">删除</a></p></div>'+
                         '</div>'
@@ -1159,9 +1159,9 @@ $(function(){
                     var name = item.f_FileName;
                     var $li = $(
                             '<div id="' + '' + '" class="file-item thumbnail col-md-4">' +
-                                '<img class="yulan">' +
+                                '<img class="yulan ">' +
                                 '<div class="info">' + name + '</div>' +
-                                '<div><img class="tupiandiv  downloadwenjian" src="./img/xiazai.png" title="点击可以下载" data-myurl="'+ item.f_FileAllPath +'"/></div></div>'+
+                                '<div><img class="tupiandiv  downloadwenjian img-responsive center-block" src="./img/xiazai.png" title="点击可以下载" data-myurl="'+ item.f_FileAllPath +'"/></div></div>'+
                             '</div>'
                         );
 
@@ -1171,6 +1171,7 @@ $(function(){
                     }else{
                         // $img.replaceWith('<span>不能预览</span>');
                         $img.attr( 'src', './img/weizhi.jpg' );
+                        $img.attr( 'class', 'yulan' );
                     }
                     // $list为容器jQuery实例
                     $list.append( $li );

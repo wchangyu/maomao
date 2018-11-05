@@ -259,7 +259,7 @@ $(function() {
                     '<div id="' + '' + '" class="file-item thumbnail col-md-4">' +
                     '<img class="yulan">' +
                     '<div class="info">' + name + '</div>' +
-                    '<div><img class="tupiandiv  downloadwenjian" src="./img/xiazai.png" title="点击可以下载" data-myurl="'+ item.f_FileAllPath +'"/></div>' +
+                    '<div><img class="tupiandiv  downloadwenjian img-responsive center-block" src="./img/xiazai.png" title="点击可以下载" data-myurl="'+ item.f_FileAllPath +'"/></div>' +
                     '</div>'
                 );
 
