@@ -25,6 +25,7 @@ $(function(){
     //时间初始化
     _timeHMSComponentsFunValite($('#create-Modal').find('.abbrDT'));
 
+
     /*-----------------------------验证-------------------------------------*/
 
     $('#commentForm').validate({
