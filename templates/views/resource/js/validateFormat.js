@@ -16,7 +16,7 @@ $.validator.addMethod("emailFormat",function(value,element,params){
 
 },"请输入邮箱格式");
 
-//正则表达式（大于0的数字）
+//正则表达式（大于0的数字）(废弃)
 $.validator.addMethod("numberFormat1",function(value,element,params){
 
     var doubles= /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
@@ -101,6 +101,8 @@ $.validator.addMethod("isDate1", function(value, element){
 
 //日期必填验证
 $.validator.addMethod("isEmpty", function(value, element){
+
+
 
     if( value == ''){
 

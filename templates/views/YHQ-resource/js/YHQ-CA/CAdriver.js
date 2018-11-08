@@ -178,6 +178,23 @@ $(function(){
             data:'userNum'
         },
         {
+            title:'状态',
+            data:'status',
+            render:function(data, type, full, meta){
+
+                if(data == 1){
+
+                    return '出车'
+
+                }else{
+
+                    return '空闲'
+
+                }
+
+            }
+        },
+        {
             title:'性别',
             data:'gender',
             render:function(data, type, full, meta){
@@ -291,6 +308,9 @@ $(function(){
 
         //可操作
         abledOption();
+
+        //自动返回
+        $('.autoBack').show();
 
     })
 
@@ -481,7 +501,9 @@ $(function(){
         var prm = {
 
             //司机姓名
-            userName:$('#CA-driverCon').val()
+            userName:$('#CA-driverCon').val(),
+            //司机状态
+            status:-1
             ////用户ID
             //userID:_userIdNum,
             ////用户名
@@ -554,6 +576,8 @@ $(function(){
 
             prm.id = _thisId;
 
+            prm.status = $('#CA-status').val()
+
         }
 
         _mainAjaxFunCompleteNew('post',url,prm,el,successFun)
@@ -615,6 +639,8 @@ $(function(){
                 $('#CA-remark').val(data.remark);
                 //身份证
                 $('#CA-idCard').val(data.idNum);
+                //状态
+                $('#CA-status').val(data.status);
             }
 
         }

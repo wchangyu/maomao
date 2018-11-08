@@ -234,6 +234,15 @@ $(function(){
             data:'model'
         },
         {
+            title:'状态',
+            data:'status',
+            render:function(data, type, full, meta){
+
+                return statusCar(data);
+
+            }
+        },
+        {
             title:'座位数',
             data:'seats'
         },
@@ -293,6 +302,9 @@ $(function(){
 
         //可操作
         abledOption();
+
+        //不需要填写，自动生成
+        $('.autoBack').hide();
 
     })
 
@@ -442,7 +454,9 @@ $(function(){
         var prm = {
 
             //车辆编号
-            carNum:$('#CA-carnumCon').val()
+            carNum:$('#CA-carnumCon').val(),
+            //状态
+            status:-1
             ////用户ID
             //userID:_userIdNum,
             ////用户名
@@ -517,6 +531,9 @@ $(function(){
 
             prm.id = _thisId;
 
+            //状态
+            prm.status = $('#CA-status').val()
+
         }
 
         _mainAjaxFunCompleteNew('post',url,prm,el,successFun)
@@ -570,6 +587,8 @@ $(function(){
                 $('#CA-remark').val(data.remark);
                 //里程
                 $('#CA-mileage').val(data.mileage);
+                //汽车状态
+                $('#CA-status').val(data.status);
             }
 
         }
@@ -594,6 +613,33 @@ $(function(){
         $('#create-Modal').find('select').attr('disabled',true);
 
         $('#create-Modal').find('textarea').attr('disabled',true);
+
+    }
+
+    //汽车状态
+    function statusCar(data){
+
+        var str = ''
+
+        if(data == 0){
+
+            str = '空闲'
+
+        }else if(data == 1){
+
+            str = '出车'
+
+        }else if(data ==2){
+
+            str = '维修'
+
+        }else if(data == 3){
+
+            str = '报废'
+
+        }
+
+        return str
 
     }
 
