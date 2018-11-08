@@ -32,7 +32,6 @@ function qingqiuData(){
                 if(data == ""){
                      myAlter("数据为空")
                 }else{
-                	console.log(data)
                 	_my_creatTableData(data.projRemouldModes, data.provincProjStatists)
                 }
             }
