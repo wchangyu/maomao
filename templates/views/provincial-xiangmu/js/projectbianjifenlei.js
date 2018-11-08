@@ -717,11 +717,13 @@ $(function() {
         if ( row.child.isShown() ) {
             row.child.hide();
             tr.removeClass('shown');
+            $(this).html('查看子项')
         }else {
             // Open this row
             row.child( format( id ) ).show();
             tr.addClass('shown');
             $('.shown').next('tr').addClass('on-show');
+            $(this).html('收起列表')
         }
         creatIdTable(id, child)
     } );
