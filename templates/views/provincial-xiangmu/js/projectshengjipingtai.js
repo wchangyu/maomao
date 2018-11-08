@@ -171,7 +171,7 @@ function _my_creatTableData( datatitle, datalist ){
 
 	}
 	columns.push({
-		title: '综合排名',
+		title: '一级排名',
         data: 'projNumRank',
         render: function(data, index, row, meta) {
             return data
@@ -316,7 +316,7 @@ function getshengshilistitem(id){
 
 
 function creatIdTable(id, datalist){
-	// allMyclod;
+	// allMyclod;生成子表格
 	var columns = [
 		{
 			title: '',
@@ -375,7 +375,7 @@ function creatIdTable(id, datalist){
 		columns.push(obj)
 	}
 	columns.push({
-		title: '综合排名',
+		title: '二级排名',
         data: 'projNumRank',
         render: function(data, index, row, meta) {
             return data
