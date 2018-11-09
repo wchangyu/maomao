@@ -8,9 +8,9 @@ li{
 .choosePosition{
     width:350px;
     height:auto;
-    position: fixed;
+    position: absolute;
     right:80px;
-    top:210px;
+    top:110px;
     background:white;
     box-shadow: 5px 10px 5px rgba(0,0,0,.15);
 
@@ -328,9 +328,9 @@ label {
     box-shadow: 1px 2px 1px rgba(0,0,0,.15);
     color:#4c4c4c;
     background-color: #f1f1f1;
-    position: fixed;
+    position: absolute;
     right:80px;
-    top:160px;
+    top:60px;
 
 }
 .seek{

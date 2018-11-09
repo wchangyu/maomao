@@ -31,7 +31,7 @@
       "温湿度": {
         "type": "0",
         "content": "温湿度",
-        "uri": "../TJ/seal-monitor-humiture.html",
+        "uri": "../TJ/seal-monitor-humiture1.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -78,7 +78,7 @@
       "UPS": {
         "type": "0",
         "content": "UPS",
-        "uri": "../TJ/distribution-monitor-UPS.html",
+        "uri": "../TJ/distribution-monitor-UPS1.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -86,7 +86,7 @@
       "柴发": {
         "type": "0",
         "content": "柴发",
-        "uri": "../TJ/distribution-monitor-fadian.html",
+        "uri": "../TJ/distribution-monitor-fadian1.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -94,7 +94,7 @@
       "蓄电池": {
         "type": "0",
         "content": "蓄电池",
-        "uri": "../TJ/distribution-monitor-accumulator.html",
+        "uri": "../TJ/distribution-monitor-accumulator1.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -102,7 +102,7 @@
       "高压": {
         "type": "0",
         "content": "高压",
-        "uri": "../TJ/distribution-monitor-gaoya.html",
+        "uri": "../TJ/distribution-monitor-gaoya1.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -132,7 +132,7 @@
       "视频监控": {
         "type": "0",
         "content": "视频监控",
-        "uri": "../new-luxianghuifang/currentMonitor.html",
+        "uri": "../new-luxianghuifang/currentMonitorTJ.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -176,7 +176,7 @@
         "content": "能流图",
         "uri": "../TJ/energyStream.html",
         "uid": "",
-        "arg": "1,8817007018",
+        "arg": "1,8817007017",
         "iconclass": ""
       },
       "能耗统计": {
@@ -289,7 +289,7 @@
       "历史曲线": {
         "type": "0",
         "content": "历史曲线",
-        "uri": "../HAVC/history.html",
+        "uri": "../TJ/history.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -567,7 +567,7 @@
       "生命周期管理": {
         "type": "0",
         "content": "生命周期管理",
-        "uri": "../zichanguanli/assetManagement-history.html",
+        "uri": "../TJ/LCEM.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

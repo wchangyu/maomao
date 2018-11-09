@@ -297,18 +297,21 @@ $(function(){
                     {value:335, name:'冷机'},
                     {value:310, name:'水泵'},
                     {value:234, name:'精密空调'},
-                    {value:135, name:'IT'},
-                    {value:1548, name:'其他',label:{
+                    {value:1548, name:'IT'},
+                    {value:135, name:'其他',
+                        label:{
 
                         //padding:[0,0,0,200]
 
-                    },labelLine:{
+                        },
+                        labelLine:{
 
-                        length:10,
+                            length:10,
 
-                        length2:20
+                            length2:20
 
-                    }}
+                        }
+                    }
                 ],
                 itemStyle : {
                     normal : {

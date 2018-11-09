@@ -21,7 +21,6 @@
     <!--自定义样式-->
     <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
     <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
-    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
     <link rel="stylesheet" href="css/seal-monitor.css">
     <link href="../resource/css/ALLDevice.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/diagnostic-new.css">
@@ -184,8 +183,8 @@
                                             <div class="bottom-specific-data-container">
 
                                                 <!--下方具体数据-->
-                                                <p class="specific-data">冷机能效偏低 <font ></font></p>
-                                                <p class="specific-data">冷却塔效率偏低 <font ></font></p>
+                                                <p class="specific-data"> 冷却塔效率偏低<font ></font></p>
+                                                <p class="specific-data"> 冷机能效偏低<font ></font></p>
 
                                             </div>
 
@@ -209,7 +208,7 @@
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
 
-<!--诊断结果弹窗-->
+<!--供配电诊断结果弹窗-->
 <div class="modal fade alarm-container" id="diagnostic-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static"  aria-hidden="true">
 
     <div class="modal-dialog" style="">
@@ -260,6 +259,232 @@
                     <div class="right-analyze-message" style="position: relative">
                         <p> 1，检查TA03三相散热风扇状态<br/>
                             2，对散热器进行清灰
+
+                        </p>
+
+                        <div class="bottom-btn">
+                            <span class="">派单</span>
+                            <span class="sure">确认</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+<!--空调诊断结果弹窗-->
+<div class="modal fade alarm-container" id="diagnostic-myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static"  aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title ">1#机组冷凝压力高
+                </h4>
+
+            </div>
+            <div class="modal-body alarm-content">
+
+                <!--左侧echart图-->
+                <div class="left-echart-container">
+
+                    <h3 style="" class="message-title">
+                        <span class="left-patch"></span>
+                        1#机组冷凝压力高
+                    </h3>
+
+                    <div class="bottom-echart" id="diagnostic-data-echart1">
+
+
+                    </div>
+
+                </div>
+
+                <!--右侧分析-->
+                <div class="right-analyze-container">
+
+                    <h3 style="" class="message-title">
+                        <span class="left-patch"></span>
+                        原因分析
+                    </h3>
+
+                    <div class="right-analyze-message">
+                        <p> 1，冷却水流量不足或温度过高<br/>
+                            2，系统内有不凝气体。导致压缩的气体无法在冷凝器中冷凝，导致冷凝温度高，从而导致冷凝压力高。<br/>
+                            3，制冷剂过量，过多的制冷剂占据了换热面积，导致冷凝温度高，从而导致冷凝压力高。
+                        </p>
+                    </div>
+
+                    <h3 style="" class="message-title">
+                        <span class="left-patch"></span>
+                        建议措施
+                    </h3>
+
+                    <div class="right-analyze-message" style="position: relative">
+                        <p> 1，排查冷却水流量不足或冷却塔散热效果差原因并排除。<br/>
+                            2，通知厂家技术员处理排不凝气体。<br/>
+                            3，排查制冷剂量。
+
+                        </p>
+
+                        <div class="bottom-btn">
+                            <span class="">派单</span>
+                            <span class="sure">确认</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+<!--环境诊断结果弹窗-->
+<div class="modal fade alarm-container" id="diagnostic-myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static"  aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title ">1#机房W101温湿度数据丢失
+                </h4>
+
+            </div>
+            <div class="modal-body alarm-content">
+
+                <!--左侧echart图-->
+                <div class="left-echart-container">
+
+                    <h3 style="" class="message-title">
+                        <span class="left-patch"></span>
+                        1#机房W101温湿度数据丢失
+                    </h3>
+
+                    <div class="bottom-echart" id="diagnostic-data-echart2">
+
+
+                    </div>
+
+                </div>
+
+                <!--右侧分析-->
+                <div class="right-analyze-container">
+
+                    <h3 style="" class="message-title">
+                        <span class="left-patch"></span>
+                        原因分析
+                    </h3>
+
+                    <div class="right-analyze-message">
+                        <p> 1，传感器异常<br/>
+                            2，采集器异常。<br/>
+                            3，通讯线路异常。
+                        </p>
+                    </div>
+
+                    <h3 style="" class="message-title">
+                        <span class="left-patch"></span>
+                        建议措施
+                    </h3>
+
+                    <div class="right-analyze-message" style="position: relative">
+                        <p> 1，排查对应传感器。<br/>
+                            2，排查对应采集器。<br/>
+                            3，排查对应通讯线路。
+
+                        </p>
+
+                        <div class="bottom-btn">
+                            <span class="">派单</span>
+                            <span class="sure">确认</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer" style="display: none">
+
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+</div>
+
+<!--环境诊断结果弹窗-->
+<div class="modal fade alarm-container" id="diagnostic-myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static"  aria-hidden="true">
+
+    <div class="modal-dialog" style="">
+        <div class="modal-content" style="">
+            <div class="modal-header alarm-title">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title ">冷却塔效率偏低
+                </h4>
+
+            </div>
+            <div class="modal-body alarm-content">
+
+                <!--左侧echart图-->
+                <div class="left-echart-container">
+
+                    <h3 style="" class="message-title">
+                        <span class="left-patch"></span>
+                        冷却塔效率偏低
+                    </h3>
+
+                    <div class="bottom-echart" id="diagnostic-data-echart3">
+
+
+                    </div>
+
+                </div>
+
+                <!--右侧分析-->
+                <div class="right-analyze-container">
+
+                    <h3 style="" class="message-title">
+                        <span class="left-patch"></span>
+                        原因分析
+                    </h3>
+
+                    <div class="right-analyze-message">
+                        <p> 1，冷却塔喷嘴堵塞、变形损坏<br/>
+                            2，布水不均。<br/>
+                            3，冷却塔填料泥垢阻塞。<br/>
+                            4，冷却塔风机与电机之间传动有问题，风量不足。
+                        </p>
+                    </div>
+
+                    <h3 style="" class="message-title">
+                        <span class="left-patch"></span>
+                        建议措施
+                    </h3>
+
+                    <div class="right-analyze-message" style="position: relative">
+                        <p> 1，排查冷却塔喷嘴阻塞问题并排除。<br/>
+                            2，更换冷却塔填料。<br/>
+                            3，检查冷塔传动部件问题。
 
                         </p>
 

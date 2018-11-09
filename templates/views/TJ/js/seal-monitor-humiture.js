@@ -13,8 +13,6 @@ $(function(){
 
         $(this).addClass('onChoose');
 
-
-
     });
 
     //流程图上方切换系统图平面图
@@ -77,7 +75,7 @@ $(function(){
 var spaceNameArr = ['L','R'];
 
 //定义数组长度
-var spaceDataLength = 12;
+var spaceDataLength = 13;
 
 //定义初始温湿度
 var temperatureNum = 28;
@@ -106,17 +104,17 @@ function drawSpaceData(){
 
             var humidityOverproof = '';
 
-            //判断温度是否超标
-            if(temperatureRandom > 32 || temperatureRandom < 24){
-
-                temperatureOverproof = 'overProof'
-            }
-
-            //判断湿度是否超标
-            if(humidityRandom > 66 || humidityRandom < 54){
-
-                humidityOverproof = 'overProof'
-            }
+            ////判断温度是否超标
+            //if(temperatureRandom > 32 || temperatureRandom < 24){
+            //
+            //    temperatureOverproof = 'overProof'
+            //}
+            //
+            ////判断湿度是否超标
+            //if(humidityRandom > 66 || humidityRandom < 54){
+            //
+            //    humidityOverproof = 'overProof'
+            //}
 
             //随机名称
             var name = o + i + '通道';
@@ -158,9 +156,6 @@ function randomNum(figure){
     return randomNum;
 
 }
-
-
-
 
 //-----------------------------------电力容量-------------------------------------//
 

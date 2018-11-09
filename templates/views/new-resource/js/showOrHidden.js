@@ -295,6 +295,8 @@ function _selectTime(dataType){
 
             _initDate1();
 
+            _initDate11($('#datetimepicker1'));
+
         }
 
         //改变提示信息

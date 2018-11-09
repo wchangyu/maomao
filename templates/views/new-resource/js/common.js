@@ -69,6 +69,8 @@ $('.time-options').click(function(){
     //获取到时间类型
     var dataType = $('.time-options-1').html();
 
+    console.log(dataType);
+
     //调用时间变化函数
     changeShowTimes(dataType);
 

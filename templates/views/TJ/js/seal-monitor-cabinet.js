@@ -61,7 +61,7 @@ $(function(){
 
 
 //定义数组长度
-var spaceDataLength = 12;
+var spaceDataLength = 25;
 
 
 //页面绘制右侧数据

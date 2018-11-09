@@ -25,9 +25,7 @@ $(function(){
     //获取当前省级平台树状图
     GetProvincialEnterpriseTree(1);
 
-
     getPointerData('EnergyQueryV2/GetEnterpriseEnergyQuery',1);
-
 
     //屏蔽右上角的元的数据
     var html = '';
@@ -332,7 +330,7 @@ function getPointerData(url,flag){
     //是否标煤
     var isBiaoMeiEnergy = 0;
 
-    //单位类型
+    //机构分类
     var unitType = $('#unit').val();
 
     //获取名称
@@ -598,10 +596,17 @@ function getPointerData(url,flag){
                 for(var i=0;i<allData.length;i++){
                     var dataSplit = allData[i].dataDate.split('T')[0];
 
+                    if(showDateType == 'Month'){
+
+                        dataSplit = dataSplit.split('-')[0] + '-'+ dataSplit.split('-')[1];
+                    }
+
+
                     if(allDataX.indexOf(dataJoin)<0){
                         allDataX.push(dataSplit);
                     }
                 }
+
             };
 
             //确定本期y轴

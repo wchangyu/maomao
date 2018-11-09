@@ -358,15 +358,56 @@ $(function(){
         //根据能耗种类过滤数据
         var energyTypeArr = [];
 
+        //for(var i=0;i<EnItdata.length;i++){
+        //
+        //    if(EnItdata[i].energyItemType == _energyTypeWord){
+        //
+        //        energyTypeArr.push(EnItdata[i]);
+        //
+        //    }
+        //
+        //}
+
+        //获取能耗类型的分项
+
+        var rootParent = '';
+
         for(var i=0;i<EnItdata.length;i++){
 
-            if(EnItdata[i].energyItemType == _energyTypeWord){
+            if(EnItdata[i].f_EnergyItemID == _energyTypeValue){
+
+                rootParent = EnItdata[i].f_EnergyItemID;
 
                 energyTypeArr.push(EnItdata[i]);
+
 
             }
 
         }
+
+        //存放新生成的数组
+
+        ztreeDataFilter(EnItdata,rootParent);
+
+
+        function  ztreeDataFilter(arr,value){
+
+            //第一层的时候
+
+            for(var i=0;i<arr.length;i++){
+
+                if(arr[i].f_ParentItemID == value){
+
+                    energyTypeArr.push(arr[i]);
+
+                    ztreeDataFilter(arr,energyTypeArr[energyTypeArr.length-1].f_EnergyItemID);
+
+                }
+
+            }
+
+        }
+
 
         for(var i=0;i<energyTypeArr.length;i++){
             if (i==0) {
@@ -578,7 +619,17 @@ $(function(){
 
                             var dates = result[i].dataDate;
 
-                            dataX.push(dates.split('T')[0]);
+                            if(Ttype == '年'){
+
+                                dataX.push(dates.split('-')[0] + '-'+ dates.split('-')[1]);
+
+                            }else{
+
+                                dataX.push(dates.split('T')[0]);
+
+                            }
+
+
 
                         }
 

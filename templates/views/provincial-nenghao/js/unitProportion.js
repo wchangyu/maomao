@@ -166,7 +166,7 @@ function getOrganizationData(){
         //table中数据
         var tableHtml = "";
 
-        var tableHeadHtml = "<tr><th>单位类型</th><th>建筑数量</th><th>建筑面积(㎡)</th>";
+        var tableHeadHtml = "<tr><th>机构分类</th><th>建筑数量</th><th>建筑面积(㎡)</th>";
 
         //当前能耗名称
         var energyName = $('.onClick').html();

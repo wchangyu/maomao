@@ -141,7 +141,7 @@ function getOrganizationData(){
 
 
         //表头信息
-        var tableHeadHtml = "<tr><th>单位分类</th><th>建筑数量</th><th>建筑面积(㎡)</th>";
+        var tableHeadHtml = "<tr><th>机构分类</th><th>建筑数量</th><th>建筑面积(㎡)</th>";
 
         $(result.showMeterTitles).each(function(i,o) {
 

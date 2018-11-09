@@ -1,0 +1,368 @@
+/*背景*/
+.page-content{
+    background: #1D2126;
+}
+
+@media (min-width: 992px){
+
+    .page-content-wrapper .page-content-nest {
+
+        padding: 0px 20px 10px 20px !important;
+    }
+
+}
+
+
+.container {
+    background: none;
+    min-height: 800px;
+    padding-top: 0px !important;
+}
+
+.content-mian-left{
+    padding-left: 0px !important;
+}
+
+.page-bar{
+    background: #1D2126;
+    color:white !important;
+}
+
+.left-title1 {
+    background-color: #2B333E;
+    border:1px solid #3D4958;
+}
+
+.right-navigation .top-navigation {
+    background-color: #2B333E !important;
+    border:1px solid #3D4958;
+}
+
+.bottom-refrigeration {
+    background-color: #2B333E !important;
+    border:1px solid #3D4958;
+    margin-bottom:70px !important;
+}
+
+.right-navigation .bottom-data-container {
+    height: 510px;
+    overflow-y: auto;
+    background: #1D2126;
+    padding-top: 10px;
+    border:1px solid #3D4958;
+    margin-bottom:10px;
+}
+
+.right-navigation .data-container span {
+    color: white;
+
+}
+
+.right-navigation .data-container .name {
+    width: 54px;
+    display: inline-block;
+    margin-right: 10%;
+}
+
+.right-navigation .data-container span font {
+    color: white;
+    display: inline-block;
+    vertical-align: middle;
+    height: 20px;
+    line-height: 20px;
+    padding: 0px 6px;
+    background: none;
+    border:1px solid #31BEA4;
+    font-size: 13px;
+}
+
+/*右下角背景*/
+.right-alarm {
+    background:#1D2126 !important;
+    border: 1px solid #3D4958;
+}
+
+.bottom-img-content {
+    background: #1D2126 !important;
+    margin-bottom: 0px !important;
+}
+
+.data-collect{
+    position: absolute;
+    left:10px;
+    top:70px;
+    color:white;
+    z-index: 9999;
+}
+
+.data-collect .the-data{
+    margin-left:10px;
+}
+
+.legend span {
+    color: white;
+    font-size: 12px;
+    display: block;
+    float: left;
+    margin-right: 15px;
+    line-height: 12px;
+}
+
+
+/*定义滑块，内阴影及圆角*/
+.scrollbar::-webkit-scrollbar-thumb{
+    /*width: 10px;*/
+    height: 16px;
+    /*border-radius: 10px;*/
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #3F4247;
+}
+
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+.scrollbar::-webkit-scrollbar{
+    width: 12px;
+    height: 12px;
+    background-color: #1D2126;
+}
+
+/*定义滚动条的轨道，内阴影及圆角*/
+.scrollbar::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    /*border-radius: 10px;*/
+    background-color: #1D2126;
+}
+
+
+
+/*下方表格*/
+#scrap-datatables {
+    background: #1D2126;
+    opacity: 0.9;
+}
+
+.table-bordered {
+    border: 1px solid #3D4958;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #2B333E;
+}
+
+.table-striped>tbody>tr:nth-of-type(even) {
+    background-color: #2B333E;
+}
+
+.table-striped>tbody>tr{
+    border-bottom:3px solid #1D2126;
+}
+#scrap-datatables td{
+    border: none;
+    color:white;
+}
+
+#scrap-datatables thead td {
+    background: #1D2126;
+    border: none;
+    color: white;
+
+}
+
+
+/*配电系统高压页面*/
+
+.right-navigation .data-container h3 {
+    color: white;
+}
+
+.bottom-data-container .voltage-table td {
+    color: white;
+}
+
+.bottom-data-container .voltage-table td span {
+
+    border: 1px solid #31BEA4;
+
+}
+
+/*配电系统蓄电池页面*/
+.bottom-content-container{
+
+    background: url('../img/peidian/beijing.png') no-repeat;
+    background-size: 100% 100%;
+}
+
+
+/*配电系统柴发页面*/
+
+.border-title{
+    text-align: center;
+    color:white;
+    font-size: 18px;
+    line-height: 32px;
+    height: 32px;
+    margin-bottom:20px;
+}
+.border-title span{
+    padding:4px 14px;
+    background: #3D4958;
+    border-left:8px solid #7D8CA3;
+    border-right:8px solid #7D8CA3;
+}
+
+.left-accumulator p .right-normal {
+    width:16px;
+    height: 16px;
+    border-radius: 50% !important;
+    background: #31BEA4;
+    display: inline-block;
+    margin-left:20px;
+}
+
+/*配电系统UPS页面*/
+.left-accumulator .bottom-power-data{
+    height:120px;
+    background:rgba(43,51,62,0.8);
+    border-top:1px solid #74839B;
+    border-bottom:1px solid #74839B;
+}
+
+.left-accumulator .bottom-power-data p{
+    color:white;
+    padding-left:15px;
+    padding-top:8px;
+    margin-bottom:0
+}
+
+.left-accumulator .bottom-power-data p span{
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.left-accumulator .bottom-power-data p .left-name{
+    width:65px;
+}
+
+.left-accumulator .bottom-power-data p .right-data{
+    width:45px;
+}
+
+.left-accumulator .bottom-power-data p .right-progress{
+    height:10px;
+    width:180px;
+    background: #465367;
+    line-height: 5px;
+}
+
+.left-accumulator .bottom-power-data p .right-progress font{
+    display: inline-block;
+    height:10px;
+    vertical-align: middle;
+}
+
+.left-accumulator .bottom-power-data p .right-progress .blue{
+    width:50%;
+    background: #447AD4;
+}
+
+.left-accumulator .bottom-power-data p .right-progress .green{
+    width:12%;
+    background: #31BEA4;
+}
+
+.left-accumulator .bottom-power-data p .right-progress .yellow{
+    width:50%;
+    background: #E2BA4D;
+}
+
+.left-accumulator .bottom-power-data p .right-progress .pink{
+    width:12%;
+    background: #E93C94;
+}
+
+/*下方echart图*/
+.left-accumulator .bottom-pie-echart{
+    height:220px;
+
+}
+
+.left-accumulator .legend{
+    height: 30px !important;
+    position: absolute;
+    top:auto;
+    bottom:-15px;
+    left:40px;
+}
+
+.legend .green {
+    background: #30bfa5;
+}
+
+.legend .patch {
+    width: 12px;
+    height: 12px;
+}
+
+.legend .yellow {
+    background: #c4a342;
+}
+
+.legend .blue {
+    background: #4a85e5;
+}
+
+.center-img .bottom-data-message {
+    padding-top:2%;
+}
+
+.center-img .bottom-data-message p span{
+
+    font-size: 16px;
+    color:white;
+    display: inline-block;
+
+}
+
+.center-img .bottom-data-message p .left-name{
+
+    width:100px;
+    margin-left:40%;
+}
+
+.center-img .bottom-data-message p .right-message{
+
+    float: right;
+    margin-right:8%;
+}
+
+.bottom-state-container{
+
+    height:60px;
+    padding-top:20px;
+    box-sizing: border-box;
+
+}
+
+.bottom-state-container p{
+
+    width:25%;
+    font-size: 18px;
+    color:white;
+    float: left;
+    padding-left:3%;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+.bottom-state-container p .green-ball{
+    display: inline-block;
+    width:20px;
+    height:20px;
+    border-radius: 50% !important;
+    margin-left:23%;
+    background: #31BEA4;
+    vertical-align: middle;
+}
+
+
+

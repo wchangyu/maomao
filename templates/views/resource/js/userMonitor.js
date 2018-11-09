@@ -391,8 +391,8 @@ var userMonitor = (function(){
 
             var bindKeyId;
             if(_configArg2 == '2'){       //bindType=2时候代表按照楼宇获取
-                if(sessionStorage.curPointerId){
-                    bindKeyId = sessionStorage.curPointerId;
+                if(sessionStorage.PointerID){
+                    bindKeyId = sessionStorage.PointerID;
                 }
             }
             if(bindKeyId){
@@ -903,6 +903,7 @@ var userMonitor = (function(){
                         },100);
 
                     }else{
+
                         //不存在 让右侧流程图自适应
                         setTimeout(function(){
 
@@ -1310,16 +1311,12 @@ var userMonitor = (function(){
             var curPD = _.findWhere(_defInsDataResults,{"procDefID":_procDefs[i].prDefId});
 
             if(curPD){       //从实时数据中提取当前def的信息
-                //if(curPD.visibleScriptResult){          //是否可见的属性,不显示则继续
-                //    if(curPD.visibleScriptResult=="0"){
-                //        continue;
-                //    }
-                //}
-
-                if(!curPD.visibleScriptResult){          //是否可见的属性,不显示则继续
-
-                    continue;
+                if(curPD.visibleScriptResult){          //是否可见的属性,不显示则继续
+                    if(curPD.visibleScriptResult==0){
+                        continue;
+                    }
                 }
+
 
                 var curPRR;     //当前render
                 curPRR = _.findWhere(_procRenders,{"id":curPD.procRenderID});
@@ -1542,7 +1539,7 @@ var userMonitor = (function(){
                     setTextAlignment($spanTxt,curPRR.alignment);
                     setTextAlignment($spanImg,curPRR.imageAlignment);
                 }
-                if(curPD.enableScriptResult){       //是否可用(可点击)的属性
+                if(!curPD.enableScriptResult && typeof curPD.enableScriptResult != "undefined" && typeof curPD.enableScriptResult != 0 || curPD.enableScriptResult == 1){       //是否可用(可点击)的属性
                     $spanDef.removeAttr("disabled");
                 }else{
                     $spanDef.attr("disabled","disabled");
@@ -1553,7 +1550,7 @@ var userMonitor = (function(){
                 //如果当前def存在控件或者标签的类型为166（即导航标签），则绘制
                 if((curProcCtrl && curProcDef.cType>0) || curProcDef.cType==166 || curProcDef.cType==3 || curProcDef.cType==122 || curProcDef.cType==100|| curProcDef.cType==133|| curProcDef.cType==131 || curProcDef.prcProcLnk && curProcDef.prcProcLnk.procLnkBase.type == 502  || curProcDef.prdProcLnk && curProcDef.prdProcLnk.procLnkBase.startpos == 3
                 ){
-                    if(curPD.enableScriptResult){
+                    if(!curPD.enableScriptResult && typeof curPD.enableScriptResult != "undefined" && typeof curPD.enableScriptResult != 0 || curPD.enableScriptResult == 1){
 
                         $spanDef.css("cursor","pointer");
                         $spanDef.on("click",(function(procDef){return function(){ setActionByDef(procDef); }})(_procDefs[i]));
@@ -1568,7 +1565,7 @@ var userMonitor = (function(){
                 //如果是弹出式摄像头
                 if(curProcDef.cType >= 500 &&  curProcDef.cType <=600  && curProcDef.prcProcLnk && curProcDef.prcProcLnk.procLnkBase && curProcDef.prcProcLnk.procLnkBase.type == 504){
 
-                    if(curPD.enableScriptResult){
+                    if(!curPD.enableScriptResult && typeof curPD.enableScriptResult != "undefined" && typeof curPD.enableScriptResult != 0 || curPD.enableScriptResult == 1){
 
                         $spanDef.css("cursor","pointer");
                         $spanDef.on("click",(function(procDef){return function(){ showMonitorByID(procDef); }})(_procDefs[i]));
@@ -1582,7 +1579,7 @@ var userMonitor = (function(){
                 //如果是弹出式视频
                 if(curProcDef.cType >= 500 &&  curProcDef.cType <=600  && curProcDef.prcProcLnk && curProcDef.prcProcLnk.procLnkBase && curProcDef.prcProcLnk.procLnkBase.type == 503){
 
-                    if(curPD.enableScriptResult){
+                    if(!curPD.enableScriptResult && typeof curPD.enableScriptResult != "undefined" && typeof curPD.enableScriptResult != 0 || curPD.enableScriptResult == 1){
 
                         //给图片绑定视频路径
                         $Img.attr('videoUrl', curProcDef.prcProcLnk.procLnkBase.url);
@@ -1591,7 +1588,7 @@ var userMonitor = (function(){
 
                         var paras = curProcDef.prcProcLnk.paras;
 
-                        if (curPD.enableScriptResult) {
+                        if (!curPD.enableScriptResult && typeof curPD.enableScriptResult != "undefined" && typeof curPD.enableScriptResult != 0 || curPD.enableScriptResult == 1) {
 
                             $spanDef.css("cursor","pointer");
 
@@ -3065,7 +3062,7 @@ var userMonitor = (function(){
                     var html = '<div class="content-child-show" id="'+curDef.prDefId+'">' +
                         '<div class="content-child-show-container">' +
                         '<div class="close1">X</div>' +
-                        '<iframe width="700" scrolling="no" height="700" frameborder="0" allowtransparency="true" src='+url+'></iframe>' +
+                        '<iframe width="700" scrolling="no" height="600" frameborder="0" allowtransparency="true" src='+url+'></iframe>' +
                         '</div>' +
                         '</div>';
 
@@ -3118,6 +3115,13 @@ var userMonitor = (function(){
     };
 
 })();
+
+setTimeout(function(){
+
+    $(window).resize();
+
+},500);
+
 
 //流程图宽度
 _theImgProcWidth = 0;

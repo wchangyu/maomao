@@ -21,9 +21,16 @@ var BEE = (function(){
 
     //console.log(curUrl);
 
-    if( curUrl && curUrl.indexOf('passengerStation.html') == -1 && curUrl.indexOf(useNewIframeUrl) == -1){
+    if( curUrl && curUrl.indexOf('passengerStation.html') == -1){
 
-        showLeftMenu();
+        if(useNewIframeUrl != '' && curUrl.indexOf(useNewIframeUrl) == -1 ){
+
+            showLeftMenu();
+
+        }else if(useNewIframeUrl == ''){
+
+            showLeftMenu();
+        }
 
     }else{
 

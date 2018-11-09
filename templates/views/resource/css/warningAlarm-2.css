@@ -127,7 +127,12 @@
     margin-top: 20px;
     width: 50%;
     float: left;
-    overflow-x: scroll;
+}
+
+.ztree{
+    height: 200px;
+    overflow: auto;
+    width: 100%;
 }
 .tree-11 div{
     width: 70px;
@@ -141,7 +146,7 @@
 }
 #energyTypes{
     margin-top: 20px;
-    height: 157px;
+    height: 178px;
 }
 .main-contents-table img{
     position: absolute;

@@ -90,6 +90,7 @@ $(document).ready(function() {
             $(thead).find('th').eq(2).html(  '最大值('+ unit + ')');
             $(thead).find('th').eq(3).html(  '最小值('+ unit + ')');
             $(thead).find('th').eq(4).html(  '平均值('+ unit + ')');
+
         }
     });
     _table = $('#dateTables').dataTable();

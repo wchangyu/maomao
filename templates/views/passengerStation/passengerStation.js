@@ -1,5 +1,63 @@
 $(function(){
 
+    //更改页面标题
+    var pageTitleCN = '';
+
+    var pageTitleEN = '';
+
+    var pageContent = '';
+
+
+    //console.log(safeDays);
+
+    //定义计算安全运行天数的开始日期
+    var startSafeDate = new Date('2017/07/20 00:00');
+
+
+    if(sessionStorage.colorStyle == 0){
+
+        pageTitleCN = '南京南站';
+
+        pageTitleEN = '（nanjingnan Station）';
+
+    }else if(sessionStorage.colorStyle == 1){
+
+        pageTitleCN = '虹桥站';
+
+        pageTitleEN = '（hongqiao station）';
+
+        pageContent = '虹桥站于2010年7月1日启用，是全国铁路客运特等站，连接8条高等级铁路的国家铁道枢纽站。'
+
+        $('.one-word').html(pageContent);
+
+        startSafeDate = new Date('2010/07/01 00:00');
+
+        //换图片
+        $('.on-top img').attr('src','img/hongqiao.png')
+    }
+
+    $('.right-picture-title').html(pageTitleCN  + '<span>' + pageTitleEN + '</span>');
+
+    if($('.right-top-title')){
+
+        $('.right-top-title').html(pageTitleCN + pageTitleEN);
+
+
+    }
+
+
+    var date2 = new Date();
+
+    var s1 = startSafeDate.getTime(),s2 = date2.getTime();
+
+    var total = (s2 - s1)/1000;
+
+    var safeDays = parseInt(total / (24*60*60));//计算整数天数
+
+    //给页面中赋值
+    $('.two-bottom-block  p span').html(safeDays);
+
+
     //当前楼宇ID
     var curPointerIDArr = ['3101800201'];
 
@@ -146,21 +204,6 @@ $(function(){
 
     //ringChartR.setOption(optionRing1);
 
-    //定义计算安全运行天数的开始日期
-    var startSafeDate = new Date('2017/07/20 00:00');
-
-    var date2 = new Date();
-
-    var s1 = startSafeDate.getTime(),s2 = date2.getTime();
-
-    var total = (s2 - s1)/1000;
-
-    var safeDays = parseInt(total / (24*60*60));//计算整数天数
-
-    //console.log(safeDays);
-
-    //给页面中赋值
-    $('.two-bottom-block  p span').html(safeDays);
 
     //时间
     setInterval(function(){
@@ -585,15 +628,21 @@ $(function(){
         },
         success:function(result){
 
-            var temperatureData = (result.temperatureData == '')?'':result.temperatureData + '℃';
+            if(result){
 
-            var humidityData = (result.humidityData == '')?'':result.humidityData + '%';
 
-            //温度
-            $('.temperature-header').children('span').html(temperatureData);
+                var temperatureData = (result.temperatureData == '')?'':result.temperatureData + '℃';
 
-            //湿度
-            $('.humidity-header').children('span').html(humidityData);
+                var humidityData = (result.humidityData == '')?'':result.humidityData + '%';
+
+                //温度
+                $('.temperature-header').children('span').html(temperatureData);
+
+                //湿度
+                $('.humidity-header').children('span').html(humidityData);
+
+            }
+
 
         },
         error:function(){
