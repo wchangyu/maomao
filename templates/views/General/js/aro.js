@@ -15,31 +15,31 @@ $(function(){
         col = [
 
             {
-                title:'对象',
+                title:'Object',
                 data:'kpiN'
             },
             {
-                title:'总值<span class="Lunite">(KWH/KWH)</span>',
+                title:'Total <span class="Lunite">(KWH/KWH)</span>',
                 data:'totalV'
             },
             {
-                title:'峰值<span class="Lunite">(KWH/KWH)</span>',
+                title:'Peaks <span class="Lunite">(KWH/KWH)</span>',
                 data:'maxV'
             },
             {
-                title:'出现时间',
+                title:'Occurrence',
                 data:'maxDT'
             },
             {
-                title:'谷值<span class="Lunite">(KWH/KWH)</span>',
+                title:'Valleys <span class="Lunite">(KWH/KWH)</span>',
                 data:'minV'
             },
             {
-                title:'出现时间',
+                title:'Occurrence',
                 data:'minDT'
             },
             {
-                title:'平均值<span class="Lunite">(KWH/KWH)</span>',
+                title:'Averages <span class="Lunite">(KWH/KWH)</span>',
                 data:'averV'
             }
 
@@ -52,31 +52,31 @@ $(function(){
         col = [
 
             {
-                title:'对象',
+                title:'Object',
                 data:'kpiN'
             },
             {
-                title:'总值<span class="Lunite">(KWH/RTH)</span>',
+                title:'Total <span class="Lunite">(KWH/RTH)</span>',
                 data:'totalV'
             },
             {
-                title:'峰值<span class="Lunite">(KWH/RTH)</span>',
+                title:'Peaks <span class="Lunite">(KWH/RTH)</span>',
                 data:'maxV'
             },
             {
-                title:'出现时间',
+                title:'Occurrence',
                 data:'maxDT'
             },
             {
-                title:'谷值<span class="Lunite">(KWH/RTH)</span>',
+                title:'Valleys <span class="Lunite">(KWH/RTH)</span>',
                 data:'minV'
             },
             {
-                title:'出现时间',
+                title:'Occurrence',
                 data:'minDT'
             },
             {
-                title:'平均值<span class="Lunite">(KWH/RTH)</span>',
+                title:'Averages <span class="Lunite">(KWH/RTH)</span>',
                 data:'averV'
             }
 
@@ -180,21 +180,22 @@ $(function(){
     //日历插件
     function initdatetimepicker(){
 
-        var time = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
-
         var nowDt = new Date();
         var year = nowDt.getFullYear();
         var month = parseInt(nowDt.getMonth())+1;
         var day = nowDt.getDate();
         var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt= moment(dtstr);
+
+        //var mt= moment(dtstr);
+
+        var mt = moment(sessionStorage.sysDt);
+
         var nowDt=mt.format('YYYY-MM-DD');
         var startDt = mt.subtract(1, 'days').format('YYYY-MM-DD');
-        $("#spDT").val(time);
-        $("#epDT").val(moment(time).add(1,'d').format('YYYY-MM-DD'));
+        $("#spDT").val(startDt);
+        $("#epDT").val(nowDt);
         $('.abbrDT').datetimepicker({
             format: 'yyyy-mm-dd',
-            language: 'zh-CN',
             weekStart: true,
             todayBtn: true,
             autoclose: true,

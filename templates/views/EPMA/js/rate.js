@@ -27,7 +27,10 @@ var Rate=function () {
         var month = parseInt(nowDt.getMonth())+1;
         var day = nowDt.getDate();
         var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt= moment(dtstr);
+        //var mt= moment(dtstr);
+
+        var mt = moment(sessionStorage.sysDt);
+
         var nowDt=mt.format('YYYY-MM-DD');
         var startDt = mt.subtract(7, 'days').format('YYYY-MM-DD');
         $("#spDT").val(startDt);

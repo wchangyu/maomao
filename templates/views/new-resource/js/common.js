@@ -386,6 +386,7 @@ $('#datetimepicker').on('changeDate',function(e){
         var curDate = $(this).val();
         //获取结束时间
         var date = moment(curDate).add('6','days').format('YYYY-MM-DD');
+
         //给结束时间选框赋值
         $('.max').val(date);
     }

@@ -38,6 +38,7 @@
         var month = parseInt(nowDt.getMonth())+1;
         var day = nowDt.getDate();
         var nowstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+
         return nowstr;
     }
 
@@ -74,7 +75,10 @@
         var month = parseInt(nowDt.getMonth())+1;
         var day = nowDt.getDate();
         selectDt = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt= moment(selectDt);
+        //var mt= moment(selectDt);
+
+        var mt = moment(sessionStorage.sysDt);
+
         var nowDt=mt.format('YYYY-MM');
         $("#spDT").val(nowDt);
         initMonth();
@@ -82,9 +86,6 @@
 
     //(月)
     var initMonth=function () {
-
-        $('.rankDT').datepicker('destroy');
-
         $('.rankDT').datepicker({
             autoclose: true,
             startView: 1,
@@ -104,16 +105,13 @@
 
     //(年)
     var initYear=function () {
-
-        $('.rankDT').datepicker('destroy');
-
         $('.rankDT').datepicker({
             autoclose: true,
             startView: 2,
             maxViewMode: 2,
             minViewMode: 2,
             format: "yyyy",
-            language: "en"
+            language: "zh-CN"
         }).on('changeDate', function (ev) {
             if (eType === "1") {
                 var year = ev.date.getFullYear();
@@ -125,23 +123,25 @@
     }
 
     //查询能效排名
-    var getEERRankDs = function () {
+    var getEERRankDs = function (dt) {
         if(selectDt.length === 0){
-            alert('Prompt(Ranking):Please choose the time');
+            console.log('提示(能效排名):请选择时间');
             return;
         }
         else{
             jQuery('#rankBusy').showLoading();
             var pIds = [];
-            pIds.push('8817180401');
+            pIds.push(sessionStorage.PointerID);
             var pNts = [];
-            pNts.push('安利8#冷站');
+            pNts.push(sessionStorage.PointerName);
             var url = sessionStorage.apiUrlPrefix + "RankEER/GetRankEERAnalysisDs";
             $.post(url,{
                 pIds:pIds,
                 pNts:pNts,
-                DT:dtnowstr(),
-                eType:selectEType
+                //DT:dtnowstr(),
+                DT:dt,
+                eType:selectEType,
+                misc:sessionStorage.misc
             },function (res) {
                 if(res.code === 0){
                     var lzxs = res.lzxs;//冷站X轴
@@ -159,14 +159,27 @@
                     var ctxs = res.ctxs;//冷却塔X轴
                     var ctys = res.ctys;
                     var ctcs = res.ctcs;
-                    drawlzv(lzxs, lzys, lzcs, 'KW/KW');//冷站
-                    drawcv(cxs, cys, ccs,  'KW/KW');//冷机
-                    drawchwv(chwxs, chwys, chwcs,  'KW/KW');//冷冻泵
-                    drawcwv(cwxs, cwys, cwcs,  'KW/KW');//冷却泵
-                    drawctv(ctxs, ctys, ctcs,  'KW/KW');//冷却塔
+
+                    var Luntil = '';
+
+                    if(sessionStorage.misc == 1){
+
+                        Luntil = 'KW/KW'
+
+                    }else if(sessionStorage.misc == 2){
+
+                        Luntil = 'KW/RT'
+
+                    }
+
+                    drawlzv(lzxs, lzys, lzcs, Luntil);//冷站
+                    drawcv(cxs, cys, ccs,  Luntil);//冷机
+                    drawchwv(chwxs, chwys, chwcs,  Luntil);//冷冻泵
+                    drawcwv(cwxs, cwys, cwcs,  Luntil);//冷却泵
+                    drawctv(ctxs, ctys, ctcs,  Luntil);//冷却塔
                     jQuery('#rankBusy').hideLoading();
                 }else if(res.code === -1){
-                    alert('error(Ranking:)' + res.msg);
+                    console.log('异常错误(能效排名:)' + res.msg);
                     jQuery('#rankBusy').hideLoading();
                 }else{
                     jQuery('#rankBusy').hideLoading();
@@ -194,7 +207,7 @@
         var dvs = [];
         for (var i = 0; i < ctys.length; i++) {
             var object = {};
-            object.name = "Coolant tower";
+            object.name = "冷却塔";
             object.type = "bar";
             object.barWidth = "20";
             object.label = {};
@@ -227,7 +240,7 @@
                 }
             },
             legend: {
-                data: ['Coolant tower']
+                data: ['冷却塔']
             },
             grid: {
                 left: '3%',
@@ -312,7 +325,7 @@
         var dvs = [];
         for (var i = 0; i < cwys.length; i++) {
             var object = {};
-            object.name = "Coolant pump";
+            object.name = "冷却泵";
             object.type = "bar";
             object.barWidth = "20";
             object.label = {};
@@ -344,7 +357,7 @@
                 }
             },
             legend: {
-                data: ['Coolant pump']
+                data: ['冷却泵']
             },
             grid: {
                 left: '3%',
@@ -429,7 +442,7 @@
         var dvs = [];
         for (var i = 0; i < chwys.length; i++) {
             var object = {};
-            object.name = "Condensate pump";
+            object.name = "冷冻泵";
             object.type = "bar";
             object.barWidth = "20";
             object.label = {};
@@ -462,7 +475,7 @@
                 }
             },
             legend: {
-                data: ['Condensate pump']
+                data: ['冷冻泵']
             },
             grid: {
                 left: '3%',
@@ -547,7 +560,7 @@
         var dvs = [];
         for (var i = 0; i < cys.length; i++) {
             var object = {};
-            object.name = "Chiller";
+            object.name = "冷机";
             object.type = "bar";
             object.barWidth = "20";
             object.label = {};
@@ -579,7 +592,7 @@
                 }
             },
             legend: {
-                data: ['Chiller']
+                data: ['冷机']
             },
             grid: {
                 left: '3%',
@@ -664,7 +677,7 @@
         var dvs = [];
         for (var i = 0; i < lzys.length; i++) {
             var object = {};
-            object.name = "Cold station";
+            object.name = "冷站";
             object.type = "bar";
             object.barWidth = "20";
             object.label = {};
@@ -695,7 +708,7 @@
                 }
             },
             legend: {
-                data: ['Cold station']
+                data: ['冷站']
             },
             grid: {
                 left: '3%',
@@ -756,9 +769,9 @@
             //切换日月年时间类型
             changeEType();
             //(默认)查询能效排名
-            getEERRankDs();
+            getEERRankDs(encodeURIComponent(sessionStorage.sysDt));
             $('#rankBtn').on('click',function () {
-                getEERRankDs();
+                getEERRankDs(moment($('#spDT').val()).format('YYYY-MM-DD'));
             })
         }
     }

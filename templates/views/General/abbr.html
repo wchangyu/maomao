@@ -57,8 +57,8 @@
                         <span id="pNT">楼宇</span>
                     </li>
                     <li id="span_temperature" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                        <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/wendu.png')no-repeat;">
-                        </span><span id="temperature">0℃</span>
+                        <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/wendu.png')no-repeat;"></span>
+                        <span id="temperature">0℃</span>
                     </li>
                     <li id="span_humidity" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
                         <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/shidu.png')no-repeat;"></span>
@@ -78,6 +78,14 @@
                             <li></li>
                         </ul>
                     </li>
+                    <li class="dropdown dropdown-extended dropdown-tasks" title="切换单位">
+                        <a id="miscBtn" href="javascript:;" class="dropdown-toggle">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li></li>
+                        </ul>
+                    </li>
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" style="background-color:rgba(0,0,0,0);" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <img alt="" class="img-circle" src="../../../assets/admin/layout/img/user.png" style="width:25px;height:25px;">
@@ -88,7 +96,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default" style="max-width:150px;">
                             <li>
-                                <a id="lgot" href="javascript:;">
+                                <a id="lgot" class="logout-page" href="javascript:;">
                                     <i class="icon-key"></i> 退出登录
                                 </a>
                             </li>
@@ -189,55 +197,18 @@
                     <div class="col-md-12">
                         <div class="total-warp">
                             <div id="abbrBusy">
-                                <!--
-                            <div class="row margin-top-20">
-                                <div class="col-md-12 col-sm-12">
-                                    <div class="clear row pull-left" style="margin-left:0px;">
-                                        <div style="float:left;line-height:35px;margin-left:0px;">开始时间:</div>
-                                        <div style="float:left;width:150px;margin-left:5px;">
-                                            <div class="input-group date form_date abbrDT">
-                                                <input id="spDT" class="form-control" size="16" type="text" value="" />
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div style="float:left;line-height:34px;height:34px;width:35px;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5;background-color:#eeeeee;text-align:center;">
-                                            <i class="fa fa-arrow-circle-o-right"></i>
-                                        </div>
-                                        <div style="float:left;width:150px;margin-left:0px;">
-                                            <div class="input-group date form_date abbrDT">
-                                                <input id="epDT" class="form-control" size="16" type="text" value="" />
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div style="float:left;width:120px;margin-left:15px;">
-                                            <select id="eType" class="table-group-action-input form-control">
-                                                <option value="1" selected>十分钟</option>
-                                                <option value="2">小时</option>
-                                                <option value="3">日</option>
-                                            </select>
-                                        </div>
-                                        <a id="abbrBtn" class="btn btn-default yellow pull-left" style="margin-left:15px;">查询数据</a>
-                                        <a id="excBtn" class="btn btn-default yellow pull-left hide" style="margin-left:15px;">导出EXCEL</a>
-                                    </div>
-                                </div>
-                            </div>
-                            -->
                                 <div class="row margin-top-20">
                                 <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
                                     <div class="portlet blue-hoki box yellow">
                                         <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="fa"></i> parameter condition
+                                                <i class="fa"></i> Query Criteria
                                             </div>
                                         </div>
                                         <div class="portlet-body">
                                             <div class="row">
                                                 <div class="col-xs-12">
-                                                    <h5>Start Date</h5>
+                                                    <h5>Initiating Time</h5>
                                                 </div>
                                                 <div class="col-xs-12">
                                                     <div class="input-group date form_date abbrDT">
@@ -248,7 +219,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12">
-                                                    <h5>End Date</h5>
+                                                    <h5>Completion Time</h5>
                                                 </div>
                                                 <div class="col-xs-12">
                                                     <div class="input-group date form_date abbrDT">
@@ -259,17 +230,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12">
-                                                    <h5>Time Interval</h5>
+                                                    <h5>Duration</h5>
                                                 </div>
                                                 <div class="col-xs-12">
                                                     <select id="eType" class="table-group-action-input form-control">
-                                                        <option value="1" selected>Ten Minutes</option>
-                                                        <option value="2">Hour</option>
-                                                        <option value="3">Days</option>
+                                                        <option value="1" selected>Interval Time 10 minutes</option>
+                                                        <option value="2">hour</option>
+                                                        <option value="3">day</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-xs-12">
-                                                    <a id="abbrBtn" class="btn btn-default yellow pull-left margin-top-10">Search</a>
+                                                    <a id="abbrBtn" class="btn btn-default yellow pull-left margin-top-10">Submit</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -324,33 +295,6 @@
             <i class="icon-arrow-up"></i>
         </div>
     </div>
-    <div id="eprBox" style="padding-bottom: 10px;
-            background: url('../../../assets/admin/layout/img/beijingkuang.png')no-repeat;
-            background-size:300px; z-index: 10000; top: 36px; width: 300px;
-            height: auto; position: fixed; right: 107px; display: none;">
-        <div style="padding:15px 15px;color:#FFFFFF;margin-top:0px;">
-            <div class="row">
-                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">Unit</label>
-                <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
-                    <select name="epr_type" id="epr_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">Building</label>
-                <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
-                    <select name="p_type" id="p_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="margin-bottom:10px;line-height:34px;"></label>
-                <div class="col-md-8 col-xs-8 col-xs-8">
-                    <button id="goEprBtn" type="submit" class="btn blue pull-left">
-                        OK
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
     <script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
     <script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
@@ -376,9 +320,10 @@
     <script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
     <script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
     <script src="../../../assets/local/scripts/BEE.js"></script>
+    <script src="../resource/js/publicFun.js"></script>
     <script src="js/pub.js" type="text/javascript"></script>
+    <script src="js/judgeLanguage.js"></script>
     <script src="js/abbr.js" type="text/javascript"></script>
-    <script src="js/EPMAtranslate.js"></script>
     <script>
         jQuery(document).ready(function () {
             Metronic.init();

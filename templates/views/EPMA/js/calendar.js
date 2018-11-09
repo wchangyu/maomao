@@ -37,8 +37,11 @@
 
     //初始化时间控件
     var initdatetimepicker = function (mt) {
-        var nowDt = mt.format('YYYY-MM');
+
+        var nowDt = moment(mt).format('YYYY-MM');
+
         $("#spDT").val(nowDt);
+
         $('.idxDT').datepicker({
             autoclose: true,
             startView: 1,
@@ -55,10 +58,19 @@
 
     return {
         init: function () {
-            var mt = moment(dtnowstr());
-            select_year = mt.year();
-            select_month = addZeroToSingleNumber(parseInt(mt.month()) + 1);
-            select_day = addZeroToSingleNumber(parseInt(mt.date()));
+
+            var mt = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
+
+            select_year = moment(mt).format('YYYY');
+
+            select_month = moment(mt).format('MM');
+
+            select_day = moment(mt).format('DD');
+
+            //var mt = moment(dtnowstr());
+            //select_year = mt.year();
+            //select_month = addZeroToSingleNumber(parseInt(mt.month()) + 1);
+            //select_day = addZeroToSingleNumber(parseInt(mt.date()));
             //初始化时间控件
             initdatetimepicker(mt);
             //获取日历控件EPC数据
@@ -99,13 +111,16 @@
     }
     
     function returnDT() {
+
         var dT = moment(select_year + "-" + select_month + "-" + select_day);
+
         return dT;
     }
 
     /*重组时间*/
     function recomposeMomentDT() {
         var dT = returnDT();
+
         var todayDTstr = dT.format('YYYY年MM月DD日');
         var monthDT = dT.format('YYYY年MM月');
         /*左边月份*/
@@ -133,7 +148,7 @@
         $.post(url,{
             pId:sessionStorage.PointerID,
             sp:todayDT,
-            //sp:moment($('#spDT').val()).endOf('months').format('YYYY-MM-DD'),
+            //sp:moment($('#spDT').val()).startOf('months').format('YYYY-MM-DD'),
             misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){

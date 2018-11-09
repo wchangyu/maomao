@@ -1224,6 +1224,9 @@ Page sidebar
 .page-sidebar .page-sidebar-menu .sub-menu li > a > i,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a > i {
   font-size: 14px;
+
+  margin-right: 5px;
+
 }
 .page-sidebar .page-sidebar-menu .sub-menu li > .sub-menu,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > .sub-menu {

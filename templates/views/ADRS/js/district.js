@@ -549,6 +549,7 @@
 
 
                 },
+
                 beforeClick:function(){
 
                     treeId.find('.curSelectedNode').removeClass('curSelectedNode');

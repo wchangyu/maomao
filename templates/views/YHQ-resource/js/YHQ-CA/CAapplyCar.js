@@ -92,6 +92,13 @@ $(function(){
 
                 number:true
 
+            },
+
+            //车辆类型
+            'CA-type':{
+
+                required:true
+
             }
         },
         messages:{
@@ -154,6 +161,12 @@ $(function(){
             'CA-km':{
 
                 number:'公里数为数字格式'
+
+            },
+            //车辆类型
+            'CA-type':{
+
+                required:'车辆类型是必选字段'
 
             }
 
@@ -229,6 +242,13 @@ $(function(){
 
                     number:true
 
+                },
+
+                //车辆类型
+                'CA-type':{
+
+                    required:true
+
                 }
             },
             messages:{
@@ -292,6 +312,12 @@ $(function(){
 
                     number:'公里数为数字格式'
 
+                },
+                //车辆类型
+                'CA-type':{
+
+                    required:'车辆类型是必选字段'
+
                 }
 
             }
@@ -319,6 +345,27 @@ $(function(){
         {
             title:'用车部门',
             data:'departName'
+        },
+        {
+            title:'申请车辆',
+            data:'cartype',
+            render:function(data, type, full, meta){
+
+                var str = '';
+
+                if(data == 1){
+
+                    str = '普通车'
+
+                }else if(data == 2){
+
+                    str = '救护车'
+
+                }
+
+                return str;
+
+            }
         },
         {
             title:'负责人',
@@ -666,6 +713,8 @@ $(function(){
             departnum:$('#CA-applyDepart').attr('data-attr'),
             //申请部门名称
             departname:$('#CA-applyDepart').val(),
+            //申请车辆类型
+            cartype:$('#CA-type').val(),
             //出发地
             startaddress:$('#CA-departure').val(),
             //目的地
@@ -726,6 +775,8 @@ $(function(){
                 $('#CA-applyDepart').attr('data-attr',data.departNum);
                 //申请部门名称
                 $('#CA-applyDepart').val(data.departName);
+                //申请车辆类型
+                $('#CA-type').val(data.cartype);
                 //出发地
                 $('#CA-departure').val(data.startAddress);
                 //目的地

@@ -484,6 +484,15 @@ $(function(){
     //选择汽车按钮
     $('.carButtonSelect').click(function(){
 
+        //首先判断选择汽车类型了没有
+        if($('#CA-type').val() == ''){
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择汽车类型','');
+
+            return false;
+
+        }
+
         _moTaiKuang($('#car-Modal'),'车辆列表','','','','选择');
 
         //数据
@@ -685,6 +694,8 @@ $(function(){
                 $('#CA-applyDepart').attr('data-attr',data.departNum);
                 //申请部门名称
                 $('#CA-applyDepart').val(data.departName);
+                //申请车辆类型
+                $('#CA-type').val(data.cartype);
                 //出发地
                 $('#CA-departure').val(data.startAddress);
                 //目的地
@@ -719,6 +730,8 @@ $(function(){
         $('#create-Modal').find('select').attr('disabled',false);
 
         $('#create-Modal').find('textarea').attr('disabled',false);
+
+        $('#CA-type').attr('disabled',true);
     }
 
     //不可以操作
@@ -852,7 +865,10 @@ $(function(){
 
             carNum:'',
 
-            status:0
+            status:0,
+
+            //汽车状态
+            cartype:$('#CA-type').val()
 
         };
 

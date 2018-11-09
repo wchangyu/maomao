@@ -2072,8 +2072,6 @@ function _isSelectTr(table){
 //格式化当前时间(日月年十分)
 function _formatTimeH(data){
 
-    var data = data.replace(/T/g,' ' );
-
     if(data != '' && data != null){
 
         var data = data.replace(/T/g,' ');

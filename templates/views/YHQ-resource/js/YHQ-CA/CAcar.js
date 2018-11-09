@@ -27,6 +27,12 @@ $(function(){
                 isExist:_isExist
 
             },
+            //汽车类型
+            'CA-type':{
+
+                required: true,
+
+            },
             //发动机号码
             'CA-engineNum':{
 
@@ -45,7 +51,6 @@ $(function(){
                 isDate1:true
 
             },
-
             //座位数
             'CA-seats':{
 
@@ -75,6 +80,12 @@ $(function(){
                 required: '车牌号码为必填字段',
 
                 isExist:'车牌号码已存在'
+
+            },
+            //汽车类型
+            'CA-type':{
+
+                required: '汽车类型为必选字段',
 
             },
             //发动机号码
@@ -126,6 +137,12 @@ $(function(){
                     isExist:_isExist
 
                 },
+                //汽车类型
+                'CA-type':{
+
+                    required: true,
+
+                },
                 //发动机号码
                 'CA-engineNum':{
 
@@ -144,7 +161,6 @@ $(function(){
                     isDate1:true
 
                 },
-
                 //座位数
                 'CA-seats':{
 
@@ -153,6 +169,14 @@ $(function(){
                     number:true,
 
                     min:1
+
+                },
+                //里程
+                'CA-mileage':{
+
+                    number:true,
+
+                    digits:true
 
                 }
 
@@ -166,6 +190,12 @@ $(function(){
                     required: '车牌号码为必填字段',
 
                     isExist:'车牌号码已存在'
+
+                },
+                //汽车类型
+                'CA-type':{
+
+                    required: '汽车类型为必选字段',
 
                 },
                 //发动机号码
@@ -188,6 +218,14 @@ $(function(){
                     number:'座位数为大于0的整数',
 
                     min:'座位数为大于0的整数'
+
+                },
+                //里程
+                'CA-mileage':{
+
+                    number:'里程数为正整数',
+
+                    digits:'里程数为正整数'
 
                 }
             }
@@ -228,6 +266,27 @@ $(function(){
         {
             title:'发动机号码',
             data:'engineNum'
+        },
+        {
+            title:'汽车类型',
+            data:'cartype',
+            render:function(data, type, full, meta){
+
+                var str = '';
+
+                if(data == 1){
+
+                    str = '普通车'
+
+                }else if(data == 2){
+
+                    str = '救护车'
+
+                }
+
+                return str
+
+            }
         },
         {
             title:'型号',
@@ -456,7 +515,9 @@ $(function(){
             //车辆编号
             carNum:$('#CA-carnumCon').val(),
             //状态
-            status:-1
+            status:$('#CA-statusCon').val(),
+            //汽车类型
+            cartype:$('#CA-typeCon').val()
             ////用户ID
             //userID:_userIdNum,
             ////用户名
@@ -523,7 +584,9 @@ $(function(){
             //备注
             remark:$('#CA-remark').val(),
             //里程
-            mileage:$('#CA-mileage').val()
+            mileage:$('#CA-mileage').val(),
+            //类型
+            cartype:$('#CA-type').val()
 
         }
 
@@ -589,6 +652,8 @@ $(function(){
                 $('#CA-mileage').val(data.mileage);
                 //汽车状态
                 $('#CA-status').val(data.status);
+                //类型
+                $('#CA-type').val(data.cartype);
             }
 
         }

@@ -124,7 +124,7 @@
     //默认选中节点
     var defaultNodes = function (setting) {
         jQuery('#historyBusy').showLoading();
-        var url = sessionStorage.apiUrlPrefix + "/History/GetDataCCodeTrvNodes";
+        var url = sessionStorage.apiUrlPrefix + "History/GetDataCCodeTrvNodes";
         $.post(url,{
             pId:sessionStorage.PointerID
         },function (res) {

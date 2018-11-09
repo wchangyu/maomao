@@ -177,3 +177,16 @@ tbody tr{
     color:#c00000;
 }
 
+.theHidden{
+
+    display: none;
+
+    border:none;
+
+}
+
+.pointerID{
+
+    border:none;
+
+}

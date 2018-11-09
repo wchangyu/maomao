@@ -35,7 +35,22 @@ $(function(){
 
                 var data = result.data[0];
                 //汽车类型
-                $('#carModal').val(data.model)
+
+                var type = '';
+
+                if(data.cartype == 1){
+
+                    type = '普通车'
+
+                }else if(data.cartype == 2){
+
+                    type = '救护车'
+
+                }
+
+                $('#carType').val(type);
+                //汽车型号
+                $('#carModal').val(data.model);
 
                 $('#caNum').html(data.caNum);
 
@@ -45,8 +60,6 @@ $(function(){
                 $('#CA-car').val(data.carNum);
                 //司机
                 $('#CA-driver').val(data.driverName);
-                //司机
-                $('#CA-driverNum').val(data.driverNum);
                 //申请部门名称
                 $('#CA-applyDepart').val(data.departName);
                 //申请人姓名

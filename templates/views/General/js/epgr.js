@@ -19,7 +19,7 @@ var EPGR=function () {
     var initdatetimepicker = function () {
         $('.prcgrpDT').datetimepicker({
             format: 'yyyy-mm-dd',
-            //language: 'zh-CN',
+            language: 'zh-CN',
             weekStart: true,
             todayBtn: true,
             autoclose: true,
@@ -49,13 +49,13 @@ var EPGR=function () {
         jQuery('#epgrBusy').showLoading();
         var url = sessionStorage.apiUrlPrefix + "EPGr/GetPriceGrpDs";
         $.get(url,{
-            pId:sessionStorage.PointerID
+            pId:sessionStorage.PointerID,
         },function (res) {
             if(res.code === 0){
                 //是否编辑,TRUE=是,则是编辑
                 isM = true;
                 //重新赋值HTML
-                $('#spanepricecontent').html('Edit');
+                $('#spanepricecontent').html('编辑电价内容');
                 //计费方案列表
                 var pGrps = res.priceGrps;
                 var pgM = pGrps[0];
@@ -164,14 +164,14 @@ var EPGR=function () {
                 jQuery('#epgrBusy').hideLoading();
             }else if(res.code === -1) {
                 jQuery('#epgrBusy').hideLoading();
-                console.log('error(get electricity fees):' + res.msg);
+                console.log('异常错误(获取电费单价内容):' + res.msg);
             }else{
                 //没有设置电费单价内容
                 initNullPrices();
                 //是否编辑,FALSE=否,则是新增
                 isM = false;
                 //重新赋值HTML
-                $('#spanepricecontent').html('Add');
+                $('#spanepricecontent').html('新增电价内容');
                 jQuery('#epgrBusy').hideLoading();
             }
         })
@@ -181,7 +181,7 @@ var EPGR=function () {
     var initMultiDateTimeMinute = function () {
         var headerstr = '<div class="form_date_minute">'
             + '<div style="background:#EEE;height:30px;">'
-            + '<div style="float:left;margin-left:12px;line-height:30px;"><label><input type="checkbox" class="all_minute_select"><span style="position:relative;top:-2px;margin-left:2px;">check all/cancel all</span></label></div>'
+            + '<div style="float:left;margin-left:12px;line-height:30px;"><label><input type="checkbox" class="all_minute_select"><span style="position:relative;top:-2px;margin-left:2px;">全选/取消全选</span></label></div>'
             + '<div style="float:right;margin-right:10px;height:30px;line-height:30px;position:relative;top:10px;"><button type="button" class="close closeM">×</button></div>'
             + '</div>'
             + '<table id="minuteTable" style="width:100%"><tbody class="minuteTBody"><tr><td>'
@@ -205,7 +205,7 @@ var EPGR=function () {
             $('.minuteTBody').append(trs);
         }
         //插入确定
-        $('.minuteTBody').append('<tr><td colspan="4"><button type="button" class="btn btn-default makeOk" style="width:100%;border-left-width:0px;border-right-width:0px;border-bottom-width:0px;">OK</button></td></tr>');
+        $('.minuteTBody').append('<tr><td colspan="4"><button type="button" class="btn btn-default makeOk" style="width:100%;border-left-width:0px;border-right-width:0px;border-bottom-width:0px;">确定</button></td></tr>');
         //全选
         $('.all_minute_select').on('change', function () {
             var flag = $(this)[0].checked;
@@ -288,59 +288,59 @@ var EPGR=function () {
                 var equalpriceEV = $('#equalpriceEV').val();/*平值电价*/
                 var valleypriceEV = $('#valleypriceEV').val();/*谷值电价*/
                 if (pricegroupNT.length === 0) {
-                    alert("Prompt(Electricity fees setting):Scheme name can not be empty");
+                    console.log("系统提示(电价设置):计费方案名称不能为空");
                     return;
                 }
                 if (priceSTDT.length === 0) {
-                    alert("Prompt(Electricity fees setting):Start date can not be empty");
+                    console.log("系统提示(电价设置):开始时间段不能为空");
                     return;
                 }
                 if (priceETDT.length === 0) {
-                    alert("Prompt(Electricity fees setting):End date can not be empty");
+                    console.log("系统提示(电价设置):结束时间段不能为空");
                     return;
                 }
                 if ($('#pricestip').val().length > 0) {
                     if (tippriceEV.length === 0) {
-                        alert("Prompt(Electricity fees setting):Critical peak price can not be empty");
+                        console.log("系统提示(电价设置):尖值电价不能为空");
                         return;
                     }
                     if (parseFloat(tippriceEV) <= 0) {
-                        alert("Prompt(Electricity fees setting):Critical peak price can not be less than 0 ");
+                        console.log("系统提示(电价设置):尖值电价不能小于等于0");
                         return;
                     }
                 }
                 if ($('#pricespeak').val().length > 0) {
                     if (peakpriceEV.length === 0) {
-                        alert("Prompt(Electricity fees setting):On peak price can not be empty");
+                        console.log("系统提示(电价设置):峰值电价不能为空");
                         return;
                     }
                     if (parseFloat(peakpriceEV) <= 0) {
-                        alert("Prompt(Electricity fees setting):On peak price can not be less than 0 ");
+                        console.log("系统提示(电价设置):峰值电价不能小于等于0");
                         return;
                     }
                 }
                 if ($('#pricesflat').val().length > 0) {
                     if (equalpriceEV.length === 0) {
-                        alert("Prompt(Electricity fees setting):Flat price can not be empty");
+                        console.log("系统提示(电价设置):平值电价不能为空");
                         return;
                     }
                     if (parseFloat(equalpriceEV) <= 0) {
-                        alert("Prompt(Electricity fees setting):Flat price can not be less than 0");
+                        console.log("系统提示(电价设置):平值电价不能小于等于0");
                         return;
                     }
                 }
                 if ($('#pricesvalley').val().length > 0) {
                     if (valleypriceEV.length === 0) {
-                        alert("Prompt(Electricity fees setting):Off peak price can not be empty");
+                        console.log("系统提示(电价设置):谷值电价不能为空");
                         return;
                     }
                     if (parseFloat(valleypriceEV) <= 0) {
-                        alert("Prompt(Electricity fees setting):Off peak price can not be less than 0");
+                        console.log("系统提示(电价设置):谷值电价不能小于等于0");
                         return;
                     }
                 }
                 if (tipAryts.length === 0 && peakAryts.length === 0 && flatAryts.length === 0 && valleyAryts.length === 0) {
-                    alert("Prompt(Electricity fees setting):Time can not be empty ");
+                    console.log("系统提示(电价设置):尖峰谷值时间段不能为空");
                 }
                 else {
                     jQuery('#epgrBusy').showLoading();
@@ -375,24 +375,24 @@ var EPGR=function () {
                     $.post(url,prm,function (res) {
                         if(res.code === 0){
                             jQuery('#epgrBusy').hideLoading();
-                            alert("Prompt(Electricity fees setting):Set up success");
+                            console.log("系统提示(电价设置):设置尖峰平谷电费单价成功");
                             $('#mypriceSetModal').modal('hide');
                         }else if(res.code === -1){
                             jQuery('#epgrBusy').hideLoading();
                             var msg = res.msg;
-                            alert("Prompt(Electricity fees setting):" + msg);
+                            console.log("系统提示(电价设置):" + msg);
                             $('#mypriceSetModal').modal('hide');
                         }else{
                             jQuery('#epgrBusy').hideLoading();
                             var msg = res.msg;
-                            alert("Prompt(Electricity fees setting):" + msg);
+                            console.log("系统提示(电价设置):" + msg);
                             $('#mypriceSetModal').modal('hide');
                         }
                     })
                 }
             }
             else {
-                alert("系统提示(电价设置):尖峰谷值时间段从00:00~23:00，共24个时间点");
+                console.log("系统提示(电价设置):尖峰谷值时间段从00:00~23:00，共24个时间点");
             }
         });
     }

@@ -310,7 +310,7 @@ $(function(){
         abledOption();
 
         //自动返回
-        $('.autoBack').show();
+        $('.autoBack').hide();
 
     })
 

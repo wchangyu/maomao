@@ -2,6 +2,8 @@
 
     var mycv = null;
 
+    var treeObj = null;
+
     window.onresize = function (ev) {
         if(mycv){
             mycv.resize();
@@ -77,7 +79,7 @@
         },
         check: {
             enable: true,
-            chkboxType: { "Y": "", "N": "" }
+            chkboxType: { "Y": "ps", "N": "ps" }
         },
         data: {
             simpleData: {
@@ -88,8 +90,16 @@
             }
         },
         callback: {
-            onCheck: onCheck
-            //onAsyncSuccess: onAsyncSuccess
+            onClick: function(e,treeId,treeNode){
+
+
+
+                var zTreeObj = $.fn.zTree.getZTreeObj("DCTreeView");;
+
+                //勾选当前选中的节点
+                zTreeObj.checkNode(treeNode, !treeNode.checked, true);
+
+            }
         }
     };
 
@@ -114,18 +124,25 @@
     //默认选中节点
     var defaultNodes = function (setting) {
         jQuery('#historyBusy').showLoading();
-        var url = sessionStorage.apiUrlPrefix + "/History/GetDataCCodeTrvNodes";
+        var url = sessionStorage.apiUrlPrefix + "History/GetDataCCodeTrvNodes";
         $.post(url,{
             pId:sessionStorage.PointerID
         },function (res) {
             if(res.code === 0){
                 var zNodes = res.dctrVs;
+
                 $.fn.zTree.init($("#DCTreeView"), setting, zNodes).expandAll(true);
+
                 var zTree = $.fn.zTree.init($("#DCTreeView"), setting, zNodes);
-                var nodes = zTree.getNodes();
+
+                //var nodes = zTree.getNodes();
+
+                var nodes = [];
+
                 firstzNode(nodes,zTree);
+
             }else if(res.code === -1){
-                console.log('error(Factor tree structure data):' + res.msg);
+                console.log('异常错误(因子树形结构数据):' + res.msg);
                 jQuery('#historyBusy').hideLoading();
             }else{
                 jQuery('#historyBusy').hideLoading();
@@ -136,6 +153,7 @@
     //默认选中检测因子第一项
     var firstzNode = function (nodes, zTree) {
         var cIds = "";
+
         if (nodes.length === 0) {
             jQuery('#historyBusy').hideLoading();
             return;
@@ -161,7 +179,7 @@
         var dp = mtep - mtsp;
         var days = Math.floor(dp / (24 * 3600 * 1000));
         if (days > 31) {
-            console.log("Prompt(historical data ):Check the historical data of monitoring factors for more than 31 days");
+            console.log("提示(历史数据):查看监测因子的历史数据时间段不能超过31天");
             return;
         }else{
             mycv = echarts.init(document.getElementById('historyMain'));
@@ -170,12 +188,13 @@
                 pId : sessionStorage.PointerID ,
                 cIds : cIds,
                 sp : sp,
-                ep : ep
+                ep : ep,
+                eType:$('#eType').val()
             },function (res) {
                 if(res.code === 0){
-                    var covST = Format(convertDate(sp), "MM-dd");
-                    var covET = Format(convertDate(ep), "MM-dd");
-                    var titleText = covST + " - " + covET + "historical data";
+                    var covST = Format(convertDate(sp), "MM月dd日");
+                    var covET = Format(convertDate(ep), "MM月dd日");
+                    var titleText = covST + " - " + covET + "历史数据";
                     var lgs = [];
                     for (var i = 0; i < res.lgs.length; i++) {
                         lgs.push(res.lgs[i]);
@@ -242,7 +261,7 @@
                     mycv.setOption(option);
                     jQuery('#historyBusy').hideLoading();
                 }else if(res.code === -1){
-                    console.log('error(historical data ):' + res.msg);
+                    console.log('异常错误(历史数据):' + res.msg);
                     jQuery('#historyBusy').hideLoading();
                 }else{
                     jQuery('#historyBusy').hideLoading();
@@ -258,17 +277,16 @@
         var month = parseInt(nowDt.getMonth())+1;
         var day = nowDt.getDate();
         var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt= moment(dtstr);
+        //var mt= moment(dtstr);
+
+        var mt = moment(sessionStorage.sysDt);
+
         var nowDt=mt.format('YYYY-MM-DD');
         var startDt = mt.subtract(1, 'days').format('YYYY-MM-DD');
         $("#spDT").val(startDt);
         $("#epDT").val(nowDt);
-
-        $('.HSYDT').datetimepicker('destroy');
-
         $('.HSYDT').datetimepicker({
             format: 'yyyy-mm-dd',
-            //language: 'zh-CN',
             weekStart: true,
             todayBtn: true,
             autoclose: true,
@@ -289,7 +307,7 @@
             var ofstLeft = ofst.left - 240;
             var ofstTop = ofst.top - 90;
             $("#treeCNT")
-                .css({ left: ofstLeft + "px", top: ofstTop + "px" })
+                //.css({ left: ofstLeft + "px", top: ofstTop + "px" })
                 .slideDown("fast");
             $("body").bind("mousedown", onBodyDown);
         });
@@ -314,7 +332,7 @@
             var zTree = $.fn.zTree.getZTreeObj("DCTreeView");
             var nodes = zTree.getCheckedNodes(true);
             if (nodes.length == 0) {
-                alert("提示(历史数据):请选择一项监测因子查询历史数据");
+                console.log("提示(历史数据):请选择一项监测因子查询历史数据");
                 return;
             }
             else {

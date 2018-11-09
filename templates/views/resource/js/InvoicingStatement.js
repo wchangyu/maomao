@@ -189,9 +189,10 @@ $(function(){
 
     //导出
     $('.excelButton11').on('click',function(){
-        //_FFExcel($('#scrap-datatables')[0]);
 
-        exportExecl($('#scrap-datatables'));
+        _FFExcel($('#scrap-datatables')[0]);
+
+       // exportExecl($('#scrap-datatables'));
     });
 
     //导出为excel

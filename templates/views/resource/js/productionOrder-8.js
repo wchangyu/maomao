@@ -42,6 +42,12 @@ $(function(){
     //车间
     _ajaxFun('YWDev/ywDMGetDDs', _allDataBM, $('#station'), 'ddName', 'ddNum');
 
+    //系统类型数组
+    var _allDataXT = [];
+
+    //系统类型
+    _ajaxFun('YWDev/ywDMGetDSs',_allDataXT, $('#xtlx'), 'dsName', 'dsNum');
+
     //线路
     lineRouteData($('#line'));
 
@@ -1106,6 +1112,7 @@ $(function(){
             isCalcTimeSpan:1,
             gdZht:$('#gdzt').val(),
             //isReturnZhtArray:1
+            wxShiXNum:$('#xtlx').val()
         };
         var bzArr = [];
         var cheArr = [];

@@ -157,6 +157,39 @@
 
                             <ul class="L-condition">
                                 <li>
+
+                                    <label>汽车状态</label>
+
+                                    <select id="CA-statusCon" class="table-group-action-input form-control">
+
+                                        <option value="-1">全部</option>
+
+                                        <option value="0">空闲</option>
+
+                                        <option value="1">出车</option>
+
+                                        <option value="2">维修</option>
+
+                                        <option value="3">报废</option>
+
+                                    </select>
+
+                                </li>
+                                <li>
+                                    <label>类型</label>
+
+                                    <select id="CA-typeCon" class="table-group-action-input form-control">
+
+                                        <option value="0">全部</option>
+
+                                        <option value="1">普通车</option>
+
+                                        <option value="2">救护车</option>
+
+                                    </select>
+
+                                </li>
+                                <li>
                                     <label>车牌号码</label>
                                     <input type="text" class="form-control" id="CA-carnumCon">
                                 </li>
@@ -221,6 +254,19 @@
                                 <label>型号：</label>
                                 <input type="text" class="table-group-action-input form-control" id="CA-model" name="CA-model" placeholder="型号是必填字段">
                                 <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>类型</label>
+
+                                <select id="CA-type" name="CA-type" class="table-group-action-input form-control">
+
+                                    <option value="">请选择</option>
+
+                                    <option value="1">普通车</option>
+
+                                    <option value="2">救护车</option>
+
+                                </select>
                             </li>
                             <li class="autoBack">
                                 <label>状态：</label>

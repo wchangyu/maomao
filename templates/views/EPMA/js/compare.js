@@ -82,7 +82,11 @@
 
     //初始化默认选择时间段
     var initdtlist=function () {
-        var mt=moment(dtnowstr());
+
+        //var mt=moment(dtnowstr());
+
+        var mt=moment(sessionStorage.sysDt);
+
         var nowDt=mt.format('YYYY-MM-DD');
         $('#spDT').val(nowDt);
         dTList.push(nowDt);
@@ -110,7 +114,7 @@
             var tvLeft = ofstzTv.left - 240;
             var tvTop = ofstzTv.top - 90;
             $("#alreadyDT")
-                .css({ left: 73 + "px", top: 33 + "px",'z-index':2 })
+                .css({ left: 15 + "px", 'z-index':2 })
                 .slideDown("fast");
             $("body").bind("mousedown", onBodyDown);
             $("#ULDT").html("");

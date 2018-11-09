@@ -43,7 +43,7 @@
     }
 
     //获取已选择的时间段
-    var     getDTs = function () {
+    var getDTs = function () {
         var dTs = "";
         for (var i = 0; i < dTList.length; i++) {
             if (i === dTList.length - 1) {
@@ -60,7 +60,6 @@
         $('.compareDT').datetimepicker(
             {
                 format: 'yyyy-mm-dd',
-                //language: 'zh-CN',
                 weekStart: true,
                 todayBtn: true,
                 autoclose: true,
@@ -75,19 +74,35 @@
             //判断当前日期是否已经存在
             if ($.inArray(inputV, dTList) === -1) {
                 dTList.push(inputV);
-                $("#spanDT").html("Selected time period(" + dTList.length + ")");
+                $("#spanDT").html("已选择时间段(" + dTList.length + ")");
             }
         });
     }
 
     //初始化默认选择时间段
     var initdtlist=function () {
-        var mt=moment(dtnowstr());
+        //var mt=moment(dtnowstr());
+
+        var mt = moment(sessionStorage.sysDt);
+
         var nowDt=mt.format('YYYY-MM-DD');
         $('#spDT').val(nowDt);
         dTList.push(nowDt);
-        $("#spanDT").html("Selected time period(" + dTList.length + ")");
+        $("#spanDT").html("已选择时间段(" + dTList.length + ")");
     }
+
+    //移除已选择日期
+    var removeDT = function (el) {
+
+        var inputV = el.attr('data-id');
+
+        dTList = $.grep(dTList, function (value) {
+            return value != inputV;
+        });
+        $("#spanDT").html("已选择时间段(" + dTList.length + ")");
+        hideDtBox();
+    }
+
 
     //打开已选择时间段框
     var openAlreadyDtBox = function () {
@@ -97,26 +112,26 @@
             var tvLeft = ofstzTv.left - 240;
             var tvTop = ofstzTv.top - 90;
             $("#alreadyDT")
-                .css({ left: tvLeft + "px", top: tvTop - 12 + "px" })
+                .css({ left: 15 + "px", 'z-index':2 })
                 .slideDown("fast");
             $("body").bind("mousedown", onBodyDown);
             $("#ULDT").html("");
             for (var i = 0; i < dTList.length; i++) {
                 var curDT = dTList[i];
-                $("#ULDT").append("<li><a data-id=" + curDT + " onclick='removeDT(this);'>" + curDT + "</a></li>");
+                //$("#ULDT").append("<li><a data-id=" + curDT + " onclick='removeDT(this);'>" + curDT + "</a></li>");
+
+                $("#ULDT").append("<li><a data-id=" + curDT + " '>" + curDT + "</a></li>");
+
             }
         });
     }
 
-    //移除已选择日期
-    var removeDT = function (e) {
-        var inputV = e.getAttribute("data-id");
-        dTList = $.grep(dTList, function (value) {
-            return value != inputV;
-        });
-        $("#spanDT").html("Selected time period(" + dTList.length + ")");
-        hideDtBox();
-    }
+
+    $('#ULDT').on('click','a',function(){
+
+        removeDT($(this));
+
+    })
 
     function onBodyDown(event) {
         if (!(event.target.id == "openBtn"
@@ -133,6 +148,9 @@
     }
     
     var getCompareEERChartViewDs = function (eType,mType,dTs) {
+
+        $('.noDataTip').remove();
+
         jQuery('#compareBusy').showLoading();
         mycv = echarts.init(document.getElementById('compareMain'));
         var url = sessionStorage.apiUrlPrefix + "CompareEER/GetCompareEERAnalysisDs";
@@ -140,10 +158,12 @@
             pId:sessionStorage.PointerID,
             dTs:dTs,
             mType:mType,
-            eType:eType
+            eType:eType,
+            misc:sessionStorage.misc
         },function (res) {
+
             if(res.code===0){
-                var titleText = "Multi time energy efficiency comparison";
+                var titleText = "多时间段能效对比分析";
                 var lgs = [];//图例
                 for (var i = 0; i < dTList.length; i++) {
                     lgs.push(dTList[i]);
@@ -166,6 +186,8 @@
                     }
                     dvs.push(object);
                 }
+
+
                 option = {
                     title: {
                         //text: titleText,
@@ -181,13 +203,13 @@
                     toolbox: {
                         show: true,
                         feature: {
-                            dataZoom: {
-                                yAxisIndex: 'none'
-                            },
-                            //dataView: { readOnly: true },
+                            //dataZoom: {
+                            //    yAxisIndex: 'none'
+                            //},
+                            dataView: { readOnly: true },
                             //magicType: { type: ['line', 'bar'] },
                             //restore: {},
-                            saveAsImage: {}
+                            //saveAsImage: {}
                         }
                     },
                     xAxis: {
@@ -210,81 +232,194 @@
                     },
                     series: dvs
                 };
-                mycv.setOption(option);
+
+                if(sessionStorage.misc == 1){
+
+                    option.title.subtext = 'KW/KW'
+
+                }else if(sessionStorage.misc == 2){
+
+                    option.title.subtext = 'KW/RT'
+
+                }
+
+                mycv.setOption(option,true);
+
                 jQuery('#compareBusy').hideLoading();
+
             }else if(res.code===-1){
+
+                var tip = res.msg;
+
+                var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
+
+                $('#compareMain').append(str);
+
                 console.log('异常错误(能效多时间段对比):' + res.msg);
+
                 jQuery('#compareBusy').hideLoading();
+
+
             }else{
                 jQuery('#compareBusy').hideLoading();
+
+                var tip = 'No data';
+
+                var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
+
+                $('#compareMain').append(str);
+
             }
         })
     }
-    
+
+    tableInit();
+
+    //表格初始化
+    function tableInit(){
+
+        var col = [
+
+            {
+                title:'Object',
+                data:'DX'
+            },
+            {
+                title:'Overall',
+                data:'ZTZ',
+                render:function(data, type, full, meta){
+                    if(data == 'NaN'){
+
+                        return '非数字'
+
+                    }else{
+
+                        return data
+
+                    }
+                }
+            },
+            {
+                title:'Average',
+                data:'PJZ',
+                render:function(data, type, full, meta){
+                    if(data == 'NaN'){
+
+                        return '非数字'
+
+                    }else{
+
+                        return data
+
+                    }
+                }
+
+            },
+            {
+                title:'10% of Optimal Mean Value',
+                data:'ZYZ',
+                render:function(data, type, full, meta){
+                    if(data == 'NaN'){
+
+                        return '非数字'
+
+                    }else{
+
+                        return data
+
+                    }
+                }
+            },
+            {
+                title:'10% of Worst Average Value',
+                data:'ZCZ',
+                render:function(data, type, full, meta){
+                    if(data == 'NaN'){
+
+                        return '非数字'
+
+                    }else{
+
+                        return data
+
+                    }
+                }
+            }
+
+        ]
+
+        oTable = $("#avg_table").dataTable({
+            "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+            "paging": false,   //是否分页
+            "destroy": true,//还原初始化了的datatable
+            "searching": false,
+            "ordering": false,
+            "bFilter": false,
+            "bPaginate": false, //翻页功能
+            "bSort": false,
+            "bProcessing": false,
+            "aoColumns": col
+            // "columns":[
+            //     {
+            //         title:'对象',
+            //         data:'',
+            //         visible:false,
+            //     },{
+            //         title:'整体值'
+            //     },{
+            //         title:'平均值'
+            //     },{
+            //         title:'10%最优平均值'
+            //     },{
+            //         title:'10%最差平均值'
+            //     }
+            // ]
+        });
+
+    }
+
     var getCompareEERTableDs =function (eType,mType,dTs) {
         var url = sessionStorage.apiUrlPrefix + "CompareEER/GetCompareEERTableDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
             dTs:dTs,
             mType:mType,
-            eType:eType
+            eType:eType,
+            misc:sessionStorage.misc
         },function (res) {
+
             //表格显示数据源
             var dataArr = [];
-            dataArr = res.aaData;
-            if(oTable===null){
-                oTable = $("#avg_table").dataTable({
-                    "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-                    "paging": false,   //是否分页
-                    "destroy": true,//还原初始化了的datatable
-                    "searching": false,
-                    "paging": false,
-                    "searching": false,
-                    "ordering": false,
-                    "bFilter": false,
-                    "bPaginate": false, //翻页功能
-                    "bSort": false,
-                    "bProcessing": false,
-                    "oLanguage": {
-                        "sLengthMenu": "每页显示 _MENU_ 条记录",
-                        "sZeroRecords": "没有任何能效对比数据",
-                        "sEmptyTable": "没有任何能效对比数据",
-                        "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
-                        "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
-                        "sInfoEmpty": "",
-                        "sSearch": "搜索",
-                        "oPaginate": {
-                            "sFirst": "首页",
-                            "sPrevious": "上一页",
-                            "sNext": "下一页",
-                            "sLast": "末页"
-                        },
-                    },
-                    "aoColumns": [, , , , , ]
-                    // "columns":[
-                    //     {
-                    //         title:'对象',
-                    //         data:'',
-                    //         visible:false,
-                    //     },{
-                    //         title:'整体值'
-                    //     },{
-                    //         title:'平均值'
-                    //     },{
-                    //         title:'10%最优平均值'
-                    //     },{
-                    //         title:'10%最差平均值'
-                    //     }
-                    // ]
-                });
-                $('.dataTables_info').hide();
+
+            if(res != null){
+
+                if(res.aaData){
+
+                    for(var i=0;i<res.aaData.length;i++){
+
+                        var obj = {};
+
+                        //对象
+                        obj.DX = res.aaData[i][0];
+                        //整体值
+                        obj.ZTZ = res.aaData[i][1];
+                        //平均值
+                        obj.PJZ = res.aaData[i][2];
+                        //10%最优平均值
+                        obj.ZYZ = res.aaData[i][3];
+                        //10%最差平均值
+                        obj.ZCZ = res.aaData[i][4];
+
+                        dataArr.push(obj);
+
+                    }
+
+                }
+
             }
-            //清空一下table
-            oTable.fnClearTable();
-            //想表格中添加东西数据o
-            oTable.fnAddData(dataArr);
-            //重绘表格
-            oTable.fnDraw();
+
+            _datasTable($('#avg_table'),dataArr);
+
         })
     }
 

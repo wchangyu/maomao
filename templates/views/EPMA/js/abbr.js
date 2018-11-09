@@ -76,12 +76,18 @@
 
     //初始化时间控件
     var initdatetimepicker = function () {
+
+        var time = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
+
         var nowDt = new Date();
         var year = nowDt.getFullYear();
         var month = parseInt(nowDt.getMonth())+1;
         var day = nowDt.getDate();
         var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt= moment(dtstr);
+        //var mt= moment(dtstr);
+
+        var mt = moment(sessionStorage.sysDt);
+
         var nowDt=mt.format('YYYY-MM-DD');
         var startDt = mt.subtract(1, 'days').format('YYYY-MM-DD');
         $("#spDT").val(startDt);

@@ -1,6 +1,8 @@
 ﻿
 var EPMA = function () {
 
+    $('#lgot').html('<i class="icon-key"></i>Exit')
+
     var addZeroToSingleNumber = function (num) {
         var curnum = "";
         if (num < 10) {
@@ -12,17 +14,33 @@ var EPMA = function () {
         return curnum;
     }
 
+    //切换楼宇的
+
     var onbodydownEpr = function (event) {
         if (!(event.target.id == "openeprBtn"
           || event.target.id == "eprBox"
           || $(event.target).parents("#eprBox").length > 0)) {
             onhidemenuEpr();
         }
-    }
+    };
 
     var onhidemenuEpr = function () {
         $("#eprBox").fadeOut("fast");
         $("body").unbind("mousedown", onbodydownEpr);
+    }
+
+    //切换单位的
+    var onbodydownEpr1 = function (event) {
+        if (!(event.target.id == "miscBtn"
+            || event.target.id == "eprBox1"
+            || $(event.target).parents("#eprBox1").length > 0)) {
+            onhidemenuEpr1();
+        }
+    };
+
+    var onhidemenuEpr1 = function () {
+        $("#eprBox1").remove();
+        $("body").unbind("mousedown", onbodydownEpr1);
     }
 
     //重组epr格式
@@ -58,7 +76,7 @@ var EPMA = function () {
             }
         })
         return eprs;
-    }
+    };
 
     //初始化eprbox控件
     var initeprBox = function () {
@@ -109,19 +127,19 @@ var EPMA = function () {
     //获取周
     var getWeek = function (enW) {
         if (enW === 'Monday') {
-            return '星期一';
+            return 'Mon.';
         } if (enW === 'Tuesday') {
-            return '星期二';
+            return 'Tues.';
         } if (enW === 'Wednesday') {
-            return '星期三';
+            return 'Wed.';
         } if (enW === 'Thursday') {
-            return '星期四';
+            return 'Thur.';
         } if (enW === 'Friday') {
-            return '星期五';
+            return 'Fri.';
         } if (enW === 'Saturday') {
-            return '星期六';
+            return 'Sat.';
         } if (enW === 'Sunday') {
-            return '星期日';
+            return 'Sun.';
         }
     }
 
@@ -133,7 +151,7 @@ var EPMA = function () {
         var day = nowDt.getDate();
         var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
         var mt = moment(dtstr);
-        var nowDt = mt.format('YYYY年MM月DD日');
+        var nowDt = mt.format('YYYY-MM-DD');
         $('#loginDT').html(nowDt);//日期
         var enW = mt.format('dddd');
         var ews = getWeek(enW);
@@ -157,8 +175,8 @@ var EPMA = function () {
                 $('#pNT').html(sessionStorage.eprName + '-' + sessionStorage.PointerName);//楼宇名称
             }
 
-            //初始化eprbox控件
-            initeprBox();
+            ////初始化eprbox控件
+            //initeprBox();
 
             //初始化日期
             initDt();
@@ -192,7 +210,7 @@ var EPMA = function () {
                     $('#span_humidity').hide();
                     $('#span_wetbuldtemperature').hide();
                 }
-            })
+            });
 
             //楼宇实时数据
             var realDtUrl = sessionStorage.apiUrlPrefix + "Global/GetRealDt";
@@ -207,25 +225,32 @@ var EPMA = function () {
                         sessionStorage.sysDt = res.dt;
                     }
                 }
-            })
+            });
 
             //切换楼宇
             $('#goEprBtn').on('click', function () { //全局楼宇切换
-                var pId = $('#p_type').val();
-                var pNt = $('#p_type').children('option:selected').text();
-                var eprId = $('#epr_type').val();
-                var eprNT = $('#epr_type').children('option:selected').text();
-                sessionStorage.enterpriseID = eprId;
-                sessionStorage.eprName = eprNT;
-                sessionStorage.PointerID = pId;
-                sessionStorage.PointerName = pNt;
+                //var pId = $('#p_type').val();
+                //var pNt = $('#p_type').children('option:selected').text();
+                //var eprId = $('#epr_type').val();
+                //var eprNT = $('#epr_type').children('option:selected').text();
+                //sessionStorage.enterpriseID = eprId;
+                //sessionStorage.eprName = eprNT;
+                //sessionStorage.PointerID = pId;
+                //sessionStorage.PointerName = pNt;
+
                 onhidemenuEpr();
                 $.get(realDtUrl, {
                     pId: sessionStorage.PointerID
                 }, function (res) {
+
                     //$('#pNT').html(eprNT + pNt);//楼宇名称
+
                     sessionStorage.sysDt = res.dt;
-                    location.href = "../EPMA/main.html";
+
+                    //location.href = "../EPMA" + window.location.href.split('EPMA')[1];
+
+                    location.href = window.location.href
+
                 })
             })
 
@@ -234,6 +259,13 @@ var EPMA = function () {
                 var objCNT = $(this);
                 var menuTop = $('.top-menu').height() - 6;//$('.page-header-inner').height();
                 $('#eprBox').css({ left: objCNT.left + "px", top: menuTop + "px" }).slideDown("fast");
+                //英文
+                $('#eprBox').find('.control-label').eq(0).html('Porject');
+
+                $('#eprBox').find('.control-label').eq(1).html('Pointer');
+
+                $('#goEprBtn').html('OK');
+
                 $("body").bind("mousedown", onbodydownEpr);
             })
 
@@ -244,6 +276,57 @@ var EPMA = function () {
                 getpointerDs(eprId, eprs);
             });
 
+            //切换单位图标
+            $('#miscBtn').click(function(){
+
+                //创建
+                var str = "<div id=\"eprBox1\" style=\"padding-bottom: 10px;" +
+                    "            background: url('../../../assets/admin/layout/img/bgUnite.png')no-repeat;" +
+                    "            background-size:300px; z-index: 10000; top: 42px; width: 300px;" +
+                    "            height: auto; position: fixed; right: 107px; display: block;\">" +
+                    "        <div style=\"padding:15px 15px;color:#FFFFFF;margin-top:0px;\">" +
+                    "            <div class=\"row\">" +
+                    "                <label class=\"col-md-4 col-sm-4 col-xs-4 control-label\" style=\"padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333\">Unit</label>" +
+                    "                <div class=\"col-md-8 col-sm-8 col-xs-8\" style=\"margin-bottom:10px;\">" +
+                    "                    <select name=\"epr_unit\" id=\"epr_unit\" class=\"form-control input-small input-inline\" style=\"border:1px solid #4A93BE;border-radius: 5px !important;\">" +
+                    "                        <option value=\"1\" selected=\"selected\">KW/KW</option>" +
+                    "                        <option value=\"2\" selected=\"selected\">KW/RT</option>" +
+                    "                    </select>" +
+                    "                </div>" +
+                    "            </div>" +
+                    "            <div class=\"row\">" +
+                    "                <label class=\"col-md-4 col-sm-4 col-xs-4 control-label\" style=\"margin-bottom:10px;line-height:34px;\"></label>" +
+                    "                <div class=\"col-md-8 col-xs-8 col-xs-8\">" +
+                    "                    <button id=\"goEprBtn1\" type=\"submit\" class=\"btn blue pull-left\">" +
+                    "                        OK" +
+                    "                    </button>" +
+                    "                </div>" +
+                    "            </div>" +
+                    "        </div>" +
+                    "    </div>";
+
+                $('body').append(str);
+
+                $('#eprBox1').hide().slideDown();
+
+                //选中问题
+                $('#epr_unit').val(sessionStorage.misc);
+
+                $("body").bind("mousedown", onbodydownEpr1);
+
+            })
+
+            //单位切换按钮
+
+            $('body').on('click','#goEprBtn1',function(){
+
+                //首先将选中的值写进session中
+                sessionStorage.misc = $('#epr_unit').val();
+
+                //跳转回本页面
+                location.href = window.location.href;
+
+            })
 
         }
     }

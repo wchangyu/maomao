@@ -206,7 +206,7 @@
   "bigScreenSwitchComment":"登陆时是否进行自动识别大屏的判断",
   "dapinInterval":"3",
   "dapinIntervalComment":"大屏幕是否自动刷新，0为不刷新，单位分钟",
-  "loginPath":"../logins/chcmu/login_4.html",
+  "loginPath":"../logins/Precision_energy_efficiency/login.html",
   "loginPathComment":"登录页面路径",
   "showstep":"1",
   "showstepComment":"是否显示折标能效",

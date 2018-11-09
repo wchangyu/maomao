@@ -37,10 +37,10 @@
 
     //初始化时间控件
     var initdatetimepicker = function (mt) {
-        var nowDt = mt.format('YYYY-MM');
-        $("#spDT").val(nowDt);
 
-        $('.idxDT').datepicker('destroy');
+        var nowDt = moment(mt).format('YYYY-MM');
+
+        $("#spDT").val(nowDt);
 
         $('.idxDT').datepicker({
             autoclose: true,
@@ -50,6 +50,7 @@
             format: "yyyy-mm",
             language: "en" //汉化
         }).on('changeDate', function (ev) {
+
             select_year = ev.date.getFullYear();
             select_month = addZeroToSingleNumber(parseInt(ev.date.getMonth()) + 1);
             select_day = addZeroToSingleNumber(parseInt(ev.date.getDate()));
@@ -58,10 +59,19 @@
 
     return {
         init: function () {
-            var mt = moment(dtnowstr());
-            select_year = mt.year();
-            select_month = addZeroToSingleNumber(parseInt(mt.month()) + 1);
-            select_day = addZeroToSingleNumber(parseInt(mt.date()));
+
+            var mt = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
+
+            select_year = moment(mt).format('YYYY');
+
+            select_month = moment(mt).format('MM');
+
+            select_day = moment(mt).format('DD');
+
+            //var mt = moment(dtnowstr());
+            //select_year = mt.year();
+            //select_month = addZeroToSingleNumber(parseInt(mt.month()) + 1);
+            //select_day = addZeroToSingleNumber(parseInt(mt.date()));
             //初始化时间控件
             initdatetimepicker(mt);
             //获取日历控件EPC数据
@@ -135,11 +145,15 @@
         var url = sessionStorage.apiUrlPrefix + "CalendarEER/GetCalendarECPAnalysisDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            sp:todayDT
+            sp:todayDT,
+            //sp:moment($('#spDT').val()).endOf('months').format('YYYY-MM-DD'),
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 var ecpDs=res.ecPs;//数据源
                 var eds = [];
+                //日历，每一天
+
                 for (var i = 0; i < ecpDs.length; i++) {
                     var object = {};
                     object.title = ecpDs[i].title;
@@ -157,10 +171,11 @@
                     }
                     eds.push(object);
                 }
+
                 $('#calendar').fullCalendar('destroy');
                 $('#calendar').fullCalendar({
                     handleWindowResize: true,
-                    dayNamesShort: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday "],
+                    dayNamesShort: ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"],
                     defaultView: 'month',
                     firstDay: 0,
                     defaultDate: '' + select_year + '-' + select_month + '-' + select_day + '',
@@ -188,7 +203,7 @@
                 jQuery('#eerBusy').hideLoading();
                 loadEERAnalysisExpDs(todayDT);
             }else if(res.code === -1){
-                console.log('err(efficiency calendar):' + res.msg );
+                console.log('异常错误(能效日历):' + res.msg );
                 jQuery('#eerBusy').hideLoading();
             }else{
                 jQuery('#eerBusy').hideLoading();
@@ -203,24 +218,60 @@
         var url = sessionStorage.apiUrlPrefix + "CalendarEER/GetCalendarEERAnalysisExpDs";
         $.post(url,{
             pId:sessionStorage.PointerID,
-            sp: encodeURIComponent(sp),
-            dType: selectDType
+            sp:sp,
+            dType: selectDType,
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 //标杆值
-                var benchMarkV = parseFloat(res.benchMarkVa);
+                var benchMarkV = 0;
+
+                if(res.benchMarkVa != null){
+
+                    benchMarkV = parseFloat(res.benchMarkVa);
+
+                }
                 //能耗电值
-                var EV = parseFloat(res.eVa).toFixed(2);
+                var EV = 0;
+
+                if(res.eVa != null){
+
+                    EV = parseFloat(res.eVa).toFixed(2);
+
+                }
                 $('#eer_com_eV').html(EV);
+
                 //能耗冷值
-                var CV = parseFloat(res.cVa).toFixed(2);
+                var CV = 0;
+
+                if( res.cVa != null ){
+
+                    CV = parseFloat(res.cVa).toFixed(2);
+
+                }
+
                 $('#eer_com_cV').html(CV);
+
                 //电价(元)
-                var epriceV = parseFloat(res.eupVa).toFixed(2);
+                var epriceV = 0;
+
+                if(res.eupVa != null){
+
+                    epriceV = parseFloat(res.eupVa).toFixed(2);
+
+                }
                 $('#eer_com_priceV').html(epriceV);
+
                 //冷量单价
-                var ecpv = parseFloat(res.ecupVa).toFixed(4);
+                var ecpv = 0;
+
+                if(res.ecupVa != null){
+
+                    ecpv = parseFloat(res.ecupVa).toFixed(4);
+
+                }
                 $('#eer_com_cpirceV').html(ecpv);
+
                 //能效值
                 var lzeerV = 0;
                 if (typeof (res.lzeerVa) == "undefined") {
@@ -233,16 +284,16 @@
                 var idxG = parseInt(res.idxG);
                 $('#tableMark').children('tbody').children('tr').eq(0).children('td').addClass('color');
                 $('#tableMark').children('tbody').children('tr').eq(1).children('td').removeClass('goodIndicator').removeClass('markindicator');
-                $('#tableMark').children('tbody').children('tr').eq(0).children('td').eq(idxG).removeClass('color').html('benchMark');
+                $('#tableMark').children('tbody').children('tr').eq(0).children('td').eq(idxG).removeClass('color').html('标杆建筑');
                 $('#tableMark').children('tbody').children('tr').eq(1).children('td').removeClass('goodIndicator');
                 $('#tableMark').children('tbody').children('tr').eq(1).children('td').eq(idxG).addClass('goodIndicator');
                 var idxK = parseInt(res.idxK);
-                $('#tableMark').children('tbody').children('tr').eq(0).children('td').eq(idxK).removeClass('color').html('Current Building(' + lzeerV + ')');
+                $('#tableMark').children('tbody').children('tr').eq(0).children('td').eq(idxK).removeClass('color').html('Current Efficiency(' + lzeerV + ')');
                 $('#tableMark').children('tbody').children('tr').eq(1).children('td').eq(idxK).addClass('markindicator');
-                $('#emisc').html("KWH/KWH");
-                $('#cmisc').html("KWH");
-                $('#eer_com_c_misc').html('KWH');
-                $('#eer_com_cpirceV_misc').html('KWH');
+                //$('#emisc').html("KWH/KWH");
+                //$('#cmisc').html("KWH");
+                //$('#eer_com_c_misc').html('KWH');
+                //$('#eer_com_cpirceV_misc').html('KWH');
                 var tds = $('table tr:first td');//第一行
                 if (lzeerV === 0) {
                     $('#latentV').html("0");
@@ -251,15 +302,28 @@
                     //-- KW/KW 潜力=(实际值-目标值)*-1/目标值*100% --/
                     //-- KW/RT 潜力=(实际值-目标值)/目标值*100% --/
                     var pocV = 0.0;
-                    //KW/KW
-                    pocV = Math.abs(((lzeerV - benchMarkV) / benchMarkV * 100));
+
+                    if(sessionStorage.misc == 1){
+
+                        //KW/KW
+
+                        //KW/KW
+                        pocV = Math.abs(((lzeerV - benchMarkV) / benchMarkV * 100));
+
+                    }else if(sessionStorage.misc == 2){
+
+                        //KW/RT
+                        //KW/KW
+                        pocV = Math.abs(((lzeerV - benchMarkV) * -1 / benchMarkV * 100));
+
+                    }
+
                     $('#latentV').html(pocV.toFixed(2).toString());
                     //$('#latentV').html(Math.abs(((benchMarkV - lzeerV) / benchMarkV * 100)).toFixed(2).toString());
                 }
                 var lgs = [];
-
                 for (var i = 0; i < res.lgs.length; i++) {
-                    lgs.push(__setTranslate(res.lgs)[i]);
+                    lgs.push(res.lgs[i]);
                 }
                 var ys = [];
                 for (var i = 0; i < res.ys.length; i++) {
@@ -279,7 +343,7 @@
                     },
                     series: [
                         {
-                            name: 'BY COMPONENT',
+                            name: '冷站分项图',
                             type: 'pie',
                             radius: ['50%', '70%'],
                             data: ys

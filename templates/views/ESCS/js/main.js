@@ -274,6 +274,12 @@ $(function(){
     //获取实时时间
     SSSJ();
 
+    setInterval(function(){
+
+        SSSJ();
+
+    },1000)
+
     //设备能效能耗
     devEEEC();
 
@@ -307,8 +313,8 @@ $(function(){
         //左上角室外温湿度
         WSD();
 
-        //获取实时时间
-        SSSJ();
+        //获取数据时间
+        SJSJ();
 
         //设备能效能耗
         devEEEC();
@@ -744,11 +750,11 @@ $(function(){
 
     }
 
-    //获取实时时间
-    function SSSJ(){
+    //获取数据时间
+    function SJSJ(){
 
         //初始化时间
-        SSSJInit();
+        //SSSJInit();
 
         //参数
         var prm = {
@@ -765,47 +771,47 @@ $(function(){
 
                 var date = result.dt;
 
-                //日期
-                var realDate = date.split(' ')[0].replace(/-/g,'.')
+                ////日期
+                //var realDate = date.split(' ')[0].replace(/-/g,'.')
+                //
+                //$('#real-date').html(realDate);
+                //
+                ////时间
+                //var realTime = date.split(' ')[1].slice(0,5);
+                //
+                //var realWeeks = moment(date.split(' ')[0]).format('d');
 
-                $('#real-date').html(realDate);
+                //if(realWeeks == 0){
+                //
+                //    realWeeks = '星期日';
+                //
+                //}else if(realWeeks == 1){
+                //
+                //    realWeeks = '星期一';
+                //
+                //}else if(realWeeks == 2){
+                //
+                //    realWeeks = '星期二';
+                //
+                //}else if(realWeeks == 3){
+                //
+                //    realWeeks = '星期三';
+                //
+                //}else if(realWeeks == 4){
+                //
+                //    realWeeks = '星期四';
+                //
+                //}else if(realWeeks == 5){
+                //
+                //    realWeeks = '星期五';
+                //
+                //}else if(realWeeks == 6){
+                //
+                //    realWeeks = '星期六';
+                //
+                //}
 
-                //时间
-                var realTime = date.split(' ')[1].slice(0,5);
-
-                var realWeeks = moment(date.split(' ')[0]).format('d');
-
-                if(realWeeks == 0){
-
-                    realWeeks = '星期日';
-
-                }else if(realWeeks == 1){
-
-                    realWeeks = '星期一';
-
-                }else if(realWeeks == 2){
-
-                    realWeeks = '星期二';
-
-                }else if(realWeeks == 3){
-
-                    realWeeks = '星期三';
-
-                }else if(realWeeks == 4){
-
-                    realWeeks = '星期四';
-
-                }else if(realWeeks == 5){
-
-                    realWeeks = '星期五';
-
-                }else if(realWeeks == 6){
-
-                    realWeeks = '星期六';
-
-                }
-
-                $('#real-time').html( realTime + ' ' + realWeeks );
+                //$('#real-time').html( realTime + ' ' + realWeeks );
 
                 sessionStorage.sysDt = result.dt;
 
@@ -830,6 +836,21 @@ $(function(){
 
         //时间
         $('#real-time').html('-');
+
+    }
+
+    //获取系统实时时间
+    function SSSJ(){
+
+        var date = moment().format('YYYY-MM-DD');
+
+        var time = moment().format('HH:mm:ss');
+
+        //日期
+        $('#real-date').html(date.replace(/-/g,'.'));
+
+        //时间
+        $('#real-time').html(time);
 
     }
 

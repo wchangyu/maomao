@@ -190,6 +190,7 @@ function _selectTime(dataType){
         $('.end-time-choose').hide();
         //获取昨天
         var date = moment().format('YYYY-MM-DD');
+
         $('.min').val(date);
 
     }else if(dataType == '周'){

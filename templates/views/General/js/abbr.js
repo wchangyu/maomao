@@ -81,9 +81,12 @@
         var month = parseInt(nowDt.getMonth())+1;
         var day = nowDt.getDate();
         var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt= moment(dtstr);
+        //var mt= moment(dtstr);
+
+        var mt = moment(sessionStorage.sysDt);
+
         var nowDt=mt.format('YYYY-MM-DD');
-        var startDt = mt.subtract(7, 'days').format('YYYY-MM-DD');
+        var startDt = mt.subtract(1, 'days').format('YYYY-MM-DD');
         $("#spDT").val(startDt);
         $("#epDT").val(nowDt);
         $('.abbrDT').datetimepicker({
@@ -104,15 +107,26 @@
     //改变复选框的Checked选项
     var changeCheckBoxAttr =function () {
         $("[name=chkDC]:checkbox").bind("click", function () {
-            if ($(this).attr('tag') === "L") {
-                //$('#cbxWT').removeAttr("checked");
-                $('#cbxWT').attr("checked",false);
-            }
-            if ($(this).attr('tag') === "W") {
-                //$('#cbxE').removeAttr("checked");
+
+            if( $(this).attr('tag') === 'L' ){
+
+                //水温互斥，
+                $('#cbxWT').attr('checked',false);
+
+                $('#cbxWT').parent('span').removeClass('checked');
+
+            }else if( $(this).attr('tag') === 'W' ){
+
+                //电量互斥
                 $('#cbxE').attr('checked',false);
-                //$('#cbxC').removeAttr("checked");
+
+                $('#cbxE').parent('span').removeClass('checked');
+
+                //冷量互斥
                 $('#cbxC').attr('checked',false);
+
+                $('#cbxC').parent('span').removeClass('checked');
+
             }
         });
     }
@@ -121,12 +135,15 @@
     var getAbbrDs = function () {
         var arostr = "";
         $("input[name=chkDC]:checked").each(function () {
+
             arostr += $(this).val() + ",";
         });
+
         if( arostr === undefined || arostr.length === 0){
             console.log('提示(参数分析):请选择分项参数');
             return false;
         }
+
         jQuery('#abbrBusy').showLoading();
         mycv = echarts.init(document.getElementById('eerMain'));
         var sp = $("#spDT").val();
@@ -138,18 +155,19 @@
             arostr:arostr,
             sp:sp,
             ep:ep,
-            eType:eType
+            eType:eType,
+            misc:sessionStorage.misc
         },function (res) {
             if(res.code === 0){
                 var maxVa = parseInt(res.aroMaxVa);//能耗最大值
                 //是否获取水温数据(bool类型)
                 var IsCalsW = res.isCalsW;
-                var covST = Format(convertDate(sp), "MM-dd");
-                var covET = Format(convertDate(ep), "MM-dd");
-                var titleText = covST + " - " + covET + " Cooling Capacity Parameter Analysis";
+                var covST = Format(convertDate(sp), "MM月dd日");
+                var covET = Format(convertDate(ep), "MM月dd日");
+                var titleText = covST + " - " + covET + " 冷站参数分析";
                 var lgs = [];
                 for (var i = 0; i < res.lgs.length; i++) {
-                    lgs.push(__setTranslate(res.lgs)[i]);
+                    lgs.push(res.lgs[i]);
                 }
                 var cgs = [];
                 for (var i = 0; i < 1; i++) {
@@ -167,13 +185,25 @@
                     cgs.push(object);
                 }
                 var yAs = [];
+
                 if (lgs.length == 1) {
                     var object = {};
                     object.type = "value";
-                    object.name = "Energy Efficiency";
+                    object.name = "能效";
                     object.min = 0;
-                    object.max = 7;
-                    object.interval = 0.7;
+                    if(sessionStorage.misc == 2){
+
+                        object.max = 3;
+                        object.interval = 0.3;
+
+                    }else{
+
+                        object.max = 7;
+                        object.interval = 0.7;
+
+                    }
+                    //object.max = 7;
+                    //object.interval = 0.7;
                     yAs.push(object);
                 }
                 else {
@@ -181,17 +211,30 @@
                         var object = {};
                         object.type = "value";
                         if (i == 0) {
-                            object.name = "Energy Efficiency";
+                            object.name = "能效";
                             object.min = 0;
-                            object.max = 7;
-                            object.interval = 0.7;
+
+                            if(sessionStorage.misc == 2){
+
+                                object.max = 3;
+                                object.interval = 0.3;
+
+                            }else{
+
+                                object.max = 7;
+                                object.interval = 0.7;
+
+                            }
+
+                            //object.max = 7;
+                            //object.interval = 0.7;
                         }
                         else {
                             if (IsCalsW === true) {
-                                object.name = "Water Temperature ";
+                                object.name = "水温";
                             }
                             else {
-                                object.name = "Energy Consumption";
+                                object.name = "能耗";
                             }
                             object.min = 0;
                             object.max = maxVa;
@@ -231,7 +274,6 @@
                     },
                     toolbox: {
                         show: true,
-                        showTitle:false,
                         feature: {
                             dataZoom: {
                                 yAxisIndex: 'none'
@@ -243,17 +285,27 @@
                     yAxis: yAs,
                     series: dvs
                 };
+                if(sessionStorage.misc == 1){
+
+                    option.title.subtext = 'KW/KW'
+
+                }else if(sessionStorage.misc == 2){
+
+                    option.title.subtext = 'KW/RT'
+
+                }
+
                 mycv.setOption(option);
                 jQuery('#abbrBusy').hideLoading();
             }else if(res.code === -1){
                 jQuery('#abbrBusy').hideLoading();
-                console.log('error(Parameter Analysis):' + res.msg);
+                console.log('异常错误(参数分析):' + res.msg);
             }else{
                 jQuery('#abbrBusy').hideLoading();
             }
         })
     }
-    
+
     return {
         init: function () {
             //初始化时间控件

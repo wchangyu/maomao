@@ -27,7 +27,11 @@ var Rate=function () {
         var month = parseInt(nowDt.getMonth())+1;
         var day = nowDt.getDate();
         var dtstr = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt= moment(dtstr);
+
+        //var mt= moment(dtstr);
+
+        var mt = moment(sessionStorage.sysDt);
+
         var nowDt=mt.format('YYYY-MM-DD');
         var startDt = mt.subtract(7, 'days').format('YYYY-MM-DD');
         $("#spDT").val(startDt);
@@ -49,29 +53,51 @@ var Rate=function () {
 
     //获取负荷数据
     var getRateDs = function () {
+
+        $('.noDataTip').remove();
+
         jQuery('#rateBusy').showLoading();
         mycv = echarts.init(document.getElementById('rateMain'));
         var sp = $('#spDT').val();
         var ep = $('#epDT').val();
         var url = sessionStorage.apiUrlPrefix + "RateEER/GetRateEERs";
         $.post(url,{
-            pId:'8817180401',
+            pId:sessionStorage.PointerID,
             sp:sp,
-            ep:ep
+            ep:ep,
+            misc:sessionStorage.misc
         },function (res) {
+
             if(res.code===0){
-                var miscstr = 'KW/KW';
-                var maxeerVa = 9;
+                var miscstr
+                    //= 'KW/KW';
+
+                var maxeerVa = '';
+
+                if(sessionStorage.misc == 1){
+
+                    miscstr = 'KW/KW';
+
+                    maxeerVa = 9;
+
+                }else if(sessionStorage.misc == 2){
+
+                    miscstr = 'KW/RT'
+
+                    maxeerVa = 3;
+
+                }
+
                 var maxRateVa = res.rateMaxVa;
                 var ys = [];
                 for (var i = 0; i < res.ys.length; i++) {
                     var object = {};
                     if (i == 0) {
-                        object.name = 'percentage of load (%)';
+                        object.name = 'Load(%)';
                         object.type = 'bar';
                     }
                     else {
-                        object.name = 'Energy efficiency of cold station (' + miscstr + ')';
+                        object.name = 'Sys Efficiency(' + miscstr + ')';
                         object.type = 'line';
                         object.yAxisIndex = 1;
                     }
@@ -107,7 +133,7 @@ var Rate=function () {
                         trigger: 'axis'
                     },
                     legend: {
-                        data: ['percentage of load(%)', 'Energy efficiency of cold station (' + miscstr + ')']
+                        data: ['Load(%)', 'Sys Efficiency(' + miscstr + ')']
                     },
                     xAxis: [
                         {
@@ -118,7 +144,7 @@ var Rate=function () {
                     yAxis: [
                         {
                             type: 'value',
-                            name: 'percentage of load(%)',
+                            name: 'Load(%)',
                             min: 0,
                             max: 100,
                             interval: 10,
@@ -128,7 +154,7 @@ var Rate=function () {
                         },
                         {
                             type: 'value',
-                            name: 'Energy efficiency of cold station(' + miscstr + ')',
+                            name: 'Sys Efficiency(' + miscstr + ')',
                             min: 0,
                             max: maxeerVa,
                             interval: maxeerVa / 10,
@@ -142,10 +168,28 @@ var Rate=function () {
                 mycv.setOption(option);
                 jQuery('#rateBusy').hideLoading();
             }else if(res.code===-1){
-                console.log('error(Load capacity ):' + res.msg);
+
+                var tip = res.msg;
+
+                var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
+
+                $('#rateMain').append(str);
+
+                console.log('异常错误(负荷分析):' + res.msg);
+
                 jQuery('#rateBusy').hideLoading();
+
             }else{
+
                 jQuery('#rateBusy').hideLoading();
+
+                var tip = '暂时没有获取到负荷比重数据';
+
+                var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
+
+                $('#rateMain').append(str);
+
+
             }
         })
     }

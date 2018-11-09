@@ -508,7 +508,7 @@ $(function(){
         createModeInit();
 
         //模态框
-        _moTaiKuang($('#create-Modal'),'确定要删除吗','','','','删除');
+        _moTaiKuang($('#create-Modal'),'确定要回退吗','','','','回退');
 
         //赋值
         bindData(_thisId);

@@ -15,6 +15,15 @@ $(function(){
 
     /*--------------------------------------------变量----------------------------------------------------*/
 
+    //获取维修科室是否必填
+
+    var _wxIsMust = false;
+
+    isWX();
+
+    //维修科室
+    wxKShiData();
+
     //报修vue变量
     var gdObj = new Vue({
         el:'#myApp33',
@@ -910,6 +919,15 @@ $(function(){
 
         _isDeng = true;
 
+        //初始化
+        dataInit();
+
+        if(_wxIsMust){
+
+            //维修科室显示
+            $('#depWX').parents('.one-line').show();
+        }
+
         //显示模态框
         _moTaiKuang($('#myModal'), '报修', '', '' ,'', '报修');
 
@@ -921,9 +939,6 @@ $(function(){
 
         //报修人电话可操作
         $('.bx-choose').removeAttr('readonly').removeClass('disabled-block');
-
-        //初始化
-        dataInit();
     });
 
     //重置按钮
@@ -1005,6 +1020,14 @@ $(function(){
             //当前选中的工单号
 
             _gdCode = $(this).parents('tr').children('.gdCode').children('span').children('a').html();
+
+            if(_wxIsMust){
+
+                //维修科室显示
+                $('#depWX').parents('.one-line').show();
+            }
+
+            dataInit();
 
             //信息绑定
             bindData($(this),$('#missed-list'));
@@ -1841,6 +1864,8 @@ $(function(){
         gdObj.gzplace = '';
         gdObj.wxshx='';
         $('.gzDesc').val('');
+        //维修科室
+        $('#depWX').parents('.one-line').hide();
     }
 
     //车站数据(报修科室)
@@ -1999,6 +2024,7 @@ $(function(){
                 gdObj.gzplace = result.wxDidian;
                 gdObj.wxshx=result.wxXm;
                 $('.gzDesc').val(result.bxBeizhu);
+                $('#depWX').val(result.wxKeshiNum);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -2010,42 +2036,88 @@ $(function(){
     function optionData(url,successMeg,errorMeg,flag){
 
         //验证非空
-        if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.bxren == '' || gdObj.gzplace == '' || gdObj.wxshx == ''){
-            if(gdObj.bxkesh == ''){
-                $('.error1').show();
-            }else{
-                $('.error1').hide();
+
+        if(_wxIsMust){
+
+            if($('#depWX').val() == ''){
+
+                //验证
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
+
+                return false;
+
             }
+
+        }
+
+        if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.bxren == '' || gdObj.gzplace == '' || gdObj.wxshx == ''){
+
+            if(gdObj.bxkesh == ''){
+
+                $('.error1').show();
+
+            }else{
+
+                $('.error1').hide();
+
+            }
+
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
 
         }else{
 
 
             var prm = {
+
                 'gdJJ':gdObj.gdtype,
+
                 'gdRange':gdObj.xttype,
+
                 'bxDianhua':gdObj.bxtel,
+
                 'bxKeshi':$('#bxkesh').children('option:selected').html(),
+
                 'bxKeshiNum':gdObj.bxkesh,
+
                 'bxRen':gdObj.bxren,
+
                 //'':gdObj.pointer,
                 'gdFsShij':$('.datatimeblock').eq(2).val(),
+
                 //'wxShiX':$('#sbtype').children('option:selected').html(),
                 'wxShiX':'null',
+
                 //'wxShiXNum':gdObj.sbtype,
                 'wxXm':gdObj.wxshx,
+
                 'wxXmNum':$('#matter').attr('data-mnum'),
+
                 'wxShebei':gdObj.sbnum,
+
                 'dName':gdObj.sbname,
+
                 'installAddress':gdObj.azplace,
+
                 'wxDidian':gdObj.gzplace,
+
                 'bxBeizhu':$('.gzDesc').val(),
+
                 'userID': _userIdNum,
+
                 'userName': _userIdName,
+
                 'b_UserRole':_userRole,
+
                 'gdSrc': 4,
-                'gdLeixing':4
+
+                'gdLeixing':4,
+
+                'wxKeshiNum':$('#depWX').val(),
+
+                'wxKeshi':$('#depWX').val() == ''?'':$('#depWX').children('option:selected').html()
+
             }
+
             if(flag){
                 prm.gdCode = _gdCode
             }
@@ -2470,5 +2542,64 @@ $(function(){
         $('.fuzzy-search').eq(2).hide();
 
     }
+
+    //获取维修科室是否必填权限
+    function isWX(){
+
+        var prm = {};
+
+        _mainAjaxFunCompleteNew('post','YWGD/ywGDBxSelWxKeshi',prm,false,function(result){
+
+            if(result.code == 99){
+
+                if(result.data == 0){
+
+                    _wxIsMust = false;
+
+                }else if(result.data == 1){
+
+                    _wxIsMust = true;
+
+                }
+
+            }
+
+
+        })
+
+    }
+
+    //维修科室
+    function wxKShiData(){
+
+        var prm = {
+            'departName':'',
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'isWx':'1'
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'RBAC/rbacGetDeparts',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+
+                    _allBXArr.push(result[i]);
+
+                    str += '<option value="' + result[i].departNum +
+                        '">' + result[i].departName + '</option>>';
+                }
+                $('#depWX').empty().append(str);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    };
 
 })

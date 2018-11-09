@@ -26,7 +26,10 @@
         var year = nowDt.getFullYear();
         var month = parseInt(nowDt.getMonth()) + 1;
         var day = nowDt.getDate();
-        selectDt = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+        //selectDt = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+
+        selectDt = moment(sessionStorage.sysDt).format('YYYY-MM-DD');
+
         $("#spDT").val(selectDt);
         change_day();
     };

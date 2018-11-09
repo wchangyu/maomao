@@ -75,7 +75,10 @@
         var month = parseInt(nowDt.getMonth())+1;
         var day = nowDt.getDate();
         selectDt = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
-        var mt= moment(selectDt);
+        //var mt= moment(selectDt);
+
+        var mt = moment(sessionStorage.sysDt);
+
         var nowDt=mt.format('YYYY-MM');
         $("#spDT").val(nowDt);
         initMonth();

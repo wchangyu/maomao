@@ -14,6 +14,7 @@ $(function(){
     $('.datatimeblock').eq(1).val(et);
 
     /*---------------------------------------------变量--------------------------------------------------*/
+
     //vue变量
     var gdObj = new Vue({
         el:'#myApp33',
@@ -3273,6 +3274,7 @@ $(function(){
 
     //、编辑(编辑的时候传参数flag)
     function optionData(url,successMeg,errorMeg,flag){
+
         //验证非空
         if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.gzplace == '' || gdObj.wxshx == ''){
             if(gdObj.bxkesh == ''){
@@ -3341,7 +3343,7 @@ $(function(){
                 'gdWxLeaders':fzrArr,
                 //设备类型
                 'DCName':str,
-                'DCNum':gdObj.sbtype,
+                'DCNum':gdObj.sbtype
             }
             if(flag){
                 prm.gdCode = _gdCode;

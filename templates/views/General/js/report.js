@@ -22,30 +22,27 @@
 
     //初始化时间控件
     var initdatetimepicker = function () {
-        var nowDt=new Date();
-        var year=nowDt.getFullYear();
-        var month=parseInt(nowDt.getMonth())+1;
-        var day=nowDt.getDate();
-        selectDt=year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
+        var nowDt = new Date();
+        var year = nowDt.getFullYear();
+        var month = parseInt(nowDt.getMonth()) + 1;
+        var day = nowDt.getDate();
+        selectDt = year + "-" + addZeroToSingleNumber(month) + "-" + addZeroToSingleNumber(day);
         $("#spDT").val(selectDt);
         change_day();
     };
 
     //切换日
     function change_day() {
-
-        $('.reportDT').datepicker('destroy');
-
         $('.reportDT').datepicker({
             format: 'yyyy-mm-dd',
-            language: 'en',
+            language: 'zh-CN',
             weekStart: true,
             todayBtn: true,
             autoclose: true,
             todayHighlight: true,
-            //startView: 2,
-            //minView: 2,
-            //minuteStep: 10,
+            startView: 2,
+            minView: 2,
+            minuteStep: 10,
             forceParse: 0,
             pickerPosition: "bottom-left"
         }).on('changeDate', function (ev) {
@@ -58,16 +55,13 @@
 
     //切换月
     function change_month() {
-
-        $('.reportDT').datepicker('destroy');
-
         $('.reportDT').datepicker({
             autoclose: true,
             startView: 1,
             maxViewMode: 2,
             minViewMode: 1,
             format: "yyyy-mm",
-            language: "en",
+            language: "zh-CN",
             pickerPosition: "bottom-left"
         }).on('changeDate', function (ev) {
             var year = ev.date.getFullYear();
@@ -79,16 +73,13 @@
 
     //切换年
     function change_year() {
-
-        $('.reportDT').datepicker('destroy');
-
         $('.reportDT').datepicker({
             autoclose: true,
             startView: 2,
             maxViewMode: 2,
             minViewMode: 2,
             format: "yyyy",
-            language: "en",
+            language: "zh-CN",
             pickerPosition: "bottom-left"
         }).on('changeDate', function (ev) {
             var year = ev.date.getFullYear();
@@ -97,7 +88,7 @@
             selectDt = year + "-" + month + "-" + date;
         });
     }
-    
+
     //切换并且选中报表类型
     var changeTile = function () {
         $('.tile').on('click', function () {
@@ -156,44 +147,51 @@
             if (selectRpt.length > 0) {
                 var pId = sessionStorage.PointerID;
                 var pNt = encodeURIComponent(sessionStorage.PointerName);
+
                 if (selectRpt === "ztnx") {//整体报表
                     var url = sessionStorage.apiUrlPrefix + "ZTNXReport/ReportFormZTNXs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
+                        + "&misc=" + sessionStorage.misc;
+
                     window.open(url, "_self", true);
                 }
                 else if (selectRpt === "zteb") {//电耗报表
                     var url = sessionStorage.apiUrlPrefix + "ZTEBReport/ReportFormZTEBs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
+                        + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
                 else if (selectRpt === "ztbr") {//负荷报表
                     var url = sessionStorage.apiUrlPrefix + "ZTBRReport/ReportFormZTBRs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
+                        + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
                 else if (selectRpt === "ztic") {//能效报表
                     var url = sessionStorage.apiUrlPrefix + "ZTICReport/ReportFormZTICs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
+                        + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
                 else if (selectRpt === "nxba") {//能效对标分析报表
                     var url = sessionStorage.apiUrlPrefix + "NXBAReport/ReportFormNXBAs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
                         + "&sp=" + selectDt
-                        + "&eType=" + eType;
+                        + "&eType=" + eType
+                        + "&misc=" + sessionStorage.misc;
                     window.open(url, "_self", true);
                 }
             }
             else {
-                console.log("Prompt(export ):Please select report type ");
+                console.log("报表提示(导出):请选择报表类型");
             }
             jQuery('#reportBusy').hideLoading();
         });

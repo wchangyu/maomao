@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -39,441 +39,452 @@
     <link href="../favicon.ico" rel="shortcut icon" />
 </head>
 <body class="page-header-fixed page-quick-sidebar-over-content">
-    <div class="page-header navbar navbar-fixed-top">
-        <div class="page-header-inner">
-            <div class="page-logo">
-                <a href="./EnergyQueryTotalData.html">
-                    <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default" />
-                </a>
-                <div class="menu-toggler sidebar-toggler hide">
-                </div>
-            </div>
-            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+<div class="page-header navbar navbar-fixed-top">
+    <div class="page-header-inner">
+        <div class="page-logo">
+            <a href="./EnergyQueryTotalData.html">
+                <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default" />
             </a>
-            <div class="totalTitle"></div>
-            <div class="top-menu">
-                <ul class="nav navbar-nav pull-right">
-                    <li style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                        <span id="loginDT">2018年04月19日</span>
-                        <span id="loginWk">星期四</span>
-                    </li>
-                    <li style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                        <span id="pNT">楼宇</span>
-                    </li>
-                    <li id="span_temperature" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                        <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/wendu.png')no-repeat;">
-                        </span><span id="temperature">0℃</span>
-                    </li>
-                    <li id="span_humidity" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                        <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/shidu.png')no-repeat;"></span>
-                        <span id="humidity">0℃</span>
-                    </li>
-                    <li id="span_wetbuldtemperature" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                        <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/shiqiu.png')no-repeat;"></span>
-                        <span id="wetbuldtemperature">0℃</span>
-                    </li>
-                    <li class="dropdown dropdown-extended dropdown-inbox" title="切换楼宇">
-                        <a id="openeprBtn" href="javascript:;" class="dropdown-toggle">
+            <div class="menu-toggler sidebar-toggler hide">
+            </div>
+        </div>
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        </a>
+        <div class="totalTitle"></div>
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <li style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
+                    <span id="loginDT">2018年04月19日</span>
+                    <span id="loginWk">星期四</span>
+                </li>
+                <li style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
+                    <span id="pNT">楼宇</span>
+                </li>
+                <li id="span_temperature" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
+                    <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/wendu.png')no-repeat;"></span>
+                    <span id="temperature">0℃</span>
+                </li>
+                <li id="span_humidity" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
+                    <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/shidu.png')no-repeat;"></span>
+                    <span id="humidity">0℃</span>
+                </li>
+                <li id="span_wetbuldtemperature" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
+                    <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/shiqiu.png')no-repeat;"></span>
+                    <span id="wetbuldtemperature">0℃</span>
+                </li>
+                <li class="dropdown dropdown-extended dropdown-inbox" title="切换楼宇">
+                    <a id="openeprBtn" href="javascript:;" class="dropdown-toggle">
                             <span style="display:inline-block;width:16px;height:19px;
                                 background:url('../../../assets/admin/layout/img/quyuqiehuan.png')no-repeat;
                                 background-size:100%"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown dropdown-user">
-                        <a href="javascript:;" class="dropdown-toggle" style="background-color:rgba(0,0,0,0);" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                            <img alt="" class="img-circle" src="../../../assets/admin/layout/img/user.png" style="width:25px;height:25px;">
-                            <div class="username username-hide-on-mobile" style="display:inline-block !important;">
-                                <span id="sysuserNT" style="color:#ccc;">马超红</span>
-                                <i class="fa fa-angle-down"></i>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-default" style="max-width:150px;">
-                            <li>
-                                <a id="lgot" href="javascript:;">
-                                    <i class="icon-key"></i> 退出登录
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="clearfix">
-    </div>
-    <div class="page-container">
-        <div class="page-sidebar-wrapper">
-            <div class="page-sidebar navbar-collapse collapse">
-                <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                    <li class="sidebar-toggler-wrapper">
-                        <div class="sidebar-toggler">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li></li>
+                    </ul>
+                </li>
+                <li class="dropdown dropdown-extended dropdown-tasks" title="切换单位">
+                    <a id="miscBtn" href="javascript:;" class="dropdown-toggle">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li></li>
+                    </ul>
+                </li>
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" style="background-color:rgba(0,0,0,0);" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <img alt="" class="img-circle" src="../../../assets/admin/layout/img/user.png" style="width:25px;height:25px;">
+                        <div class="username username-hide-on-mobile" style="display:inline-block !important;">
+                            <span id="sysuserNT" style="color:#ccc;">马超红</span>
+                            <i class="fa fa-angle-down"></i>
                         </div>
-                    </li>
-                </ul>
-            </div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default" style="max-width:150px;">
+                        <li>
+                            <a id="lgot" class="logout-page" href="javascript:;">
+                                <i class="icon-key"></i> 退出登录
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-        <div class="page-content-wrapper">
-            <div class="page-content">
-                <div class="theme-panel hidden-xs hidden-sm">
-                    <div class="toggler">
+    </div>
+</div>
+<div class="clearfix">
+</div>
+<div class="page-container">
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <li class="sidebar-toggler-wrapper">
+                    <div class="sidebar-toggler">
                     </div>
-                    <div class="toggler-close">
-                    </div>
-                    <div class="theme-options">
-                        <div class="theme-option theme-colors clearfix">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="theme-panel hidden-xs hidden-sm">
+                <div class="toggler">
+                </div>
+                <div class="toggler-close">
+                </div>
+                <div class="theme-options">
+                    <div class="theme-option theme-colors clearfix">
                             <span>
                                 配色
                             </span>
-                            <ul>
-                                <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="默认">
-                                </li>
-                                <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="蓝黑">
-                                </li>
-                                <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="蓝色">
-                                </li>
-                                <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="theme-option">
+                        <ul>
+                            <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="默认">
+                            </li>
+                            <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="蓝黑">
+                            </li>
+                            <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="蓝色">
+                            </li>
+                            <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="theme-option">
                             <span>
                                 布局
                             </span>
-                            <select class="layout-option form-control input-sm">
-                                <option value="fluid" selected="selected">平铺</option>
-                                <option value="boxed">盒式</option>
-                            </select>
-                        </div>
+                        <select class="layout-option form-control input-sm">
+                            <option value="fluid" selected="selected">平铺</option>
+                            <option value="boxed">盒式</option>
+                        </select>
+                    </div>
 
-                        <div class="theme-option">
+                    <div class="theme-option">
                             <span>
                                 侧边菜单
                             </span>
-                            <select class="sidebar-menu-option form-control input-sm">
-                                <option value="accordion" selected="selected">手风琴式</option>
-                                <option value="hover">鼠标悬停</option>
-                            </select>
-                        </div>
-                        <div class="theme-option">
+                        <select class="sidebar-menu-option form-control input-sm">
+                            <option value="accordion" selected="selected">手风琴式</option>
+                            <option value="hover">鼠标悬停</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
                             <span>
                                 侧边位置
                             </span>
-                            <select class="sidebar-pos-option form-control input-sm">
-                                <option value="left" selected="selected">左</option>
-                                <option value="right">右</option>
-                            </select>
-                        </div>
-                        <div class="theme-option">
+                        <select class="sidebar-pos-option form-control input-sm">
+                            <option value="left" selected="selected">左</option>
+                            <option value="right">右</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
                             <span>
                                 底部
                             </span>
-                            <select class="page-footer-option form-control input-sm">
-                                <option value="fixed">位置固定</option>
-                                <option value="default" selected="selected">默认</option>
-                            </select>
-                        </div>
+                        <select class="page-footer-option form-control input-sm">
+                            <option value="fixed">位置固定</option>
+                            <option value="default" selected="selected">默认</option>
+                        </select>
                     </div>
                 </div>
-                <h3 class="page-title"></h3>
-                <div class="page-bar">
-                    <ul class="page-breadcrumb">
-                        <li>
-                            <i class="fa fa-home"></i>
+            </div>
+            <h3 class="page-title"></h3>
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
 
-                            <i class="fa fa-angle-right"></i>
-                        </li>
-                    </ul>
-                    <div class="page-toolbar">
-                    </div>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                </ul>
+                <div class="page-toolbar">
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="total-warp">
-                            <div id="eerBusy">
-                               <div class="row margin-top-20">
-                                   <div class="col-md-6 col-sm-6">
-                                       <div class="portlet light bordered">
-                                           <div class="portlet-title">
-                                               <div class="caption">
-                                                   <i class="icon-bar-chart font-green-sharp hide"></i>
-                                                   <span class="caption-subject font-green-sharp bold uppercase">Cooling System efficiency calendar</span>
-                                               </div>
-                                               <!--<div class="actions">
-                                                   <div class="btn-group btn-group-devided">
-                                                       <a href="~/AnalysisEER/TherEquLV" class="btn btn-sm btn-default easy-pie-chart-reload">
-                                                           热不平衡率 <i class="fa fa-arrow-circle-o-right"></i>
-                                                       </a>
-                                                   </div>
-                                               </div>-->
-                                           </div>
-                                           <div class="portlet-body">
-                                               <div class="row">
-                                                   <div style="float:left;line-height:35px;margin-left:15px;">Time:</div>
-                                                   <div class="input-group date form_date idxDT pull-left" style="width:150px;margin-left:15px;margin-bottom:10px;">
-                                                       <input id="spDT" class="form-control" size="16" type="text" value="" />
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div id="eerBusy">
+                            <div class="row margin-top-20">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="portlet light bordered">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <i class="icon-bar-chart font-green-sharp hide"></i>
+                                                <span class="caption-subject font-green-sharp bold uppercase">Calendar for Plantroom Efficiency</span>
+                                            </div>
+                                            <div class="actions">
+                                                <div class="btn-group btn-group-devided">
+                                                    <a href="rph.html" class="btn btn-sm btn-default easy-pie-chart-reload">
+                                                        热不平衡率 <i class="fa fa-arrow-circle-o-right"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <div class="row">
+                                                <div style="float:left;line-height:35px;margin-left:15px;">Month:</div>
+                                                <div class="input-group date form_date idxDT pull-left" style="width:150px;margin-left:15px;margin-bottom:10px;">
+                                                    <input id="spDT" class="form-control" size="16" type="text" value="" />
                                                        <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-calendar"></span>
                                                         </span>
-                                                   </div>
-                                                   <a id="queryBtn" class="btn btn-default yellow" style="margin-left:15px;">Search</a>
-                                               </div>
-                                               <div class="portlet box blue-madison calendar">
-                                                   <div class="portlet-title">
-                                                       <div class="caption">
-                                                           <div class="row">
-                                                               <div class="calendar-title">
-                                                                    <span id="spanM" style="font-size:18px;font-weight:200;color:#fff;">
-                                                                        2016年11月
-                                                                    </span>
-                                                               </div>
-                                                               <div class="calendar-title">
-                                                                    <span style="font-size:12px;">
-                                                                        E(Running energy efficiency)<span id="emisc" style="font-size:13px;">KW/RT</span>
-                                                                    </span>
-                                                               </div>
-                                                               <div class="calendar-title">
-                                                                    <span style="font-size:13px;">
-                                                                        C(Daily refrigerating capacity)<span id="cmisc" style="font-size:13px;">RTH</span>
-                                                                    </span>
-                                                               </div>
-                                                               <div class="calendar-title">
-                                                                    <span style="font-size:13px;">
-                                                                        P(Daily electric quantity )KWH
-                                                                    </span>
-                                                               </div>
-                                                               <div class="calendar-title">
-                                                                   <span style="font-size:13px;">
-                                                                   M(Electricity price cold)元/KWH
+                                                </div>
+                                                <a id="queryBtn" class="btn btn-default yellow" style="margin-left:15px;">Submit</a>
+                                            </div>
+                                            <div class="portlet box blue-madison calendar">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <div class="row">
+                                                            <div class="calendar-title">
+                                                                   <span id="spanM" style="font-size:18px;font-weight:200;color:#fff;">
+                                                                    2016年11月
                                                                    </span>
-                                                               </div>
-                                                           </div>
-                                                       </div>
-                                                   </div>
-                                                   <div class="portlet-body light-grey">
-                                                       <div id="calendar">
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="col-md-6 col-sm-6">
-                                       <div class="row">
-                                           <div class="portlet light bordered">
-                                               <div class="portlet-title">
-                                                   <div class="caption">
-                                                       <i class="icon-bar-chart font-green-sharp hide"></i>
-                                                       <span class="caption-subject font-green-sharp bold uppercase">Cooling System efficiency contrast</span>
-                                                   </div>
-                                               </div>
-                                               <div class="portlet-body">
-                                                   <div class="row">
-                                                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                           <div class="btn-group btn-group-xs float-left">
-                                                               <button id="monthBtn" type="button" class="btn btn-default green" style="border:0px;">Monthly data</button>
-                                                               <button id="dayBtn" type="button" class="btn btn-default" style="border:0px;">Annual data</button>
-                                                           </div>
-                                                           <span id="todayDT" class="caption-subject bold uppercase" style="position:absolute;line-height:22px;margin-left:15px;"></span>
-                                                           <div class="pull-right" style="margin-right:20px;">
-                                                               <span>potential : </span>
-                                                               <span id="latentV" style="color:#f4b70a;">0</span>
-                                                               <span style="color:#ffd800;margin-left:2px;">%</span>
-                                                           </div>
-                                                       </div>
-                                                   </div>
-                                                   <div class="row">
-                                                       <div class="col-md-12 col-sm-12 col-xs-12">
-                                                           <table id="tableMark" class="table table-bordered" style="width:80%;margin:0 auto;margin-top:0px;border:none">
-                                                               <tbody>
-                                                               <tr style="height:20px;">
-                                                                   <td class="borderNull color">0.0</td>
-                                                                   <td colspan="2" class="textAlign borderNull">标杆建筑</td>
-                                                                   <td colspan="2" class="textAlign borderNull color">0.6</td>
-                                                                   <td colspan="2" class="textAlign borderNull color">0.7</td>
-                                                                   <td colspan="2" class="textAlign borderNull color">0.8</td>
-                                                                   <td colspan="2" class="textAlign borderNull">当前楼</td>
-                                                                   <td colspan="2" class="textAlign borderNull color">1.0</td>
-                                                                   <td colspan="2" class="textAlign borderNull color">1.1</td>
-                                                                   <td colspan="2" class="textAlign borderNull color">1.2</td>
-                                                               </tr>
-                                                               <tr style="height:45px;">
-                                                                   <td class="borderNull color">0.0</td>
-                                                                   <td colspan="2" class="textAlign borderNull goodIndicator color">0.5</td>
-                                                                   <td colspan="2" class="textAlign borderNull color">0.6</td>
-                                                                   <td colspan="2" class="textAlign borderNull color">0.7</td>
-                                                                   <td colspan="2" class="textAlign borderNull color">0.8</td>
-                                                                   <td colspan="2" class="textAlign borderNull markindicator color">0.9</td>
-                                                                   <td colspan="2" class="textAlign borderNull color">1.0</td>
-                                                                   <td colspan="2" class="textAlign borderNull color">1.1</td>
-                                                                   <td colspan="2" class="textAlign borderNull color">1.2</td>
-                                                               </tr>
-                                                               <tr>
-                                                                   <td colspan="6" class="textAlign" style="background:#4aadc7">excellent</td>
-                                                                   <td colspan="3" class="textAlign" style="background:#66ffcd">good</td>
-                                                                   <td colspan="3" class="textAlign" style="background:#f4b70a">commonly</td>
-                                                                   <td colspan="6" class="textAlign" style="background:#c1504c">Need to improve</td>
-                                                               </tr>
-                                                               <tr>
-                                                                   <td class="borderNull borderRight"></td>
-                                                                   <td class="borderNull borderRight"></td>
-                                                                   <td class="borders borderNull"></td>
-                                                                   <td class="borderNull borderRight"></td>
-                                                                   <td class="borders borderNull"></td>
-                                                                   <td class="borderNull borderRight"></td>
-                                                                   <td class="borders borderNull"></td>
-                                                                   <td class="borderNull borderRight"></td>
-                                                                   <td class="borders borderNull"></td>
-                                                                   <td class="borderNull borderRight"></td>
-                                                                   <td class="borders borderNull"></td>
-                                                                   <td class="borderNull borderRight"></td>
-                                                                   <td class="borders borderNull"></td>
-                                                                   <td class="borderNull borderRight"></td>
-                                                                   <td class="borders borderNull"></td>
-                                                                   <td class="borderNull borderRight"></td>
-                                                                   <td class="borderNull"></td>
-                                                                   <td class="borderNull"></td>
-                                                               </tr>
-                                                               <tr>
-                                                                   <td class="textAlign borderNull">C.O.P</td>
-                                                                   <td colspan="2" class="textAlign borderNull">(7.0)</td>
-                                                                   <td colspan="2" class="textAlign borderNull">(5.9)</td>
-                                                                   <td colspan="2" class="textAlign borderNull">(5.0)</td>
-                                                                   <td colspan="2" class="textAlign borderNull">(4.4)</td>
-                                                                   <td colspan="2" class="textAlign borderNull">(3.9)</td>
-                                                                   <td colspan="2" class="textAlign borderNull">(3.5)</td>
-                                                                   <td colspan="2" class="textAlign borderNull">(3.2)</td>
-                                                                   <td colspan="2" class="textAlign borderNull">(2.9)</td>
-                                                               </tr>
-                                                               </tbody>
-                                                           </table>
-                                                       </div>
-                                                   </div>
-                                                   <div class="row" style="width:80%;margin:0 auto;margin-top:20px;border:none;">
-                                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                                           <span>quantity of electricity : </span>
-                                                           <span id="eer_com_eV">0</span>
-                                                           <span>KWH</span>
-                                                       </div>
-                                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                                           <span> cooling capacity: </span>
-                                                           <span id="eer_com_cV">0</span>
-                                                           <span id="eer_com_c_misc">RTH</span>
-                                                       </div>
-                                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-top:10px;">
-                                                           <span>Electricity cost  : </span>
-                                                           <span id="eer_com_priceV">0</span>
-                                                           <span>yuan</span>
-                                                       </div>
-                                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-top:10px;">
-                                                           <span>cooling capacity cost : </span>
-                                                           <span id="eer_com_cpirceV">0</span>
-                                                           <span>yuan/<span id="eer_com_cpirceV_misc">RTH</span></span>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                       <div class="row">
-                                           <div class="portlet light bordered">
-                                               <div class="portlet-title">
-                                                   <div class="caption">
-                                                       <i class="icon-bar-chart font-green-sharp hide"></i>
-                                                       <span class="caption-subject font-green-sharp bold uppercase">By component</span>
-                                                   </div>
-                                               </div>
-                                               <div class="portlet-body">
-                                                   <div style="height:357px;width:100%;" id="itemizeMain"></div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
+                                                            </div>
+                                                            <div class="calendar-title">
+                                                                   <span style="font-size:12px;">
+                                                                   E(Running energy efficiency)<span id="emisc" style="font-size:13px;">KW/RT</span>
+                                                                   </span>
+                                                            </div>
+                                                            <div class="calendar-title">
+                                                                   <span style="font-size:13px;">
+                                                                   C(Daily refrigerating capacity)<span id="cmisc" style="font-size:13px;">RTH</span>
+                                                                   </span>
+                                                            </div>
+                                                            <div class="calendar-title">
+                                                                   <span style="font-size:13px;">
+                                                                   P(Daily electric quantity)KWH
+                                                                   </span>
+                                                            </div>
+                                                            <div class="calendar-title">
+                                                                   <span style="font-size:13px;">
+                                                                   M(Operating Cost per Rt Tonnage)yuan/
+                                                                       <span id="lluntil">KWH</span>
+                                                                   </span>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body light-grey">
+                                                    <div id="calendar">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="row">
+                                        <div class="portlet light bordered">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="icon-bar-chart font-green-sharp hide"></i>
+                                                    <span class="caption-subject font-green-sharp bold uppercase">Efficiency Benchmark</span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="btn-group btn-group-xs float-left">
+                                                            <button id="monthBtn" type="button" class="btn btn-default green" style="border:0px;">Monthly</button>
+                                                            <button id="dayBtn" type="button" class="btn btn-default" style="border:0px;">Daily</button>
+                                                        </div>
+                                                        <span id="todayDT" class="caption-subject bold uppercase" style="position:absolute;line-height:22px;margin-left:15px;"></span>
+                                                        <div class="pull-right" style="margin-right:20px;">
+                                                            <span>潜力 : </span>
+                                                            <span id="latentV" style="color:#f4b70a;">0</span>
+                                                            <span style="color:#ffd800;margin-left:2px;">%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <table id="tableMark" class="table table-bordered" style="width:80%;margin:0 auto;margin-top:0px;border:none">
+                                                            <tbody>
+                                                            <tr style="height:20px;">
+                                                                <td class="borderNull color">0.0</td>
+                                                                <td colspan="2" class="textAlign borderNull">标杆建筑</td>
+                                                                <td colspan="2" class="textAlign borderNull color">0.6</td>
+                                                                <td colspan="2" class="textAlign borderNull color">0.7</td>
+                                                                <td colspan="2" class="textAlign borderNull color">0.8</td>
+                                                                <td colspan="2" class="textAlign borderNull">Current Efficiency</td>
+                                                                <td colspan="2" class="textAlign borderNull color">1.0</td>
+                                                                <td colspan="2" class="textAlign borderNull color">1.1</td>
+                                                                <td colspan="2" class="textAlign borderNull color">1.2</td>
+                                                            </tr>
+                                                            <tr style="height:45px;">
+                                                                <td class="borderNull color">0.0</td>
+                                                                <td colspan="2" class="textAlign borderNull goodIndicator color">0.5</td>
+                                                                <td colspan="2" class="textAlign borderNull color">0.6</td>
+                                                                <td colspan="2" class="textAlign borderNull color">0.7</td>
+                                                                <td colspan="2" class="textAlign borderNull color">0.8</td>
+                                                                <td colspan="2" class="textAlign borderNull markindicator color">0.9</td>
+                                                                <td colspan="2" class="textAlign borderNull color">1.0</td>
+                                                                <td colspan="2" class="textAlign borderNull color">1.1</td>
+                                                                <td colspan="2" class="textAlign borderNull color">1.2</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="6" class="textAlign" style="background:#4aadc7">优秀</td>
+                                                                <td colspan="3" class="textAlign" style="background:#66ffcd">良好</td>
+                                                                <td colspan="3" class="textAlign" style="background:#f4b70a">一般</td>
+                                                                <td colspan="6" class="textAlign" style="background:#c1504c">急需改善</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borderNull"></td>
+                                                                <td class="borderNull"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="textAlign borderNull">C.O.P</td>
+                                                                <td colspan="2" class="textAlign borderNull">(7.0)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(5.9)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(5.0)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(4.4)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(3.9)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(3.5)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(3.2)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(2.9)</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="width:80%;margin:0 auto;margin-top:20px;border:none;">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                        <span>Quantity of electricity : </span>
+                                                        <span id="eer_com_eV">0</span>
+                                                        <span>KWH</span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                        <span>Cooling capacity : </span>
+                                                        <span id="eer_com_cV">0</span>
+                                                        <span id="eer_com_c_misc">RTH</span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>Electricity cost : </span>
+                                                        <span id="eer_com_priceV">0</span>
+                                                        <span>元</span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>Operating Cost per Rt Tonnage: </span>
+                                                        <span id="eer_com_cpirceV">0</span>
+                                                        <span>元/<span id="eer_com_cpirceV_misc">RTH</span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="portlet light bordered">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="icon-bar-chart font-green-sharp hide"></i>
+                                                    <span class="caption-subject font-green-sharp bold uppercase">Breakdown List</span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div style="height:357px;width:100%;" id="itemizeMain"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
     </div>
-    <div class="page-footer">
-        <div class="page-footer-inner">
-            2016 &copy; Huaqin.
-        </div>
-        <div class="scroll-to-top">
-            <i class="icon-arrow-up"></i>
-        </div>
+    <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+</div>
+<div class="page-footer">
+    <div class="page-footer-inner">
+        2016 &copy; Huaqin.
     </div>
-    <div id="eprBox" style="padding-bottom: 10px;
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+<div id="eprBox" class="" style="padding-bottom:10px;
             background: url('../../../assets/admin/layout/img/beijingkuang.png')no-repeat;
-            background-size:300px; z-index: 10000; top: 36px; width: 300px;
+            background-size:300px; z-index: 10000; top: 40px; width: 300px;
             height: auto; position: fixed; right: 107px; display: none;">
-        <div style="padding:15px 15px;color:#FFFFFF;margin-top:0px;">
-            <div class="row">
-                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">Unit</label>
-                <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
-                    <select name="epr_type" id="epr_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
-                </div>
+    <div style="padding:15px 15px;color:#FFFFFF;margin-top:0px;">
+        <div class="row">
+            <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">单位选择</label>
+            <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
+                <select name="epr_type" id="epr_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
             </div>
-            <div class="row">
-                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">Building</label>
-                <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
-                    <select name="p_type" id="p_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
-                </div>
+        </div>
+        <div class="row">
+            <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">楼宇选择</label>
+            <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
+                <select name="p_type" id="p_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
             </div>
-            <div class="row">
-                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="margin-bottom:10px;line-height:34px;"></label>
-                <div class="col-md-8 col-xs-8 col-xs-8">
-                    <button id="goEprBtn" type="submit" class="btn blue pull-left">
-                        OK
-                    </button>
-                </div>
+        </div>
+        <div class="row">
+            <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="margin-bottom:10px;line-height:34px;"></label>
+            <div class="col-md-8 col-xs-8 col-xs-8">
+                <button id="goEprBtn" type="submit" class="btn blue pull-left">
+                    切换
+                </button>
             </div>
         </div>
     </div>
-    <script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/bootstrap/js/bootstrap.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-    <!--ECHART START-->
-    <script src="../resource/js/echarts.min.js" type="text/javascript"></script>
-    <!--ECHART END-->
-    <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-    <!--FULLCALENDAR END-->
-    <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-    <!--DATEPICKER START-->
-    <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
-    <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-    <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
-    <!--DATEPICKER END-->
-    <script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
-    <script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-    <script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-    <!--SHOWLOADING START-->
-    <script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js" type="text/javascript"></script>
-    <!--SHOWLOADING END-->
-    <script src="../../../assets/local/scripts/BEE.js"></script>
-    <!--FULLCALENDAR START-->
-    <script src="../resource/fullcalendar/fullcalendar.js" type="text/javascript"></script>
-    <script src="js/pub.js" type="text/javascript"></script>
-    <script src="js/calendar.js" type="text/javascript"></script>
-    <script src="./js/EPMAtranslate.js"></script>
-    <script>
-        jQuery(document).ready(function () {
-            Metronic.init();
-            BEE.init();
-            Layout.init();
-            Demo.init();
-            EPMA.init();
-            Calendar.init();
-        });
-    </script>
+</div>
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<!--ECHART START-->
+<script src="../resource/js/echarts.min.js" type="text/javascript"></script>
+<!--ECHART END-->
+<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<!--FULLCALENDAR END-->
+<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!--DATEPICKER START-->
+<script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!--DATEPICKER END-->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<!--SHOWLOADING START-->
+<script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js" type="text/javascript"></script>
+<!--SHOWLOADING END-->
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<!--FULLCALENDAR START-->
+<script src="../resource/fullcalendar/fullcalendar.js" type="text/javascript"></script>
+<script src="js/pub.js" type="text/javascript"></script>
+<script src="js/judgeLanguage.js"></script>
+<script src="js/calendar.js" type="text/javascript"></script>
+<script ></script>
+<script>
+    jQuery(document).ready(function () {
+        Metronic.init();
+        BEE.init();
+        Layout.init();
+        Demo.init();
+        EPMA.init();
+        Calendar.init();
+    });
+</script>
 </body>
 </html>

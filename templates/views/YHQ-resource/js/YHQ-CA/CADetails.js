@@ -46,6 +46,21 @@ $(function(){
                 $('#CA-applyTel').val(data.causerphone);
                 //申请部门名称
                 $('#CA-applyDepart').val(data.departName);
+                //申请车辆类型
+
+                var type = '';
+
+                if(data.cartype == 1){
+
+                    type = '普通车'
+
+                }else if(data.cartype == 2){
+
+                    type = '救护车'
+
+                }
+
+                $('#CA-type').val(type);
                 //出发地
                 $('#CA-departure').val(data.startAddress);
                 //目的地

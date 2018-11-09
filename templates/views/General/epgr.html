@@ -57,8 +57,8 @@
                         <span id="pNT">楼宇</span>
                     </li>
                     <li id="span_temperature" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
-                        <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/wendu.png')no-repeat;">
-                        </span><span id="temperature">0℃</span>
+                        <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/wendu.png')no-repeat;"></span>
+                        <span id="temperature">0℃</span>
                     </li>
                     <li id="span_humidity" style="color:#ccc;line-height:46px;margin-right:20px;font-size:14px;">
                         <span class="navigation-img" style="background:url('../../../assets/admin/layout/img/shidu.png')no-repeat;"></span>
@@ -78,6 +78,14 @@
                             <li></li>
                         </ul>
                     </li>
+                    <li class="dropdown dropdown-extended dropdown-tasks" title="切换单位">
+                        <a id="miscBtn" href="javascript:;" class="dropdown-toggle">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li></li>
+                        </ul>
+                    </li>
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" style="background-color:rgba(0,0,0,0);" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <img alt="" class="img-circle" src="../../../assets/admin/layout/img/user.png" style="width:25px;height:25px;">
@@ -88,7 +96,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default" style="max-width:150px;">
                             <li>
-                                <a id="lgot" href="javascript:;">
+                                <a id="lgot" class="logout-page" href="javascript:;">
                                     <i class="icon-key"></i> 退出登录
                                 </a>
                             </li>
@@ -195,36 +203,36 @@
                                             <div class="portlet-title">
                                                 <div class="caption">
                                                     <i class="fa fa-area-chart"></i>
-                                                    <span id="spanTitle">Variable pricing setup</span>
+                                                    <span id="spanTitle">Setting of Step Tariff</span>
                                                 </div>
                                             </div>
                                             <div class="portlet-body">
                                                 <div class="row">
                                                     <div class="col-md-3 col-xs-3">
-                                                        <h5>Profile</h5>
+                                                        <h5>Project Title</h5>
                                                     </div>
                                                     <div class="col-md-9 col-xs-9">
                                                         <input id="priceGroupID" class="form-control" size="16" type="hidden" value="" />
-                                                        <input id="priceGroupNT" placeholder="Scheme name,for example:entry name_Scheme name" class="form-control" size="16" type="text" />
+                                                        <input id="priceGroupNT" placeholder="计费方案名称，例如:项目名称_方案名称" class="form-control" size="16" type="text" />
                                                     </div>
                                                 </div>
                                                 <div class="row margin-top-10">
                                                     <div class="col-md-3 col-xs-3">
-                                                        <h5>Start date</h5>
+                                                        <h5>Initiating Time</h5>
                                                     </div>
                                                     <div class="col-md-9 col-xs-9">
                                                         <div class="input-group date price_form_date">
-                                                            <input id="priceStartDate" placeholder="Start date" class="form-control prcgrpDT" size="16" type="text" value="" />
+                                                            <input id="priceStartDate" placeholder="开始时间段" class="form-control prcgrpDT" size="16" type="text" value="" />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row margin-top-10">
                                                     <div class="col-md-3 col-xs-3">
-                                                        <h5>End date</h5>
+                                                        <h5>Completion Time</h5>
                                                     </div>
                                                     <div class="col-md-9 col-xs-9">
                                                         <div class="input-group date price_form_date">
-                                                            <input id="priceEndDate" placeholder="End date"
+                                                            <input id="priceEndDate" placeholder="结束时间段"
                                                                    class="form-control prcgrpDT"
                                                                    size="16" type="text" value="" />
                                                         </div>
@@ -232,13 +240,13 @@
                                                 </div>
                                                 <div class="row margin-top-10">
                                                     <div class="col-md-3 col-xs-3">
-                                                        <h5>Critical peak slot</h5>
+                                                        <h5>尖值时段</h5>
                                                     </div>
                                                     <div class="col-md-9 col-xs-9">
                                                         <div class="input-group form_date_block">
                                                             <input id="pricestip_id" type="hidden" />
                                                             <input id="pricestip"
-                                                                   placeholder="Critical peak slot，for example:00:00 01:00 02:00 ; 22:00 23:00 ; "
+                                                                   placeholder="尖值时段，例如:00:00 01:00 02:00 ; 22:00 23:00 ; "
                                                                    class="form-control timeArray"
                                                                    size="16"
                                                                    type="text"
@@ -254,22 +262,22 @@
                                                 </div>
                                                 <div class="row margin-top-10">
                                                     <div class="col-md-3 col-xs-3">
-                                                        <h5>Critical peak price</h5>
+                                                        <h5>尖值电价</h5>
                                                     </div>
                                                     <div class="col-md-9 col-xs-9">
-                                                        <input type="text" class="form-control" id="tippriceEV" name="tippriceEV" value="0" placeholder="Critical peak price" style="margin-left:0px;width:100px;float:left;" />
-                                                        <label class="control-label" style="margin-left:10px;line-height:34px;">yuan/KWH</label>
+                                                        <input type="text" class="form-control" id="tippriceEV" name="tippriceEV" value="0" placeholder="尖值电价" style="margin-left:0px;width:100px;float:left;" />
+                                                        <label class="control-label" style="margin-left:10px;line-height:34px;">yuan/<span class="Luntil">KWH</span></label>
                                                     </div>
                                                 </div>
                                                 <div class="row margin-top-10">
                                                     <div class="col-md-3 col-xs-3">
-                                                        <h5>On peak slot</h5>
+                                                        <h5>Time Range for Peaks</h5>
                                                     </div>
                                                     <div class="col-md-9 col-xs-9">
                                                         <div class="input-group form_date_block">
                                                             <input id="pricespeak_id" type="hidden" />
                                                             <input id="pricespeak"
-                                                                   placeholder="On peak slot，for example:00:00 01:00 02:00 ; 22:00 23:00 ; "
+                                                                   placeholder="峰值时段，例如:00:00 01:00 02:00 ; 22:00 23:00 ; "
                                                                    class="form-control timeArray"
                                                                    size="16"
                                                                    type="text"
@@ -285,22 +293,22 @@
                                                 </div>
                                                 <div class="row margin-top-10">
                                                     <div class="col-md-3 col-xs-3">
-                                                        <h5>On peak price</h5>
+                                                        <h5>Peak Tariff</h5>
                                                     </div>
                                                     <div class="col-md-9 col-xs-9">
-                                                        <input type="text" class="form-control" id="peakpriceEV" name="peakpriceEV" value="0" placeholder="On peak price" style="margin-left:0px;width:100px;float:left;" />
-                                                        <label class="control-label" style="margin-left:10px;line-height:34px;">yuan/KWH</label>
+                                                        <input type="text" class="form-control" id="peakpriceEV" name="peakpriceEV" value="0" placeholder="峰值电价" style="margin-left:0px;width:100px;float:left;" />
+                                                        <label class="control-label" style="margin-left:10px;line-height:34px;">yuan/<span class="Luntil">KWH</span></label>
                                                     </div>
                                                 </div>
                                                 <div class="row margin-top-10">
                                                     <div class="col-md-3 col-xs-3">
-                                                        <h5>Flat slot</h5>
+                                                        <h5>Time Range for Flat</h5>
                                                     </div>
                                                     <div class="col-md-9 col-xs-9">
                                                         <div class="input-group form_date_block">
                                                             <input id="pricesflat_id" type="hidden" />
                                                             <input id="pricesflat"
-                                                                   placeholder="Flat slot，for example:00:00 01:00 02:00 ; 22:00 23:00 ; "
+                                                                   placeholder="平值时段，例如:00:00 01:00 02:00 ; 22:00 23:00 ; "
                                                                    class="form-control timeArray"
                                                                    size="16"
                                                                    type="text"
@@ -316,22 +324,22 @@
                                                 </div>
                                                 <div class="row margin-top-10">
                                                     <div class="col-md-3 col-xs-3">
-                                                        <h5>Flat price</h5>
+                                                        <h5>Flat Tariff</h5>
                                                     </div>
                                                     <div class="col-md-9 col-xs-9">
-                                                        <input type="text" class="form-control" id="equalpriceEV" name="equalpriceEV" value="0" placeholder="Flat price" style="margin-left:0px;width:100px;float:left;" />
-                                                        <label class="control-label" style="margin-left:10px;line-height:34px;">yuan/KWH</label>
+                                                        <input type="text" class="form-control" id="equalpriceEV" name="equalpriceEV" value="0" placeholder="平值电价" style="margin-left:0px;width:100px;float:left;" />
+                                                        <label class="control-label" style="margin-left:10px;line-height:34px;">yuan/<span class="Luntil">KWH</span></label>
                                                     </div>
                                                 </div>
                                                 <div class="row margin-top-10">
                                                     <div class="col-md-3 col-xs-3">
-                                                        <h5>Off peak slot</h5>
+                                                        <h5>Time Range for Valley</h5>
                                                     </div>
                                                     <div class="col-md-9 col-xs-9">
                                                         <div class="input-group form_date_block">
                                                             <input id="pricesvalley_id" type="hidden" />
                                                             <input id="pricesvalley"
-                                                                   placeholder="Off peak slot，for example:00:00 01:00 02:00 ; 22:00 23:00 ; "
+                                                                   placeholder="谷值时段，例如:00:00 01:00 02:00 ; 22:00 23:00 ; "
                                                                    class="form-control timeArray"
                                                                    size="16"
                                                                    type="text"
@@ -347,18 +355,18 @@
                                                 </div>
                                                 <div class="row margin-top-10">
                                                     <div class="col-md-3 col-xs-3">
-                                                        <h5>Off peak price</h5>
+                                                        <h5>Valley Tariff</h5>
                                                     </div>
                                                     <div class="col-md-9 col-xs-9">
-                                                        <input type="text" class="form-control" id="valleypriceEV" name="valleypriceEV" value="0" placeholder="Off peak price" style="margin-left:0px;width:100px;float:left;" />
-                                                        <label class="control-label" style="margin-left:10px;line-height:34px;">yuan/KWH</label>
+                                                        <input type="text" class="form-control" id="valleypriceEV" name="valleypriceEV" value="0" placeholder="谷值电价" style="margin-left:0px;width:100px;float:left;" />
+                                                        <label class="control-label" style="margin-left:10px;line-height:34px;">yuan/<span class="Luntil">KWH</span></label>
                                                     </div>
                                                 </div>
                                                 <div class="row margin-top-10">
                                                     <div class="col-md-3 col-xs-3"></div>
                                                     <div class="col-md-9 col-xs-9">
                                                         <button id="savepriceBtn" type="button" class="btn btn-primary">
-                                                            <span id="spanepricecontent">Edit</span>
+                                                            <span id="spanepricecontent">新增电价内容</span>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -372,40 +380,40 @@
                                                     <div class="portlet-title">
                                                         <div class="caption">
                                                             <i class="fa fa-area-chart"></i>
-                                                            <span id="spanTitle">Variable pricing list </span>
+                                                            <span id="spanTitle">Step Tariff</span>
                                                         </div>
                                                     </div>
                                                     <div class="portlet-body">
                                                         <div class="row margin-top-10">
                                                             <div class="col-md-5 col-xs-5">
-                                                                <label class="control-label">Critical peak price</label>
+                                                                <label class="control-label">尖值电价</label>
                                                             </div>
                                                             <div class="col-md-7 col-xs-7">
-                                                                <label class="control-label"><span id="spantipE_price">0</span>yuan/KWH</label>
+                                                                <label class="control-label"><span id="spantipE_price">0</span>yuan/<span class="Luntil">KWH</span></label>
                                                             </div>
                                                         </div>
                                                         <div class="row margin-top-10">
                                                             <div class="col-md-5 col-xs-5">
-                                                                <label class="control-label">On peak price</label>
+                                                                <label class="control-label">Peak Tariff</label>
                                                             </div>
                                                             <div class="col-md-7 col-xs-7">
-                                                                <label class="control-label"><span id="spanpeakE_price">0</span>yuan/KWH</label>
+                                                                <label class="control-label"><span id="spanpeakE_price">0</span>yuan/<span class="Luntil">KWH</span></label>
                                                             </div>
                                                         </div>
                                                         <div class="row margin-top-10">
                                                             <div class="col-md-5 col-xs-5">
-                                                                <label class="control-label">Flat price</label>
+                                                                <label class="control-label">Flat Tariff</label>
                                                             </div>
                                                             <div class="col-md-7 col-xs-7">
-                                                                <label class="control-label"><span id="spanequalE_price">0</span>yuan/KWH</label>
+                                                                <label class="control-label"><span id="spanequalE_price">0</span>yuan/<span class="Luntil">KWH</span></label>
                                                             </div>
                                                         </div>
                                                         <div class="row margin-top-10">
                                                             <div class="col-md-5 col-xs-5">
-                                                                <label class="control-label">Off peak price</label>
+                                                                <label class="control-label">Valley Tariff</label>
                                                             </div>
                                                             <div class="col-md-7 col-xs-7">
-                                                                <label class="control-label"><span id="spanvalleyE_price">0</span>yuan/KWH</label>
+                                                                <label class="control-label"><span id="spanvalleyE_price">0</span>yuan/<span class="Luntil">KWH</span></label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -430,28 +438,28 @@
             <i class="icon-arrow-up"></i>
         </div>
     </div>
-    <div id="eprBox" style="padding-bottom: 10px;
+    <div id="eprBox" class="" style="padding-bottom: 10px;
             background: url('../../../assets/admin/layout/img/beijingkuang.png')no-repeat;
             background-size:300px; z-index: 10000; top: 36px; width: 300px;
             height: auto; position: fixed; right: 107px; display: none;">
         <div style="padding:15px 15px;color:#FFFFFF;margin-top:0px;">
             <div class="row">
-                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">Unit</label>
+                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="margin-bottom:10px;line-height:34px;color:#333333">单位选择</label>
                 <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
                     <select name="epr_type" id="epr_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
                 </div>
             </div>
             <div class="row">
-                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">Building</label>
+                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;color:#333333">楼宇选择</label>
                 <div class="col-md-8 col-sm-8 col-xs-8" style="margin-bottom:10px;">
                     <select name="p_type" id="p_type" class="form-control input-small input-inline" style="border:1px solid #4A93BE;border-radius: 5px !important;"></select>
                 </div>
             </div>
             <div class="row">
-                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="margin-bottom:10px;line-height:34px;"></label>
+                <label class="col-md-4 col-sm-4 col-xs-4 control-label" style="padding:0;text-indent:35px;margin-bottom:10px;line-height:34px;"></label>
                 <div class="col-md-8 col-xs-8 col-xs-8">
                     <button id="goEprBtn" type="submit" class="btn blue pull-left">
-                        OK
+                        切换
                     </button>
                 </div>
             </div>
@@ -480,6 +488,7 @@
     <script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
     <script src="../../../assets/local/scripts/BEE.js" type="text/javascript"></script>
     <script src="js/pub.js" type="text/javascript"></script>
+    <script src="js/judgeLanguage.js"></script>
     <script src="js/epgr.js" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function () {

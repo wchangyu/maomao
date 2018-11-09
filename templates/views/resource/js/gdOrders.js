@@ -1965,6 +1965,8 @@ $(function(){
                 gdObj.sbname = result.dName;
                 gdObj.azplace = result.installAddress;
                 $('.gzDesc').val(result.bxBeizhu);
+                //维修科室
+                $('#depWX').val(result.wxKeshi);
 
                 //负责人信息
                 var arr = [];
