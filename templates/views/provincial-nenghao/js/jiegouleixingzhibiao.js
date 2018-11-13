@@ -21,6 +21,7 @@ $(function(){
 
         _FFExcel($('#scrap-datatables')[0]);
     });
+    $('.btn-success').click()
 
 });
 
@@ -224,7 +225,11 @@ function _my_creatTableData( arr ){
                 }
             },{
                 title:'机构类型',
-                data:'returnOBJName'
+                data:'returnOBJName',
+                render:function(data, index, row, meta){
+                    return "<span class='blues'>"+ data +"</span>";
+                }
+                
             },
             {
                 title:'建筑数量',

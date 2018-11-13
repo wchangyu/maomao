@@ -476,3 +476,12 @@ img.yulan{
     background-image: url(../img/xiazai.png);
     background-repeat:no-repeat;
 }
+
+#shengjipingtai{
+    font-size: 14px;
+    
+}
+#shengjipingtai a.xiangmuid{
+    font-size: 16px;
+    text-decoration:underline
+}

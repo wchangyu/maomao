@@ -1,10 +1,32 @@
-qingqiuData()
+var quyuid = window.sessionStorage.enterpriseID;
+var resetObj = resetData(quyuid);
+var flagtype = null;
+var flagtypeid = null
+
+function resetData(id) {
+    var alldata = JSON.parse(window.sessionStorage.pointers);
+    var len = alldata.length;
+    for (var i = 0; i < len; i++) {
+        var item = alldata[i];
+        if (item.enterpriseID == id) {
+            return item;
+        }
+    }
+    return null;
+}
+//初始化alert
+function myAlter(string){
+    $('#my-alert').modal('show');
+    $('#my-alert p b').html(string);
+}
 var allMyclod = null;
 var endData = null;
 var oTable;
 var shengshilist = null;
 
 $(function () {
+	
+	qingqiuData()
 	validformzuixiaozhi()
 
 // _my_creatTableData(dddd.projRemouldModes, dddd.provincProjStatists)
@@ -15,7 +37,7 @@ $(function () {
 
 function qingqiuData(){
 	// api/ProvincialProject/GetProvincProjStatist
-	var url = _urls + "ProvincialProject/GetProvincProjStatist";
+	var url = _urls + "ProvincialProject/GetProvincProjStatist?subDisID="+  630000 //630126 // "630101" // "630000" //+resetObj.subDisID;
     $.ajax({
         type: "GET",
         cache: false,
@@ -32,14 +54,14 @@ function qingqiuData(){
                 if(data == ""){
                      myAlter("数据为空")
                 }else{
-                	_my_creatTableData(data.projRemouldModes, data.provincProjStatists)
+                	_my_creatTableData(data.projRemouldModes, data.provincProjStatists, data)
                 }
             }
 
         }.bind(this),
         error: function (xhr, ajaxOptions, thrownError) {
             Metronic.stopPageLoading();
-            pageContentBody.html('<h4>Could not load the requested content.</h4>');
+            myAlter("Could not load the requested content.")
         }
     })
 }
@@ -47,7 +69,10 @@ function qingqiuData(){
 
 
 //手动生成表格
-function _my_creatTableData( datatitle, datalist ){
+function _my_creatTableData( datatitle, datalist, data ){
+	var falgdata = data;
+	flagtype = data.returnType;
+	flagtypeid = data.curDistrictID;
 	var title = datatitle;
 	var list = []
 	for (var i = 0; i < title.length; i++) {
@@ -63,30 +88,21 @@ function _my_creatTableData( datatitle, datalist ){
 	shengshilist = datalist;
 	var myclod = [];
 	//第一行
-	var str = "<tr role='row'><th></th><th></th>"
 	for (var i = 0; i < list.length; i++) {
 		var item = list[i]
-		str+="<th colspan='"+ item.col +"' class='sorting_disabled'>"+ item.name +"</th>"
 	}
-	str+="<th rowspan='2' class='sorting_disabled'>综合排名</th><tr>";
 	//第二行
-	str += '<tr><th></th><th></th>';
 	for (var i = 0; i < list.length; i++) {
 		var item = list[i];
 		if(item.data.length == 0){
 			var mod = {};
 			myclod.push(mod)
-			str+="<th class='sorting_disabled'>"+ mod.f_RemouldName +"</th>"
 		}
 		for (var d = 0; d < item.data.length; d++) {
 			var mod = item.data[d];
 			myclod.push(mod)
-			str+="<th class='sorting_disabled'>"+ mod.f_RemouldName +"</th>"
 		}
 	}
-	str += '<th></th></tr>'
-	// $('#sjptthd').html("")
-	// $('#sjptthd').html(str)
 
 	allMyclod = myclod;
 
@@ -102,11 +118,14 @@ function _my_creatTableData( datatitle, datalist ){
 			title: '',
 	        data: 'districtName',
 	        render: function(data, index, row, meta) {
+	        	if(flagtype == 1){
+	        		return "<a class='clickme glyphicon glyphicon-plus'>" + data + "</a>"
+	        	}
 	        	if(meta.row == 0 ){
 	        		return data;
 	        	}
 	        	if(row.provincProjStatists&&row.provincProjStatists.length>0&&row.projInfoSumNum>0){
-	        		return "<a class='clickme'>" + data + "</a>"
+	        		return "<a class='clickme glyphicon glyphicon-plus'>" + data + "</a>"
 	        	}
 	            return data
 	        }
@@ -125,23 +144,12 @@ function _my_creatTableData( datatitle, datalist ){
 	        	var type = meta.col-2;
 	        	var typeid = allMyclod[type].pK_ProjRemouldMode;
 	        	var titid = allMyclod[type].f_ParentRemould;
-
 	        	if(!allMyclod[type].f_ParentRemould){
 	        		return ""
 	        	}
-
-	        	// var flag = false;
-	        	// for (var i = 0; i < allMyclod.length; i++) {
-	        	// 	var item = allMyclod[i];
-	        	// 	if(item.f_ParentRemould == titid){
-	        	// 		flag = true;
-	        	// 		break;
-	        	// 	}
+	        	// if(flagtype == 1){
+	        	// 	return "<a class='clickme'>" + data + "</a>"
 	        	// }
-	        	// if(flag){
-	        	// 	return ""
-	        	// }
-
 				var num = 0;	        	
 	        	var child = row.projInfoNums
 	        	for (var i = 0; i < child.length; i++) {
@@ -150,17 +158,39 @@ function _my_creatTableData( datatitle, datalist ){
 	        			if(item.projNum == ""){
 	        				return item.projNum
 	        			}
+	        			if(flagtype == 1){
+			        		return item.projNum
+			        	}
+			        	if(flagtype == 0){
+			        		if(row.f_DistrictID == ""){
+			        			return item.projNum
+			        		}
+			        		var chengshiid = row.f_DistrictID;
+			        		if(chengshiid == flagtypeid){
+			        			var typeid = item.pK_ProjRemouldMode;
+			        			var parentid = getParentidByid(typeid);
+		        				return "<a class='xiangmuid' atrtype='" + item.pK_ProjRemouldMode 
+		        					+ "' href='./projectshengjipingtaiinfo.html?csid="+ chengshiid 
+		        					+ "&&typeid="+ typeid 
+		        					+ "&&parentid="+ parentid +"'" 
+		        					+">"+ item.projNum +"</a>"
+			        		}
+			        		return item.projNum
+		        			
+			        	}
+
 	        			if(meta.row == 0){
 	        				return item.projNum
 	        			}
 	        			var chengshiid = row.f_DistrictID;
 	        			var typeid = item.pK_ProjRemouldMode;
-	        			var parentid = getParentidByid(typeid)
-	        			return "<a class='xiangmuid' atrtype='" + item.pK_ProjRemouldMode 
-	        					+ "' href='./projectshengjipingtaiinfo.html?csid="+ chengshiid 
-	        					+ "&&typeid="+ typeid 
-	        					+ "&&parentid="+ parentid +"'" 
-	        					+">"+ item.projNum +"</a>"
+	        			var parentid = getParentidByid(typeid);
+        				return "<a class='xiangmuid' atrtype='" + item.pK_ProjRemouldMode 
+        					+ "' href='./projectshengjipingtaiinfo.html?csid="+ chengshiid 
+        					+ "&&typeid="+ typeid 
+        					+ "&&parentid="+ parentid +"'" 
+        					+">"+ item.projNum +"</a>"
+	        			
 	        		}
 	        	}
 	            return data
@@ -267,12 +297,14 @@ $('#shengjipingtai tbody').on('click', '.clickme', function () {
 	if ( row.child.isShown() ) {
         row.child.hide();
         tr.removeClass('shown');
-    }
+        $(this).addClass('glyphicon-plus').removeClass('glyphicon-minus')
+    }	
     else {
         // Open this row
         row.child( format( id ) ).show();
         tr.addClass('shown');
         $('.shown').next('tr').addClass('on-show');
+        $(this).addClass('glyphicon-minus').removeClass('glyphicon-plus')
     }
     creatIdTable(id, datalist)
 } );
@@ -292,7 +324,6 @@ $('#shengjipingtai tbody').on('click', '.xiangmuid', function () {
 
 function format ( id ) {
 	var list = getshengshilistitem(id)
-	console.log(list)
     var table = '<table class="table" id="'+'test'+id+'">' +
         			'<thead></thead>'+
         			'<tbody></tbody>'+
@@ -354,6 +385,13 @@ function creatIdTable(id, datalist){
 	        			if(item.projNum == ""){
 	        				return item.projNum
 	        			}
+	        			if(flagtype == 1){
+	        				if(row.f_DistrictID!= flagtypeid){
+	        					return item.projNum
+	        				}
+			        		// return item.projNum;
+			        		//判断id是否和返回的id相同 相同就链接 否则直接数字
+			        	}
 	        			if(meta.row == 0){
 	        				return item.projNum
 	        			}
