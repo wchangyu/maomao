@@ -1,0 +1,29 @@
+.clear:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+.main-contents-table{
+
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,1);
+    border-radius:6px !important;
+    border:1px solid #B6D8F1;
+    padding-left:20px;
+    padding-right:20px;
+    padding-bottom: 20px;
+    margin-bottom:30px;
+}
+#scrap-datatables th{
+	background: #e1e8f2 !important;
+}
+#scrap-datatables>tbody>tr:nth-of-type(odd) {
+    background-color: #eaf4fd;
+}
+.table-fixation thead {
+     width: 100%; 
+}
+.redtxt{
+	color: red
+}
