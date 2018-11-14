@@ -37,7 +37,7 @@ $(function () {
 
 function qingqiuData(){
 	// api/ProvincialProject/GetProvincProjStatist
-	var url = _urls + "ProvincialProject/GetProvincProjStatist?subDisID="+  630000 //630126 // "630101" // "630000" //+resetObj.subDisID;
+	var url = _urls + "ProvincialProject/GetProvincProjStatist?subDisID="+resetObj.subDisID;
     $.ajax({
         type: "GET",
         cache: false,
