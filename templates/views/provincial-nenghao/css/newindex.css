@@ -7,13 +7,18 @@
 	clear: both;
 }
 .rowcon{
+    position: relative;
 	border: 1px solid #B6D8F1;
     border-radius: 5px !important;
     padding: 3px;
     z-index: 10;
 }
-.myclear, .myclear ul{
-    float: left;
+.myclear{
+}
+.myclear{
+    position: absolute;
+    right: 5px;
+    top:5px;
 }
 .myclear div{
     width: 26px;
