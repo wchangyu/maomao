@@ -265,7 +265,7 @@ var optionPie = {
 
 var optiondanwei = {
     title: {
-        text: '单位面积占比',
+        text: '单位面积指标',
         textStyle:{
             fontSize:'16',
             fontWeight:'normal'
@@ -283,7 +283,7 @@ var optiondanwei = {
     },
     series: [
         {
-            name: '单位面积占比',
+            name: '单位面积指标',
             type: 'gauge',
             radius: '83%',
             min: 0,
@@ -313,7 +313,7 @@ var optiondanwei = {
 
 var optiondanwei3 = {
     title: {
-        text: '人均指标占比',
+        text: '人均指标',
         textStyle:{
             fontSize:'16',
             fontWeight:'normal'
@@ -331,7 +331,7 @@ var optiondanwei3 = {
     },
     series: [
         {
-            name: '人均指标占比',
+            name: '人均指标',
             type: 'gauge',
             radius: '83%',
             min: 0,
