@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+
+    <link rel="stylesheet" href="../resource/css/conditionPublic.css">
+
+    <link rel="stylesheet" href="../YHQ-resource/css/public.css">
+
+    <style>
+
+        #gdDetail{
+
+            width: 99%;
+
+        }
+
+        .single-labels{
+
+            width: 100px;
+
+        }
+
+        .gd-wrap{
+
+            width: 850px;
+
+        }
+
+    </style>
+
+    <style type="text/css" media=print>
+
+        .noprint{display : none }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body style="background: #ffffff !important">
+
+<div class="gd-wrap">
+    <div class="gd-title">
+        <h1>出车单</h1>
+    </div>
+    <div>
+        <div style="float: left">
+
+            编号：
+
+            <span id="caNum"></span>
+
+        </div>
+
+        <div style="float: right">
+
+            <span id="caTime"></span>
+
+        </div>
+    </div>
+    <div class="gongdanContent">
+        <!--左边详情-->
+        <div>
+            <!--<div class="tipe-block">工单基本信息</div>-->
+            <div id="gdDetail">
+                <!--申请单详情-->
+                <div class="details-cell">
+                    <div class="tipe-block"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">车类型：</div>
+                            <div class="single-block">
+                                <input type="text" class="form-control" id="carModal">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels "> 车牌号：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-car">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">司机：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-driver">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">司机工号：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-driverNum">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">用车部门：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-applyDepart">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">用车人：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-applyName">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">申请说明：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-remark">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">出发地：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-departure">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">目的地：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-destination">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">公里数：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-km">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">派车人：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="send-userName">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">批准回场时间：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-back-time">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">实际回场时间：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-back-time-real">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">备注：</div>
+                            <div class="single-block">
+                                <input class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div style="display: inline-block;float: right;margin-right: 8px;margin-top: 10px;">
+        <div class="L-condition-button noprint" onclick="javascript:window.print();">打印</div>
+    </div>
+
+    <div class="clearfix"></div>
+
+</div>
+
+<!--提示框-->
+<div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- END FOOTER -->
+<script>
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--my js-->
+<script src="../YHQ-resource/js/public.js"></script>
+
+<script src="../YHQ-resource/js/YHQ-CA/CAExitList.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

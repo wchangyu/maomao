@@ -16,7 +16,7 @@ $.validator.addMethod("emailFormat",function(value,element,params){
 
 },"请输入邮箱格式");
 
-//正则表达式（大于0的数字）
+//正则表达式（大于0的数字）(废弃)
 $.validator.addMethod("numberFormat1",function(value,element,params){
 
     var doubles= /^([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9])$/;
@@ -51,8 +51,9 @@ $.validator.addMethod("phoneNumFormat",function(value,element,params){
 
 },"请输入合法的联系方式");
 
-//日期格式验证
+//日期格式验证(必填)；
 $.validator.addMethod("isDate", function(value, element){
+
     var ereg = /^(\d{1,4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;
 
     var r = value.match(ereg);
@@ -71,8 +72,37 @@ $.validator.addMethod("isDate", function(value, element){
 
 }, "请输入正确的日期");
 
+//日期格式验证(必填)；
+$.validator.addMethod("isDate1", function(value, element){
+
+    var ereg = /^(\d{1,4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;
+
+    var r = value.match(ereg);
+
+    if(value != ''){
+
+        if (r == null) {
+
+            $(element).parents('.time-tool-block').next().next().show();
+
+            return false;
+        }
+
+        var d = new Date(r[1], r[3] - 1, r[5]);
+
+        var result = (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[5]);
+
+    }
+
+    return this.optional(element) || (result);
+
+
+}, "请输入正确的日期");
+
 //日期必填验证
 $.validator.addMethod("isEmpty", function(value, element){
+
+
 
     if( value == ''){
 

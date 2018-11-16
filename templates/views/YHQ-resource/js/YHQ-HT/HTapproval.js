@@ -451,6 +451,8 @@ $(function(){
                     $('#deleted').show();
 
                 }
+                //所属项目
+                $('#HT-project').val(data.projectName);
 
 
             }

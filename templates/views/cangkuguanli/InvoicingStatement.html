@@ -56,6 +56,35 @@
             vertical-align: middle !important;
         }
     </style>
+    <style type="text/css" media=print>
+
+        .noprint{display : none }
+
+        body{
+
+            background: #ffffff !important;
+
+        }
+
+        .page-content{
+
+            background: #ffffff !important;
+
+        }
+
+        .page-footer{
+
+            color: #ffffff !important;
+
+        }
+
+        .page-footer-inner{
+
+            color: #ffffff !important;
+
+        }
+
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -72,7 +101,7 @@
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
     <!-- BEGIN HEADER INNER -->
-    <div class="page-header-inner">
+    <div class="page-header-inner noprint">
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="../shouye/index.html">
@@ -272,10 +301,10 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header">
+                                <ul class="content-main-contents-header noprint">
                                     <li class="main-contents-header-lists0">物品管理</li>
                                 </ul>
-                                <ul class="condition-query">
+                                <ul class="condition-query noprint">
 
                                     <li>
                                         <label for="">时间：</label>
@@ -319,7 +348,7 @@
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1">打印</button></li>
+                                    <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                     <li><button class="btn btn-success excelButton11">导出</button></li>
                                     <!--<li class="excelButton"></li>-->
                                     <div class="clearfix"></div>
@@ -329,7 +358,7 @@
                                     <div class="main-contents-table" style="margin-top: 0;">
                                         <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                             <caption>
-                                                <h2 style="text-align: center">材料收入、发出与结存月报表</h2>
+                                                <h2 style="text-align: center">材料收入、发出与结存报表</h2>
                                                 <div class="table-head">
 
                                                 </div>
@@ -343,7 +372,7 @@
                                                     <td colspan="2">期初库存</td>
                                                     <td colspan="2">本期收入</td>
                                                     <td colspan="2">本期发出</td>
-                                                    <td colspan="2">月末结存</td>
+                                                    <td colspan="2">期末结存</td>
                                                     <!--<td colspan="2">仓库</td>-->
                                                     <td colspan="2"></td>
 
@@ -420,8 +449,8 @@
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
-<div class="page-footer">
-    <div class="page-footer-inner">
+<div class="page-footer noprint">
+    <div class="page-footer-inner noprint">
         2016 &copy; Huaqin.
     </div>
     <div class="scroll-to-top">

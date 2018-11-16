@@ -1,0 +1,487 @@
+#gaizaofangshilist{
+	width: 260px;
+	display: inline-block;
+}
+
+
+.modal-block input{
+
+    width: 250px;
+
+}
+
+.modal-block select{
+
+    width: 250px;
+
+}
+
+.modal-block label{
+
+    line-height: 30px;
+
+
+}
+
+.modal-block .form-control{
+
+    display: inline-block !important;
+	font-weight: 700;
+}
+
+.modal-select{
+
+    width: 34px;
+
+    height:34px;
+
+    vertical-align: top;
+
+    display: inline-block;
+
+    cursor: pointer;
+
+    position: absolute;
+
+    right: -45px;
+
+    top: 0px;
+
+}
+
+.modal-select-show{
+
+    background: url("../img/selectData.png") no-repeat;
+
+    background-size: 20px;
+
+    background-position: center;
+
+}
+
+.modal-block input~.error{
+
+    color: red;
+
+    width: auto;
+
+    line-height: 30px;
+
+    margin: 0;
+
+    margin-top: 0px;
+
+    display: block;
+
+    text-indent: 85px;
+
+}
+
+.modal-block select~.error {
+    color: red;
+    width: auto;
+    line-height: 30px;
+    margin: 0;
+    margin-top: 10px;
+    display: block;
+    text-indent: 85px;
+}
+
+.modal-block textarea~.error {
+    color: red;
+    width: auto;
+    line-height: 30px;
+    margin: 0;
+    margin-top: 10px;
+    display: block;
+    text-indent: 85px;
+}
+
+
+.option-button{
+
+    display: inline-block;
+
+    padding: 3px 8px;
+
+    border: 1px solid #757575;
+
+    border-radius: 3px !important;
+
+    cursor: pointer;
+
+    margin: 0 3px;
+
+}
+
+.option-edit{
+
+    color: #2472f5 !important;
+
+    border-color: #2472f5 !important;
+
+}
+
+.option-see{
+
+    color: #2EC29D !important;
+
+    border-color: #2EC29D !important;
+
+}
+
+.option-del{
+
+    color: #88898a !important;
+
+    border-color: #88898a !important;
+
+}
+
+
+/*选项卡*/
+
+
+.tab-label{
+
+    display: inline-block;
+
+    font-size: 0;
+
+}
+
+.tab-cell {
+    display: inline-block;
+
+    border: 1px solid #e3e3e3;
+
+    font-size: 14px;
+
+    border-right: none;
+}
+
+.tab-cell:last-child{
+
+    border-right: 1px solid #e3e3e3;
+
+}
+
+
+.tab-cell span {
+    padding: 5px 8px;
+
+    cursor: pointer;
+
+    display: block;
+
+    border-top: 2px solid #ffffff;
+}
+
+.tab-active {
+    border-top: 2px solid #1CAF9A !important;
+}
+
+.condition-li{
+
+    position: relative;
+
+    margin-right: 45px !important;
+
+}
+
+.modal-block .time-tool-block{
+
+    width: 250px !important;
+
+    position: relative;
+    
+}
+
+.text-block{
+
+    width: 740px;
+
+}
+
+.text-block textarea{
+
+    width: 648px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+}
+
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio]{
+
+    margin-left:-9px !important;
+
+}
+
+.radioBlock{
+
+    display: inline-block;
+
+    width: 250px;
+
+}
+
+.time-seat{
+
+    height: 30px;
+
+    margin-top: 10px;
+
+}
+
+.upload-picture{
+
+    float: left;
+
+    margin-right: 54px;
+
+}
+
+.upload-picture img{
+
+    width: 250px;
+
+    height: 250px;
+
+    display: inline-block;
+
+    border: 1px solid #e5e5e5;
+
+}
+
+.uploader-list{
+
+    width: 890px;
+
+    display: inline-block;
+
+
+}
+
+
+#xiangmu_d_d_ul{
+	display: inline-block;
+    vertical-align: top;
+}
+#xiangmu_d_d_ul{
+	display: inline-block;
+    vertical-align: top;
+}
+#xiangmu_d_d_ul .fst{
+	margin-top: 10px;
+}
+.redxing{
+	color: #c50505
+}
+.modal-block .col-md-4 .datatimeblock{
+    background: url(../../new-resource/img/clendar.png) no-repeat ;
+    background-size: 25px !important;
+    background-position: 100% center !important;
+    cursor: pointer !important;
+}
+
+#xiangmushishijindu{
+	width:300px;
+}
+
+#thelist>div.file-item{
+
+}
+
+#ctlBtn{
+    height: 38px;
+    margin-left: 10px;
+    margin-top: -30px;
+}
+
+#fujianlist:after {
+    visibility: hidden;
+    display: block;
+    content: "";
+    clear: both;
+    height: 0;
+    }
+    #xiangmumingchengselect{
+        width:260px;
+    }
+
+
+
+/*查询条件*/
+.L-condition .form-control{
+
+    display: inline-block !important;
+
+    background: #ffffff!important;
+
+}
+
+.L-condition li{
+
+    display: inline-block;
+
+    margin:10px;
+
+    color: #757575;
+
+    vertical-align: middle;
+
+    cursor: pointer;
+
+}
+
+.L-condition input{
+
+    width: 150px;
+
+}
+
+.L-condition select{
+
+    width: 150px;
+
+}
+
+.L-condition-button{
+
+    font-size: 16px;
+
+    background: #2170F4;
+
+    padding: 7px 17px;
+
+    color: #ffffff !important;
+
+    cursor: pointer;
+
+}
+
+.L-container {
+
+    min-height: 500px;
+
+    border: 1px solid #E2E9F2;
+
+    border-radius: 10px !important;
+
+    margin-top: 15px;
+
+    padding: 10px !important;
+
+    box-sizing: border-box;
+}
+
+.time-tool-block{
+
+    width: 190px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+}
+
+/*表格样式*/
+
+th,td{
+
+    text-align: center;
+
+}
+
+th{
+
+    background: #e7eef7 !important;
+
+}
+
+.table-advance thead tr th{
+
+    background:#e7eff7!important;
+
+    font-weight: normal !important;
+
+}
+
+.table-striped>tbody>tr:nth-of-type(odd){
+
+    background-color: #f5f7fb !important;
+
+}
+
+.table>thead>tr>th{
+
+    border-bottom:none !important;
+
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+
+    border-right: 1px solid #ddd !important;
+
+}
+.table{
+
+    border: 1px solid #ddd !important;
+
+    border-right: none !important;
+}
+
+table.dataTable thead th, table.dataTable thead td{
+
+    border-bottom: none !important;
+
+}
+
+table.dataTable tfoot th, table.dataTable tfoot td{
+
+    border-top: 1px solid #ddd !important;
+
+}
+.padno{
+    padding: 0
+}
+.L-condition li.clrmg{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+img.yulan{
+    width:175px;
+    height: 205px;
+}
+
+
+.tupian{
+    display: block;
+    width:25px;
+    height: 21px;
+    background: url(../img/xiazai.png) no-repeat ;
+
+    border: 0;
+     
+    background-color: transparent;
+     
+    outline: none;
+}
+.tupiandiv{
+    width: 25px;
+    height: 21px;
+    background-image: url(../img/xiazai.png);
+    background-repeat:no-repeat;
+}
+
+#shengjipingtai{
+    font-size: 14px;
+    
+}
+#shengjipingtai a.xiangmuid{
+    font-size: 16px;
+    text-decoration:underline
+}

@@ -547,6 +547,7 @@ var Login = function() {
 
                     //是否显示折标能效
                     var showstep = data["showstep"] || '';
+
                     sessionStorage.showstep = showstep;
 
                     //是否启用右上角单位选择

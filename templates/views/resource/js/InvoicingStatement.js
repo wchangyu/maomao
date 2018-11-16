@@ -17,13 +17,13 @@ $(function(){
 
     }else{
 
-        var now = moment().subtract(1,'d').format('YYYY/MM/DD');
+        endTime = moment().subtract(1,'d').format('YYYY/MM/DD');
 
-        var st = moment(now).subtract(1,'month').format('YYYY/MM/DD');
+        startTime = moment(endTime).subtract(1,'month').format('YYYY/MM/DD');
 
         //startTime = moment().format('YYYY/MM/DD');
 
-        endTime = moment(now).add(1,'d').format('YYYY/MM/DD');
+        //endTime = moment(now).add(1,'d').format('YYYY/MM/DD');
 
     }
 
@@ -33,8 +33,9 @@ $(function(){
     //存放页面查询次数
     var searchNum = 0;
 
-    $('.min').val(st);
-    $('.max').val(now);
+    $('.min').val(startTime);
+
+    $('.max').val(endTime);
 
     //获取仓库是否执行完毕
     var _isWarehouse = false;
@@ -173,17 +174,24 @@ $(function(){
     $('.resites').click(function(){
         //时间置为今日
         //$('.datatimeblock').val(nowTime);
-        $('.min').html(startTime);
-        $('.max').html(endTime);
+        //input置为空
+        $('.condition-query').eq(0).find('input').val('');
         //select置为所有
-        $('#storage').val('');
+        $('.condition-query').eq(0).find('select').val('');
+        //时间
+        $('.min').val(startTime);
+
+        $('.max').val(endTime);
+
+        //数量是否大于0
+        $('#greaterThan').val(1);
     });
 
     //导出
     $('.excelButton11').on('click',function(){
         //_FFExcel($('#scrap-datatables')[0]);
 
-        //exportExecl($('#scrap-datatables'));
+        exportExecl($('#scrap-datatables'));
     });
 
     //导出为excel

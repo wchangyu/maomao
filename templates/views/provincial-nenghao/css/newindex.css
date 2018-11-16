@@ -1,0 +1,48 @@
+
+.rowcon:after,.myclear:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+.rowcon{
+    position: relative;
+	border: 1px solid #B6D8F1;
+    border-radius: 5px !important;
+    padding: 5px;
+    z-index: 10;
+}
+.myclear{
+}
+.myclear{
+    position: absolute;
+    right: 10px;
+    top:5px;
+}
+.myclear div{
+    width: 26px;
+    height: 26px;
+    color: rgba(117,117,117,1);
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 400;
+    background: white;
+    border: 1px solid rgba(98, 168, 219, 1);
+    margin: 0;
+    padding: 0;
+    border-bottom: 0px;
+    
+}
+.myclear div.onClick{
+    background: rgba(98,168,219,1);
+    color: rgba(255,255,255,1);
+}
+
+
+.myclear>div:last-child {
+    border-bottom: 1px solid rgba(98, 168, 219, 1);
+}
+.rowcon .content-container{
+   margin-right: 7px;
+   margin-bottom: 0px;
+}

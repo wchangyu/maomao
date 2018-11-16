@@ -183,3 +183,15 @@
     margin-top: 10px;
 
 }
+
+button.dt-button, div.dt-button, a.dt-button:hover{
+
+    padding: 7px 17px !important;
+
+    border: none !important;
+
+    margin-right: 0;
+
+    background: #2170f4 !important;
+
+}

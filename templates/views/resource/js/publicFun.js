@@ -192,6 +192,27 @@ function _timeHMSComponentsFun(el,startView){
     });
 }
 
+function _timeHMSComponentsFunValite(el){
+
+    el.datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,  //1时间  2日期  3月份 4年份
+        forceParse: 0,
+        pickerPosition: "bottom-left"
+    }).on('change',function(picker, values, displayValues){
+
+        var dom = $(picker.target).parents('.time-tool-block').next().next();
+
+        dom.hide();
+
+        $(picker.target).next('.error').hide();
+    });
+}
+
 //datatimepicker事件插件初始化(单一视图，只选择年/月/日/时间)
 function _timeOneComponentsFun(el,startView,maxView,minView,format){
     el.datetimepicker({
@@ -249,7 +270,7 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
     var buttonVisible = [
         {
             extend: 'excelHtml5',
-            text: '导出',
+            text: '导出数据',
             className:'saveAs L-condition-button',
             exportOptions:{
                 columns:arr
@@ -1977,6 +1998,96 @@ function _regularTest(reg,dom){
 
 }
 
+//模态框初始化（仅仅适用于创建的初始化）
+
+function _creatInit(){
+
+    //时间验证占位dom隐藏
+    $('.time-seat').hide();
+
+    $('#create-Modal').find('input').val('');
+
+    $('#create-Modal').find('select').val('');
+
+    $('#create-Modal').find('textarea').val('');
+
+    //将所有label .error验证隐藏
+    var label = $('#create-Modal').find('label');
+
+    for(var i=0;i<label.length;i++){
+
+        var attr = $(label).eq(i).attr('class')
+
+        if(attr){
+
+            if(attr.indexOf('error')>-1){
+
+                label.eq(i).hide();
+
+            }
+
+        }
+
+    }
+
+    //单选按钮
+    //单选按钮
+    $('#create-Modal').find('.radio').children().removeClass('checked');
+
+    $('#create-Modal').find('.radio').children().eq(0).addClass('checked');
+
+
+    //不需要填写，自动生成的部分
+    $('.autoBack').show();
+
+
+}
+
+//当前表格是否选中
+function _isSelectTr(table){
+
+    //验证是否选择
+    var currentTr = table.children('tbody').children('.tables-hover');
+
+    if(currentTr.children('.dataTables_empty').length>0){
+
+        return false;
+
+    }
+
+    if(currentTr.length== 0){
+
+        _moTaiKuang($('#tip-Modal'),'提示',true,true,'未选中','');
+
+        return false;
+
+    }else{
+
+        return currentTr
+
+    }
+
+
+}
+
+//格式化当前时间(日月年十分)
+function _formatTimeH(data){
+
+    var data = data.replace(/T/g,' ' );
+
+    if(data != '' && data != null){
+
+        var data = data.replace(/T/g,' ');
+
+        return moment(data).format('YYYY-MM-DD HH:mm');
+
+    }else{
+
+        return ''
+
+    }
+
+}
 
 /*---------------------------------------------------控制界面------------------------------------*/
 

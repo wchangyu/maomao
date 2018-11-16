@@ -67,6 +67,10 @@ $(function(){
 
     //保存当前对象
     var _that = '';
+
+    //获取部门属性
+    getDepartCate();
+
     /*-----------------------------------------------表格初始化--------------------------------------------------*/
 
     var mainCol = [
@@ -363,14 +367,14 @@ $(function(){
     //登记【确定按钮】
     $('#myModal').on('click','.dengji',function(){
 
-        buttonOption('RBAC/rbacAddDepart',true,'新增成功!','新增失败！');
+        buttonOption('RBAC/rbacAddDepartII',true,'新增成功!','新增失败！');
 
     })
 
     //编辑【确定按钮】
-    $('#myModal').on('click','.bianji',function(){
+    $('#myModal').on('click','.bianji',function()   {
 
-        buttonOption('RBAC/rbacUptDepart',true,'编辑成功!','编辑失败！');
+        buttonOption('RBAC/rbacUptDepartII',true,'编辑成功!','编辑失败！');
 
     })
 
@@ -651,6 +655,9 @@ $(function(){
         for(var i=0;i<_allDepartmentArr.length;i++){
 
             if( _allDepartmentArr[i].departNum == thisBM ){
+
+                console.log(_allDepartmentArr[i]);
+
                 //部门编码
                 department.num = _allDepartmentArr[i].departNum;
                 //部门名称
@@ -658,7 +665,9 @@ $(function(){
                 //上级部门
                 department.higherdepartment = _allDepartmentArr[i].parentNum;
                 //排序
-                department.order = _allDepartmentArr[i].sort
+                department.order = _allDepartmentArr[i].sort;
+                //部门属性
+                $('#depart-attr').val(_allDepartmentArr[i].departcate);
             }
         }
 
@@ -688,7 +697,9 @@ $(function(){
                     //用户id
                     "userID":_userIdNum,
                     //isWX
-                    "isWx":department.picked
+                    "isWx":department.picked,
+                    //属性
+                    "departcate":$('#depart-attr').val()
 
                 }
 
@@ -912,5 +923,31 @@ $(function(){
             }
 
         })
+    }
+
+    //获取部门属性常量
+    function getDepartCate(){
+
+        _mainAjaxFunCompleteNew('post','RBAC/rbacGetDepartCate','',false,function(result){
+
+            var str = '<option value=""></option>';
+
+            if(result.code == 99){
+
+                for(var i=0;i<result.data.length;i++){
+
+                    var data = result.data[i]
+
+                    str += '<option value="' + data.departcate + '">' + data.departcatename + '</option>'
+
+                }
+
+            }
+
+            $('#depart-attr').empty().append(str);
+
+
+        })
+
     }
 })

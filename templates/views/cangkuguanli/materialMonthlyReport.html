@@ -56,6 +56,36 @@
             vertical-align: middle !important;
         }
     </style>
+    <style type="text/css" media=print>
+
+        .noprint{display : none }
+
+
+        body{
+
+            background: #ffffff !important;
+
+        }
+
+        .page-content{
+
+            background: #ffffff !important;
+
+        }
+
+        .page-footer{
+
+            color: #ffffff !important;
+
+        }
+
+        .page-footer-inner{
+
+            color: #ffffff !important;
+
+        }
+
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -72,7 +102,7 @@
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
     <!-- BEGIN HEADER INNER -->
-    <div class="page-header-inner">
+    <div class="page-header-inner noprint">
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="../shouye/index.html">
@@ -272,10 +302,10 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header">
+                                <ul class="content-main-contents-header noprint">
                                     <li class="main-contents-header-lists0">物品管理</li>
                                 </ul>
-                                <ul class="condition-query">
+                                <ul class="condition-query noprint">
 
                                     <li>
                                         <label for="">时间：</label>
@@ -319,7 +349,7 @@
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1">打印</button></li>
+                                    <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                     <li><button class="btn btn-success excelButton11">导出</button></li>
                                     <!--<li class="excelButton"></li>-->
                                     <div class="clearfix"></div>
