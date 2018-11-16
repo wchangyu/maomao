@@ -18,7 +18,9 @@ $(function(){
 
             $(this).attr('data-state','1');
 
-            $(this).html('切换地图');
+            $(this).addClass('switch-btn1');
+
+            $(this).html('地图模式');
 
         }else{
 
@@ -28,7 +30,9 @@ $(function(){
 
             $(this).attr('data-state','0');
 
-            $(this).html('切换列表');
+            $(this).removeClass('switch-btn1');
+
+            $(this).html('列表模式');
 
             ////根据用户选择组合不同的页面展示信息
             $('#selected').click();
@@ -121,6 +125,33 @@ $(function(){
 
     });
 
+
+    //列表页查看系统图
+    $('#dateTables').on('click','.showXTT',function(){
+
+        //获取楼宇id
+        var curPointerID = $(this).attr('data-pointer');
+
+        sessionStorage.curPointerId = curPointerID;
+
+        sessionStorage.menuusepointer = 1;
+
+        window.location.href = '../yongnengjiance/energyMonitor.html?a=2'
+    });
+
+    //页面大小变化
+    window.onresize = function(){
+
+        //获取屏幕高度
+        var screenHeight = $(window).height();
+
+        //地图高度
+        var mapHeight = screenHeight - 210;
+
+        $('#map-container').height(mapHeight);
+
+    };
+
 });
 
 // 定义中心点坐标;
@@ -196,6 +227,11 @@ var col = [
         data:'pointerName'
     },
     {
+        title:'楼宇id',
+        class:'theHidden',
+        data:'pointerID'
+    },
+    {
         title:'地址',
         data:'pointerAddr'
     },
@@ -226,8 +262,15 @@ var col = [
     {
         title:'最后报警日期',
         data:'lastAlarmDate'
-    }
+    },
+    {
+        title:'系统图',
+        render:function(data, type, row, meta){
 
+           return '<button class="btn btn-success showXTT"  data-pointer="'+row.pointerID+'">查看系统图</button>'
+
+        }
+    }
 ];
 
 _tableInitSearch($('#dateTables'),col,2,false,'','','','','','','','',false);
@@ -237,9 +280,9 @@ _tableInitSearch($('#dateTables'),col,2,false,'','','','','','','','',false);
 function getData(obj){
 
     //获取时间
-    var st = moment().subtract('1','day').format('YYYY-MM-DD');
+    var st = moment().subtract(24,'hours').format('YYYY-MM-DD HH:mm:ss');
 
-    var et = moment().format('YYYY-MM-DD');
+    var et = moment().format('YYYY-MM-DD HH:mm:ss');
 
     var prm = {};
 
@@ -447,6 +490,14 @@ $('#onOff-machine').on('click',function(){
 (function(){
     window.BMap_loadScriptTime = (new Date).getTime();
     document.write('<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=8d6c8b8f3749aed6b1aff3aad6f40e37&services=&t=20170803155555"></script>');
+
+    //获取屏幕高度
+    var screenHeight = $(window).height();
+
+    //地图高度
+    var mapHeight = screenHeight - 210;
+
+    $('#map-container').height(mapHeight);
 
     //可以进行缩放
     setTimeout(function(){

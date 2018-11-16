@@ -69,7 +69,7 @@ $('.time-options').click(function(){
     //获取到时间类型
     var dataType = $('.time-options-1').html();
 
-    console.log(dataType);
+    //console.log(dataType);
 
     //调用时间变化函数
     changeShowTimes(dataType);
@@ -387,7 +387,7 @@ $('#datetimepicker').on('changeDate',function(e){
         //获取当前时间
         var curDate = $(this).val();
         //获取结束时间
-        var date = moment(curDate).add('6','days').format('YYYY-MM-DD');
+        var date = moment(curDate).add('6','days').format('YYYY/MM/DD');
         //给结束时间选框赋值
         $('.max').val(date);
     }
@@ -402,7 +402,7 @@ $('#datetimepicker1').on('changeDate',function(e){
         //获取当前时间
         var curDate = $(this).val();
         //获取开始时间
-        var date = moment(curDate).subtract('6','days').format('YYYY-MM-DD');
+        var date = moment(curDate).subtract('6','days').format('YYYY/MM/DD');
         //给结束时间选框赋值
         $('.min').val(date);
     }

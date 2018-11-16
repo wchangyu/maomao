@@ -189,7 +189,7 @@ function _selectTime(dataType){
 
         $('.end-time-choose').hide();
         //获取昨天
-        var date = moment().format('YYYY-MM-DD');
+        var date = moment().format('YYYY/MM/DD');
         $('.min').val(date);
 
     }else if(dataType == '周'){
@@ -211,9 +211,9 @@ function _selectTime(dataType){
         $('.start-time-choose label').html('开始时间：');
 
         //获取上周
-        var date1 = moment().subtract('6','days').format('YYYY-MM-DD');
+        var date1 = moment().subtract('6','days').format('YYYY/MM/DD');
         //获取昨天2
-        var date2 = moment().format('YYYY-MM-DD');
+        var date2 = moment().format('YYYY/MM/DD');
         $('.min').val(date1);
         $('.max').val(date2);
 
@@ -232,7 +232,7 @@ function _selectTime(dataType){
 
         $('.end-time-choose').hide();
         //获取上月
-        var date = moment().format('YYYY-MM');
+        var date = moment().format('YYYY/MM');
         $('.min').val(date);
     }else if(dataType == '年'){
         _yearDate1();
@@ -315,7 +315,7 @@ function _timeComponentsFun1(el){
         todayBtn:  1,
         autoclose: 1,
         todayHighlight: 1,
-        format : "yyyy-mm-dd hh:ii",//日期格式
+        format : "yyyy/mm/dd hh:ii",//日期格式
         startView: 4,  //1时间  2日期  3月份 4年份
         forceParse: true,
         minView :0,
@@ -332,7 +332,7 @@ function _timeComponentsFun2(el){
         todayBtn:  1,
         autoclose: 1,
         todayHighlight: 1,
-        format : "yyyy-mm-dd hh:00",//日期格式
+        format : "yyyy/mm/dd hh:00",//日期格式
         startView: 4,  //1时间  2日期  3月份 4年份
         forceParse: true,
         minView : 1,
@@ -348,7 +348,7 @@ function _monthDate1(){
         maxViewMode: 2,
         minViewMode:1,
         forceParse: 0,
-        format: "yyyy-mm",//选择日期后，文本框显示的日期格式
+        format: "yyyy/mm",//选择日期后，文本框显示的日期格式
         language: "zh-CN",//汉化
         forceParse: 0,
         autoclose:1
@@ -379,7 +379,7 @@ function _initDate1(){
             todayBtn: 1,
             todayHighlight: 1,
             forceParse: 0,
-            format: 'yyyy-mm-dd',
+            format: 'yyyy/mm/dd',
             autoclose:1
         }
     )
@@ -394,7 +394,7 @@ function _initDate11(dom){
             todayBtn: 1,
             todayHighlight: 1,
             forceParse: 0,
-            format: 'yyyy-mm-dd',
+            format: 'yyyy/mm/dd',
             autoclose:1
         }
     )

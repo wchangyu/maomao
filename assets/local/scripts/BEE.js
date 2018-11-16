@@ -236,7 +236,7 @@ var BEE = (function(){
                             li += ' target="' + menu[p]["target"] + '"';
                         }
                         li += '>';
-                        if(window.location.href.endWith(menu[p]["uri"].replace('../','')))
+                        if(window.location.href.endWith(menu[p]["uri"].replace('../','')) || window.location.href.endWith(menu[p]["uri"].replace('../../','')))
                         {
                             li = '<li class="active"><a   href="' + menu[p]["uri"] +'">';
                             sessionStorage.menuArg = menu[p]["arg"];        //存储各个菜单的menuArg参数
@@ -421,6 +421,7 @@ var BEE = (function(){
             var nowTime = (new Date()).getTime();
             var refreshItv = (sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
             if(nowTime - lastTime < refreshItv && refreshItv>0){
+
                 setTimeout(getAlarmInfo,refreshItv);        //下次刷新数据使用
                 return;
             }
@@ -784,6 +785,7 @@ var BEE = (function(){
                 var gdOrders = 'gdOrders.html';
                 //待关单页面
                 var gdClosing = 'gdClosing.html';
+
                 //判断是否有查看下发或者接单的权限
                 if(curMenu.indexOf(gdAcceptance) != -1 || curMenu.indexOf(gdOrders) != -1 || curMenu.indexOf(gdClosing) != -1){
                     //获取当前时间
@@ -887,58 +889,8 @@ var BEE = (function(){
                             }
                             //判断是否需要动态弹出信息框
                             //if(num1 != 0 && curMenu.indexOf(gdAcceptance) != -1 || num2 != 0 && curMenu.indexOf(gdOrders) != -1 || num3 != 0 && curMenu.indexOf(gdClosing) != -1){
-                            if($('.dropdown-menu .external').length > 0){
-                                //console.log(33);
-                                $('.dropdown-menu').hide();
-                                //给上方铃铛增加闪烁效果
-                                $('.dropdown-toggle .icon-bell').hide();
+                            drawStyleAndVoice(ifHintVoice);
 
-                                $('.dropdown-extended .dropdown-toggle').css({
-                                    display:'inline-block',
-                                    height:'100%',
-                                    background:'url('+_loginSlash+'../resource/img/bellSmall.gif) no-repeat center center',
-                                    backgroundSize:'26px 24px'
-                                });
-
-                                //声音
-                                if(ifHintVoice){
-
-                                    var audioStr = '<audio src="'+_loginSlash+'../resource/song/alert.mp3" id="audioMain1" controls="controls" autoplay="autoplay"  style="display: none"></audio>';
-
-                                    if($('#audioMain1').length > 0 ){
-
-                                        $('#header_notification_bar').children('audio').remove();
-
-                                        $('#header_notification_bar').append(audioStr);
-
-                                    }else{
-
-                                        $('#header_notification_bar').append(audioStr);
-                                    }
-
-                                }
-
-
-                                timename2=setTimeout(function(){
-                                    $('.dropdown-extended .dropdown-menu').toggle('fast');
-                                },600);
-
-                            }else{
-
-                                $('.dropdown-toggle .icon-bell').show();
-
-                                $(".dropdown-extended .dropdown-toggle").removeAttr("style");
-                                if(timename2){
-                                    clearTimeout(timename2);
-                                }
-                                $('.dropdown-extended .dropdown-menu').hide();
-                                if($('#audioMain1').length > 0){
-
-                                    $('#header_notification_bar').children('audio').remove();
-
-                                }
-
-                            }
                             $('.top-close .close').off('click');
                             $('.top-close .close').on('click',function(){
 
@@ -967,8 +919,12 @@ var BEE = (function(){
                         }
                     });
                 }else{
+
                     //给悬浮窗插入指定信息
                     $dropdownMenu.html(infoHtml);
+
+                    drawStyleAndVoice(ifHintVoice);
+
                     //关闭按钮
                     $('.top-close .close').off('click');
                     $('.top-close .close').on('click',function(){
@@ -980,6 +936,7 @@ var BEE = (function(){
                             $('#header_notification_bar').children('audio').remove();
 
                         }
+
                     });
                 }
             }
@@ -1003,6 +960,64 @@ var BEE = (function(){
             });
         }
     };
+
+    //判断右上角悬浮窗显示样式及声音
+    function drawStyleAndVoice(ifHintVoice){
+
+        if($('.dropdown-menu .external').length > 0){
+            //console.log(33);
+            $('.dropdown-menu').hide();
+            //给上方铃铛增加闪烁效果
+            $('.dropdown-toggle .icon-bell').hide();
+
+            $('.dropdown-extended .dropdown-toggle').css({
+                display:'inline-block',
+                height:'100%',
+                background:'url('+_loginSlash+'../resource/img/bellSmall.gif) no-repeat center center',
+                backgroundSize:'26px 24px'
+            });
+
+            //声音
+            if(ifHintVoice){
+
+                var audioStr = '<audio src="'+_loginSlash+'../resource/song/alert.mp3" id="audioMain1" controls="controls" autoplay="autoplay"  style="display: none"></audio>';
+
+                if($('#audioMain1').length > 0 ){
+
+                    $('#header_notification_bar').children('audio').remove();
+
+                    $('#header_notification_bar').append(audioStr);
+
+                }else{
+
+                    $('#header_notification_bar').append(audioStr);
+                }
+
+            }
+
+
+            timename2=setTimeout(function(){
+                $('.dropdown-extended .dropdown-menu').toggle('fast');
+            },600);
+
+        }else{
+
+            $('.dropdown-toggle .icon-bell').show();
+
+            $(".dropdown-extended .dropdown-toggle").removeAttr("style");
+            if(timename2){
+                clearTimeout(timename2);
+            }
+            $('.dropdown-extended .dropdown-menu').hide();
+            if($('#audioMain1').length > 0){
+
+                $('#header_notification_bar').children('audio').remove();
+
+            }
+
+        }
+    }
+
 
     //加入新工单信息 data 数据量 title 提示信息  address 跳转地址 catalog 根路径
     var addInfoMessage = function(data,title,address,catalog){
@@ -2371,7 +2386,6 @@ var BEE = (function(){
         $('.page-content').addClass('page-content-nest');
 
         $('#menu-html').addClass('menu-html1');
-
 
         $('.toggler').show();
 

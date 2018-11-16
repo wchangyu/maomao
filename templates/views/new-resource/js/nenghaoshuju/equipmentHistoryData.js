@@ -39,7 +39,6 @@ $(function(){
 
     });
 
-
     //点击切换楼宇或单位时，改变上方能耗类型
     $('.left-middle-main .left-middle-tab').on('click',function(){
 
@@ -72,7 +71,9 @@ $(function(){
             }
             //默认选中第一个能耗
             $('.selectedEnergy').addClass('blueImg0');
+
         }else{
+
 
         };
 

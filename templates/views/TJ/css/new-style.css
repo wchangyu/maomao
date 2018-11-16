@@ -12,7 +12,6 @@
 
 }
 
-
 .container {
     background: none;
     min-height: 800px;
@@ -47,7 +46,7 @@
 .right-navigation .bottom-data-container {
     height: 510px;
     overflow-y: auto;
-    background: #1D2126;
+    background: #1D2126 !important;
     padding-top: 10px;
     border:1px solid #3D4958;
     margin-bottom:10px;
@@ -364,5 +363,69 @@
     vertical-align: middle;
 }
 
+
+#content-main-right{
+
+    background: none !important;
+}
+
+/*配电柜页面*/
+.right-navigation .data-container .imaginary {
+    border: 1px dashed #4B85E5 !important;
+    background: inherit;
+}
+
+ .bottom-statistics {
+    background-color: #2B333E !important;
+    border: 1px solid #3D4958;
+}
+
+
+/*机房水浸页面*/
+.right-navigation .bottom-data-container .data-container p {
+    color: white !important;
+}
+
+.data-container .location span {
+
+    border: 1px dashed #4B85E5 !important;
+}
+
+/*机房精密空调页面*/
+.right-navigation .data-container p .data input, .right-navigation .data-container p .data select {
+
+    background: inherit;
+    border: 1px solid #3674D9 !important;
+
+}
+
+/*机房门禁页面*/
+.top-visitor-message-container .message-title {
+
+    color: white;
+}
+.the-visitor-message h4 {
+
+    color: white;
+}
+
+.visitor-control {
+
+    color: #B0BED0;
+
+}
+
+.visitor-message-data p {
+    color: white;
+}
+
+.bottom-specific-data p:nth-of-type(odd) {
+    background: #2B333E;
+}
+
+.bottom-specific-data p {
+    background: #2B333E;
+    color:white;
+}
 
 

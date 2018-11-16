@@ -324,13 +324,12 @@ label {
 .toolContainer{
     width:410px;
     height:34px;
-    background:white;
     box-shadow: 1px 2px 1px rgba(0,0,0,.15);
     color:#4c4c4c;
     background-color: #f1f1f1;
     position: absolute;
-    right:80px;
-    top:60px;
+    right:30px;
+    top:15px;
 
 }
 .seek{

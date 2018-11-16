@@ -7,7 +7,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>动环监测-水浸</title>
+    <title>动环监测-精密空调</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -24,7 +24,8 @@
     <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
     <link rel="stylesheet" href="css/seal-monitor.css">
     <link rel="stylesheet" href="css/seal-monitor-humiture.css">
-    <link rel="stylesheet" href="css/seal-monitor-smog.css">
+    <link rel="stylesheet" href="css/seal-monitor-ari.css">
+    <link rel="stylesheet" href="css/new-style.css">
     <style>
 
         .right-navigation .bottom-data-container {
@@ -84,7 +85,6 @@
             width: 100%;
             height: 650px;
             overflow: hidden;
-            max-height: 1097px;
         }
 
         .switchover {
@@ -104,37 +104,8 @@
             background-size: 100% 100%;
         }
 
-        .right-navigation .top-navigation {
-            background: url(img/shuijing.png) no-repeat 10px center;
-            background-color: #687ea3;
-        }
-
-        .data-container .location{
-            background: none !important;
-        }
-
-        .data-container .location span{
-
-          width:90px;
-            display: inline-block;
-           border:1px dashed #DCDCDC;
-            margin-left:10px;
-            margin-right:5px;
-            text-align: center;
-        }
-
-        .right-navigation .bottom-data-container .data-container p {
-
-            background: url(img/shuijing01.png) no-repeat center center;
-        }
-
-        .right-navigation .bottom-data-container .data-container .alarm-data {
-            background: url(img/shuijng02.png) no-repeat center center;
-        }
-
-
     </style>
-    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+
 </head>
 <!-- END HEAD -->
 
@@ -187,7 +158,7 @@
                                     <span class="switchover" data-id="1"></span>
 
                                     <h3 class="top-title left-title1">
-                                        <span class="userMonitor-name onChoose" data-monitor="8817007031">1#机房</span><span class="userMonitor-name" data-monitor="8817007031">2#机房</span>
+                                        <span class="userMonitor-name onChoose" data-monitor="8817007028">1#机房</span><span class="userMonitor-name" data-monitor="8817007028">2#机房</span>
                                     </h3>
 
                                     <!-- 下方左侧流程图 -->
@@ -277,7 +248,6 @@
 
                                     </div>
 
-
                                 </div>
 
                             </div>
@@ -285,28 +255,15 @@
                             <!--右侧区域-->
                             <div class="content-main-right1 col-lg-3 col-md-3 col-sm-12 col-xs-12" style=" height: 650px;">
 
-                                <!--空间容量-->
-                                <div class="right-navigation">
+                                <!---->
+                                <div class="right-navigation ">
 
-                                    <h3 class="top-title top-navigation">水浸状态</h3>
+                                    <h3 class="top-title top-navigation">精密空调</h3>
 
                                     <div class="bottom-data-container scrollbar">
 
-                                        <div class="data-container">
-                                            <h3>Y1 烟雾探头</h3>
-                                            <p>通讯状态</p>
-                                            <p>故障状态</p>
-                                            <p>烟雾状态</p>
-                                        </div>
 
-                                        <div class="data-container">
-                                            <h3>Y1 烟雾探头</h3>
-                                            <p class="alarm-data">通讯状态</p>
-                                            <p>故障状态</p>
-                                            <p>烟雾状态</p>
-                                        </div>
 
-                                        <div class="clearfix"></div>
                                     </div>
 
                                 </div>
@@ -342,7 +299,7 @@
         Demo.init(); // init demo features
         BEE.init();
 
-        sessionStorage.menuArg = '1,8817007031';
+        sessionStorage.menuArg = '1,8817007049';
 
         //获取对应流程图
         userMonitor.init(false,false,1,$('.left-diagram'));
@@ -351,7 +308,7 @@
 </script>
 <script src="../resource/js/commonJsResource.js"></script>
 <script src="../resource/js/userMonitor.js"></script>
-<script src="js/seal-monitor-water.js"></script>
+<script src="js/seal-monitor-ari.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

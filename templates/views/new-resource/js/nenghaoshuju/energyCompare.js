@@ -242,19 +242,31 @@ var optionBar = {
             data:[],
             markPoint : {
                 data : [
-                    {type : 'max', name: '最大值'},
-                    {type : 'min', name: '最小值'}
+                    {
+                        type : 'max',
+                        name: '最大值',
+                        itemStyle:{
+                            color:'#F25B72'
+                        },
+                        textStyle:{
+                            color:'#F25B72'
+                        }
+
+                    },
+                    {
+                        type : 'min',
+                        name: '最小值',
+                        itemStyle:{
+                            color:'#5BDEB6'
+                        },
+                        textStyle:{
+                            color:'#F25B72'
+                        }
+                    }
                 ],
                 itemStyle : {
                     normal:{
                         color:'#019cdf'
-                    }
-                },
-                label:{
-                    normal:{
-                        textStyle:{
-                            color:'#d02268'
-                        }
                     }
                 }
             },
@@ -274,19 +286,31 @@ var optionBar = {
             data:[],
             markPoint : {
                 data : [
-                    {type : 'max', name: '最大值'},
-                    {type : 'min', name: '最小值'}
+                    {
+                        type : 'max',
+                        name: '最大值',
+                        itemStyle:{
+                            color:'#F25B72'
+                        },
+                        textStyle:{
+                            color:'#F25B72'
+                        }
+
+                    },
+                    {
+                        type : 'min',
+                        name: '最小值',
+                        itemStyle:{
+                            color:'#5BDEB6'
+                        },
+                        textStyle:{
+                            color:'#F25B72'
+                        }
+                    }
                 ],
                 itemStyle : {
                     normal:{
                         color:'#019cdf'
-                    }
-                },
-                label:{
-                    normal:{
-                        textStyle:{
-                            color:'#d02268'
-                        }
                     }
                 }
             },
@@ -412,19 +436,31 @@ var echartObj =  {name:'数据',
     smooth:true,
     markPoint : {
         data : [
-            {type : 'max', name: '最大值'},
-            {type : 'min', name: '最小值'}
+            {
+                type : 'max',
+                name: '最大值',
+                itemStyle:{
+                    color:'#F25B72'
+                },
+                textStyle:{
+                    color:'#F25B72'
+                }
+
+            },
+            {
+                type : 'min',
+                name: '最小值',
+                itemStyle:{
+                    color:'#5BDEB6'
+                },
+                textStyle:{
+                    color:'#F25B72'
+                }
+            }
         ],
         itemStyle : {
             normal:{
                 color:'#019cdf'
-            }
-        },
-        label:{
-            normal:{
-                textStyle:{
-                    color:'#d02268'
-                }
             }
         }
     },
@@ -492,7 +528,6 @@ function getPointerData(url,flag){
 
         //页面上方展示信息
         areaName = $('#allPointer .radio_true_full').next().html();
-
 
         //分户数据
     }else if(flag == 2){
@@ -604,7 +639,6 @@ function getPointerData(url,flag){
                 return false;
             }
 
-
             //console.log(selectDateType);
 
             //年没有环比数据
@@ -670,7 +704,6 @@ function getPointerData(url,flag){
 
             window.onresize();
 
-
             //改变头部显示信息
             var energyName = '';
 
@@ -679,11 +712,17 @@ function getPointerData(url,flag){
             }
 
             //改变头部日期
-            var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');
+            var date = startTime +" — " + moment(endTime).subtract(1,'days').format('YYYY/MM/DD');
 
-            $('.right-header-title').html('同比分析 &nbsp;' + energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
+            //同比时间
+            var date1 = moment(startTime).subtract(1,'years').format('YYYY/MM/DD')+" — " + moment(date.split(" — ")[1]).subtract(1,'years').format('YYYY/MM/DD');
 
-            $('.right-header-title1').html('环比分析 &nbsp;' + energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
+            //环比时间
+            var date2 = getChainCompareDate(date,selectDateType);
+
+            $('.right-header-title').html('同比分析 &nbsp;' + energyName + ' &nbsp;' + areaName + ' &nbsp;' + date + ' &nbsp;对比 ' + date1);
+
+            $('.right-header-title1').html('环比分析 &nbsp;' + energyName + ' &nbsp;' + areaName + ' &nbsp;' + date+ ' &nbsp;对比 ' + date2);
 
             //首先处理本期的数据
             allData.length = 0;
@@ -715,7 +754,6 @@ function getPointerData(url,flag){
                         dataSplit = dataSplit.split('-')[1] + "-"+dataSplit.split('-')[2];
 
                         allDataX.push(dataSplit);
-
                 }
             };
 
@@ -767,8 +805,6 @@ function getPointerData(url,flag){
                 $('.rheader-content-rights').eq(0).removeClass('rheader-content-rights-down');
 
                 $('.rheader-content-rights').eq(0).removeClass('rheader-content-rights-equal');
-
-
 
             }
 
@@ -924,5 +960,51 @@ function GetShowEnergyNormItem(energyType,flag){
     })
 
 };
+
+//获取要展示的环比时间
+function getChainCompareDate(date,selectDateType){
+
+    var startDate = date.split(" — ")[0];
+
+    var endDate = date.split(" — ")[1];
+
+    var chainStDate = '';
+
+    var chainEtDate = '';
+
+    if(selectDateType == 'Day'){
+
+         chainStDate = moment(startDate).subtract(1,'days').format('YYYY/MM/DD');
+
+         chainEtDate = moment(endDate).subtract(1,'days').format('YYYY/MM/DD');
+
+    }else if(selectDateType == 'Week'){
+
+        chainStDate = moment(startDate).subtract(7,'days').format('YYYY/MM/DD');
+
+        chainEtDate = moment(endDate).subtract(7,'days').format('YYYY/MM/DD');
+
+    }else if(selectDateType == 'Month'){
+
+        chainStDate = moment(startDate).subtract(1,'months').format('YYYY/MM/DD');
+
+        chainEtDate = moment(endDate).subtract(1,'months').format('YYYY/MM/DD');
+
+    }else if(selectDateType == 'Year'){
+
+        chainStDate = moment(startDate).subtract(1,'years').format('YYYY/MM/DD');
+
+        chainEtDate = moment(endDate).subtract(1,'years').format('YYYY/MM/DD');
+
+    }else  if(selectDateType == 'Custom'){
+
+        chainStDate = moment(startDate).subtract(30,'days').format('YYYY/MM/DD');
+
+        chainEtDate = moment(endDate).subtract(30,'days').format('YYYY/MM/DD');
+
+    }
+
+    return chainStDate + " —— " +  chainEtDate;
+}
 
 

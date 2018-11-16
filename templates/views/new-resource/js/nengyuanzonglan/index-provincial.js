@@ -1,4 +1,4 @@
-    /**
+/**
  * Created by admin on 2017/11/28.
  */
 $(function(){
@@ -7,7 +7,7 @@ $(function(){
     pointerIdArr = getPointersId();
 
 //获取全部分户ID列表
-     officeIdArr = getOfficesId();
+    officeIdArr = getOfficesId();
 
     //获取页面左上角新闻轮播图
     getNewsCarousel();
@@ -19,7 +19,7 @@ $(function(){
     getTopPageData();
 
     //获取当年气象参数
-    getWeatherParam1();
+    getWeatherParam();
 
     //获取实时能耗
     getRealTimeData();
@@ -43,6 +43,46 @@ $(function(){
     alarmHistory();
 
     getRankingDataByConfig();
+
+    //获取单位类型指标数据
+    getUnitTypeData();
+
+    //查看单位类型指标中超标值
+    $('.table-unit-type').on('mouseover','.red',function(){
+
+        $('.unit-type-message-container').show();
+
+        //获取指标数据
+        var normData = $(this).attr('data-norm');
+
+        //获取实际数据
+        var theValue = $(this).attr('data-value');
+
+        $('.unit-type-message-container .norm-data').html(parseFloat(normData).toFixed(2));
+
+        $('.unit-type-message-container .cur-value').html(parseFloat(theValue).toFixed(2));
+
+        //获取当前元素左边距
+        var theTop = $(this).offset().top - 50;
+
+        var theLeft = $(this).offset().left;
+
+        $('.unit-type-message-container').css({
+
+            'position':'absolute',
+            'left':theLeft + 'px',
+            'top':theTop + 'px'
+
+        });
+
+    });
+
+    $('.table-unit-type').on('mouseout','.red',function(){
+
+
+        $('.unit-type-message-container').hide();
+
+    });
 
 //------------------------------------页面点击事件-----------------------------------//
 
@@ -93,6 +133,10 @@ $(function(){
 
         //获取本日KPI指标
         getTopPageKPIData();
+
+        //获取单位类型指标数据
+        getUnitTypeData();
+
 
         var index = $('.cur-on-choose').attr('data-id');
 
@@ -337,7 +381,7 @@ var option3 = {
         textBaseline:'middle',
         subtext:'kgce/m2',
         subtextStyle:{
-           color:'#333'
+            color:'#333'
         },
         x:'center',
         bottom:'10'
@@ -378,13 +422,13 @@ var option3 = {
 // 指定图表的配置项和数据 用于KPI指标
 var option4 = {
     title: {
-        text: '单位床位能耗',
+        text: '人均能耗',
         textStyle:{
             fontSize:'16',
             fontWeight:'normal'
         },
         textBaseline:'middle',
-        subtext:'kgce/床',
+        subtext:'kgce/人',
         subtextStyle:{
             color:'#333'
         },
@@ -401,6 +445,23 @@ var option4 = {
             radius: '83%',
             min: 0,
             max:1,
+            axisLine: {            // 坐标轴线
+                lineStyle: {       // 属性lineStyle控制线条样式
+                    color: [[0.2, '#62A8DB'], [0.8, '#33E3B6'], [1, '#ffa90b']],
+                    width: 10
+                }
+            },
+            splitLine:{
+                length:14
+            },
+            axisLabel: {
+                show:true,
+                padding: [0, 0, 0, -5],
+                formatter: function (value) {
+                    return value.toFixed(2);
+                    //return value;
+                }
+            },
             splitNumber: 5,
             data: [{value:5}]
         }
@@ -622,7 +683,7 @@ function getTopPageData(){
             });
 
             //清除浮动
-             html += '<div class="clearfix"></div>';
+            html += '<div class="clearfix"></div>';
 
             $('.left-middle-main1').html(html);
 
@@ -639,7 +700,7 @@ function getTopPageData(){
     })
 };
 
-//获取当前气象参数
+//获取当天气象参数
 function getWeatherParam(){
     //传递给后台的数据
     var ecParams = {
@@ -659,20 +720,21 @@ function getWeatherParam(){
             //无数据
             if(result == null || result.length == 0){
 
-                //从百度接口中获取天气数据
-                locationInit();
+                //隐藏温度 和湿度
+                $('.top-system-message .temperature').html('');
+
+                //湿度
+                $('.top-system-message .humidity').html('');
 
                 return false;
-            };
-            //给页面中赋值
+            }
 
+            //给页面中赋值
             //温度
-            $('.left-middle-main0 p span').eq(0).html(result.temperatureData + "℃");
+            $('.top-system-message .temperature').html(result.temperatureData + "℃");
 
             //湿度
-            $('.left-middle-main0 p span').eq(1).html(result.humidityData + '%');
-
-            $('.left-middle-main0 p').eq(1).find('i').attr('title','湿度');
+            $('.top-system-message .humidity').html(result.humidityData + "%");
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -1266,14 +1328,19 @@ function getTopPageKPIData(){
             }
 
 
-            if(result.bedKPIData){
-                //单位床位能耗
-                option4.series[0].data[0].value = result.bedKPIData.energyNormData.toFixed(2);
-
-            }
+            option3.series[0].max = result.areaKPIData.energyNormData.toFixed(2)* 2;
 
             //页面重绘数据
             _myChart4.setOption(option3,true);
+
+            if(result.peopleKPIData){
+                //单位床位能耗
+                option4.series[0].data[0].value = result.peopleKPIData.energyNormData.toFixed(2);
+
+            }
+
+            option4.series[0].max = result.peopleKPIData.energyNormData.toFixed(2)* 2;
+
 
             //是否显示单位床位
             if(result.modeFlag == 1){
@@ -1345,8 +1412,8 @@ function getPointerRankData(){
     var endDate = getPostTime1()[1];
 
     //获取配置好的能耗类型数据
-     var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
-     var txt = unitObj.alltypes;
+    var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+    var txt = unitObj.alltypes;
 
     //获取能耗分项ID集合
     var energyItemIDArr = [];
@@ -1641,18 +1708,18 @@ function getProjectRankData(){
 
                     if( rowN > 6){
 
-                       $(nameArr).each(function(k,j){
+                        $(nameArr).each(function(k,j){
 
-                          if(k != 0 && k % 6 == 0){
+                            if(k != 0 && k % 6 == 0){
 
-                              showName += '\n'+j;
+                                showName += '\n'+j;
 
-                          }else{
+                            }else{
 
-                              showName += j;
-                          }
+                                showName += j;
+                            }
 
-                       });
+                        });
 
                     }else{
 
@@ -2033,74 +2100,167 @@ function getWeatherParam1(){
     })
 };
 
+//获取单位类型指标数据
+function getUnitTypeData(){
+
+    //获取用户选择的日期类型
+    var selectDateType = getShowDateType()[1];
+
+    //获取开始结束时间
+    var startDate = getPostTime1()[0];
+
+    var endDate = getPostTime1()[1];
+
+    //传递给后台的数据
+    var ecParams = {
+        "startTime": startDate,
+        "endTime": endDate,
+        "selectDateType": selectDateType,
+        "userID": _userIdNum
+    };
+
+    //发送请求
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'Provincial/GetPointerClassKPINormData',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            $('.table-unit-type').showLoading();
+        },
+        success:function(result){
+
+            $('.table-unit-type').hideLoading();
+
+            var tableHtml = '';
+
+            if(result.code == 99){
+
+                $(result.data).each(function(i,o){
+
+                    //建筑面积能耗是否超标
+                    var isCoefficientKPIOut = '未超标';
+
+                    var addClass1 = '';
+
+                    if(o.isCoefficientKPIOut == 1){
+
+                        isCoefficientKPIOut = '超标';
+
+                        addClass1 = 'red';
+                    }
+
+                    //人员能耗KPI是否超标
+                    var isPeopleKPIOut = '未超标';
+
+                    var addClass2 = '';
+
+                    if(o.isPeopleKPIOut == 1){
+
+                        isPeopleKPIOut = '超标';
+
+                        addClass2 = 'red';
+                    }
+
+
+                    tableHtml += '<tr>' +
+                                    '<td>'+ o.returnOBJName+'</td>'+
+                                    '<td class="'+addClass1+'" data-norm="'+ o.coefficientKPINorm+'" data-value="'+ o.coefficientKPIData+'">'+ isCoefficientKPIOut+'</td>'+
+                                    '<td class="'+addClass2+'" data-norm="'+ o.peopleKPINorm+'" data-value="'+ o.peopleKPIData+'">'+ isPeopleKPIOut+'</td>'+
+                                 '</tr>'
+
+                });
+
+            };
+
+            $('.table-unit-type tbody').html(tableHtml);
+
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            $('.table-unit-type').hideLoading();
+
+            //错误提示信息
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请求失败', '');
+            }
+
+        }
+    })
+
+};
+
 //获取企业id列表
 function getEnterprise(){
 
-        //从session中获取全部企业信息
-        var strPointers = sessionStorage.pointers;
-        var tempAllPointers = [];
+    //从session中获取全部企业信息
+    var strPointers = sessionStorage.pointers;
+    var tempAllPointers = [];
 
-        if(strPointers){
-            tempAllPointers = JSON.parse(strPointers);
-        }
+    if(strPointers){
+        tempAllPointers = JSON.parse(strPointers);
+    }
 
-        var html = "";
+    var html = "";
 
-        //获取企业列表
-        var _enterpriseArr = unique(tempAllPointers,'enterpriseID');
+    //获取企业列表
+    var _enterpriseArr = unique(tempAllPointers,'enterpriseID');
 
-        $(_enterpriseArr).each(function(i,o){
+    $(_enterpriseArr).each(function(i,o){
 
-            html += '<option value="'+ o.enterpriseID+'">'+ o.eprName+'</option>'
+        html += '<option value="'+ o.enterpriseID+'">'+ o.eprName+'</option>'
 
-        });
+    });
 
-        //页面赋值
-        $('#unit-select').html(html);
+    //页面赋值
+    $('#unit-select').html(html);
 
-        //如果不是可选择企业的模式
-        if(sessionStorage.showChooseUnit == 0){
+    //如果不是可选择企业的模式
+    if(sessionStorage.showChooseUnit == 0){
 
-            //隐藏选择框
-            $('.choose-unit').hide();
+        //隐藏选择框
+        $('.choose-unit').hide();
 
-        }
+    }
 
-        //存放企业id集合
-        var _enterpriseIdArr = [];
+    //存放企业id集合
+    var _enterpriseIdArr = [];
 
-        $(_enterpriseArr).each(function(i,o){
+    $(_enterpriseArr).each(function(i,o){
 
-            _enterpriseIdArr.push(o.enterpriseID);
-        });
+        _enterpriseIdArr.push(o.enterpriseID);
+    });
 
-        return _enterpriseIdArr;
+    return _enterpriseIdArr;
 
-    };
+};
 
 //数组去重
 function unique(a,attr) {
 
-        var res = [];
+    var res = [];
 
-        for (var i = 0, len = a.length; i < len; i++) {
-            var item = a[i];
-            for (var j = 0, jLen = res.length; j < jLen; j++) {
-                //console.log(i + '' + res);
-                if (res[j][attr] === item[attr]){
-                    //console.log(333);
-                    break;
-                }
-
-            }
-            if (j === jLen){
-
-                res.push(item);
-
+    for (var i = 0, len = a.length; i < len; i++) {
+        var item = a[i];
+        for (var j = 0, jLen = res.length; j < jLen; j++) {
+            //console.log(i + '' + res);
+            if (res[j][attr] === item[attr]){
+                //console.log(333);
+                break;
             }
 
         }
+        if (j === jLen){
 
-        return res;
-    };
+            res.push(item);
+
+        }
+
+    }
+
+    return res;
+};
 

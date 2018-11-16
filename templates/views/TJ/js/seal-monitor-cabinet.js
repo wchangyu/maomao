@@ -234,7 +234,7 @@ var option0 = {
         y:'10px',
         data:['已用','未用'],
         textStyle:{
-            color:'#333'
+            color:'#999'
         },
         show:true
 

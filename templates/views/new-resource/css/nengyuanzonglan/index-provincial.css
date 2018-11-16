@@ -1,0 +1,83 @@
+.content-main-alarm{
+    display: none;
+}
+.top-system-message {
+    position: fixed;
+    right: 15%;
+    top: 10px;
+    overflow: hidden;
+    color: #91aece;
+    z-index: 10000;
+}
+.top-system-message ul .date {
+    margin-right: 10px;
+}
+.top-system-message ul li {
+    float: left;
+    height: 40px;
+    line-height: 32px;
+}
+.top-system-message .temperature {
+    width: 87px;
+    height: 40px;
+    display: inline-block;
+    background: url(../../img/wendu.png) no-repeat 42% 5px;
+    background-size: 18% 58%;
+    text-align: right;
+    line-height: 31px;
+}
+
+.top-system-message .humidity {
+    width: 87px;
+    height: 40px;
+    display: inline-block;
+    background: url(../../img/shidu.png) no-repeat 43% 5px;
+    background-size: 17% 58%;
+    text-align: right;
+    line-height: 31px;
+}
+
+/*单位类型指标*/
+.table-unit-type{
+    width: 100%;
+    margin-bottom: 20px;
+    min-height: 200px;
+}
+.table-unit-type th,.table-unit-type td{
+    text-align: center;
+    border: 1px solid #666;
+    padding:6px;
+}
+
+.table-unit-type .red{
+    color:red !important;
+    cursor: pointer;
+}
+
+.content-main-left .left-middle-main0{
+    height: 380px !important;
+}
+
+/*单位类型指标弹窗*/
+.unit-type-message-container{
+    position: absolute;
+    left: 0px;
+    top:0px;
+    border:1px solid #ccc;
+    background: #eee;
+    z-index: 10000;
+    display: none;
+}
+
+.unit-type-message-container p{
+    margin-bottom: 0px;
+    padding-left: 5px;
+    padding-right: 15px;
+    height: 24px;
+    line-height: 24px;
+}
+
+.unit-type-message-container p span{
+    color:black;
+    margin-left: 10px;
+}

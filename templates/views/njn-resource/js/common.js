@@ -1359,17 +1359,17 @@ function getPostTime(){
 
     if(dateType == '日'){
 
-        startTime = moment().format('YYYY-MM-DD');
-        endTime = moment(startTime).add('1','days').format('YYYY-MM-DD');
+        startTime = moment().format('YYYY/MM/DD');
+        endTime = moment(startTime).add('1','days').format('YYYY/MM/DD');
 
     }else if(dateType == '月'){
 
-        startTime = moment().startOf('month').format('YYYY-MM-DD');
-        endTime = moment().endOf('month').add('1','days').format('YYYY-MM-DD');
+        startTime = moment().startOf('month').format('YYYY/MM/DD');
+        endTime = moment().endOf('month').add('1','days').format('YYYY/MM/DD');
     }else if(dateType == '年'){
 
-        startTime = moment().startOf('year').format('YYYY-MM-DD');
-        endTime = moment().endOf('year').add('1','days').format('YYYY-MM-DD');
+        startTime = moment().startOf('year').format('YYYY/MM/DD');
+        endTime = moment().endOf('year').add('1','days').format('YYYY/MM/DD');
 
     }
 
