@@ -12,11 +12,11 @@ var bianjifenlei_validate = null;
 //添加按钮
 var tianjia_validate = null
 
-
+var xiangmu_urls = sessionStorage.getItem("apiprovincialproject");
 var hezuofangshilist = null;
 gethezuofangshilist();
 function gethezuofangshilist(){
-    var url = _urls + "ProvincialProject/GetALLProvincProjCollaborate";
+    var url = xiangmu_urls + "ProvincialProject/GetALLProvincProjCollaborate";
     $.ajax({
         type: "GET",
         cache: false,
@@ -42,7 +42,7 @@ function gethezuofangshilist(){
 function getallxiangmuleixing( callback ){
 	// GET /api/ProvincialProject/GetAllProjRemouldMode
 	var callback = callback;
-	var url = _urls + "ProvincialProject/GetAllProjRemouldMode";
+	var url = xiangmu_urls + "ProvincialProject/GetAllProjRemouldMode";
     $.ajax({
         type: "GET",
         cache: false,
@@ -108,7 +108,7 @@ $(function() {
            return false;
         }
         $('.L-container').showLoading();
-        var url = _urls + "ProvincialProject/AddProjRemouldMode";
+        var url = xiangmu_urls + "ProvincialProject/AddProjRemouldMode";
         var f_RemouldName = $("#xiangmuleixingmingcheng").val()
         var f_Order = $('#see-xiangmu .shunxuhao').val()||'';
         var data = {
@@ -218,7 +218,7 @@ $(function() {
         $(".error").removeClass("error");
         var list = allxiangmuleixing;
         $('.L-container').showLoading();
-        var url = _urls + "ProvincialProject/GetProjRemouldModeByID/"+ id;
+        var url = xiangmu_urls + "ProvincialProject/GetProjRemouldModeByID/"+ id;
         $.ajax({
             type: "GET",
             cache: false,
@@ -260,7 +260,7 @@ $(function() {
         var f_RemouldName = $('#bianjifenleimingcheng .xiugai_xiangmuleixing').val();
         var f_Order = $('#bianjifenleimingcheng .xiugai_shunxuhao').val()
 
-        var url = _urls + "ProvincialProject/EditProjRemouldMode";
+        var url = xiangmu_urls + "ProvincialProject/EditProjRemouldMode";
 
 
         var data = {
@@ -380,7 +380,7 @@ $(function() {
         if(!flag){
             return 
         }
-        var url = _urls + "ProvincialProject/AddProjRemouldMode";
+        var url = xiangmu_urls + "ProvincialProject/AddProjRemouldMode";
 
         var f_Order = $('#fenlei_tianjiazixiang .zixiangxuhao').val();
         var fK_CollaborateWay = $('#fenlei_tianjiazixiang .hezuofangshilist').val();
@@ -571,7 +571,7 @@ $(function() {
         }
 
 
-        var editUrl= _urls + "ProvincialProject/EditProjRemouldMode";
+        var editUrl= xiangmu_urls + "ProvincialProject/EditProjRemouldMode";
         //合作方式
         var fK_CollaborateWay = $('#bianji_hezuofangshilist_ziji option:selected').val()
         // 项目类型
@@ -931,7 +931,7 @@ function format ( id ) {
 
 
 function removeChildType( id, callback ){
-    var url = _urls + 'ProvincialProject/DelProjRemouldMode';
+    var url = xiangmu_urls + 'ProvincialProject/DelProjRemouldMode';
     var callback = callback;
     var data=JSON.stringify({
         "PK_ProjRemouldMode": id,

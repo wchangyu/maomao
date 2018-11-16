@@ -5,6 +5,8 @@ var thumbnailWidth = 100;
 var thumbnailHeight = 100;
 var uploader = null;
 var _postKnowLedgeFileArr = [];
+
+var xiangmu_urls = sessionStorage.getItem("apiprovincialproject");
 // creatUpdateLoader()
 function creatUpdateLoader(){
     //初始化设置
@@ -17,7 +19,7 @@ function creatUpdateLoader(){
         //swf的路径
         swf:'webuploader/Uploader.swf',
         //文件接收服务端
-        server: _urls + 'YWKnowledge/KnowledgeFileUploadProgress',
+        server: xiangmu_urls + 'YWKnowledge/KnowledgeFileUploadProgress',
         pick: {
             id:'#picker',
             //multiple:false
@@ -182,7 +184,7 @@ function removeImg(_uploaderPath){
     }
     $.ajax({
         type:'post',
-        url:_urls + 'News/DelUploadImageFile',
+        url:xiangmu_urls + 'News/DelUploadImageFile',
         data:fileNamePath,
         success:function(result){
             if(result == 99){
@@ -213,7 +215,7 @@ function removeImg(_uploaderPath){
 function selectAllData(){
     var xiangmumingchengselect = $("#xiangmumingchengselect").val();
     // POST /api/ProvincialProject/GetProjRemouldInfoByName
-    var url = _urls + "ProvincialProject/GetProjRemouldInfoByName";
+    var url = xiangmu_urls + "ProvincialProject/GetProjRemouldInfoByName";
     $.ajax({
         type: "post",
         cache: false,
@@ -308,7 +310,7 @@ function hezuofangshievt_xiugai( hezuofangshitype, epctype){
 }
 
 function getEpcBycstflag_xiugai(cstflag) {
-    var url = _urls + "ProvincialProject/GetALLProvincProjEPCType";
+    var url = xiangmu_urls + "ProvincialProject/GetALLProvincProjEPCType";
     $.ajax({
         type: "GET",
         cache: false,
@@ -337,7 +339,7 @@ function getEpcBycstflag_xiugai(cstflag) {
     });
 }
 function  getxiangmuleixingbyhezuofangshiid_xiugai ( id, hezuofangshitype ){
-    var url = _urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+id;
+    var url = xiangmu_urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+id;
     $.ajax({
         type: "GET",
         cache: false,

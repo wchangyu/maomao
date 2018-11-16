@@ -18,6 +18,7 @@ _timeYMDComponentsFun($('.datatimeblock'));
 
 /*---------------------------------------变量-----------------------------------------*/
 
+var xiangmu_urls = sessionStorage.getItem("apiprovincialproject");
 
 var hh = {};
     hh['ui'] = {};
@@ -49,7 +50,7 @@ var thumbnailHeight = 100;
             $.ajax({
                 type: "GET",
                 cache: false,
-                url:_urls + 'ProvincialProject/GetAllProjRemouldMode',
+                url:xiangmu_urls + 'ProvincialProject/GetAllProjRemouldMode',
                 success: function (res) {
                     if(res.code == 99){
                         danweileixinglist = res.data;
@@ -72,7 +73,7 @@ var thumbnailHeight = 100;
     var hezuofangshilist = null;
         gethezuofangshilist();
         function gethezuofangshilist(){
-            var url = _urls + "ProvincialProject/GetALLProvincProjCollaborate";
+            var url = xiangmu_urls + "ProvincialProject/GetALLProvincProjCollaborate";
             $.ajax({
                 type: "GET",
                 cache: false,
@@ -103,7 +104,7 @@ var thumbnailHeight = 100;
             $.ajax({
                 type: "GET",
                 cache: false,
-                url:_urls + 'ProvincialProject/GetAllProjSchedule',
+                url:xiangmu_urls + 'ProvincialProject/GetAllProjSchedule',
                 success: function (res) {
 
                     if(res.code == 99){
@@ -144,7 +145,7 @@ var thumbnailHeight = 100;
     var epcleixinglist = null;
         getALLProvincProjEPCType();
         function getALLProvincProjEPCType() {
-            var url = _urls + "ProvincialProject/GetALLProvincProjEPCType";
+            var url = xiangmu_urls + "ProvincialProject/GetALLProvincProjEPCType";
             $.ajax({
                 type: "GET",
                 cache: false,
@@ -223,7 +224,7 @@ function hezuofangshievt(){
 }
 
 function getEpcBycstflag(cstflag) {
-    var url = _urls + "ProvincialProject/GetALLProvincProjEPCType";
+    var url = xiangmu_urls + "ProvincialProject/GetALLProvincProjEPCType";
     $.ajax({
         type: "GET",
         cache: false,
@@ -253,7 +254,7 @@ function getEpcBycstflag(cstflag) {
 }
 
 function  getxiangmuleixingbyhezuofangshiid ( id ){
-    var url = _urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+id;
+    var url = xiangmu_urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+id;
     $.ajax({
         type: "GET",
         cache: false,
@@ -448,7 +449,7 @@ function creatUpdateLoader(){
             swf:'webuploader/Uploader.swf',
             //文件接收服务端
             // POST /api/ProvincialProject/ProjRemouldInfoFileUpload
-            server: _urls + 'ProvincialProject/ProjRemouldInfoFileUpload',
+            server: xiangmu_urls + 'ProvincialProject/ProjRemouldInfoFileUpload',
             pick: {
                 id:'#picker',
                 //multiple:false
@@ -568,7 +569,7 @@ function removeImg(_uploaderPath){
         }
         $.ajax({
             type:'post',
-            url:_urls + 'News/DelUploadImageFile',
+            url:xiangmu_urls + 'News/DelUploadImageFile',
             data:fileNamePath,
             success:function(result){
                 if(result == 99){
@@ -597,7 +598,7 @@ function removeImg(_uploaderPath){
 function selectAllData(){
     var xiangmumingchengselect = $("#xiangmumingchengselect").val();
     // POST /api/ProvincialProject/GetProjRemouldInfoByName
-    var url = _urls + "ProvincialProject/GetProjRemouldInfoByName";
+    var url = xiangmu_urls + "ProvincialProject/GetProjRemouldInfoByName";
     $.ajax({
         type: "post",
         cache: false,
@@ -693,7 +694,7 @@ function hezuofangshievt_xiugai( hezuofangshitype, epctype){
 }
 
 function getEpcBycstflag_xiugai(cstflag) {
-    var url = _urls + "ProvincialProject/GetALLProvincProjEPCType";
+    var url = xiangmu_urls + "ProvincialProject/GetALLProvincProjEPCType";
     $.ajax({
         type: "GET",
         cache: false,
@@ -723,7 +724,7 @@ function getEpcBycstflag_xiugai(cstflag) {
 }
 
 function  getxiangmuleixingbyhezuofangshiid_xiugai ( id, hezuofangshitype ){
-    var url = _urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+id;
+    var url = xiangmu_urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+id;
     $.ajax({
         type: "GET",
         cache: false,
@@ -1273,7 +1274,7 @@ $(function(){
                 //根据ID获取后台数据
                 $.ajax({
                     type:'post',
-                    url:_urls + 'ProvincialProject/DelProjRemouldInfo',
+                    url:xiangmu_urls + 'ProvincialProject/DelProjRemouldInfo',
                     data:JSON.stringify({
                         //修改时要传的id
                         PK_ProjRemouldInfo: _postID,
@@ -1588,7 +1589,7 @@ $(function(){
        // POST /api/ProvincialProject/AddProjRemouldInfo
         $.ajax({
             type:'post',
-            url:_urls + 'ProvincialProject/AddProjRemouldInfo',
+            url:xiangmu_urls + 'ProvincialProject/AddProjRemouldInfo',
             data:{
                 //当前用户
                 userID:_userIdNum,
@@ -1701,7 +1702,7 @@ function startEditFlag(){
 
     $.ajax({
         type:'post',
-        url:_urls + 'ProvincialProject/EditProjRemouldInfo',
+        url:xiangmu_urls + 'ProvincialProject/EditProjRemouldInfo',
         data:{
             //修改时要传的id
             pK_ProjRemouldInfo:pK_ProjRemouldInfo,
@@ -1812,7 +1813,7 @@ function getxiangmuleixingByid( id ){
 }
 
 function setSeeXiangmuleixing( id, type){
-    var url = _urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+id;
+    var url = xiangmu_urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+id;
     $.ajax({
         type: "GET",
         cache: false,
@@ -1850,7 +1851,7 @@ function setSeeXiangmuleixing( id, type){
 
 //getiteminfo
 function getProItemData( id, callback){
-    var url = _urls + "ProvincialProject/GetProjRemouldInfoByID/" + id;
+    var url = xiangmu_urls + "ProvincialProject/GetProjRemouldInfoByID/" + id;
      $.ajax({
         type: "GET",
         cache: false,
@@ -1879,7 +1880,7 @@ function getProItemData( id, callback){
 }
 
 function setEditXiangmuleixing( id, type){
-    var url = _urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+id;
+    var url = xiangmu_urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+id;
     $.ajax({
         type: "GET",
         cache: false,
@@ -1934,7 +1935,7 @@ function callbackHell(info){
     var val = $("#hezuofangshi").val();
     var infodata = info;
     //attr == 1 代表选中了epc类型是
-    var url = _urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+val;
+    var url = xiangmu_urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+val;
     $.ajax({
         type: "GET",
         cache: false,
@@ -1977,7 +1978,7 @@ function callbackHell(info){
     if(infodata.f_ProjEPCType == ""){
 
     }else{
-        var url = _urls + "ProvincialProject/GetALLProvincProjEPCType";
+        var url = xiangmu_urls + "ProvincialProject/GetALLProvincProjEPCType";
         $.ajax({
             type: "GET",
             cache: false,

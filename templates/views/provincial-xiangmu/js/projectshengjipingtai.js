@@ -2,7 +2,7 @@ var quyuid = window.sessionStorage.enterpriseID;
 var resetObj = resetData(quyuid);
 var flagtype = null;
 var flagtypeid = null
-
+var xiangmu_urls = sessionStorage.getItem("apiprovincialproject");
 function resetData(id) {
     var alldata = JSON.parse(window.sessionStorage.pointers);
     var len = alldata.length;
@@ -37,7 +37,7 @@ $(function () {
 
 function qingqiuData(){
 	// api/ProvincialProject/GetProvincProjStatist
-	var url = _urls + "ProvincialProject/GetProvincProjStatist?subDisID="+resetObj.subDisID;
+	var url = xiangmu_urls + "ProvincialProject/GetProvincProjStatist?subDisID="+resetObj.subDisID;
     $.ajax({
         type: "GET",
         cache: false,
