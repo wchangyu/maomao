@@ -123,8 +123,10 @@ $(function(){
 
                 //作者
                 $('#author').val(result.f_Author);
+
                 //是否推荐(上传图片)
                 $('.inpus').attr('checked',false);
+
                 if(result.f_IsRecommend == 0){
                     $('.inpus').eq(1).attr('checked',true);
                     $('.uploadImg').css({'opacity':0});
@@ -264,6 +266,7 @@ $(function(){
 
     uploader.on( 'uploadError', function( file ) {
         $( '#'+file.id ).find('p.state').text('上传出错').css({'color':'red'});
+        moTaiKuang($('#myModal'),'上传失败，请联系管理员！')
     });
 
     uploader.on( 'uploadComplete', function( file ) {
@@ -382,7 +385,6 @@ $(function(){
             //判断栏目是否填写了
 
             if($('#column').val()){
-
 
                 if($('#newsTitle').val()){
 

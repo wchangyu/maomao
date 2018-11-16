@@ -282,19 +282,31 @@ var optionLine = {
             smooth:true,
             markPoint : {
                 data : [
-                    {type : 'max', name: '最大值'},
-                    {type : 'min', name: '最小值'}
+                    {
+                        type : 'max',
+                        name: '最大值',
+                        itemStyle:{
+                            color:'#F25B72'
+                        },
+                        textStyle:{
+                            color:'#F25B72'
+                        }
+
+                    },
+                    {
+                        type : 'min',
+                        name: '最小值',
+                        itemStyle:{
+                            color:'#5BDEB6'
+                        },
+                        textStyle:{
+                            color:'#F25B72'
+                        }
+                    }
                 ],
                 itemStyle : {
                     normal:{
                         color:'#019cdf'
-                    }
-                },
-                label:{
-                    normal:{
-                        textStyle:{
-                            color:'#d02268'
-                        }
                     }
                 }
             },

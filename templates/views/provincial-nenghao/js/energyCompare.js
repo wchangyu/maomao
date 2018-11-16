@@ -722,9 +722,15 @@ function getPointerData(url,flag){
 
                     var dataSplit = allData[i].dataDate.split('T')[0];
 
-                    dataSplit = dataSplit.split('-')[1] + "-"+dataSplit.split('-')[2];
+                    if(showDateType == 'Month'){
 
-                    allDataX.push(dataSplit);
+                        dataSplit = dataSplit.split('-')[0] + '-'+ dataSplit.split('-')[1];
+                    }
+
+
+                    if(allDataX.indexOf(dataJoin)<0){
+                        allDataX.push(dataSplit);
+                    }
 
                 }
             };

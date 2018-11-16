@@ -1219,8 +1219,6 @@ function getTopPageKPIData(){
 
     }
 
-
-
     //传递给后台的数据
     var ecParams = {
         "startTime": startDate,
@@ -1252,7 +1250,6 @@ function getTopPageKPIData(){
 
                 return false;
             }
-
 
 
             //单位面积能耗

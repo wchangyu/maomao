@@ -2,6 +2,158 @@
  * Created by admin on 2017/6/20.
  */
 
+$(function(){
+
+    //切换显示表格或者地图
+    $('.switch-btn').on('click',function(){
+
+        var state = $(this).attr('data-state');
+
+        //当前显示地图
+        if(state == 0){
+
+            $('.quota-data-bottom').show();
+
+            $('.the-top-map').hide();
+
+            $(this).attr('data-state','1');
+
+            $(this).addClass('switch-btn1');
+
+            $(this).html('地图模式');
+
+        }else{
+
+            $('.quota-data-bottom').hide();
+
+            $('.the-top-map').show();
+
+            $(this).attr('data-state','0');
+
+            $(this).removeClass('switch-btn1');
+
+            $(this).html('列表模式');
+
+            ////根据用户选择组合不同的页面展示信息
+            $('#selected').click();
+
+
+        }
+
+    });
+
+    //重构区域列表
+    drawDistrictArr();
+
+    //改变地区搜索框
+    $('.tiaojian').on('change',function(){
+
+        //获取当前id
+        var thisId = $(this).val();
+
+        if(thisId == -1){
+
+            drawSelect([],$('#conditionStroage'));
+
+            return false
+        }
+
+        $(districtDataArr).each(function(i,o){
+
+
+            if(o.id == thisId){
+
+                drawSelect(o.childrenArr,$('#conditionStroage'));
+
+                return false;
+            }
+
+        })
+
+    });
+
+    //查询按钮
+    $('#selected').on('click',function(){
+
+        //地区
+        var districtID = $('.tiaojian').val();
+
+        //地点
+        var subDisID = $('#conditionStroage').val();
+
+        //负责人
+        var linkmanName = $('.filterInput').val();
+
+        //工程名称
+        var pointerName = $('.filterInput1').val();
+
+        var postOBj = {
+
+            districtID:districtID,
+
+            subDisID:subDisID,
+
+            linkmanName:linkmanName,
+
+            pointerName:pointerName
+        };
+
+        map.clearOverlays();
+
+        $('#map-container').html('');
+
+        $('#ul1').html('');
+
+        $('.search-value-list').html('');
+
+        //可以进行缩放
+        setTimeout(function(){
+            //新建百度地图
+            map = new BMap.Map("map-container");
+
+            map.setMapStyle(mapStyle);
+
+            map.centerAndZoom(new BMap.Point(centerCoordinate[0], centerCoordinate[1]), beginZoom);
+
+            map.enableScrollWheelZoom();
+            map.addControl(new BMap.NavigationControl());
+
+            //获取后台数据
+            getData(postOBj);
+
+        },100);
+
+    });
+
+
+    //列表页查看系统图
+    $('#dateTables').on('click','.showXTT',function(){
+
+        //获取楼宇id
+        var curPointerID = $(this).attr('data-pointer');
+
+        sessionStorage.curPointerId = curPointerID;
+
+        sessionStorage.menuusepointer = 1;
+
+        window.location.href = '../yongnengjiance/energyMonitor.html?a=2'
+    });
+
+    //页面大小变化
+    window.onresize = function(){
+
+        //获取屏幕高度
+        var screenHeight = $(window).height();
+
+        //地图高度
+        var mapHeight = screenHeight - 210;
+
+        $('#map-container').height(mapHeight);
+
+    };
+
+});
+
 // 定义中心点坐标;
 var centerCoordinate = [115.804166, 28.663333];
 
@@ -67,23 +219,87 @@ var makeArr = [];
 //定义楼宇设备标记点集合
 var pointerMakerArr = [];
 
+//初始化table表格
+var col = [
+
+    {
+        title:'工程名称',
+        data:'pointerName'
+    },
+    {
+        title:'楼宇id',
+        class:'theHidden',
+        data:'pointerID'
+    },
+    {
+        title:'地址',
+        data:'pointerAddr'
+    },
+    {
+        title:'负责人',
+        data:'linkmanName'
+    },
+    {
+        title:'负责人电话',
+        data:'linkmanPhone'
+    },
+    {
+        title:'当前状态',
+        data:'isAlarmFlag',
+        render:function(data, type, row, meta){
+
+            if(data == 0){
+
+                return '未报警'
+
+            }else{
+
+                return '报警'
+            }
+
+        }
+    },
+    {
+        title:'最后报警日期',
+        data:'lastAlarmDate'
+    },
+    {
+        title:'系统图',
+        render:function(data, type, row, meta){
+
+           return '<button class="btn btn-success showXTT"  data-pointer="'+row.pointerID+'">查看系统图</button>'
+
+        }
+    }
+];
+
+_tableInitSearch($('#dateTables'),col,2,false,'','','','','','','','',false);
+
 //获取后台数据
-function getData(){
+
+function getData(obj){
 
     //获取时间
-    var st = moment().subtract('1','day').format('YYYY-MM-DD');
+    var st = moment().subtract(24,'hours').format('YYYY-MM-DD HH:mm:ss');
 
-    var et = moment().format('YYYY-MM-DD');
+    var et = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    var prm = {};
+
+    if(obj){
+
+         prm= obj;
+    }
+
+    prm.userID = _userIdName;
+    prm.st = st;
+    prm.et = et;
 
     $.ajax({
         type: 'post',
         url: _urls + "Alarm/GetAlarmMapInfo",
         timeout: theTimes,
-        data:{
-            "userID": _userIdName,
-            "st": st,
-            "et": et
-        },
+        data:prm,
         beforeSend: function () {
             $('#theLoading').modal('show');
 
@@ -93,15 +309,20 @@ function getData(){
             //$('#theLoading').modal('hide');
         },
         success: function (result) {
+
             $('#theLoading').modal('hide');
 
-            markerArr = [];
+            markerArr.length = 0;
 
             //执行不成功
             if(result.code != 99){
 
                 return false;
             }
+
+            alarmArr.length = 0;
+
+            pointerArr.length = 0;
 
             //保存获取到的报警信息
             $(result.data).each(function(i,o){
@@ -114,11 +335,14 @@ function getData(){
 
                     pointerArr.push(o);
                 }
+
             });
 
+            _datasTable($('#dateTables'),result.data);
 
             //根据用户选择组合不同的页面展示信息
             getShowData();
+
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -132,7 +356,7 @@ function getData(){
 
                 myAlter("请求失败！");
 
-                markerArr = [];
+                markerArr.length = 0;
 
                 //根据用户选择组合不同的页面展示信息
                 getShowData(data);
@@ -168,6 +392,7 @@ function getShowData(){
             //添加数据
             markerArr.push(obj)
         });
+
     }
 
     //显示楼宇信息
@@ -182,6 +407,7 @@ function getShowData(){
                 address: "",
                 onAlarm: 0 ,
                 id: o.pointerID
+
             };
 
             html +=     '<li class="titles search-li" data-name='+ o.pointerName+' data-online="0"><span style="background:#e6a91c "></span>'+o.pointerName+'</li>';
@@ -203,6 +429,7 @@ function getShowData(){
 
     //新的搜索对象
     new SEARCH_ENGINE("search-test-inner","search-value","search-value-list","search-li");
+
 }
 
 //报警信息的显示与隐藏
@@ -259,9 +486,18 @@ $('#onOff-machine').on('click',function(){
     getShowData();
 });
 
+
 (function(){
     window.BMap_loadScriptTime = (new Date).getTime();
     document.write('<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=8d6c8b8f3749aed6b1aff3aad6f40e37&services=&t=20170803155555"></script>');
+
+    //获取屏幕高度
+    var screenHeight = $(window).height();
+
+    //地图高度
+    var mapHeight = screenHeight - 210;
+
+    $('#map-container').height(mapHeight);
 
     //可以进行缩放
     setTimeout(function(){
@@ -281,6 +517,98 @@ $('#onOff-machine').on('click',function(){
     },1000);
 
 })();
+
+
+//数组去重
+function unique(a,attr) {
+
+    var res = [];
+
+    for (var i = 0, len = a.length; i < len; i++) {
+        var item = a[i];
+        for (var j = 0, jLen = res.length; j < jLen; j++) {
+            //console.log(i + '' + res);
+            if (res[j][attr] === item[attr]){
+                //console.log(333);
+                break;
+            }
+
+        }
+        if (j === jLen){
+
+            res.push(item);
+
+        }
+
+    }
+
+    return res;
+};
+
+
+//定义地区结构列表
+var districtDataArr = [];
+
+
+//重构地区结构列表
+function drawDistrictArr(){
+
+    var districtArr = JSON.parse(sessionStorage.pointers);
+
+    var _parentArr = unique(districtArr,'districtID');
+
+    var _childrenArr = unique(districtArr,'subDisID');
+
+    $(_parentArr).each(function(i,o){
+
+        var parentId = o.districtID;
+
+        var childArr = [];
+
+        $(_childrenArr).each(function(k,j){
+
+            var obj = {
+                id :j.subDisID,
+                name:j.subDisName
+            };
+
+            if(j.districtID == parentId){
+
+                childArr.push(obj);
+            }
+
+        });
+
+        var obj = {
+
+            id :o.districtID,
+            name:o.districtName,
+            childrenArr:childArr
+        };
+
+        districtDataArr.push(obj);
+
+    });
+
+    drawSelect(districtDataArr,$('.tiaojian'));
+
+};
+
+//select框绘制
+function drawSelect(data,dom){
+
+    var html = '<option value="">全部</option>';
+
+    $(data).each(function(i,o){
+
+        html += '<option value="'+ o.id+'">'+ o.name+'</option>';
+
+
+    });
+
+    dom.html(html);
+
+}
 
 //右上角城市切换功能
 function detail(){
@@ -334,6 +662,8 @@ function detail1(){
 function addWords(){
     var arr = [];
     var points = [];
+
+    makeArr.length = 0;
 
     //console.log(markerArr);
 

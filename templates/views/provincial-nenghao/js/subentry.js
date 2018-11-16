@@ -619,7 +619,17 @@ $(function(){
 
                             var dates = result[i].dataDate;
 
-                            dataX.push(dates.split('T')[0]);
+                            if(Ttype == '年'){
+
+                                dataX.push(dates.split('-')[0] + '-'+ dates.split('-')[1]);
+
+                            }else{
+
+                                dataX.push(dates.split('T')[0]);
+
+                            }
+
+
 
                         }
 

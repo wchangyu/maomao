@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8"/>
+	<title>请登录</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta content="" name="description"/>
+	<meta content="" name="author"/>
+	<!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+	<link href="../../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+	<!-- END GLOBAL MANDATORY STYLES -->
+	<!-- BEGIN PAGE LEVEL STYLES -->
+	<link href="../../../../assets/global/plugins/select2/select2.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../../assets/admin/pages/css/login3.css" rel="stylesheet" type="text/css"/>
+	<!-- END PAGE LEVEL SCRIPTS -->
+	<!-- BEGIN THEME STYLES -->
+	<link href="../../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+	<link href="../../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" id="style_color"/>
+	<link href="../../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+	<!-- END THEME STYLES -->
+	<link rel="shortcut icon" href="../../favicon.ico"/>
+	<script src="../../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+	<script src="../.././resource/js/browserVersion.js"></script>
+	<style>
+		body{
+			font-family: 微软雅黑  !important;
+		}
+		h1, h2, h3, h4, h5, h6 {
+			font-family: 微软雅黑;
+
+		}
+
+		div.checker, div.checker span, div.checker input {
+			width: 18px;
+			height: 18px;
+		}
+
+		.login{
+
+			background: rgba(30, 40, 52, 1)!important;
+
+		}
+		.input-word{
+
+			display: inline-block;
+			vertical-align: middle;
+			font-size: 25px;
+			color: #a8e0ff;
+			margin-right: 8px;
+
+		}
+		.input-icon{
+
+			display: inline-block;
+			vertical-align: middle;
+			width: 268px !important;
+			border: 1px solid #ffffff !important;
+		}
+
+		.input-icon input{
+
+			background: #d2d7dd;
+
+		}
+		.content{
+
+			background-color: inherit !important;
+			width: auto !important;
+			/*background: url("resource/img/beijingkuang.png") no-repeat;
+			background-size: 100% 100%;*/
+			/*height: 273px !important;*/
+
+		}
+		.login .content .form-actions{
+
+			background-color:inherit !important;
+
+			border-bottom: none;
+
+		}
+		.green-haze.btn{
+
+			background: #2170f4;
+			margin-right: 71px;
+			margin-left: 17px;
+		}
+		.green-haze:hover{
+			background: url('img/denglu.png') no-repeat !important;
+			background-size: 100% 100%;
+
+		}
+		.copyright{
+			display: none;
+		}
+		.checkbox{
+
+			color: #d2d7dd;
+		}
+		.erweima{
+			width: 80px;
+			height: 80px;
+			background: 200px;
+			position: absolute;
+			right: 24%;
+			bottom: 10%;
+		}
+
+		.login .login-main1 {
+			display: inline-block;
+			vertical-align: middle;
+			margin-top: -43px !important;
+		}
+		/*.form-title{*/
+
+		/*width: 175px;*/
+		/*}*/
+		.input-icon > .form-control{
+
+			padding-left: 9px;
+
+			padding-right: 20px;
+
+		}
+
+
+		.login-left{
+
+			height: 100%;
+
+			background: url("./img/beijing1.png") no-repeat;
+
+			background-size: 100% 100%;
+
+			margin-right: 0px;
+
+
+			padding-top: 20%;
+
+			position: relative;
+		}
+
+		.login-right{
+
+			width: 400px;
+
+			height:100%;
+
+			position: absolute;
+			left:50%;
+			right:0;
+			top:0;
+			background: none;
+			margin-left:-200px
+		}
+		.login .login-main:before{
+
+			height: 0;
+
+		}
+		.login-main{
+
+			position: relative;
+
+			/*background: url("./img/rightflex.png") no-repeat;*/
+
+			background-size: 100%;
+
+		}
+		.login .content .input-icon{
+
+			border-left: none!important;
+
+			border: 3px solid #213043;
+
+		}
+
+		.login-left .mainImg{
+
+			width: 60%;
+
+			display: block;
+
+			margin: auto;
+
+		}
+
+		.subtitle{
+
+			position: absolute;
+
+			top: 20%;
+			right: -12%;
+			width: 140%;
+
+		}
+
+		@media screen and (min-width: 1200px){
+
+
+			.login-left .mainImg{
+
+				width: 700px;
+
+			}
+
+			.login-left{
+
+				padding-top: 27%;
+
+			}
+
+		}
+
+		@media screen and (min-width: 1601px){
+
+
+			.login-left .mainImg{
+
+				width: 900px;
+
+			}
+
+			.login-left{
+
+				padding-top: 20%;
+
+			}
+
+		}
+
+		@media screen and (max-width: 1100px){
+
+
+			.login-left .mainImg{
+
+				width: 500px;
+
+			}
+
+			.login-left{
+
+				padding-top: 30%;
+
+			}
+
+		}
+
+		/*.login-container{*/
+			/*background: rgba(48,65,93,0.2);*/
+		/*}*/
+
+		.login .content .form-title {
+			font-weight: 300;
+			margin-bottom: 25px;
+			display: none;
+		}
+
+		.login .content .login-form {
+			padding-top: 10px;
+			padding-bottom: 10px;
+
+		}
+
+		.btn {
+			border-width: 0;
+			padding: 7px 26px;
+		}
+
+		.green-haze.btn {
+			background: #2170f4;
+			margin-right: 38px;
+			margin-left: 2px;
+		}
+
+		/*.form-actions .checkbox{*/
+			/*margin-right:42px;*/
+		/*}*/
+
+
+		.top-title{
+			width: 100%;
+			height: 60px;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background: url('img/logo.png') no-repeat 15px center;
+			background-color: rgba(94,94,94,0.6);
+			z-index: 9999;
+		}
+
+		.inner-link{
+			height: 60px;
+			line-height: 60px;
+			padding-left:50%;
+		}
+
+		.inner-link .other-link{
+			color:#C3C3C3;
+			font-size: 18px;
+			margin-right:2%;
+		}
+
+		.inner-link .index-link{
+			color:#FFFFFF;
+			font-size: 18px;
+			margin-right:2%;
+		}
+
+		.bottom-message{
+
+			width: 100%;
+			height: 105px;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			z-index: 9999;
+		}
+
+		.bottom-message .inner-link a{
+
+			font-size: 14px !important;
+
+		}
+
+		.bottom-message .inner-link{
+
+			padding-left: 2%;
+			line-height: 120px;
+
+		}
+
+		.bottom-erweima{
+
+			height: 96px;
+			width:190px;
+			background: url('img/erweima.png') no-repeat left center;
+			background-size:76px 76px;
+			float: right;
+			margin-right:3%;
+			color:white;
+			font-size: 18px;
+			line-height: 30px;
+			padding-left:95px;
+			box-sizing: border-box;
+			padding-top:20px;
+		}
+
+
+		@media screen and (max-width: 600px){
+
+			.login-right{
+
+				position: absolute;
+				right: -8%;
+				top: 0;
+			}
+
+			.top-title .other-link{
+				display: none;
+			}
+
+			.subtitle {
+				position: absolute;
+				top: 20%;
+				right: 13%;
+				width: 90%;
+			}
+
+		}
+
+		.login-main1 .login-container .title-name {
+			color:white;
+			font-size: 45px;
+			font-weight: 300;
+		}
+
+
+		.login .content .form-actions .checkbox {
+
+		}
+
+		.login .content .form-actions .btn {
+			width:283px;
+			height:38px;
+			background: url('img/denglu.png') no-repeat !important;
+			background-size: 100% 100%;
+			border-radius:6px !important;
+			margin-right: 0px;
+			font-weight: bold;
+			font-size: 18px;
+			letter-spacing:5px;
+		}
+
+		.top-title .inner-link{
+
+			padding:0;
+			width: auto;
+			text-align: right;
+		}
+
+		.form-control{
+			height: 48px;
+		}
+
+		.input-out-container{
+			background:url('img/dengluk.png') no-repeat;
+			background-size: 100% 100%;
+			border-radius:12px !important;
+			margin-bottom:0px;
+			overflow: hidden;
+		}
+
+		.input-out-container .input-icon{
+			border:none !important;
+		}
+
+		.input-out-container input{
+			outline: none;
+			border:none !important;
+			color:white;
+			font-size: 16px;
+			/*background-color: inherit !important;*/
+			-ms-appearance: none;
+			background-color: transparent;
+		}
+
+
+		.input-out-container input:-webkit-autofill {
+			-webkit-text-fill-color: #fff !important;
+			transition: background-color 500000s ease-in-out 0s;
+
+		}
+
+		.input-icon0{
+
+			background: url("./img/yonghuming.png")no-repeat 240px center !important;
+
+			background-size: 17px !important;
+
+			border: none !important;
+
+			border-radius: 2px !important;
+
+		}
+		.input-icon1{
+
+			background: url("./img/mima.png")no-repeat 240px center !important;
+
+			background-size: 17px !important;
+
+			border-radius: 2px !important;
+		}
+
+
+		.login .content .form-actions {
+
+			padding: 0px;
+			margin-left: 0px;
+			margin-right: 0px;
+			text-align: right;
+		}
+
+
+	</style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="login">
+
+<div class="login-left">
+
+	<!--顶部横条-->
+	<div class="top-title">
+
+		<div class="inner-link">
+
+			<a href="javascript:;" class="index-link">首页</a>
+
+			<a href="javascript:;" class="other-link">公司介绍</a>
+
+			<a href="javascript:;" class="other-link">新闻中心</a>
+
+			<a href="javascript:;" class="other-link">售后服务</a>
+
+			<a href="javascript:;" class="other-link">下载</a>
+
+			<a href="javascript:;" class="other-link">联系我们</a>
+
+
+		</div>
+
+		<div class="clearfix"></div>
+
+	</div>
+
+	<!--底部横条-->
+	<div class="bottom-message">
+
+		<div class="inner-link">
+
+			<!--左侧文字-->
+			<span class="yw-title" style="color:#C5C5C5;font-size: 16px;line-height: 30px;display: inline-block;font-weight: 400">Tong Fang - Intelligence Platform In Cloud</span>
+
+			<!--右侧二维码-->
+			<div class="bottom-erweima">
+
+				<span>扫描二维码</span><br/>
+				<span>下载客户端</span>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+</div>
+
+<div class="login-right">
+	<div class="login-main">
+
+		<div class="login-main1">
+
+
+			<!-- BEGIN LOGIN -->
+			<div class="login-container" style="position: absolute;top: 45%;left: 50%;margin-top: -120px;margin-left: -172px;">
+				<div class="content" >
+
+					<h3 class="title-name">同方云维平台</h3>
+
+					<!-- BEGIN LOGIN FORM -->
+					<form class="login-form" action="" method="post" >
+						<img class="form-title" src="./img/logo.png" alt="">
+						<div class="alert alert-danger display-hide">
+							<button class="close" data-close="alert"></button>
+			<span>
+			请输入用户名和密码 </span>
+						</div>
+
+						<div class="input-out-container">
+
+							<div class="form-group" style="margin-bottom:0px">
+								<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+								<!--<label class="control-label visible-ie8 visible-ie9">Username</label>-->
+								<div class="input-icon input-icon0" >
+									<!--<i class="fa fa-user"></i>-->
+									<input class="form-control placeholder-no-fix" type="text" autocomplete="off" name="username"/>
+								</div>
+							</div>
+							<div class="form-group" style="margin-bottom:0px">
+								<!--<label class="control-label visible-ie8 visible-ie9">Password</label>-->
+								<div class="input-icon input-icon1">
+									<!--<i class="fa fa-lock"></i>-->
+									<input class="form-control form-control1 placeholder-no-fix" type="password" autocomplete="off"  name="password"/>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="form-actions">
+							<label class="checkbox">
+								<input type="checkbox" name="remember" value="1"/> 记住密码
+							</label><br/>
+							<button type="submit" class="btn green-haze pull-right">
+								登录 <i style="display: none" class="m-icon-swapright m-icon-white"></i>
+							</button>
+						</div>
+					</form>
+					<!-- END LOGIN FORM -->
+				</div>
+				<div class="reflection"></div>
+			</div>
+
+			<!-- END LOGIN -->
+		</div>
+
+		<!--<div class="erweima">-->
+			<!--<img src="./img/QRcode.png" style="width: 100px;height: 100px;">-->
+		<!--</div>-->
+
+	</div>
+
+</div>
+
+
+<!-- BEGIN COPYRIGHT -->
+<div class="copyright">
+	2016 &copy; Huaqin.
+</div>
+<!-- END COPYRIGHT -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../../../../assets/global/plugins/respond.min.js"></script>
+<script src="../../../../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="../../../../assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/select2/select2.min.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="../../../../assets/local/scripts/Went.utility.js"></script>
+<script src="../../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../../assets/local/scripts/particles.min.js" type="text/javascript"></script>
+<script src="../../../../assets/local/scripts/login.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script src="../../resource/js/publicFun.js"></script>
+<script>
+	jQuery(document).ready(function() {
+		Metronic.init(); // init metronic core components
+		Layout.init(); // init current layout
+		Login.init();
+		Demo.init();
+	});
+</script>
+<script>
+
+//	$('.form-control').on('focus',function(){
+//
+//		$(this).parent('.input-icon').css('cssText','border:3px solid #2170f4!important');
+//
+//	})
+//
+//	$('.form-control').on('blur',function(){
+//
+//		$(this).parent('.input-icon').css('cssText','border:3px solid #213043!important');
+//
+//	})
+
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

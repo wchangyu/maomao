@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>动环监测-温湿度</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <link rel="stylesheet" href="css/seal-monitor-humiture.css">
+    <link rel="stylesheet" href="css/new-style.css">
+    <style>
+
+        .bottom-img-content {
+            background: white;
+            height: 180px;
+            margin-bottom: 15px;
+        }
+
+        /*空间容量图标*/
+        .right-navigation .top-navigation{
+            background: url(img/kongjianrongliang.png) no-repeat 10px center;
+            background-color: #687ea3;
+        }
+
+        /*电力容量*/
+        .bottom-statistics {
+            background: url(img/dianlirongliang.png) no-repeat 10px center;
+            background-color: #687ea3;
+            margin-bottom:0px;
+        }
+
+        .right-electricity .rongliang{
+
+            width: 50%;
+            float:left;
+            height: 180px;
+        }
+
+        .right-alarm {
+            background: white;
+            height: auto;
+        }
+
+        /*制冷RTI*/
+        .bottom-refrigeration{
+
+            background: url(img/zhileng1.png) no-repeat 10px center;
+            background-color: #687ea3;
+        }
+
+
+        /*流程图名称*/
+        .userMonitor-name{
+            height: 40px;
+            line-height: 40px;
+            padding-left:12px;
+            padding-right: 12px;
+            color:#CDD4E1;
+            display: inline-block;
+            text-align: center;
+            text-indent: 0px;
+            cursor: pointer;
+            border:1px solid #3674D9;
+        }
+
+        .left-diagram .top-title .onChoose{
+
+            background: #3674D9;
+            color:white;
+        }
+
+        /*流程图高度*/
+        #right-container {
+            position: static !important;
+            background: none;
+            width: 100%;
+            height: 650px;
+            overflow: hidden;
+            max-height: 1097px;
+        }
+
+        .switchover {
+            width: 24px;
+            height: 20px;
+            display: block;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            background: url(img/pd-xitongtu.png) no-repeat;
+            background-size: 100% 100%;
+            cursor: pointer;
+        }
+
+        .switchover1 {
+            background: url(img/pd-pingmiantu.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        /*图例*/
+        .legend{
+            left:10px;
+            top:48px;
+        }
+
+        .legend span{
+            margin-right:5px;
+        }
+
+        #content-main-right{
+
+            background: none !important;
+        }
+
+
+    </style>
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container" style="">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left col-lg-9 col-md-9 col-sm-12 col-xs-12" style="padding-right: 0px;">
+
+                                <!--上方流程图-->
+                                <div class="left-diagram">
+
+                                    <span class="switchover" data-id="1"></span>
+
+                                    <h3 class="top-title left-title1">
+                                        <span class="userMonitor-name onChoose" data-monitor="8817007025">1#机房</span><span class="userMonitor-name" data-monitor="8817007025">2#机房</span>
+                                    </h3>
+
+                                    <!-- 下方左侧流程图 -->
+                                    <!-- 右边主体数据部分 -->
+                                    <div class="out-container" style="position: relative">
+
+                                        <div id="right-container">
+
+                                            <div class="content-main-right" id="content-main-right">
+                                                <!--浮动显示的控制按钮-->
+                                                <div class="content-ctrls-show" id="content-ctrls">
+                                                </div>
+
+                                                <div class="content-menu-hide" id="content-menu">
+                                                    <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!--下方table表格-->
+                                        <div class="bottom-table-container" style="">
+
+
+                                            <table id="scrap-datatables" class="table table-person table-striped table-bordered table-advance table-hover table-fixation" cellspacing="0" width="100%">
+
+                                                <thead>
+                                                <tr>
+                                                    <td>报警时间</td>
+                                                    <td>报警内容</td>
+                                                    <td>等级</td>
+                                                    <td>状态</td>
+                                                    <td>处理方法</td>
+                                                    <td>完成人</td>
+
+                                                </tr>
+                                                </thead>
+
+                                                <tbody class="scrollbar">
+                                                <tr>
+                                                    <td>7-26 04:00</td>
+                                                    <td>温度高</td>
+                                                    <td class="red">红色</td>
+                                                    <td>已处理</td>
+                                                    <td>CRAH14跳闸，重启</td>
+                                                    <td>张三</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>8-22 08:00</td>
+                                                    <td>温度高</td>
+                                                    <td class="red">红色</td>
+                                                    <td>已处理</td>
+                                                    <td>CRAH14跳闸，重启</td>
+                                                    <td>王五</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>7-26 04:00</td>
+                                                    <td>温度高</td>
+                                                    <td class="yellow">黄色</td>
+                                                    <td>已处理</td>
+                                                    <td>CRAH14跳闸，重启</td>
+                                                    <td>张三</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>7-26 04:00</td>
+                                                    <td>温度高</td>
+                                                    <td class="red">红色</td>
+                                                    <td>已处理</td>
+                                                    <td>CRAH14跳闸，重启</td>
+                                                    <td>张三</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>7-26 04:00</td>
+                                                    <td>温度高</td>
+                                                    <td class="red">红色</td>
+                                                    <td>已处理</td>
+                                                    <td>CRAH14跳闸，重启</td>
+                                                    <td>张三</td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!--右侧区域-->
+                            <div class="content-main-right1 col-lg-3 col-md-3 col-sm-12 col-xs-12" style=" height: 650px;">
+
+                                <!--温湿度-->
+                                <div class="right-navigation">
+
+                                    <h3 class="top-title top-navigation">温湿度</h3>
+
+                                    <div class="bottom-data-container scrollbar">
+
+                                        <div class="data-container ">
+                                            <span class="name">L1通道</span>
+                                            <span class="temperature"> <font>26.4℃</font></span>
+                                            <span class="humidity"> <font>66.5%</font></span>
+
+                                        </div>
+
+                                        <div class="data-container">
+                                            <span class="name">L1通道</span>
+                                            <span class="temperature"> <font>26.4℃</font></span>
+                                            <span class="humidity"> <font>66.5%</font></span>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!--电力容量-->
+                                <div class="right-alarm right-electricity" style="position: relative;display: none">
+
+                                    <h3 class="top-title bottom-statistics">电力容量</h3>
+
+                                    <!--下方echart-->
+                                    <div class="bottom-img-content rongliang" id="electric-capacity-echart" style="">
+
+                                    </div>
+
+                                    <div class="bottom-img-content rongliang" id="electric-capacity-echart1" style="">
+
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                                <!--制冷RTI-->
+                                <div class="right-alarm" style="position: relative;">
+
+                                    <h3 class="top-title bottom-refrigeration" style="margin-bottom:20px;">制冷RTI</h3>
+
+                                    <div class="legend" style="z-index: 1000;">
+
+                                        <span class="patch green" style="background: #4B85E5"></span>
+                                        <span>优秀</span>
+
+                                        <span class="patch yellow" style="background: #31BEA4"></span>
+                                        <span>中等</span>
+
+                                        <span class="patch yellow" style="background: #E93C94"></span>
+                                        <span>未用</span>
+
+                                    </div>
+
+                                    <div class="data-collect">
+                                        <p>冷通道 平均温湿度 <span class="the-data">24℃</span> <span class="the-data">66%</span>
+                                        </p>
+
+                                        <p>热通道 平均温湿度 <span class="the-data">30℃</span> <span class="the-data">48%</span>
+                                        </p>
+                                    </div>
+
+                                    <!--下方echart-->
+                                    <div class="bottom-img-content rongliang" id="refrigeration-echart" style="">
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+
+<!--存放-->
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+
+        sessionStorage.menuArg = '1,8817007055';
+
+        //获取对应流程图
+        userMonitor.init(false,false,1,$('.left-diagram'));
+    });
+
+</script>
+
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../resource/js/userMonitor.js"></script>
+<script src="js/seal-monitor-humiture.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

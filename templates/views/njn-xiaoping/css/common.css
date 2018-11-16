@@ -1,0 +1,133 @@
+
+.showOrHidden{
+    display: none;
+}
+/*上方切换选框*/
+.switch-btn-container{
+    padding-top:20px;
+    padding-left:20px;
+}
+.switch-btn-container span{
+    display: inline-block;
+    width:160px;
+    height:50px;
+    line-height: 50px;
+    text-align: center;
+    background: #4472c4;
+    color:white;
+    cursor: pointer;
+    font-size: 18px;
+    opacity: 0.6;
+
+}
+
+.switch-btn-container .onChoose{
+    opacity: 1;
+}
+
+.switch-btn-container1 span{
+
+    background: #ed7d31;
+
+}
+
+/*下划线*/
+.underline{
+    height: 15px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+/*下方按钮*/
+.btn{
+    padding: 6px 20px;
+    color:white;
+}
+
+.redact{
+    background: #4472c4;
+}
+
+.sure{
+    background: #70ad47;
+}
+
+.cancel{
+    background: #ffc000;
+}
+
+.main-contents-table .title{
+    color:#333;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+
+
+/*固定表头*/
+.table-fixation tbody {
+    display:block;
+    max-height:380px;
+    overflow-y:auto;
+}
+
+.table-fixation thead,.table-fixation tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+.table-fixation td{
+    height: 40px !important;
+    border:1px solid #fff !important;
+}
+
+.table-fixation thead {
+    width: calc( 100% - 1em )
+}
+
+.table-fixation{
+    background: #e1e8f2 !important;
+}
+
+.table td,.table th{
+    text-align: center;
+    padding:12px 6px !important;
+}
+
+.table th{
+    background: #5b9bd5 !important;
+    color:white !important;
+    border: none !important;
+}
+
+.table{
+    background: #5b9bd5 !important;
+}
+.table-striped>tbody>tr:nth-of-type(even) {
+    background-color: #d2deef;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #eaeff7;
+}
+
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+.scrollbar::-webkit-scrollbar{
+    width: 16px;
+    height: 16px;
+    background-color: #f5f5f5;
+}
+
+/*定义滚动条的轨道，内阴影及圆角*/
+.scrollbar::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #f5f5f5;
+}
+/*定义滑块，内阴影及圆角*/
+.scrollbar::-webkit-scrollbar-thumb{
+    /*width: 10px;*/
+    height: 20px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #DCDCDC;
+}

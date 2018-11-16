@@ -1,0 +1,331 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>历史数据</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!--DATEPICKER START-->
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css" />
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css" />
+    <link rel="stylesheet" href="../resource/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+    <!--DATEPICKER END-->
+    <link rel="stylesheet" href="../resource/css/leftBat.css">
+    
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/admin/layout/css/themes/darkblue.css" id="style_color" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
+
+    <!--zTree START-->
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <!--zTree END-->
+
+    <!--SHOWLOADING START-->
+    <link href="../resource/jQuery-showLoading/css/showLoading.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="../resource/css/HAVC.css">
+    <!--SHOWLOADING END-->
+    <style type="text/css">
+        .page-content{
+
+            background: #ffffff;
+
+        }
+        .page-bar{
+
+            background: #E2E9F2 !important;
+
+        }
+        a {
+            text-decoration: none !important;
+        }
+        .dropdown-menu li > a {
+            padding:0;
+        }
+
+        .HSYDT{
+
+            width: 190px;
+
+        }
+
+        .main-content{
+
+            width: 100%;
+
+            min-height: 500px;
+
+            padding: 15px;
+
+        }
+    </style>
+    <link href="../favicon.ico" rel="shortcut icon" />
+</head>
+<body class="page-header-fixed page-quick-sidebar-over-content">
+    <div class="page-header navbar navbar-fixed-top">
+        <div class="page-header-inner">
+            <div class="page-logo">
+                <a href="">
+                    <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default" />
+                </a>
+                <div class="menu-toggler sidebar-toggler hide">
+                </div>
+            </div>
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+            </a>
+            <div class="totalTitle"></div>
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <i class="icon-bell"></i>
+                            <span class="badge badge-danger">
+                                0
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="external">
+                                <h3><span class="bold">0 </span> 当日报警</h3>
+                                <a href="../baojingyujing/warningAlarm-3.html">查看详细</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown dropdown-user">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <span class="username username-hide-on-mobile">
+                            </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+                                <a class="logout-page" href="../login.html">
+                                    <i class="icon-key"></i> 退出
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+    </div>
+    <div class="page-container">
+        <div class="page-sidebar-wrapper">
+            <div class="page-sidebar navbar-collapse collapse">
+                <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                    <li class="sidebar-toggler-wrapper">
+                        <div class="sidebar-toggler">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <div class="theme-panel hidden-xs hidden-sm">
+                    <div class="toggler">
+                    </div>
+                    <div class="toggler-close">
+                    </div>
+                    <div class="theme-options">
+                        <div class="theme-option theme-colors clearfix">
+                            <span>
+                                配色
+                            </span>
+                            <ul>
+                                <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="默认">
+                                </li>
+                                <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="蓝黑">
+                                </li>
+                                <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="蓝色">
+                                </li>
+                                <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="theme-option">
+                            <span>
+                                布局
+                            </span>
+                            <select class="layout-option form-control input-sm">
+                                <option value="fluid" selected="selected">平铺</option>
+                                <option value="boxed">盒式</option>
+                            </select>
+                        </div>
+
+                        <div class="theme-option">
+                            <span>
+                                侧边菜单
+                            </span>
+                            <select class="sidebar-menu-option form-control input-sm">
+                                <option value="accordion" selected="selected">手风琴式</option>
+                                <option value="hover">鼠标悬停</option>
+                            </select>
+                        </div>
+                        <div class="theme-option">
+                            <span>
+                                侧边位置
+                            </span>
+                            <select class="sidebar-pos-option form-control input-sm">
+                                <option value="left" selected="selected">左</option>
+                                <option value="right">右</option>
+                            </select>
+                        </div>
+                        <div class="theme-option">
+                            <span>
+                                底部
+                            </span>
+                            <select class="page-footer-option form-control input-sm">
+                                <option value="fixed">位置固定</option>
+                                <option value="default" selected="selected">默认</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="page-title"></h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                    </ul>
+                    <div class="page-toolbar">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="historyBusy">
+                            <div class="total-warp">
+                                <div class="margin-top-15">
+                                    <div class="conditionSelect">
+                                        <div>
+                                            <label>区域选择</label>
+                                            <select id="areaType" class="table-group-action-input form-control"></select>
+                                        </div>
+                                        <div>
+                                            <label>设备类型</label>
+                                            <select id="eqType" class="table-group-action-input form-control"></select>
+                                        </div>
+                                        <div style="position: relative">
+                                            <label>选择因子</label>
+                                            <div style="display: inline-block;vertical-align: middle">
+                                                <a id="openTrvBoxBtn" style="width: 190px;" data-toggle="dropdown" aria-expanded="true" class="btn form-control">
+                                                    <span class="pull-left">选择因子</span>
+                                                    <i class="fa fa-angle-down pull-right" style="line-height:21px;"></i>
+                                                </a>
+                                            </div>
+                                            <div id="treeBox" style="display:none;position:absolute;max-height:600px !important;overflow-y:auto !important;left: 60px;top: 24px" class="dropdown-menu">
+                                                <ul id="trul" class="ztree" style="margin-top:0;" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label>开始时间</label>
+                                            <div style="display: inline-block;vertical-align: middle">
+                                                <div class="input-group date form_date HSYDT">
+                                                    <input id="spDT" class="form-control" size="16" type="text" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div>
+                                            <label>结束时间</label>
+                                            <div style="display: inline-block;vertical-align: middle">
+                                                <div class="input-group date form_date HSYDT">
+                                                    <input id="epDT" class="form-control" size="16" type="text" value="" />
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a id="hsyBtn" class="btn btn-default pull-left buttonColor">查询数据</a>
+                                        </div>
+                                    </div>
+                                    <div class="main-content">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div id="historyChartView" style="height:600px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+    </div>
+    <div class="page-footer">
+        <div class="page-footer-inner">
+            2016 &copy; Huaqin.
+        </div>
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+    </div>
+    <script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="../resource/js/jquery-1.11.2.js"></script>
+    <script src="../resource/js/moment.js"></script>
+    <script src="../../../assets/global/plugins/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+    <script src="../../../assets/local/scripts/underscore-min.js"></script>
+    <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <!--DATEPICKER START-->
+    <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+    <!--DATEPICKER END-->
+    <!--ECHART START-->
+    <script src="../resource/js/echarts.min.js" type="text/javascript"></script>
+    <!--ECHART END-->
+    <!--zTree START-->
+    <script src="../resource/zTree_v3-master/js/jquery.ztree.all.js" type="text/javascript"></script>
+    <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js" type="text/javascript"></script>
+    <script src="../resource/zTree_v3-master/js/jquery.ztree.core.js" type="text/javascript"></script>
+    <script src="../resource/zTree_v3-master/js/jquery.ztree.excheck.js" type="text/javascript"></script>
+    <!--zTree END-->
+    <script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+    <script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+    <!--SHOWLOADING START-->
+    <script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js" type="text/javascript"></script>
+    <!--SHOWLOADING END-->
+    <script src="../../../assets/local/scripts/BEE.js"></script>
+    <script src="js/history.js" type="text/javascript"></script>
+    <script>
+        jQuery(document).ready(function () {
+            Metronic.init();
+            BEE.init();
+            Layout.init();
+            Demo.init();
+            History.init();
+        });
+    </script>
+</body>
+</html>

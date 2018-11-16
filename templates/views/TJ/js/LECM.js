@@ -39,7 +39,13 @@ $(function(){
             data:'',
             render:function(data, type, full, meta){
 
-                var str = '<a href="LCEMJump.html"><img class="jump" src="img/LCEM.png" style="display: inline-block;width: 20px;height: 20px;"></a>'
+                var str = '暂无';
+
+                if(full.SBMC != '精密空调'){
+
+                    str = '<a href="LCEMJump.html"><img class="jump" src="img/LCEM.png" style="display: inline-block;width: 20px;height: 20px;"></a>';
+
+                }
 
                 return str
 

@@ -67,6 +67,12 @@ var spaceDataLength = 12;
 //定义内容
 var contentArr = ['通讯状态','断裂报警','漏水报警'];
 
+//存放状态值 0为全部正常
+var stateArr = [0,2,0,0,0,2,1,2,0,3,0];
+
+//当前索引
+var thisIndex = 0;
+
 //页面绘制水浸状态
 function drawSpaceData(){
 
@@ -80,11 +86,21 @@ function drawSpaceData(){
         //定义内容字符串
         var contentHtml = '';
 
+        var stateValue = stateArr[thisIndex];
+
+        //定义报警位置
+        var alarmLocation = '--';
+
+        if(stateValue != 0){
+
+            alarmLocation = i +'.0米';
+        }
+
         $(contentArr).each(function(k,j){
 
-            var num = Math.random();
+            var num = stateValue - 1;
 
-            if(num > 0.3){
+            if(num != k){
 
                 contentHtml += '<p>'+j+'</p>';
 
@@ -95,11 +111,13 @@ function drawSpaceData(){
             }
         });
 
+        thisIndex ++;
+
 
         dataHtml +=
             '<div class="data-container">' +
                 '<h3>'+thisName+' 漏水状态</h3>' + contentHtml +
-                '<p class="location">在第<span class="">'+i+'.0米</span>的位置有报警</p>'+
+                '<p class="location">在第<span class="">'+alarmLocation+'</span>的位置有报警</p>'+
             '</div>';
 
 

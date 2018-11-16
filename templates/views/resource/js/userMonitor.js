@@ -600,11 +600,13 @@ var userMonitor = (function(){
     function selectLi($li){
         $(".list-group-item").removeClass("selected");
         $li.addClass("selected");
+        sessionStorage.monitorSize = '';
     }
 
     function selectLi1($li){
         $(".innner-toolbar-container .monitor-list-data").removeClass("onChoose");
         $li.addClass("onChoose");
+        sessionStorage.monitorSize = '';
     }
 
     //根据定义的方案类型，获取该类型下的监控方案，返回数据
@@ -841,7 +843,8 @@ var userMonitor = (function(){
                     //如果页面中定义了流程图的宽高
                     if(sessionStorage.monitorSize && sessionStorage.monitorSize != ''){
 
-                        realWidth = parseInt(sessionStorage.monitorSize.split(',')[0])
+                        realWidth = parseInt(sessionStorage.monitorSize.split(',')[0]);
+
                     }
 
                     //当前为跳转页面，获取跳转页面的流程图宽高
@@ -903,6 +906,7 @@ var userMonitor = (function(){
                         },100);
 
                     }else{
+
                         //不存在 让右侧流程图自适应
                         setTimeout(function(){
 
@@ -2876,9 +2880,9 @@ var userMonitor = (function(){
         //定义左移的距离
         var leftDistance = 0;
 
-        if((left - 1) / _scaleX > 400){
+        if((left - 1) / _scaleX > 350){
 
-            leftDistance = 150;
+            leftDistance = 280;
 
         }
 
@@ -3056,12 +3060,12 @@ var userMonitor = (function(){
                     var curDef = JSON.parse(sessionStorage.historyData_ProcDef);
                     var iTop = (window.screen.availHeight - 600) / 2,iLeft = (window.screen.availWidth - 700) / 2;
 
-                    var url = "../yongnengjiance/MHisData.html?mflag=" + curDef.prDefId+",height=600,width=700,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no"
+                    var url = "../yongnengjiance/MHisData.html?mflag=" + curDef.prDefId+",height=525,width=700,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no"
 
-                    var html = '<div class="content-child-show" id="'+curDef.prDefId+'">' +
+                    var html = '<div class="content-child-show content-child-show1" id="'+curDef.prDefId+'">' +
                         '<div class="content-child-show-container">' +
                         '<div class="close1">X</div>' +
-                        '<iframe width="700" scrolling="no" height="600" frameborder="0" allowtransparency="true" src='+url+'></iframe>' +
+                        '<iframe width="700" scrolling="no" height="525" frameborder="0" allowtransparency="true" src='+url+'></iframe>' +
                         '</div>' +
                         '</div>';
 
@@ -3114,6 +3118,13 @@ var userMonitor = (function(){
     };
 
 })();
+
+setTimeout(function(){
+
+    $(window).resize();
+
+},500);
+
 
 //流程图宽度
 _theImgProcWidth = 0;

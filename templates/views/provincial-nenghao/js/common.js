@@ -15,18 +15,16 @@ $('.user-search .choose-time').on('click',function(){
     //获取当前日期类型
     var dataType = $(this).html();
 
-    _selectTime(dataType);
-
+    _selectTime1(dataType);
 
 });
-
 
 //获取楼宇下全部区域位置
 var getAllPositionType = function(){
 
     var pointerArr = JSON.parse(sessionStorage.pointers);
 
-    //存放全部单位类型
+    //存放全部机构分类
     var allPositionType = [];
 
     var _allPositionTypeArr = unique(pointerArr,'districtID');
@@ -47,7 +45,7 @@ var getAllPositionType = function(){
 };
 
 //日历时间
-function _selectTime(dataType){
+function _selectTime1(dataType){
 
     $('.max').hide();
 
@@ -274,6 +272,7 @@ function getPostTime11(dateType){
 function GetProvincialEnterpriseTree(flag,fun,dom){
 
     //console.log(postPointerID);
+
     $.ajax({
         type:'get',
         url:_urls + 'Provincial/GetProvincialEnterpriseTree',

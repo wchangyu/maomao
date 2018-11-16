@@ -166,8 +166,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.108/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.108/BEEWebAPI/api/",
+  "apiUriPrefix":"http://218.70.30.134:32537/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://218.70.30.134:32537/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
   "systemTitle":"高效机房控制系统",

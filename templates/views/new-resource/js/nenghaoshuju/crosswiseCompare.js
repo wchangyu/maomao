@@ -229,32 +229,44 @@ var optionBar = {
             name:'数据',
             type:'bar',
             data:[],
-            //markPoint : {
-            //    data : [
-            //        {type : 'max', name: '最大值'},
-            //        {type : 'min', name: '最小值'}
-            //    ],
-            //    itemStyle : {
-            //        normal:{
-            //            color:'#019cdf'
-            //        }
-            //    },
-            //    label:{
-            //        normal:{
-            //            textStyle:{
-            //                color:'#d02268'
-            //            }
-            //        }
-            //    }
-            //},
-            //markLine : {
-            //    data : [
-            //        {type : 'average', name: '平均值'}
-            //
-            //
-            //    ]
-            //
-            //},
+            markPoint : {
+                data : [
+                    {
+                        type : 'max',
+                        name: '最大值',
+                        itemStyle:{
+                            color:'#F25B72'
+                        },
+                        textStyle:{
+                            color:'#F25B72'
+                        }
+
+                    },
+                    {
+                        type : 'min',
+                        name: '最小值',
+                        itemStyle:{
+                            color:'#5BDEB6'
+                        },
+                        textStyle:{
+                            color:'#F25B72'
+                        }
+                    }
+                ],
+                itemStyle : {
+                    normal:{
+                        color:'#019cdf'
+                    }
+                }
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+
+
+                ]
+
+            },
             barMaxWidth: '60'
         }
 
@@ -367,31 +379,43 @@ var optionLine = {
 var echartObj =  {name:'数据',
     type:'line',
     smooth:true,
-    //markPoint : {
-    //    data : [
-    //        {type : 'max', name: '最大值'},
-    //        {type : 'min', name: '最小值'}
-    //    ],
-    //    itemStyle : {
-    //        normal:{
-    //            color:'#019cdf'
-    //        }
-    //    },
-    //    label:{
-    //        normal:{
-    //            textStyle:{
-    //                color:'#d02268'
-    //            }
-    //        }
-    //    }
-    //},
-    //markLine : {
-    //    data : [
-    //        {type : 'average', name: '平均值'}
-    //
-    //
-    //    ]
-    //},
+    markPoint : {
+        data : [
+            {
+                type : 'max',
+                name: '最大值',
+                itemStyle:{
+                    color:'#F25B72'
+                },
+                textStyle:{
+                    color:'#F25B72'
+                }
+
+            },
+            {
+                type : 'min',
+                name: '最小值',
+                itemStyle:{
+                    color:'#5BDEB6'
+                },
+                textStyle:{
+                    color:'#F25B72'
+                }
+            }
+        ],
+        itemStyle : {
+            normal:{
+                color:'#019cdf'
+            }
+        }
+    },
+    markLine : {
+        data : [
+            {type : 'average', name: '平均值'}
+
+
+        ]
+    },
     data:[]
 };
 

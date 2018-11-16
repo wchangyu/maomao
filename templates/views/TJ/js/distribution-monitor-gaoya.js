@@ -201,7 +201,7 @@ var option0 = {
         text: '制冷系统(kw)',
         //sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
         left: 'center',
-        bottom: '10',
+        bottom: '-10',
         //itemGap: -5,
         textBaseline:'middle',
         textStyle : {
@@ -236,7 +236,7 @@ var option0 = {
             name:'',
             type:'pie',
             radius: '75%',
-            center:['50%', '58%'],
+            center:['50%', '50%'],
             avoidLabelOverlap: false,
             label: {
                 normal: {
@@ -327,24 +327,24 @@ var _rightMiddleChart4 = echarts.init(document.getElementById('left-bottom-echar
 var systemCapacityEcahrtArr = [_rightMiddleChart1,_rightMiddleChart2,_rightMiddleChart3,_rightMiddleChart4];
 var systemCapacityArr = [
     {
-        'name':'制冷系统(kw)',
+        'name':'IT-TA',
         "data":[1300,1400],
         "data1":[24,7,12,1]
     },
     {
-        'name':'动力供电(kva)',
+        'name':'IT-TB',
         "data":[565,2635],
         "data1":[60,5,55,3]
 
     },
     {
-        'name':'IT供电(kva)',
+        'name':'PO-TA',
         "data":[904,3096],
         "data1":[24,7,12,1]
 
     },
     {
-        'name':'IT(u)',
+        'name':'PO-TB',
         "data":[10926,8940],
         "data1":[24,7,12,1]
 
@@ -356,7 +356,7 @@ function systemCapacityEchart(){
 
     $(systemCapacityArr).each(function(i,o){
 
-        option0.title.text = '';
+        option0.title.text = o.name;
 
         option0.series[0].data = o.data;
 
