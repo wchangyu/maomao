@@ -316,7 +316,17 @@ function getOrganizationData(){
 
             }else {
 
-                dataSplit = o.currentDataDate.split(' ')[0];
+                if(showDateType == 'Month'){
+
+                    dataSplit = o.currentDataDate.split(' ')[0];
+
+                    dataSplit =  dataSplit.split('/')[0] +'/' +  dataSplit.split('/')[1];
+
+                }else{
+
+                    dataSplit = o.currentDataDate.split(' ')[0];
+                }
+
             }
 
             allDataX.push(dataSplit);

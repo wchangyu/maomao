@@ -1,0 +1,412 @@
+
+/*左侧环形图数据*/
+.left-annular-container{
+
+    width:420px;
+    height: auto;
+    padding-left:14px;
+    float: left;
+    margin-right:15px;
+}
+
+.pointer-data-container{
+    background: #2B333E;
+    margin-bottom: 15px;
+}
+
+.pointer-data-container .pointer-title{
+
+    color:white;
+    height: 42px;
+    line-height: 42px;
+    border-bottom: 1px solid #3D4958;
+    font-size: 18px;
+    text-indent: 50px;
+    letter-spacing:2px;
+    background: url('../img/jiashicang/lou.png') no-repeat 18px center;
+}
+
+.pointer-data-container .bottom-equipment-chart-container {
+    width: 50%;
+    float: left;
+    position: relative;
+}
+
+.pointer-data-container .bottom-equipment-chart-container .bottom-equipment-chart-background {
+    width: 132px;
+    height: 132px;
+    border-radius: 50% !important;
+    background: #2F3D4E;
+    border: 1px solid #50637B;
+    position: absolute;
+    left: 36px;
+    top: 61px;
+}
+
+.pointer-data-container .bottom-equipment-chart {
+    height: 230px;
+    width: 100%;
+}
+
+.pointer-data-container .bottom-content-data {
+    font-size: 14px;
+}
+
+.pointer-data-container .bottom-content-data {
+    position: absolute;
+    right: 106px;
+    top: 59px;
+    color: white;
+    font-size: 12px;
+    line-height: 12px;
+    z-index: 1000;
+    text-align: right;
+}
+
+.right-bottom-equipment .bottom-equipment-chart-container .bottom-equipment-chart-background {
+    width: 120px;
+    height: 120px;
+    border-radius: 50% !important;
+    background: #2F3D4E;
+    border: 1px solid #50637B;
+    position: absolute;
+    left: 28px;
+    top: 70px;
+}
+
+.pointer-data-container .echart-title{
+    text-align: center;
+    color:white;
+    font-size: 16px;
+    position: absolute;
+    bottom:6px;
+    width:100%;
+    font-weight: 500;
+}
+
+
+/*-----------------------------------中间天气信息------------------------------------*/
+.center-weather-container{
+    width:800px;
+    height: auto;
+    float: left;
+}
+
+.center-weather-container .top-weather-container{
+
+    width:100%;
+    height: 164px;
+    background: #2B333E;
+    margin-bottom:15px;
+}
+
+/*中间图片*/
+.center-weather-container .middle-pointer-img{
+
+    height:390px;
+    margin-bottom:15px;
+}
+
+.center-weather-container .middle-pointer-img img{
+    width: 100%;
+    height: 100%;
+}
+
+/*下方能管数据*/
+.center-weather-container .bottom-energy-echart{
+
+    height: 277px;
+    background: #2B333E;
+    position: relative;
+}
+
+.center-weather-container .right-bottom-centent-title {
+    /* margin: 0; */
+    margin-bottom: 10px;
+}
+
+.center-weather-container .right-bottom-centent-title {
+    margin: 0;
+    height: 42px;
+    line-height: 42px;
+    font-size: 18px;
+    color: white;
+    /* margin-bottom: 20px; */
+    text-indent: 15px;
+    border-bottom: 1px solid #3D4958;
+}
+
+.center-weather-container .left-tab-container {
+    width: 80%;
+    height: 38px;
+    position: absolute;
+    left: 140px;
+    top: 0px;
+    z-index: 1000;
+}
+
+.left-tab-container .left-tab1 {
+    background: url(../../njn-resource/img/weidianji1H.png) no-repeat center center;
+    box-sizing: border-box;
+}
+
+.left-tab-container .left-tab-choose0 {
+    background: url(../../njn-resource/img/dianji1H.png) no-repeat center center;
+}
+
+.left-tab-container .left-tab1 {
+    width: 124px;
+}
+
+.left-tab-container .left-tab {
+    display: inline-block;
+    height: 36px;
+    text-align: left;
+    line-height: 36px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+}
+
+.left-tab-container .left-tab2 {
+    background: url(../../njn-resource/img/weidianji2H.png) no-repeat center center;
+    box-sizing: border-box;
+    margin-left: -34px;
+    width: 132px;
+}
+
+.left-tab-container .left-tab {
+    display: inline-block;
+    height: 36px;
+    text-align: left;
+    line-height: 36px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+}
+
+.left-tab-container .left-tab-choose2 {
+    background: url(../../njn-resource/img/dianji3H.png) no-repeat center center;
+    box-sizing: border-box;
+    margin-left: -34px;
+}
+
+.left-tab-container .left-tab3 {
+    width: 119px;
+    background: url(../../njn-resource/img/weidianji3H.png) no-repeat center center;
+    padding-left: 28px;
+    box-sizing: border-box;
+    margin-left: -34px;
+}
+
+.interval0 {
+    font-size: 0 !important;
+}
+
+.left-tab-container .small-times {
+    font-size: 18px;
+    color: white;
+}
+.small-times {
+    padding: 2px 4px;
+    /*border-bottom-left-radius: 4px !important;*/
+    /*border-top-left-radius: 4px  !important;*/
+}
+
+.small-times {
+    background: #212B37;
+    color: white !important;
+    border:1px solid #2170F4;
+    border-right:none ;
+    border-radius: 3px 0px 0px 3px !important;
+}
+
+.right-tab {
+    background: #104BAD;
+    color: white !important;
+    padding: 3px 4px;
+    padding-top: 2px;
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    margin-right: 1px !important;
+}
+
+.left-tab-container .right-tab {
+    font-size: 20px;
+    margin-right: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+/*下方柱状图*/
+#echarts-left-bottom1{
+    height:230px;
+    width:100%;
+}
+
+
+/*-----------------------------------右侧环形图信息------------------------------------*/
+
+.right-annular-container{
+    margin-right: 0px !important;
+}
+
+/*运维统计*/
+.pointer-title1{
+
+    background: url('../img/jiashicang/yunwei.png') no-repeat 18px center !important;
+}
+
+/*能耗统计*/
+.pointer-title2{
+
+    background: url('../img/jiashicang/nenghao.png') no-repeat 18px center !important;
+}
+
+
+/*-------------------------------------页面中间上方天气信息----------------------------------*/
+.top-weather-container .left-weather-data{
+    width:220px;
+    height: 164px;
+    float: left;
+    color:white;
+
+}
+
+.top-weather-container .right-weather-data{
+    width:580px;
+    height: 164px;
+    float: left;
+    color:white;
+    background: #3E4A5D;
+    position: relative;
+}
+
+
+.left-weather-data .top-temperature{
+    height: 80px;
+    line-height: 100px;
+    position: relative;
+    text-indent: 60px;
+    font-size: 40px;
+    background: url(../img/jiashicang/cloud.png) no-repeat 120px center;
+    margin-bottom: 12px;
+}
+
+.left-weather-data .top-temperature .weather-message{
+
+    position: absolute;
+    left:114px;
+    top:52px;
+    font-size: 14px;
+    line-height: 20px;
+    width:40px;
+    text-align: center;
+    display: inline-block;
+    text-indent: 0px;
+}
+
+/*左侧下方信息*/
+.left-weather-data .bottom-message{
+    font-size: 13px;
+    margin-bottom: 3px;
+    text-align: center;
+
+}
+
+.left-weather-data .the-weather .the-title{
+
+    width:45px;
+    text-align: right;
+    height: 22px;
+    line-height: 22px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.left-weather-data .the-weather .title-wind{
+
+    background: url(../img/jiashicang/feng.png) no-repeat left center;
+}
+
+.left-weather-data .the-weather .title-humidity{
+
+    background: url(../img/jiashicang/shidu.png) no-repeat left center;
+}
+
+.left-weather-data .the-weather .the-wind-data{
+    margin-right: 30px;
+    display: inline-block;
+    width:24px;
+}
+
+.left-weather-data .the-humidity-data{
+    display: inline-block;
+    width:26px;
+}
+
+.left-weather-data .the-air .title-air{
+
+    width:100px;
+    text-align: right;
+    height: 22px;
+    line-height: 22px;
+    display: inline-block;
+    background: url(../img/jiashicang/kongqi.png) no-repeat left center;
+}
+
+.left-weather-data .the-air .the-wind-data{
+
+    display: inline-block;
+    width:28px;
+}
+
+.left-weather-data .the-air .the-air-evaluate{
+    display: inline-block;
+    width:55px;
+    height:16px;
+    background: #14E398;
+    margin-left: 5px;
+}
+
+/*右侧一周温度信息*/
+.right-weather-data .right-week-message-container{
+
+    width:14.2%;
+    border-right:1px solid #2B333E;
+    height: 164px;
+    float: left;
+}
+
+.right-weather-data .wu{
+
+    background: url(../img/jiashicang/wu.png) no-repeat center 40px;
+}
+
+.right-weather-data .yun{
+
+    background: url(../img/jiashicang/cloud.png) no-repeat center 40px;
+}
+
+.right-weather-data .right-week-message-container p{
+    text-align: center;
+    color: #DADADA;
+
+}
+
+.right-weather-data .right-week-message-container .date{
+    padding-top:15px;
+    padding-bottom:22px;
+}
+
+.right-weather-data .bottom-temp-curve{
+    height: 80px;
+    position: absolute;
+    left:0;
+    bottom:0;
+    width: 100%;
+    z-index: 1000;
+}
+
+
+

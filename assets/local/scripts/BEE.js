@@ -360,6 +360,12 @@ var BEE = (function(){
 
         var $logout = $('.logout-page');
         $logout.attr('href',curLoginPage);
+
+        //页面下方版本号
+        if(sessionStorage.versionNumber){
+
+            $('.page-footer-inner').html(sessionStorage.versionNumber);
+        }
     };
 
     //设置页面的标题部分

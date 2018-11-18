@@ -139,6 +139,7 @@ $(function(){
             _myChart4.resize();
             _myChart5.resize();
 
+
         }
     };
 
@@ -149,6 +150,7 @@ $(function(){
 var myChart = echarts.init(document.getElementById('energy-demand'));
 
 //echart配置项
+//为了使总能耗也有loading等待效果，覆盖一个echarts
 //为了使总能耗也有loading等待效果，覆盖一个echarts
 
 //分项能耗

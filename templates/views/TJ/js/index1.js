@@ -411,6 +411,7 @@ function systemCapacityEchart(){
 
         systemCapacityEcahrtArr[i].setOption(option0,true);
     })
+
 };
 
 //冗余量echart图
