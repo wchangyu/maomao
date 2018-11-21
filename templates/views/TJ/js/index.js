@@ -1,6 +1,6 @@
 $(function(){
 
-    _moTaiKuang($('#myModal'),'报警提示','',false,false,'')
+    _moTaiKuang($('#myModal'),'报警提示','',false,false,'');
 
     /*-----------------------------------echart---------------------------------------------*/
 
@@ -65,7 +65,7 @@ $(function(){
         {value:110, name:'故障'},
         {value:200, name:'停用'}
 
-    ]
+    ];
 
     _ringChartR.setOption(_ringOption,true);
 

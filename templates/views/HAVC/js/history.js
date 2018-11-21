@@ -236,7 +236,7 @@ var History = function () {
         var sp = $("#spDT").val();
         var ep = $("#epDT").val();
         var mtsp = moment(sp).format('YYYY-MM-DD');
-        var mtep = moment(ep).format('YYYY-MM-DD');;
+        var mtep = moment(ep).format('YYYY-MM-DD');
         var dp = mtep - mtsp;
         var days = Math.floor(dp / (24 * 3600 * 1000));
 

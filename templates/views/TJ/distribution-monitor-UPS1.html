@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>配电系统-蓄电池</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/><meta name="format-detection" content="telephone=no">
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <link rel="stylesheet" href="css/seal-monitor-humiture.css">
+    <link rel="stylesheet" href="css/seal-monitor-ari.css">
+    <link rel="stylesheet" href="css/new-style.css">
+    <style>
+
+        .bottom-img-content {
+            background: white;
+            height: 180px;
+            margin-bottom: 15px;
+        }
+
+        .right-electricity .rongliang{
+
+            width: 50%;
+            float:left;
+            height: 180px;
+        }
+
+        .right-alarm {
+            background: white;
+            height: auto;
+        }
+
+
+        /*流程图名称*/
+        .userMonitor-name{
+            height: 40px;
+            line-height: 40px;
+            padding-left:12px;
+            padding-right: 12px;
+            color:#CDD4E1;
+            display: inline-block;
+            text-align: center;
+            text-indent: 0px;
+            cursor: pointer;
+            border:1px solid #3674D9;
+        }
+
+        .left-diagram .top-title .onChoose{
+
+            background: #3674D9;
+            color:white;
+        }
+
+
+        .switchover {
+            width: 24px;
+            height: 20px;
+            display: block;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            background: url(img/pd-xitongtu.png) no-repeat;
+            background-size: 100% 100%;
+            cursor: pointer;
+        }
+
+        .switchover1 {
+            background: url(img/pd-pingmiantu.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        /*右侧数据*/
+
+        .bottom-echart-container{
+            height: 220px;;
+            width:96%;
+        }
+
+
+        .right-echart-container{
+
+            padding-top:20px;
+            width:96%;
+            border:1px solid #59677D;
+            margin:0 auto;
+        }
+
+        .bottom-data-echart h3{
+            color:white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .bottom-data-echart{
+            width:100%;
+            padding-bottom:10px;
+            border-bottom: 1px solid #74839B;
+        }
+
+        .bottom-data-echart .bottom-echart-container{
+            width:33%;
+            float: left;
+            height:100px;
+        }
+
+
+        /*下方数据表格*/
+        .bottom-content-container{
+            position: relative;
+            height: 800px;
+            padding-top:20px;
+        }
+
+        .bottom-content-container .left-accumulator{
+
+            width:350px;
+            height:700px;
+            position: absolute;
+            left:20px;
+            top:20px;
+            border:1px solid #59677D;
+        }
+
+        .bottom-content-container .right-accumulator{
+
+            position: absolute;
+            right:20px;
+            left: auto;
+            bottom:20px;
+
+        }
+
+        .left-accumulator{
+            padding-top:20px;
+            padding-left:10px;
+            padding-right:10px;
+        }
+
+        .center-img{
+
+            height:700px;
+            background: url('img/ups-GIF.gif') no-repeat center 100px;
+            position: relative;
+            padding-top:150px;
+            box-sizing: border-box;
+            margin-left:380px;
+            margin-right:380px;
+            position: relative;
+
+        }
+
+        .center-img .bottom-data-container{
+
+            width:100%;
+            position: absolute;
+            left:0;
+            bottom:0;
+            height:250px;
+            background: url('img/peidian/03.png') no-repeat 12% center;
+            background-size: 22%;
+            background-color:rgba(54,64,80,0.7);
+        }
+
+        .center-img .border-title{
+            border:none;
+        }
+
+
+        .border-title{
+            border-bottom: 1px solid #74839B;
+            padding-bottom:10px;
+            height: 50px;
+        }
+
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container" style="">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px;">
+
+                                <!--上方流程图-->
+                                <div class="left-diagram">
+
+                                    <span class="switchover" data-id="1"></span>
+
+                                    <h3 class="top-title left-title1">UPS
+
+                                    </h3>
+
+                                    <div class="bottom-content-container">
+
+                                        <!--中间图片-->
+                                        <div class="center-img">
+
+                                            <!--<img src="img/peidian/jixiang.png" alt="" style="width:71%;display:block;margin: 0 auto">-->
+
+                                            <!--下方数据-->
+                                            <div class="bottom-data-container">
+
+                                                <div style="height:20px;"></div>
+                                                <h3 class="border-title"><span>蓄电池</span></h3>
+
+                                                <div class="bottom-data-message">
+
+                                                    <p>
+                                                        <span class="left-name">蓄电池电压：  </span>
+                                                        <span class="right-data">220V</span>
+                                                        <span class="right-message">蓄电池放电电压底</span>
+                                                    </p>
+
+                                                    <p>
+                                                        <span class="left-name">蓄电池温度：  </span>
+                                                        <span class="right-data">34.5℃</span>
+                                                        <span class="right-message">蓄电池故障</span>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!--左侧告警状态-->
+                                        <div class="left-accumulator">
+
+
+                                                <h3 class="border-title"><span>输入参数</span></h3>
+
+                                                <!--下方echart-->
+                                                <div class="bottom-data-echart">
+
+
+
+                                                    <div class="bottom-echart-container" id="accmulator-echart">
+
+                                                    </div>
+
+                                                    <div class="bottom-echart-container" id="accmulator-echart00" style="">
+
+                                                    </div>
+
+                                                    <div class="bottom-echart-container" id="accmulator-echart000" style="">
+
+                                                    </div>
+
+                                                    <div class="clearfix"></div>
+
+                                                </div>
+
+                                                <!--下方echart-->
+                                                <div class="bottom-data-echart" style="margin-bottom:15px;">
+
+                                                    <div style="height:20px;"></div>
+
+                                                    <div class="bottom-echart-container" id="accmulator-echart1">
+
+                                                    </div>
+
+                                                    <div class="bottom-echart-container" id="accmulator-echart01" style="">
+
+                                                    </div>
+
+                                                    <div class="bottom-echart-container" id="accmulator-echart001" style="">
+
+                                                    </div>
+
+                                                    <div class="clearfix"></div>
+
+
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+                                                <!--下方功率数据-->
+                                                <div class="bottom-power-data">
+
+                                                    <p>
+                                                        <span class="left-name">输入功率：</span>
+                                                        <span class="right-data">50%</span>
+                                                        <span class="right-progress"><font class="blue"></font></span>
+                                                    </p>
+
+                                                    <p>
+                                                        <span class="left-name">有功功率：</span>
+                                                        <span class="right-data">12%</span>
+                                                        <span class="right-progress"><font class="green"></font></span>
+                                                    </p>
+
+                                                    <p>
+                                                        <span class="left-name">无功功率：</span>
+                                                        <span class="right-data">50%</span>
+                                                        <span class="right-progress"><font class="yellow"></font></span>
+                                                    </p>
+
+                                                    <p>
+                                                        <span class="left-name">总功率：</span>
+                                                        <span class="right-data">12%</span>
+                                                        <span class="right-progress"><font class="pink"></font></span>
+                                                    </p>
+
+
+                                                </div>
+
+
+
+                                            <div class="bottom-inner-container" style="position: relative">
+
+                                                <!--下方饼图-->
+                                                <div class="bottom-pie-echart" id="bottom-pie" style="position: relative;z-index: 9999">
+
+
+                                                </div>
+
+                                                <div class="legend" style="">
+
+                                                    <span class="patch green"></span>
+                                                    <span>有功功率</span>
+
+                                                    <span class="patch yellow"></span>
+                                                    <span>无功功率</span>
+
+                                                    <span class="patch blue"></span>
+                                                    <span>故障</span>
+
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <!--右侧设备状态-->
+                                        <div class="left-accumulator right-accumulator">
+
+
+                                            <h3 class="border-title"><span>输出参数</span></h3>
+
+                                            <!--下方echart-->
+                                            <div class="bottom-data-echart">
+
+
+
+                                                <div class="bottom-echart-container" id="accmulator-echart2">
+
+                                                </div>
+
+                                                <div class="bottom-echart-container" id="accmulator-echart02" style="">
+
+                                                </div>
+
+                                                <div class="bottom-echart-container" id="accmulator-echart002" style="">
+
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+                                            </div>
+
+                                            <!--下方echart-->
+                                            <div class="bottom-data-echart" style="margin-bottom:15px;">
+
+                                                <div style="height:20px;"></div>
+
+                                                <div class="bottom-echart-container" id="accmulator-echart1">
+
+                                                </div>
+
+                                                <div class="bottom-echart-container" id="accmulator-echart01" style="">
+
+                                                </div>
+
+                                                <div class="bottom-echart-container" id="accmulator-echart001" style="">
+
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+
+                                            </div>
+
+                                            <div class="clearfix"></div>
+
+                                            <!--下方功率数据-->
+                                            <div class="bottom-power-data">
+
+                                                <p>
+                                                    <span class="left-name">输入功率：</span>
+                                                    <span class="right-data">50%</span>
+                                                    <span class="right-progress"><font class="blue"></font></span>
+                                                </p>
+
+                                                <p>
+                                                    <span class="left-name">有功功率：</span>
+                                                    <span class="right-data">12%</span>
+                                                    <span class="right-progress"><font class="green"></font></span>
+                                                </p>
+
+                                                <p>
+                                                    <span class="left-name">无功功率：</span>
+                                                    <span class="right-data">50%</span>
+                                                    <span class="right-progress"><font class="yellow"></font></span>
+                                                </p>
+
+                                                <p>
+                                                    <span class="left-name">总功率：</span>
+                                                    <span class="right-data">12%</span>
+                                                    <span class="right-progress"><font class="pink"></font></span>
+                                                </p>
+
+
+                                            </div>
+
+
+
+                                            <div class="bottom-inner-container" style="position: relative">
+
+                                                <!--下方饼图-->
+                                                <div class="bottom-pie-echart" id="bottom-pie1" style="position: relative;z-index: 9999">
+
+
+                                                </div>
+
+                                                <div class="legend" style="">
+
+                                                    <span class="patch green"></span>
+                                                    <span>有功功率</span>
+
+                                                    <span class="patch yellow"></span>
+                                                    <span>无功功率</span>
+
+                                                    <span class="patch blue"></span>
+                                                    <span>故障</span>
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="bottom-state-container">
+
+                                            <p>市电故障 <span class="green-ball"></span></p>
+
+                                            <p>整流器故障 <span class="green-ball"></span></p>
+
+                                            <p>逆变器故障 <span class="green-ball"></span></p>
+
+                                            <p>旁路故障 <span class="green-ball"></span></p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+
+
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../resource/js/userMonitor.js"></script>
+<script src="js/distribution-monitor-UPS1.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

@@ -122,7 +122,10 @@ $(function(){
 
                         '<span class="left-tab left-tab2" unit-type="211" style="padding-left:50px;">水</span>' +
 
-                        '<span class="left-tab left-tab3" unit-type="2011" style="padding-left:50px;">汽</span>'
+                        '<span class="left-tab left-tab3" unit-type="2011" style="padding-left:50px;">汽</span>';
+
+
+        $('.inner-left-top .right-picture-data').css('background','url(../njn-resource/img/njnPic.png) no-repeat');
 
     }else if(_colorLocation == 1){
 
@@ -137,6 +140,10 @@ $(function(){
             '<span class="left-tab left-tab2" unit-type="211" style="padding-left:50px;display: none">水</span>' +
 
             '<span class="left-tab left-tab3" unit-type="211" style="padding-left:50px;">水</span>'
+
+
+        $('.inner-left-top .right-picture-data').css('background','url(../njn-resource/img/hqPic.png) no-repeat');
+
 
     }
 
@@ -458,13 +465,13 @@ function drawRightTab1(){
         '<span class="right-tab right-tab2 " ><a href="coldHeatSource1.html">冷热站</a></span>' +
         '<span class="right-tab right-tab2"><a href="elevator.html">电梯系统</a></span>' +
         '<span class="right-tab right-tab2" jump-data="0"><a href="javascript:;">照明系统</a></span>' +
-        '<span class="right-tab right-tab2"><a href="sealHead.html">动环系统</a></span>' +
+        '<span class="right-tab right-tab2"><a href="javascript:;">动环系统</a></span>' +
         '<span class="right-tab right-tab2 "><a href="airConditioner.html">空调箱</a></span>' +
             //'<span class="right-tab right-tab2"><a href="platform.html">站台照明</a></span>' +
             '<span class="right-tab right-tab2 "><a href="exhaustAir.html">送排风</a></span>' +
-        '<span class="right-tab right-tab2"><a href="supDraWater.html">给排水</a></span>' +
+        '<span class="right-tab right-tab2"><a href="javascript:;">给排水</a></span>' +
 
-        '<span class="right-tab right-tab3 "><a href="energyManagement.html">能源管理</a></span>';
+        '<span class="right-tab right-tab3 "><a href="javascript:;">能源管理</a></span>';
 
     //插入页面中
     $('.inner-right-container .right-tab-container').html(tabHtml);
@@ -1352,17 +1359,17 @@ function getPostTime(){
 
     if(dateType == '日'){
 
-        startTime = moment().format('YYYY-MM-DD');
-        endTime = moment(startTime).add('1','days').format('YYYY-MM-DD');
+        startTime = moment().format('YYYY/MM/DD');
+        endTime = moment(startTime).add('1','days').format('YYYY/MM/DD');
 
     }else if(dateType == '月'){
 
-        startTime = moment().startOf('month').format('YYYY-MM-DD');
-        endTime = moment().endOf('month').add('1','days').format('YYYY-MM-DD');
+        startTime = moment().startOf('month').format('YYYY/MM/DD');
+        endTime = moment().endOf('month').add('1','days').format('YYYY/MM/DD');
     }else if(dateType == '年'){
 
-        startTime = moment().startOf('year').format('YYYY-MM-DD');
-        endTime = moment().endOf('year').add('1','days').format('YYYY-MM-DD');
+        startTime = moment().startOf('year').format('YYYY/MM/DD');
+        endTime = moment().endOf('year').add('1','days').format('YYYY/MM/DD');
 
     }
 
@@ -1691,12 +1698,12 @@ function getPointerData(){
             option00.yAxis[0].name = '单位:('+unit+')';
 
             //判断是否返回数据
-            if(result == null){
+            if(!result ){
 
-                option00.xAxis[0].data = [];
-                option00.series[0].data = [];
+                //option00.xAxis[0].data = [];
+                //option00.series[0].data = [];
 
-                leftBottomChart1.setOption(option00);
+               // leftBottomChart1.setOption(option00);
 
                 return false;
             }

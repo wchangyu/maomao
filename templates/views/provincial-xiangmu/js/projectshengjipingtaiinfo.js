@@ -8,7 +8,7 @@ var areastongji = [];
 var bottomCharts = null;
 var dom = document.getElementById("container");
 var myChart = echarts.init(dom);
-
+var xiangmu_urls = sessionStorage.getItem("apiprovincialproject");
 
 //获取单位类型
 var danweileixinglist = null;
@@ -18,7 +18,7 @@ function getdanweileixinglist() {
     $.ajax({
         type: "GET",
         cache: false,
-        url: _urls + 'ProvincialProject/GetAllProjRemouldMode',
+        url: xiangmu_urls + 'ProvincialProject/GetAllProjRemouldMode',
         success: function(res) {
             if (res.code == 99) {
                 danweileixinglist = res.data;
@@ -41,7 +41,7 @@ function getdanweileixinglist() {
 var epcleixinglist = null;
 getALLProvincProjEPCType();
 function getALLProvincProjEPCType() {
-    var url = _urls + "ProvincialProject/GetALLProvincProjEPCType";
+    var url = xiangmu_urls + "ProvincialProject/GetALLProvincProjEPCType";
     $.ajax({
         type: "GET",
         cache: false,
@@ -259,7 +259,7 @@ $(function() {
                     '<div id="' + '' + '" class="file-item thumbnail col-md-4">' +
                     '<img class="yulan">' +
                     '<div class="info">' + name + '</div>' +
-                    '<div><img class="tupiandiv  downloadwenjian" src="./img/xiazai.png" title="点击可以下载" data-myurl="'+ item.f_FileAllPath +'"/></div>' +
+                    '<div><img class="tupiandiv  downloadwenjian img-responsive center-block" src="./img/xiazai.png" title="点击可以下载" data-myurl="'+ item.f_FileAllPath +'"/></div>' +
                     '</div>'
                 );
 
@@ -297,9 +297,9 @@ $(function() {
 })
 
 function getProjectByType(f_DistrictID, fK_ProjRemouldMode, f_InvestmentMin, f_InvestmentMax, url, callback) {
-    var dataurl = _urls + "ProvincialProject/GetProjRemouldInfoQuery";
+    var dataurl = xiangmu_urls + "ProvincialProject/GetProjRemouldInfoQuery";
     if(url){
-        dataurl = _urls + "ProvincialProject/GetAllChildProjRemouldInfoQuery";
+        dataurl = xiangmu_urls + "ProvincialProject/GetAllChildProjRemouldInfoQuery";
     }
 
     xiangmualldata = [];
@@ -385,7 +385,7 @@ function getProjectByType(f_DistrictID, fK_ProjRemouldMode, f_InvestmentMin, f_I
 // 获取所有项目类型
 function getAllxiangmuleixinglist( callback) {
     var callback = callback;
-    var url = _urls + "ProvincialProject/GetAllProjRemouldMode";
+    var url = xiangmu_urls + "ProvincialProject/GetAllProjRemouldMode";
     $.ajax({
         type: "GET",
         cache: false,
@@ -546,7 +546,7 @@ function getxiangmushishijindu() {
     $.ajax({
         type: "GET",
         cache: false,
-        url: _urls + 'ProvincialProject/GetAllProjSchedule',
+        url: xiangmu_urls + 'ProvincialProject/GetAllProjSchedule',
         success: function(res) {
             if (res.code == 99) {
                 xiangmushishijindulist = res.data;
@@ -707,7 +707,7 @@ function creatChartsByOption() {
 //查看详细信息  getiteminfo
 
 function getProItemData(id, callback) {
-    var url = _urls + "ProvincialProject/GetProjRemouldInfoByID/" + id;
+    var url = xiangmu_urls + "ProvincialProject/GetProjRemouldInfoByID/" + id;
     $.ajax({
         type: "GET",
         cache: false,
@@ -785,7 +785,7 @@ function callbackHell(info){
     var val = $(".see-hezuofangshi").val();
     var infodata = info;
     //attr == 1 代表选中了epc类型是
-    var url = _urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+val;
+    var url = xiangmu_urls + "ProvincialProject/GetOneProjRemouldMode?collaborateWay="+val;
     $.ajax({
         type: "GET",
         cache: false,

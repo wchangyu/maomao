@@ -64,10 +64,16 @@ $(function(){
 
 
 //定义数组长度
-var spaceDataLength = 12;
+var spaceDataLength = 11;
 
 //定义内容
 var contentArr = ['通讯状态','故障状态','烟雾状态'];
+
+//存放状态值 0为全部正常
+var stateArr = [0,0,1,0,3,3,0,0,0,2];
+
+//当前索引
+var thisIndex = 0;
 
 //页面绘制极早烟雾报警
 function drawSpaceData(){
@@ -82,11 +88,13 @@ function drawSpaceData(){
         //定义内容字符串
         var contentHtml = '';
 
+        var stateValue = stateArr[thisIndex];
+
         $(contentArr).each(function(k,j){
 
-            var num = Math.random();
+            var num = stateValue - 1;
 
-            if(num > 0.3){
+            if(num != k){
 
                 contentHtml += '<p>'+j+'</p>';
 
@@ -95,7 +103,11 @@ function drawSpaceData(){
                 contentHtml += '<p class="alarm-data">'+j+'</p>';
 
             }
+
+
         });
+
+        thisIndex ++;
 
 
         dataHtml +=

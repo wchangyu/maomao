@@ -136,7 +136,7 @@
             <!--右侧图片及统计-->
             <div class="right-picture-data">
 
-                <p class="right-picture-title">上海虹桥火车站 <br/><span>（shanghaihongqiao Station）</span>
+                <p class="right-picture-title">
                 </p>
 
                 <p class="right-picture-statistics">接入系统：<span></span>个</p>
@@ -426,6 +426,7 @@
                                 <span class="">148</span><br>
                                 <span class="">60</span><br>
                                 <span class="">20</span>
+
                             </div>
 
                             <!--echart容器-->
@@ -451,9 +452,10 @@
                 <!--动环系统-->
                 <div class="right-bottom-equipment-container" style="margin-right:0">
 
-                    <h4 class="equipment-title rotating-title"><a href="sealHead.html">动环系统</a></h4>
+                    <!--<h4 class="equipment-title rotating-title"><a href="sealHead.html">动环系统</a></h4>-->
+                    <h4 class="equipment-title rotating-title"><a href="javascript:;">动环系统</a></h4>
                     <!--下方echarts图-->
-                    <div class="right-bottom-equipment-content">
+                    <div class="right-bottom-equipment-content no-data">
 
                         <!--左侧电量-->
                         <div class="bottom-equipment-chart-container">
@@ -630,9 +632,12 @@
                 <!--给排水-->
                 <div class="right-bottom-equipment-container right-bottom-equipment-container1">
 
-                    <h4 class="equipment-title station-title"><a href="supDraWater.html">给排水</a></h4>
+                    <!--<h4 class="equipment-title station-title"><a href="supDraWater.html">给排水</a></h4>-->
+
+                    <h4 class="equipment-title station-title"><a href="javascript:;">给排水</a></h4>
+
                     <!--下方echarts图-->
-                    <div class="right-bottom-equipment-content">
+                    <div class="right-bottom-equipment-content no-data">
 
                         <!--左侧电量-->
                         <div class="bottom-equipment-chart-container">
@@ -671,7 +676,9 @@
                                 <p class="chart-data"><font class="cur-data">0</font><span class="total-data">/1000</span>
                                 </p>
                                 <p class="chart-power1">紧急报警<span class="total-data">/监测点</span></p>
+
                             </div>
+
                         </div>
 
 
@@ -684,9 +691,10 @@
                 <!--能源管理-->
                 <div class="right-bottom-equipment-container right-bottom-equipment-container1" style="margin-right:0">
 
-                    <h4 class="equipment-title water-title"><a href="energyManagement.html">能源管理</a></h4>
+                    <!--<h4 class="equipment-title water-title"><a href="energyManagement.html">能源管理</a></h4>-->
+                    <h4 class="equipment-title water-title"><a href="javascript:;">能源管理</a></h4>
                     <!--下方echarts图-->
-                    <div class="right-bottom-equipment-content">
+                    <div class="right-bottom-equipment-content no-data">
 
                         <!--左侧电量-->
                         <div class="bottom-equipment-chart-container">
@@ -1761,15 +1769,6 @@
 <script src="../new-resource/js/common.js"></script>
 <script src="../njn-resource/js/common.js"></script>
 <script src="../njn-resource/js/dapingzhanshi/pandectEnergy1.js"></script>
-<script>
 
-    jQuery(document).ready(function() {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        Demo.init(); // init demo features
-        BEE.init();
-    });
-
-</script>
 </body>
 </html>

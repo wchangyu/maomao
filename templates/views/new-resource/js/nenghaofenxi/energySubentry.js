@@ -34,6 +34,22 @@ $(function(){
     //加载初始数据
     getPointerData('EnergyAnalyzeV2/GetEnergyItemByCode',1);
 
+    //点击表格中操作中下拉按钮
+    $('#dateTables').on('click','.details-control',function(){
+
+        var dom = $(this).parents('tr');
+
+        if(dom.hasClass("shown")){
+
+            $(this).next().html('↑');
+
+        }else{
+
+            $(this).next().html('↓');
+        }
+
+    });
+
 
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
@@ -307,7 +323,6 @@ function getPointerData(url,flag){
 
             $('.right-header-title').html('' + energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
 
-
             //绘制echarts
 
             //表格中的数据
@@ -358,6 +373,7 @@ function getPointerData(url,flag){
                 })
 
             });
+
             //电分项
             if(flag == 1){
                 option.series[0].data = sArr1;
@@ -457,7 +473,8 @@ var table = $('#dateTables').DataTable({
 
                 var num = meta.row;
 
-                return '<span data-num="'+num+'" title="点击查看二级分项" class="details-control" style="cursor: pointer">'+data+'</span>';
+                return '<span data-num="'+num+'" title="点击查看二级分项" class="details-control" style="cursor: pointer">'+data+'</span> <span class="button-switch">↓</span>';
+
             }
 
         },
@@ -480,6 +497,7 @@ var table = $('#dateTables').DataTable({
 
     ]
 });
+
 //水分项
 var table1 = $('#dateTables1').DataTable({
     "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
@@ -533,8 +551,6 @@ var table1 = $('#dateTables1').DataTable({
                 return (data * 100).toFixed(2) + '%';
             }
         }
-
-
 
     ]
 });

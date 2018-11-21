@@ -6,15 +6,23 @@ $(function(){
     //点击诊断内容
     $('.bottom-diagram-message').on('click','.specific-data',function(){
 
-        $('#diagnostic-myModal').modal('show');
+        var index = $(this).parents('.bottom-specific-message').index();
 
+        $('.alarm-container').eq(index).modal('show');
+
+        //获取当前名称
+        var name = $(this).text();
+
+        $('.alarm-container').eq(index).find('.modal-title').html(name);
+
+        $('.alarm-container').eq(index).find('.message-title').eq(0).html(name);
 
     });
 
     //诊断弹窗中确定按钮
-    $('#diagnostic-myModal .bottom-btn span').on('click',function(){
+    $('.alarm-container .bottom-btn span').on('click',function(){
 
-        $('#diagnostic-myModal').modal('hide');
+        $(this).parents('.alarm-container').modal('hide');
 
         _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'执行成功', '');
 
@@ -209,7 +217,7 @@ var option0 = {
                     },
                     formatter: function(params){
 
-                        return params.value
+                        return params.name + ':' + params.value
                     }
 
                 },
@@ -262,12 +270,12 @@ var option0 = {
             },
             data:[
                 {
-                    name:'紧急',
-                    value:2
+                    name:'严重',
+                    value:3
                 },
                 {
                     name:'一般',
-                    value:6
+                    value:3
                 }
             ]
         }
@@ -278,7 +286,7 @@ var option0 = {
 var diagramEchart1 = echarts.init(document.getElementById('diagram-echart1'));
 
 
-// 指定图表的配置项和数据 用于弹窗展示
+// 指定图表的配置项和数据 用于供配电弹窗展示
 var diagramOption2 = {
 
     tooltip:{
@@ -398,6 +406,302 @@ var diagramOption2 = {
 var diagramEchart2 = echarts.init(document.getElementById('diagnostic-data-echart'));
 
 diagramEchart2.setOption(diagramOption2,true);
+
+
+// 指定图表的配置项和数据 用于空调弹窗展示
+var diagramOption3 = {
+
+    tooltip:{
+        trigger:'axis',
+        axisPointer:{
+            type:'shadow'
+        },
+        show:false,
+        formatter:function (params) {
+            var tar = params[1];
+            var tars = params[0];
+            return tar.name + '<br/>' + tar.seriesName + '  ' + tar.value + '<br/>' + tars.seriesName + '  ' + tars.value;
+        }
+    },
+    toolbox:{
+        show:false,
+        feature:{
+            mark:{show:true},
+            dataView:{show:true, readOnly:false},
+            restore:{show:true},
+            saveAsImage:{show:true}
+        }
+    },
+    grid:{
+        left:'1%',
+        right:'1%',
+        bottom:'8%',
+        top:"20%",
+        borderColor:'#ccc',
+        containLabel:true
+    },
+    legend: {
+        orient : 'horizontal',
+        left : 'center',
+        y : 10,
+        itemGap:8,
+        data:['供水管网压力'],
+        show:true,
+        itemWidth:12,
+        itemHeight:12,
+        padding: 5,
+        textStyle:{
+            color:'#687EA2',
+            fontSize:12
+        }
+    },
+    xAxis:{
+        show:'true',
+        type : 'category',
+        axisLabel: {
+            color:'#959595' //刻度线标签颜色
+        },
+        data:['00:00','02:00','04:00','06:00','08:00','10:00','12:00','14:00','16:00','18:00','20:00','22:00']
+    },
+    yAxis:{
+        type:'value',
+        axisLabel: {
+            color:'#959595' //刻度线标签颜色
+        }
+    },
+    series:[
+        {
+            name:'供水管网压力',
+            type:'line',
+            stack:'总量',
+            label:{
+                normal:{
+                    show:false,
+                    position:'inside'
+                }
+            },
+            itemStyle:{
+                normal:{
+                    color:'#F25B72'
+                }
+            },
+            markLine:{
+
+                data : [
+                    [ {name: '',  x: 30, y: 140},
+
+                        {name: '', x: 500, y: 140}]
+
+                ]
+
+            },
+            data:[25,27,26,25,36,38,39,31,32,31,30,32.5]
+        }
+    ]
+};
+
+//弹窗中温度趋势折线图
+var diagramEchart3 = echarts.init(document.getElementById('diagnostic-data-echart1'));
+
+diagramEchart3.setOption(diagramOption3,true);
+
+// 指定图表的配置项和数据 用于环境弹窗展示
+var diagramOption4 = {
+
+    tooltip:{
+        trigger:'axis',
+        axisPointer:{
+            type:'shadow'
+        },
+        show:false,
+        formatter:function (params) {
+            var tar = params[1];
+            var tars = params[0];
+            return tar.name + '<br/>' + tar.seriesName + '  ' + tar.value + '<br/>' + tars.seriesName + '  ' + tars.value;
+        }
+    },
+    toolbox:{
+        show:false,
+        feature:{
+            mark:{show:true},
+            dataView:{show:true, readOnly:false},
+            restore:{show:true},
+            saveAsImage:{show:true}
+        }
+    },
+    grid:{
+        left:'1%',
+        right:'1%',
+        bottom:'8%',
+        top:"20%",
+        borderColor:'#ccc',
+        containLabel:true
+    },
+    legend: {
+        orient : 'horizontal',
+        left : 'center',
+        y : 10,
+        itemGap:8,
+        data:['1#机房温度'],
+        show:true,
+        itemWidth:12,
+        itemHeight:12,
+        padding: 5,
+        textStyle:{
+            color:'#687EA2',
+            fontSize:12
+        }
+    },
+    xAxis:{
+        show:'true',
+        type : 'category',
+        axisLabel: {
+            color:'#959595' //刻度线标签颜色
+        },
+        data:['00:00','02:00','04:00','06:00','08:00','10:00','12:00','14:00','16:00','18:00','20:00','22:00']
+    },
+    yAxis:{
+        type:'value',
+        axisLabel: {
+            color:'#959595' //刻度线标签颜色
+        }
+    },
+    series:[
+        {
+            name:'1#机房温度',
+            type:'line',
+            stack:'总量',
+            label:{
+                normal:{
+                    show:false,
+                    position:'inside'
+                }
+            },
+            itemStyle:{
+                normal:{
+                    color:'#F25B72'
+                }
+            },
+            markLine:{
+
+                data : [
+                    [ {name: '',  x: 30, y: 110},
+
+                        {name: '', x: 500, y: 110}]
+
+                ]
+
+            },
+            data:[25,27,26,25,22]
+        }
+    ]
+};
+
+//弹窗中温度趋势折线图
+var diagramEchart4 = echarts.init(document.getElementById('diagnostic-data-echart2'));
+
+diagramEchart4.setOption(diagramOption4,true);
+
+
+// 指定图表的配置项和数据 用于能效弹窗展示
+var diagramOption5 = {
+
+    tooltip:{
+        trigger:'axis',
+        axisPointer:{
+            type:'shadow'
+        },
+        show:false,
+        formatter:function (params) {
+            var tar = params[1];
+            var tars = params[0];
+            return tar.name + '<br/>' + tar.seriesName + '  ' + tar.value + '<br/>' + tars.seriesName + '  ' + tars.value;
+        }
+    },
+    toolbox:{
+        show:false,
+        feature:{
+            mark:{show:true},
+            dataView:{show:true, readOnly:false},
+            restore:{show:true},
+            saveAsImage:{show:true}
+        }
+    },
+    grid:{
+        left:'1%',
+        right:'1%',
+        bottom:'8%',
+        top:"20%",
+        borderColor:'#ccc',
+        containLabel:true
+    },
+    legend: {
+        orient : 'horizontal',
+        left : 'center',
+        y : 10,
+        itemGap:8,
+        data:['自身效率'],
+        show:true,
+        itemWidth:12,
+        itemHeight:12,
+        padding: 5,
+        textStyle:{
+            color:'#687EA2',
+            fontSize:12
+        }
+    },
+    xAxis:{
+        show:'true',
+        type : 'category',
+        axisLabel: {
+            color:'#959595' //刻度线标签颜色
+        },
+        data:['00:00','02:00','04:00','06:00','08:00','10:00','12:00','14:00','16:00','18:00','20:00','22:00']
+    },
+    yAxis:{
+        type:'value',
+        axisLabel: {
+            color:'#959595' //刻度线标签颜色
+        }
+    },
+    series:[
+        {
+            name:'自身效率',
+            type:'line',
+            stack:'总量',
+            label:{
+                normal:{
+                    show:false,
+                    position:'inside'
+                }
+            },
+            itemStyle:{
+                normal:{
+                    color:'#F25B72'
+                }
+            },
+            markLine:{
+
+                data : [
+                    [ {name: '',  x: 30, y: 100},
+
+                        {name: '', x: 500, y: 100}]
+
+                ]
+
+            },
+            data:[45,47,46,45,42,52,56,58,63,61,53,56]
+        }
+    ]
+};
+
+//弹窗中温度趋势折线图
+var diagramEchart5 = echarts.init(document.getElementById('diagnostic-data-echart3'));
+
+diagramEchart5.setOption(diagramOption5,true);
+
+
+
 
 //页面诊断信息赋值
 var diagnosticArr = ['2','1','1','2'];

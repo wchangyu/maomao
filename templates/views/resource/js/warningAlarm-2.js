@@ -984,7 +984,7 @@ $(function(){
         var typeFlag = false;
         var localType;
         //获取本地存储的能耗种类
-        if(sessionStorage.getItem('menuArg') != ''){
+        if(sessionStorage.menuArg && sessionStorage.getItem('menuArg') != ''){
 
             localType = sessionStorage.getItem('menuArg').split(',')[0];
         }
@@ -1022,7 +1022,7 @@ $(function(){
                 var ztreeSettings = {
                     check: {
                         enable: true,
-                        chkStyle: "radio",
+                        chkStyle: "checkbox",
                         chkboxType: { "Y": "ps", "N": "ps" },
                         radioType: 'all'
                     },
@@ -1101,7 +1101,7 @@ $(function(){
                 var ztreeSettings = {
                     check: {
                         enable: true,
-                        chkStyle: "radio",
+                        chkStyle: "checkbox",
                         chkboxType: { "Y": "ps", "N": "ps" },
                         radioType: 'all'
 
@@ -1141,6 +1141,18 @@ $(function(){
 
         var nodes = ztree.getCheckedNodes(true);
 
+        if(nodes.length > 1){
+
+          $(nodes).each(function(i,o){
+
+             if(!o.pId){
+
+                 nodes.remove(o);
+             }
+
+          });
+        }
+
         var curPointer = {};
 
         variable = [];
@@ -1177,25 +1189,58 @@ $(function(){
             pointer.push(_pointer_ID[i].pointerID);
         }
         //获取检测类型
-        var localType = sessionStorage.getItem('menuArg').split(',')[2];
+        var localType;
+
+        if(sessionStorage.menuArg){
+
+            localType = sessionStorage.getItem('menuArg').split(',')[2];
+        }
+
         if(!localType){
             localType = '';
         }
 
+        console.log(_alarm_ID);
 
         if(_alarm_ID.length !=0){
-            alarm = _alarm_ID[0].id;
 
-            //if( _alarm_ID[0].id=='000' ){
-            //
-            //    alarm = '';
-            //}
+            $(_alarm_ID).each(function(i,o){
+
+                if(i != _alarm_ID.length -1){
+
+                    alarm += o.id + ',';
+
+                }else{
+
+                    alarm += o.id + '';
+                }
+
+            });
+
+
         }
 
+        console.log(alarm);
+
         if( _energy_ID.length !=0){
-            energy = _energy_ID[0].id;
+
+
             if( _energy_ID[0].id=='000' ){
                 energy==''
+            }else{
+
+                $( _energy_ID).each(function(i,o){
+
+                    if(i !=  _energy_ID.length -1){
+
+                        energy += o.id + ',';
+
+                    }else{
+
+                        energy += o.id + '';
+                    }
+
+                });
             }
         }
 

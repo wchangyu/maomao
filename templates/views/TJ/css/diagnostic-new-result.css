@@ -170,45 +170,45 @@
 
 
 /*弹窗信息*/
-#diagnostic-myModal .alarm-title {
+.alarm-container .alarm-title {
     background: #687EA2;
     color: white;
     font-size: 18px;
     padding: 10px;
 }
 
-#diagnostic-myModal .modal-content {
+.alarm-container .modal-content {
     width: 1000px !important;
 }
 
-#diagnostic-myModal .modal-dialog {
+.alarm-container .modal-dialog {
     width: 1000px !important;
 }
 
-#diagnostic-myModal .alarm-content{
+.alarm-container .alarm-content{
 
     height:500px;
     padding:15px 10px 0px 15px;
 }
 
-#diagnostic-myModal .left-echart-container{
+.alarm-container .left-echart-container{
     width: 50%;
     float: left;
 }
 
-#diagnostic-data-echart{
+.alarm-container .bottom-echart{
     height: 350px;
     width:450px;
 }
 
 /*右侧原因分析*/
-#diagnostic-myModal .right-analyze-container{
+.alarm-container .right-analyze-container{
     float: right;
     width:50%;
     padding-left:15px;
 }
 
-#diagnostic-myModal .right-analyze-message{
+.alarm-container .right-analyze-message{
 
     height:180px;
     padding:15px 0px 0px 15px;
@@ -218,18 +218,18 @@
     margin-bottom:15px;
 }
 
-#diagnostic-myModal .right-analyze-message p{
+.alarm-container .right-analyze-message p{
     line-height: 24px;
 }
 
-#diagnostic-myModal .bottom-btn{
+.alarm-container .bottom-btn{
 
     position: absolute;
     right:15px;
     bottom:15px;
 }
 
-#diagnostic-myModal .bottom-btn span{
+.alarm-container .bottom-btn span{
     display: inline-block;
     width:57px;
     height:28px;
@@ -241,7 +241,7 @@
     cursor: pointer;
 }
 
-#diagnostic-myModal .bottom-btn .sure{
+.alarm-container .bottom-btn .sure{
 
     border:1px solid #3674D9;
 }

@@ -28,115 +28,115 @@ var echartDataArr=[
 
  [
      {
-         name:'报废到期',
+         name:'高压设备',
          value:12
      },
      {
-         name:'保修到期',
+         name:'低压设备',
          value:8
      },
      {
-         name:'逾期未还',
+         name:'制冷系统',
          value:6
      },
      {
-         name:'维保到期',
+         name:'空调末端',
          value:14
      },
      {
-         name:'在线异常',
+         name:'动环系统',
          value:18
      }
  ],
 
     [
         {
-            name:'报废到期',
-            value:6
-        },
-        {
-            name:'逾期未还',
-            value:8
-        },
-        {
-            name:'维保到期',
-            value:4
-        },
-        {
-            name:'在线异常',
-            value:11
-        }
-    ],
-
-    [
-        {
-            name:'报废到期',
-            value:3
-        },
-
-        {
-            name:'逾期未还',
-            value:8
-        },
-        {
-            name:'维保到期',
-            value:6
-        }
-    ],
-
-    [
-        {
-            name:'报废到期',
-            value:6
-        },
-        {
-            name:'保修到期',
-            value:12
-        },
-        {
-            name:'逾期未还',
-            value:8
-        },
-        {
-            name:'维保到期',
-            value:4
-        },
-        {
-            name:'在线异常',
-            value:11
-        }
-    ],
-
-    [
-        {
-            name:'保修到期',
+            name:'许继',
             value:16
         },
         {
-            name:'逾期未还',
+            name:'南瑞',
+            value:14
+        },
+        {
+            name:'约克',
+            value:10
+        },
+        {
+            name:'开利',
+            value:18
+        }
+    ],
+
+    [
+        {
+            name:'已解决',
+            value:42
+        },
+
+        {
+            name:'未解决',
+            value:16
+        }
+    ],
+
+    [
+        {
+            name:'严重故障',
+            value:6
+        },
+        {
+            name:'较重故障',
+            value:12
+        },
+        {
+            name:'一般故障',
+            value:40
+        }
+    ],
+
+    [
+        {
+            name:'高压设备',
+            value:16
+        },
+        {
+            name:'低压设备',
             value:8
         },
         {
-            name:'维保到期',
+            name:'制冷系统',
             value:4
         },
         {
-            name:'在线异常',
+            name:'空调末端',
             value:11
+        },
+        {
+            name:'动环系统',
+            value:19
         }
     ],
     [
         {
-            name:'报废到期',
+            name:'>48h',
             value:6
         },
         {
-            name:'维保到期',
-            value:4
+            name:'24h~48h',
+            value:8
         },
         {
-            name:'在线异常',
+            name:'12h~24h',
             value:11
+        },
+        {
+            name:'2h~12h',
+            value:8
+        },
+        {
+            name:'<2h',
+            value:25
         }
     ]
 ];

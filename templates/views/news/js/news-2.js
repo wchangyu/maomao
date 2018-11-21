@@ -259,6 +259,9 @@ $(function(){
                         conditionSelect();
                         moTaiKuang($('#myModal'),title,flag,meg)
                         $('#myModal1').modal('hide');
+                    }else if( result == 2){
+                        $('#myModal1').modal('hide');
+                        moTaiKuang($('#myModal'),'提示','flag','栏目重复！');
                     }else if( result == 3){
                         $('#myModal1').modal('hide');
                         moTaiKuang($('#myModal'),'提示','flag','执行失败！');

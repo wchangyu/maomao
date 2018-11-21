@@ -60,13 +60,16 @@
 
 .small-times{
 
-    border: 1px solid #3CABD9;
-
+    border:none;
+    background: white;
+    color:#212121 !important;
 }
 
 .right-tab{
 
-    background: #3CABD9;
+    background: #C5C5C5;
+
+    color:#000000 !important;
 
     padding: 6px;
 
@@ -86,9 +89,15 @@
 
 }
 
+.right-bottom-equipment .bottom-content-data {
+
+    font-size: 14px;
+
+}
+
 .small-times{
 
-    padding: 5px;
+    padding: 6px;
 
     border-bottom-left-radius: 4px !important;
 
@@ -156,11 +165,11 @@
 
 }
 
-.inner-left-top .right-picture-data{
+/*.inner-left-top .right-picture-data{*/
 
-    background: url("../../img/hqPic.png") no-repeat;
+    /*background: url("../../img/hqPic.png") no-repeat;*/
 
-}
+/*}*/
 
 .inner-left-top{
 
@@ -182,7 +191,7 @@
 
 .inner-left-container{
 
-    background: #1E3352;
+    background: #212121;
 
 }
 
@@ -190,11 +199,16 @@
 
     background: url("../../img/juxingdaH.png")no-repeat;
 
+    background-size: 100% 100%;
+
 }
+
 
 .right-bottom-equipment-contentH{
 
     background: url("../../img/juxingxiaoH.png")no-repeat !important;
+
+
 
 }
 
@@ -203,6 +217,8 @@
     background: url('../../img/windH.png') no-repeat !important;
 
 }
+
+
 
 .right-bottom-equipment .elevator-title{
 
@@ -246,6 +262,8 @@
 
 }
 
+
+
 .left-specific-data1{
 
     color: #3CABD9;
@@ -261,7 +279,8 @@
 }
 
 .right-bottom-container .right-bottom-content-chart {
-    background: #1e3352 !important;
+    background: #212121 !important;
+    border:1px solid #303D4E;
 }
 
 /*#echarts-left-bottom2{*/
@@ -276,6 +295,7 @@
     overflow: hidden;
 
 }
+
 
 .right-bottom-centent .right-bottom-centent-title {
     /* margin: 0; */
@@ -390,6 +410,10 @@
 
 }
 
+.right-bottom-centent-data .bottom-data font{
+    color:#EACE24;
+}
+
 .right-bottom-centent-dataN{
 
     padding-top: 15px;
@@ -397,6 +421,7 @@
     height: 117px !important;
 
     background: url("../../img/yellowBorderHN.png") no-repeat 0px 5px !important;
+
 
 }
 
@@ -439,4 +464,28 @@
     outline: none;
     width: 63px;
     height: 24px;
+}
+
+/*页面字体调整*/
+*{
+    font-family: 'SimHei' !important;
+}
+
+.safe-days{
+    color:#eace24;
+}
+
+.right-bottom-container .right-bottom-centent-data .top-title {
+
+    font-size: 16px;
+}
+
+.right-bottom-container .right-bottom-centent-data .bottom-data span {
+    font-size: 14px;
+}
+
+/*没数据的动环 给排水 能管背景色换*/
+.right-bottom-equipment .no-data {
+    background: url(../../img/wushujuda.png)no-repeat;
+    background-size: 100% 100%;
 }

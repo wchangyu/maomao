@@ -659,7 +659,13 @@ function getPointerData(url,flag){
 
                 //确定x轴
                 for(var i=0;i<allData[0].length;i++){
+
                     var dataSplit = allData[0][i].dataDate.split('T')[0];
+
+                    if(showDateType == 'Month'){
+
+                        dataSplit = dataSplit.split('-')[0] + '-'+ dataSplit.split('-')[1];
+                    }
 
                     if(allDataX.indexOf(dataJoin)<0){
                         allDataX.push(dataSplit);

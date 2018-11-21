@@ -39,7 +39,6 @@ $(function(){
 
     });
 
-
     //点击切换楼宇或单位时，改变上方能耗类型
     $('.left-middle-main .left-middle-tab').on('click',function(){
 
@@ -72,7 +71,9 @@ $(function(){
             }
             //默认选中第一个能耗
             $('.selectedEnergy').addClass('blueImg0');
+
         }else{
+
 
         };
 
@@ -450,7 +451,7 @@ function getDevInfoCTypes(equipObj){
     //发送请求
     $.ajax({
         type:'post',
-        url:sessionStorage.apiUrlPrefix+"NJNDeviceShow/GetDevInfoCTypes",
+        url:sessionStorage.apiUrlPrefix+"NJNDeviceShow/GetDevInfoCTypeGroups",
         data:ecParams,
         timeout:_theTimes,
         beforeSend:function(){
@@ -477,7 +478,8 @@ function getDevInfoCTypes(equipObj){
 
                     id : o.id,
                     name : o.devName,
-                    devCNameTModels : o.devCNameTModels
+                    devCNameTModels : o.devCNameTModels,
+                    devCdataTypeGroups: o.devCdataTypeGroups
                 };
 
                 equipmentArr.push(obj);
@@ -734,6 +736,7 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
 
                 //如果是点击属性选择树状图
                 if(flag == 2){
+
                     $('#' + treeId).find('.checkbox_true_full_focus').next('a').addClass('curSelectedNode');
 
                     var treeObj = $.fn.zTree.getZTreeObj("allNature");
@@ -929,7 +932,12 @@ function getZNodes1(EnItdata){
 
         }else{
 
-                zNodes.push({ id: pointerID, pId:0, name:o.name,title: o.name,open:ifOpen,checked:false});
+            if(o.parentId){
+                zNodes.push({ id: pointerID, pId:o.parentId, name:o.name,title: o.name,open:false,checked:false});
+
+            }else{
+                zNodes.push({ id: pointerID, pId:0, name:o.name,title: o.name,open:false,checked:false});
+            }
 
 
         }
@@ -992,14 +1000,26 @@ function getNatureTree(equipID){
 
         if(o.id == equipID){
 
-            //console.log(o.devCNameTModels);
-
-            $(o.devCNameTModels).each(function(i,o){
+            $(o.devCdataTypeGroups).each(function(i,o){
 
                 var obj = {
-                    name : o.cNameT,
-                    id : o.cNameTID
+                    name : o.devCdataTypeName,
+                    id : o.devCdataTypeID
                 };
+
+                var parentId = o.devCdataTypeID;
+
+                $(o.devCNameTModels).each(function(k,j){
+
+                    var obj = {
+                        name : j.cNameT,
+                        id : j.cNameTID,
+                        parentId:parentId
+                    };
+
+                    natureArr.push(obj);
+
+                });
 
                 natureArr.push(obj);
             });

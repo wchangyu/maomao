@@ -1814,7 +1814,13 @@ $('#monitor-menu-container').on('click','span',function(){
             ew = 'WC';
 
             $('.right-bottom-content1 .control-area-span').html("西");
+
+        }else{
+
+            $('.right-bottom-content1 .control-area-span').html("");
         }
+
+
 
         $(".right-bottom-content1 .right-bottom-content-bottom .consumption-container").find('span').removeClass('onClick');
 

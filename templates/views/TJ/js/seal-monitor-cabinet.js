@@ -61,7 +61,7 @@ $(function(){
 
 
 //定义数组长度
-var spaceDataLength = 12;
+var spaceDataLength = 25;
 
 
 //页面绘制右侧数据
@@ -234,7 +234,7 @@ var option0 = {
         y:'10px',
         data:['已用','未用'],
         textStyle:{
-            color:'#333'
+            color:'#999'
         },
         show:true
 

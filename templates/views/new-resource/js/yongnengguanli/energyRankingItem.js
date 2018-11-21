@@ -266,8 +266,27 @@ var optionBar = {
             data:[],
             markPoint : {
                 data : [
-                    {type : 'max', name: '最大值'},
-                    {type : 'min', name: '最小值'}
+                    {
+                        type : 'max',
+                        name: '最大值',
+                        itemStyle:{
+                            color:'#F25B72'
+                        },
+                        textStyle:{
+                            color:'#F25B72'
+                        }
+
+                    },
+                    {
+                        type : 'min',
+                        name: '最小值',
+                        itemStyle:{
+                            color:'#5BDEB6'
+                        },
+                        textStyle:{
+                            color:'#F25B72'
+                        }
+                    }
                 ],
                 itemStyle : {
                     normal:{

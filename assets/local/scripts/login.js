@@ -582,6 +582,10 @@ var Login = function() {
                     var useNewIframeUrl = data["useNewIframeUrl"] || '';
                     sessionStorage.useNewIframeUrl = useNewIframeUrl;
 
+                    //版本号
+                    var versionNumber = data["versionNumber"] || '';
+                    sessionStorage.versionNumber = versionNumber;
+
                     //车站大屏页面跳转方式
                     var  stationJumpType = data["stationJumpType"] || '';
                     sessionStorage. stationJumpType =  stationJumpType;

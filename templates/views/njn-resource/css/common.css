@@ -96,7 +96,7 @@
 .inner-left-top .right-picture-data{
     width:292px;
     height:411px;
-    background:url("../img/njnPic.png") no-repeat;
+    /*background:url("../img/njnPic.png") no-repeat;*/
     opacity:0.79;
     position: absolute;
     right:15px;
@@ -185,7 +185,8 @@
     height: 60px;
     position: absolute;
     left: 140px;
-    top: -5px;
+    top: 0px;
+    z-index: 1000;
 }
 
 

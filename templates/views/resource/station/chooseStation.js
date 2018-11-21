@@ -130,7 +130,7 @@ function classifyArrByInitial(arr,num){
     });
 
     $(classifyArr).each(function(i,o){
-        //获取当年的首字母
+        //获取当前的首字母
         var initial = o.key;
 
         var dataArr = o.value;

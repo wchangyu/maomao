@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/><meta name="format-detection" content="telephone=no">
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+
+    </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+
+                            <!--上方切换按钮-->
+                            <div class="switch-btn-container switch-btn-container0">
+                                <span class="onChoose" data-type="0">夏季供冷-平日</span>
+                                <span  data-type="0">夏季供冷-节假日</span>
+                                <span  data-type="0">过渡季供冷-平日</span>
+                                <span  data-type="0">过渡季供冷-节假日</span>
+                            </div>
+
+                            <!--上方切换按钮-->
+                            <div class="switch-btn-container switch-btn-container1">
+                                <span class=""  data-type="1">冬季供暖-平日</span>
+                                <span data-type="1">冬季供暖-节假日</span>
+                                <span data-type="1">过渡季供暖-平日</span>
+                                <span data-type="1">过渡季供暖-节假日</span>
+
+                            </div>
+
+                            <!--下划线-->
+                            <div class="underline"></div>
+
+
+                            <div class="top-select-container">
+
+                                <!--下方表格-->
+                                <div class="bottom-content-container">
+
+                                    <div class="main-contents-table">
+
+                                        <!--上方标题及按钮-->
+                                       <p>
+                                           <span class="title">夏季供冷-平日</span>
+                                           <button class="btn redact">编辑</button>
+                                           <button class="btn sure">确认</button>
+                                           <button class="btn cancel">取消</button>
+                                       </p>
+
+                                        <table id="scrap-datatables" class="table table-striped   table-hover table-fixation" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>时间</th>
+                                                    <th>站房使用情况</th>
+                                                    <th>设备</th>
+                                                    <th>启停状态</th>
+                                                    <th>纳入群控冷机</th>
+                                                    <th>最多开启冷机数</th>
+                                                    <th>冷冻供水温度℃</th>
+                                                    <th>冷冻供回水温差℃</th>
+                                                    <th>冷冻供回水压差kPa</th>
+                                                    <th>冷却回水温度℃</th>
+                                                    <th>冷却供回水温差℃</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="scrollbar">
+
+                                            </tbody>
+
+                                        </table>
+
+                                        <table id="scrap-datatables1" class="table table-striped  table-hover table-fixation" cellspacing="0" width="100%" style="display: none">
+                                            <thead>
+                                            <tr>
+                                                <th>时间</th>
+                                                <th>站房使用情况</th>
+                                                <th>设备</th>
+                                                <th>启停状态</th>
+                                                <th>纳入群控换热罐</th>
+                                                <th>最多开启换热罐</th>
+                                                <th>采暖供水温度℃</th>
+                                                <th>采暖供回水温差℃</th>
+                                                <th>采暖供回水压差kPa</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="scrollbar">
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init(true);
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--页面js-->
+<script src="js/professorTactics.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>驾驶舱</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/><meta name="format-detection" content="telephone=no">
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index1.css">
+    <link rel="stylesheet" href="css/index-beisheng.css">
+    <style>
+
+        .page-bar{
+            height: 0px !important;
+            overflow: hidden;
+            padding:0 !important;
+        }
+
+        #the-body .page-content{
+            background: #1c2026;
+            /*padding:5px !important;*/
+            padding-top: 2px !important;
+        }
+
+         .container {
+            padding-top: 0px !important;
+        }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content" id="the-body">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12 no-padding">
+                    <div class="total-warp">
+                        <div class="wrap container " style="min-width:1656px !important;">
+
+                            <!--左侧环形图-->
+                            <div class="left-annular-container">
+
+                                <!--各楼层数据-->
+                                <div class="pointer-data-container">
+
+                                    <h3 class="pointer-title">101#楼</h3>
+
+                                    <!--左侧空调设备-->
+                                    <div class="bottom-equipment-chart-container ">
+
+                                        <div class="bottom-equipment-chart-background"></div>
+
+                                        <!--数据-->
+                                        <div class="bottom-content-data" >
+
+                                            <span class="">200</span><br>
+                                            <span class="">18</span><br>
+                                            <span class="">10</span>
+                                        </div>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-equipment-chart bottom-equipment-chart-data" id="equipment-chart-conditioner">
+
+                                        </div>
+
+                                        <h3 class="echart-title">空调设备</h3>
+
+                                    </div>
+
+                                    <!--右侧蒸汽-->
+                                    <div class="bottom-equipment-chart-container">
+
+                                        <div class="bottom-equipment-chart-background"></div>
+
+                                        <!--数据-->
+                                        <div class="bottom-content-data">
+
+                                            <span class="">20.6%</span><br>
+                                            <span class="">25.6℃</span>
+                                        </div>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-equipment-chart bottom-equipment-chart-show" id="equipment-chart-conditioner1">
+
+                                        </div>
+
+                                        <h3 class="echart-title">EMS</h3>
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                                <div class="pointer-data-container">
+
+                                    <h3 class="pointer-title">102#楼</h3>
+
+                                    <!--左侧空调设备-->
+                                    <div class="bottom-equipment-chart-container ">
+
+                                        <div class="bottom-equipment-chart-background"></div>
+
+                                        <!--数据-->
+                                        <div class="bottom-content-data" >
+
+                                            <span class="">200</span><br>
+                                            <span class="">18</span><br>
+                                            <span class="">10</span>
+                                        </div>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-equipment-chart bottom-equipment-chart-data" id="">
+
+                                        </div>
+
+                                        <h3 class="echart-title">空调设备</h3>
+
+                                    </div>
+
+                                    <!--右侧蒸汽-->
+                                    <div class="bottom-equipment-chart-container">
+
+                                        <div class="bottom-equipment-chart-background"></div>
+
+                                        <!--数据-->
+                                        <div class="bottom-content-data">
+
+                                            <span class="">20.6%</span><br>
+                                            <span class="">25.6℃</span>
+                                        </div>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-equipment-chart bottom-equipment-chart-show" id="">
+
+                                        </div>
+
+                                        <h3 class="echart-title">EMS</h3>
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                                <div class="pointer-data-container">
+
+                                    <h3 class="pointer-title">103#楼</h3>
+
+                                    <!--左侧空调设备-->
+                                    <div class="bottom-equipment-chart-container ">
+
+                                        <div class="bottom-equipment-chart-background"></div>
+
+                                        <!--数据-->
+                                        <div class="bottom-content-data" >
+
+                                            <span class="">200</span><br>
+                                            <span class="">18</span><br>
+                                            <span class="">10</span>
+                                        </div>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-equipment-chart bottom-equipment-chart-data" id="">
+
+                                        </div>
+
+                                        <h3 class="echart-title">空调设备</h3>
+
+                                    </div>
+
+                                    <!--右侧蒸汽-->
+                                    <div class="bottom-equipment-chart-container">
+
+                                        <div class="bottom-equipment-chart-background"></div>
+
+                                        <!--数据-->
+                                        <div class="bottom-content-data">
+
+                                            <span class="">20.6%</span><br>
+                                            <span class="">25.6℃</span>
+                                        </div>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-equipment-chart bottom-equipment-chart-show" id="">
+
+                                        </div>
+
+                                        <h3 class="echart-title">EMS</h3>
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+
+
+                            </div>
+
+                            <!--中间天气情况及展示图-->
+                            <div class="center-weather-container">
+
+                                <!--上方天气信息-->
+                                <div class="top-weather-container">
+
+                                    <!--左侧信息-->
+                                    <div class="left-weather-data">
+
+                                        <!--上方温度-->
+                                        <div class="top-temperature">9°
+
+                                            <span class="weather-message">阴</span>
+                                        </div>
+
+                                        <p class="the-date bottom-message">
+                                            <span class="date"> </span>
+                                            <span class="week">星期 </span>
+                                            <span class="nongli">农历十月初九</span>
+                                        </p>
+
+                                        <p class="the-weather bottom-message">
+
+                                            <span class="the-title title-wind">北风 </span>
+                                            <span class="the-wind-data">3级</span>
+
+                                            <span class="the-title title-humidity">湿度 </span>
+                                            <span class="the-humidity-data">36%</span>
+
+                                        </p>
+
+                                        <p class="the-air bottom-message">
+
+                                            <span class="the-title title-air">空气质量指数</span>
+                                            <span class="the-wind-data">19</span>
+
+                                            <span class="the-air-evaluate">优</span>
+                                        </p>
+
+                                    </div>
+
+                                    <!--右侧具体数据-->
+
+                                    <div class="right-weather-data">
+
+                                        <div class="right-week-message-container wu">
+
+                                            <p class="date"></p>
+                                            <p class="weather-message">雾</p>
+
+                                        </div>
+
+                                        <div class="right-week-message-container yun">
+
+                                            <p class="date"></p>
+                                            <p class="weather-message">阴转多云</p>
+
+                                        </div>
+
+                                        <div class="right-week-message-container yun">
+
+                                            <p class="date"></p>
+                                            <p class="weather-message">阴转多云</p>
+
+                                        </div>
+
+                                        <div class="right-week-message-container yun">
+
+                                            <p class="date"></p>
+                                            <p class="weather-message">阴转多云</p>
+
+                                        </div>
+
+                                        <div class="right-week-message-container yun">
+
+                                            <p class="date"></p>
+                                            <p class="weather-message">阴转多云</p>
+
+                                        </div>
+
+                                        <div class="right-week-message-container yun">
+
+                                            <p class="date"></p>
+                                            <p class="weather-message">阴转多云</p>
+
+                                        </div>
+
+                                        <div class="right-week-message-container yun" style="border-right: none">
+
+                                            <p class="date"></p>
+                                            <p class="weather-message">阴转多云</p>
+
+                                        </div>
+
+                                        <div class="clearfix"></div>
+
+                                        <!--下方温度曲线-->
+                                        <div class="bottom-temp-curve" id="bottom-temp-curve">
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                                <!--中间图片-->
+                                <div class="middle-pointer-img">
+
+                                    <img src="img/jiashicang/tu.png" alt="">
+
+                                </div>
+
+                                <!--下方能管数据-->
+                                <div class="bottom-energy-echart ">
+
+                                    <h2 class="right-bottom-centent-title">能源管理</h2>
+
+                                    <!--上方选项卡-->
+                                    <div class="left-tab-container right-bottom-energyment-control">
+
+                                        <!--左侧选项卡-->
+                                        <div style="float:left">
+                                            <span class="left-tab left-tab1 left-tab-choose0 left-tab-choose"  unit-type="01" style="padding-left:40px;">电</span>
+                                            <span class="left-tab left-tab2" unit-type="211" style="padding-left:50px;">水</span>
+                                            <span class="left-tab left-tab3" unit-type="2011" style="padding-left:50px;">汽</span>
+                                        </div>
+
+                                        <div class="interval0" style="float:right">
+                                            <div style="height:5px;"></div>
+                                            <font class="year small-times"></font>
+                                            <span class="right-tab ">年</span>
+                                            <font class="month  small-times"></font>
+                                            <span class="right-tab ">月</span>
+                                            <font class="day  small-times"></font>
+                                            <span class="right-tab right-tab-choose">日</span>
+                                        </div>
+
+                                    </div>
+
+                                    <!--下方柱状图-->
+                                    <div class="left-bottom-content" id="echarts-left-bottom1">
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!--右侧环形图-->
+                            <div class="left-annular-container right-annular-container">
+
+                                <!--偏差统计数据-->
+                                <div class="pointer-data-container">
+
+                                    <h3 class="pointer-title">偏差统计</h3>
+
+                                    <!--左侧环图-->
+                                    <div class="bottom-equipment-chart-container ">
+
+                                        <div class="bottom-equipment-chart-background"></div>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-equipment-chart bottom-equipment-chart-shows" id="equipment-chart-right">
+
+                                        </div>
+
+                                        <h3 class="echart-title">本年</h3>
+
+                                    </div>
+
+                                    <!--右侧echart-->
+                                    <div class="bottom-equipment-chart-container">
+
+                                        <div class="bottom-equipment-chart-background"></div>
+
+
+                                        <!--echart容器-->
+                                        <div class="bottom-equipment-chart bottom-equipment-chart-shows" id="equipment-chart-right1">
+
+                                        </div>
+
+                                        <h3 class="echart-title">本月</h3>
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                                <!--运维统计数据-->
+                                <div class="pointer-data-container">
+
+                                    <h3 class="pointer-title pointer-title1">运维统计</h3>
+
+                                    <!--左侧环图-->
+                                    <div class="bottom-equipment-chart-container ">
+
+                                        <div class="bottom-equipment-chart-background"></div>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-equipment-chart bottom-equipment-chart-shows" id="">
+
+                                        </div>
+
+                                        <h3 class="echart-title">工单响应</h3>
+
+                                    </div>
+
+                                    <!--右侧echart-->
+                                    <div class="bottom-equipment-chart-container">
+
+                                        <div class="bottom-equipment-chart-background"></div>
+
+
+                                        <!--echart容器-->
+                                        <div class="bottom-equipment-chart bottom-equipment-chart-shows" id="">
+
+                                        </div>
+
+                                        <h3 class="echart-title">工单分布</h3>
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                                <!--能耗统计数据-->
+                                <div class="pointer-data-container">
+
+                                    <h3 class="pointer-title pointer-title2">能耗统计</h3>
+
+                                    <!--左侧环图-->
+                                    <div class="bottom-equipment-chart-container ">
+
+                                        <div class="bottom-equipment-chart-background"></div>
+
+                                        <!--echart容器-->
+                                        <div class="bottom-equipment-chart bottom-equipment-chart-shows" id="">
+
+                                        </div>
+
+                                        <h3 class="echart-title">本年</h3>
+
+                                    </div>
+
+                                    <!--右侧echart-->
+                                    <div class="bottom-equipment-chart-container">
+
+                                        <div class="bottom-equipment-chart-background"></div>
+
+
+                                        <!--echart容器-->
+                                        <div class="bottom-equipment-chart bottom-equipment-chart-shows" id="">
+
+                                        </div>
+
+                                        <h3 class="echart-title">本月</h3>
+
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="js/index-beisheng.js"></script>
+<!--<script src="../resource/js/getWeatherMessage.js"></script>-->
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>供配电-高压</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/><meta name="format-detection" content="telephone=no">
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <link rel="stylesheet" href="css/seal-monitor-humiture.css">
+    <link rel="stylesheet" href="css/seal-monitor-ari.css">
+    <link rel="stylesheet" href="css/distribution-monitor-gaoya.css">
+    <link rel="stylesheet" href="css/new-style.css">
+    <style>
+
+        .right-navigation .bottom-data-container {
+            height: 379px;
+        }
+
+        .bottom-img-content {
+            background: white;
+            height: 180px;
+            margin-bottom: 15px;
+        }
+
+        .right-electricity .rongliang{
+
+            width: 50%;
+            float:left;
+            height: 180px;
+        }
+
+        .right-alarm {
+            background: white;
+            height: auto;
+        }
+
+        /*制冷RTI*/
+        .bottom-refrigeration{
+
+            background: url(img/zhileng1.png) no-repeat 10px center;
+            background-color: #687ea3;
+        }
+
+
+        /*流程图名称*/
+        .userMonitor-name{
+            height: 40px;
+            line-height: 40px;
+            padding-left:12px;
+            padding-right: 12px;
+            color:#CDD4E1;
+            display: inline-block;
+            text-align: center;
+            text-indent: 0px;
+            cursor: pointer;
+            border:1px solid #3674D9;
+        }
+
+        .left-diagram .top-title .onChoose{
+
+            background: #3674D9;
+            color:white;
+        }
+
+        /*流程图高度*/
+        #right-container {
+            position: static !important;
+            background: none;
+            width: 100%;
+            height: 650px;
+            overflow: hidden;
+        }
+
+        .switchover {
+            width: 24px;
+            height: 20px;
+            display: block;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            background: url(img/pd-xitongtu.png) no-repeat;
+            background-size: 100% 100%;
+            cursor: pointer;
+        }
+
+        .switchover1 {
+            background: url(img/pd-pingmiantu.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #content-main-right{
+
+            background: none !important;
+        }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container" style="">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left col-lg-9 col-md-9 col-sm-12 col-xs-12" style="padding-right: 0px;">
+
+                                <!--上方流程图-->
+                                <div class="left-diagram">
+
+                                    <span class="switchover" data-id="1"></span>
+
+                                    <h3 class="top-title left-title1">
+                                        高压
+                                    </h3>
+
+                                    <!-- 下方左侧流程图 -->
+                                    <!-- 右边主体数据部分 -->
+                                    <div class="out-container" style="position: relative">
+
+                                        <div id="right-container">
+
+                                            <div class="content-main-right" id="content-main-right">
+                                                <!--浮动显示的控制按钮-->
+                                                <div class="content-ctrls-show" id="content-ctrls">
+                                                </div>
+
+                                                <div class="content-menu-hide" id="content-menu">
+                                                    <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!--下方echart-->
+                                        <div class="bottom-echart-container" style="">
+
+                                            <div class="legend" style="position: absolute;left:10px;top:5px;">
+
+                                                <span class="patch green" style="background: #31BEA4"></span>
+                                                <span>已用</span>
+
+                                                <span class="patch yellow" style="background: #2A9FD0"></span>
+                                                <span>未用</span>
+
+                                            </div>
+
+
+                                            <div class="left-bottom-content" id="left-bottom-echart1">
+
+                                            </div>
+
+                                            <div class="left-bottom-content" id="left-bottom-echart2">
+
+                                            </div>
+
+                                            <div class="left-bottom-content" id="left-bottom-echart3">
+
+                                            </div>
+
+                                            <div class="left-bottom-content" id="left-bottom-echart4">
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!--右侧区域-->
+                            <div class="content-main-right1 col-lg-3 col-md-3 col-sm-12 col-xs-12" style=" height: 650px;">
+
+                                <!--上方高压监控参数-->
+                                <div class="right-navigation" style="margin-bottom:15px;">
+
+                                    <h3 class="top-title top-navigation">供配电高压监控参数</h3>
+
+                                    <div class="bottom-data-container scrollbar">
+
+                                        <div class="data-container" style="margin-bottom:15px">
+
+                                            <h3>1#10KW</h3>
+
+                                            <table class="voltage-table">
+                                                <tr>
+                                                    <td>3相电压(kv)</td>
+                                                    <td>3相电流(A)</td>
+                                                    <td>功率因数</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>10.5</span></td>
+                                                    <td><span>120</span></td>
+                                                    <td><span>0.9</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>10.4</span></td>
+                                                    <td><span>119</span></td>
+                                                    <td><span>0.85</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>10.1</span></td>
+                                                    <td><span>124</span></td>
+                                                    <td><span>0.88</span></td>
+                                                </tr>
+
+                                            </table>
+
+                                        </div>
+
+                                        <div class="data-container">
+
+                                            <h3>2#10KW</h3>
+
+                                            <table class="voltage-table">
+                                                <tr>
+                                                    <td>3相电压(kv)</td>
+                                                    <td>3相电流(A)</td>
+                                                    <td>功率因数</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>10.2</span></td>
+                                                    <td><span>119</span></td>
+                                                    <td><span>0.9</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>10.3</span></td>
+                                                    <td><span>131</span></td>
+                                                    <td><span>0.85</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>10.1</span></td>
+                                                    <td><span>122</span></td>
+                                                    <td><span>0.88</span></td>
+                                                </tr>
+
+                                            </table>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                                <!--下方监控参数-->
+                                <div class="right-navigation">
+
+                                    <h3 class="top-title top-navigation">变压器监控参数</h3>
+
+                                    <div class="bottom-data-container scrollbar">
+
+                                        <div class="data-container" style="margin-bottom:15px">
+
+                                            <h3>变压器 IT-TA</h3>
+
+                                            <table class="voltage-table  transformer-table">
+                                                <tr>
+                                                    <td>Ua(V)</td>
+                                                    <td>Ub(V)</td>
+                                                    <td>Uc(V)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>234</span></td>
+                                                    <td><span>235</span></td>
+                                                    <td><span>232</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>La(V)</td>
+                                                    <td>Lb(V)</td>
+                                                    <td>Lc(A)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>600</span></td>
+                                                    <td><span>610</span></td>
+                                                    <td><span>580</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PF</td>
+                                                    <td></td>
+                                                    <td>P(KW)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>0.9</span></td>
+                                                    <td><span></span></td>
+                                                    <td><span>366</span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Ta(℃)</td>
+                                                    <td>Tb(℃)</td>
+                                                    <td>Tc(℃)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>62</span></td>
+                                                    <td><span>65</span></td>
+                                                    <td><span>66</span></td>
+                                                </tr>
+
+                                            </table>
+
+                                        </div>
+
+                                        <div class="data-container" style="">
+
+                                            <h3>变压器 IT-TB</h3>
+
+                                            <table class="voltage-table  transformer-table">
+                                                <tr>
+                                                    <td>Ua(V)</td>
+                                                    <td>Ub(V)</td>
+                                                    <td>Uc(V)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>234</span></td>
+                                                    <td><span>235</span></td>
+                                                    <td><span>232</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>La(V)</td>
+                                                    <td>Lb(V)</td>
+                                                    <td>Lc(A)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>600</span></td>
+                                                    <td><span>610</span></td>
+                                                    <td><span>580</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PF</td>
+                                                    <td></td>
+                                                    <td>P(KW)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>0.9</span></td>
+                                                    <td><span></span></td>
+                                                    <td><span>366</span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Ta(℃)</td>
+                                                    <td>Tb(℃)</td>
+                                                    <td>Tc(℃)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>62</span></td>
+                                                    <td><span>65</span></td>
+                                                    <td><span>66</span></td>
+                                                </tr>
+
+                                            </table>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+
+
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+
+        sessionStorage.menuArg = '1,8817007051';
+
+        //获取对应流程图
+        userMonitor.init(false,false,1,$('.left-diagram'));
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../resource/js/userMonitor.js"></script>
+<script src="js/distribution-monitor-gaoya.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

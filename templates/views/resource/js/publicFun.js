@@ -1006,6 +1006,7 @@ function _exportExecl(dom){
         exclude_inputs: true,
         copy_table:true
     });
+
 };
 
 /*--------------------------模态框设置--------------------------*/

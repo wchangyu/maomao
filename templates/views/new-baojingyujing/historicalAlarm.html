@@ -12,7 +12,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta content="" name="description"/>
-    <meta content="" name="author"/>
+    <meta content="" name="author"/><meta name="format-detection" content="telephone=no">
     <!--MY STYLE-->
     <!--引用页面中的公共css-->
     <script src="../resource/js/commonCssResource.js"></script>
@@ -38,8 +38,8 @@
 <div id="head-html"></div>
 
 <!-- BEGIN CONTAINER -->
-<!-- BEGIN CONTAINER -->
 <div class="page-container">
+
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar-wrapper">
 
@@ -64,9 +64,9 @@
 
             <div id="menu-html"></div>
 
+
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="total-warp">
@@ -183,7 +183,6 @@
                                     </tbody>
                                 </table>
 
-
                             </div>
 
                         </div>
@@ -198,8 +197,11 @@
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
 <div id="foot-html"></div>
-
 <!-- END FOOTER -->
+<script src="../../../assets/local/scripts/BEE.js"></script>
+
+<script src="../resource/js/commonJsResource.js"></script>
+
 <script>
 
     $('#head-html').load('../resource/html/commonHead.html');
@@ -208,18 +210,20 @@
 
     $('#foot-html').load('../resource/html/commonFoot.html');
 
+    BEE.init();
+
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         Demo.init(); // init demo features
-        BEE.init();
     });
 
 </script>
-<script src="../resource/js/commonJsResource.js"></script>
+
 <!--页面js-->
 <script src="../new-resource/js/common.js"></script>
 <script src="../new-resource/js/baojingyujing/historicalAlarm.js"></script>
+
 
 <!--报警处理框-->
 <div class='modal fade' id='myModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>

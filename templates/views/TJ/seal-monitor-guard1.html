@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>动环监测-门禁</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/><meta name="format-detection" content="telephone=no">
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <link rel="stylesheet" href="css/seal-monitor.css">
+    <link rel="stylesheet" href="css/seal-monitor-humiture.css">
+    <link rel="stylesheet" href="css/seal-monitor-guard.css">
+    <link rel="stylesheet" href="css/new-style.css">
+    <style>
+
+        .bottom-refrigeration {
+            background-color: #2B333E !important;
+            border: 1px solid #3D4958;
+            margin-bottom: 15px !important;
+        }
+
+        /*流程图名称*/
+        .userMonitor-name{
+            height: 40px;
+            line-height: 40px;
+            padding-left:12px;
+            padding-right: 12px;
+            color:#CDD4E1;
+            display: inline-block;
+            text-align: center;
+            text-indent: 0px;
+            cursor: pointer;
+            border:1px solid #3674D9;
+        }
+
+        .left-diagram .top-title .onChoose{
+
+            background: #3674D9;
+            color:white;
+        }
+
+        /*流程图高度*/
+        #right-container {
+            position: static !important;
+            background: none;
+            width: 100%;
+            height: 650px;
+            overflow: hidden;
+            max-height: 1097px;
+        }
+
+        .switchover {
+            width: 24px;
+            height: 20px;
+            display: block;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            background: url(img/pd-xitongtu.png) no-repeat;
+            background-size: 100% 100%;
+            cursor: pointer;
+        }
+
+        .switchover1 {
+            background: url(img/pd-pingmiantu.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+    </style>
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container" style="">
+
+                            <!--左侧区域-->
+                            <div class="content-mian-left col-lg-9 col-md-9 col-sm-12 col-xs-12" style="padding-right: 0px;">
+
+                                <!--上方流程图-->
+                                <div class="left-diagram">
+
+                                    <span class="switchover" data-id="1"></span>
+
+                                    <h3 class="top-title left-title1">
+                                        <span class="userMonitor-name onChoose" data-monitor="8817007032">1#机房</span><span class="userMonitor-name" data-monitor="8817007032">2#机房</span>
+                                    </h3>
+
+                                    <!-- 下方左侧流程图 -->
+                                    <!-- 右边主体数据部分 -->
+                                    <div class="out-container" style="position: relative">
+
+                                        <div id="right-container">
+
+                                            <div class="content-main-right" id="content-main-right">
+                                                <!--浮动显示的控制按钮-->
+                                                <div class="content-ctrls-show" id="content-ctrls">
+                                                </div>
+
+                                                <div class="content-menu-hide" id="content-menu">
+                                                    <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!--下方table表格-->
+                                        <div class="bottom-table-container" style="">
+
+
+                                            <table id="scrap-datatables" class="table table-person table-striped table-bordered table-advance table-hover table-fixation" cellspacing="0" width="100%">
+
+                                                <thead>
+                                                <tr>
+                                                    <td>报警时间</td>
+                                                    <td>报警内容</td>
+                                                    <td>等级</td>
+                                                    <td>状态</td>
+                                                    <td>处理方法</td>
+                                                    <td>完成人</td>
+
+                                                </tr>
+                                                </thead>
+
+                                                <tbody class="scrollbar">
+                                                <tr>
+                                                    <td>7-26 04:00</td>
+                                                    <td>温度高</td>
+                                                    <td class="red">红色</td>
+                                                    <td>已处理</td>
+                                                    <td>CRAH14跳闸，重启</td>
+                                                    <td>张三</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>8-22 08:00</td>
+                                                    <td>温度高</td>
+                                                    <td class="red">红色</td>
+                                                    <td>已处理</td>
+                                                    <td>CRAH14跳闸，重启</td>
+                                                    <td>王五</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>7-26 04:00</td>
+                                                    <td>温度高</td>
+                                                    <td class="yellow">黄色</td>
+                                                    <td>已处理</td>
+                                                    <td>CRAH14跳闸，重启</td>
+                                                    <td>张三</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>7-26 04:00</td>
+                                                    <td>温度高</td>
+                                                    <td class="red">红色</td>
+                                                    <td>已处理</td>
+                                                    <td>CRAH14跳闸，重启</td>
+                                                    <td>张三</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>7-26 04:00</td>
+                                                    <td>温度高</td>
+                                                    <td class="red">红色</td>
+                                                    <td>已处理</td>
+                                                    <td>CRAH14跳闸，重启</td>
+                                                    <td>张三</td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <!--右侧区域-->
+                            <div class="content-main-right1 col-lg-3 col-md-3 col-sm-12 col-xs-12" style=" ">
+
+                                <!--门禁信息-->
+                                <div class="right-navigation">
+
+                                    <h3 class="top-title top-navigation">门禁信息</h3>
+
+                                    <div class="bottom-data-container scrollbar">
+
+                                        <div class="top-visitor-message-container">
+
+                                            <h3 style="" class="message-title">
+                                                <span class="left-patch"></span>
+                                                M1 门禁
+                                            </h3>
+
+                                            <!--上方门禁控制-->
+                                            <div class="visitor-control">
+
+                                                <p>门禁状态<span class="state">正常</span></p>
+
+                                                <p>远程控制<span class="control">开</span></p>
+                                            </div>
+
+                                            <!--下方访客信息-->
+                                            <div class="the-visitor-message">
+
+                                                <h4>当前访客信息</h4>
+
+                                                <div class="visitor-message-data">
+
+                                                    <!--头像-->
+                                                    <img src="img/renxiang.png" alt="">
+
+                                                    <p>
+                                                        姓名：<span class="name">雷杰</span>
+
+                                                    </p>
+                                                    <p>
+                                                        部门：<span class="department">科技发展部</span>
+                                                    </p>
+
+                                                    <p>
+                                                        职位：<span class="name">经理</span>
+
+                                                    </p>
+                                                    <p>
+                                                        工号：<span class="department">644553</span>
+                                                    </p>
+                                                    <p>
+                                                        信息：<span class="time" style="width:auto">2018-10-16 8:53:56</span>
+                                                    </p>
+
+                                                    <p>
+                                                        出入情况：<span class="come">出</span>
+
+                                                    </p>
+                                                    <p>
+                                                        状态：<span class="department">成功</span>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="top-visitor-message-container">
+
+                                            <h3 style="" class="message-title">
+                                                <span class="left-patch"></span>
+                                                M2 门禁
+                                            </h3>
+
+                                            <!--上方门禁控制-->
+                                            <div class="visitor-control">
+
+                                                <p>门禁状态<span class="state">正常</span></p>
+
+                                                <p>远程控制<span class="control">开</span></p>
+                                            </div>
+
+                                            <!--下方访客信息-->
+                                            <div class="the-visitor-message">
+
+                                                <h4>当前访客信息</h4>
+
+                                                <div class="visitor-message-data">
+
+                                                    <!--头像-->
+                                                    <img src="img/touxiang2.png" alt="">
+
+                                                    <p>
+                                                        姓名：<span class="name">李亮</span>
+
+                                                    </p>
+                                                    <p>
+                                                        部门：<span class="department">人才事业部</span>
+                                                    </p>
+
+                                                    <p>
+                                                        职位：<span class="name">经理</span>
+
+                                                    </p>
+                                                    <p>
+                                                        工号：<span class="department">644554</span>
+                                                    </p>
+                                                    <p>
+                                                        信息：<span class="time" style="width:auto">2018-10-17 18:53:22</span>
+                                                    </p>
+
+                                                    <p>
+                                                        出入情况：<span class="come">出</span>
+
+                                                    </p>
+                                                    <p>
+                                                        状态：<span class="department">成功</span>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="top-visitor-message-container">
+
+                                            <h3 style="" class="message-title">
+                                                <span class="left-patch"></span>
+                                                M3 门禁
+                                            </h3>
+
+                                            <!--上方门禁控制-->
+                                            <div class="visitor-control">
+
+                                                <p>门禁状态<span class="state">正常</span></p>
+
+                                                <p>远程控制<span class="control">开</span></p>
+                                            </div>
+
+                                            <!--下方访客信息-->
+                                            <div class="the-visitor-message">
+
+                                                <h4>当前访客信息</h4>
+
+                                                <div class="visitor-message-data">
+
+                                                    <!--头像-->
+                                                    <img src="img/touxiang3.png" alt="">
+
+                                                    <p>
+                                                        姓名：<span class="name">张立军</span>
+
+                                                    </p>
+                                                    <p>
+                                                        部门：<span class="department">科技发展部</span>
+                                                    </p>
+
+                                                    <p>
+                                                        职位：<span class="name">职员</span>
+
+                                                    </p>
+                                                    <p>
+                                                        工号：<span class="department">644558</span>
+                                                    </p>
+                                                    <p>
+                                                        信息：<span class="time" style="width:auto">2018-10-19 12:16:47</span>
+                                                    </p>
+
+                                                    <p>
+                                                        出入情况：<span class="come">出</span>
+
+                                                    </p>
+                                                    <p>
+                                                        状态：<span class="department">成功</span>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="top-visitor-message-container">
+
+                                            <h3 style="" class="message-title">
+                                                <span class="left-patch"></span>
+                                                M4 门禁
+                                            </h3>
+
+                                            <!--上方门禁控制-->
+                                            <div class="visitor-control">
+
+                                                <p>门禁状态<span class="state">正常</span></p>
+
+                                                <p>远程控制<span class="control">开</span></p>
+                                            </div>
+
+                                            <!--下方访客信息-->
+                                            <div class="the-visitor-message">
+
+                                                <h4>当前访客信息</h4>
+
+                                                <div class="visitor-message-data">
+
+                                                    <!--头像-->
+                                                    <img src="img/touxiang4.png" alt="">
+
+                                                    <p>
+                                                        姓名：<span class="name">郭宇</span>
+
+                                                    </p>
+                                                    <p>
+                                                        部门：<span class="department">科技发展部</span>
+                                                    </p>
+
+                                                    <p>
+                                                        职位：<span class="name">职员</span>
+
+                                                    </p>
+                                                    <p>
+                                                        工号：<span class="department">644559</span>
+                                                    </p>
+                                                    <p>
+                                                        信息：<span class="time" style="width:auto">2018-10-20 17:58:12</span>
+                                                    </p>
+
+                                                    <p>
+                                                        出入情况：<span class="come">出</span>
+
+                                                    </p>
+                                                    <p>
+                                                        状态：<span class="department">成功</span>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!--本日统计-->
+                                <div class="right-alarm" style="position: relative;">
+
+                                    <h3 class="top-title bottom-refrigeration">本日统计</h3>
+
+                                    <!--停留信息统计-->
+                                    <div class="top-stay-message">
+
+                                        <div class="top-stay-message-container">
+                                            <p class="number">5</p>
+                                            <p class="name">访客停留</p>
+                                        </div>
+
+                                        <div class="top-stay-message-container">
+                                            <p class="number">5</p>
+                                            <p class="name">员工停留</p>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+
+                                    </div>
+
+                                    <!--下方具体信息-->
+                                    <div class="bottom-specific-data scrollbar">
+
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+
+
+<div id="foot-html"></div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+
+        sessionStorage.menuArg = '1,8817007046';
+
+        //获取对应流程图
+        userMonitor.init(false,false,1,$('.left-diagram'));
+    });
+
+</script>
+
+<script src="../resource/js/commonJsResource.js"></script>
+<script src="../resource/js/userMonitor.js"></script>
+<script src="js/seal-monitor-guard.js"></script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

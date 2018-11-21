@@ -1,3 +1,5 @@
+var xiangmu_urls = sessionStorage.getItem("apiprovincialproject");
+
 $(function () {
     //初始化日期选择控件天
     initDayCalendar($("#datetimeStart"));
@@ -172,7 +174,7 @@ $(function () {
 
         //$('.modal-backdrop').remove();
         //$('body').removeClass('modal-open');
-        var url = _urls + "ProvincialProject/DelProjRemouldMode";
+        var url = xiangmu_urls + "ProvincialProject/DelProjRemouldMode";
         var data=JSON.stringify({
             "PK_ProjRemouldMode":selectID,
             "UserID":"mch",
@@ -210,8 +212,8 @@ $(function () {
        if(!flag){
            return false;
        }
-        var addUrl = _urls + "ProvincialProject/AddProjRemouldMode";
-        var editUrl= _urls + "ProvincialProject/EditProjRemouldMode";
+        var addUrl = xiangmu_urls + "ProvincialProject/AddProjRemouldMode";
+        var editUrl= xiangmu_urls + "ProvincialProject/EditProjRemouldMode";
         var selectItem= $("#selectCollaborateWay option:selected");
         console.log("合作方式："+selectItem.val());
         console.log( $("#selectParentRemould").val());
@@ -318,7 +320,7 @@ $(function () {
     /*--------------------------------方法定义------------------------*/
     //获取所有项目类型
     function getAllProjRemouldMode() {
-        var url = _urls + "ProvincialProject/GetAllProjRemouldMode";
+        var url = xiangmu_urls + "ProvincialProject/GetAllProjRemouldMode";
         //var url = 'http://localhost/BEEWebAPI/api/ProvincialProject/GetAllProjRemouldMode';
         $.ajax({
             type: 'get',
@@ -344,7 +346,7 @@ $(function () {
 
     //获取所有的合作方式
     function  getAllProvincProjCollaborate(){
-        var url = _urls + "ProvincialProject/GetALLProvincProjCollaborate";
+        var url = xiangmu_urls + "ProvincialProject/GetALLProvincProjCollaborate";
         $.ajax({
            type:"get",
             url:url,
@@ -385,7 +387,7 @@ $(function () {
 
     //进入编辑模态窗时，从数据库读取Data数据并赋值模态框
     function EditModelGetData(id){
-        var url = _urls + "ProvincialProject/GetProjRemouldModeByID";
+        var url = xiangmu_urls + "ProvincialProject/GetProjRemouldModeByID";
         $.ajax({
             type:"get",
             url:url,
