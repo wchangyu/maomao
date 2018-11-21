@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
@@ -21,7 +21,6 @@
     <!--自定义样式-->
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/newindex.css">
     <style>
 
         .blues{
@@ -104,29 +103,45 @@
                 <div class="col-md-12">
                     <div class="total-warp">
                         <div class="wrap container">
+
+
                             <div class="top-select-container">
+
                                 <!--上方用户查询框-->
                                 <ul>
+
                                     <li class="right-choose-energy " >
+
+
                                     </li>
+
                                     <div class="clearfix"></div>
+
                                 </ul>
+
                                 <!--下方具体数据-->
                                 <div class="">
+
                                     <!--左侧数据-->
                                     <div class="left-content-container">
+
                                         <!--上方图片-->
                                         <div class="top-img" style="position: relative">
+
                                             <h3 class="top-img-title">浙江省</h3>
+
                                             <div class="top-choose-province">
                                                 <span class="left-img left-img1" title="浙江省" data-id="left-img1" data-ptid="-1"></span>
                                                 <span class="right-img" title="省直" data-id="right-img1" data-ptid="630000"></span>
                                             </div>
-                                            <div style="width:1289px;height:520px;">
+
+                                            <div style="width:1289px;height:771px;">
                                                 <canvas id='myCanvas'></canvas>
                                                 <canvas id='myCanvas2'></canvas>
                                                 <img src="img/new-maps.jpg" alt="" usemap="#Map" class="mapper" style="width:660px !important; height: 404px !important;" id="provinceMap">
+
                                             </div>
+
                                             <map name="Map" id="Map">
 
                                                 <area shape="poly" coords="381,310,391,309,406,296,406,290,409,289,424,293,430,287,426,274,420,271,423,270,416,251,420,250,427,242,426,231,430,228,427,214,423,209,417,208,407,208,401,205,399,205,394,210,390,209,388,203,384,201,382,198,384,190,376,191,369,192,362,194,360,198,353,199,346,206,348,209,345,213,347,222,343,223,343,228,334,233,329,232,324,235,316,247,315,252,320,257,314,260,314,265,320,268,322,268,324,262,327,258,331,261,338,262,346,257,352,256,356,263,358,268,362,266,366,266,372,267,377,264,382,264,388,272,387,277,385,284,381,288,378,299,376,302,380,309" href="javascript:;" alt="台州市"  data-ptid="632100" data-ptname="台州市" zh-name="taizhou" id="map_1"/>
@@ -150,18 +165,51 @@
                                                 <area shape="poly" coords="388,92,362,107,363,116,366,123,368,129,374,130,371,139,376,144,375,148,371,156,377,162,377,168,385,170,385,189,382,198,383,201,386,202,390,208,393,210,399,206,406,207,412,206,418,203,429,205,431,218,446,220,449,211,449,188,449,165,446,162,440,163,431,165,437,158,446,149,461,138,456,136,449,136,445,133,436,134,431,130,425,126,422,123,421,116,417,108,405,101,397,94,388,92" href="javascript:;" alt="宁波市" data-ptid="639902" data-ptname="宁波市" zh-name="ningbo" id="map_10"/>
 
                                                 <area shape="poly" coords="483,57,471,69,469,82,463,94,454,98,456,105,454,110,445,111,442,116,440,120,435,121,435,130,441,131,446,128,445,124,451,127,451,130,457,130,468,132,473,134,472,139,466,142,467,150,463,152,460,151,457,146,453,150,452,155,462,157,470,159,475,153,483,146,485,138,485,127,480,124,475,124,470,118,466,116,471,112,477,111,486,108,485,102,487,96,489,89,489,81,499,72,501,62,492,57,483,56" href="javascript:;" alt="丹山市" data-ptid="639902" data-ptname="丹山市" zh-name="zhoushan" id="map_11"/>
+
                                             </map>
+
                                         </div>
+
+                                        <!--下方表格-->
+                                        <div class="bottom-chart-container left-bottom-table-container">
+
+                                            <h3 class="has-patch">
+                                                <span class="left-patch"></span>
+                                                <span class="right-name right-name1">能耗监测数据汇总</span>
+
+                                            </h3>
+
+                                              <span class="right-choose-date" style="float: right;margin-top:-30px;">
+                                                    <span class="onClick" >日</span>
+                                                    <span class="" >月</span>
+                                                    <span class="" >年</span>
+
+                                              </span>
+
+                                            <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover table-fixation" cellspacing="0" width="100%">
+                                                <thead>
+                                                </thead>
+                                                <tbody class="scrollbar">
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
                                     </div>
+
                                     <!--右侧数据-->
                                     <div class="right-content-container">
+
                                         <!--上方能耗统计-->
                                         <div class="content-main-right-top shadowEffect">
                                             <h3 class="has-patch" style="margin-top:0;margin-bottom:10px; ">
                                                 <span class="left-patch"></span>
                                                 <span class="right-name right-name1">能耗统计</span>
+
                                             </h3>
+
                                             <div style="height: 180px;" class="classify-energy-container">
+
                                                 <div class="fenleinenghao fenleinenghao0">
                                                     <p class="title">本日用<span class="energy-names">电</span>总量 <span class="energy-units">（kWh）</span></p>
                                                     <p class="data"></p>
@@ -206,6 +254,7 @@
                                                 <div class="clearfix"></div>
                                             </div>
                                         </div>
+
                                         <!--中间月度对比-->
                                         <div class="content-main-right-center content-container">
                                             <h3 class="has-patch" style="margin-top:0;margin-bottom:5px; ">
@@ -218,56 +267,41 @@
 
                                             </div>
                                         </div>
+
+                                        <!--下方能耗占比图-->
+                                        <div class="content-container content-main-right-bottom-left" style="width:48%;margin-right:10px;float: left">
+                                            <h3 class="has-patch" style="margin-top:0;margin-bottom:5px; ">
+                                                <span class="left-patch"></span>
+                                                <span class="right-name right-name1">地区能耗占比</span>
+                                                <span class="right-unit" style="float: right">单位：<b>kWh</b></span>
+                                            </h3>
+
+                                            <div class="content-right-center-echart" id="pie-energy">
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <!--下方能耗占比图-->
+                                        <div class="content-container content-main-right-bottom-right" style="width:48%;margin-right:10px;float: right">
+                                            <h3 class="has-patch" style="margin-top:0;margin-bottom:5px; ">
+                                                <span class="left-patch"></span>
+                                                <span class="right-name right-name1">能耗分项占比</span>
+                                                <span class="right-unit" style="float: right">单位：<b>kWh</b></span>
+                                            </h3>
+
+                                            <div class="content-right-center-echart" id="pie-energy1">
+
+
+                                            </div>
+
+                                        </div>
+
                                     </div>
+
                                     <div class="clearfix"></div>
-                                </div>
-                                <div class="rowcon">
-                                    
-                                    <!--下方能耗占比图-->
-                                    <div class="content-container content-main-right-bottom-left" style="width:24%;float: left">
-                                        <h3 class="has-patch" style="margin-top:0;margin-bottom:5px; ">
-                                            <span class="left-patch"></span>
-                                            <span class="right-name right-name1">地区能耗占比</span>
-                                            <span class="right-unit" style="float: right">单位：<b>kWh</b></span>
-                                        </h3>
-                                        <div class="content-right-center-echart" id="pie-energy">
-                                        </div>
-                                    </div>
-                                    <!--下方能耗占比图-->
-                                    <div class="content-container content-main-right-bottom-right" style="width:24%;float: left">
-                                        <h3 class="has-patch" style="margin-top:0;margin-bottom:5px; ">
-                                            <span class="left-patch"></span>
-                                            <span class="right-name right-name1">能耗分项占比</span>
-                                            <span class="right-unit" style="float: right">单位：<b>kWh</b></span>
-                                        </h3>
-                                        <div class="content-right-center-echart" id="pie-energy1">
-                                        </div>
-                                    </div>
-                                    <!--下方能耗占比图-->
-                                    <div class="content-container content-main-right-bottom-left" style="width:24%;float: left">
-                                        <h3 class="has-patch" style="margin-top:0;margin-bottom:5px; ">
-                                            <span class="left-patch"></span>
-                                            <span class="right-name right-name1">单位面积指标</span>
-                                            <span class="right-unit" style="float: right">单位：<b>kWh</b></span>
-                                        </h3>
-                                        <div class="" id="aaaa1" style="height: 250px;">
-                                        </div>
-                                    </div>
-                                    <!--下方能耗占比图-->
-                                    <div class="content-container content-main-right-bottom-right" style="width:24%;float: left">
-                                        <h3 class="has-patch" style="margin-top:0;margin-bottom:5px; ">
-                                            <span class="left-patch"></span>
-                                            <span class="right-name right-name1">人均指标</span>
-                                            <span class="right-unit" style="float: right">单位：<b>kWh</b></span>
-                                        </h3>
-                                        <div class="" id="aaaa2" style="height: 250px;">
-                                        </div>
-                                    </div>
-                                    <div class="myclear">
-                                        <div class="onClick">日</div>
-                                        <div class="">月</div>
-                                        <div class="">年</div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -313,9 +347,9 @@
 <script src="../resource/js/commonJsResource.js"></script>
 <script src="../new-resource/js/common.js"></script>
 <script src="../resource/js/mapper1.js"></script>
-<script src="js/newcommon.js"></script>
-<script src="js/newindex.js"></script>
+<script src="js/common.js"></script>
+<script src="js/index.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
-</html>
+</html> -->
