@@ -2,6 +2,12 @@ $(function(){
 
     _isClickTr = true;
 
+    //是否需要申请
+    var _isAudit = false;
+
+    //是否需要审核方法
+    auditFun();
+
     /*-----------------------------默认加载---------------------------------*/
 
     //暂存所有条件查询的数据
@@ -369,8 +375,8 @@ $(function(){
         //类
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
 
-        //可操作
-        abledOption();
+        //不可操作
+        disAbledOption();
 
     })
 
@@ -621,6 +627,8 @@ $(function(){
 
         $('.acceptance-block').hide();
 
+        $('.inpus').parent().removeClass('checked');
+
     }
 
     //发送数据
@@ -716,6 +724,23 @@ $(function(){
                 $('#CA-personChangeTel').val(data.leaderphone);
                 //申请理由
                 $('#CA-remark').val(data.caMemo);
+                //审核人姓名
+                $('#CA-auditName').val(data.spUsername);
+                //审核人工号
+                $('#CA-auditNum').val(data.spUserNum);
+                //审批状态
+                if(data.isAudit == 10){
+
+                    //通过
+                    $('#ones').parent().addClass('checked');
+
+                }else if(data.isAudit == 20){
+
+                    //不通过
+                    $('#twos').parent().addClass('checked');
+                }
+                //审批意见
+                $('#CA-auditRemark').val(data.auditinfo);
             }
 
         }
@@ -744,6 +769,12 @@ $(function(){
         $('#create-Modal').find('textarea').attr('disabled',true);
 
         $('#CA-acceptanceRemark').attr('disabled',false);
+
+        $('.acceptance-block').find('input').attr('disabled',false);
+
+        $('.acceptance-block').find('select').attr('disabled',false);
+
+        $('.acceptance-block').find('textarea').attr('disabled',false);
 
     }
 
@@ -884,5 +915,25 @@ $(function(){
 
     }
 
+    //是否需要审核
+    function auditFun(){
+
+        _mainAjaxFunCompleteNew('post','YHQCA/isAuditInfo','','',function(result){
+
+            if(result.code == 99){
+
+                if(result.data == 1){
+
+                    _isAudit = true;
+
+                    $('#audit-block').show();
+
+                }
+
+            }
+
+        })
+
+    }
 
 })

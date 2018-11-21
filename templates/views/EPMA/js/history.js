@@ -1,5 +1,6 @@
 ﻿var History = function () {
 
+
     var mycv = null;
 
     var treeObj = null;
@@ -179,7 +180,11 @@
         var dp = mtep - mtsp;
         var days = Math.floor(dp / (24 * 3600 * 1000));
         if (days > 31) {
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'时间段不能超过31天');
+
             console.log("提示(历史数据):查看监测因子的历史数据时间段不能超过31天");
+
             return;
         }else{
             mycv = echarts.init(document.getElementById('historyMain'));
@@ -189,7 +194,8 @@
                 cIds : cIds,
                 sp : sp,
                 ep : ep,
-                eType:$('#eType').val()
+                eType:$('#eType').val(),
+                dType:$('#isData').val()
             },function (res) {
                 if(res.code === 0){
                     var covST = Format(convertDate(sp), "MM月dd日");
@@ -258,7 +264,7 @@
                         },
                         series: dvs
                     };
-                    mycv.setOption(option);
+                    mycv.setOption(option,true);
                     jQuery('#historyBusy').hideLoading();
                 }else if(res.code === -1){
                     console.log('异常错误(历史数据):' + res.msg);
@@ -325,12 +331,17 @@
     }
 
     var queryHistoryDs = function () {
+
         $("#hsyBtn").on("click", function () {
             var cIds = "";
             var zTree = $.fn.zTree.getZTreeObj("DCTreeView");
             var nodes = zTree.getCheckedNodes(true);
             if (nodes.length == 0) {
-                console.log("提示(历史数据):请选择一项监测因子查询历史数据");
+
+                moTaiKuang($('#tip-Modal'), '提示', true, true ,'请选择对象', '');
+
+                //console.log("提示(历史数据):请选择一项监测因子查询历史数据");
+
                 return;
             }
             else {
@@ -340,6 +351,52 @@
             }
             onAsyncSuccess(cIds);
         });
+    }
+
+    $('#isData').on('change',function(){
+
+        var str = ''
+
+        if($(this).val() == 1){
+
+            //原始数据
+
+            str += '<option value="1">十分钟</option><option value="2">小时</option><option value="3">天</option>'
+
+        }else if($(this).val() == 2){
+
+            //瞬时数据
+            str += '<option value="-1">十分钟</option><option value="2">小时</option>'
+
+        }
+
+        $('#eType').empty().append(str);
+
+    })
+
+    //模态框
+    function moTaiKuang(who, title, flag, istap ,meg, buttonName) {
+
+        who.modal({
+            show: false,
+            backdrop: 'static'
+        });
+
+        who.find('.modal-title').html(title);
+        who.modal('show');
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockHeight = who.find('.modal-dialog').height();
+        var markBlockTop = (markHeight - markBlockHeight) / 2;
+        who.find('.modal-dialog').css({'margin-top': markBlockTop});
+        if (flag) {
+            who.find('.btn-primary').hide();
+        } else {
+            who.find('.btn-primary').show();
+            who.find('.modal-footer').children('.btn-primary').html(buttonName);
+        }
+        if(istap){
+            who.find('.modal-body').html(meg);
+        }
     }
 
     return {

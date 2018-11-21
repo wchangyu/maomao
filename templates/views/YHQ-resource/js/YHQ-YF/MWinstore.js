@@ -462,6 +462,12 @@ $(function(){
     $('#commentForm').validate({
 
         rules:{
+            //称
+            'MW-weigh':{
+
+                required: true
+
+            },
             //重量
             'MW-in-weigh':{
 
@@ -469,23 +475,98 @@ $(function(){
 
                 number:true
 
+            },
+            //桶编号
+            'MW-bucket':{
+
+                required: true
+
             }
 
         },
         messages:{
 
+            //称
+            'MW-weigh':{
+
+                required: '称为必选字段'
+
+            },
             //重量
             'MW-in-weigh':{
 
-                required: '请输入重量',
+                required: '重量为必填字段',
 
-                number:'重量需是数字'
+                number:'重量为数字格式'
+
+            },
+            //桶编号
+            'MW-bucket':{
+
+                required: '同编号为必选字段'
 
             }
 
         }
 
     });
+
+    //点击按钮验证
+    function validform(){
+
+        return $('#commentForm').validate({
+
+            rules:{
+                //称
+                'MW-weigh':{
+
+                    required: true
+
+                },
+                //重量
+                'MW-in-weigh':{
+
+                    required: true,
+
+                    number:true
+
+                },
+                //桶编号
+                'MW-bucket':{
+
+                    required: true
+
+                }
+
+            },
+            messages:{
+
+                //称
+                'MW-weigh':{
+
+                    required: '称为必选字段'
+
+                },
+                //重量
+                'MW-in-weigh':{
+
+                    required: '重量为必填字段',
+
+                    number:'重量为数字格式'
+
+                },
+                //桶编号
+                'MW-bucket':{
+
+                    required: '同编号为必选字段'
+
+                }
+
+            }
+
+        });
+
+    }
 
     /*-----------------------------按钮------------------------------*/
 
@@ -682,11 +763,11 @@ $(function(){
     //确定入库
     $('#create-Modal').on('click','.btn-primary',function(){
 
-        formatValidateUser(function(){
+        if(validform().form()){
 
-            inStroage()
+            inStroage();
 
-        })
+        }
 
     })
 
@@ -1394,57 +1475,6 @@ $(function(){
 
 
         })
-
-    }
-
-    //格式验证
-    function formatValidateUser(fun){
-
-        //非空验证
-        if($('#MW-weigh').val() == '' || $('#MW-in-weigh').val() == '' || $('#MW-bucket').val() == '' ){
-
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项','');
-
-        }else{
-
-            //验证错误
-            var error = $('#commentForm').find('.error');
-
-            if(error.length != 0){
-
-                var flag = true;
-
-                for(var i=0;i<error.length;i++){
-
-                    if(error.eq(i).css('display') != 'none'){
-
-                        flag = false;
-
-                        break;
-
-                    }
-
-                }
-
-                if(flag){
-
-                    fun();
-
-                }else{
-
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写正确格式','');
-
-                }
-
-            }else{
-
-                //验证通过
-                fun();
-
-            }
-
-
-        }
 
     }
 

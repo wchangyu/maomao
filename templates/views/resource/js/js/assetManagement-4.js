@@ -273,34 +273,66 @@ $(function(){
         .on('click','.option-edit',function(){
 
             $('#myModal').find('.modal-title').html('编辑');
+
             //隐藏select框
             $('.equipment-system').hide();
+
             myApp33.sbxt = '';
             //样式
             //获取当前新增按钮时属于哪个表格的
             _$thisTable = $(this).parents('.table-block-list').find('table');
+
             var mingcheng = $('#myApp33').find('li').children('.labels');
+
+            var arr = [];
+
             if( _$thisTable[0].id == _stringLX ){
+
+                //设备类型
+
                 arr = ['设备类别编码 :','设备系统 *:','设备类别名称 *:','拼音简码 *:'];
+
                 $('.equipment-system').show();
 
                 $('#equipment-system').html(_selectXT);
+
             }else if( _$thisTable[0].id == _stringQY ){
-                arr = [__names.area+'编码 :',__names.area+'名称 *:','拼音简码 *:']
+
+                //车务段
+
+                arr = [__names.area+'编码 :','',__names.area+'名称 *:','拼音简码 *:']
+
+                $('.equipment-system').hide();
+
             }else if( _$thisTable[0].id == _stringXT ){
-                arr = ['设备系统编码 :','设备系统名称 *:','拼音简码 *:']
+
+                //设备系统
+
+                arr = ['设备系统编码 :','','设备系统名称 *:','拼音简码 *:']
+
+                $('.equipment-system').hide();
+
             }else if( _$thisTable[0].id == _stringBM ){
+
+                //车站
+
                 arr = [__names.department+'编码 :',__names.area+' *:',__names.department+'名称 *:','拼音简码 *:']
+
                 $('.equipment-system').show();
 
                 $('#equipment-system').html(_selectCWD);
             }
+
             for(var i=0;i<mingcheng.length;i++){
+
                 mingcheng.eq(i).html(arr[i]);
+
             }
 
             var $this = $(this).parents('tr');
+
             $(this).parents('.table').find('tr').removeClass('tables-hover');
+
             $this.addClass('tables-hover');
         //添加登记类
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('xiugai');
@@ -335,23 +367,53 @@ $(function(){
 
             //弹出提示框
             moTaiKuang($(myModal1));
+
             //绑定信息
             var $thisBM = $(this).parents('tr').children('.dcNum').html();
+
             _$thisTable = $(this).parents('.table');
+
             var mingcheng = $('#myModal1').find('li').children('.labels');
+
             if( _$thisTable[0].id == _stringLX ){
-                removeContent( _allDataLX,'dcNum','dcName','dcPy','dcNum',$thisBM);
+
+                //设备类别
+
+                removeContent( _allDataLX,'dcNum','dcName','dcPy','dcNum',$thisBM,'dsName');
+
                 arr = ['设备类别编码 :','设备系统 *:','设备类别名称 *:','拼音简码 *:'];
 
+                $('.equipment-system').show();
+
             }else if( _$thisTable[0].id == _stringQY ){
+
+                //车务段
+
                 removeContent( _allDataQY,'daNum','daName','daPy','daNum',$thisBM);
-                arr = [__names.area+'编码 :',__names.area+'名称 *:','拼音简码 *:']
+
+                arr = [__names.area+'编码 :','',__names.area+'名称 *:','拼音简码 *:'];
+
+                $('.equipment-system').hide();
+
             }else if( _$thisTable[0].id == _stringXT ){
+
+                //设备系统
+
                 removeContent( _allDataXT,'dsNum','dsName','dsPy','dsNum',$thisBM);
-                arr = ['设备系统编码 :','设备系统名称 *:','拼音简码 *:']
+
+                arr = ['设备系统编码 :','','设备系统名称 *:','拼音简码 *:']
+
+                $('.equipment-system').hide();
+
             }else if( _$thisTable[0].id == _stringBM ){
-                removeContent( _allDataBM,'ddNum','ddName','ddPy','ddNum',$thisBM);
+
+                //车站
+
+                removeContent( _allDataBM,'ddNum','ddName','ddPy','ddNum',$thisBM,'daName');
+
                 arr = [__names.department+'编码 :',__names.area+' *:',__names.department+'名称 *:','拼音简码 *:']
+
+                $('.equipment-system').show();
             }
             for(var i=0;i<mingcheng.length;i++){
                 mingcheng.eq(i).html(arr[i]);
@@ -484,37 +546,61 @@ $(function(){
         }
     //新增公共方法(确定)
     function xinzengFun(url,text1,text2,text3){
+
             var prm = {};
+
             prm[text1] = myApp33.sblxmc;
+
             prm[text2] = myApp33.pyjm;
+
             prm.userID = _userIdName;
+
             prm.userName = _userRelName;
+
             if(text3){
+
                 prm[text3] = myApp33.sbxt;
 
             }
+
             $.ajax({
                 type:'post',
                 url:_urls + url,
                 data:prm,
                 success:function(result){
+
                     if(result == 99){
+
                         if(_$thisTable[0].id == _stringLX){
+
                             shebeiHQ('YWDev/ywDMGetDCs',_allDataLX,_$thisTable);
+
                         }else if( _$thisTable[0].id == _stringQY ){
+
                             shebeiHQ('YWDev/ywDMGetDAs',_allDataQY,_$thisTable);
+
                         }else if( _$thisTable[0].id == _stringXT ){
+
                             shebeiHQ('YWDev/ywDMGetDSs',_allDataXT,_$thisTable);
+
                         }else if( _$thisTable[0].id == _stringBM ){
+
                             shebeiHQ('YWDev/ywDMGetDDs',_allDataBM,_$thisTable);
+
                         }
+
                         var $myModal = $('#myModal2');
+
                         $myModal.find('.modal-body').html('新增成功');
+
                         moTaiKuang($myModal);
 
                         ajaxFun('YWDev/ywDMGetDCs',_allDataLX,_$tableLX,'dcName');
+
                         ajaxFun('YWDev/ywDMGetDAs',_allDataQY,_$tableQY,'daName');
+
                         ajaxFun('YWDev/ywDMGetDSs',_allDataXT,_$tableXT,'dsName');
+
                         ajaxFun('YWDev/ywDMGetDDs',_allDataBM,_$tableBM,'ddName');
 
                     }
@@ -525,40 +611,66 @@ $(function(){
     function bianjiFun(url,text1,text2,text3,text4){
 
             var prm = {};
+
             prm[text1] = myApp33.sblxbm;
+
             prm[text2] = myApp33.sblxmc;
+
             prm[text3] = myApp33.pyjm;
+
             if(text4){
+
                 prm[text4] = myApp33.sbxt;
-                console.log(myApp33.sbxt);
+
             }
             prm.id = _tableColumID;
+
             prm.userID = _userIdName;
+
             $.ajax({
                 type:'post',
                 url:_urls + url,
                 data:prm,
                 success:function(result){
                     if(result == 99){
+
                         var $myModal = $('#myModal2');
+
                         $myModal.find('.modal-body').html('修改成功');
+
                         moTaiKuang($myModal);
+
                         $('#myModal').modal('hide');
+
                         if( _$thisTable[0].id == _stringLX ){
+
                             shebeiHQ('YWDev/ywDMGetDCs',_allDataLX,_$thisTable,true);
+
                         }else if( _$thisTable[0].id == _stringQY ){
+
                             shebeiHQ('YWDev/ywDMGetDAs',_allDataQY,_$thisTable,true);
+
                         }else if( _$thisTable[0].id == _stringXT ){
+
                             shebeiHQ('YWDev/ywDMGetDSs',_allDataXT,_$thisTable,true);
+
                         }else  if( _$thisTable[0].id == _stringBM ){
+
                             shebeiHQ('YWDev/ywDMGetDDs',_allDataBM,_$thisTable,true);
+
                         }
                         var $myModal = $('#myModal2');
+
                         $myModal.find('.modal-body').html('编辑成功');
+
                         moTaiKuang($myModal);
+
                         ajaxFun('YWDev/ywDMGetDCs',_allDataLX,_$tableLX,'dcName',false);
+
                         ajaxFun('YWDev/ywDMGetDAs',_allDataQY,_$tableQY,'daName',false);
+
                         ajaxFun('YWDev/ywDMGetDSs',_allDataXT,_$tableXT,'dsName',false);
+
                         ajaxFun('YWDev/ywDMGetDDs',_allDataBM,_$tableBM,'ddName',false);
 
                     }
@@ -632,8 +744,6 @@ $(function(){
         }
 
     }
-
-
     //表格初始化方法
     function tableInit(tableID,col,button){
         var _tables = tableID.DataTable({
@@ -681,14 +791,19 @@ $(function(){
 
         for( var i=0;i<arr.length;i++ ){
             if( arr[i][num] == bm ){
-                console.log(arr[i]);
+
                 myApp33.sblxbm = arr[i][num];
+
                 myApp33.sblxmc = arr[i][name];
+
                 myApp33.pyjm = arr[i][py];
+
                 if(belong){
+
                     myApp33.sbxt = arr[i][belong];
-                    //$('#equipment-system').val(arr[i][belong]);
+
                     var k=i;
+
                     setTimeout(function(){
                       $('#equipment-system').val(arr[k][belong]);
                     },100)
@@ -700,13 +815,21 @@ $(function(){
         }
     }
     //删除数据绑定
-    function removeContent(arr,num,name,py,pid,bm){
+    function removeContent(arr,num,name,py,pid,bm,more){
 
         for( var i=0;i<arr.length;i++ ){
+
             if( arr[i][num] == bm ){
-                $('#sbbm').val(arr[i][num])
+
+                console.log(arr[i]);
+
+                $('#sbbm').val(arr[i][num]);
+
                 $('#sbmc').val(arr[i][name]);
+
                 $('#pyjm').val(arr[i][py]);
+
+                $('#equipment-system1').val(arr[i][more]);
 
                 _tableColumID = arr[i][pid];
             }
@@ -723,7 +846,5 @@ function jumpNow(tableID){
     ajaxSuccess();
     var num = txt - 1;
     var dom = $(dom).children('span').children().eq(num);
-    console.log(txt);
-    console.log(dom);
     dom.click();
 }

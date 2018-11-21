@@ -2086,6 +2086,190 @@ function _formatTimeH(data){
 
 }
 
+//ztree设置(ztree树id，数组，树对象)
+function _setZtree(treeId,treeData,treeObj){
+
+    var setting = {
+
+        check: {
+            enable: true,
+            chkStyle: "radio",
+            chkboxType: { "Y": "s", "N": "ps" },
+            radioType:'all',
+            nocheckInherit: false
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        view:{
+            showIcon:false
+        },
+        callback: {
+
+            onClick: function(e,treeId,treeNode){
+
+                var treeObj = $.fn.zTree.getZTreeObj(treeId);
+
+                //取消全部打钩的节点
+                treeObj.checkNode(treeNode,!treeNode.checked,true);
+
+            },
+            beforeClick:function(){
+
+                treeId.find('.curSelectedNode').removeClass('curSelectedNode');
+
+            },
+            onCheck:function(e,treeId,treeNode){
+
+                var treeObj = $.fn.zTree.getZTreeObj(treeId);
+
+                $(treeId).find('.curSelectedNode').removeClass('curSelectedNode');
+
+                $(treeId).find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+
+                //取消全部打钩的节点
+                treeObj.checkNode(treeNode,true,true);
+
+            }
+
+        }
+    };
+
+    treeObj = $.fn.zTree.init(treeId, setting, treeData);
+
+
+}
+
+//ztree树搜索功能（input框，树id，提示）
+function searchPointerKey(key,treeObj,tip){
+
+    //首先解绑所有事件
+    key.off();
+
+    //聚焦事件
+    key.bind("focus",focusKey(key));
+    //失去焦点事件
+    key.bind("blur", blurKey);
+    //输入事件
+    //key.bind("propertychange", searchNode);
+    //输入事件
+    key.bind("input", searchNode);
+
+    function focusKey(e) {
+
+        if (key.hasClass("empty")) {
+
+            key.removeClass("empty");
+
+        }
+    }
+
+    function blurKey(e) {
+
+        //内容置为空，并且加empty类
+        if (key.get(0).value === "") {
+
+            key.addClass("empty");
+        }
+    }
+
+    var lastValue='',nodeList=[];
+
+    function searchNode(e) {
+
+        //获取树
+        var zTree = $.fn.zTree.getZTreeObj(treeObj);
+
+        //去掉input中的空格（首尾）
+        var value = $.trim(key.get(0).value);
+
+        //设置搜索的属性
+        var keyType = "name";
+
+        if (lastValue === value)
+
+            return;
+
+        lastValue = value;
+
+        if (value === "") {
+
+            tip.html('');
+            //将 zTree 使用的标准 JSON 嵌套格式的数据转换为简单 Array 格式。
+            //获取 zTree 的全部节点数据
+            //如果input是空的则显示全部；
+            zTree.showNodes(zTree.transformToArray(zTree.getNodes())) ;
+
+            return;
+        }
+        //getNodesByParamFuzzy:根据节点数据的属性搜索，获取条件模糊匹配
+
+        // 的节点数据 JSON 对象集合
+        nodeList = zTree.getNodesByParamFuzzy(keyType,value);
+
+        nodeList = zTree.transformToArray(nodeList);
+
+        if(nodeList==''){
+
+            tip.html('抱歉，没有您想要的结果');
+
+        }else{
+
+            tip.html('');
+
+        }
+
+        updateNodes(true);
+
+    }
+
+    //选中之后更新节点
+    function updateNodes(highlight) {
+
+        var zTree = $.fn.zTree.getZTreeObj(treeObj);
+
+        var allNode = zTree.transformToArray(zTree.getNodes());
+
+        //指定被隐藏的节点 JSON 数据集合
+        zTree.hideNodes(allNode);
+
+        //遍历nodeList第n个nodeList
+
+        for(var n in nodeList){
+
+            findParent(zTree,nodeList[n]);
+
+        }
+
+        zTree.showNodes(nodeList);
+    }
+
+    //确定父子关系
+    function findParent(zTree,node){
+
+        //展开符合搜索条件的节点
+        //展开 / 折叠 指定的节点
+        zTree.expandNode(node,true,false,false);
+
+        if(typeof node == 'object'){
+
+            //pNode父节点
+            var pNode = node.getParentNode();
+
+        }
+
+        if(pNode != null){
+
+            nodeList.push(pNode);
+
+            findParent(zTree,pNode);
+        }
+    }
+
+}
+
 /*---------------------------------------------------控制界面------------------------------------*/
 
 //获取表格结构

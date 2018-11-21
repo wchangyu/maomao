@@ -164,11 +164,17 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 
     width: 85px;
 
+    text-indent: 25px;
+
 }
 
 .modal-block .form-control{
 
     display: inline-block !important;
+
+}
+
+.modal-block .bind-value{
 
     background: #ffffff !important;
 
@@ -218,8 +224,6 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 
     display: block;
 
-    text-indent: 85px;
-
 }
 
 .modal-block select~.error {
@@ -229,7 +233,6 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     margin: 0;
     margin-top: 10px;
     display: block;
-    text-indent: 85px;
 }
 
 .modal-block textarea~.error {
@@ -239,9 +242,7 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     margin: 0;
     margin-top: 10px;
     display: block;
-    text-indent: 85px;
 }
-
 
 .option-button{
 
@@ -423,16 +424,60 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 
 }
 
-/*.abbrDT .error{*/
-
-    /*text-indent: 36px !important;*/
-
-/*}*/
-
 .option-back{
 
     border-color: orangered;
 
     color: orangered;
 
+}
+
+.require-tip{
+
+    background: url("../img/asterisk.png") no-repeat 0 5px;
+
+}
+
+#commentForm .modal-block input~.error{
+
+    color: red;
+
+    width: auto;
+
+    line-height: 30px;
+
+    margin: 0;
+
+    margin-top: 10px;
+
+    display: block;
+
+}
+
+#commentForm .modal-block select~.error {
+    color: red;
+    width: auto;
+    line-height: 30px;
+    margin: 0;
+    margin-top: 10px;
+    display: block;
+}
+
+#commentForm .modal-block textarea~.error {
+    color: red;
+    width: auto;
+    line-height: 30px;
+    margin: 0;
+    margin-top: 10px;
+    display: block;
+}
+
+#commentForm .modal-block .time-tool-block input~.error {
+    color: red;
+    line-height: 30px;
+    text-indent: 0px;
+    position: absolute;
+    top: 33px;
+    width: 100%;
+    left: -134px;
 }

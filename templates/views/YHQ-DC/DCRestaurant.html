@@ -28,7 +28,7 @@
 
         #create-Modal label{
 
-            width: 115px;
+            width: 155px;
 
         }
 
@@ -36,53 +36,6 @@
 
             width: auto;
 
-        }
-
-        #commentForm .modal-block input~.error{
-
-            color: red;
-
-            width: auto;
-
-            line-height: 30px;
-
-            margin: 0;
-
-            margin-top: 10px;
-
-            display: block;
-
-            text-indent: 124px;
-
-        }
-
-        #commentForm .modal-block select~.error {
-            color: red;
-            width: auto;
-            line-height: 30px;
-            margin: 0;
-            margin-top: 10px;
-            display: block;
-            text-indent: 124px;
-        }
-
-        #commentForm .modal-block textarea~.error {
-            color: red;
-            width: auto;
-            line-height: 30px;
-            margin: 0;
-            margin-top: 10px;
-            display: block;
-            text-indent: 124px;
-        }
-
-        #commentForm .modal-block .time-tool-block input~.error {
-            color: red;
-            line-height: 30px;
-            text-indent: 0px;
-            position: absolute;
-            top: 33px;
-            width: 100%;
         }
 
         #selectedDep li{
@@ -208,27 +161,27 @@
 
                         <ul class="modal-block">
                             <li>
-                                <label>餐厅名称：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-name" name="DC-name" placeholder="餐厅名称是必填字段">
+                                <label class="require-tip">餐厅名称：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-name" name="DC-name">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>地址：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-location" name="DC-location" placeholder="餐厅地址是必填字段">
+                                <label class="require-tip">地址：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-location" name="DC-location">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>电话：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-tel" name="DC-tel" placeholder="餐厅电话是必填字段">
+                                <label class="require-tip">电话：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-tel" name="DC-tel">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>经理：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-manager" name="DC-manager" placeholder="餐厅经理是必填字段">
+                                <label class="require-tip">经理：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-manager" name="DC-manager">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>类型：</label>
+                                <label class="require-tip">类型：</label>
                                 <div id="DC-type" class="radioBlock">
                                     <input type="radio" class="inpus" name="inpus" id="ones" value="0" checked><label for="ones">对外</label>
 
@@ -237,15 +190,15 @@
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>送餐费：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-mealFee" name="DC-mealFee" placeholder="送餐费是必填字段">
+                                <label class="require-tip">送餐费：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-mealFee" name="DC-mealFee">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>早送餐时间：</label>
+                                <label class="require-tip">早送餐时间：</label>
                                 <div class="time-tool-block">
                                     <div class="input-group date form_date DC-time">
-                                        <input id="breakfast-time" name="breakfast-time" class="form-control max" size="16" type="text" value=""  placeholder="早送餐时间是必填字段"/>
+                                        <input id="breakfast-time" name="breakfast-time" class="form-control max" size="16" type="text" value="" readonly/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -255,10 +208,10 @@
                                 <div class="time-seat"></div>
                             </li>
                             <li>
-                                <label>早送餐时间截止：</label>
+                                <label class="require-tip">早送餐时间截止：</label>
                                 <div class="time-tool-block">
                                     <div class="input-group date form_date DC-time">
-                                        <input id="breakfast-end-time" name="breakfast-end-time" class="form-control max" size="16" type="text" value="" placeholder="早送餐时间截止是必填字段" />
+                                        <input id="breakfast-end-time" name="breakfast-end-time" class="form-control max" size="16" type="text" value="" readonly/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -268,10 +221,10 @@
                                 <div class="time-seat"></div>
                             </li>
                             <li>
-                                <label>中送餐时间：</label>
+                                <label class="require-tip">中送餐时间：</label>
                                 <div class="time-tool-block">
                                     <div class="input-group date form_date DC-time">
-                                        <input id="lunch-time" name="lunch-time" class="form-control max" size="16" type="text" placeholder="中送餐时间是必填字段" value="" />
+                                        <input id="lunch-time" name="lunch-time" class="form-control max" size="16" type="text" value="" readonly/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -281,10 +234,10 @@
                                 <div class="time-seat"></div>
                             </li>
                             <li>
-                                <label>中送餐时间截止：</label>
+                                <label class="require-tip">中送餐时间截止：</label>
                                 <div class="time-tool-block">
                                     <div class="input-group date form_date DC-time">
-                                        <input name="lunch-end-time" id="lunch-end-time" class="form-control max" size="16" type="text" value="" placeholder="中送餐时间截止是必填字段" />
+                                        <input name="lunch-end-time" id="lunch-end-time" class="form-control max" size="16" type="text" value="" readonly/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -294,10 +247,10 @@
                                 <div class="time-seat"></div>
                             </li>
                             <li>
-                                <label>晚送餐时间：</label>
+                                <label class="require-tip">晚送餐时间：</label>
                                 <div class="time-tool-block">
                                     <div class="input-group date form_date DC-time">
-                                        <input name="dinner-time" id="dinner-time" class="form-control max" size="16" type="text" value="" placeholder="晚送餐时间是必填字段" />
+                                        <input name="dinner-time" id="dinner-time" class="form-control max" size="16" type="text" value="" readonly/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -307,23 +260,24 @@
                                 <div class="time-seat"></div>
                             </li>
                             <li>
-                                <label>晚送餐时间截止：</label>
+                                <label class="require-tip">晚送餐时间截止：</label>
                                 <div class="time-tool-block">
                                     <div class="input-group date form_date DC-time">
-                                        <input id="dinner-end-time" name="dinner-end-time" class="form-control max" size="16" type="text" value="" placeholder="晚送餐时间截止是必填字段"/>
+                                        <input id="dinner-end-time" name="dinner-end-time" class="form-control max" size="16" type="text" value="" readonly/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="modal-select"></div>
+                                <div class="time-seat"></div>
                             </li>
-                            <li style="width: 800px;">
-                                <label>部门：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-depart" name="DC-depart" placeholder="部门是必选字段" style="width: 675px;" readonly>
+                            <li style="">
+                                <label class="require-tip">部门：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-depart" name="DC-depart" style="width: 675px;" readonly>
                                 <div class="modal-select modal-select-show" id="depart-select-button"></div>
                             </li>
-                            <li class="text-block" style="width: 800px;">
+                            <li class="text-block" style="width: 860px;">
                                 <label>备注：</label>
                                 <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="DC-remark" name="DC-remark"></textarea>
                                 <div class="modal-select"></div>

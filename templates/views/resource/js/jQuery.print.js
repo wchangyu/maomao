@@ -32,30 +32,37 @@
             wdoc.close();
             var printed = false;
             var callPrint = function () {
-                if(printed) {
-                    return;
-                }
-                // Fix for IE : Allow it to render the iframe
-                frameWindow.focus();
-                try {
-                    // Fix for IE11 - printng the whole page instead of the iframe content
-                    if (!frameWindow.document.execCommand('print', false, null)) {
-                        // document.execCommand returns false if it failed -http://stackoverflow.com/a/21336448/937891
+                //setTimeout(function(){
+
+                    if(printed) {
+                        return;
+                    }
+                    // Fix for IE : Allow it to render the iframe
+                    frameWindow.focus();
+                    try {
+                        // Fix for IE11 - printng the whole page instead of the iframe content
+                        if (!frameWindow.document.execCommand('print', false, null)) {
+                            // document.execCommand returns false if it failed -http://stackoverflow.com/a/21336448/937891
+                            frameWindow.print();
+                        }
+                        // focus body as it is losing focus in iPad and content not getting printed
+                        $('body').focus();
+                    } catch (e) {
                         frameWindow.print();
                     }
-                    // focus body as it is losing focus in iPad and content not getting printed
-                    $('body').focus();
-                } catch (e) {
-                    frameWindow.print();
-                }
-                frameWindow.close();
-                printed = true;
-                def.resolve();
+                    frameWindow.close();
+                    printed = true;
+                    def.resolve();
+
+                //},1)
+
             }
             // Print once the frame window loads - seems to work for the new-window option but unreliable for the iframe
             $(frameWindow).on("load", callPrint);
             // Fallback to printing directly if the frame doesn't fire the load event for whatever reason
-            setTimeout(callPrint, options.timeout);
+            //setTimeout(callPrint, options.timeout);
+            setTimeout(callPrint, 1000000);
+
         } catch (err) {
             def.reject(err);
         }

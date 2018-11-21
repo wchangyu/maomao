@@ -398,6 +398,8 @@ $(function(){
     //未接单状态【查看】
     $('#scrap-datatables tbody').on('click','.option-see1',function(){
 
+        _thisBM = $(this).parents('tr').find('.bianma').html();
+
         //执行人表格初始化
         _tableInit($('#personTable2,#personTable2s'),ZXRColno,2,'flag','','');
 
@@ -417,10 +419,15 @@ $(function(){
 
         bindData(unAnsweredState,$(this),callback);
 
+        //巡检图片
+        taskImg(_thisBM);
+
     })
 
     //执行中【查看】
     $('#scrap-datatables tbody').on('click','.option-see2',function(){
+
+        _thisBM = $(this).parents('tr').find('.bianma').html();
 
         //执行人表格初始化
         _tableInit($('#personTable2,#personTable2s'),ZXRColno,2,'flag','','');
@@ -465,6 +472,9 @@ $(function(){
         //显示执行人项
         $('#myModal1').find('.table-title').children().eq(1).show();
 
+        //巡检图片
+        taskImg(_thisBM);
+
     })
 
     //完成【查看】
@@ -492,7 +502,6 @@ $(function(){
         for(var i=0;i<_allDataArr.length;i++){
 
             if(_allDataArr[i].itkNum == $thisBM){
-                console.log(_allDataArr[i]);
                 //是否启用
                 implementingState.sfqy = _allDataArr[i].isActive;
                 //任务单号
@@ -563,6 +572,9 @@ $(function(){
         //隐藏执行人项
         $('#myModal1').find('.table-title').children().eq(1).hide();
 
+        //巡检图片
+        taskImg($thisBM);
+
     })
 
     //【取消】
@@ -591,6 +603,9 @@ $(function(){
 
         //绑定类名
         $('#myModal').find('.btn-primary').removeClass('reSend').addClass('cancel');
+
+        //巡检图片
+        taskImg(_thisBM);
 
     })
 
@@ -685,6 +700,9 @@ $(function(){
 
         //绑定类名
         $('#myModal').find('.btn-primary').removeClass('cancel').addClass('reSend');
+
+        //巡检图片
+        taskImg(_thisBM);
 
     })
 
@@ -920,6 +938,24 @@ $(function(){
 
     })
 
+    //查看图片详情
+    $('.viewImage').click(function(){
+
+        $(this).next('.showImage').toggle();
+
+    })
+
+    //点击图片放大
+    $('.modal').on('click','.viewIMG',function(){
+
+        _moTaiKuang($('#myModalImg'),'图片详情',true,'','','','');
+
+        var imgSrc = $(this).attr('src');
+
+        $('#myModalImg').find('img').attr('src',imgSrc);
+
+    })
+
     /*-------------------------------------------------其他方法-------------------------------------------*/
 
     //设备类型
@@ -1112,7 +1148,7 @@ $(function(){
 
         }
 
-
+        $('.viewImage').hide();
 
 
     }
@@ -1218,6 +1254,53 @@ $(function(){
                 }
             }
 
+
+        })
+
+    }
+
+    //查看巡检任务的图片
+    function taskImg(num){
+
+        var prm = {
+
+            //巡检任务编号
+            itkNum:num,
+            //用户ID
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName,
+            //用户角色
+            b_UserRole:_userRole,
+            //用户部门
+            b_DepartNum:_userBM
+
+        }
+
+        _mainAjaxFunCompleteNew('post','YWDevIns/YWITKImageList',prm,false,function(result){
+
+            if(result.code == 99){
+
+                if(result.data.length != 0){
+
+                    $('.viewImage').show();
+
+                    var str = '';
+
+                    for(var i=0;i<result.data.length;i++){
+
+                        var data = result.data[i];
+
+                        str += '<img class="viewIMG" src="' + _replaceIP(_urlImg,_urls) + '?gdcode=' + data.gdcode + '&no=' + data.imageFlag +
+                            '">'
+
+                    }
+
+                    $('.viewImage').next('.showImage').empty().append(str);
+
+                }
+
+            }
 
         })
 

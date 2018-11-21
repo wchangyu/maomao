@@ -1,0 +1,198 @@
+﻿.boxhgt {
+    height: 250px;
+}
+
+.legbox {
+    float:left;
+    margin-left:20px;
+    margin-right:20px;
+}
+
+.legboxText {
+    line-height:15px;
+    margin-left:2px;
+}
+
+.legexllbox {
+    width:18px;
+    height:18px;
+    background-color:#6ad7db;
+    float:left;
+}
+
+.legcommbox {
+    width:18px;
+    height:18px;
+    background-color:#efc34e;
+    float:left;
+}
+
+.legpoorbox {
+    width:18px;
+    height:18px;
+    background-color:#f5587a;
+    float:left;
+}
+
+.canvasbox {
+   max-width:140px;
+   background-color:#ffe699;
+   margin:0 auto;
+   padding:5px;
+   text-align:center;
+
+    color: #ffffff;
+
+    font-weight: 400;
+
+}
+
+a {
+    text-decoration: none;
+}
+.showOrHidden{
+
+    display: none;
+
+}
+
+.cold-station-cell{
+
+    width: 150px;
+
+    height: 100px;
+
+    background: red;
+
+}
+
+/*告警圆圈*/
+.fa-roll{
+
+    display: inline-block;
+
+    width: 12px;
+
+    height: 12px;
+
+    border-radius: 10px;
+
+    vertical-align: middle;
+
+
+}
+
+.fa-roll-green{
+
+    display: inline-block;
+
+    width: 12px;
+
+    height: 12px;
+
+    border-radius: 10px;
+
+    vertical-align: middle;
+
+    background: #6ad7db;
+
+}
+
+.fa-roll-red{
+
+    display: inline-block;
+
+    width: 12px;
+
+    height: 12px;
+
+    border-radius: 10px;
+
+    vertical-align: middle;
+
+    background: #f5587a;
+
+}
+
+.fa-arrow-img{
+
+    width: 20px;
+
+    height: 20px;
+
+    display: inline-block;
+
+    background: url("../img/fa-arrow-img.png") no-repeat;
+
+    background-size: 20px;
+
+}
+
+#spanTitle{
+
+    color: #666666;
+
+}
+
+.main-title{
+
+    display: inline-block;
+
+    width: 4px;
+
+    padding: 8px 0;
+
+    background: #386898;
+
+    margin-right: 3px;
+
+    margin-top: 0!important;
+
+}
+
+.main-title-word{
+
+    font-size: 18px;
+
+    color: #666666;
+
+}
+
+.portlet-body-border{
+
+    border: 1px solid #dddddd;
+
+}
+
+.fa-step-back{
+
+    width: 17px;
+
+    height: 19px;
+
+    display: inline-block;
+
+    vertical-align: top;
+
+    background: url("../img/fanhui.png") no-repeat;
+
+    background-size: 10px;
+
+    background-position: center;
+
+
+}
+
+.fa-step-word{
+
+    color: #666666;
+
+    font-size: 14px;
+
+}
+
+.toolsBack{
+
+    margin-top: -64px !important;
+
+}

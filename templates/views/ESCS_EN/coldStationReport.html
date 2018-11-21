@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>能效分析</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--my css-->
+
+    <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/monitorStatement.css">
+
+    <style>
+        .page-content {
+            background-color: #fff;
+        }
+        .main-content-entry {
+            width: 100%;
+            /* border: 1px solid #ccc; */
+            margin: 0 auto;
+            padding: 10px 20px;
+        }
+        .ztree li span.button.chk{
+
+            width: 21px !important;
+
+            height: 21px !important;
+
+        }
+        .ztree li span.button{
+
+            width: 21px !important;
+
+            height: 21px !important;
+
+        }
+        .checkState{
+
+            background: url("../new-resource/img/checStatus.png") no-repeat;
+
+            background-position: center;
+
+            background-size: 15px;
+
+        }
+
+        .L-condition .form-control{
+
+            display: inline-block !important;
+
+        }
+
+        .L-condition li{
+
+            display: inline-block;
+
+            margin:10px;
+
+            color: #757575;
+
+        }
+
+        .L-condition input{
+
+            width: 150px;
+
+        }
+
+        .L-condition select{
+
+            width: 150px;
+
+        }
+
+        .L-condition-button{
+
+            font-size: 16px;
+
+            background: #2170F4;
+
+            padding: 7px 17px;
+
+            color: #ffffff !important;
+
+            cursor: pointer;
+
+        }
+
+        .L-container {
+
+            min-height: 500px;
+
+            border: 1px solid #E2E9F2;
+
+            border-radius: 10px !important;
+
+            margin-top: 15px;
+
+            padding: 10px !important;
+
+            box-sizing: border-box;
+        }
+
+        .time-tool-block{
+
+            width: 190px;
+
+            display: inline-block;
+
+            vertical-align: middle;
+
+        }
+
+        .showOrHidden{
+
+            display: none;
+
+        }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+                            <ul class="condition-query condition-query1 noprint L-condition">
+                                <li>
+                                    <label>Time</label>
+                                    <div class="time-tool-block">
+                                        <div class="input-group date form_date abbrDT">
+                                            <input id="spDT" class="form-control" size="16" type="text" value="">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><button class="btn btn-success btn1" id="selected">Submit</button></li>
+                                <li><button class="btn btn-success btn1" id="exportBtn">Export Data</button></li>
+                                <!--<li class="excelButton"></li>-->
+                                <!--<li style="float: right"><div class="excelButton" title="导出excel">↓</div></li>-->
+                                <!--<li style="float: right"><img id="print" class="printButton" title="打印" src="../new-resource/img/printIcon.png" alt=""></li>-->
+                                <div class="clearfix"></div>
+                            </ul>
+                            <div class="table-area">
+                                <!--冷站运行日志-->
+                                <table class="table nextPage" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">
+                                    <thead style="text-align:center">
+                                    <tr style="text-align:center">
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;">
+                                            Title
+                                        </th>
+                                        <th colspan="15" class="table-titleH table-content" style="text-align:center;background: #ffffff;border:1px solid black">
+
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">
+                                            Duration
+                                        </th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="15" class="data-time table-content">
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">
+                                            Date Export
+                                        </th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="15" class="derive-time table-content">
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" colspan="1" class="printBgColor">
+                                        </th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;"  colspan="8" class="printBgColor">Chiller Plant Parameters</th>
+                                        <th style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;"  colspan="7" class="printBgColor">Itemized Consumption</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black" rowspan="2">
+                                            Object</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">Plantroom Power Consumption</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">Plantroom Cooling Tonnage</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">System Heat Rejection</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">Plantroom Efficiency</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">Chiller Consumption</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">Chilled Pump Consumption</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">Condenser Pump Consumption</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="1">Cooling Tower Consumption</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KW/KW</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="2">KWH</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;" colspan="1">KWH</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black">
+                                            日数据</th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_lzcs_srdl"></th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_lzcs_scll"></th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_lzcs_xtsrl"></th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_lzcs_xtxl"></th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_fxdh_zjdl"></th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_fxdh_ldbdl"></th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="2" class="table-content" id="report_fxdh_lqbdl"></th>
+                                        <th style="text-align:center;background: #ffffff;border:1px solid black" colspan="1" class="table-content" id="report_fxdh_lqtdl"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;"></th>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" colspan="2">Hourly Consumption</th>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" colspan="4">Hourly Itemized Consumption</th>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" colspan="5">Hourly Itemized Efficiency</th>
+                                        <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" colspan="4">Hourly Water Temp</th>
+                                    </tr>
+                                    <tr>
+                                            <th class="printBgColor" style="text-align:center;background: #E2E9F2;border:1px solid black;width:140px;" rowspan="2">Time</th>
+                                        <!--逐时总能耗-->
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">系统冷量</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">系统电量</th>
+                                        <!--逐时分项能耗-->
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">Chiller Consumption</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">Chilled Pump Consumption</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">Condenser Pump Consumption</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">Cooling Tower Consumption</th>
+                                        <!--逐时分项效率-->
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">Plantroom Efficiency</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">主机效率</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷冻泵输送系数</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷却泵输送系数</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷却塔输送系数</th>
+                                        <!--逐时水温-->
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷冻进水温度</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷冻出水温度</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷却进水温度</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">冷却出水温度</th>
+                                    </tr>
+                                    <tr>
+                                        <!--逐时总能耗-->
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">KWH</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">KWH</th>
+                                        <!--逐时分项能耗-->
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">KWH</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">KWH</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">KWH</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">KWH</th>
+                                        <!--逐时分项效率-->
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">KW/KW</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">KW/KW</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">KW/KW</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">KW/KW</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">KW/KW</th>
+                                        <!--逐时水温-->
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">℃</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">℃</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">℃</th>
+                                        <th class="printBgColor" style="text-align:center;background: #ededed;border:1px solid black;width:140px;">℃</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+        ESCS.init();
+    });
+
+</script>
+<!--公共js-->
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--my js-->
+<script src="../resource/js/jQuery.print.js"></script>
+
+<script src="../new-resource/src/jquery.table2excel.js"></script>
+
+<script src="js/ESCS.js" type="text/javascript"></script>
+
+<script src="js/coldStationReport.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

@@ -186,8 +186,59 @@
                     </div>
                 </div>
 
+                <!--审核-->
+                <div class="details-cell audit-block" style="display: none">
+                    <div class="tipe-block"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels "> 审核人姓名：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-auditName">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">审核人工号：</div>
+                            <div class="single-block">
+                                <input type="text" id="CA-auditNum" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row audit-result">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">审批状态：</div>
+                            <div class="single-block">
+                                <div id="HT-state" class="radioBlock" style="width: 300px;">
+
+                                    <div class="radio" id="uniform-ones">
+
+                                        <input type="radio" class="inpus" name="inpus" id="ones" value="10">
+
+                                    </div>
+
+                                    <label for="ones">通过</label>
+
+                                    <div class="radio" id="uniform-twos">
+
+                                        <input type="radio" class="inpus" name="inpus" id="twos" value="20">
+
+                                    </div>
+
+                                    <label for="twos">不通过</label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels "> 审批意见：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="CA-auditRemark">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!--受理-->
-                <div class="details-cell acceptance-block">
+                <div class="details-cell acceptance-block" style="display: none">
                     <div class="tipe-block"></div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 single-line">
@@ -215,7 +266,7 @@
                 </div>
 
                 <!--回场之后-->
-                <div class="details-cell back-block">
+                <div class="details-cell back-block" style="display: none">
                     <div class="tipe-block"></div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 single-line">

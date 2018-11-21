@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>能效分析</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--my css-->
+    <link rel="stylesheet" href="../ESCS/css/public.css">
+
+    <style>
+
+        #equipnew-form input~.error{
+
+            color: red;
+
+            width: 100% !important;
+
+            line-height: 30px;
+
+            margin: 0;
+
+            margin-top: 10px;
+
+        }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <a href="equip.html" class="btn btn-default yellow"><i class="fa fa-backward" style="color:#ffffff;"></i> Back to Equipment Schedule List</a>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:20px;">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <i class="fa fa-cogs font-green-sharp"></i>
+                                        <span class="caption-subject font-green-sharp bold uppercase">Equipment Schedule Management</span>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <form id="equipnew-form" method="post" class="form-horizontal">
+
+                                            <div id="tip" style="display: none;margin: 6px 0;" class="Metronic-alerts alert alert-danger fade in"><button type="button" class="close"></button><i class="fa-lg fa fa-warning"></i>  </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Equipment Tag</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" disabled id="id" name="EquipId">
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Equipment Label</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="equipNumber" name="equipNumber" placeholder="required">
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Equipment Name</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="equipName" name="equipName" placeholder="required">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Installation Location</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="installPosition" name="InstallPosition">
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">System Belong To</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="bySystem" name="BySystem">
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Model</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="byVersion" name="ByVersion">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Performance Parameters</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="parameter" name="Parameter">
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Brand</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="brand" name="Brand">
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Manufacturer</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="factory" name="Factory">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Manufactory Series Number</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="serialNumber" name="SerialNumber">
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Operate Condition</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="useState" name="UseState">
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Manufacturing Date</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <div class="input-group date form_date">
+                                                        <input name="ExFactoryDate" id="exFactoryDate" class="form-control equipNewDT" size="16" type="text" value="" aria-invalid="false">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Purchase Date</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <div class="input-group date form_date equipNewDT">
+                                                        <input id="purchaseDate" name="PurchaseDate" class="form-control" size="16" type="text" value="" aria-invalid="false">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Operation Starting Date</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <div class="input-group date form_date equipNewDT">
+                                                        <input id="enableDate" name="EnableDate" class="form-control" size="16" type="text" value="" aria-invalid="false">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Service Life</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" name="Usefulyears" id="usefulyears">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Warranty Expire Date</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <div class="input-group date form_date equipNewDT">
+                                                        <input id="freeQAEndDate" name="FreeQAEndDate" class="form-control" size="16" type="text" value="" aria-invalid="false">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Maintenance By</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="freeQAEnterprise" name="FreeQAEnterprise">
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Maintenance Call Number</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="freeQAPhoneNumber" name="FreeQAPhoneNumber">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Payment Due date</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <div class="input-group date form_date equipNewDT">
+                                                        <input id="payQAEndDate" name="PayQAEndDate" class="form-control" size="16" type="text" value="" aria-invalid="false">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Payment By</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="payQAEnterprise" name="payQAEnterprise">
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Pay Phone Call</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="payQAPhoneNumber" name="PayQAPhoneNumber">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Department Belong To</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="byDepart" name="ByDepart">
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Person In Charge</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="byLeader" name="ByLeader">
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Person In Charge</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="leaderPhoneNumber" name="LeaderPhoneNumber" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Equipment Type</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <select name="equiptype" id="equiptype" class="form-control">
+                                                        <option value="CH">Chiller</option>
+                                                        <option value="CHW">Chilled Water Pump</option>
+                                                        <option value="CW">Condenser Water Pump</option>
+                                                        <option value="CT">Cooling Tower</option>
+                                                    </select>
+                                                </div>
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Equipment</label>
+                                                <div class="col-md-2 col-sm-2" style="margin-bottom:10px;">
+                                                    <select name="bindequipid" id="bindequipid" class="form-control" aria-invalid="false"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">Remarks</label>
+                                                <div class="col-md-10 col-sm-10" style="margin-bottom:10px;">
+                                                    <input type="text" class="form-control" id="memo" name="Memo">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="display:none;">
+                                                <label class="col-md-2 col-sm-2 control-label" style="margin-bottom:10px;">楼宇</label>
+                                                <div class="col-md-10 col-sm-10" style="margin-bottom:10px;">
+                                                    <input type="hidden" class="form-control" name="pId" id="pId" placeholder="楼宇" value="3702803101">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-10 col-sm-10"></div>
+                                                <div class="col-md-2 col-sm-2 clear pull-right">
+
+                                                    <a id="saveBtn" class="btn yellow pull-left">
+                                                        <i class="fa fa-save"></i> Save Equipment Data
+
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+<!--所有提示-->
+<div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init(true);
+        ESCS.init();
+    });
+
+</script>
+<!--公共js-->
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--my js-->
+
+<script src="../resource/validation/jquery.validate.min.js"></script>
+
+<script src="../resource/validation/messages_zh.min.js"></script>
+
+<script src="../ESCS/js/ESCS.js" type="text/javascript"></script>
+
+<script src="js/equipNew.js" type="text/javascript"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

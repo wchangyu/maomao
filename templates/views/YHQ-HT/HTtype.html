@@ -28,7 +28,7 @@
 
         #create-Modal label{
 
-            width: 115px;
+            width: 125px;
 
         }
 
@@ -36,53 +36,6 @@
 
             width: auto;
 
-        }
-
-        #commentForm .modal-block input~.error{
-
-            color: red;
-
-            width: auto;
-
-            line-height: 30px;
-
-            margin: 0;
-
-            margin-top: 10px;
-
-            display: block;
-
-            text-indent: 124px;
-
-        }
-
-        #commentForm .modal-block select~.error {
-            color: red;
-            width: auto;
-            line-height: 30px;
-            margin: 0;
-            margin-top: 10px;
-            display: block;
-            text-indent: 124px;
-        }
-
-        #commentForm .modal-block textarea~.error {
-            color: red;
-            width: auto;
-            line-height: 30px;
-            margin: 0;
-            margin-top: 10px;
-            display: block;
-            text-indent: 124px;
-        }
-
-        #commentForm .modal-block .time-tool-block input~.error {
-            color: red;
-            line-height: 30px;
-            text-indent: 0px;
-            position: absolute;
-            top: 33px;
-            width: 100%;
         }
 
         #selectedDep li{
@@ -208,16 +161,16 @@
 
                         <ul class="modal-block">
                             <li>
-                                <label>合同类型名称：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-name" name="HT-name" placeholder="合同类型名称是必填字段">
+                                <label class="require-tip">合同类型名称：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-name" name="HT-name">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>顺序：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-order" name="HT-order" placeholder="顺序是必填字段，正整数">
+                                <label class="require-tip">顺序：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-order" name="HT-order" placeholder="正整数">
                                 <div class="modal-select"></div>
                             </li>
-                            <li class="text-block" style="width: 800px;">
+                            <li class="text-block" style="width: 830px;">
                                 <label>备注：</label>
                                 <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="HT-remark" name="HT-remark"></textarea>
                                 <div class="modal-select"></div>

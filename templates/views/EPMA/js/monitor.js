@@ -64,10 +64,6 @@
     //结算调整弹窗中 生成超额用能通知单
     $('#monitorBtn').on('click',function(){
 
-        _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'无数据，生成失败!', '');
-
-        return false;
-
         jQuery('#IsBusy').showLoading();
 
         var url = sessionStorage.apiUrlPrefix + "Monitor/ExportMonitorInstDs";

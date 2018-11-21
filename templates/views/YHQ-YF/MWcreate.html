@@ -26,6 +26,16 @@
 
     <link rel="stylesheet" href="../YHQ-resource/css/YHQ-YF/MWinstore.css">
 
+    <style>
+
+        .modal-block label{
+
+            width: 125px;
+
+        }
+
+    </style>
+
 </head>
 <!-- END HEAD -->
 
@@ -137,8 +147,8 @@
 
     <!--创建-->
     <div class="modal fade" id="create-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 577px;width: 830px!important;">
-            <div class="modal-content" style="height: 577px;width: 830px!important;">
+        <div class="modal-dialog" style="height: 577px;width: 930px!important;">
+            <div class="modal-content" style="height: 577px;width: 930px!important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">提示</h4>
@@ -148,38 +158,38 @@
                     <form class="cmxform" id="commentForm" method="post" action="">
 
                         <ul class="modal-block">
-                            <li>
+                            <li class="require-tip">
                                 <label>医废分类：</label>
-                                <select type="text" class="table-group-action-input form-control" id="MW-classify"></select>
+                                <select type="text" class="table-group-action-input form-control" id="MW-classify" name="MW-classify"></select>
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>医废来源：</label>
-                                <select type="text" class="table-group-action-input form-control" id="MW-source"></select>
+                                <label class="require-tip">医废来源：</label>
+                                <select type="text" class="table-group-action-input form-control" id="MW-source" name="MW-source"></select>
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>科室：</label>
+                                <label class="require-tip">科室：</label>
                                 <input type="text" class="table-group-action-input form-control" id="MW-dep" name="MW-dep" placeholder="科室是必选字段" readonly>
                                 <div class="modal-select modal-select-show modal-select-dep"></div>
                             </li>
                             <li>
-                                <label>医废处理人：</label>
+                                <label class="require-tip">医废处理人：</label>
                                 <input type="text" class="table-group-action-input form-control" id="MW-person" name="MW-person" placeholder="医废处理人是必填字段" readonly="">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>运送人：</label>
+                                <label class="require-tip">运送人：</label><!--modal-select-carrier-->
                                 <input type="text" class="table-group-action-input form-control" id="MW-carrier" name="MW-carrier" placeholder="运送人是必选字段" readonly>
-                                <div class="modal-select modal-select-show modal-select-carrier"></div>
+                                <div class="modal-select modal-select-show  selectUser"></div>
                             </li>
                             <li>
-                                <label>称：</label>
+                                <label class="require-tip">称：</label>
                                 <input type="text" class="table-group-action-input form-control" id="MW-weigh" name="MW-weigh" placeholder="称是必选字段" readonly>
                                 <div class="modal-select modal-select-show modal-select-weigh"></div>
                             </li>
                             <li>
-                                <label>重量：</label>
+                                <label class="require-tip">重量：</label>
                                 <input type="text" class="table-group-action-input form-control" id="MW-weighNum" name="MW-weighNum" placeholder="重量是必填字段">
                                 <div class="modal-select"></div>
                             </li>
@@ -273,6 +283,83 @@
         </div><!-- /.modal -->
     </div>
 
+    <div class="modal fade" id="person-new-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 752px;width: 1000px;">
+            <div class="modal-content" style="height: 752px;width: 1000px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 630px;">
+
+                    <!--tab-->
+                    <ul class="nav nav-tabs nav-tabs-lg" style="margin-bottom: 6px;">
+
+                        <li class="active">
+                            <a href="#dep-block" data-toggle="tab" aria-expanded="true">
+                                部门
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#pos-block" data-toggle="tab" aria-expanded="true">
+                                职位
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="tab-content" style="float:left;width: 40%;max-height: 500px;">
+
+                        <!--部门搜索-->
+                        <div class="tab-pane active" id="dep-block">
+
+                            <!--ztree 树-->
+
+                            <input type="text" id="keyDep" class="empty form-control keyValue" placeholder="部门搜索..." style="width: 300px;">
+
+                            <label class="ztreeSearch" id="depSearch"></label>
+
+                            <ul class="ztree" id="departTree" style="max-height: 460px;overflow-y: auto"></ul>
+
+                        </div>
+
+                        <!--职位搜索-->
+                        <div class="tab-pane" id="pos-block">
+
+                            <!--ztree 树-->
+
+                            <input type="text" id="keyPos" class="empty form-control keyValue" placeholder="职位搜索..." style="width: 300px;">
+
+                            <label class="ztreeSearch" id="posSearch"></label>
+
+                            <ul class="ztree" id="positionTree" style="max-height: 300px;overflow-y: auto"></ul>
+
+                        </div>
+
+                    </div>
+
+                    <!--员工表格-->
+                    <div style="float: right;width: 55%;max-height: 560px;overflow-y: auto">
+
+                        <table id="person-table-filter" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
     <!--电子秤-->
     <div class="modal fade" id="weigh-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="height: 656px;">
@@ -355,6 +442,9 @@
 <script src="../YHQ-resource/js/YHQ-YF/conditionDep.js"></script>
 
 <script src="../YHQ-resource/js/YHQ-YF/MWcreate.js"></script>
+
+<!--选择人员-->
+<script src="../resource/js/personSelect.js"></script>
 
 <!-- END JAVASCRIPTS -->
 </body>

@@ -1,0 +1,17 @@
+﻿  .ellipse {
+        width: 80px;
+        height: 80px;
+        border-radius: 40px !important;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .ellipseText {
+        height: 80px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    a {
+    text-decoration: none;
+}

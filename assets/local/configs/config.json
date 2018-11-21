@@ -166,8 +166,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.108/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.108/BEEWebAPI/api/",
+  "apiUriPrefix":"http://47.92.134.19/ESCSWebAPI/api/",
+  "apiUriPrefixYW":"http://47.92.134.19/ESCSWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
   "systemTitle":"高效机房控制系统",
@@ -194,7 +194,7 @@
   "loginComment":"设置跳转为哪个登录页",
   "gongdanIndustryType":"1",
   "ckAuditType":"0",
-  "imgPath":"http://1.1.1.1/ApService/dimg.aspx",
+  "imgPath":"http://218.70.30.134:32537/ApService/dimg.aspx",
   "imgPathComment":"查看图片的路径",
   "indexImg":"../../../assets/local/img/img1.png",
   "indexImgComment":"首页图片路径",
@@ -206,7 +206,7 @@
   "bigScreenSwitchComment":"登陆时是否进行自动识别大屏的判断",
   "dapinInterval":"3",
   "dapinIntervalComment":"大屏幕是否自动刷新，0为不刷新，单位分钟",
-  "loginPath":"../logins/Precision_energy_efficiency/login.html",
+  "loginPath":"../logins/ESCS_EN/login.html",
   "loginPathComment":"登录页面路径",
   "showstep":"1",
   "showstepComment":"是否显示折标能效",
@@ -227,5 +227,9 @@
   "useNewIframeUrl":"../../new-frame/new-frame.html",
   "useNewIframeUrlComment":"新框架页面路径",
   "newMonitorToolbal":"1",
-  "newMonitorToolbalComment":"是否启用新的流程图工具栏"
+  "newMonitorToolbalComment":"是否启用新的流程图工具栏",
+  "controlStrategyPrm":"[1100007003,1100007008,1100007006,1100007005]",
+  "controlStrategyPrmComment":"控制策略中指定的四张图的id,依次是AI模式,自动模式,手动模式,全局设定",
+  "instencePrm":"[1535701832,1535707552,1535773026,1535774601]",
+  "instencePrmComment":"群控表格的实例id，第一个是主机搭配图，第二个是温度重设表，第三个是时间表，第四个是程序表，顺序不能混，没有的传''"
 }

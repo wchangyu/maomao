@@ -24,8 +24,6 @@
 
     display: block;
 
-    text-indent: 124px;
-
 }
 
 #commentForm .modal-block select~.error {
@@ -35,7 +33,6 @@
     margin: 0;
     margin-top: 10px;
     display: block;
-    text-indent: 124px;
 }
 
 #commentForm .modal-block textarea~.error {
@@ -45,7 +42,6 @@
     margin: 0;
     margin-top: 10px;
     display: block;
-    text-indent: 124px;
 }
 
 #commentForm .modal-block .time-tool-block input~.error {
@@ -207,5 +203,11 @@
     vertical-align: bottom;
 
     margin-left: 50px;
+
+}
+
+#commentForm .modal-block .time-tool-block input~.error{
+
+    left: -95px !important;
 
 }

@@ -41,53 +41,6 @@
 
         }
 
-        #commentForm .modal-block input~.error{
-
-            color: red;
-
-            width: auto;
-
-            line-height: 30px;
-
-            margin: 0;
-
-            margin-top: 10px;
-
-            display: block;
-
-            text-indent: 124px;
-
-        }
-
-        #commentForm .modal-block select~.error {
-            color: red;
-            width: auto;
-            line-height: 30px;
-            margin: 0;
-            margin-top: 10px;
-            display: block;
-            text-indent: 124px;
-        }
-
-        #commentForm .modal-block textarea~.error {
-            color: red;
-            width: auto;
-            line-height: 30px;
-            margin: 0;
-            margin-top: 10px;
-            display: block;
-            text-indent: 124px;
-        }
-
-        #commentForm .modal-block .time-tool-block input~.error {
-            color: red;
-            line-height: 30px;
-            text-indent: 0px;
-            position: absolute;
-            top: 33px;
-            width: 100%;
-        }
-
         #selectedDep li{
 
             line-height: 30px;
@@ -151,6 +104,13 @@
             margin-right: 0;
 
         }
+
+        #commentForm .modal-block .time-tool-block input~.error{
+
+            left: -94px;
+
+        }
+
     </style>
 
 </head>
@@ -315,35 +275,35 @@
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>合同名称：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-name" name="HT-name" placeholder="合同名称是必填字段">
+                                <label class="require-tip">合同名称：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-name" name="HT-name">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>合同类型：</label>
+                                <label class="require-tip">合同类型：</label>
                                 <select name="HT-type" id="HT-type" class="table-group-action-input form-control"></select>
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>所属项目：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-project" name="HT-project" placeholder="所属项目是必填字段" readonly>
+                                <label class="require-tip">所属项目：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-project" name="HT-project" readonly>
                                 <div class="modal-select modal-select-show" id="select-project"></div>
                             </li>
                             <li>
-                                <label>签订人：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-person" name="HT-person" placeholder="签订人是必填字段" readonly>
-                                <div class="modal-select modal-select-show" id="select-sign-modal"></div>
+                                <label class="require-tip">签订人：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-person" name="HT-person" readonly>
+                                <div class="modal-select modal-select-show selectUser" id="select-sign-modal"></div>
                             </li>
                             <li>
-                                <label>合同单位：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-unit" name="HT-unit" placeholder="签订单位是必填字段" readonly>
+                                <label class="require-tip">合同单位：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-unit" name="HT-unit" readonly>
                                 <div class="modal-select modal-select-show" id="select-unit-modal"></div>
                             </li>
                             <li>
-                                <label>合同签订时间</label>
+                                <label class="require-tip">合同签订时间</label>
                                 <div class="time-tool-block">
                                     <div class="input-group date form_date abbrDT">
-                                        <input id="signDT" name="signDT" class="form-control" size="16" type="text" value="" placeholder="必选字段"/>
+                                        <input id="signDT" name="signDT" class="form-control" size="16" type="text" value="" readonly/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -353,10 +313,10 @@
                                 <div class="time-seat" style="display: none;"></div>
                             </li>
                             <li>
-                                <label>合同开始时间</label>
+                                <label class="require-tip">合同开始时间</label>
                                 <div class="time-tool-block">
                                     <div class="input-group date form_date abbrDT">
-                                        <input id="HTStartDT" name="HTStartDT" class="form-control" size="16" type="text" value="" placeholder="必选字段"/>
+                                        <input id="HTStartDT" name="HTStartDT" class="form-control" size="16" type="text" value="" readonly/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -366,10 +326,10 @@
                                 <div class="time-seat" style="display: none;"></div>
                             </li>
                             <li>
-                                <label>合同结束时间</label>
+                                <label class="require-tip">合同结束时间</label>
                                 <div class="time-tool-block">
                                     <div class="input-group date form_date abbrDT">
-                                        <input id="HTendDT" name="HTendDT" class="form-control" size="16" type="text" value="" placeholder="必选字段"/>
+                                        <input id="HTendDT" name="HTendDT" class="form-control" size="16" type="text" value="" readonly/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -379,33 +339,33 @@
                                 <div class="time-seat" style="display: none;"></div>
                             </li>
                             <li>
-                                <label>合同金额：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-money" name="HT-money" placeholder="合同金额是必填字段，数字">
+                                <label class="require-tip">合同金额：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-money" name="HT-money" placeholder="数字">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>已付金额：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-paid" name="HT-paid" placeholder="已付金额是必填字段，数字">
+                                <label class="require-tip">已付金额：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-paid" name="HT-paid" placeholder="数字">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>待付金额：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-unpaid" name="HT-unpaid" placeholder="待付金额是必填字段，数字">
+                                <label class="require-tip">待付金额：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-unpaid" name="HT-unpaid" placeholder="数字">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>保证金：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-bond" name="HT-bond" placeholder="保证金是必填字段，数字">
+                                <label class="require-tip">保证金：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-bond" name="HT-bond" placeholder="数字">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>付款方式：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-PayWay" name="HT-PayWay" placeholder="付款方式是必填字段">
+                                <label class="require-tip">付款方式：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-PayWay" name="HT-PayWay">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>结算方式：</label>
-                                <input type="text" class="table-group-action-input form-control" id="HT-AccountWay" name="HT-AccountWay" placeholder="结算方式是必填字段">
+                                <label class="require-tip">结算方式：</label>
+                                <input type="text" class="table-group-action-input form-control" id="HT-AccountWay" name="HT-AccountWay">
                                 <div class="modal-select"></div>
                             </li>
                             <li class="text-block" style="width: 800px;">
@@ -496,6 +456,162 @@
                         <tbody>
                         </tbody>
                     </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--选择人员-->
+    <div class="modal fade" id="person-new-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 752px;width: 1000px;">
+            <div class="modal-content" style="height: 752px;width: 1000px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 630px;">
+
+                    <!--tab-->
+                    <ul class="nav nav-tabs nav-tabs-lg" style="margin-bottom: 6px;">
+
+                        <li class="active">
+                            <a href="#dep-block" data-toggle="tab" aria-expanded="true">
+                                部门
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#pos-block" data-toggle="tab" aria-expanded="true">
+                                职位
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="tab-content" style="float:left;width: 40%;max-height: 500px;">
+
+                        <!--部门搜索-->
+                        <div class="tab-pane active" id="dep-block">
+
+                            <!--ztree 树-->
+
+                            <input type="text" id="keyDep" class="empty form-control keyValue" placeholder="部门搜索..." style="width: 300px;">
+
+                            <label class="ztreeSearch" id="depSearch"></label>
+
+                            <ul class="ztree" id="departTree" style="max-height: 460px;overflow-y: auto"></ul>
+
+                        </div>
+
+                        <!--职位搜索-->
+                        <div class="tab-pane" id="pos-block">
+
+                            <!--ztree 树-->
+
+                            <input type="text" id="keyPos" class="empty form-control keyValue" placeholder="职位搜索..." style="width: 300px;">
+
+                            <label class="ztreeSearch" id="posSearch"></label>
+
+                            <ul class="ztree" id="positionTree" style="max-height: 300px;overflow-y: auto"></ul>
+
+                        </div>
+
+                    </div>
+
+                    <!--员工表格-->
+                    <div style="float: right;width: 55%;max-height: 560px;overflow-y: auto">
+
+                        <table id="person-table-filter" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--选择审核人-->
+    <div class="modal fade" id="person-new-table-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 752px;width: 1000px;">
+            <div class="modal-content" style="height: 752px;width: 1000px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 630px;">
+
+                    <!--tab-->
+                    <ul class="nav nav-tabs nav-tabs-lg" style="margin-bottom: 6px;">
+
+                        <li class="active">
+                            <a href="#dep-block-table" data-toggle="tab" aria-expanded="true">
+                                部门
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#pos-block-table" data-toggle="tab" aria-expanded="true">
+                                职位
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="tab-content" style="float:left;width: 40%;max-height: 500px;">
+
+                        <!--部门搜索-->
+                        <div class="tab-pane active" id="dep-block-table">
+
+                            <!--ztree 树-->
+
+                            <input type="text" id="keyDepTable" class="empty form-control keyValue" placeholder="部门搜索..." style="width: 300px;">
+
+                            <label class="ztreeSearch" id="depSearchTable"></label>
+
+                            <ul class="ztree" id="departTreeTable" style="max-height: 460px;overflow-y: auto"></ul>
+
+                        </div>
+
+                        <!--职位搜索-->
+                        <div class="tab-pane" id="pos-block-table">
+
+                            <!--ztree 树-->
+
+                            <input type="text" id="keyPosTable" class="empty form-control keyValue" placeholder="职位搜索..." style="width: 300px;">
+
+                            <label class="ztreeSearch" id="posSearchTable"></label>
+
+                            <ul class="ztree" id="positionTreeTable" style="max-height: 300px;overflow-y: auto"></ul>
+
+                        </div>
+
+                    </div>
+
+                    <!--员工表格-->
+                    <div style="float: right;width: 55%;max-height: 560px;overflow-y: auto">
+
+                        <table id="person-table-filter-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary confirm">确定</button>
@@ -659,6 +775,9 @@
 
 <!--文件上传-->
 <script src="../resource/js/uploader.js"></script>
+
+<!--选择人员-->
+<script src="../resource/js/personSelect.js"></script>
 
 <!-- END JAVASCRIPTS -->
 </body>

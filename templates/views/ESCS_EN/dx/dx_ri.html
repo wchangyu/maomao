@@ -1,0 +1,525 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!--DATEPICKER START-->
+    <link rel="stylesheet" href="../../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css" />
+    <link rel="stylesheet" href="../../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css" />
+    <link rel="stylesheet" href="../../resource/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+    <!--DATEPICKER END-->
+    <link rel="stylesheet" href="../../resource/css/leftBat.css">
+    <script src="../../resource/js/jquery-1.11.2.js"></script>
+    <script src="../../resource/js/moment.js"></script>
+    <script src="../../resource/js/showOrHidden.js"></script>
+    <script src="../../../../assets/local/scripts/underscore-min.js"></script>
+    <link href="../../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/admin/layout/css/themes/darkblue.css" id="style_color" rel="stylesheet" type="text/css" />
+    <link href="../../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
+    <!--SHOWLOADING START-->
+    <link href="../../resource/jQuery-showLoading/css/showLoading.css" rel="stylesheet" type="text/css" />
+    <!--SHOWLOADING END-->
+    <link href="../css/dx_ri.css" rel="stylesheet" type="text/css" />
+    <link href="../../favicon.ico" rel="shortcut icon" />
+
+    <link rel="stylesheet" href="../css/public.css">
+
+</head>
+<body class="page-header-fixed page-quick-sidebar-over-content">
+<div class="page-header navbar navbar-fixed-top">
+    <div class="page-header-inner">
+        <div class="page-logo">
+            <a href="../EnergyQueryTotalData.html">
+                <img src="../../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default" />
+            </a>
+            <div class="menu-toggler sidebar-toggler hide">
+            </div>
+        </div>
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        </a>
+        <div class="totalTitle"></div>
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="icon-bell"></i>
+                            <span class="badge badge-danger">
+                                0
+                            </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3><span class="bold">0 </span> 当日报警</h3>
+                            <a href="../../baojingyujing/warningAlarm-3.html">查看详细</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <span class="username username-hide-on-mobile">
+                            </span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a class="logout-page" href="../../login.html">
+                                <i class="icon-key"></i> 退出
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+<div class="page-container">
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <li class="sidebar-toggler-wrapper">
+                    <div class="sidebar-toggler">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="theme-panel hidden-xs hidden-sm">
+                <div class="toggler">
+                </div>
+                <div class="toggler-close">
+                </div>
+                <div class="theme-options">
+                    <div class="theme-option theme-colors clearfix">
+                            <span>
+                                配色
+                            </span>
+                        <ul>
+                            <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="默认">
+                            </li>
+                            <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="蓝黑">
+                            </li>
+                            <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="蓝色">
+                            </li>
+                            <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="theme-option">
+                            <span>
+                                布局
+                            </span>
+                        <select class="layout-option form-control input-sm">
+                            <option value="fluid" selected="selected">平铺</option>
+                            <option value="boxed">盒式</option>
+                        </select>
+                    </div>
+
+                    <div class="theme-option">
+                            <span>
+                                侧边菜单
+                            </span>
+                        <select class="sidebar-menu-option form-control input-sm">
+                            <option value="accordion" selected="selected">手风琴式</option>
+                            <option value="hover">鼠标悬停</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                            <span>
+                                侧边位置
+                            </span>
+                        <select class="sidebar-pos-option form-control input-sm">
+                            <option value="left" selected="selected">左</option>
+                            <option value="right">右</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                            <span>
+                                底部
+                            </span>
+                        <select class="page-footer-option form-control input-sm">
+                            <option value="fixed">位置固定</option>
+                            <option value="default" selected="selected">默认</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <h3 class="page-title"></h3>
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                </ul>
+                <div class="showOrHidden"></div>
+                <div class="page-toolbar">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div id="dxbusy">
+                            <div class="row margin-top-20">
+                                <div class="col-xs-12">
+                                    <div class="clear pull-left">
+                                        <div style="float:left;line-height:35px;">时间选择:</div>
+                                        <div style="float:left;width:150px;margin-left:5px;">
+                                            <div class="input-group date form_date dxDT">
+                                                <input id="spDT" class="form-control" size="16" type="text" value="" />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                        <a id="DxriBtn" class="btn btn-default green pull-left" style="margin-left:20px;">Diagnosis</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="row margin-top-20">
+                                <div class="col-xs-12">
+                                    <div class="portlet bordered light">
+                                        <!--<div class="portlet-title" style="background: #ffffff">-->
+                                            <!--<div class="caption">-->
+                                                <!--<i class="fa fa-area-chart font-green-sharp"></i><span id="spanTitle" class="font-green-sharp">整体能效诊断</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <div class="portlet-body">
+                                            <div style="width: 840px;border: 1px solid #dddddd;display: none">
+                                                <div style="border-bottom: 1px solid #dddddd;text-align:center;background: #e7eff7;line-height: 40px;font-size: 18px;">Plantroom Efficiency Tree</div>
+                                                <div>
+                                                    <div style="float: right;margin: 10px 0;">
+                                                        <div class="legbox">
+                                                            <div class="legexllbox"></div>
+                                                            <span class="legboxText">Excellent/Good</span>
+                                                        </div>
+                                                        <div class="legbox">
+                                                            <div class="legcommbox"></div>
+                                                            <span class="legboxText">Fair</span>
+                                                        </div>
+                                                        <div class="legbox">
+                                                            <div class="legpoorbox"></div>
+                                                            <span class="legboxText">Need to Improve</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div style="position: relative;height: 500px;">
+                                                    <div class="cold-station-cell">
+                                                        <h3>3.649</h3>
+                                                        <h5>冷站能效</h5>
+                                                    </div>
+                                                    <div class="cold-station-cell" style="top: 150px;left: 25%">
+                                                        <h3>3.649</h3>
+                                                        <h5>冷站能效</h5>
+                                                    </div>
+
+                                                    <div class="cold-station-cell" style="top: 150px;left: 70%">
+                                                        <h3>3.649</h3>
+                                                        <h5>冷站能效</h5>
+                                                    </div>
+
+                                                    <div class="cold-station-cell" style="top: 300px;left: 5%">
+                                                        <h3>3.649</h3>
+                                                        <h5>冷站能效</h5>
+                                                    </div>
+
+                                                    <div class="cold-station-cell" style="top: 300px;left: 25%">
+                                                        <h3>3.649</h3>
+                                                        <h5>冷站能效</h5>
+                                                    </div>
+
+                                                    <div class="cold-station-cell" style="top: 300px;left: 45%">
+                                                        <h3>3.649</h3>
+                                                        <h5>冷站能效</h5>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+
+                                                    <table class="table table-striped table-advance table-hover" id="NXTreeView_DateTable">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                <h4 style="text-align:center;">Plantroom Efficiency Tree</h4>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                <div style="float:right;">
+                                                                    <div class="legbox">
+                                                                        <div class="legexllbox"></div>
+                                                                        <span class="legboxText">Excellent/Good</span>
+                                                                    </div>
+                                                                    <div class="legbox">
+                                                                        <div class="legcommbox"></div>
+                                                                        <span class="legboxText">Fair</span>
+                                                                    </div>
+                                                                    <div class="legbox">
+                                                                        <div class="legpoorbox"></div>
+                                                                        <span class="legboxText">Need to Improve</span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="5">
+                                                                <div id="canvas_eer" class="canvasbox">
+                                                                    <h3 id="eer_Text">0.0</h3>
+                                                                    <h5>Chiller Plant Efficiency</h5>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="3">
+                                                                <div id="canvas_nx" class="canvasbox">
+                                                                    <h3 id="nx_Text">0.0</h3>
+                                                                    <h5>Chiller Plant exclude CHWP Efficiency</h5>
+
+                                                                </div>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <div id="canvas_chw" class="canvasbox">
+                                                                    <h3 id="chw_Text">0.0</h3>
+                                                                    <h5>Chilled water EER</h5>
+
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div id="canvas_cop" class="canvasbox" style="min-width:120px;">
+                                                                    <h3 id="cop_Text">0.0</h3>
+                                                                    <h5>Chiller Efficiency</h5>
+
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div id="canvas_cw" class="canvasbox" style="min-width:120px;">
+                                                                    <h3 id="cw_Text">0.0</h3>
+                                                                    <h5>Condenser water EER</h5>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div id="canvas_ctc" class="canvasbox" style="min-width:120px;">
+                                                                    <h3 id="ct_Text">0.0</h3>
+                                                                    <h5>Cooling Tower EER</h5>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table table-striped table-advance table-hover" id="QuoTreeView_DateTable">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Energy Efficiency Ratio</th>
+                                                            <th>Excellent/Good</th>
+                                                            <th>Alarm</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>Plantroom EER</td>
+                                                            <td>5.0</td>
+                                                            <td>4.0</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Chiller System EER</td>
+                                                            <td>6</td>
+                                                            <td>5</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Chilled Water Pump EER</td>
+                                                            <td>50</td>
+                                                            <td>35</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Chiller Overall EER</td>
+                                                            <td>6.5</td>
+                                                            <td>5.5</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Condenser Water Pump EER</td>
+                                                            <td>50</td>
+                                                            <td>35</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Cooling Tower EER</td>
+                                                            <td>150</td>
+                                                            <td>80</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="portlet box" style="background: #568fbf">
+                                                                <div class="portlet-title">
+                                                                    <div class="caption">
+                                                                        Efficiency Diagnosis for Chiller
+                                                                    </div>
+                                                                    <div class="tools">
+                                                                        <a class="btn-small" href="dx_ch_index.html">
+
+                                                                            <span class="fa-arrow-img"></span>
+
+                                                                            <!--<i class="fa fa-arrow-circle-right" style="color:#FFF;font-size:18px !important;"></i>-->
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="portlet-body" style="height:320px;border: 1px solid #dddddd">
+                                                                    <h5 id="dxch_item_FHL">1、<i class="fa fa-question-circle" style="color:#c4c4c4;margin-left:2px;"></i> 冷机综合负荷率</h5>
+                                                                    <h5 id="dxch_item_csw">2、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> Chilled Water Leaving Temperature.</h5>
+                                                                    <h5 id="dxch_item_hsw">3、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> 冷却回水温度</h5>
+                                                                    <h5>4、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> Ratio of Chilled Water Flow Rate.</h5>
+                                                                    <h5>5、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> Ratio of Condenser Water Flow Rate.</h5>
+                                                                    <h5>6、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> 6. Water by-pass from chiller.</h5>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 col-xs-12" id="chsglrow" style="margin-top:-10px !important;">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="portlet box" style="background: #568fbf">
+                                                                <div class="portlet-title">
+                                                                    <div class="caption">
+                                                                        Coefficient Diagnosis for Chilled Water Circuit
+                                                                    </div>
+                                                                    <div class="tools">
+                                                                        <a class="btn-small" href="dx_chw_index.html">
+                                                                            <span class="fa-arrow-img"></span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="portlet-body" style="height:320px;border: 1px solid #dddddd">
+                                                                    <h5 id="dxchw_item_ghswc">1、<i class="fa fa-question-circle" style="color:#c4c4c4;margin-left:2px;"></i> 冷冻供回水温差</h5>
+                                                                    <h5 id="dxchw_item_mdyc">2、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> 末端压降</h5>
+                                                                    <h5>3、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> Volume of by-pass Water.</h5>
+                                                                    <h5>4、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> Chilled Water Pump Efficiency.</h5>
+                                                                    <h5>5、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> Chilled Water Pump Head.</h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="portlet box" style="background: #568fbf">
+                                                                <div class="portlet-title">
+                                                                    <div class="caption">
+                                                                        Coefficient Diagnosis for Condenser Water Circuit
+                                                                    </div>
+                                                                    <div class="tools">
+                                                                        <a class="btn-small" href="dx_cw_index.html">
+                                                                            <span class="fa-arrow-img"></span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="portlet-body boxhgt" style="border: 1px solid #dddddd">
+                                                                    <h5 id="dxcw_item_ghswc">1、<i class="fa fa-question-circle" style="color:#c4c4c4;margin-left:2px;"></i> 供回水温差</h5>
+                                                                    <h5>2、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> Volume of Water By-pass.</h5>
+                                                                    <h5>3、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> Condenser Water Pump Efficiency.</h5>
+                                                                    <h5>4、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> . Condenser Water Pump Head.</h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="portlet box" style="background: #568fbf">
+                                                                <div class="portlet-title">
+                                                                    <div class="caption">
+                                                                        Coefficient Diagnosis for Cooling Tower
+                                                                    </div>
+                                                                    <div class="tools">
+                                                                        <a class="btn-small" href="dx_ct_index.html">
+                                                                            <span class="fa-arrow-img"></span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="portlet-body boxhgt" style="border: 1px solid #dddddd">
+                                                                    <h5 id="dxct_item_zsxl">1、<i class="fa fa-question-circle" style="color:#c4c4c4;margin-left:2px;"></i> 冷却塔自身效率</h5>
+                                                                    <h5>2、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> Existing Cooling Tower Control Strategy.</h5>
+                                                                    <h5>3、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> Ration of mass flow rate of water to that of air at operating conditions .</h5>
+                                                                    <h5>4、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> Cooling Tower’s Backflow.</h5>
+                                                                    <h5>5、<i class="fa fa-question-circle" style="color:#c4c4c4;"></i> Water Volume thru Cooling Tower.</h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+</div>
+<div class="page-footer">
+    <div class="page-footer-inner">
+        2018 &copy; Huaqin.
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+<script src="../../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<!--SHOWLOADING START-->
+<script src="../../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js" type="text/javascript"></script>
+<!--SHOWLOADING END-->
+<script src="../../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!--DATEPICKER START-->
+<script src="../../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="../../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="../../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!--DATEPICKER END-->
+<script src="../../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../../assets/local/scripts/BEE.js" type="text/javascript"></script>
+<script src="../js/ESCS.js"></script>
+<script src="../js/dx_ri.js" type="text/javascript"></script>
+<script>
+    jQuery(document).ready(function () {
+        Metronic.init();
+        BEE.init(true);
+        Layout.init();
+        Demo.init();
+        ESCS.init();
+        dx_ri.init();
+    });
+</script>
+</body>
+</html>

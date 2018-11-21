@@ -29,7 +29,7 @@
     <style>
         #create-Modal label{
 
-            width: 115px;
+            width: 155px;
 
         }
 
@@ -53,8 +53,6 @@
 
             display: block;
 
-            text-indent: 124px;
-
         }
 
         #commentForm .modal-block select~.error {
@@ -64,7 +62,6 @@
             margin: 0;
             margin-top: 10px;
             display: block;
-            text-indent: 124px;
         }
 
         #commentForm .modal-block textarea~.error {
@@ -260,58 +257,58 @@
                                 </div>
                             </div>
                             <li>
-                                <label>餐厅：</label>
+                                <label class="require-tip">餐厅：</label>
                                 <select name="DC-restaurant" id="DC-restaurant" class="table-group-action-input form-control"></select>
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>菜品名称：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-name" name="DC-name" placeholder="菜品名称是必填字段">
+                                <label class="require-tip">菜品名称：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-name" name="DC-name">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>菜品类型：</label>
+                                <label class="require-tip">菜品类型：</label>
                                 <select name="DC-type" id="DC-type" class="table-group-action-input form-control"></select>
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>口味：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-taste" name="DC-taste" placeholder="口味是必填字段">
+                                <label class="require-tip">口味：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-taste" name="DC-taste">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>配料：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-mixture" name="DC-mixture" placeholder="配料是必填字段">
+                                <label class="require-tip">配料：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-mixture" name="DC-mixture">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>计价单位：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-valuation" name="DC-valuation" placeholder="计价单位是必填字段">
+                                <label class="require-tip">计价单位：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-valuation" name="DC-valuation">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>价格（元）：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-prince" name="DC-prince" placeholder="价格是必填字段">
+                                <label class="require-tip">价格（元）：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-prince" name="DC-prince">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>适合人群：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-fit" name="DC-fit" placeholder="适合人群是必填字段">
+                                <label class="require-tip">适合人群：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-fit" name="DC-fit">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>不适合人群：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-unfit" name="DC-unfit" placeholder="不适合人群是必填字段">
+                                <label class="require-tip">不适合人群：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-unfit" name="DC-unfit">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>有效期（小时）：</label>
-                                <input type="text" class="table-group-action-input form-control" id="DC-period" name="DC-period" placeholder="有效期是必填字段">
+                                <label class="require-tip">有效期（小时）：</label>
+                                <input type="text" class="table-group-action-input form-control" id="DC-period" name="DC-period">
                                 <div class="modal-select"></div>
                             </li>
-                            <li class="text-block" style="width: 800px;">
+                            <li class="text-block" style="width: 850px;">
                                 <label>备注：</label>
-                                <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="DC-remark" name="DC-remark" placeholder="备注是选填字段"></textarea>
+                                <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="DC-remark" name="DC-remark"></textarea>
                                 <div class="modal-select"></div>
                             </li>
                         </ul>
@@ -342,7 +339,6 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
-
     <!--提示框-->
     <div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="height: 168px;">

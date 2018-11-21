@@ -281,7 +281,7 @@ $(function(){
     _tableInitSearch($('#sign-table'),driverCol,'2','','','','','',10,'','','',true);
 
     //司机列表
-    driverPerson();
+    //driverPerson();
 
     conditionSelect();
 
@@ -452,44 +452,28 @@ $(function(){
 
     })
 
-    //选择司机
-    $('#select-user').on('click',function(){
-
-        _moTaiKuang($('#driver-Modal'),'司机列表','','','','确定');
-
-    })
-
     //确定签订人
-    $('#driver-Modal').on('click','.btn-primary',function(){
+    $('#person-new-Modal').on('click','.btn-primary',function(){
 
         //验证是否选择
-        var currentTr = $('#sign-table tbody').children('.tables-hover');
+        var currentTr = _isSelectTr($('#person-table-filter'));
 
-        if(currentTr.length== 0){
+        if(currentTr){
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择合同签订人','');
+            var num = currentTr.find('.checker').attr('data-id');
 
-            return false;
+            var name = currentTr.children().eq(1).html();
+
+            $('#person-new-Modal').modal('hide');
+
+            $('#CA-userNum').val(num);
+
+            $('#CA-userName').val(name);
+
+            $('#CA-userName').next('.error').hide();
 
         }
 
-        if(currentTr.children('.dataTables_empty').length>0){
-
-            return false;
-
-        }
-
-        var num = currentTr.find('.checker').attr('data-id');
-
-        var name = currentTr.children().eq(1).html();
-
-        $('#driver-Modal').modal('hide');
-
-        $('#CA-userNum').val(num);
-
-        $('#CA-userName').val(name);
-
-        $('#CA-userName').next('.error').hide();
 
     })
 
@@ -667,27 +651,5 @@ $(function(){
         $('#create-Modal').find('textarea').attr('disabled',true);
 
     }
-
-    //获取签订人
-    function driverPerson(){
-
-        var prm = {
-
-            'userID':_userIdNum,
-
-            'userName':_userIdName
-
-        }
-
-        _mainAjaxFunCompleteNew('post','RBAC/rbacGetUsers',prm,false,function(result){
-
-            _datasTable($('#sign-table'),result);
-
-
-
-        })
-
-    }
-
 
 })

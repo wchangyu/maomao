@@ -640,7 +640,7 @@ $(function(){
     warehouse();
 
     //获取调拨仓库
-    warehouse(true);
+    warehouseAll();
 
     //控制出库单的到处按钮显示隐藏
 
@@ -3595,16 +3595,8 @@ $(function(){
         var prm = {
             'userID':_userIdNum,
             'userName':_userIdName,
-            "hasLocation":1
-        }
-
-        if(!flag){
-
-            prm.b_UserRole = _userRole;
-
-        }else{
-
-            prm.b_UserRole = 'admin';
+            "hasLocation":1,
+            'b_UserRole':_userRole
         }
 
         $.ajax({
@@ -3617,44 +3609,73 @@ $(function(){
 
                 var str1 = '';
 
-                if(!flag){
+                _ckArr.length = 0;
 
-                    for(var i=0;i<result.length;i++){
+                for(var i=0;i<result.length;i++){
 
-                        str += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
+                    _ckArr.push(result[i]);
 
-                        str1 += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
+                    str += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
 
-                    }
+                    str1 += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
 
-                    $('#transferOut').empty().append(str);
-
-                    $('#ckselected').empty().append(str1);
-
-                    $('#conditionStroage').empty().append(str1);
-
-                    conditionSelect();
-
-                }else{
-
-                    _ckArr.length = 0;
-
-                    for(var i=0;i<result.length;i++){
-
-                        _ckArr.push(result[i]);
-
-                        str += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>'
-
-                    }
-
-                    $('#ckSelect1').empty().append(str);
                 }
+
+                $('#ckselected').empty().append(str1);
+
+                $('#conditionStroage').empty().append(str1);
+
+                $('#ckSelect1').empty().append(str);
+
+                conditionSelect();
 
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+
+    //去向仓库
+    function warehouseAll(){
+
+        var prm = {
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            "hasLocation":1,
+            'b_UserRole':'admin'
+        }
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetStorages',
+            data:prm,
+            success:function(result){
+
+                var str = '<option value="">请选择</option>';
+
+                var str1 = '';
+
+                for(var i=0;i<result.length;i++){
+
+                    //_ckArr.push(result[i]);
+
+                    str += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
+
+                    //str1 += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
+
+                }
+
+                $('#transferOut').empty().append(str);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                console.log(jqXHR.responseText);
+
+            }
+        })
+
     }
 
     //获取所有库区

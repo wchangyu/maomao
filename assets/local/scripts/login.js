@@ -590,6 +590,14 @@ var Login = function() {
                     var  newMonitorToolbal = data["newMonitorToolbal"] || '';
                     sessionStorage. newMonitorToolbal =  newMonitorToolbal;
 
+                    //控制策略指定流程图的跳转
+                    var  controlStrategyPrm = data["controlStrategyPrm"] || '';
+                    sessionStorage. controlStrategyPrm =  controlStrategyPrm;
+
+                    //群控表格实例id
+                    var  instencePrm = data["instencePrm"] || '';
+                    sessionStorage. instencePrm =  instencePrm;
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 

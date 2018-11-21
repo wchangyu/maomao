@@ -1,0 +1,139 @@
+.tab-bar{
+
+    background: #d9d9d9;
+
+    padding: 5px 0;
+
+    display: none;
+
+}
+
+.tab-bar li{
+
+    float: right;
+
+    font-size: 18px;
+
+    line-height: 30px;
+
+    cursor: pointer;
+
+    color: #ffffff;
+
+    padding: 5px 10px;
+
+    margin-right: 10px;
+
+}
+
+.tab-bar-active{
+
+    background: #77cdd0;
+
+}
+
+.tab-bar a{
+
+    font-size: 18px;
+
+    color: #ffffff !important;
+
+    background: rgb(255, 215, 0);
+
+    padding: 5px 10px;
+
+    float: right;
+
+    margin-right: 10px;
+
+    line-height: 30px;
+}
+
+.time-table li{
+
+    float: left;
+
+    font-size: 18px;
+
+    line-height: 30px;
+
+    cursor: pointer;
+
+    color: #ffffff;
+
+    padding: 10px 15px;
+
+    background: #77cdd0;
+
+    margin-right: 10px;
+
+    width: 130px;
+
+    text-align: center;
+
+}
+
+.bodyContr {
+    width: 280px;
+    height: 40px;
+    border: 1px solid #DCDCDC;
+    outline: none;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.bodyContr input{
+
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    text-indent: 10px;
+
+}
+
+.bodyContr select{
+
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    text-indent: 10px;
+
+}
+
+#formatTip{
+
+    line-height: 30px;
+
+    text-align: center;
+
+    color: red;
+
+}
+
+.tab-bar-title{
+
+    float: left;
+
+    font-size: 18px;
+
+    line-height: 30px;
+
+    cursor: pointer;
+
+    color: #ffffff;
+
+    padding: 5px 10px;
+
+    margin-right: 10px;
+
+}

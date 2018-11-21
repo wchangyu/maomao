@@ -35,6 +35,42 @@ $(function(){
     $('#commentForm').validate({
 
         rules:{
+            //医废类型
+            'MW-classify':{
+
+                required: true
+
+            },
+            //医废来源
+            'MW-source':{
+
+                required: true
+
+            },
+            //科室
+            'MW-dep':{
+
+                required: true
+
+            },
+            //医废处理人
+            'MW-person':{
+
+                required: true
+
+            },
+            //运送人
+            'MW-carrier':{
+
+                required: true
+
+            },
+            //称
+            'MW-weigh':{
+
+                required: true
+
+            },
             //重量
             'MW-weighNum':{
 
@@ -46,19 +82,158 @@ $(function(){
 
         },
         messages:{
+            //医废类型
+            'MW-classify':{
 
+                required: '医废类型为必选字段'
+
+            },
+            //医废来源
+            'MW-source':{
+
+                required: '医废来源为必选'
+
+            },
+            //科室
+            'MW-dep':{
+
+                required: '科室为必选字段'
+
+            },
+            //医废处理人
+            'MW-person':{
+
+                required: '医废处理人为必填字段'
+
+            },
+            //运送人
+            'MW-carrier':{
+
+                required: '运送人为必填字段'
+
+            },
+            //称
+            'MW-weigh':{
+
+                required: '称为必选字段'
+
+            },
             //重量
             'MW-weighNum':{
 
-                required: '请输入重量',
+                required: '重量为必填字段',
 
-                number:'重量需是数字'
+                number:'格式为数字'
 
             }
 
         }
 
     });
+
+    //点击按钮验证
+    function validform(){
+
+        return $('#commentForm').validate({
+
+            rules:{
+                //医废类型
+                'MW-classify':{
+
+                    required: true
+
+                },
+                //医废来源
+                'MW-source':{
+
+                    required: true
+
+                },
+                //科室
+                'MW-dep':{
+
+                    required: true
+
+                },
+                //医废处理人
+                'MW-person':{
+
+                    required: true
+
+                },
+                //运送人
+                'MW-carrier':{
+
+                    required: true
+
+                },
+                //称
+                'MW-weigh':{
+
+                    required: true
+
+                },
+                //重量
+                'MW-weighNum':{
+
+                    required: true,
+
+                    number:true
+
+                }
+
+            },
+            messages:{
+                //医废类型
+                'MW-classify':{
+
+                    required: '医废类型为必选字段'
+
+                },
+                //医废来源
+                'MW-source':{
+
+                    required: '医废来源为必选'
+
+                },
+                //科室
+                'MW-dep':{
+
+                    required: '科室为必选字段'
+
+                },
+                //医废处理人
+                'MW-person':{
+
+                    required: '医废处理人为必填字段'
+
+                },
+                //运送人
+                'MW-carrier':{
+
+                    required: '运送人为必填字段'
+
+                },
+                //称
+                'MW-weigh':{
+
+                    required: '称为必选字段'
+
+                },
+                //重量
+                'MW-weighNum':{
+
+                    required: '重量为必填字段',
+
+                    number:'格式为数字'
+
+                }
+
+            }
+
+        });
+
+    }
 
     /*--------------------------------表格初始化---------------------------------*/
 
@@ -202,7 +377,8 @@ $(function(){
     $('#create-Modal').on('click','.dengji',function(){
 
         //格式验证
-        formatValidateUser(function(){
+
+        if(validform().form()){
 
             sendData('MW/mwAddMWInfo',$('#create-Modal').find('.modal-dialog'),function(result){
 
@@ -214,32 +390,33 @@ $(function(){
 
                 }
 
+                _moTaiKuang($('#tip-Modal'),'提示',true,true,result.message,'');
+
             })
 
-        })
-
+        }
     })
 
     //选择运送人
-    $('.modal-select-carrier').click(function(){
-
-        //初始化
-        _datasTable($('#carrier-table'),[]);
-
-        //数据
-        _datasTable($('#carrier-table'),_carryArr);
-
-        //模态框
-        _moTaiKuang($('#carrier-Modal'),'运送人列表','','','','选择');
-
-    })
+    //$('.modal-select-carrier').click(function(){
+    //
+    //    //初始化
+    //    _datasTable($('#carrier-table'),[]);
+    //
+    //    //数据
+    //    _datasTable($('#carrier-table'),_carryArr);
+    //
+    //    //模态框
+    //    _moTaiKuang($('#carrier-Modal'),'运送人列表','','','','选择');
+    //
+    //})
 
     //确定运送人
-    $('#carrier-Modal').on('click','.btn-primary',function(){
+    $('#person-new-Modal').on('click','.btn-primary',function(){
 
-        var currentTr = $('#carrier-table tbody').find('.tables-hover');
+        var currentTr = _isSelectTr($('#person-table-filter'));
 
-        if(currentTr.length >0){
+        if(currentTr){
 
             var num = currentTr.find('.checker').attr('data-id');
 
@@ -249,11 +426,9 @@ $(function(){
 
             $('#MW-carrier').val(name);
 
-            $('#carrier-Modal').modal('hide');
+            $('#MW-carrier').next('.error').hide();
 
-        }else{
-
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择科室','');
+            $('#person-new-Modal').modal('hide');
 
         }
 
@@ -276,9 +451,9 @@ $(function(){
     //确定电子称
     $('#weigh-Modal').on('click','.btn-primary',function(){
 
-        var currentTr = $('#weigh-table tbody').find('.tables-hover');
+        var currentTr = _isSelectTr($('#weigh-table'));
 
-        if(currentTr.length >0){
+        if(currentTr){
 
             var num = currentTr.find('.checker').attr('data-id');
 
@@ -289,10 +464,6 @@ $(function(){
             $('#MW-weigh').val(name);
 
             $('#weigh-Modal').modal('hide');
-
-        }else{
-
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择科室','');
 
         }
 
@@ -482,26 +653,7 @@ $(function(){
     //模态框初始化
     function createModeInit(){
 
-        //input清空
-        $('.modal-block').find('input').val('');
-
-        //select清空
-        $('.modal-block').find('select').val('');
-
-        //验证消息清空
-        var error = $('.modal-block').find('label');
-
-        for(var i=0;i<error.length;i++){
-
-            var className = error.eq(i).attr('class')
-
-            if(className == 'error'){
-
-                error.eq(i).remove();
-
-            }
-
-        }
+        _creatInit();
 
         //科室属性
         $('#MW-dep').removeAttr('data-id');
@@ -514,57 +666,6 @@ $(function(){
 
         //医废处理人是登录者本人
         $('#MW-person').val(_userIdName);
-
-    }
-
-    //验证
-    function formatValidateUser(fun){
-
-        //非空验证
-        if($('#MW-classify').val() == '' || $('#MW-source').val() == '' || $('#MW-dep').val() == '' || $('#MW-person').val() == '' || $('#MW-carrier').val() == '' || $('#MW-weigh').val() == '' || $('#MW-weighNum').val() == '' ){
-
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项','');
-
-        }else{
-
-            //验证错误
-            var error = $('#commentForm').find('.error');
-
-            if(error.length != 0){
-
-                var flag = true;
-
-                for(var i=0;i<error.length;i++){
-
-                    if(error.eq(i).css('display') != 'none'){
-
-                        flag = false;
-
-                        break;
-
-                    }
-
-                }
-
-                if(flag){
-
-                    fun();
-
-                }else{
-
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写正确格式','');
-
-                }
-
-            }else{
-
-                //验证通过
-                fun();
-
-            }
-
-
-        }
 
     }
 

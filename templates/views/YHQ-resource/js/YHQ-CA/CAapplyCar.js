@@ -1,6 +1,13 @@
 $(function(){
 
+    //选择表格点击
     _isClickTr = true;
+
+    //是否需要申请
+    var _isAudit = false;
+
+    //是否需要审核方法
+    auditFun();
 
     /*-----------------------------默认加载---------------------------------*/
 
@@ -81,7 +88,7 @@ $(function(){
                 required:true
 
             },
-            //乘车负责人
+            //申请理由
             'CA-remark':{
 
                 required:true
@@ -130,7 +137,7 @@ $(function(){
             //出发时间
             'CA-leave-time':{
 
-                isEmpty:'出发事件是必填字段'
+                isEmpty:'出发时间是必填字段'
 
             },
             //预计回场时间
@@ -280,7 +287,7 @@ $(function(){
                 //出发时间
                 'CA-leave-time':{
 
-                    isEmpty:'出发事件是必填字段'
+                    isEmpty:'出发时间是必填字段'
 
                 },
                 //预计回场时间
@@ -399,7 +406,16 @@ $(function(){
 
                 var str = '';
 
-                str += '<span class="option-button option-edit option-in" data-attr="' + full.id + '">' + '编辑</span>'
+                //审核过后不可以编辑
+                if(full.isAudit>0){
+
+
+
+                }else{
+
+                    str += '<span class="option-button option-edit option-in" data-attr="' + full.id + '">' + '编辑</span>'
+
+                }
 
                 return str
 
@@ -581,12 +597,18 @@ $(function(){
 
     })
 
-    //确定签订人
+    //确定申请人
     $('#person-Modal').on('click','.btn-primary',function(){
 
-        //验证是否选择
 
-        var currentTr = _isSelectTr($('.person-table'));
+
+    })
+
+    //确定选中的人员
+    $('#person-new-Modal').on('click','.btn-primary',function(){
+
+        //验证是否选择
+        var currentTr = _isSelectTr($('#person-table-filter'));
 
         if(currentTr){
 
@@ -596,13 +618,15 @@ $(function(){
 
             var tel = currentTr.children().eq(4).html();
 
-            var depNum = currentTr.children().eq(2).children().attr('data-attr');
+            var depNum = currentTr.children().eq(2).children().attr('data-num');
 
             var depName = currentTr.children().eq(2).children().html();
 
-            $('#person-Modal').modal('hide');
+            $('#person-new-Modal').modal('hide');
 
-            if(_currentPersonDom == 'CA-applyNum' ){
+            if(_selectPersonButton == 'apply-person' ){
+
+                //申请人
 
                 //申请人
                 $('#CA-applyNum').val(num);
@@ -616,14 +640,18 @@ $(function(){
                 //申请人部门
                 $('#CA-applyDepart').val(depName);
 
+                //申请部门id
                 $('#CA-applyDepart').attr('data-attr',depNum);
 
+                //验证消息
                 $('#CA-applyName').next().hide();
 
+                //验证电话
                 $('#CA-applyTel').next().hide();
 
+            }else if(_selectPersonButton == 'change-person'){
 
-            }else if(_currentPersonDom == 'CA-personChangeNum'){
+                //负责人
 
                 //负责人信息
                 $('#CA-personChange').val(name);
@@ -634,15 +662,20 @@ $(function(){
                 //申请人电话
                 $('#CA-personChangeTel').val(tel);
 
+                //验证消息
                 $('#CA-personChange').next().hide();
 
+            }else if(_selectPersonButton == 'audit-person'){
+
+                //审核
+
+                //审核人工号
+                $('#CA-personAuditNum').val(num);
+
+                //审核人姓名
+                $('#CA-personAudit').val(name);
+
             }
-
-            $('#CA-userNum').val(num);
-
-            $('#CA-userName').val(name);
-
-            $('#CA-userName').next('.error').hide();
 
         }
 
@@ -657,7 +690,8 @@ $(function(){
             //申请单号
             canum:$('#CA-canumCon').val(),
             //状态为10的
-            caStatus:10,
+            //caStatus:10,
+            castatuses:[5,10],
             //用车部门
             departnum:$('#CA-departCon').val(),
             //申请开始时间
@@ -701,6 +735,19 @@ $(function(){
     //发送数据
     function sendData(url,el,flag,successFun){
 
+        //审核人是否填写了
+        if(_isAudit){
+
+            if($('#CA-personAudit').val() == ''){
+
+                _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择/填写审核人','');
+
+                return false;
+
+            }
+
+        }
+
         var prm = {
 
             //申请人工号
@@ -742,7 +789,11 @@ $(function(){
             //角色
             b_UserRole:_userRole,
             //当前用户的部门
-            b_DepartNum:_userBM
+            b_DepartNum:_userBM,
+            //审批人工号
+            spUserNum:$('#CA-personAuditNum').val(),
+            //审批人姓名
+            spUsername:$('#CA-personAudit').val()
 
         }
 
@@ -797,6 +848,10 @@ $(function(){
                 $('#CA-personChangeTel').val(data.leaderphone);
                 //申请理由
                 $('#CA-remark').val(data.caMemo);
+                //审核人工号
+                $('#CA-personAuditNum').val(data.spUserNum);
+                //审核人姓名
+                $('#CA-personAudit').val(data.spUsername);
             }
 
         }
@@ -824,5 +879,33 @@ $(function(){
 
     }
 
+    //是否需要审核
+    function auditFun(){
+
+        _mainAjaxFunCompleteNew('post','YHQCA/isAuditInfo','','',function(result){
+
+            if(result.code == 99){
+
+                //result.data = 0;
+
+                if(result.data == 1){
+
+                    _isAudit = true;
+
+                    $('.audit-block').show();
+
+                }else if(result.data == 0){
+
+                    _isAudit = false;
+
+                    $('.audit-block').hide();
+
+                }
+
+            }
+
+        })
+
+    }
 
 })

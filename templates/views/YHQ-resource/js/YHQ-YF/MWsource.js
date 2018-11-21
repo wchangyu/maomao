@@ -10,6 +10,9 @@ $(function(){
     //当前选中的医废id
     var _thisId = '';
 
+    //名称变量
+    var _isExist = '';
+
     /*----------------------------表格初始化---------------------*/
 
     var mainCol = [
@@ -51,7 +54,9 @@ $(function(){
             //名称
             'MW-source-name':{
 
-                required:true
+                required:true,
+
+                isExist:_isExist
 
             },
 
@@ -88,6 +93,77 @@ $(function(){
 
     });
 
+    function validform(){
+
+        return $('#commentForm').validate({
+
+            rules:{
+
+                //名称
+                'MW-source-name':{
+
+                    required:true,
+
+                    isExist:_isExist
+
+                },
+
+                //顺序
+                'MW-source-order':{
+
+                    number:true,
+                    //整数
+                    digits:true,
+
+                    min:0
+
+                }
+            },
+            messages:{
+
+                //名称
+                'MW-source-name':{
+
+                    required:'名称是必填项'
+
+                },
+
+                //顺序
+                'MW-source-order':{
+
+                    number:'顺序需是数字',
+
+                    digits:'需是大于0的整数'
+
+                },
+
+            }
+
+        });
+
+    }
+
+    //验证合同名称是否存在
+    $.validator.addMethod("isExist",function(value,element,params){
+
+        var flag = true;
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].wsname == value && _allData[i].wsname!= _isExist){
+
+                flag = false;
+
+                break;
+
+            }
+
+        }
+
+        return flag;
+
+    },"来源名称已存在");
+
     /*------------------------------按钮事件--------------------*/
 
     //【新增】
@@ -110,11 +186,11 @@ $(function(){
     //【登记】确定
     $('#create-Modal').on('click','.dengji',function(){
 
-        formatValidateUser(function(){
+        if(validform().form()){
 
             sendOption('MW/WasteSrcAdd');
 
-        })
+        }
 
     })
 
@@ -146,11 +222,11 @@ $(function(){
     //【编辑】确定
     $('#create-Modal').on('click','.bianji',function(){
 
-        formatValidateUser(function(){
+        if(validform().form()){
 
             sendOption('MW/WasteSrcUpdate',_thisId);
 
-        })
+        }
 
     })
 
@@ -217,6 +293,8 @@ $(function(){
     //初始化
     function modalInit(){
 
+        _creatInit();
+
         $('#create-Modal').find('input').val('');
 
         $('#create-Modal').find('select').val('');
@@ -231,6 +309,8 @@ $(function(){
             if(_allData[i].id == id){
 
                 var current = _allData[i];
+
+                _isExist = current.wsname;
 
                 //赋值
                 //名称
@@ -332,57 +412,6 @@ $(function(){
         $('#create-Modal').find('input').attr('readOnly',true);
 
         $('#create-Modal').find('select').attr('disabled',true);
-
-    }
-
-    //验证
-    function formatValidateUser(fun){
-
-        //非空验证
-        if($('#MW-source-name').val() == '' ){
-
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项','');
-
-        }else{
-
-            //验证错误
-            var error = $('#commentForm').find('.error');
-
-            if(error.length != 0){
-
-                var flag = true;
-
-                for(var i=0;i<error.length;i++){
-
-                    if(error.eq(i).css('display') != 'none'){
-
-                        flag = false;
-
-                        break;
-
-                    }
-
-                }
-
-                if(flag){
-
-                    fun();
-
-                }else{
-
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写正确格式','');
-
-                }
-
-            }else{
-
-                //验证通过
-                fun();
-
-            }
-
-
-        }
 
     }
 

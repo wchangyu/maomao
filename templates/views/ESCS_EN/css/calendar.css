@@ -1,0 +1,81 @@
+﻿body {
+}
+
+.showOrHidden{
+
+    display: none;
+
+}
+
+.portlet-title{
+    width: 100%;
+}
+
+ .caption {
+        width: 100% !important;
+    }
+
+    .borders {
+        background: url(../img/border.png)no-repeat 100% 0px;
+    }
+
+    .textAlign {
+        text-align: center;
+    }
+
+    .borderNull {
+        border: none !important;
+    }
+
+    .borderRight {
+        border-right: 1px solid #cccccc !important;
+    }
+
+    .goodIndicator {
+        background: url(../img/bcyw.png)no-repeat;
+        background-position: center;
+
+        display: none!important;
+
+    }
+
+    .markindicator {
+        background: url(../img/bcbk.png)no-repeat;
+        background-position: center;
+    }
+
+    .color {
+        font-size: 0;
+    }
+
+    /*.portlet.calendar .fc-event {
+        background-color: transparent !important;
+    }*/
+
+    .portlet.calendar .fc-event .fc-title {
+        color: #000000 !important;
+    }
+
+    .fc-ltr .fc-basic-view .fc-day-number {
+        text-align: right !important;
+        font-weight: bold !important;
+        font-size: 15px !important;
+    }
+
+    /*.portlet.calendar .fc-event {
+        background-color: #fff !important;
+        color: #000000 !important;
+        border: 0px !important;
+    }*/
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+        border: none !important;
+    }
+  .table-bordered{
+    border: none !important;
+  }
+
+  .calendar-title{
+
+      display: inline-block;box-sizing: border-box;text-indent: 10px;padding: 0 1%;
+
+  }

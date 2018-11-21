@@ -195,3 +195,9 @@ button.dt-button, div.dt-button, a.dt-button:hover{
     background: #2170f4 !important;
 
 }
+
+.audit-block{
+
+    display: none;
+
+}

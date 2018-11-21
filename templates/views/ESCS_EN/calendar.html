@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>能效日历</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--my css-->
+
+    <link href="../resource/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css">
+
+    <link href="css/calendar.css" rel="stylesheet" type="text/css">
+
+    <!--<link rel="stylesheet" href="../ESCS/css/public.css">-->
+
+
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div id="eerBusy">
+                            <div class="row margin-top-20">
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="portlet light bordered">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <i class="icon-bar-chart font-green-sharp hide"></i>
+                                                <span class="caption-subject font-green-sharp bold uppercase">Calendar for Plantroom Efficiency</span>
+                                                <div class="actions" style="float: right">
+                                                    <div class="btn-group btn-group-devided">
+                                                        <a href="rph.html" class="btn btn-sm btn-default easy-pie-chart-reload">
+                                                            Heat Unbalance<i class="fa fa-arrow-circle-o-right"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <div class="row">
+                                                <div style="float:left;line-height:35px;margin-left:15px;">Month:</div>
+                                                <div class="input-group date form_date idxDT pull-left" style="width:150px;margin-left:15px;margin-bottom:10px;">
+                                                    <input id="spDT" class="form-control" size="16" type="text" value="" />
+                                                       <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                </div>
+                                                <a id="queryBtn" class="btn btn-default yellow" style="margin-left:15px;">Submit</a>
+                                            </div>
+                                            <div class="portlet box blue-madison calendar">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <div class="row">
+                                                            <div class="calendar-title">
+                                                                   <span id="spanM" style="font-size:18px;font-weight:200;color:#fff;">
+                                                                    2016年11月
+                                                                   </span>
+                                                            </div>
+                                                            <div class="calendar-title">
+                                                                   <span style="font-size:12px;">
+                                                                   E(Energy Efficiency Ratio)<span id="emisc" style="font-size:13px;">KW/KW</span>
+                                                                   </span>
+                                                            </div>
+                                                            <div class="calendar-title">
+                                                                   <span style="font-size:13px;">
+                                                                   C(Daily Cooling Load)<span id="cmisc" style="font-size:13px;">KWH</span>
+                                                                   </span>
+                                                            </div>
+                                                            <div class="calendar-title">
+                                                                   <span style="font-size:13px;">
+                                                                   P(Daily Electric Consumption)KWH
+                                                                   </span>
+                                                            </div>
+                                                            <div class="calendar-title">
+                                                                   <span style="font-size:13px;">
+                                                                   M(Cost of Cooling Tonnage) Dollar/
+                                                                       <span id="lluntil">KWH</span>
+                                                                   </span>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body light-grey">
+                                                    <div id="calendar">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="row">
+                                        <div class="portlet light bordered">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="icon-bar-chart font-green-sharp hide"></i>
+                                                    <span class="caption-subject font-green-sharp bold uppercase">Efficiency Comparison</span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="btn-group btn-group-xs float-left">
+                                                            <button id="monthBtn" type="button" class="btn btn-default green" style="border:0px;">Monthly</button>
+                                                            <button id="dayBtn" type="button" class="btn btn-default" style="border:0px;">Daily</button>
+                                                        </div>
+                                                        <span id="todayDT" class="caption-subject bold uppercase" style="position:absolute;line-height:22px;margin-left:15px;">2016年11月14日</span>
+                                                        <div class="pull-right" style="margin-right:20px;display: none">
+                                                            <span>潜力 : </span>
+                                                            <span id="latentV" style="color:#f4b70a;">0</span>
+                                                            <span style="color:#ffd800;margin-left:2px;">%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <table id="tableMark" class="table table-bordered" style="width:80%;margin:0 auto;margin-top:0px;border:none">
+                                                            <tbody>
+                                                            <tr style="height:20px;">
+                                                                <td class="borderNull color">0.0</td>
+                                                                <td colspan="2" class="textAlign borderNull"></td>
+                                                                <td colspan="2" class="textAlign borderNull color">0.6</td>
+                                                                <td colspan="2" class="textAlign borderNull color">0.7</td>
+                                                                <td colspan="2" class="textAlign borderNull color">0.8</td>
+                                                                <td colspan="2" class="textAlign borderNull">当前楼</td>
+                                                                <td colspan="2" class="textAlign borderNull color">1.0</td>
+                                                                <td colspan="2" class="textAlign borderNull color">1.1</td>
+                                                                <td colspan="2" class="textAlign borderNull color">1.2</td>
+                                                            </tr>
+                                                            <tr style="height:45px;">
+                                                                <td class="borderNull color">0.0</td>
+                                                                <td colspan="2" class="textAlign borderNull goodIndicator color">0.5</td>
+                                                                <td colspan="2" class="textAlign borderNull color">0.6</td>
+                                                                <td colspan="2" class="textAlign borderNull color">0.7</td>
+                                                                <td colspan="2" class="textAlign borderNull color">0.8</td>
+                                                                <td colspan="2" class="textAlign borderNull markindicator color">0.9</td>
+                                                                <td colspan="2" class="textAlign borderNull color">1.0</td>
+                                                                <td colspan="2" class="textAlign borderNull color">1.1</td>
+                                                                <td colspan="2" class="textAlign borderNull color">1.2</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="6" class="textAlign" style="background:#4aadc7">Excellent</td>
+                                                                <td colspan="3" class="textAlign" style="background:#66ffcd">Good</td>
+                                                                <td colspan="3" class="textAlign" style="background:#f4b70a">Fair</td>
+                                                                <td colspan="6" class="textAlign" style="background:#c1504c">Need Improve</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borders borderNull"></td>
+                                                                <td class="borderNull borderRight"></td>
+                                                                <td class="borderNull"></td>
+                                                                <td class="borderNull"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="textAlign borderNull">C.O.P</td>
+                                                                <td colspan="2" class="textAlign borderNull">(7.0)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(5.9)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(5.0)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(4.4)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(3.9)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(3.5)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(3.2)</td>
+                                                                <td colspan="2" class="textAlign borderNull">(2.9)</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="width:80%;margin:0 auto;margin-top:20px;border:none;">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                        <span>Total Power Consumption : </span>
+                                                        <span id="eer_com_eV">0</span>
+                                                        <span>KWH</span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                        <span>Total Cooling Capacity : </span>
+                                                        <span id="eer_com_cV">0</span>
+                                                        <span id="eer_com_c_misc">KWH</span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>Total Electricity Bill : </span>
+                                                        <span id="eer_com_priceV">0</span>
+                                                        <span>Dollar</span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>Cost of per Cooling Tonnage : </span>
+                                                        <span id="eer_com_cpirceV">0</span>
+                                                        <span>Dollar/<span id="eer_com_cpirceV_misc">KWH</span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="portlet light bordered">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="icon-bar-chart font-green-sharp hide"></i>
+                                                    <span class="caption-subject font-green-sharp bold uppercase">Consumption Breakdown Chart</span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div style="height:357px;width:100%;" id="itemizeMain"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+        ESCS.init();
+        Calendar.init();
+    });
+
+</script>
+<!--公共js-->
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--my js-->
+<script src="../resource/fullcalendar/fullcalendar.js" type="text/javascript"></script>
+
+<script src="../ESCS/js/ESCS.js" type="text/javascript"></script>
+
+<script src="js/calendar.js" type="text/javascript"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

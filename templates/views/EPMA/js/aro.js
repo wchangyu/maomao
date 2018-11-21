@@ -297,6 +297,12 @@ $(function(){
         //获取选中的节点
         var arr = getCheckedNodeFun();
 
+        if(arr.length == 0){
+
+            moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择对象','');
+
+        }
+
         //勾选的id
         var ids = '';
 
@@ -658,6 +664,31 @@ $(function(){
 
         return nodes;
 
+    }
+
+    //模态框
+    function moTaiKuang(who, title, flag, istap ,meg, buttonName) {
+
+        who.modal({
+            show: false,
+            backdrop: 'static'
+        });
+
+        who.find('.modal-title').html(title);
+        who.modal('show');
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockHeight = who.find('.modal-dialog').height();
+        var markBlockTop = (markHeight - markBlockHeight) / 2;
+        who.find('.modal-dialog').css({'margin-top': markBlockTop});
+        if (flag) {
+            who.find('.btn-primary').hide();
+        } else {
+            who.find('.btn-primary').show();
+            who.find('.modal-footer').children('.btn-primary').html(buttonName);
+        }
+        if(istap){
+            who.find('.modal-body').html(meg);
+        }
     }
 
 

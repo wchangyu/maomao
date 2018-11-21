@@ -44,6 +44,8 @@ $(function(){
 
         dom.hide();
 
+        console.log()
+
         $(picker.target).next('.error').hide();
     });
 
@@ -150,7 +152,6 @@ $(function(){
                 required: true
 
             }
-
         },
         messages:{
 

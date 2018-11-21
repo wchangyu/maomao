@@ -1,5 +1,14 @@
 $(function(){
 
+    //首先获取到指定的流程图id
+    //var idArr = JSON.parse(sessionStorage.controlStrategyPrm);
+
+    //for(var i=0;i<idArr.length;i++){
+    //
+    //    $('.control-cell').eq(i).attr('data-arg','1,' + idArr[i]);
+    //
+    //}
+
     $('.control-cell').hover(function(){
 
 
@@ -47,7 +56,6 @@ $(function(){
         var prm = $(this).attr('data-arg').split(',')[1];
 
         window.location.href = '../yongnengjiance/EnergyMonitor_ESCS.html?procID=' + prm;
-
 
     })
 

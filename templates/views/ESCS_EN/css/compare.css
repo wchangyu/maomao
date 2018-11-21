@@ -1,0 +1,74 @@
+﻿body {
+}
+
+.exco-btn {
+    border: 1px solid #FFF;
+    line-height: 41px;
+    padding: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 15px !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.portlet-title{
+    width: 100%;
+}
+
+#alreadyDT {
+    min-width: 138px;
+    float: left;
+    list-style: none;
+    text-shadow: none;
+    padding: 0px;
+    background-color: #fff;
+    margin: 0px;
+    box-shadow: 5px 5px rgba(102,102,102,0.1);
+    border: 1px solid #eee;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+    #alreadyDT #ULDT {
+        margin: 0;
+        color: #333;
+        padding: 5px;
+        margin-top: 0;
+        border: 1px solid #cccccc;
+        background-color: #ffffff;
+        width: 138px;
+        min-height: 100px;
+        height: auto;
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+
+        #alreadyDT #ULDT li {
+            padding: 5px;
+            margin: 0;
+            margin-left: 0px;
+            list-style: none;
+            line-height: 14px;
+            text-align: left;
+            white-space: nowrap;
+            outline: 0;
+        }
+
+            #alreadyDT #ULDT li a {
+                margin: 0px;
+                padding: 5px;
+                line-height: 17px;
+                height: 17px;
+                cursor: default;
+                font-size: 14px;
+                text-align: center;
+                color: #333;
+                text-decoration: none;
+            }
+
+                #alreadyDT #ULDT li a:hover {
+                    color: #0094ff;
+                    background-color: transparent;
+                }

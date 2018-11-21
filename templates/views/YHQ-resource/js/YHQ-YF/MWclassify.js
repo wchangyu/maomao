@@ -4,6 +4,8 @@ $(function(){
 
     var _allData = [];
 
+    var _isExist = '';
+
     //当前选中的医废id
     var _thisId = '';
 
@@ -16,7 +18,9 @@ $(function(){
             //名称
             'MW-classify-name1':{
 
-                required:true
+                required:true,
+
+                isExist:_isExist
 
             },
 
@@ -68,6 +72,94 @@ $(function(){
         }
 
     });
+
+    //点击按钮验证
+    function validform(){
+
+        return $('#commentForm').validate({
+
+            rules:{
+
+                //名称
+                'MW-classify-name1':{
+
+                    required:true,
+
+                    isExist:_isExist
+
+                },
+
+                //顺序
+                'MW-classify-orders':{
+
+                    number:true,
+                    //整数
+                    digits:true,
+
+                    min:0
+
+                },
+
+                //价格
+                'MW-classify-price':{
+
+                    number:true,
+
+                    min:0
+
+                }
+            },
+            messages:{
+
+                //名称
+                'MW-classify-name1':{
+
+                    required:'名称是必填项'
+
+                },
+
+                //顺序
+                'MW-classify-orders':{
+
+                    number:'顺序需是数字',
+
+                    digits:'需是大于0的整数'
+
+                },
+
+                //价格
+                'MW-classify-price':{
+
+                    number:'价格需是大于等于0的数字'
+
+                }
+
+            }
+
+        });
+
+    }
+
+    //验证类型名称是否存在
+    $.validator.addMethod("isExist",function(value,element,params){
+
+        var flag = true;
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].wtname == value && _allData[i].wtname!= _isExist){
+
+                flag = false;
+
+                break;
+
+            }
+
+        }
+
+        return flag;
+
+    },"医废类型名称已存在");
 
     /*----------------------------表格初始化---------------------*/
 
@@ -127,11 +219,15 @@ $(function(){
     //【登记】确定
     $('#create-Modal').on('click','.dengji',function(){
 
-        formatValidateUser(function(){
+        if(validform().form()){
 
-            sendOption('MW/WasteTypeAdd');
+            formatValidateUser(function(){
 
-        })
+                sendOption('MW/WasteTypeAdd');
+
+            })
+
+        }
 
     })
 
@@ -162,11 +258,15 @@ $(function(){
     //【编辑】确定
     $('#create-Modal').on('click','.bianji',function(){
 
-        formatValidateUser(function(){
+        if(validform().form()){
 
-            sendOption('MW/WasteTypeUpdate',_thisId);
+            formatValidateUser(function(){
 
-        })
+                sendOption('MW/WasteTypeUpdate',_thisId);
+
+            })
+
+        }
 
     })
 
@@ -248,6 +348,8 @@ $(function(){
     //初始化
     function modalInit(){
 
+        _creatInit();
+
         $('#create-Modal').find('input').val('');
 
         $('#create-Modal').find('select').val('');
@@ -262,6 +364,8 @@ $(function(){
             if(_allData[i].id == id){
 
                 var current = _allData[i];
+
+                _isExist = current.wtname;
 
                 //赋值
                 //名称

@@ -241,22 +241,22 @@
 
                         <ul class="modal-block">
                             <li>
-                                <label>车牌号码：</label>
-                                <input type="text" class="table-group-action-input form-control" id="CA-carNum" name="CA-carNum" placeholder="车牌号码是必填字段">
+                                <label class="require-tip">车牌号码：</label>
+                                <input type="text" class="table-group-action-input form-control" id="CA-carNum" name="CA-carNum" placeholder="必填">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>发动机号码：</label>
-                                <input type="text" class="table-group-action-input form-control" id="CA-engineNum" name="CA-engineNum" placeholder="发动机型号是必填字段">
+                                <label class="require-tip">发动机号码：</label>
+                                <input type="text" class="table-group-action-input form-control" id="CA-engineNum" name="CA-engineNum" placeholder="必填">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>型号：</label>
-                                <input type="text" class="table-group-action-input form-control" id="CA-model" name="CA-model" placeholder="型号是必填字段">
+                                <label class="require-tip">型号：</label>
+                                <input type="text" class="table-group-action-input form-control" id="CA-model" name="CA-model" placeholder="必填">
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>类型</label>
+                                <label class="require-tip">类型</label>
 
                                 <select id="CA-type" name="CA-type" class="table-group-action-input form-control">
 
@@ -287,7 +287,7 @@
                                 <div class="modal-select"></div>
                             </li>
                             <li>
-                                <label>座位数：</label>
+                                <label class="require-tip">座位数：</label>
                                 <input type="text" class="table-group-action-input form-control" id="CA-seats" name="CA-seats" placeholder="必填，正整数">
                                 <div class="modal-select"></div>
                             </li>
@@ -315,7 +315,7 @@
                                 <label>购买日期</label>
                                 <div class="time-tool-block">
                                     <div class="input-group date form_date abbrDT">
-                                        <input id="CA-purDate" name="CA-purDate" class="form-control" size="16" type="text" value="" placeholder="格式：YYYY-MM-DD"/>
+                                        <input id="CA-purDate" name="CA-purDate" class="form-control" size="16" type="text" value="" readonly placeholder="格式：YYYY-MM-DD"/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -408,6 +408,7 @@
     });
 
 </script>
+
 <script src="../resource/js/commonJsResource.js"></script>
 
 <!--my js-->

@@ -11,7 +11,7 @@ $(function(){
     var _thisId = '';
 
     //时间初始化
-    _timeYMDComponentsFunValite($('#CA-purDate'));
+    _timeYMDComponentsFunValite($('.abbrDT'));
 
     /*-----------------------------验证-------------------------------------*/
 

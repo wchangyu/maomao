@@ -1,7 +1,6 @@
 $(function(){
 
-    //重置
-    $('#')
+    _isClickTr = true;
 
     /*---------------------------------时间插件--------------------------------------*/
 
@@ -251,6 +250,28 @@ $(function(){
     $('#selectBtn1').click(function(){
 
         conditionSelect1();
+
+    })
+
+    //选中订餐人
+    $('#person-new-Modal').on('click','.btn-primary',function(){
+
+        //验证是否选择
+        var currentTr = _isSelectTr($('#person-table-filter'));
+
+        if(currentTr){
+
+            var num = currentTr.find('.checker').attr('data-id');
+
+            var name = currentTr.children().eq(1).html();
+
+            $('#person-new-Modal').modal('hide');
+
+            $('#DC-personCon').attr('data-num',num)
+
+            $('#DC-personCon').val(name);
+
+        }
 
     })
 

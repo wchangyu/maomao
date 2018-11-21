@@ -194,9 +194,10 @@ $(function(){
     //当前的计划编码
     var _thisPlanBM = '';
 
-    /*------------------------------------------------表格初始化--------------------------------------------*/
+    //判断当前是否是停用状态
+    var _isTY = false;
 
-    //
+    /*------------------------------------------------表格初始化--------------------------------------------*/
 
     var col = [
         {
@@ -271,6 +272,18 @@ $(function(){
 
     $('.main-contents-tables').find('.table').on('click', 'tr',function(e){
 
+        var _statusName = $(this).find('.isActive1').html();
+
+        if(_statusName == '停用'){
+
+            _isTY = true;
+
+        }else{
+
+            _isTY = false;
+
+        }
+
         if($(this).attr('class') == undefined || $(this).children().length == 1){
 
             return false;
@@ -323,7 +336,15 @@ $(function(){
 
                             }
 
-                            row.child( format(arr) ).show();
+                            if(_isTY){
+
+                                row.child( format1(arr) ).show();
+
+                            }else{
+
+                                row.child( format(arr) ).show();
+
+                            }
 
                             tr.addClass('shown');
 
@@ -347,7 +368,7 @@ $(function(){
 
     function format ( d ) {
         var theader = '<table class="table">' +
-            '<thead><tr><td>设备编号</td><td>设备名称</td><td>规格型号</td><td>安装地点</td><td>设备类型</td><td>操作</td></tr></thead>';
+            '<thead><tr><td>设备编号</td><td>设备名称</td><td>是否下发</td><td>规格型号</td><td>安装地点</td><td>设备类型</td></tr></thead>';
         var theaders = '</table>';
         var tbodyer = '<tbody>'
 
@@ -355,15 +376,86 @@ $(function(){
 
         for(var i=0;i< d.length;i++){
 
+            //是否下发
+            var isstatus = '';
+
             if(d[i].isActive == 0){
 
-                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + d[i].spec + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td><td><span class="data-option Alone-assign btn default btn-xs green-stripe">下发任务</span></td></tr>'
+                isstatus = '未下发'
 
             }else{
 
-                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + d[i].spec + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td></tr>'
+                isstatus = '已下发'
 
             }
+
+            //规格型号
+            var spac = '';
+
+            if(d[i].spec == null){
+
+                spac = ''
+
+            }else{
+
+                spac = d[i].spec;
+
+            }
+
+            if(d[i].isActive == 0){
+
+                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + isstatus + '</td><td>' + spac + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td><td><span class="data-option Alone-assign btn default btn-xs green-stripe">下发任务</span></td></tr>'
+
+            }else{
+
+                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + isstatus + '</td><td>' + spac + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td></tr>'
+
+            }
+
+        }
+
+        var tbodyers = '</tbody>';
+
+        return theader + tbodyer + str + tbodyers + theaders;
+    }
+
+    function format1 ( d ) {
+        var theader = '<table class="table">' +
+            '<thead><tr><td>设备编号</td><td>设备名称</td><td>设备状态</td><td>规格型号</td><td>安装地点</td><td>设备类型</td></tr></thead>';
+        var theaders = '</table>';
+        var tbodyer = '<tbody>'
+
+        var str = '';
+
+        for(var i=0;i< d.length;i++){
+
+            //是否下发
+            var isstatus = '';
+
+            if(d[i].isActive == 0){
+
+                isstatus = '未下发'
+
+            }else{
+
+                isstatus = '已下发'
+
+            }
+
+            //规格型号
+            var spac = '';
+
+            if(d[i].spec == null){
+
+                spac = ''
+
+            }else{
+
+                spac = d[i].spec;
+
+            }
+
+            str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + isstatus  + '</td><td>' + spac + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td></tr>'
 
         }
 
@@ -425,6 +517,18 @@ $(function(){
         {
             title:'步骤名称',
             data:'ditName'
+        },
+        {
+            title:'工作内容',
+            data:'desc'
+        },
+        {
+            title:'保养方式',
+            data:'mtContent'
+        },
+        {
+            title:'备注',
+            data:'remark'
         }
     ];
 
@@ -446,12 +550,16 @@ $(function(){
             data:'ditName'
         },
         {
-            title:'步骤参考值',
-            data:'stValue'
+            title:'工作内容',
+            data:'desc'
         },
         {
-            title:'参考关系',
-            data:'relation'
+            title:'保养方式',
+            data:'mtContent'
+        },
+        {
+            title:'备注',
+            data:'remark'
         },
         {
             title:'操作',
@@ -477,7 +585,7 @@ $(function(){
         },
         {
             title:'设备分类',
-            data:'dicNum'
+            data:'dcName'
         }
     ];
 
@@ -499,12 +607,16 @@ $(function(){
             data:'ditName'
         },
         {
-            title:'步骤参考值',
-            data:'stValue'
+            title:'工作内容',
+            data:'desc'
         },
         {
-            title:'参考关系',
-            data:'relation'
+            title:'保养方式',
+            data:'mtContent'
+        },
+        {
+            title:'备注',
+            data:'remark'
         }
     ];
 
@@ -756,6 +868,7 @@ $(function(){
 
     //启用
     $('#qiyong').click(function(){
+
         _selectData = [];
 
         _selectData = _table.find('tbody').children('tr').find('.checked');
@@ -836,7 +949,7 @@ $(function(){
     //批量删除确定按钮
     $('#Batch-DEL-Modal').on('click','.btn-primary',function(){
 
-        yesOrNo('YWDevMT/YWDMPDelPlans',3,'请选择要删除的数据','批量删除操作成功！','启用状态不能删!');
+        yesOrNo('YWDevMT/YWDMPDelPlans',3,'请选择要删除的数据','批量删除操作成功！','未下发状态才可进行删除操作!');
 
     })
 
@@ -902,7 +1015,14 @@ $(function(){
     //下发（确定按钮）
     $('#myModal').on('click','.fenpei',function(){
 
-        editRegister('YWDevMT/YWDMPAssignTask',true,'下发成功！','下发失败！');
+        editRegister('YWDevMT/YWDMPAssignTask',true,'下发成功！','下发失败！',true);
+
+    })
+
+    //再次下发
+    $('#myModal').on('click','.fenpeiAga',function(){
+
+        editRegister('YWDevIns/DIPlanCXXF',true,'再次下发成功！','再次下发失败！',true);
 
     })
 
@@ -956,7 +1076,7 @@ $(function(){
             _shebeiBM = $.trim($this.find('.bianma').html());
             ckOrBj($(this),false);
             //确定按钮显示，并且添加bianji类
-            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('fenpei').addClass('bianji');
+            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('fenpei').removeClass('fenpeiAga').addClass('bianji');
             //新增按钮显示
             $('.addButton').show();
 
@@ -1003,7 +1123,7 @@ $(function(){
             _shebeiBM = $.trim($this.find('.bianma').children().attr('data-num'));
             ckOrBj($(this),true);
             //确定按钮显示，并且添加分配类
-            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').addClass('fenpei');
+            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').removeClass('fenpeiAga').addClass('fenpei');
 
             disabledBlock();
 
@@ -1028,7 +1148,7 @@ $(function(){
             $.ajax({
 
                 type:'post',
-                url:_urls + 'YWDevMT/YWDIPGetInfo',
+                url:_urls + 'YWDevIns/YWDIPGetInfo',
                 data:{
 
                     //计划编码
@@ -1136,6 +1256,60 @@ $(function(){
             $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').addClass('fenpei').html('启动任务保养');
 
         })
+        .on('click','.option-recall',function(e){
+
+            //样式
+            var $thisTable = $(this).parents('.main-contents-tables').find('.table');
+
+            var $thiss = $(this).parents('tr');
+
+            $thisTable.find('tr').removeClass('tables-hover');
+
+            $thiss.addClass('tables-hover');
+
+            $thisTable.children('tbody').children('tr').children('.checkeds').find('span').removeClass('checked');
+
+            $thiss.children('.checkeds').find('span').addClass('checked');
+
+            _moTaiKuang($('#recall-myModal'), '确定要召回吗？', '', '' ,'', '确定');
+
+            var $thisBM = $(this).parents('tr').children().eq(2).html();
+
+            var $thisMC = $(this).parents('tr').children().eq(1).html();
+
+            $('#xjtmbmR').val($thisBM);
+
+            $('#xjtmmcR').val($thisMC);
+
+            e.stopPropagation();
+
+        })
+        .on('click','.option-assignAgain',function(e){
+
+            //初始化
+            detailedInit();
+
+            var $this = $(this);
+
+            _shebeiMC = $.trim($this.find('.bianma').next().next().html());
+
+            _shebeiBM = $.trim($this.find('.bianma').children().attr('data-num'));
+
+            ckOrBj($(this),true);
+
+            //确定按钮显示，并且添加分配类
+            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').removeClass('fenpei').addClass('fenpeiAga');
+
+            disabledBlock();
+
+            //启用状态显示
+            $('.QY').show();
+
+            e.stopPropagation();
+
+            _moTaiKuang($('#myModal'), '再次下发任务', '', '' ,'', '启动任务保养');
+
+        })
 
     //主表格选择
     var _table = $('.main-contents-tables').find('.table');
@@ -1169,6 +1343,47 @@ $(function(){
         AllSelectThead($(this),$(this).parents('table'));
 
     });
+
+    //【召回】确定按钮
+    $('#recall-myModal').on('click','.btn-primary',function(){
+
+        var prm = {
+
+            //保养计划编号
+            dipNum:$('#xjtmbmR').val()
+
+        }
+
+        $.ajax({
+
+            type:'post',
+
+            url:_urls + 'YWDevIns/DIPlanRecall',
+
+            data:prm,
+
+            timeout:_theTimes,
+
+            success:function(result){
+
+                if(result.code == 99){
+
+                    $('#recall-myModal').modal('hide');
+
+                    conditionSelect(stationsFlag,wxBanzusFlag);
+
+                }
+
+                _moTaiKuang($('#myModal5'),'提示',true,true,result.message,'');
+
+            },
+
+            error:_errorFun
+
+        })
+
+
+    })
 
     //设备---------------------------------------------------------
 
@@ -2091,8 +2306,8 @@ $(function(){
         return res;
     }
 
-    //登记、编辑
-    function editRegister(url,flag,successMeg,errorMeg){
+    //登记、编辑(下发的时候，执行人不能为空)
+    function editRegister(url,flag,successMeg,errorMeg,isXF){
 
         //判断必填项
 
@@ -2193,13 +2408,18 @@ $(function(){
 
                     }
 
-                    if( personArr.length == 0 ){
+                    if(isXF){
 
-                        isRun = false;
+                        if( personArr.length == 0 ){
 
-                        _moTaiKuang($('#myModal5'),'提示','flag','istap','执行人不能为空！','提示');
+                            isRun = false;
+
+                            _moTaiKuang($('#myModal5'),'提示','flag','istap','执行人不能为空！','提示');
+
+                        }
 
                     }
+
 
                     if(isRun){
 
@@ -2213,7 +2433,7 @@ $(function(){
                             //负责人
                             manager:workDone.fzr,
                             //设备
-                            devInfoitems:devArr,
+                            devInfoMitems:devArr,
                             //保养条目
                             dipItems:tableArr,
                             //开始时间
@@ -2485,7 +2705,7 @@ $(function(){
                 }
 
 
-                //停用(已下发和启用状态下才可以停用)
+            //停用(已下发和启用状态下才可以停用)
             }else if(data == 2){
 
                 for(var i=0;i<_stateArr.length;i++){
@@ -2500,7 +2720,7 @@ $(function(){
 
                 }
 
-                //批量删除
+            //批量删除
             }else{
 
                 for(var i=0;i<_stateArr.length;i++){
@@ -2872,6 +3092,7 @@ $(function(){
             success:function(result){
 
                 if(flag){
+
                     _allXJTMArr.length
 
                     for(var i=0;i<result.length;i++){
@@ -2960,7 +3181,7 @@ $(function(){
                 for(var i=0;i<result.length;i++){
 
                     str += '<option value="' + result[i].departNum +
-                        '">' + result[i].departName + '</option>'
+                            '">' + result[i].departName + '</option>'
 
 
                 }

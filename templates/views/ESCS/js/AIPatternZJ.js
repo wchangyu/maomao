@@ -1,7 +1,23 @@
 $(function(){
 
+    //获取配置好的实例id
+    var instenceIdArr = JSON.parse(sessionStorage.instencePrm);
+
+    //设置主机搭配图的id
+    $('#AIBar').find('.ai-tab').eq(2).attr('data-attr',instenceIdArr[0]);
+
+    //温度重设表的id
+    $('#AIBar').find('.ai-tab').eq(1).attr('data-attr',instenceIdArr[1]);
+
+    //时间表的id
+    $('#AIBar').find('.ai-tab').eq(0).attr('data-attr',instenceIdArr[2]);
+
+    //程序表的id
+    $('#AIBar').find('.tab-bar-active').eq(0).attr('data-attr',instenceIdArr[3]);
+
     var href = window.location.search;
 
+    //表格参数
     var prm = '';
 
     if(href != ''){
@@ -16,22 +32,22 @@ $(function(){
 
         //主机搭配图
         {
-            id:'1535701832',
+            id:instenceIdArr[0],
             type:'AI'
         },
         //温度重设表
         {
-            id:'1535707552',
+            id:instenceIdArr[1],
             type:'AI'
         },
         //时间表
         {
-            id:'1535773026',
+            id:instenceIdArr[2],
             type:'AITime'
         },
         //程序表
         {
-            id:'1535774601',
+            id:instenceIdArr[3],
             type:'autoTime'
         }
 
@@ -131,8 +147,6 @@ $(function(){
         }
 
     }
-
-
     /*------------------------------------------变量------------------------------------*/
 
     //存放当前编辑的单元格
@@ -348,8 +362,6 @@ $(function(){
 
         //通过比较原始数据和改变后的数据来确定哪些数据是改变的
 
-        //console.log('编辑');
-
         for(var i=0;i<changeArr.length;i++){
 
             for(var j=0;j<primaryArr.length;j++){
@@ -372,8 +384,16 @@ $(function(){
 
         }
 
-        //调用编辑接口
-        editFun();
+        if(modifyArr.length == 0){
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'当前表格没有改变的内容','');
+
+        }else{
+
+            //调用编辑接口
+            editFun();
+
+        }
 
     })
 

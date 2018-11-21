@@ -32,7 +32,7 @@ $(function(){
             data:'caStatus',
             render:function(data, type, full, meta){
 
-                if(data == 10){
+                if(data == 10 || data == 5 ){
 
                     return '申请'
 

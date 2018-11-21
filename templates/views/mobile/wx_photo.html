@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <input type="file" id="photo_pick"  accept="image/*" multiple="multiple">
+
+    <script>
+
+        $("#photo_pick").change(function(){
+            $(".progress_dialog").show();
+            if (!this.files.length) return;
+            var files = Array.prototype.slice.call(this.files);
+            if (files.length > 9) {
+                alert("最多同时只可上传9张图片");
+                return;
+            }
+            files.forEach(function (file, i) {
+                var reader = new FileReader();
+                reader.onload=function(){
+                    var imgO = document.createElement("img");
+                    imgO.src = reader.result;
+                }
+                reader.readAsDataURL(file);
+                $(".progress_dialog").hide();
+            });
+        });
+
+    </script>
+
+</body>
+</html>

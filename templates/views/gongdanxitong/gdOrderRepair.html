@@ -243,7 +243,7 @@
                                             <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                                 <div class="single-labels starRed">报修电话：</div>
                                                 <div class="single-block">
-                                                    <input type="text" v-model="bxtel" class="fuzzy-input" v-validate:bxtel= "['isEmpty']" initial='off' @keyup="phoneInput()" @focus="phoneFocus()" readonly="readonly" class="disabled-block bx-choose">
+                                                    <input type="text" v-model="bxtel" class="fuzzy-input" v-validate:bxtel= "['isEmpty']" initial='off' @keyup="phoneInput()" @focus="phoneFocus()" class="disabled-block bx-choose">
                                                     <ul class="fuzzy-search"></ul>
                                                 </div>
                                                 <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-phone'>

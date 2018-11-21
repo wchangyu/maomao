@@ -93,6 +93,12 @@ $(function(){
     $('#commentForm').validate({
 
         rules:{
+            //餐厅
+            'DC-restaurant':{
+
+                required: true
+
+            },
             //订餐时间
             'time':{
 
@@ -145,6 +151,12 @@ $(function(){
         },
         messages:{
 
+            //餐厅
+            'DC-restaurant':{
+
+                required: '餐厅是必选字段'
+
+            },
             //订餐时间
             'time':{
 
@@ -203,6 +215,12 @@ $(function(){
         return $('#commentForm').validate({
 
             rules:{
+                //餐厅
+                'DC-restaurant':{
+
+                    required: true
+
+                },
                 //订餐时间
                 'time':{
 
@@ -255,6 +273,12 @@ $(function(){
             },
             messages:{
 
+                //餐厅
+                'DC-restaurant':{
+
+                    required: '餐厅是必选字段'
+
+                },
                 //订餐时间
                 'time':{
 
@@ -1141,7 +1165,7 @@ $(function(){
     })
 
     //tab选择
-    $('.nav-tabs-lg').on('click','li',function(){
+    $('.dinnerTab').on('click','li',function(){
 
         var arr = [];
 
@@ -1360,10 +1384,16 @@ $(function(){
             $('#modal-select-user').addClass('modal-select-show');
 
 
-        }else if( thisValue != 1 ){
+        }else if( thisValue == 2 ){
 
             //病户订餐，订餐人只能填写，并且userNum填写为电话
             $('#DC-person').attr('readOnly',false);
+
+            $('#modal-select-user').removeClass('modal-select-show');
+
+        }else{
+
+            $('#DC-person').attr('readOnly',true);
 
             $('#modal-select-user').removeClass('modal-select-show');
 
@@ -1519,7 +1549,7 @@ $(function(){
 
                 var arr = [];
 
-                var dinningNum = $('.nav-tabs-lg').children('.active').children().attr('data-attr');
+                var dinningNum = $('.dinnerTab').children('.active').children().attr('data-attr');
 
                 for(var i=0;i<_allData.length;i++){
 
@@ -2118,7 +2148,7 @@ $(function(){
 
                 $('#DC-restaurant').append(str1);
 
-                $('.nav-tabs-lg').empty().append(tabStr);
+                $('.dinnerTab').empty().append(tabStr);
 
 
             },

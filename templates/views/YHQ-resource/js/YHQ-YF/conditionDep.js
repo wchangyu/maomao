@@ -159,6 +159,9 @@ $(function(){
 
             $('#dep-Modal').modal('hide');
 
+            $('#MW-dep').next('.error').hide();
+
+
         }else{
 
             _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择科室','');

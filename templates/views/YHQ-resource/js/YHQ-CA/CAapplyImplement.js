@@ -2,6 +2,12 @@ $(function(){
 
     _isClickTr = true;
 
+    //是否需要申请
+    var _isAudit = false;
+
+    //是否需要审核方法
+    auditFun();
+
     /*-----------------------------默认加载---------------------------------*/
 
     //暂存所有条件查询的数据
@@ -412,47 +418,6 @@ $(function(){
 
     })
 
-    //新增
-    $('#createBtn').click(function(){
-
-        //初始化
-        createModeInit();
-
-        //模态框
-        _moTaiKuang($('#create-Modal'),'新增','','','','新增');
-
-        //类
-        $('#create-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
-
-        //可操作
-        abledOption();
-
-    })
-
-    //新增确定按钮
-    $('#create-Modal').on('click','.dengji',function(){
-
-        if(validform().form()){
-
-            sendData('YHQCA/CADriverAdd',$('#create-Modal').children(),false,function(result){
-
-                if(result.code == 99){
-
-                    $('#create-Modal').modal('hide');
-
-                    conditionSelect();
-
-                }
-
-                _moTaiKuang($('#tip-Modal'),'提示',true,true,result.message,'');
-
-
-            })
-
-        }
-
-    })
-
     //重置
     $('#resetBtn').click(function(){
 
@@ -485,14 +450,18 @@ $(function(){
         $('#create-Modal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
 
         //可操作
-        abledOption();
+        disAbledOption();
 
     })
 
     //编辑确定按钮
     $('#create-Modal').on('click','.bianji',function(){
 
-        sendCar();
+        if(validform().form()){
+
+            sendCar();
+
+        }
 
     })
 
@@ -583,58 +552,6 @@ $(function(){
 
     }
 
-    //发送数据
-    function sendData(url,el,flag,successFun){
-
-        var prm = {
-
-            //申请人工号
-            causerNum:$('#CA-applyNum').val(),
-            //申请人姓名
-            causerName:$('#CA-applyName').val(),
-            //申请人电话
-            Causerphone:$('#CA-applyTel').val(),
-            //申请部门编码
-            departNum:$('#CA-applyDepart').attr('data-attr'),
-            //申请部门名称
-            departName:$('#CA-applyDepart').val(),
-            //出发地
-            StartAddress:$('#CA-departure').val(),
-            //目的地
-            destAddress:$('#CA-destination').val(),
-            //出发时间
-            startTime:$('#CA-leave-time').val(),
-            //预计回场时间
-            EstEndTime:$('#CA-back-time').val(),
-            //预计公里数
-            Distance:$('#CA-km').val(),
-            //乘车人数
-            UserCnt:$('#CA-personNum').val(),
-            //负责人工号
-            leaderNum:$('#CA-personChangeNum').val(),
-            //乘车负责人
-            leaderName:$('#CA-personChange').val(),
-            //负责人电话
-            Leaderphone:$('#CA-personChangeTel').val(),
-            //申请理由
-            caMemo:$('#CA-remark').val()
-
-        }
-
-        if(flag){
-
-            prm.id = _thisId;
-
-        }
-
-        console.log(prm);
-
-        return false;
-
-        _mainAjaxFunCompleteNew('post',url,prm,el,successFun)
-
-    }
-
     //绑定赋值
     function bindData(id){
 
@@ -681,21 +598,28 @@ $(function(){
                 //司机
                 $('#CA-driverNum').val(data.driverNum);
                 //备注
-                $('#CA-acceptanceRemark').val(data.remark)
+                $('#CA-acceptanceRemark').val(data.remark);
+                //审核人姓名
+                $('#CA-auditName').val(data.spUsername);
+                //审核人工号
+                $('#CA-auditNum').val(data.spUserNum);
+                //审批状态
+                if(data.isAudit == 10){
+
+                    //通过
+                    $('#ones').parent().addClass('checked');
+
+                }else if(data.isAudit == 20){
+
+                    //不通过
+                    $('#twos').parent().addClass('checked');
+                }
+                //审批意见
+                $('#CA-auditRemark').val(data.auditinfo);
             }
 
         }
 
-    }
-
-    //可以操作
-    function abledOption(){
-
-        $('#create-Modal').find('input').attr('disabled',false);
-
-        $('#create-Modal').find('select').attr('disabled',false);
-
-        $('#create-Modal').find('textarea').attr('disabled',false);
     }
 
     //不可以操作
@@ -706,6 +630,12 @@ $(function(){
         $('#create-Modal').find('select').attr('disabled',true);
 
         $('#create-Modal').find('textarea').attr('disabled',true);
+
+        $('#back-block').find('input').attr('disabled',false);
+
+        $('#back-block').find('select').attr('disabled',false);
+
+        $('#back-block').find('textarea').attr('disabled',false);
 
     }
 
@@ -793,5 +723,25 @@ $(function(){
 
     }
 
+    //是否需要审核
+    function auditFun(){
+
+        _mainAjaxFunCompleteNew('post','YHQCA/isAuditInfo','','',function(result){
+
+            if(result.code == 99){
+
+                if(result.data == 1){
+
+                    _isAudit = true;
+
+                    $('#audit-block').show();
+
+                }
+
+            }
+
+        })
+
+    }
 
 })

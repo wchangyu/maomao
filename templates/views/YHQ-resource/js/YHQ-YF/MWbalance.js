@@ -10,6 +10,90 @@ $(function(){
     //当前选中的医废id
     var _thisId = '';
 
+    var _isExist = '';
+
+    /*-----------------------------验证-------------------------------------*/
+
+    $('#commentForm').validate({
+
+        rules:{
+
+            //电子称名称
+            'MW-balance-name':{
+
+                required: true,
+
+                isExist:_isExist
+
+            }
+
+
+        },
+        messages:{
+
+            //电子称名称
+            'MW-balance-name':{
+
+                required: '称名称是必填字段'
+
+            }
+        }
+
+    });
+
+    //点击按钮验证
+    function validform(){
+
+        return $('#commentForm').validate({
+
+            rules:{
+
+                //电子称名称
+                'MW-balance-name':{
+
+                    required: true,
+
+                    isExist:_isExist
+
+                }
+
+
+            },
+            messages:{
+
+                //电子称名称
+                'MW-balance-name':{
+
+                    required: '称名称是必填字段'
+
+                }
+            }
+
+        });
+
+    }
+
+    //验证合同名称是否存在
+    $.validator.addMethod("isExist",function(value,element,params){
+
+        var flag = true;
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].scalename == value && _allData[i].scalename!= _isExist){
+
+                flag = false;
+
+                break;
+
+            }
+
+        }
+
+        return flag;
+
+    },"称名称已存在");
+
     /*----------------------------表格初始化---------------------*/
 
     var mainCol = [
@@ -76,7 +160,11 @@ $(function(){
     //【登记】确定
     $('#create-Modal').on('click','.dengji',function(){
 
-        sendOption('MW/mwScaleAdd');
+        if(validform().form()){
+
+            sendOption('MW/mwScaleAdd');
+
+        }
 
     })
 
@@ -108,7 +196,11 @@ $(function(){
     //【编辑】确定
     $('#create-Modal').on('click','.bianji',function(){
 
-        sendOption('MW/mwScaleUpdate',_thisId);
+        if(validform().form()){
+
+            sendOption('MW/mwScaleUpdate',_thisId);
+
+        }
 
     })
 
@@ -190,6 +282,8 @@ $(function(){
 
                 var current = _allData[i];
 
+                _isExist = current.scalename;
+
                 //赋值
                 //名称
                 $('#MW-balance-name').val(current.scalename);
@@ -241,15 +335,6 @@ $(function(){
 
     //操作
     function sendOption(url,flag){
-
-        //验证
-        if($('#MW-balance-name').val() == ''){
-
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项','');
-
-            return false;
-
-        }
 
         var prm = {
 

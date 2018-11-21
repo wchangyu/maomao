@@ -2,6 +2,15 @@ $(function(){
 
     _isClickTr = true;
 
+    //部门树对象
+    var depZtreeObjTable;
+
+    //职位树对象
+    var posZtreeObjTable;
+
+    //所有员工信息
+    var _allPersonArrTable = [];
+
     /*-----------------------------时间插件---------------------------------*/
 
     var nowTime = moment().format('YYYY-MM-DD');
@@ -852,7 +861,7 @@ $(function(){
             data:'',
             render:function(data, type, full, meta){
 
-                return '<div class="option-button option-see option-in" style="width: 50px;">选择</div>'
+                return '<div class="option-button option-see selectUser option-in" style="width: 50px;">选择</div>'
 
             }
         },
@@ -1055,6 +1064,46 @@ $(function(){
     ]
 
     _tableInitSearch($('#project-table'),projectCol,'2','','','','','',10,'','','',true);
+
+    //审核员工表格
+    var personCol = [
+
+        {
+            title:'选择',
+            "targets": -1,
+            "data": null,
+            render:function(data, type, full, meta){
+
+                return  '<div class="checker" data-id="' + full.userNum + '"><span><input type="checkbox"                                 value=""></span></div>'
+
+            }
+        },
+        {
+            title:'姓名',
+            data:'userName'
+        },
+        {
+            title:'部门',
+            data:'departName',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.departNum + '">' + data + '</span>'
+
+            }
+
+        },
+        {
+            title:'职位',
+            data:'roleName'
+        },
+        {
+            title:'电话',
+            data:'mobile'
+        }
+
+    ]
+
+    _tableInitSearch($('#person-table-filter-table'),personCol,'2','','','','','',10,'','','',true);
 
     //默认加载
     conditionSelect();
@@ -1335,44 +1384,27 @@ $(function(){
 
     })
 
-    //选择签订人
-    $('#select-sign-modal').on('click',function(){
-
-        _moTaiKuang($('#sign-Modal'),'签订人列表','','','','选择');
-
-    })
-
     //确定签订人
-    $('#sign-Modal').on('click','.btn-primary',function(){
+    $('#person-new-Modal').on('click','.btn-primary',function(){
 
         //验证是否选择
-        var currentTr = $('#sign-table tbody').children('.tables-hover');
+        var currentTr = _isSelectTr($('#person-table-filter'));
 
-        if(currentTr.length== 0){
+        if(currentTr){
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请选择合同签订人','');
+            var num = currentTr.find('.checker').attr('data-id');
 
-            return false;
+            var name = currentTr.children().eq(1).html();
+
+            $('#HT-person').val(name);
+
+            $('#HT-person').attr('data-attr',num);
+
+            $('#person-new-Modal').modal('hide');
+
+            $('#HT-person').next('.error').hide();
 
         }
-
-        if(currentTr.children('.dataTables_empty').length>0){
-
-            return false;
-
-        }
-
-        var num = currentTr.find('.checker').attr('data-id');
-
-        var name = currentTr.children().eq(1).html();
-
-        $('#HT-person').val(name);
-
-        $('#HT-person').attr('data-attr',num);
-
-        $('#sign-Modal').modal('hide');
-
-        $('#HT-person').next('.error').hide();
 
     })
 
@@ -1455,17 +1487,11 @@ $(function(){
 
         _alreadyPersonArr.length = 0;
 
-        //模态框
-        _moTaiKuang($('#auditor-Modal'),'审核人列表','','','','选择');
-
-        //将已选中的先过滤掉
-        var arr = [];
-
         var tr = $('#auditor-table tbody').children();
 
         for(var i=0;i<tr.length;i++){
 
-            var num = tr.eq(i).children().eq(1).html();
+            var num = tr.eq(i).children().eq(2).children().val();
 
             if(num != ''){
 
@@ -1475,42 +1501,44 @@ $(function(){
 
         }
 
-        for(var i=0;i<_allPerson.length;i++){
+        //模态框
+        _moTaiKuang($('#person-new-table-Modal'),'审核人列表','','','','确定');
 
-            arr.push(_allPerson[i]);
+        //获取人员
+        driverPersonTable();
 
-        }
+        //获取部门
+        getDepartDataTable(_alreadyPersonArr)
 
-        for(var j=0;j<_alreadyPersonArr.length;j++ ){
-
-            arr.removeByValue(_alreadyPersonArr[j],'userNum');
-
-        }
-
-        _datasTable($('#auditor-table-select'),arr);
+        //获取职位
+        getPositionDataTable(_alreadyPersonArr);
 
         _thisSelect = $(this);
 
     })
 
     //审核人确定按钮
-    $('#auditor-Modal').on('click','.btn-primary',function(){
+    $('#person-new-table-Modal').on('click','.btn-primary',function(){
 
-        var currentTr = $('#auditor-table-select tbody').find('.tables-hover');
+        var currentTr = _isSelectTr($('#person-table-filter-table'));
 
-        var name = currentTr.find('.checker').attr('data-id');
+        if(currentTr){
 
-        var num = currentTr.children().eq(1).html();
+            var name = currentTr.find('.checker').attr('data-id');
 
-        _thisSelect.parent().next().children().val(name);
+            var num = currentTr.children().eq(1).html();
 
-        _thisSelect.parent().next().children().removeClass('errorFormat');
+            _thisSelect.parent().next().children().val(name);
 
-        _thisSelect.parent().next().next().children().val(num);
+            _thisSelect.parent().next().children().removeClass('errorFormat');
 
-        _thisSelect.parent().next().next().children().removeClass('errorFormat');
+            _thisSelect.parent().next().next().children().val(num);
 
-        $('#auditor-Modal').modal('hide');
+            _thisSelect.parent().next().next().children().removeClass('errorFormat');
+
+            $('#person-new-table-Modal').modal('hide');
+
+        }
 
 
 
@@ -2241,6 +2269,261 @@ $(function(){
 
 
         })
+
+    }
+
+    //获取部门
+    function getDepartDataTable(arr){
+
+        var prm ={
+
+            "userID": _userIdNum
+
+        }
+
+        _mainAjaxFunCompleteNew('post','RBAC/rbacGetDeparts',prm,$('#departTreeTable'),function(result){
+
+            //处理部门数组
+            var depArr = [];
+
+            if(result && result.length>0){
+
+                for(var i=0;i<result.length;i++){
+
+                    var data = result[i];
+
+                    var obj = {};
+
+                    obj.pId = data.parentNum;
+
+                    obj.id = data.departNum;
+
+                    obj.name = data.departName;
+
+                    depArr.push(obj);
+
+                }
+
+                //绘制ztree部门树
+                setSetting1($('#departTreeTable'),depArr,depZtreeObjTable,1,arr);
+
+                //关键字搜索
+                searchPointerKey($('#keyDepTable'),'departTreeTable',$('#depSearchTable'));
+
+            }else{
+
+                filterPerson('',_allPersonArr,1,arr);
+
+            }
+
+        })
+
+    }
+
+    //获取职位
+    function getPositionDataTable(arr){
+
+        var prm ={
+
+            "userID": _userIdNum
+
+        }
+
+        _mainAjaxFunCompleteNew('post','RBAC/rbacGetRoles',prm,$('#positionTreeTable'),function(result){
+
+            //处理部门数组
+            var posArr = [];
+
+            if(result && result.length>0){
+
+                for(var i=0;i<result.length;i++){
+
+                    var data = result[i];
+
+                    var obj = {};
+
+                    obj.id = data.roleNum;
+
+                    obj.name = data.roleName;
+
+                    posArr.push(obj);
+
+                }
+
+
+                //绘制ztree部门树
+                setSetting1($('#positionTreeTable'),posArr,posZtreeObjTable,2,arr);
+
+                //关键字搜索
+                searchPointerKey($('#keyPosTable'),'positionTreeTable',$('#posSearchTable'));
+
+            }else{
+
+                filterPerson('',_allPersonArrTable,2,arr);
+
+            }
+
+        })
+
+    }
+
+    function driverPersonTable(){
+
+        var prm = {
+
+            'userID':_userIdNum,
+
+            'userName':_userIdName
+
+        }
+
+        _mainAjaxFunCompleteNew('post','RBAC/rbacGetUsers',prm,$('#person-table-filter-table'),function(result){
+
+            _datasTable($('#person-table-filter-table'),result);
+
+            //根据部门筛选员工
+            _allPersonArrTable = result;
+
+
+        })
+
+    }
+
+    //定制ztree设置(num:1,对部门筛选，2对角色筛选,filterArr:true的时候，过滤当前数组，false的时候，不过滤)
+    function setSetting1(treeId,treeData,treeObj,num,filterArr){
+
+        var setting = {
+
+            check: {
+                enable: true,
+                chkStyle: "radio",
+                chkboxType: { "Y": "s", "N": "ps" },
+                radioType:'all',
+                nocheckInherit: false
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            view:{
+                showIcon:false
+            },
+            callback: {
+
+                onClick: function(e,treeId,treeNode){
+
+                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+
+                    //取消全部打钩的节点
+                    treeObj.checkNode(treeNode,!treeNode.checked,true);
+
+                    //获取当前选择的id
+                    var nodes = treeObj.getCheckedNodes(true);
+
+                    if(nodes.length>0){
+
+                        $('#person-table-filter-table').showLoading();
+
+                        filterPerson1(nodes[0].id,_allPersonArrTable,num,filterArr);
+
+
+                        $('#person-table-filter-table').hideLoading();
+
+                    }else{
+
+                        _datasTable($('#person-table-filter-table'),[],filterArr);
+
+                    }
+
+                },
+                beforeClick:function(){
+
+                    treeId.find('.curSelectedNode').removeClass('curSelectedNode');
+
+                },
+                onCheck:function(e,treeId,treeNode){
+
+                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+
+                    $(treeId).find('.curSelectedNode').removeClass('curSelectedNode');
+
+                    $(treeId).find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+
+                    //取消全部打钩的节点
+                    treeObj.checkNode(treeNode,true,true);
+
+                    //获取当前选择的id
+                    var nodes = treeObj.getCheckedNodes(true)[0].id;
+
+                    if(nodes.length>0){
+
+                        $('#person-table-filter-table').showLoading();
+
+                        filterPerson1(nodes[0].id,_allPersonArr,num);
+
+                        $('#person-table-filter-table').hideLoading();
+
+                    }else{
+
+                        _datasTable($('#person-table-filter-table'),[]);
+
+                    }
+
+                }
+
+            }
+        };
+
+        treeObj = $.fn.zTree.init(treeId, setting, treeData);
+
+    }
+
+
+    //根据选中的部门，对人员进行筛选
+    function filterPerson1(value,arr,num,existArr){
+
+        var filterArr = [];
+
+        if(num == 1){
+
+            for(var i=0;i<arr.length;i++){
+
+                if(arr[i].departNum == value){
+
+                    filterArr.push(arr[i]);
+                }
+
+            }
+
+        }else if(num == 2){
+
+            for(var i=0;i<arr.length;i++){
+
+                if(arr[i].roleNum == value){
+
+                    filterArr.push(arr[i]);
+                }
+
+            }
+
+        }
+
+        for(var i=0;i<existArr.length;i++){
+
+            filterArr.removeByValue(existArr[i],'userNum');
+
+        }
+
+        if(value){
+
+            _datasTable($('#person-table-filter-table'),filterArr);
+
+        }else{
+
+            _datasTable($('#person-table-filter-table'),arr);
+
+        }
 
     }
 
