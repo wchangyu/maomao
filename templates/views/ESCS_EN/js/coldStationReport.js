@@ -146,7 +146,7 @@ $(function(){
                             //冷冻进水温度
                             tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_ldjsw + '</td>';
 
-                            //冷冻出水温度
+                            //Chilled Water Leaving Temperature
                             tdStr += '<td style="text-align:center;background: #ffffff;border:1px solid black">' + data[i].report_ldcsw + '</td>';
 
                             //冷却进水温度

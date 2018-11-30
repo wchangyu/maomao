@@ -134,8 +134,36 @@
         });
     }
 
+    //echarts配置
+    var option = {
+        title: {
+            subtext: 'KW/KW'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: []//lgs
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                saveAsImage: { show: true }
+            }
+        },
+        xAxis: [],//cgs
+        yAxis: [],//yAs
+        series: []//dvs
+    };
+
     //获取参数分析数据
     var getAbbrDs = function () {
+
+        $('.noDataTip').remove();
+
         var arostr = "";
         $("input[name=chkDC]:checked").each(function () {
 
@@ -161,18 +189,35 @@
             eType:eType,
             misc:sessionStorage.misc
         },function (res) {
+
+            var maxVa = 0;
+
+            var IsCalsW = '';
+
+            var covST = '';
+
+            var covET = '';
+
+            var titleText = '';
+
+            var lgs = [];
+
+            var cgs = [];
+
+            var yAs = [];
+
             if(res.code === 0){
-                var maxVa = parseInt(res.aroMaxVa);//能耗最大值
+                maxVa = parseInt(res.aroMaxVa);//能耗最大值
                 //是否获取水温数据(bool类型)
-                var IsCalsW = res.isCalsW;
-                var covST = Format(convertDate(sp), "MM月dd日");
-                var covET = Format(convertDate(ep), "MM月dd日");
-                var titleText = covST + " - " + covET + " 冷站参数分析";
-                var lgs = [];
+                IsCalsW = res.isCalsW;
+                covST = Format(convertDate(sp), "MM月dd日");
+                covET = Format(convertDate(ep), "MM月dd日");
+                titleText = covST + " - " + covET + " 冷站参数分析";
+                lgs = [];
                 for (var i = 0; i < res.lgs.length; i++) {
                     lgs.push(res.lgs[i]);
                 }
-                var cgs = [];
+                cgs = [];
                 for (var i = 0; i < 1; i++) {
                     var object = {};
                     object.type = "category";
@@ -187,7 +232,8 @@
                     }
                     cgs.push(object);
                 }
-                var yAs = [];
+
+                yAs = [];
 
                 if (lgs.length == 1) {
                     var object = {};
@@ -265,29 +311,7 @@
                     dvs.push(object);
                 }
                 $('#spanTitle').html(titleText);
-                option = {
-                    title: {
-                        subtext: 'KW/KW'
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data: lgs
-                    },
-                    toolbox: {
-                        show: true,
-                        feature: {
-                            dataZoom: {
-                                yAxisIndex: 'none'
-                            },
-                            saveAsImage: { show: true }
-                        }
-                    },
-                    xAxis: cgs,
-                    yAxis: yAs,
-                    series: dvs
-                };
+
                 if(sessionStorage.misc == 1){
 
                     option.title.subtext = 'KW/KW'
@@ -297,15 +321,53 @@
                     option.title.subtext = 'KW/RT'
 
                 }
-
-                mycv.setOption(option);
                 jQuery('#abbrBusy').hideLoading();
             }else if(res.code === -1){
+
                 jQuery('#abbrBusy').hideLoading();
+
                 console.log('异常错误(参数分析):' + res.msg);
+
+                var tip = '';
+
+                tip = '暂时没有获取到数据';
+
+                var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
+
+                $('#eerMain').append(str);
+
             }else{
+
+                var tip = '';
+
+                if(res.code == -1){
+
+                    tip = '';
+
+                }else{
+
+                    tip = '暂时没有获取到数据';
+
+                }
+
+                var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
+
+                $('#eerMain').append(str);
+
                 jQuery('#abbrBusy').hideLoading();
+
             }
+
+            option.legend.data = lgs;
+
+            option.xAxis = cgs;
+
+            option.yAxis = yAs;
+
+            option.series = dvs;
+
+            mycv.setOption(option,true);
+
         })
     }
 

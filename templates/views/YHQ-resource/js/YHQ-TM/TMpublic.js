@@ -1,35 +1,45 @@
+function _getTMStatus(data){
 
-//flag 真（全部） 假（请选择）
-function _TMcategory(el,flag){
+    var str = '';
 
-    _mainAjaxFunCompleteNew('post','YHQTM/TmxmClassGetAll','',false,function(result){
+    if(data == 10){
 
-        if(result.code == 99){
+        str = '待下发'
 
-            var str = '';
+    }else if(data == 20){
 
-            if(flag){
+        str = '待分派'
 
-                str += '<option value="">全部</option>'
+    }else if(data == 30){
 
-            }else{
+        str = '待执行'
 
-                str += '<option value="">请选择</option>'
+    }else if(data == 40){
 
-            }
+        str = '运送中'
 
-            for(var i =0;i<result.data.length;i++){
+    }else if(data == 50){
 
-                var data = result.data[i];
+        str = '等待资源'
 
-                str += '<option value="' + data.tmclassnum + '">' + data.tmclassname + '</option>';
+    }else if(data == 60){
 
-            }
+        str = '待关单'
 
-            el.empty().append(str);
+    }else if(data == 70){
 
-        }
+        str = '任务关闭'
 
-    })
+    }else if(data == 110){
+
+        str = '申诉'
+
+    }else if(data == 999){
+
+        str = '任务取消'
+
+    }
+
+    return str;
 
 }

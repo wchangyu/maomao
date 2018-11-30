@@ -148,7 +148,53 @@
         $("#alreadyDT").fadeOut("fast");
         $("body").unbind("mousedown", onBodyDown);
     }
-    
+
+    //echarts配置
+    var option = {
+        title: {
+            //text: titleText,
+            //subtext: "KW/RT"
+            subtext: 'KW/KW'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: []//lgs
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                //dataZoom: {
+                //    yAxisIndex: 'none'
+                //},
+                dataView: { readOnly: true },
+                //magicType: { type: ['line', 'bar'] },
+                //restore: {},
+                //saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: true,
+            axisLabel: {
+                rotate: '',//eType === "2" ? 0 : 45,
+                margin: 20,
+                textStyle: {
+                    color: "#222"
+                }
+            },
+            data: []//cgs
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: '{value}'
+            }
+        },
+        series: []//dvs
+    };
+
     var getCompareEERChartViewDs = function (eType,mType,dTs) {
 
         $('.noDataTip').remove();
@@ -164,19 +210,26 @@
             misc:sessionStorage.misc
         },function (res) {
 
+            var titleText = "多时间段能效对比分析";
+
+            var lgs = [];//图例
+
+            var cgs = [];//X轴
+
+            var dvs = [];
+
             if(res.code===0){
-                var titleText = "多时间段能效对比分析";
-                var lgs = [];//图例
+
                 for (var i = 0; i < dTList.length; i++) {
                     lgs.push(dTList[i]);
                 }
                 //lgs.push('优秀值');
                 //lgs.push('警告值');
-                var cgs = [];//X轴
+
                 for (var i = 0; i < res.xs.length; i++) {
                     cgs.push(res.xs[i]);
                 }
-                var dvs = [];
+
                 for (var i = 0; i < res.ys.length; i++) {
                     var object = {};
                     object.name = lgs[i];
@@ -188,64 +241,6 @@
                     }
                     dvs.push(object);
                 }
-
-
-                option = {
-                    title: {
-                        //text: titleText,
-                        //subtext: "KW/RT"
-                        subtext: 'KW/KW'
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data: lgs
-                    },
-                    toolbox: {
-                        show: true,
-                        feature: {
-                            //dataZoom: {
-                            //    yAxisIndex: 'none'
-                            //},
-                            dataView: { readOnly: true },
-                            //magicType: { type: ['line', 'bar'] },
-                            //restore: {},
-                            //saveAsImage: {}
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: true,
-                        axisLabel: {
-                            rotate: eType === "2" ? 0 : 45,
-                            margin: 20,
-                            textStyle: {
-                                color: "#222"
-                            }
-                        },
-                        data: cgs
-                    },
-                    yAxis: {
-                        type: 'value',
-                        axisLabel: {
-                            formatter: '{value}'
-                        }
-                    },
-                    series: dvs
-                };
-
-                if(sessionStorage.misc == 1){
-
-                    option.title.subtext = 'KW/KW'
-
-                }else if(sessionStorage.misc == 2){
-
-                    option.title.subtext = 'KW/RT'
-
-                }
-
-                mycv.setOption(option,true);
 
                 jQuery('#compareBusy').hideLoading();
 
@@ -272,6 +267,27 @@
                 $('#compareMain').append(str);
 
             }
+
+            if(sessionStorage.misc == 1){
+
+                option.title.subtext = 'KW/KW'
+
+            }else if(sessionStorage.misc == 2){
+
+                option.title.subtext = 'KW/RT'
+
+            }
+
+            option.legend.data = lgs;
+
+            option.xAxis.axisLabel.rotate = eType === "2" ? 0 : 45;
+
+            option.xAxis.data = cgs;
+
+            option.series = dvs;
+
+            mycv.setOption(option,true);
+
         })
     }
 

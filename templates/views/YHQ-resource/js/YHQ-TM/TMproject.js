@@ -38,8 +38,6 @@ $(function(){
 
                 number:true,
 
-                required:true,
-
                 min:0.1
 
             },
@@ -47,8 +45,6 @@ $(function(){
             'TM-fee':{
 
                 number:true,
-
-                required:true,
 
                 min:0.1
 
@@ -74,8 +70,6 @@ $(function(){
 
                 number:'工时时间为数字格式',
 
-                required:'工时时间为必填字段',
-
                 min:'格式为大于0的数字'
 
             },
@@ -83,8 +77,6 @@ $(function(){
             'TM-fee':{
 
                 number:'工时费用为数字格式',
-
-                required:'工时费用为必填字段',
 
                 min:'格式为大于0的数字'
 
@@ -119,8 +111,6 @@ $(function(){
 
                     number:true,
 
-                    required:true,
-
                     min:0.1
 
                 },
@@ -128,8 +118,6 @@ $(function(){
                 'TM-fee':{
 
                     number:true,
-
-                    required:true,
 
                     min:0.1
 
@@ -155,8 +143,6 @@ $(function(){
 
                     number:'工时时间为数字格式',
 
-                    required:'工时时间为必填字段',
-
                     min:'格式为大于0的数字'
 
                 },
@@ -164,8 +150,6 @@ $(function(){
                 'TM-fee':{
 
                     number:'工时费用为数字格式',
-
-                    required:'工时费用为必填字段',
 
                     min:'格式为大于0的数字'
 

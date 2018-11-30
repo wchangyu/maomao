@@ -609,7 +609,9 @@ $(function(){
             //新的设备编码
             'dNewNum':$('#bianhao').val(),
             //用户id
-            'userID':_userIdNum
+            'userID':_userIdNum,
+            //安装地点
+            'installAddress':$('#installAddress').val()
         }
         $.ajax({
             type:'post',

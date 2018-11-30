@@ -846,7 +846,7 @@ $(function(){
 
         //设置表头
 
-        var title = '后勤服务热线' + $('.datatimeblock').val().split('/')[1] + '月' + $('.spanhover').html();
+        var title = '一站式后勤服务' + $('.datatimeblock').val().split('/')[1] + '月' + $('.spanhover').html();
 
         $('.table-block-title').html(title);
 

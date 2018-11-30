@@ -106,7 +106,7 @@ $(function(){
             data:'tkTime',
             render:function(data, type, full, meta){
 
-                return data.split('T')[0]
+                return moment(data.replace(/T/g,' ')).format('YYYY-MM-DD HH:mm')
 
             }
 

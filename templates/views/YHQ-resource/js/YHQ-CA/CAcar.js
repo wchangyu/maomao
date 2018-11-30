@@ -394,7 +394,13 @@ $(function(){
     //重置
     $('#resetBtn').click(function(){
 
-        $('#CA-carnumCon').val('');
+        _resetFun();
+
+        //汽车状态
+        $('#CA-statusCon').val(-1);
+
+        //类型
+        $('#CA-typeCon').val(0);
 
     })
 

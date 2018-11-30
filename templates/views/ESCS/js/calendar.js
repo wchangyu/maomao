@@ -147,9 +147,12 @@
             //sp:moment($('#spDT').val()).endOf('months').format('YYYY-MM-DD'),
             misc:sessionStorage.misc
         },function (res) {
+
+            var eds = [];
+
             if(res.code === 0){
                 var ecpDs=res.ecPs;//数据源
-                var eds = [];
+
                 //日历，每一天
 
                 for (var i = 0; i < ecpDs.length; i++) {
@@ -170,42 +173,44 @@
                     eds.push(object);
                 }
 
-                $('#calendar').fullCalendar('destroy');
-                $('#calendar').fullCalendar({
-                    handleWindowResize: true,
-                    dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
-                    defaultView: 'month',
-                    firstDay: 0,
-                    defaultDate: '' + select_year + '-' + select_month + '-' + select_day + '',
-                    events: eds,
-                    selectable: true,
-                    eventClick: function (event) {
-                        var year = event.start._d.getFullYear();
-                        var month = addZeroToSingleNumber(parseInt(event.start._d.getMonth()) + 1);
-                        var date = addZeroToSingleNumber(parseInt(event.start._d.getDate()));
-                        var selectDT = (year + "-" + month + "-" + date);
-                        $("#todayDT").html(year + "年" + month + "月" + date + "日");
-                        /*默认选中日数据*/
-                        $('#monthBtn').removeClass('green');
-                        $('#dayBtn').addClass('green');
-                        selectDType = "D";
-                        loadEERAnalysisExpDs(selectDT);
-                        return false;
-                    }
-                });
-                $('.fc-time').hide();
-                $('.fc-today-button').hide();
-                $('.fc-left').hide();
-                $('.fc-prev-button').hide();
-                $('.fc-next-button').hide()
-                jQuery('#eerBusy').hideLoading();
-                loadEERAnalysisExpDs(todayDT);
             }else if(res.code === -1){
                 console.log('异常错误(能效日历):' + res.msg );
                 jQuery('#eerBusy').hideLoading();
             }else{
                 jQuery('#eerBusy').hideLoading();
             }
+
+            $('#calendar').fullCalendar('destroy');
+            $('#calendar').fullCalendar({
+                handleWindowResize: true,
+                dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+                defaultView: 'month',
+                firstDay: 0,
+                defaultDate: '' + select_year + '-' + select_month + '-' + select_day + '',
+                events: eds,
+                selectable: true,
+                eventClick: function (event) {
+                    var year = event.start._d.getFullYear();
+                    var month = addZeroToSingleNumber(parseInt(event.start._d.getMonth()) + 1);
+                    var date = addZeroToSingleNumber(parseInt(event.start._d.getDate()));
+                    var selectDT = (year + "-" + month + "-" + date);
+                    $("#todayDT").html(year + "年" + month + "月" + date + "日");
+                    /*默认选中日数据*/
+                    $('#monthBtn').removeClass('green');
+                    $('#dayBtn').addClass('green');
+                    selectDType = "D";
+                    loadEERAnalysisExpDs(selectDT);
+                    return false;
+                }
+            });
+            $('.fc-time').hide();
+            $('.fc-today-button').hide();
+            $('.fc-left').hide();
+            $('.fc-prev-button').hide();
+            $('.fc-next-button').hide()
+            jQuery('#eerBusy').hideLoading();
+            loadEERAnalysisExpDs(todayDT);
+
         })
     }
 

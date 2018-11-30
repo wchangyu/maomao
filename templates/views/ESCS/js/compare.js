@@ -163,19 +163,25 @@
             misc:sessionStorage.misc
         },function (res) {
 
+            var lgs = [];//图例
+
+            var cgs = [];//X轴
+
+            var dvs = [];
+
             if(res.code===0){
                 var titleText = "多时间段能效对比分析";
-                var lgs = [];//图例
+                lgs = [];//图例
                 for (var i = 0; i < dTList.length; i++) {
                     lgs.push(dTList[i]);
                 }
                 //lgs.push('优秀值');
                 //lgs.push('警告值');
-                var cgs = [];//X轴
+                cgs = [];//X轴
                 for (var i = 0; i < res.xs.length; i++) {
                     cgs.push(res.xs[i]);
                 }
-                var dvs = [];
+                dvs = [];
                 for (var i = 0; i < res.ys.length; i++) {
                     var object = {};
                     object.name = lgs[i];
@@ -187,133 +193,6 @@
                     }
                     dvs.push(object);
                 }
-
-
-                option = {
-                    title: {
-                        //text: titleText,
-                        //subtext: "KW/RT"
-                        subtext: 'KW/KW'
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data: lgs
-                    },
-                    toolbox: {
-                        show: true,
-                        feature: {
-                            //dataZoom: {
-                            //    yAxisIndex: 'none'
-                            //},
-                            dataView: {
-
-                                readOnly: true,
-
-                                optionToContent: function(opt) {
-
-                                    //thead
-                                    var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
-
-                                    var tables = '</table>';
-
-                                    var thead = '<thead>';
-
-                                    var theads = '</thead>';
-
-                                    var tbody = '<tbody>';
-
-                                    var tbodys = '</tbody>';
-
-                                    //th
-                                    var thStr = '<tr><th>时间</th>';
-
-                                    for(var i=0;i<opt.series.length;i++){
-
-                                        thStr += '<th>';
-
-                                        thStr += opt.series[i].name;
-
-                                        thStr += '</th>'
-
-                                    }
-
-                                    thStr += '</tr>';
-
-                                    //td
-                                    var tdStr = '';
-
-                                    for(var i=0;i<opt.xAxis[0].data.length;i++){
-
-                                        tdStr += '<tr>';
-
-                                        //时间
-                                        tdStr += '<td>';
-
-                                        tdStr += opt.xAxis[0].data[i];
-
-                                        tdStr += '</td>';
-
-                                        for(var j=0;j<opt.series.length;j++){
-
-                                            tdStr += '<td>';
-
-                                            tdStr += opt.series[j].data[i]==undefined?'-':opt.series[j].data[i];
-
-                                            tdStr += '</td>';
-
-                                        }
-
-                                        tdStr += '</tr>';
-
-
-                                    }
-
-                                    return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
-
-
-
-                                }
-
-                            },
-                            magicType: { type: ['line', 'bar'] },
-                            restore: {},
-                            saveAsImage: {}
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: true,
-                        axisLabel: {
-                            rotate: eType === "2" ? 0 : 45,
-                            margin: 20,
-                            textStyle: {
-                                color: "#222"
-                            }
-                        },
-                        data: cgs
-                    },
-                    yAxis: {
-                        type: 'value',
-                        axisLabel: {
-                            formatter: '{value}'
-                        }
-                    },
-                    series: dvs
-                };
-
-                if(sessionStorage.misc == 1){
-
-                    option.title.subtext = 'KW/KW'
-
-                }else if(sessionStorage.misc == 2){
-
-                    option.title.subtext = 'KW/RT'
-
-                }
-
-                mycv.setOption(option,true);
 
                 jQuery('#compareBusy').hideLoading();
 
@@ -340,6 +219,133 @@
                 $('#compareMain').append(str);
 
             }
+
+            option = {
+                title: {
+                    //text: titleText,
+                    //subtext: "KW/RT"
+                    subtext: 'KW/KW'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: lgs
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        //dataZoom: {
+                        //    yAxisIndex: 'none'
+                        //},
+                        dataView: {
+
+                            readOnly: true,
+
+                            optionToContent: function(opt) {
+
+                                //thead
+                                var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
+
+                                var tables = '</table>';
+
+                                var thead = '<thead>';
+
+                                var theads = '</thead>';
+
+                                var tbody = '<tbody>';
+
+                                var tbodys = '</tbody>';
+
+                                //th
+                                var thStr = '<tr><th>时间</th>';
+
+                                for(var i=0;i<opt.series.length;i++){
+
+                                    thStr += '<th>';
+
+                                    thStr += opt.series[i].name;
+
+                                    thStr += '</th>'
+
+                                }
+
+                                thStr += '</tr>';
+
+                                //td
+                                var tdStr = '';
+
+                                for(var i=0;i<opt.xAxis[0].data.length;i++){
+
+                                    tdStr += '<tr>';
+
+                                    //时间
+                                    tdStr += '<td>';
+
+                                    tdStr += opt.xAxis[0].data[i];
+
+                                    tdStr += '</td>';
+
+                                    for(var j=0;j<opt.series.length;j++){
+
+                                        tdStr += '<td>';
+
+                                        tdStr += opt.series[j].data[i]==undefined?'-':opt.series[j].data[i];
+
+                                        tdStr += '</td>';
+
+                                    }
+
+                                    tdStr += '</tr>';
+
+
+                                }
+
+                                return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
+
+
+
+                            }
+
+                        },
+                        magicType: { type: ['line', 'bar'] },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: true,
+                    axisLabel: {
+                        rotate: eType === "2" ? 0 : 45,
+                        margin: 20,
+                        textStyle: {
+                            color: "#222"
+                        }
+                    },
+                    data: cgs
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                },
+                series: dvs
+            };
+
+            if(sessionStorage.misc == 1){
+
+                option.title.subtext = 'KW/KW'
+
+            }else if(sessionStorage.misc == 2){
+
+                option.title.subtext = 'KW/RT'
+
+            }
+
+            mycv.setOption(option,true);
+
         })
     }
 

@@ -78,14 +78,14 @@ $(function(){
             //发送数据之前
             beforeSend:function(){
 
-                $('#exportBtn').html('导出中...').attr('disabled',true);
+                $('#exportBtn').html('Export...').attr('disabled',true);
 
             },
 
             //发送数据完成之后
             complete:function(){
 
-                $('#exportBtn').html('导出数据').attr('disabled',false);
+                $('#exportBtn').html('Export Data').attr('disabled',false);
 
             },
 
@@ -249,7 +249,7 @@ _tableInit_EN($('#dateTables'),col,2,false,'','','','','','','','');
 //折线图
 var myChartTopLeft = echarts.init(document.getElementById('rheader-content-16'));
 
-var echartObj =  {name:'数据',
+var echartObj =  {name:'Data',
     type:'line',
     smooth:true,
     data:[]
@@ -267,7 +267,7 @@ var optionLine = {
         trigger: 'axis'
     },
     legend: {
-        data:['数据'],
+        data:['Data'],
         top:'30'
     },
     toolbox: {
@@ -294,7 +294,7 @@ var optionLine = {
                     var tbodys = '</tbody>';
 
                     //th
-                    var thStr = '<tr><th>时间</th>';
+                    var thStr = '<tr><th>Date</th>';
 
                     for(var i=0;i<opt.series.length;i++){
 
@@ -571,9 +571,9 @@ function getDevAreaByType(){
             myChartTopLeft.hideLoading();
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
+                _moTaiKuang($('#myModal2'),'Message', false, 'istap' ,'Request timeout', '');
             }else{
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
+                _moTaiKuang($('#myModal2'),'Message', false, 'istap' ,'Request failure', '');
             }
 
         }
@@ -678,9 +678,9 @@ function getDevInfoCTypes(equipObj,flag){
             $('.left-middle-main1').hideLoading();
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
+                _moTaiKuang($('#myModal2'),'Message', false, 'istap' ,'Request timeout', '');
             }else{
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
+                _moTaiKuang($('#myModal2'),'Message', false, 'istap' ,'Request failure', '');
             }
 
         }
@@ -700,7 +700,7 @@ function getPointerData(){
     //判断是否选择设备
     if($('.select-equipment-container p').length == 0){
 
-        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择设备后查看', '');
+        _moTaiKuang($('#myModal2'),'Message', false, 'istap' ,'Please select the device', '');
     }
 
     //定义属性ID集合
@@ -880,9 +880,9 @@ function getPointerData(){
 
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
+                _moTaiKuang($('#myModal2'),'Message', false, 'istap' ,'Request timeout', '');
             }else{
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
+                _moTaiKuang($('#myModal2'),'Message', false, 'istap' ,'Request failure', '');
             }
 
         }
@@ -1354,7 +1354,7 @@ function searchNode(e,node) {
     nodeList = zTree.transformToArray(nodeList);
     if(nodeList==''){
         $('.tipess0').show();
-        $('.tipess0').html('抱歉，没有您想要的结果')
+        $('.tipess0').html('Sorry, no results you want')
     }else{
         $('.tipess0').hide();
     }

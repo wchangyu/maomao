@@ -359,6 +359,12 @@ $(function(){
                 //loadding
                 $('.content-top').hideLoading();
 
+                //确定横坐标
+                var dataX = [];
+
+                //确定纵坐标
+                var dataY = [];
+
                 if(result.code == 0){
 
                     //确定legend(加单位)
@@ -374,19 +380,13 @@ $(function(){
 
                     option.legend.data = nameUnite;
 
-                    //确定横坐标
-                    var dataX = [];
-
                     for(var i=0;i<result.xs.length;i++){
 
                         dataX.push(result.xs[i]);
 
                     }
 
-                    option.xAxis.data = dataX;
-
-                    //确定纵坐标
-                    var dataY = [];
+                    //option.xAxis.data = dataX;
 
                     //首先判断是否包含冷价(true的时候包含，并且取最后一条);
 
@@ -495,7 +495,7 @@ $(function(){
 
                     option.yAxis = ZhouArr;
 
-                    option.series = dataY;
+                    //option.series = dataY;
 
                     //根据最大值来确定纵坐标的间隔
                     var _max = 0;
@@ -548,6 +548,10 @@ $(function(){
 
                 }
 
+                option.xAxis.data = dataX;
+
+                option.series = dataY;
+
                 mychart.setOption(option,true);
 
             },
@@ -585,15 +589,19 @@ $(function(){
 
                 $('#avg_table').hideLoading();
 
+                var arr = [];
+
                 if(result.code == 0){
 
-                    _datasTable($('#avg_table'),result.tbs);
+                    arr = result.tbs;
 
                 }else{
 
                     console.log('异常错误(能耗分析):' + result.msg);
 
                 }
+
+                _datasTable($('#avg_table'),arr);
 
             },
 

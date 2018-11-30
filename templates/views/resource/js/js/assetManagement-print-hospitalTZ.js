@@ -618,7 +618,9 @@ $(function(){
             //设备编码
             'dNum':$('#bianhao').val(),
             //用户id
-            'userID':_userIdNum
+            'userID':_userIdNum,
+            //安装地点
+            'installAddress':$('#installAddress').val()
         }
         $.ajax({
             type:'post',
@@ -777,6 +779,14 @@ $(function(){
 
             }
 
+            var date = '';
+
+            if(data.purDate != ''){
+
+                date = data.purDate.split(' ')[0];
+
+            }
+
             str += '<p style="font-size: 18px;text-align: center" class="print-title">' +
 
                 '台州市第一人民医院智慧后勤管理' +
@@ -795,13 +805,13 @@ $(function(){
                 '</div>' +
                 '<div class="divide-block">' +
                 '<div class="three-left">' +
-                '<div class="row-list">' +
+                '<div class="row-list row-list-name">' +
                 '<div class="row-three-left">设备名称</div>' +
-                '<div class="row-three-right">' + data.dName + '</div>' +
+                '<div class="row-three-right" style="line-height: 22px;">' + data.dName + '</div>' +
                 '</div>' +
                 '<div class="row-list">' +
                 '<div class="row-three-left">购入日期</div>' +
-                '<div class="row-three-right">' + data.purDate + '</div>' +
+                '<div class="row-three-right">' + date + '</div>' +
                 '</div>' +
                 '<div class="row-list noBorder">' +
                 '<div class="row-three-left">设备规格</div>' +

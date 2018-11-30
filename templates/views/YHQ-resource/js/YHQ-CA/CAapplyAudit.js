@@ -1,4 +1,5 @@
 $(function(){
+
     /*-----------------------------默认加载---------------------------------*/
 
     //暂存所有条件查询的数据
@@ -92,7 +93,7 @@ $(function(){
 
                 var str = '';
 
-                if(full.isAudit == null){
+                if(full.isAudit == null || full.isAudit == 0 ){
 
                     str += '<span class="option-button option-edit option-in" data-attr="' + full.id + '">' + '审核</span>'
 

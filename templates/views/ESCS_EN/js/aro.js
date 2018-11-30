@@ -133,7 +133,7 @@ $(function(){
                         var tbodys = '</tbody>';
 
                         //th
-                        var thStr = '<tr><th>时间</th>';
+                        var thStr = '<tr><th>Date</th>';
 
                         for(var i=0;i<opt.series.length-1;i++){
 
@@ -382,14 +382,14 @@ $(function(){
             //发送数据之前
             beforeSend:function(){
 
-                $('#exportBtn').html('导出中...').attr('disabled',true);
+                $('#exportBtn').html('Export...').attr('disabled',true);
 
             },
 
             //发送数据完成之后
             complete:function(){
 
-                $('#exportBtn').html('导出数据').attr('disabled',false);
+                $('#exportBtn').html('Export Data').attr('disabled',false);
 
             },
 
@@ -833,7 +833,7 @@ $(function(){
 
                     }else{
 
-                        tip = '暂时没有获取到能耗数据';
+                        tip = 'No Data';
 
                     }
 
@@ -841,7 +841,9 @@ $(function(){
 
                     $('#chartBlock').append(str);
 
-                    console.log('异常错误(能耗分析):' + result.msg);
+                    console.log('Error(Consumption Analysis):' + result.msg);
+
+                    option.series = [];
 
                 }
 
@@ -855,11 +857,11 @@ $(function(){
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 
-                    console.log('请求超时')
+                    console.log('Request timeout')
 
                 }else{
 
-                    console.log('请求失败')
+                    console.log('Request failure')
 
                 }
 

@@ -240,6 +240,24 @@ $(function(){
 
     })
 
+    $('#table tbody').on('click','tr',function(){
+
+        if($(this).hasClass('tables-hover')){
+
+            $(this).removeClass('tables-hover');
+
+            $(this).find('input').parent('span').removeClass('checked');
+
+        }else{
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent('span').addClass('checked');
+
+        }
+
+    })
+
     /*-------------------------------其他方法----------------------------*/
 
     //分类

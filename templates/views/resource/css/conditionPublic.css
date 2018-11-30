@@ -214,7 +214,7 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 
     color: red;
 
-    width: auto;
+    width: auto !important;
 
     line-height: 30px;
 
@@ -480,4 +480,33 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     top: 33px;
     width: 100%;
     left: -134px;
+}
+
+.modal-tip{
+
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    background: #dfba49;
+
+    color: #ffffff;
+
+    font-weight: bold;
+
+}
+
+.modal-left{
+
+    float: left;
+
+    width: 35%;
+}
+
+.modal-right{
+
+    float: right;
+
+    width: 63%;
+
 }

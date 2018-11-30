@@ -580,7 +580,11 @@ $(function(){
     //重置
     $('#resetBtn').click(function(){
 
-        $('#HT-nameCon').val('');
+        _resetFun();
+
+        $('#spDT').val(st);
+
+        $('#epDT').val(nowTime)
 
     })
 
@@ -872,6 +876,27 @@ $(function(){
 
     })
 
+    //经办人确定按钮
+    $('#person-new-Modal').on('click','.btn-primary',function(){
+
+        var current = _isSelectTr($('#person-table-filter'));
+
+        if(current){
+
+            var num = current.find('.checker').attr('data-id');
+
+            var name = current.children().eq(1).html();
+
+            $('#HT-person-M').attr('data-num',num);
+
+            $('#HT-person-M').val(name);
+
+            $('#person-new-Modal').modal('hide');
+
+        }
+
+    })
+
     /*-----------------------------其他方法----------------------------------*/
 
     //条件查询
@@ -880,7 +905,7 @@ $(function(){
         var prm = {
 
             //合同编码
-            htNum:$('#DC-numCon').val(),
+            htname:$('#HT-numCon').val(),
             //开始时间
             begintime:$('#spDT').val(),
             //结束时间

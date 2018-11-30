@@ -58,7 +58,7 @@
             if (sessionStorage.DxChwGHSWCSte === "-1") {
                 //$('#reasugBox').show();
                 $('.boxhgt').show();
-                $('#spanDxSte').html('异常');
+                $('#spanDxSte').html('Abnormal');
                 $('.ellipse').css('background-color', '#ffc000');
             }
             else if (sessionStorage.DxChwGHSWCSte === "0")//异常

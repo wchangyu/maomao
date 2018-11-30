@@ -50,6 +50,46 @@ var Rate=function () {
         });
     }
 
+    //echarts配置
+    var option = {
+        color: ['#007acc', '#c23531'],
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: []//['负荷比例(%)', '冷站能效(' + miscstr + ')']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: []//xs
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '负荷比例(%)',
+                min: 0,
+                max: 100,
+                interval: 10,
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            },
+            {
+                type: 'value',
+                name: '',//'冷站能效(' + miscstr + ')',
+                min: 0,
+                max: 0,//maxeerVa,
+                interval: 0,//maxeerVa / 10,
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            }
+        ],
+        series: []//ys
+    };
+
     //获取负荷数据
     var getRateDs = function () {
 
@@ -67,28 +107,33 @@ var Rate=function () {
             misc:sessionStorage.misc
         },function (res) {
 
+            var miscstr
+            //= 'KW/KW';
+
+            var maxeerVa = '';
+
+            if(sessionStorage.misc == 1){
+
+                miscstr = 'KW/KW';
+
+                maxeerVa = 9;
+
+            }else if(sessionStorage.misc == 2){
+
+                miscstr = 'KW/RT'
+
+                maxeerVa = 3;
+
+            }
+
+            var ys = [];
+
+            var xs = [];
+
             if(res.code===0){
-                var miscstr
-                    //= 'KW/KW';
-
-                var maxeerVa = '';
-
-                if(sessionStorage.misc == 1){
-
-                    miscstr = 'KW/KW';
-
-                    maxeerVa = 9;
-
-                }else if(sessionStorage.misc == 2){
-
-                    miscstr = 'KW/RT'
-
-                    maxeerVa = 3;
-
-                }
 
                 var maxRateVa = res.rateMaxVa;
-                var ys = [];
+
                 for (var i = 0; i < res.ys.length; i++) {
                     var object = {};
                     if (i == 0) {
@@ -121,54 +166,15 @@ var Rate=function () {
                     }
                     ys.push(object);
                 }
-                var xs = [];
+
                 var xsCNT = res.xs.length;
                 for (var j = 0; j < xsCNT; j++) {
                     xs.push(res.xs[j]);
                 }
-                option = {
-                    color: ['#007acc', '#c23531'],
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data: ['负荷比例(%)', '冷站能效(' + miscstr + ')']
-                    },
-                    xAxis: [
-                        {
-                            type: 'category',
-                            data: xs
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'value',
-                            name: '负荷比例(%)',
-                            min: 0,
-                            max: 100,
-                            interval: 10,
-                            axisLabel: {
-                                formatter: '{value}'
-                            }
-                        },
-                        {
-                            type: 'value',
-                            name: '冷站能效(' + miscstr + ')',
-                            min: 0,
-                            max: maxeerVa,
-                            interval: maxeerVa / 10,
-                            axisLabel: {
-                                formatter: '{value}'
-                            }
-                        }
-                    ],
-                    series: ys
-                };
-                mycv.setOption(option);
                 jQuery('#rateBusy').hideLoading();
             }else if(res.code===-1){
 
-                var tip = res.msg;
+                var tip = '暂时没有获取到负荷比重数据';
 
                 var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
 
@@ -190,6 +196,21 @@ var Rate=function () {
 
 
             }
+
+            option.legend.data = ['负荷比例(%)', '冷站能效(' + miscstr + ')'];
+
+            option.xAxis.data = xs;
+
+            option.yAxis[1].name = '冷站能效(' + miscstr + ')';
+
+            option.yAxis[1].max = maxeerVa;
+
+            option.yAxis[1].interval = maxeerVa;
+
+            option.series = ys;
+
+            mycv.setOption(option,true);
+
         })
     }
 

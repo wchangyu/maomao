@@ -143,40 +143,43 @@
                 eType:selectEType,
                 misc:sessionStorage.misc
             },function (res) {
+
+                var lzxs = [];//冷站X轴
+                var lzys = [];//冷站Y轴
+                var lzcs = [];
+                var cxs = [];//冷机X轴数据
+                var cys = [];
+                var ccs = [];
+                var chwxs = [];//冷冻泵X轴
+                var chwys = [];
+                var chwcs = [];
+                var cwxs = [];//冷却泵X轴
+                var cwys = [];
+                var cwcs = [];
+                var ctxs = [];//冷却塔X轴
+                var ctys = [];
+                var ctcs = [];
+
+                var Luntil = '';
+
                 if(res.code === 0){
-                    var lzxs = res.lzxs;//冷站X轴
-                    var lzys = res.lzys;//冷站Y轴
-                    var lzcs = res.lzcs;
-                    var cxs = res.cxs;//冷机X轴数据
-                    var cys = res.cys;
-                    var ccs = res.ccs;
-                    var chwxs = res.chwxs;//冷冻泵X轴
-                    var chwys = res.chwys;
-                    var chwcs = res.chwcs;
-                    var cwxs = res.cwxs;//冷却泵X轴
-                    var cwys = res.cwys;
-                    var cwcs = res.cwcs;
-                    var ctxs = res.ctxs;//冷却塔X轴
-                    var ctys = res.ctys;
-                    var ctcs = res.ctcs;
+                    lzxs = res.lzxs;//冷站X轴
+                    lzys = res.lzys;//冷站Y轴
+                    lzcs = res.lzcs;
+                    cxs = res.cxs;//冷机X轴数据
+                    cys = res.cys;
+                    ccs = res.ccs;
+                    chwxs = res.chwxs;//冷冻泵X轴
+                    chwys = res.chwys;
+                    chwcs = res.chwcs;
+                    cwxs = res.cwxs;//冷却泵X轴
+                    cwys = res.cwys;
+                    cwcs = res.cwcs;
+                    ctxs = res.ctxs;//冷却塔X轴
+                    ctys = res.ctys;
+                    ctcs = res.ctcs;
 
-                    var Luntil = '';
-
-                    if(sessionStorage.misc == 1){
-
-                        Luntil = 'KW/KW'
-
-                    }else if(sessionStorage.misc == 2){
-
-                        Luntil = 'KW/RT'
-
-                    }
-
-                    drawlzv(lzxs, lzys, lzcs, Luntil);//冷站
-                    drawcv(cxs, cys, ccs,  Luntil);//冷机
-                    drawchwv(chwxs, chwys, chwcs,  Luntil);//冷冻泵
-                    drawcwv(cwxs, cwys, cwcs,  Luntil);//冷却泵
-                    drawctv(ctxs, ctys, ctcs,  Luntil);//冷却塔
+                    Luntil = '';
                     jQuery('#rankBusy').hideLoading();
                 }else if(res.code === -1){
                     console.log('异常错误(能效排名:)' + res.msg);
@@ -184,11 +187,31 @@
                 }else{
                     jQuery('#rankBusy').hideLoading();
                 }
+
+                if(sessionStorage.misc == 1){
+
+                    Luntil = 'KW/KW'
+
+                }else if(sessionStorage.misc == 2){
+
+                    Luntil = 'KW/RT'
+
+                }
+
+                drawlzv(lzxs, lzys, lzcs, Luntil);//冷站
+                drawcv(cxs, cys, ccs,  Luntil);//冷机
+                drawchwv(chwxs, chwys, chwcs,  Luntil);//冷冻泵
+                drawcwv(cwxs, cwys, cwcs,  Luntil);//冷却泵
+                drawctv(ctxs, ctys, ctcs,  Luntil);//冷却塔
+
             })
         }
     }
 
     function drawctv(xs, ctys, ctcs, misc) {
+
+        $('#ctMain').find('.noDataTip').empty();
+
         myctv = echarts.init(document.getElementById('ctMain'));
         var cgs = [];
         for (var i = 0; i < 1; i++) {
@@ -303,10 +326,22 @@
                 option.series[0].data[i].itemStyle.normal.color = "#31859c";
             }
         }
-        myctv.setOption(option);
+        myctv.setOption(option,true);
+
+        if(dvs.length == 0){
+
+            var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + '暂时没有获取到数据' + '</div>'
+
+            $('#ctMain').append(str);
+
+        }
+
     }
 
     function drawcwv(xs, cwys, cwcs, misc) {
+
+        $('#cwMain').find('.noDataTip').empty();
+
         mycwv = echarts.init(document.getElementById('cwMain'));
         var cgs = [];
         for (var i = 0; i < 1; i++) {
@@ -420,10 +455,22 @@
                 option.series[0].data[i].itemStyle.normal.color = "#31859c";
             }
         }
-        mycwv.setOption(option);
+        mycwv.setOption(option,true);
+
+        if(dvs.length == 0){
+
+            var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + '暂时没有获取到数据' + '</div>'
+
+            $('#cwMain').append(str);
+
+        }
+
     };
 
     function drawchwv(xs, chwys, chwcs, misc) {
+
+        $('#chwMain').find('.noDataTip').empty();
+
         mychwv = echarts.init(document.getElementById('chwMain'));
         var cgs = [];
         for (var i = 0; i < 1; i++) {
@@ -538,10 +585,22 @@
                 option.series[0].data[i].itemStyle.normal.color = "#31859c";
             }
         }
-        mychwv.setOption(option);
+        mychwv.setOption(option,true);
+
+        if(dvs.length == 0){
+
+            var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + '暂时没有获取到数据' + '</div>'
+
+            $('#chwMain').append(str);
+
+        }
+
     };
 
     function drawcv(xs, cys, ccs, misc) {
+
+        $('#cMain').find('.noDataTip').empty();
+
         mycv = echarts.init(document.getElementById('cMain'));
         var cgs = [];
         for (var i = 0; i < 1; i++) {
@@ -655,10 +714,22 @@
                 option.series[0].data[i].itemStyle.normal.color = "#31859c";
             }
         }
-        mycv.setOption(option);
+        mycv.setOption(option,true);
+
+        if(dvs.length == 0){
+
+            var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + '暂时没有获取到数据' + '</div>'
+
+            $('#cMain').append(str);
+
+        }
+
     }
 
     function drawlzv(xs, lzys, lzcs, misc) {
+
+        $('#lzMain').find('.noDataTip').empty();
+
         mylzv = echarts.init(document.getElementById('lzMain'));
         var cgs = [];
         for (var i = 0; i < 1; i++) {
@@ -674,6 +745,7 @@
             }
             cgs.push(object);
         }
+
         var dvs = [];
         for (var i = 0; i < lzys.length; i++) {
             var object = {};
@@ -759,7 +831,17 @@
                 option.series[0].data[i].itemStyle.normal.color = "#31859c";
             }
         }
-        mylzv.setOption(option);
+
+        mylzv.setOption(option,true);
+
+        if(dvs.length == 0){
+
+            var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + '暂时没有获取到数据' + '</div>'
+
+            $('#lzMain').append(str);
+
+        }
+
     }
 
     return {

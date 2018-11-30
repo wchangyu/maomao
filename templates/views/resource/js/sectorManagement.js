@@ -205,6 +205,9 @@ $(function(){
         //初始化
         detailInit();
 
+        //获取所有部门；
+        departData()
+
         //模态框
         _moTaiKuang($('#myModal'), '新增', '', '' ,'', '新增');
 
@@ -250,6 +253,9 @@ $(function(){
 
         //初始化
         detailInit();
+
+        //获取所有部门；
+        departData();
 
         //模态框
         _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
@@ -552,11 +558,58 @@ $(function(){
                 }
 
                 _jumpNow($('#personal-table'),result);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                //清除loadding
+                $('#theLoading').modal('hide');
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+                }else{
+
+                    _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+                }
+
+            }
+        })
+    }
+
+    //获取所有部门
+    function departData(){
+
+        //获取条件
+        var prm = {
+            //部门名称
+            "departName":'',
+            //用户id
+            "userID":_userIdNum
+        }
+        $.ajax({
+            type:'post',
+            url: _urls + 'RBAC/rbacGetDeparts',
+            data:prm,
+            timeout:_theTimes,
+            beforeSend: function () {
+
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
+            success:function(result){
 
                 department.option = [];
 
                 var obj = {
+
                     text:'请选择',
+
                     value:''
                 }
                 department.option.push(obj);
@@ -587,10 +640,14 @@ $(function(){
 
             }
         })
+
+
     }
 
     //初始化
     function detailInit(){
+
+        $('.inpus').parent().removeClass('checked');
 
         //部门编码
         department.num = '';
@@ -598,6 +655,9 @@ $(function(){
         department.name = '';
         //是否维修
         department.picked = 0;
+
+        $('#twos').parent('span').addClass('checked');
+
         //车站
         department.station = '';
         //上级部门
@@ -606,10 +666,6 @@ $(function(){
         department.order = '';
         //备注
         department.remarks = '';
-        //单选样式
-        $('.inpus').parent().removeClass('checked');
-
-        $('#twos').parent().addClass('checked');
 
     }
 
@@ -656,8 +712,6 @@ $(function(){
 
             if( _allDepartmentArr[i].departNum == thisBM ){
 
-                console.log(_allDepartmentArr[i]);
-
                 //部门编码
                 department.num = _allDepartmentArr[i].departNum;
                 //部门名称
@@ -668,6 +722,20 @@ $(function(){
                 department.order = _allDepartmentArr[i].sort;
                 //部门属性
                 $('#depart-attr').val(_allDepartmentArr[i].departcate);
+                //是否维修部门
+                department.picked = _allDepartmentArr[i].isWx;
+
+                $('.inpus').parent().removeClass('checked');
+
+                if(_allDepartmentArr[i].isWx == 1){
+
+                    $('#ones').parent().addClass('checked');
+
+                }else if(_allDepartmentArr[i].isWx == 0){
+
+                    $('#twos').parent().addClass('checked');
+
+                }
             }
         }
 

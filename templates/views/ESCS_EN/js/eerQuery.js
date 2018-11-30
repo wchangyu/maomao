@@ -127,7 +127,7 @@ $(function(){
                         var tbodys = '</tbody>';
 
                         //th
-                        var thStr = '<tr><th>时间</th>';
+                        var thStr = '<tr><th>Date</th>';
 
                         for(var i=0;i<opt.series.length;i++){
 
@@ -375,14 +375,14 @@ $(function(){
             //发送数据之前
             beforeSend:function(){
 
-                $('#exportBtn').html('导出中...').attr('disabled',true);
+                $('#exportBtn').html('Export...').attr('disabled',true);
 
             },
 
             //发送数据完成之后
             complete:function(){
 
-                $('#exportBtn').html('导出数据').attr('disabled',false);
+                $('#exportBtn').html('Export Data').attr('disabled',false);
 
             },
 
@@ -633,26 +633,26 @@ $(function(){
 
             success:function(result){
 
+                var nameUnite = [];
+
+                //确定横坐标
+                var dataX = [];
+
+                //确定纵坐标
+                var dataY = [];
+
                 if(result.code == 0){
 
                     //确定legend(加单位)
-                    var nameUnite = result.lgs;
+                    nameUnite = result.lgs;
 
                     option.legend.data = nameUnite;
-
-                    //确定横坐标
-                    var dataX = [];
 
                     for(var i=0;i<result.xs.length;i++){
 
                         dataX.push(result.xs[i]);
 
                     }
-
-                    option.xAxis.data = dataX;
-
-                    //确定纵坐标
-                    var dataY = [];
 
                     for(var i=0;i<result.ys.length;i++){
 
@@ -676,8 +676,6 @@ $(function(){
 
                     }
 
-                    option.series = dataY;
-
                 }else{
 
                     option.yAxis = [
@@ -690,15 +688,19 @@ $(function(){
 
                     ]
 
-                    var tip = '暂时没有获取到能效数据';
+                    var tip = 'No Data';
 
                     var str = '<div class="noDataTip" style="line-height: 40px;text-align: center;position: absolute;top: 45%;width: 100%">' + tip + '</div>'
 
                     $('#chartBlock').append(str);
 
-                    console.log('异常错误(能效分析):' + result.msg);
+                    console.log('Error(Efficiency Checking):' + result.msg);
 
                 }
+
+                option.xAxis.data = dataX;
+
+                option.series = dataY;
 
                 mychart.setOption(option,true);
 
@@ -738,11 +740,11 @@ $(function(){
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 
-                    console.log('请求超时')
+                    console.log('Request timeout')
 
                 }else{
 
-                    console.log('请求失败')
+                    console.log('Request failure')
 
                 }
 

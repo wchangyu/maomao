@@ -62,11 +62,19 @@ var Rate=function () {
             misc:sessionStorage.misc
         },function (res) {
 
-            if(res.code===0){
-                var miscstr
-                    //= 'KW/KW';
+            var miscstr
+            //= 'KW/KW';
 
-                var maxeerVa = '';
+            var maxeerVa = '';
+
+            var maxRateVa = '';
+
+            var xs = [];
+
+            var ys = [];
+
+            if(res.code===0){
+                    //= 'KW/KW';
 
                 if(sessionStorage.misc == 1){
 
@@ -82,8 +90,8 @@ var Rate=function () {
 
                 }
 
-                var maxRateVa = res.rateMaxVa;
-                var ys = [];
+                maxRateVa = res.rateMaxVa;
+                ys = [];
                 for (var i = 0; i < res.ys.length; i++) {
                     var object = {};
                     if (i == 0) {
@@ -116,155 +124,12 @@ var Rate=function () {
                     }
                     ys.push(object);
                 }
-                var xs = [];
+                xs = [];
                 var xsCNT = res.xs.length;
                 for (var j = 0; j < xsCNT; j++) {
                     xs.push(res.xs[j]);
                 }
-                option = {
-                    color: ['#007acc', '#c23531'],
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    toolbox: {
-                        show: true,
-                        feature: {
-                            //dataZoom: {
-                            //    yAxisIndex: 'none'
-                            //},
-                            dataView: {
 
-                                readOnly: true,
-
-                                optionToContent: function(opt) {
-
-                                    //thead
-                                    var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
-
-                                    var tables = '</table>';
-
-                                    var thead = '<thead>';
-
-                                    var theads = '</thead>';
-
-                                    var tbody = '<tbody>';
-
-                                    var tbodys = '</tbody>';
-
-                                    //th
-                                    var thStr = '<tr><th>时间</th>';
-
-                                    for(var i=0;i<opt.series.length;i++){
-
-                                        thStr += '<th>';
-
-                                        thStr += opt.series[i].name;
-
-                                        thStr += '</th>'
-
-                                    }
-
-                                    thStr += '</tr>';
-
-                                    //td
-                                    var tdStr = '';
-
-                                    for(var i=0;i<opt.xAxis[0].data.length;i++){
-
-                                        tdStr += '<tr>';
-
-                                        //时间
-                                        tdStr += '<td>';
-
-                                        tdStr += opt.xAxis[0].data[i];
-
-                                        tdStr += '</td>';
-
-                                        for(var j=0;j<opt.series.length;j++){
-
-                                            tdStr += '<td>';
-
-                                            tdStr += opt.series[j].data[i].value;
-
-                                            tdStr += '</td>';
-
-                                        }
-
-                                        tdStr += '</tr>';
-
-
-                                    }
-
-                                    return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
-
-
-
-                                },
-
-                                title:'dataView',
-
-                                lang:['DataView','Close','Refresh']
-
-                            },
-                            magicType: {
-
-                                type: ['line', 'bar'],
-
-                                title:{
-
-                                    'line':'Switch to line chart',
-
-                                    'bar':'Switch to bar chart'
-
-                                }
-
-                            },
-                            restore: {
-
-                                title:'restore'
-
-                            },
-                            saveAsImage: {
-
-                                title:'saveAsImage'
-
-                            }
-                        }
-                    },
-                    legend: {
-                        data: ['负荷比例(%)', '冷站能效(' + miscstr + ')']
-                    },
-                    xAxis: [
-                        {
-                            type: 'category',
-                            data: xs
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'value',
-                            name: '负荷比例(%)',
-                            min: 0,
-                            max: 100,
-                            interval: 10,
-                            axisLabel: {
-                                formatter: '{value}'
-                            }
-                        },
-                        {
-                            type: 'value',
-                            name: '冷站能效(' + miscstr + ')',
-                            min: 0,
-                            max: maxeerVa,
-                            interval: maxeerVa / 10,
-                            axisLabel: {
-                                formatter: '{value}'
-                            }
-                        }
-                    ],
-                    series: ys
-                };
-                mycv.setOption(option);
                 jQuery('#rateBusy').hideLoading();
             }else if(res.code===-1){
 
@@ -290,6 +155,153 @@ var Rate=function () {
 
 
             }
+
+            option = {
+                color: ['#007acc', '#c23531'],
+                tooltip: {
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        //dataZoom: {
+                        //    yAxisIndex: 'none'
+                        //},
+                        dataView: {
+
+                            readOnly: true,
+
+                            optionToContent: function(opt) {
+
+                                //thead
+                                var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
+
+                                var tables = '</table>';
+
+                                var thead = '<thead>';
+
+                                var theads = '</thead>';
+
+                                var tbody = '<tbody>';
+
+                                var tbodys = '</tbody>';
+
+                                //th
+                                var thStr = '<tr><th>区间</th>';
+
+                                for(var i=0;i<opt.series.length;i++){
+
+                                    thStr += '<th>';
+
+                                    thStr += opt.series[i].name;
+
+                                    thStr += '</th>'
+
+                                }
+
+                                thStr += '</tr>';
+
+                                //td
+                                var tdStr = '';
+
+                                for(var i=0;i<opt.xAxis[0].data.length;i++){
+
+                                    tdStr += '<tr>';
+
+                                    //时间
+                                    tdStr += '<td>';
+
+                                    tdStr += opt.xAxis[0].data[i];
+
+                                    tdStr += '</td>';
+
+                                    for(var j=0;j<opt.series.length;j++){
+
+                                        tdStr += '<td>';
+
+                                        tdStr += opt.series[j].data[i].value;
+
+                                        tdStr += '</td>';
+
+                                    }
+
+                                    tdStr += '</tr>';
+
+
+                                }
+
+                                return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
+
+
+
+                            },
+
+                            title:'dataView',
+
+                            lang:['DataView','Close','Refresh']
+
+                        },
+                        magicType: {
+
+                            type: ['line', 'bar'],
+
+                            title:{
+
+                                'line':'Switch to line chart',
+
+                                'bar':'Switch to bar chart'
+
+                            }
+
+                        },
+                        restore: {
+
+                            title:'restore'
+
+                        },
+                        saveAsImage: {
+
+                            title:'saveAsImage'
+
+                        }
+                    }
+                },
+                legend: {
+                    data: ['负荷比例(%)', '冷站能效(' + miscstr + ')']
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: xs
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        name: '负荷比例(%)',
+                        min: 0,
+                        max: 100,
+                        interval: 10,
+                        axisLabel: {
+                            formatter: '{value}'
+                        }
+                    },
+                    {
+                        type: 'value',
+                        name: '冷站能效(' + miscstr + ')',
+                        min: 0,
+                        max: maxeerVa,
+                        interval: maxeerVa / 10,
+                        axisLabel: {
+                            formatter: '{value}'
+                        }
+                    }
+                ],
+                series: ys
+            };
+
+            mycv.setOption(option,true);
+
         })
     }
 
@@ -507,11 +519,11 @@ var Rate=function () {
 
                     $('#option-Modal').modal('hide');
 
-                    _moTaiKuang($('#tip-myModal'),'提示',true,true,'修改额定负荷量成功','');
+                    _moTaiKuang($('#tip-myModal'),'Message',true,true,'Modification of rated load is successful','');
 
                 }else{
 
-                    _moTaiKuang($('#tip-myModal'),'提示',true,true,'修改额定负荷量失败','');
+                    _moTaiKuang($('#tip-myModal'),'Message',true,true,'Failure to modify rated load','');
 
                 }
             },

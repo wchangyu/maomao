@@ -52,13 +52,13 @@ $(function(){
             //设备编号
             'equipNumber':{
 
-                required: '请输入设备编号'
+                required: 'Please enter the equipment label'
 
             },
             //设备名称
             'equipName':{
 
-                required: '请输入设备名称'
+                required: 'Please enter the equipment name'
 
             }
 
@@ -351,7 +351,7 @@ $(function(){
 
             beforeSend:function(){
 
-                var str = '<i class="fa fa-save"></i> 正在保存...';
+                var str = '<i class="fa fa-save"></i> save...';
 
                 $('#saveBtn').empty().append(str).attr('disabled',true);
 
@@ -359,7 +359,7 @@ $(function(){
 
             complete:function(){
 
-                var str = '<i class="fa fa-save"></i> 保存设备数据';
+                var str = '<i class="fa fa-save"></i> Save Equipment Data';
 
                 $('#saveBtn').empty().append(str).attr('disabled',false);
 
@@ -399,7 +399,7 @@ $(function(){
 
             $('#theLoading').modal('hide');
 
-            _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写必填项','');
+            _moTaiKuang($('#tip-Modal'),'Message',true,true,'Please fill in the required items','');
 
         }else{
 
@@ -428,7 +428,7 @@ $(function(){
 
                 }else{
 
-                    _moTaiKuang($('#tip-Modal'),'提示',true,true,'请填写正确格式','');
+                    _moTaiKuang($('#tip-Modal'),'Message',true,true,'Please fill in the correct format','');
 
                 }
 

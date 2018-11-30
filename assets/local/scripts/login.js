@@ -88,18 +88,18 @@ var Login = function() {
 
                             $('.pull-right').attr('disabled',true);
 
-                            var str = '正在登录...';
-
-                            $('.pull-right').html(str);
+                            //var str = '正在登录...';
+                            //
+                            //$('.pull-right').html(str);
 
                         },
                         complete:function(){
 
                             $('.pull-right').attr('disabled',false);
 
-                            var str = '登录<i class="m-icon-swapright m-icon-white"></i>';
-
-                            $('.pull-right').html(str);
+                            //var str = '登录<i class="m-icon-swapright m-icon-white"></i>';
+                            //
+                            //$('.pull-right').html(str);
 
                         },
                         //async:true,

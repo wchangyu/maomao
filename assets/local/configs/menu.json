@@ -1254,10 +1254,82 @@
         "arg": "",
         "iconclass": ""
       },
-      "任务类型": {
+      "运送任务": {
         "type": "0",
-        "content": "任务类型",
-        "uri": "../YHQ-TM/TMtaskType.html",
+        "content": "运送任务",
+        "uri": "../YHQ-TM/TMtaskManage.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "下发任务": {
+        "type": "0",
+        "content": "下发任务",
+        "uri": "../YHQ-TM/TMtaskPublish.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "接收任务": {
+        "type": "0",
+        "content": "接收任务",
+        "uri": "../YHQ-TM/TMtaskAccept.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "执行任务": {
+        "type": "0",
+        "content": "执行任务",
+        "uri": "../YHQ-TM/TMtaskImplement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "评价任务": {
+        "type": "0",
+        "content": "评价任务",
+        "uri": "../YHQ-TM/TMtaskEvaluate.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "综合查询": {
+        "type": "0",
+        "content": "综合查询",
+        "uri": "../YHQ-TM/TMtaskQuery.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "按发起科室统计": {
+        "type": "0",
+        "content": "按发起科室统计",
+        "uri": "../YHQ-TM/reportByBXDepart.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "按运送科室统计": {
+        "type": "0",
+        "content": "按运送科室统计",
+        "uri": "../YHQ-TM/reportByWXDepart.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "按执行人统计": {
+        "type": "0",
+        "content": "按执行人统计",
+        "uri": "../YHQ-TM/reportByExecutor.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "按运送类型统计": {
+        "type": "0",
+        "content": "按运送类型统计",
+        "uri": "../YHQ-TM/reportByCarryType.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

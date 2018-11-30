@@ -83,34 +83,19 @@ $(function(){
 
     })
 
-    //表格单选
-    $('.table tbody').on('click','tr',function(){
+    $('#dep-Modal-con').on('shown.bs.modal',function(){
 
-        if(_isClick){
+        _isClickTr = true;
 
-            if($(this).hasClass('tables-hover')){
+        _isClickTrMulti = false;
 
-                $(this).parents('.table').find('tr').removeClass('tables-hover');
+    })
 
-                $(this).parents('.table').find('input').parent('span').removeClass('checked');
+    $('#dep-Modal-con').on('hidden.bs.modal',function(){
 
-                $(this).removeClass('tables-hover');
+        _isClickTr = false;
 
-                $(this).find('input').parent('span').removeClass('checked');
-
-            }else{
-
-                $(this).parents('.table').find('tr').removeClass('tables-hover');
-
-                $(this).parents('.table').find('input').parent('span').removeClass('checked');
-
-                $(this).addClass('tables-hover');
-
-                $(this).find('input').parent('span').addClass('checked');
-
-            }
-
-        }
+        _isClickTrMulti = false;
 
     })
 
@@ -170,6 +155,21 @@ $(function(){
 
     })
 
+    $('#dep-Modal').on('shown.bs.modal',function(){
+
+        _isClickTr = true;
+
+        _isClickTrMulti = false;
+
+    })
+
+    $('#dep-Modal').on('hidden.bs.modal',function(){
+
+        _isClickTr = false;
+
+        _isClickTrMulti = false;
+
+    })
 
     /*------------------------------其他方法---------------------------------------------*/
 

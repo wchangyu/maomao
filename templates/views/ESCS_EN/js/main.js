@@ -1253,11 +1253,11 @@ $(function(){
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 
-                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求超时', '');
+                    _moTaiKuang($('#tip-Modal'), 'Message', 'flag', 'istap' ,'Request timeout', '');
 
                 }else{
 
-                    _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'请求失败', '');
+                    _moTaiKuang($('#tip-Modal'), 'Message', 'flag', 'istap' ,'Request failure', '');
 
                 }
 

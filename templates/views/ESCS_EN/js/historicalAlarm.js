@@ -219,7 +219,7 @@ function getAlarmLevel(){
         url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllAlarmPriority',
         success:function(result){
 
-            var levelHtml = "<option value='0'>全部</option>";
+            var levelHtml = "<option value='0'>whole</option>";
 
             //把设备类型放入页面中
             $(result).each(function(i,o){
@@ -264,7 +264,7 @@ function getAlarmDeviceType(){
         url:sessionStorage.apiUrlPrefix + 'NJNDeviceShow/GetFirstDevTypes',
         success:function(result){
 
-            var html = "<option value='0'>全部</option>";
+            var html = "<option value='0'>whole</option>";
 
             //把设备类型放入页面中
             $(result).each(function(i,o){
@@ -334,7 +334,7 @@ function alarmHistory(){
 
             if(result == null || result.length == 0){
 
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求无数据', '');
+                _moTaiKuang($('#myModal2'), 'Message', 'flag', 'istap' ,'No Data', '');
 
                 return false;
             }
@@ -377,11 +377,11 @@ function alarmHistory(){
             console.log(jqXHR.responseText);
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求超时', '');
+                _moTaiKuang($('#myModal2'), 'Message', 'flag', 'istap' ,'Request timeout', '');
 
             }else{
 
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请求失败', '');
+                _moTaiKuang($('#myModal2'), 'Message', 'flag', 'istap' ,'Request failure', '');
 
             }
         }
@@ -392,7 +392,7 @@ function alarmHistory(){
 function format ( d ) {
 
     var theader = '<table class="table">' +
-        '<thead><tr><td>日期</td><td>时间</td><td>报警级别</td><td>报警名称</td><td>设备类型</td><td>设备</td><td>区域</td><td>位置</td></tr></thead>';
+        '<thead><tr><td>Date</td><td>Time</td><td>Alarm Level</td><td>Alarm Title</td><td>Alarm Type</td><td>Equipment</td><td>Alarm Zone</td><td>Location</td></tr></thead>';
     var theaders = '</table>';
     var tbodyer = '<tbody>';
     var tbodyers = '</tbody>';

@@ -532,6 +532,9 @@ $(function(){
     /*--------------------------------------------------其他方法-------------------------------------------------*/
     //条件查询
     function conditionSelect(){
+
+        _allDateArr.length = 0;
+
         //获取条件
         var filterInput = [];
         var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
@@ -592,7 +595,9 @@ $(function(){
             //新的设备编码
             'dNewNum':$('#bianhao').val(),
             //用户id
-            'userID':_userIdNum
+            'userID':_userIdNum,
+            //安装地点
+            'installAddress':$('#installAddress').val()
         }
         $.ajax({
             type:'post',
@@ -917,6 +922,7 @@ $(function(){
         for(var i=0;i<_allDateArr.length;i++){
 
             if(_allDateArr[i].dNum == $thisNum){
+
                 //当前设备id
                 _thisRowID = _allDateArr[i].id;
                 //设备编码（旧）

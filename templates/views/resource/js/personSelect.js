@@ -4,52 +4,12 @@
 
 $(function(){
 
-    //员工表格
-    var personCol = [
-
-        {
-            title:'选择',
-            "targets": -1,
-            "data": null,
-            render:function(data, type, full, meta){
-
-                return  '<div class="checker" data-id="' + full.userNum + '"><span><input type="checkbox"                                 value=""></span></div>'
-
-            }
-        },
-        {
-            title:'姓名',
-            data:'userName'
-        },
-        {
-            title:'部门',
-            data:'departName',
-            render:function(data, type, full, meta){
-
-                return '<span data-num="' + full.departNum + '">' + data + '</span>'
-
-            }
-
-        },
-        {
-            title:'职位',
-            data:'roleName'
-        },
-        {
-            title:'电话',
-            data:'mobile'
-        }
-
-    ]
-
-    _tableInitSearch($('#person-table-filter'),personCol,'2','','','','','',10,'','','',true);
-
     //点击按钮选择
     $('.selectUser').click(function(){
 
         _selectPersonButton = $(this).attr('id');
 
-        _moTaiKuang($('#person-new-Modal'),'司机列表','','','','确定');
+        _moTaiKuang($('#person-new-Modal'),'人员列表','','','','确定');
 
         //获取人员
         driverPerson();
@@ -62,15 +22,99 @@ $(function(){
 
     })
 
-    //$('#person-new-Modal').on('shown.bs.modal',function(){
-    //
-    //    //console.log($('#dep-block'));
-    //
-    //    $('#dep-block').showLoading();
-    //
-    //})
+    $('#person-new-Modal').on('shown.bs.modal',function(){
+
+        _isClickTr = true;
+
+        _isClickTrMulti = false;
+
+    })
+
+    $('#person-new-Modal').on('hidden.bs.modal',function(){
+
+        _isClickTr = false;
+
+        _isClickTrMulti = false;
+
+    })
 
 })
+
+//员工表格(多个结果)
+var personCol = [
+
+    {
+        title:'选择',
+        "targets": -1,
+        "data": null,
+        render:function(data, type, full, meta){
+
+            return  '<div class="checker" data-id="' + full.userNum + '"><span><input type="checkbox"                                 value=""></span></div>'
+
+        }
+    },
+    {
+        title:'姓名',
+        data:'userName'
+    },
+    {
+        title:'部门',
+        data:'departName',
+        render:function(data, type, full, meta){
+
+            return '<span data-num="' + full.departNum + '">' + data + '</span>'
+
+        }
+
+    },
+    {
+        title:'职位',
+        data:'roleName'
+    },
+    {
+        title:'电话',
+        data:'mobile'
+    }
+
+]
+
+//员工表格(一个结果)
+var personCol1 = [
+
+    {
+        title:'选择',
+        "targets": -1,
+        "data": null,
+        render:function(data, type, full, meta){
+
+            return  '<div class="checker" data-id="' + full.userNum + '"><span class="checked"><input type="checkbox"                                 value=""></span></div>'
+
+        }
+    },
+    {
+        title:'姓名',
+        data:'userName'
+    },
+    {
+        title:'部门',
+        data:'departName',
+        render:function(data, type, full, meta){
+
+            return '<span data-num="' + full.departNum + '">' + data + '</span>'
+
+        }
+
+    },
+    {
+        title:'职位',
+        data:'roleName'
+    },
+    {
+        title:'电话',
+        data:'mobile'
+    }
+
+]
 
 //部门树对象
 var depZtreeObj;
@@ -96,6 +140,8 @@ function driverPerson(){
     }
 
     _mainAjaxFunCompleteNew('post','RBAC/rbacGetUsers',prm,false,function(result){
+
+        persononlyOne(result);
 
         _datasTable($('#person-table-filter'),result);
 
@@ -240,12 +286,13 @@ function setSetting(treeId,treeData,treeObj,num){
 
                     filterPerson(nodes[0].id,_allPersonArr,num);
 
-
                     $('#person-table-filter').hideLoading();
 
                 }else{
 
-                    _datasTable($('#person-table-filter'),[]);
+                    persononlyOne(_allPersonArr);
+
+                    _datasTable($('#person-table-filter'),_allPersonArr);
 
                 }
 
@@ -267,7 +314,7 @@ function setSetting(treeId,treeData,treeObj,num){
                 treeObj.checkNode(treeNode,true,true);
 
                 //获取当前选择的id
-                var nodes = treeObj.getCheckedNodes(true)[0].id;
+                var nodes = treeObj.getCheckedNodes(true);
 
                 if(nodes.length>0){
 
@@ -279,7 +326,9 @@ function setSetting(treeId,treeData,treeObj,num){
 
                 }else{
 
-                    _datasTable($('#person-table-filter'),[]);
+                    persononlyOne(_allPersonArr);
+
+                    _datasTable($('#person-table-filter'),_allPersonArr);
 
                 }
 
@@ -323,11 +372,36 @@ function filterPerson(value,arr,num){
 
     if(value){
 
+        persononlyOne(filterArr);
+
         _datasTable($('#person-table-filter'),filterArr);
+
+        if(filterArr.length == 1){
+
+            $('#person-table-filter tbody').children().eq(0).addClass('tables-hover');
+
+        }
 
     }else{
 
+        persononlyOne(arr);
+
         _datasTable($('#person-table-filter'),arr);
+
+    }
+
+}
+
+//是不是只有一个
+function persononlyOne(arr){
+
+    if(arr.length == 1){
+
+        _tableInitSearch($('#person-table-filter'),personCol1,'2','','','','','',10,'','','',true);
+
+    }else{
+
+        _tableInitSearch($('#person-table-filter'),personCol,'2','','','','','',10,'','','',true);
 
     }
 

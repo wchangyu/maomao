@@ -1127,9 +1127,30 @@ function _formatTime(str11){
 //提交更改后跳转到当前页
 function _jumpNow(tableId,arr){
 
-    if(arr.length > 0){
-        arr.reverse();
-    }
+    //if(arr.length > 0){
+    //    arr.reverse();
+    //}
+
+    var dom ='#'+ tableId[0].id + '_paginate';
+
+    var txt = $(dom).children('span').children('.current').html();
+
+    _datasTable(tableId,arr);
+
+    var num = txt - 1;
+
+    var dom = $(dom).children('span').children().eq(num);
+
+    dom.click();
+
+};
+
+//正序
+function _jumpNow1(tableId,arr){
+
+    //if(arr.length > 0){
+    //    arr.reverse();
+    //}
 
     var dom ='#'+ tableId[0].id + '_paginate';
 
@@ -2005,11 +2026,11 @@ function _creatInit(){
     //时间验证占位dom隐藏
     $('.time-seat').hide();
 
-    $('#create-Modal').find('input').val('');
+    $('#create-Modal #commentForm').find('input').val('');
 
-    $('#create-Modal').find('select').val('');
+    $('#create-Modal #commentForm').find('select').val('');
 
-    $('#create-Modal').find('textarea').val('');
+    $('#create-Modal #commentForm').find('textarea').val('');
 
     //将所有label .error验证隐藏
     var label = $('#create-Modal').find('label');
@@ -2087,7 +2108,7 @@ function _formatTimeH(data){
 
 }
 
-//ztree设置(ztree树id，数组，树对象)
+//ztree设置(ztree树id，数组，树对象,单选)
 function _setZtree(treeId,treeData,treeObj){
 
     var setting = {
@@ -2142,6 +2163,64 @@ function _setZtree(treeId,treeData,treeObj){
 
 
 }
+
+//ztree设置(ztree树id，数组，树对象,复选)
+function _setZtreeCheckBox(treeId,treeData,treeObj){
+
+    var setting = {
+
+        check: {
+            enable: true,
+            chkboxType: { "Y": "s", "N": "ps" },
+            radioType:'all'
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId"
+            }
+        },
+        view:{
+            showIcon:false
+        },
+        callback: {
+
+            onClick: function(e,treeId,treeNode){
+
+                var treeObj = $.fn.zTree.getZTreeObj(treeId);
+
+                //取消全部打钩的节点
+                treeObj.checkNode(treeNode,!treeNode.checked,true);
+
+            },
+
+            onCheck:function(e,treeId,treeNode){
+
+                var treeObj = $.fn.zTree.getZTreeObj(treeId);
+
+                if(treeNode.checked){
+
+                    treeObj.checkNode(treeNode,true,true);
+
+                }else{
+
+                    treeObj.checkNode(treeNode,false,true);
+
+                }
+
+
+
+            }
+
+        }
+    };
+
+    treeObj = $.fn.zTree.init(treeId, setting, treeData);
+
+
+}
+
 
 //ztree树搜索功能（input框，树id，提示）
 function searchPointerKey(key,treeObj,tip){
@@ -2268,6 +2347,15 @@ function searchPointerKey(key,treeObj,tip){
             findParent(zTree,pNode);
         }
     }
+
+}
+
+//重置功能初始化
+function _resetFun(){
+
+    $('.L-condition').eq(0).find('input').val('');
+
+    $('.L-condition').eq(0).find('select').val('');
 
 }
 

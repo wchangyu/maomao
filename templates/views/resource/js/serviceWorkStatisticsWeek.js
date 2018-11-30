@@ -856,7 +856,7 @@ $(function(){
 
     function conditionSelect(num,table){
 
-        var title = '服务热线'+ $('.datatimeblock').eq(0).val() + '到' + $('.datatimeblock').eq(1).val() + $('.spanhover').html();
+        var title = '一站式后勤服务'+ $('.datatimeblock').eq(0).val() + '到' + $('.datatimeblock').eq(1).val() + $('.spanhover').html();
 
         $('.table-block-title').html(title);
 

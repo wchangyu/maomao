@@ -223,7 +223,7 @@ $(function(){
     //重置
     $('#resetBtn').click(function(){
 
-        $('#HT-nameCon').val('');
+        $('#HT-projectCon').val('');
 
     })
 

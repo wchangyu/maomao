@@ -28,7 +28,7 @@
             },
             series: [
                 {
-                    name: '统计',
+                    name: 'Statistics',
                     type: 'pie',
                     radius: '55%',
                     center: ['50%', '60%'],

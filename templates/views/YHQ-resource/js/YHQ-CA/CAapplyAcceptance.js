@@ -380,7 +380,7 @@ $(function(){
 
     })
 
-    //编辑确定按钮
+    //派车确定按钮
     $('#create-Modal').on('click','.bianji',function(){
 
         sendCar();
@@ -772,7 +772,7 @@ $(function(){
 
         $('.acceptance-block').find('input').attr('disabled',false);
 
-        $('.acceptance-block').find('select').attr('disabled',false);
+        $('.acceptance-block').find('select').attr('disabled',true);
 
         $('.acceptance-block').find('textarea').attr('disabled',false);
 
@@ -791,6 +791,8 @@ $(function(){
                 sendusernum:_userIdNum,
                 //派车人姓名
                 sendusername:_userIdName,
+                //车牌id
+                carid:$('#CA-car').attr('data-attr'),
                 //车牌号码
                 carnum:$('#CA-car').val(),
                 //司机编号

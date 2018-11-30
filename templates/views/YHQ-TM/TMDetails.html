@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/><meta name="format-detection" content="telephone=no">
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+
+    <link rel="stylesheet" href="../resource/css/conditionPublic.css">
+
+    <link rel="stylesheet" href="../YHQ-resource/css/public.css">
+
+    <style>
+
+        .dataTables_info{
+
+            display: none;
+
+        }
+
+        .table-box p{
+
+            line-height: 30px;
+
+            text-align: center;
+
+        }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body style="background: #ffffff !important">
+
+<div class="gd-wrap">
+    <div class="gd-title">
+        <h1>任务详情</h1>
+    </div>
+    <div class="gongdanContent">
+        <!--左边详情-->
+        <div style="float: left">
+            <!--<div class="tipe-block">工单基本信息</div>-->
+            <div id="gdDetail">
+                <div class="details-cell">
+                    <div class="tipe-block"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">任务编码：</div>
+                            <div class="single-block">
+                                <input id="TM-num" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels "> 任务状态：</div>
+                            <div class="single-block">
+                                <input id="TM-status" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">发起人：</div>
+                            <div class="single-block">
+                                <input id="TM-creator" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">发起人姓名：</div>
+                            <div class="single-block">
+                                <input id="TM-creatorName" class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">发起电话：</div>
+                            <div class="single-block">
+                                <input id="TM-tel" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">发起科室：</div>
+                            <div class="single-block">
+                                <input id="TM-bxDep" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels ">开始地点：</div>
+                            <div class="single-block">
+                                <input id="TM-startAddress" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">结束地点：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="TM-endAddress">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">运送分类：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="TM-cate">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">任务类型：</div>
+                            <div class="single-block">
+                                <select id="TM-type" class="form-control">
+
+                                    <option value="4">四级任务</option>
+
+                                    <option value="3">三级任务</option>
+
+                                    <option value="2">二级任务</option>
+
+                                    <option value="1">一级任务</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 single-line">
+                            <div class="single-labels">备注：</div>
+                            <div class="single-block single-block-row">
+                                <input class="form-control" id="TM-remark">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">协助科室：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="TM-depXZ">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                            <div class="single-labels">协助原因：</div>
+                            <div class="single-block">
+                                <input class="form-control" id="TM-remarkXZ">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--项目列表-->
+                <div class="table-box">
+                    <p>项目列表</p>
+                    <table id="project-table" class="table table-striped table-advance table-hover">
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+
+                <!--运送负责人-->
+                <div class="table-box">
+                    <p>负责人列表</p>
+                    <table id="leader-table" class="table table-striped table-advance table-hover">
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+
+                <!--运送执行人-->
+                <div class="table-box">
+                    <p>执行人列表</p>
+                    <table id="executor-table" class="table table-striped table-advance table-hover">
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+
+                <!--协助负责人-->
+                <div class="table-box">
+                    <p>协助负责人列表</p>
+                    <table id="leaderXZ-table" class="table table-striped table-advance table-hover">
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+
+                <!--协助执行人-->
+                <div class="table-box">
+                    <p>协助执行人人列表</p>
+                    <table id="executorXZ-table" class="table table-striped table-advance table-hover">
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+
+                <!--运送工具-->
+                <div>
+
+                    <table id="material-table" class="table table-striped table-advance table-hover">
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+
+                <!--评价-->
+
+                <div class="evaluate-block">
+
+                    <div class="labels" style="line-height: 30px;display: inline-block">满意度：</div>
+
+                    <input type="radio" id="henmanyi" value="5" name="evaluate">
+                    <label for="henmanyi">很满意</label>
+
+                    <input type="radio" id="manyi" value="4" name="evaluate">
+                    <label for="manyi">满意</label>
+
+                    <input type="radio" id="yiban" value="3" name="evaluate">
+                    <label for="yiban">一般</label>
+
+                    <input type="radio" id="cha" value="2" name="evaluate">
+                    <label for="cha">差</label>
+
+                    <input type="radio" id="hencha" value="1" name="evaluate">
+                    <label for="hencha">很差</label>
+
+                    <div class="labels" style="line-height: 30px;display: inline-block;margin-left: 93px;">评价人：</div>
+
+                    <input type="text" class="form-control" id="evaluate-person" style="display: inline-block !important;width: 250px;">
+
+                    <div class="labels" style="line-height: 30px;">意见：</div>
+
+                    <textarea id="evaluate-remark" class="form-control" cols="30" rows="2"></textarea>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <!--右边log日志-->
+        <div style="float: right">
+
+            <div class="details-cell">
+                <div class="tipe-block">日志</div>
+                <ul class="MW-log"></ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<!--提示框-->
+<div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--my js-->
+<script src="../YHQ-resource/js/public.js"></script>
+
+<script src="../YHQ-resource/js/YHQ-TM/TMpublic.js"></script>
+
+<script src="../YHQ-resource/js/YHQ-TM/TMDetails.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

@@ -27,7 +27,7 @@
         $('#dxchsgl_item_fzl_title').html(chsglm.DxChSGLFZLTitle);
     }
 
-    //冷冻出水温度
+    //Chilled Water Leaving Temperature
     var INIT_CSW_ITEM = function (chsglm) {
 
         //var cswUrl = "DxCoolerSGL/CSW?DxChSGLID=" + chsglm.DxChSGLID;
@@ -162,7 +162,7 @@
             //冷机负载率
             INIT_FZL_ITEM(chsglm);
 
-            //冷冻出水温度
+            //Chilled Water Leaving Temperature
             INIT_CSW_ITEM(chsglm);
 
             //冷却回水温度
@@ -185,7 +185,7 @@
 
             $('#spanDxTitle').html(chsglm.dxChSGLNt + '能效诊断');
 
-            $('#spansysDxTitle').html(chsglm.dxChSGLNt + '系统诊断');
+            $('#spansysDxTitle').html(chsglm.dxChSGLNt + 'System Diagnosis');
 
             $('#span_dxchsgl_item_cop_acv').html(chsglm.dxChSGLAcv);//实际值
 

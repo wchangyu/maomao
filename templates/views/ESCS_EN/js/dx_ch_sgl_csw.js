@@ -80,7 +80,7 @@
 
             $('#CSWBackToSGLBtn').attr('href', backUrl);
 
-            $('#spanDxTitle').html(chsglm.dxChSGLNt + '冷冻出水温度');
+            $('#spanDxTitle').html(chsglm.dxChSGLNt + 'Chilled Water Leaving Temperature');
 
             //$('#span_dxchsgl_item_CSW_std').html();//诊断值
 

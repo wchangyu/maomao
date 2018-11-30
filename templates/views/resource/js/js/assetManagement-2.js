@@ -78,7 +78,7 @@ $(function(){
             data:'spec'
         },
         {
-            title:'所属车站',
+            title:'所属' + __names.department,
             data:'ddName'
         },
         {

@@ -372,7 +372,7 @@ $(function(){
             data:'wxClNames'
         },
         {
-            title:'车站',
+            title:__names.department,
             data:'bxKeshi',
             className:'bxKS'
         }

@@ -554,7 +554,7 @@
                 jQuery('#dxbusy').hideLoading();
             } else if (res.code === -1) {
                 jQuery('#dxbusy').hideLoading();
-                alert('异常错误(系统诊断):' + res.msg);
+                alert('Error(System Diagnosis):' + res.msg);
             } else {
                 jQuery('#dxbusy').hideLoading();
             }

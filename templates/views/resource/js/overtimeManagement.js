@@ -385,11 +385,11 @@ $(function(){
     var CZCol = [
 
         {
-            title:'车站编码',
+            title:__names.department + '编码',
             data:'ddNum'
         },
         {
-            title:'车站名称',
+            title:__names.department + '名称',
             data:'ddName'
         },
         {
@@ -522,7 +522,7 @@ $(function(){
             data:'wxClNames'
         },
         {
-            title:'车站',
+            title:__names.department,
             data:'bxKeshi',
             className:'bxKS'
         }
@@ -744,7 +744,7 @@ $(function(){
         $('#theLoading').modal('show');
 
         //模态框
-        _moTaiKuang($('#CZ-Modal'),'车站列表','','','','选择');
+        _moTaiKuang($('#CZ-Modal'), __names.department +  '列表','','','','选择');
 
 
     })

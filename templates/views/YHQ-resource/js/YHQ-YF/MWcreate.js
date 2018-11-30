@@ -491,6 +491,22 @@ $(function(){
 
     })
 
+    $('#weigh-Modal').on('shown.bs.modal',function(){
+
+        _isClickTr = true;
+
+        _isClickTrMulti = false;
+
+    })
+
+    $('#weigh-Modal').on('hidden.bs.modal',function(){
+
+        _isClickTr = false;
+
+        _isClickTrMulti = false;
+
+    })
+
     /*-----------------------------其他方法--------------------------------------*/
 
     //条件选择

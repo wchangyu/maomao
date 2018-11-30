@@ -211,3 +211,9 @@
     left: -95px !important;
 
 }
+
+.bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on, .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off, .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label{
+
+    padding: 5px 6px !important;
+
+}

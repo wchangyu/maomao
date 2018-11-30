@@ -823,7 +823,11 @@ $(function(){
 
                     console.log('异常错误(能耗分析):' + result.msg);
 
+                    option.series = [];
+
                 }
+
+
 
                 mychart.setOption(option,true);
 

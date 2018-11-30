@@ -1,7 +1,5 @@
 $(function(){
 
-    _isClickTr = true;
-
     //部门树对象
     var depZtreeObjTable;
 
@@ -1346,7 +1344,9 @@ $(function(){
     //选择合同单位
     $('#select-unit-modal').on('click',function(){
 
-        _moTaiKuang($('#unit-Modal'),'签订人列表','','','','选择');
+        _isClickTr = true;
+
+        _moTaiKuang($('#unit-Modal'),'合同单位列表','','','','选择');
 
     })
 
@@ -1611,6 +1611,8 @@ $(function(){
 
     //选择所属项目
     $('#select-project').click(function(){
+
+        _isClickTr = true;
 
         _moTaiKuang($('#project-Modal'),'项目列表','','','','选择');
 

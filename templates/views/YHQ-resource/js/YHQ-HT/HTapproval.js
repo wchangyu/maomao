@@ -202,7 +202,11 @@ $(function(){
     //重置
     $('#resetBtn').click(function(){
 
-        $('#HT-nameCon').val('');
+        _resetFun();
+
+        $('#spDT').val(st);
+
+        $('#epDT').val(nowTime);
 
     })
 
@@ -285,7 +289,7 @@ $(function(){
         var prm = {
 
             //合同编码
-            htNum:$('#DC-numCon').val(),
+            htname:$('#HT-numCon').val(),
             //开始时间
             begintime:$('#spDT').val(),
             //结束时间

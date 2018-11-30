@@ -101,6 +101,7 @@ $(function(){
             zqdw:1,
             //周期单位下拉框
             options:[
+                {text: '小时', value: '4'},
                 {text: '日', value: '1'},
                 {text: '周', value: '2'},
                 {text: '月', value: '3'}

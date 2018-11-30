@@ -127,21 +127,6 @@ table1 = $('#alarm-datatables1').DataTable({
     "searching": false,
     "ordering": false,
     // "scrollY": "300px",
-    'language': {
-        'emptyTable': '暂时没有报警数据',
-        'loadingRecords': '加载中...',
-        'processing': '查询中...',
-        'lengthMenu': '每页 _MENU_ 条',
-        'zeroRecords': '没有数据',
-        'info': '第_PAGE_页/共_PAGES_页',
-        'infoEmpty': '没有数据',
-        'paginate':{
-            "previous": "上一页",
-            "next": "下一页",
-            "first":"首页",
-            "last":"尾页"
-        }
-    },
     "dom":'B<"clear">lfrtip',
     'buttons': [
         //{
@@ -159,7 +144,7 @@ table1 = $('#alarm-datatables1').DataTable({
     ],
     "columns": [
         {
-            "title":"日期",
+            "title":"Date",
             "data":"dataDate",
             "render":function(data,type,row,meta){
                 if(data && data.length >0){
@@ -168,7 +153,7 @@ table1 = $('#alarm-datatables1').DataTable({
             }
         },
         {
-            "title":"时间",
+            "title":"Time",
             "data":"dataDate",
             "render":function(data,type,row,meta){
                 if(data && data.length >0){
@@ -177,12 +162,12 @@ table1 = $('#alarm-datatables1').DataTable({
             }
         },
         {
-            "title": "报警级别",
+            "title": "Alarm Level",
             "class":"",
             "data":"priority"
         },
         {
-            "title": "报警名称",
+            "title": "Alarm Title",
             "data":"alarmSetName"
         },
         {
@@ -214,7 +199,7 @@ function getAlarmLevel(){
         url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllAlarmPriority',
         success:function(result){
 
-            var levelHtml = "<option value='0'>全部</option>";
+            var levelHtml = "<option value='0'>whole</option>";
 
             //把设备类型放入页面中
             $(result).each(function(i,o){

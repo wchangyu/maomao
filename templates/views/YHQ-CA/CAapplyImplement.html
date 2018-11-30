@@ -28,7 +28,7 @@
 
         #create-Modal label{
 
-            width: 115px;
+            width: 138px;
 
         }
 
@@ -113,7 +113,7 @@
 
         .radioBlock label{
 
-            width: 60px !important;
+            width: 70px !important;
 
         }
 
@@ -278,7 +278,7 @@
                                 <label>预计回场时间：</label>
                                 <div class="time-tool-block">
                                     <div class="input-group date form_date abbrDT">
-                                        <input id="CA-back-time" name="CA-back-time" class="form-control" size="16" type="text" value="" placeholder="格式:YYYY-MM-DD HH:mm"/>
+                                        <input id="CA-back-time" name="CA-back-time" class="form-control" size="16" type="text" value="" readonly/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -312,7 +312,7 @@
                                 <input type="text" class="table-group-action-input form-control" id="CA-personChangeTel" name="CA-personChangeTel" placeholder="">
                                 <div class="modal-select"></div>
                             </li>
-                            <li class="text-block" style="width: 800px;">
+                            <li class="text-block" style="width: 840px;">
                                 <label>申请理由：</label>
                                 <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="CA-remark" name="CA-remark"></textarea>
                                 <div class="modal-select"></div>
@@ -348,9 +348,9 @@
 
                                 </li>
 
-                                <li class="text-block" style="width: 800px;">
+                                <li class="text-block" style="width: 840px;">
                                     <label>审批意见：</label>
-                                    <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="HT-approval-opinion" name="HT-approval-opinion"></textarea>
+                                    <textarea style="width: 698px;height: 34px;outline: none" class="form-control remarkDes" id="HT-approval-opinion" name="HT-approval-opinion"></textarea>
                                     <div class="modal-select"></div>
                                 </li>
                             </ul>
@@ -377,9 +377,9 @@
                                     <div class="modal-select"></div>
                                 </li>
 
-                                <li class="text-block" style="width: 800px;">
+                                <li class="text-block" style="width: 840px;">
                                     <label>备注：</label>
-                                    <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="CA-acceptanceRemark" name="CA-acceptanceRemark"></textarea>
+                                    <textarea style="width: 698px;height: 34px;outline: none" class="form-control remarkDes" id="CA-acceptanceRemark" name="CA-acceptanceRemark"></textarea>
                                     <div class="modal-select"></div>
                                 </li>
 
@@ -388,10 +388,10 @@
                             <div id="back-block">
 
                                 <li>
-                                    <label>实际出发时间：</label>
+                                    <label class="require-tip">实际出发时间：</label>
                                     <div class="time-tool-block">
                                         <div class="input-group date form_date abbrDT">
-                                            <input id="CA-leave-time-real" name="CA-leave-time-real" class="form-control" size="16" type="text" value="" placeholder="格式:YYYY-MM-DD HH:mm"/>
+                                            <input id="CA-leave-time-real" name="CA-leave-time-real" class="form-control" size="16" type="text" value="" readonly/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -401,10 +401,10 @@
                                     <div class="time-seat" style="display: none;"></div>
                                 </li>
                                 <li>
-                                    <label>实际回场时间：</label>
+                                    <label class="require-tip">实际回场时间：</label>
                                     <div class="time-tool-block">
                                         <div class="input-group date form_date abbrDT">
-                                            <input id="CA-back-time-real" name="CA-back-time-real" class="form-control" size="16" type="text" value="" placeholder="格式:YYYY-MM-DD HH:mm"/>
+                                            <input id="CA-back-time-real" name="CA-back-time-real" class="form-control" size="16" type="text" value="" readonly/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -414,27 +414,27 @@
                                     <div class="time-seat" style="display: none;"></div>
                                 </li>
                                 <li>
-                                    <label>实际出发地：</label>
+                                    <label class="require-tip">实际出发地：</label>
                                     <input type="text" class="table-group-action-input form-control" id="CA-departure-real" name="CA-departure-real" placeholder="">
                                     <div class="modal-select"></div>
                                 </li>
                                 <li style="display: none;">
-                                    <label>实际目的地：</label>
+                                    <label class="require-tip">实际目的地：</label>
                                     <input type="text" class="table-group-action-input form-control" id="CA-destination-real" name="CA-destination-real" placeholder="">
                                     <div class="modal-select"></div>
                                 </li>
                                 <li>
-                                    <label>开始里程表读数：</label>
+                                    <label class="require-tip">开始里程表读数：</label>
                                     <input type="text" class="table-group-action-input form-control" id="CA-start-km-real" name="CA-start-km-real" placeholder="数字">
                                     <div class="modal-select"></div>
                                 </li>
                                 <li>
-                                    <label>结束里程表读数：</label>
+                                    <label class="require-tip">结束里程表读数：</label>
                                     <input type="text" class="table-group-action-input form-control" id="CA-end-km-real" name="CA-end-km-real" placeholder="数字">
                                     <div class="modal-select"></div>
                                 </li>
                                 <li>
-                                    <label>实际公里数：</label>
+                                    <label class="require-tip">实际公里数：</label>
                                     <input type="text" class="table-group-action-input form-control" id="CA-km-real" name="CA-km-real" placeholder="">
                                     <div class="modal-select"></div>
                                 </li>

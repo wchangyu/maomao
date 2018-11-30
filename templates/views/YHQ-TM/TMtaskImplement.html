@@ -1,0 +1,665 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <!--引用页面中的公共css-->
+    <script src="../resource/js/commonCssResource.js"></script>
+    <script src="../resource/plug-in-resource/jquery-1.11.2.js"></script>
+
+    <!--自定义样式-->
+
+    <link rel="stylesheet" href="../resource/css/conditionPublic.css">
+
+    <link rel="stylesheet" href="../YHQ-resource/css/public.css">
+
+    <style>
+
+        #create-Modal label{
+
+            width: 125px;
+
+        }
+
+        #DC-type label{
+
+            width: auto;
+
+        }
+
+        #selectedDep li{
+
+            line-height: 30px;
+
+            cursor: pointer;
+
+        }
+
+        #selectedDep li .close{
+
+            margin-top: 7px;
+
+        }
+
+        #selectedDep li .depName{
+
+            margin-right: 10px;
+
+        }
+
+        #selectedDep li .depNum{
+
+            margin-right: 10px;
+
+        }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+
+<!-- BEGIN HEADER -->
+<div id="head-html"></div>
+
+<!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+
+            <div id="menu-html"></div>
+
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="compareBusy">
+                        <div class="total-warp L-container">
+
+                            <ul class="L-condition">
+                                <li>
+                                    <label>运送任务编号</label>
+
+                                    <input type="text" id="TM-taskNumCon" class="table-group-action-input form-control">
+
+                                </li>
+                                <li>
+                                    <label>开始时间</label>
+                                    <div class="time-tool-block">
+                                        <div class="input-group date form_date abbrDT">
+                                            <input id="spDT" class="form-control" size="16" type="text" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>结束时间</label>
+                                    <div class="time-tool-block">
+                                        <div class="input-group date form_date abbrDT">
+                                            <input id="epDT" class="form-control" size="16" type="text" value="" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="L-condition-button" id="selectBtn">查询数据</div>
+                                </li>
+                                <li>
+                                    <div id="resetBtn" class="L-condition-button">重置条件</div>
+                                </li>
+                            </ul>
+
+                            <div class="row content-top">
+                                <div class="col-md-12 col-sm-12">
+                                    <table id="table" class="table table-striped table-advance table-hover">
+                                        <thead>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+
+    <!--创建-->
+    <div class="modal fade" id="create-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 650px;width: 1000px!important;">
+            <div class="modal-content" style="height: 650px;width: 1000px!important;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="overflow-y: auto;height: 520px;">
+
+                        <ul class="modal-block">
+                            <li class="autoBack">
+                                <label>运送编号：</label>
+                                <input type="text" class="table-group-action-input form-control" id="TM-taskNum" name="TM-taskNum" placeholder="自动生成" readonly>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li class="autoBack">
+                                <label class="autoBack">运送状态：</label>
+                                <input type="text" class="table-group-action-input form-control" id="TM-taskStatus" name="TM-taskStatus" placeholder="自动生成" readonly>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>发起人：</label>
+                                <input type="text" class="table-group-action-input form-control" id="TM-taskPersonNum" name="TM-taskPersonNum" readonly>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>发起人姓名：</label>
+                                <input type="text" class="table-group-action-input form-control" id="TM-taskPersonName" name="TM-taskPersonName" placeholder="必填" readonly>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>发起电话：</label>
+                                <input type="text" class="table-group-action-input form-control" id="TM-taskTel" name="TM-taskTel" readonly>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>发起科室：</label>
+                                <input type="text" class="table-group-action-input form-control" id="TM-taskDep" name="TM-taskDep" readonly>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>开始地点：</label>
+                                <input type="text" class="table-group-action-input form-control" id="TM-startAdress" name="TM-startAdress" readonly>
+                                <div class="modal-select" ></div>
+                            </li>
+                            <li>
+                                <label>结束地点：</label>
+                                <input type="text" class="table-group-action-input form-control" id="TM-endAdress" name="TM-endAdress" readonly>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>运送分类：</label>
+                                <input type="text" name="TM-carryType" id="TM-carryType" class="table-group-action-input form-control" readonly>
+                                <div class="modal-select"></div>
+                            </li>
+                            <li>
+                                <label>运送任务类型：</label>
+
+                                <select name="TM-carryTaskDep" id="TM-carryTaskDep" class="table-group-action-input form-control">
+
+                                    <option value="4">四级任务</option>
+
+                                    <option value="3">三级任务</option>
+
+                                    <option value="2">二级任务</option>
+
+                                    <option value="1">一级任务</option>
+
+                                </select>
+
+                                <div class="modal-select"></div>
+                            </li>
+                            <li class="text-block" style="width: 830px;">
+                                <label>备注：</label>
+                                <textarea style="width: 678px;height: 34px;outline: none" class="form-control remarkDes" id="TM-remark" name="TM-remark" readonly></textarea>
+                                <div class="modal-select"></div>
+                            </li>
+                        </ul>
+
+                    <!--项目表格-->
+                    <div style="margin-bottom: 20px;">
+                        <p style="text-align: center">选择项目 </p>
+
+                        <table id="project-table" class="table table-striped table-advance table-hover">
+                            <thead>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+
+                    <ul class="modal-block">
+
+                        <form class="cmxform" id="commentForm" method="post" action="">
+
+                            <li>
+                                <label>运送科室：</label>
+                                <input type="text" name="TM-carryDep" id="TM-carryDep" class="table-group-action-input form-control" readonly>
+                                <div class="modal-select"></div>
+                            </li>
+
+                        </form>
+
+                    </ul>
+
+                    <!--负责人表格-->
+                    <div>
+                        <p style="text-align: center">运送负责人</p>
+
+                        <table id="project-table-leader" class="table table-striped table-advance table-hover">
+                            <thead>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+
+                    <!--执行人表格-->
+                    <div>
+                        <p style="text-align: center">运送执行人</p>
+
+                        <table id="project-table-executor" class="table table-striped table-advance table-hover">
+                            <thead>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+
+                    <!--物料表格-->
+                    <div style="display: none">
+                        <p style="text-align: center">物料 <span style="border: 1px solid #eeeeee;padding: 3px 5px;float: right;cursor: pointer" id="add-material">增加</span></p>
+
+                        <table id="material-table-add" class="table table-striped table-advance table-hover">
+                            <thead>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary confirm" type="submit" value="Submit">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--科室-->
+    <div class="modal fade" id="dep-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 685px;width: 800px;">
+            <div class="modal-content" style="height: 685px;width: 800px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 563px;overflow-y: auto">
+                    <!--表格-->
+                    <table id="depart-table-global" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--人员-->
+    <div class="modal fade" id="person-new-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 752px;width: 1000px;">
+            <div class="modal-content" style="height: 752px;width: 1000px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 630px;">
+
+                    <!--tab-->
+                    <ul class="nav nav-tabs nav-tabs-lg" style="margin-bottom: 6px;">
+
+                        <li class="active">
+                            <a href="#dep-block" data-toggle="tab" aria-expanded="true">
+                                部门
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#pos-block" data-toggle="tab" aria-expanded="true">
+                                职位
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="tab-content" style="float:left;width: 40%;max-height: 500px;">
+
+                        <!--部门搜索-->
+                        <div class="tab-pane active" id="dep-block">
+
+                            <!--ztree 树-->
+
+                            <input type="text" id="keyDep" class="empty form-control keyValue" placeholder="部门搜索..." style="width: 300px;">
+
+                            <label class="ztreeSearch" id="depSearch"></label>
+
+                            <ul class="ztree" id="departTree" style="max-height: 460px;overflow-y: auto"></ul>
+
+                        </div>
+
+                        <!--职位搜索-->
+                        <div class="tab-pane" id="pos-block">
+
+                            <!--ztree 树-->
+
+                            <input type="text" id="keyPos" class="empty form-control keyValue" placeholder="职位搜索..." style="width: 300px;">
+
+                            <label class="ztreeSearch" id="posSearch"></label>
+
+                            <ul class="ztree" id="positionTree" style="max-height: 300px;overflow-y: auto"></ul>
+
+                        </div>
+
+                    </div>
+
+                    <!--员工表格-->
+                    <div style="float: right;width: 55%;max-height: 560px;overflow-y: auto">
+
+                        <table id="person-table-filter" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--地点选择-->
+    <div class="modal fade" id="address-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 752px;width: 1000px;">
+            <div class="modal-content" style="height: 752px;width: 1000px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 630px;">
+
+                    <!--部门搜索-->
+                    <div class="tab-pane active" id="dep-block-location" style="width: 35%;float: left;">
+
+                        <!--ztree 树-->
+
+                        <input type="text" id="keyDepLocation" class="empty form-control keyValue" placeholder="部门搜索..." style="width: 300px;">
+
+                        <label class="ztreeSearch" id="depSearchLocation"></label>
+
+                        <ul class="ztree" id="departTreeLocation" style="max-height: 460px;overflow-y: auto"></ul>
+
+                    </div>
+
+                    <!--员工表格-->
+                    <div style="float: right;width: 55%;max-height: 560px;overflow-y: auto">
+
+                        <table id="address-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--项目列表-->
+    <div class="modal fade" id="project-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 752px;width: 1000px;">
+            <div class="modal-content" style="height: 752px;width: 1000px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 630px;">
+
+                    <!--ztree-->
+                    <div class="modal-left">
+
+                        <ul class="ztree" id="TM-project"></ul>
+
+                    </div>
+
+                    <!--表格-->
+                    <div class="modal-right">
+
+                        <table id="project-table-modal" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--材料列表-->
+    <div class="modal fade" id="material-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 752px;width: 1000px;">
+            <div class="modal-content" style="height: 752px;width: 1000px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 630px;">
+
+                    <!--物品类别搜索-->
+                    <div class="tab-pane active" id="dep-block-warehouse" style="width: 25%;float: left;">
+
+                        <!--ztree 树-->
+
+                        <input type="text" id="keyDepWarehouse" class="empty form-control keyValue" placeholder="物品类别搜索..." style="width: 300px;">
+
+                        <label class="ztreeSearch" id="cateSearch"></label>
+
+                        <ul class="ztree" id="cateTree" style="max-height: 460px;overflow-y: auto"></ul>
+
+                    </div>
+
+                    <!--员工表格-->
+                    <div style="float: right;width: 75%;max-height: 560px;overflow-y: auto">
+
+                        <table id="material-table" class="table table-striped table-advance table-hover" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--回退-->
+    <div class="modal fade" id="back-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 477px;width: 1000px;">
+            <div class="modal-content" style="height: 477px;width: 1000px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body" style="height: 355px;">
+
+                    <!--评价-->
+                    <div class="evaluate-block">
+
+                        <div class="labels" style="line-height: 30px;">回退原因：</div>
+
+                        <textarea id="back-remark" class="form-control" cols="30" rows="10"></textarea>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--子项目完成提示-->
+    <div class="modal fade" id="project-son-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 477px;width: 1000px;">
+            <div class="modal-content" style="height: 477px;width: 1000px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                </div>
+                <div class="modal-body"style="height: 355px;">
+
+                    <div class="labels" style="line-height: 30px;">完成备注：</div>
+
+                    <textarea id="finish-remark" class="form-control" cols="30" rows="10"></textarea>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--提示框-->
+    <div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 168px;">
+            <div class="modal-content" style="height: 168px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                </div>
+                <div class="modal-body">请填写红色必填项</div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>
+
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<div id="foot-html"></div>
+
+
+<!-- END FOOTER -->
+<script>
+
+    $('#head-html').load('../resource/html/commonHead.html');
+
+    $('#menu-html').load('../resource/html/commonMenu.html');
+
+    $('#foot-html').load('../resource/html/commonFoot.html');
+
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+
+        _isClick = true;
+
+    });
+
+</script>
+<script src="../resource/js/commonJsResource.js"></script>
+
+<!--my js-->
+
+<script src="../resource/validation/jquery.validate.min.js"></script>
+
+<script src="../resource/validation/messages_zh.min.js"></script>
+
+<script src="../YHQ-resource/js/public.js"></script>
+
+<script src="../YHQ-resource/js/YHQ-TM/TMpublic.js"></script>
+
+<script src="../YHQ-resource/js/YHQ-TM/TMtaskImplement.js"></script>
+
+<script src="../resource/js/materialSelect.js"></script>
+
+<!--表单格式验证-->
+<script src="../resource/js/validateFormat.js"></script>
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

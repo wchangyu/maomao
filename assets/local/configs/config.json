@@ -166,8 +166,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://218.70.30.134:32537/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://218.70.30.134:32537/BEEWebAPI/api/",
+  "apiUriPrefix":"http://192.168.1.128/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://192.168.1.128/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://211.100.28.180/HQUeditorImage/controller.ashx",
   "systemTitle":"高效机房控制系统",
@@ -229,5 +229,9 @@
   "newMonitorToolbal":"1",
   "newMonitorToolbalComment":"是否启用新的流程图工具栏",
   "versionNumber":"2018 &copy; Huaqin.",
-  "versionNumberComment":"版本号"
+  "versionNumberComment":"版本号",
+  "controlStrategyPrm":"[1100007003,1100007008,1100007006,1100007005]",
+  "controlStrategyPrmComment":"控制策略中指定的四张图的id,依次是AI模式,自动模式,手动模式,全局设定",
+  "instencePrm":"[1535701832,1535707552,1535773026,1535774601]",
+  "instencePrmComment":"群控表格的实例id，第一个是主机搭配图，第二个是温度重设表，第三个是时间表，第四个是程序表，顺序不能混，没有的传''"
 }

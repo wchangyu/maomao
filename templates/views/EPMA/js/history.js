@@ -165,7 +165,7 @@
                 zTree.checkNode(nodes[0].children[0], true, true, false);
                 var cIds = "";
                 cIds += (nodes[0].children[0].id + ",");
-                onAsyncSuccess(cIds);
+                onAsyncSuccessNew(cIds);
             }
         }
     }
@@ -188,90 +188,363 @@
             return;
         }else{
             mycv = echarts.init(document.getElementById('historyMain'));
-            var url = sessionStorage.apiUrlPrefix + "History/GetHistoryDatas";
+            var url = sessionStorage.apiUrlPrefix + "History/GetHistoryCustomDatas";
             $.post(url,{
                 pId : sessionStorage.PointerID ,
                 cIds : cIds,
                 sp : sp,
                 ep : ep,
-                eType:$('#eType').val(),
-                dType:$('#isData').val()
+                eType:$('#eType').val()
             },function (res) {
                 if(res.code === 0){
-                    var covST = Format(convertDate(sp), "MM月dd日");
-                    var covET = Format(convertDate(ep), "MM月dd日");
-                    var titleText = covST + " - " + covET + "历史数据";
-                    var lgs = [];
-                    for (var i = 0; i < res.lgs.length; i++) {
-                        lgs.push(res.lgs[i]);
-                    }
-                    var cgs = [];
-                    for (var i = 0; i < res.xs.length; i++) {
-                        cgs.push(res.xs[i]);
-                    }
-                    var dvs = [];
-                    for (var i = 0; i < res.ys.length; i++) {
-                        var object = {};
-                        object.name = res.lgs[i];
-                        object.type = "line";
-                        object.data = [];
-                        for (var j = 0; j < res.ys[i].length; j++) {
-                            var v = res.ys[i][j];
-                            object.data.push(v);
-                        }
-                        dvs.push(object);
-                    }
-                    $('#spanTitle').html(titleText);
-                    option = {
-                        /*title: {
-                            text: titleText
-                        },*/
-                        tooltip: {
-                            trigger: 'axis'
-                        },
-                        legend: {
-                            data: lgs
-                        },
-                        toolbox: {
-                            show: true,
-                            feature: {
-                                dataZoom: {
-                                    yAxisIndex: 'none'
-                                },
-                                dataView: { readOnly: true },
-                                //magicType: { type: ['line', 'bar'] },
-                                //restore: {},
-                                saveAsImage: {}
-                            }
-                        },
-                        xAxis: {
-                            type: 'category',
-                            boundaryGap: true,
-                            axisLabel: {
-                                rotate: 30,
-                                margin: 20,
-                                textStyle: {
-                                    color: "#222"
-                                }
-                            },
-                            data: cgs
-                        },
-                        yAxis: {
-                            type: 'value',
-                            axisLabel: {
-                                formatter: '{value}'
-                            }
-                        },
-                        series: dvs
-                    };
-                    mycv.setOption(option,true);
-                    jQuery('#historyBusy').hideLoading();
+                    //var covST = Format(convertDate(sp), "MM月dd日");
+                    //var covET = Format(convertDate(ep), "MM月dd日");
+                    //var titleText = covST + " - " + covET + "历史数据";
+                    //var lgs = [];
+                    //for (var i = 0; i < res.lgs.length; i++) {
+                    //    lgs.push(res.lgs[i]);
+                    //}
+                    //var cgs = [];
+                    //for (var i = 0; i < res.xs.length; i++) {
+                    //    cgs.push(res.xs[i]);
+                    //}
+                    //var dvs = [];
+                    //for (var i = 0; i < res.ys.length; i++) {
+                    //    var object = {};
+                    //    object.name = res.lgs[i];
+                    //    object.type = "line";
+                    //    object.data = [];
+                    //    for (var j = 0; j < res.ys[i].length; j++) {
+                    //        var v = res.ys[i][j];
+                    //        object.data.push(v);
+                    //    }
+                    //    dvs.push(object);
+                    //}
+                    //$('#spanTitle').html(titleText);
+                    //option = {
+                    //    /*title: {
+                    //        text: titleText
+                    //    },*/
+                    //    tooltip: {
+                    //        trigger: 'axis'
+                    //    },
+                    //    legend: {
+                    //        data: lgs
+                    //    },
+                    //    toolbox: {
+                    //        show: true,
+                    //        feature: {
+                    //            dataZoom: {
+                    //                yAxisIndex: 'none'
+                    //            },
+                    //            dataView: { readOnly: true },
+                    //            //magicType: { type: ['line', 'bar'] },
+                    //            //restore: {},
+                    //            saveAsImage: {}
+                    //        }
+                    //    },
+                    //    xAxis: {
+                    //        type: 'category',
+                    //        boundaryGap: true,
+                    //        axisLabel: {
+                    //            rotate: 30,
+                    //            margin: 20,
+                    //            textStyle: {
+                    //                color: "#222"
+                    //            }
+                    //        },
+                    //        data: cgs
+                    //    },
+                    //    yAxis: {
+                    //        type: 'value',
+                    //        axisLabel: {
+                    //            formatter: '{value}'
+                    //        }
+                    //    },
+                    //    series: dvs
+                    //};
+                    //mycv.setOption(option,true);
+                    //jQuery('#historyBusy').hideLoading();
                 }else if(res.code === -1){
                     console.log('异常错误(历史数据):' + res.msg);
                     jQuery('#historyBusy').hideLoading();
                 }else{
                     jQuery('#historyBusy').hideLoading();
                 }
+            })
+        }
+    }
+
+    var mycv = echarts.init(document.getElementById('historyMain'));
+
+    //折现图配置
+    var option = {
+        title: {
+            text: ''
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data:[]
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+                    show: true,
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        dataView: {
+                            readOnly: true,
+
+                            optionToContent: function(opt) {
+
+                                //thead
+                                var table = '<table class="table table-striped table-advance table-hover  dataTable no-footer">';
+
+                                var tables = '</table>';
+
+                                var thead = '<thead>';
+
+                                var theads = '</thead>';
+
+                                var tbody = '<tbody>';
+
+                                var tbodys = '</tbody>';
+
+                                //th
+                                var thStr = '<tr><th>时间</th>';
+
+                                for(var i=0;i<opt.series.length;i++){
+
+                                    thStr += '<th>';
+
+                                    thStr += opt.series[i].name;
+
+                                    thStr += '</th>'
+
+                                }
+
+                                thStr += '</tr>';
+
+                                //td
+                                var tdStr = '';
+
+                                for(var i=0;i<opt.xAxis[0].data.length;i++){
+
+                                    tdStr += '<tr>';
+
+                                    //时间
+                                    tdStr += '<td>';
+
+                                    tdStr += opt.xAxis[0].data[i];
+
+                                    tdStr += '</td>';
+
+                                    for(var j=0;j<opt.series.length;j++){
+
+                                        tdStr += '<td>';
+
+                                        tdStr += opt.series[j].data[i]==undefined?'-':opt.series[j].data[i];
+
+                                        tdStr += '</td>';
+
+                                    }
+
+                                    tdStr += '</tr>';
+
+
+                                }
+
+                                return table + thead + thStr + theads + tbody + tdStr + tbodys + tables;
+
+
+
+                            }
+
+                        },
+                        //magicType: { type: ['line', 'bar'] },
+                        //restore: {},
+                        saveAsImage: {}
+                    }
+                },
+        xAxis: {
+
+            data: []
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            //{
+            //    name:'邮件营销',
+            //    type:'line',
+            //    stack: '总量',
+            //    data:[120, 132, 101, 134, 90, 230, 210]
+            //},
+            //{
+            //    name:'联盟广告',
+            //    type:'line',
+            //    stack: '总量',
+            //    data:[220, 182, 191, 234, 290, 330, 310]
+            //},
+            //{
+            //    name:'视频广告',
+            //    type:'line',
+            //    stack: '总量',
+            //    data:[150, 232, 201, 154, 190, 330, 410]
+            //},
+            //{
+            //    name:'直接访问',
+            //    type:'line',
+            //    stack: '总量',
+            //    data:[320, 332, 301, 334, 390, 330, 320]
+            //},
+            //{
+            //    name:'搜索引擎',
+            //    type:'line',
+            //    stack: '总量',
+            //    data:[820, 932, 901, 934, 1290, 1330, 1320]
+            //}
+        ]
+    };
+
+    //查询数据(新)
+    var onAsyncSuccessNew = function (cIds) {
+        jQuery('#historyBusy').showLoading();
+        var sp = $("#spDT").val();
+        var ep = $("#epDT").val();
+        var mtsp = moment(sp);
+        var mtep = moment(ep);
+        var dp = mtep - mtsp;
+        var days = Math.floor(dp / (24 * 3600 * 1000));
+        if (days > 31) {
+
+            _moTaiKuang($('#tip-Modal'),'提示',true,true,'时间段不能超过31天');
+
+            console.log("提示(历史数据):查看监测因子的历史数据时间段不能超过31天");
+
+            return;
+        }else{
+            mycv = echarts.init(document.getElementById('historyMain'));
+            var url = sessionStorage.apiUrlPrefix + "History/GetHistoryCustomDatas";
+            $.post(url,{
+                pId : sessionStorage.PointerID ,
+                cIds : cIds,
+                sp : sp,
+                ep : ep,
+                eType:$('#eType').val()
+            },function (result) {
+
+                jQuery('#historyBusy').hideLoading();
+
+                if(result.code == 0){
+
+                    //根据判断返回来的数据的时间放到一个集合中，确定x轴
+                    var dataX = [];
+
+                    for(var i=0;i<result.dicval.length;i++){
+
+                        var data = result.dicval[i];
+
+                        for(var j in data){
+
+                            //是否可以push进数组中
+                            var isExist = false;
+
+                            if(dataX.length == 0){
+
+                                isExist = true;
+
+                            }else{
+
+                                if(dataX.indexOf(j)>-1){
+
+                                    isExist = false;
+
+                                }else{
+
+                                    isExist = true;
+
+                                }
+
+                            }
+
+                            if(isExist){
+
+                                dataX.push(j);
+
+                            }
+
+                        }
+
+                    }
+
+                    option.legend.data = result.lgs;
+
+                    option.xAxis.data = dataX;
+
+                    //dataX = dataX.sort();
+
+                    dataX.sort(function(a,b) {
+
+                        return Date.parse(a.replace(/-/g,"/"))-Date.parse(b.replace(/-/g,"/"));
+
+                    });
+
+                    var dataY = [];
+
+                    for(var i=0;i<result.dicval.length;i++){
+
+                        var data = result.dicval[i];
+
+                        var obj = {};
+
+                        obj.type = 'line';
+
+                        obj.name = result.lgs[i];
+
+                        var arr = [];
+
+                        //沾满位置
+                        for(var j=0;j<dataX.length;j++){
+
+                            arr.push('');
+
+                        }
+
+                        for(var j in data){
+
+                            if(dataX.indexOf(j)>-1){
+
+                                arr[dataX.indexOf(j)] = data[j];
+
+                            }
+
+                        }
+
+                        obj.data = arr;
+
+                        dataY.push(obj);
+
+                    }
+
+                    option.series = dataY;
+
+                    mycv.setOption(option,true);
+
+                }else{
+
+                    console.log('异常错误(历史数据):' + res.msg);
+
+                }
+
             })
         }
     }
@@ -349,7 +622,7 @@
                     cIds += (nodes[i].id + ",");
                 }
             }
-            onAsyncSuccess(cIds);
+            onAsyncSuccessNew(cIds);
         });
     }
 

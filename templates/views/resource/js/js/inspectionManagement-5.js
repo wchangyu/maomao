@@ -101,6 +101,29 @@ $(function(){
             data:'itkName'
         },
         {
+            title:'下发状态',
+            data:'isAllot',
+            render:function(data, type, full, meta){
+
+                if(data == 0){
+
+                    return '未下发'
+
+                }else if(data ==1){
+
+                    return '已下发'
+
+                }else{
+
+                    return ''
+
+                }
+
+
+
+            }
+        },
+        {
             title:'设备名称',
             data:'dName'
         },
@@ -463,7 +486,7 @@ $(function(){
 
             _datasTable($('#personTable1s'),_allXJSelect);
 
-            _datasTable($('#personTable2s'),result.dipMembers);
+            _datasTable($('#personTable2s'),result.itkMembers);
 
         }
 

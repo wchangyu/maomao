@@ -613,26 +613,24 @@ $(function(){
 
             success:function(result){
 
+                var nameUnite = [];
+
+                //确定横坐标
+                var dataX = [];
+
+                //确定纵坐标
+                var dataY = [];
+
                 if(result.code == 0){
 
                     //确定legend(加单位)
-                    var nameUnite = result.lgs;
-
-                    option.legend.data = nameUnite;
-
-                    //确定横坐标
-                    var dataX = [];
+                    nameUnite = result.lgs;
 
                     for(var i=0;i<result.xs.length;i++){
 
                         dataX.push(result.xs[i]);
 
                     }
-
-                    option.xAxis.data = dataX;
-
-                    //确定纵坐标
-                    var dataY = [];
 
                     for(var i=0;i<result.ys.length;i++){
 
@@ -656,8 +654,6 @@ $(function(){
 
                     }
 
-                    option.series = dataY;
-
                 }else{
 
                     option.yAxis = [
@@ -679,6 +675,12 @@ $(function(){
                     console.log('异常错误(能效分析):' + result.msg);
 
                 }
+
+                option.legend.data = nameUnite;
+
+                option.xAxis.data = dataX;
+
+                option.series = dataY;
 
                 mychart.setOption(option,true);
 

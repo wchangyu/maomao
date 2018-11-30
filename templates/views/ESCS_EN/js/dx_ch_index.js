@@ -21,7 +21,7 @@
         $('#span_dxch_item_cop_ofs').html(Math.round(ofs, 2));//偏差值
     }
 
-    //冷冻出水温度
+    //Chilled Water Leaving Temperature
     var INIT_ITEM_LDCSW = function () {
         $('#dxch_item_csw_title').html();
         $('#dxch_item_csw_title').html(sessionStorage.DxChChwCSWTitle);
@@ -171,7 +171,7 @@
             //冷机系统负荷率
             INIT_ITEM_FHL();
 
-            //冷冻出水温度
+            //Chilled Water Leaving Temperature
             INIT_ITEM_LDCSW();
 
             //冷却回水温度

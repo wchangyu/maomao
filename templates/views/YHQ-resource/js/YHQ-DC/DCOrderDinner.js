@@ -438,16 +438,6 @@ $(function(){
 
                 return '<img src="../YHQ-resource/img/addMeal.png" class="order-dinner-table-add" data-num="' + num + '" data-attr="' + full.id + '" style="width: 15px;cursor: pointer">'
 
-                //return '<div class="order-num-block">' +
-                //
-                //        '<img src="../YHQ-resource/img/subMeal.png" class="order-dinner-num order-dinner-sub" style="width: 15px;display: none">' +
-                //
-                //        '<span class="order-dinner-value" style="display: inline-block;width: 25px;height: 15px;vertical-align: middle;margin:0 3px;text-align: center;display: none">0</span>' +
-                //
-                //        '<img src="../YHQ-resource/img/addMeal.png" class="order-dinner-num order-dinner-add" style="width: 15px;">' +
-                //
-                //        '</div>'
-
             }
         },
         {
@@ -1462,6 +1452,8 @@ $(function(){
 
             size : "small",
             state:false,
+            onText:'是',
+            offText:'否',
             onSwitchChange:function(event,state){
 
                 var fee = 0;
